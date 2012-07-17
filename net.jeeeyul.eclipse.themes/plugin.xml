@@ -4,8 +4,8 @@
    <extension
          point="org.eclipse.e4.ui.css.swt.theme">
       <theme
-            basestylesheeturi="css/jeeeyul.css"
-            id="net.jeeeyul.eclipse.themes.theme1"
+            basestylesheeturi="css/chrome.css"
+            id="net.jeeeyul.eclipse.themes.chrome"
             label="Chrome Theme">
       </theme>
    </extension>
