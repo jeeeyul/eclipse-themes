@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="project" default="default">
+	<property name="build" location="${basedir}/build" />
+	<property name="repository-name" value="Eclipse Themes from Jeeeyul" />
+
+	<target name="default" description="description" depends="clean">
+		<eclipse.buildScript elements="feature@net.jeeeyul.eclipse.themes.feature" baselocation="${eclipse.home}" builddirectory="${basedir}/../" />
+		<antcall target="executeBuildScripts" />
+		<antcall target="remove-generated-script" />
+
+		<eclipse.publish.featuresAndBundles metadatarepository="file:${build}/repo" artifactrepository="file:${build}/repo" metadatarepositoryname="${repository-name}" artifactrepositoryname="${repository-name}" category="file:${basedir}/category.xml">
+			<features dir="${build}/features" includes="*.jar" />
+			<bundles dir="${build}/plugins" includes="*.jar" />
+		</eclipse.publish.featuresAndBundles>
+		<replaceregexp file="${build}/repo/artifacts.xml" match="file:.+ - artifacts" replace="${repository-name}" encoding="utf-8" />
+		<replaceregexp file="${build}/repo/content.xml" match="file:.+ - metadata" replace="${repository-name}" encoding="utf-8" />
+
+		<copydir dest="${basedir}/../net.jeeeyul.eclipse.themes.updatesite" src="${build}/repo">
+		</copydir>
+		<copydir dest="${basedir}/../net.jeeeyul.eclipse.themes.updatesite" src="${basedir}/web-resource">
+		</copydir>
+		<eclipse.refreshLocal resource="/" depth="infinite" />
+	</target>
+
+	<target name="executeBuildScripts">
+		<ant antfile="../net.jeeeyul.eclipse.themes.feature/build.xml" inheritall="false">
+			<property name="javacSource" value="1.6" />
+			<property name="javacTarget" value="1.6" />
+			<property name="buildDirectory" value="temp-build" />
+			<property name="feature.destination" location="${build}/features" />
+			<property name="plugin.destination" location="${build}/plugins" />
+		</ant>
+	</target>
+
+	<target name="clean">
+		<delete includeemptydirs="true" failonerror="false">
+			<fileset dir="${build}">
+				<include name="**/*" />
+			</fileset>
+			<fileset dir="${basedir}/../update-site">
+				<include name="**/*" />
+				<exclude name=".project" />
+			</fileset>
+		</delete>
+	</target>
+
+	<target name="remove-generated-script">
+		<delete includeemptydirs="true">
+			<fileset dir="${basedir}/..">
+				<include name="*/build.xml" />
+				<include name="*/javaCompiler...args" />
+				<include name="*/@dot/**/*" />
+				<include name="*/temp-build/**/*" />
+				<include name="*/${buildDirectory}/**/*" />
+				<include name="*/temp-build" />
+				<include name="*/@dot.log" />
+				<include name="*/@dot" />
+				<include name="*/compilation.problem" />
+			</fileset>
+			<fileset dir="${basedir}/..">
+				<include name="assemble*.xml" />
+				<include name="package*.xml" />
+			</fileset>
+		</delete>
+	</target>
+
+</project>
+
