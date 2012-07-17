@@ -1,6 +1,6 @@
 # Jeeeyul's Eclipse Themes
 
-Are you hate default Eclipse 4 Juno Theme?
+Are you hate Eclipse 4 Juno Theme?
 Yes, It's UGLY. Change it!
 
 ## Update Site
