@@ -9,7 +9,7 @@ Yes, It's UGLY. Change it!
 ## How to install
 1. Copy update site URL
 2. Select [Help] / [Install New Software...] from system menu.
-3. Paste URL into "Work wite" Text Field, and Press Enter.
+3. Paste URL into "Work with" Text Field, and Press Enter.
 4. Fill check "Jeeeyul's Themes" under the category "Jeeeyul's Themes", then click [Finish] Button.
 5. After installation, Open Preference Dialog Page, Choose "Appearnce" node, then select "Jeeeyul's Theme - Chrome" as Theme.
 
