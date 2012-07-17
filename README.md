@@ -5,3 +5,4 @@ Yes, It's UGLY. Change it!
 
 # Update Site
 * https://raw.github.com/jeeeyul/eclipse-chrome-theme/master/net.jeeeyul.eclipse.themes.updatesite/
+<input type="text" value="https://raw.github.com/jeeeyul/eclipse-chrome-theme/master/net.jeeeyul.eclipse.themes.updatesite/">
