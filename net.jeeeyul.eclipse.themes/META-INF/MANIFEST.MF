@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Themes
+Bundle-SymbolicName: net.jeeeyul.eclipse.themes;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: net.jeeeyul.eclipse.themes.Activator
+Bundle-Vendor: Jeeeyul
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.e4.ui.css.swt.theme,
+ org.eclipse.e4.ui.workbench.renderers.swt;bundle-version="0.10.1",
+ org.eclipse.e4.ui.css.core;bundle-version="0.10.1",
+ org.eclipse.e4.ui.css.swt;bundle-version="0.10.1",
+ org.eclipse.xtend.lib,
+ com.google.guava,
+ org.eclipse.xtext.xbase.lib
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+
