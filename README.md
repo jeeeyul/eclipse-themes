@@ -1,7 +1,7 @@
 # Jeeeyul's Eclipse Themes
 
 Are you hate Eclipse 4 Juno Theme?
-Yes, It's UGLY. Change it!
+Change it!
 
 ## Update Site
 * https://raw.github.com/jeeeyul/eclipse-chrome-theme/master/net.jeeeyul.eclipse.themes.updatesite/
