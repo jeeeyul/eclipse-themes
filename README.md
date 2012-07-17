@@ -7,6 +7,9 @@ Yes, It's UGLY. Change it!
 * https://raw.github.com/jeeeyul/eclipse-chrome-theme/master/net.jeeeyul.eclipse.themes.updatesite/
 
 # How to install
+1. Copy update site URL
+2. Select [Help] / [Install New Software...] from system menu.
+
 ![screenshot](https://github.com/jeeeyul/eclipse-chrome-theme/raw/master/net.jeeeyul.eclipse.themes.build/web-resource/how-to-1.png)
 
 ![screenshot](https://github.com/jeeeyul/eclipse-chrome-theme/raw/master/net.jeeeyul.eclipse.themes.build/web-resource/how-to-2.png)
