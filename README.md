@@ -1,7 +1,7 @@
-# pde-tools
+# Jeeeyul's Eclipse Themes
 
-## Features
-* Generates Image Constants for Plugin Developments
+Are you hate default Eclipse 4 Juno Theme?
+Yes, It's UGLY. Change it!
 
-## Warning
-* A lot of code wrtten with [Xtend](http://www.eclipse.org/xtend/).
+# Update Site
+* https://raw.github.com/jeeeyul/eclipse-chrome-theme/master/net.jeeeyul.eclipse.themes.updatesite/
