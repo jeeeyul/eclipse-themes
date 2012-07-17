@@ -37,7 +37,7 @@
 			<fileset dir="${build}">
 				<include name="**/*" />
 			</fileset>
-			<fileset dir="${basedir}/../update-site">
+			<fileset dir="${basedir}/../net.jeeeyul.eclipse.themes.updatesite">
 				<include name="**/*" />
 				<exclude name=".project" />
 			</fileset>
