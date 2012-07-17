@@ -13,8 +13,10 @@ Yes, It's UGLY. Change it!
 4. Fill check "Jeeeyul's Themes" under the category "Jeeeyul's Themes", then click [Finish] Button.
 5. After installation, Open Preference Dialog Page, Choose "Appearnce" node, then select "Jeeeyul's Theme - Chrome" as Theme.
 
+Installation Figure:
 ![screenshot](https://github.com/jeeeyul/eclipse-chrome-theme/raw/master/net.jeeeyul.eclipse.themes.build/web-resource/how-to-1.png)
 
+Choose Theme Figure:
 ![screenshot](https://github.com/jeeeyul/eclipse-chrome-theme/raw/master/net.jeeeyul.eclipse.themes.build/web-resource/how-to-2.png)
 
 ## Screen Shots
