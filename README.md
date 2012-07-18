@@ -1,10 +1,10 @@
 # Jeeeyul's Eclipse Themes
 
-Are you hate default Eclipse 4 Juno Theme?
-Yes, It's UGLY. Change it!
+Are you hate Eclipse 4 Juno Theme?
+Change it!
 
 ## Update Site
-* https://raw.github.com/jeeeyul/eclipse-chrome-theme/master/net.jeeeyul.eclipse.themes.updatesite/
+* https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.updatesite/
 
 ## How to install
 1. Copy update site URL
@@ -15,15 +15,15 @@ Yes, It's UGLY. Change it!
 
 Installation Figure:
 
-![screenshot](https://github.com/jeeeyul/eclipse-chrome-theme/raw/master/net.jeeeyul.eclipse.themes.build/web-resource/how-to-1.png)
+![screenshot](https://github.com/jeeeyul/eclipse-themes/raw/master/net.jeeeyul.eclipse.themes.build/web-resource/how-to-1.png)
 
 Choose Theme Figure:
 
-![screenshot](https://github.com/jeeeyul/eclipse-chrome-theme/raw/master/net.jeeeyul.eclipse.themes.build/web-resource/how-to-2.png)
+![screenshot](https://github.com/jeeeyul/eclipse-themes/raw/master/net.jeeeyul.eclipse.themes.build/web-resource/how-to-2.png)
 
 ## Screen Shots
-![screenshot](https://github.com/jeeeyul/eclipse-chrome-theme/raw/master/net.jeeeyul.eclipse.themes.build/web-resource/chrome-theme-1.png)
+![screenshot](https://github.com/jeeeyul/eclipse-themes/raw/master/net.jeeeyul.eclipse.themes.build/web-resource/chrome-theme-1.png)
 
-![screenshot](https://github.com/jeeeyul/eclipse-chrome-theme/raw/master/net.jeeeyul.eclipse.themes.build/web-resource/chrome-theme-2.png)
+![screenshot](https://github.com/jeeeyul/eclipse-themes/raw/master/net.jeeeyul.eclipse.themes.build/web-resource/chrome-theme-2.png)
 
 
