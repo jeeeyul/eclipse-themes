@@ -24,20 +24,17 @@ public class TabRendering extends CTabRendering {
 
 	@Override
 	protected void draw(int part, int state, Rectangle bounds, GC gc) {
-		String classNames = (String) folder
-				.getData(CSSSWTConstants.CSS_CLASS_NAME_KEY);
+		String classNames = (String) folder.getData(CSSSWTConstants.CSS_CLASS_NAME_KEY);
 
 		CSSClasses classes = new CSSClasses(classNames);
 		if (folder.getItemCount() == 0) {
 			if (classes.add("empty")) {
-				folder.setData(CSSSWTConstants.CSS_CLASS_NAME_KEY,
-						classes.toString());
+				folder.setData(CSSSWTConstants.CSS_CLASS_NAME_KEY, classes.toString());
 				folder.reskin(SWT.ALL);
 			}
 		} else {
 			if (classes.remove("empty")) {
-				folder.setData(CSSSWTConstants.CSS_CLASS_NAME_KEY,
-						classes.toString());
+				folder.setData(CSSSWTConstants.CSS_CLASS_NAME_KEY, classes.toString());
 				folder.reskin(SWT.ALL);
 			}
 		}
@@ -53,8 +50,7 @@ public class TabRendering extends CTabRendering {
 
 		@Override
 		public IStatus runInUIThread(IProgressMonitor monitor) {
-			System.out.println(folder
-					.getData(CSSSWTConstants.CSS_CLASS_NAME_KEY));
+			System.out.println(folder.getData(CSSSWTConstants.CSS_CLASS_NAME_KEY));
 			return Status.OK_STATUS;
 		}
 
