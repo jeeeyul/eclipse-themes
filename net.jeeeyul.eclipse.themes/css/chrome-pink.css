@@ -24,7 +24,7 @@
 .MPartStack.active {
 	swt-inner-keyline-color: #FFFFFF;
 	swt-tab-outline: #B6BCCC;
-	swt-unselected-tabs-color: #ddd #ccc white 99% 100%;
+	swt-unselected-tabs-color: #F1E1EF #EAD3E7 white 99% 100%;
 	swt-shadow-visible: true;
 	swt-outer-keyline-color: #999;
 }
