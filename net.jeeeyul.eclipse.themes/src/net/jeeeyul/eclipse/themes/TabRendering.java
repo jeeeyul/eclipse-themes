@@ -9,8 +9,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.ui.progress.UIJob;
 
 @SuppressWarnings("restriction")
@@ -21,14 +19,6 @@ public class TabRendering extends CTabRendering {
 	public TabRendering(final CTabFolder folder) {
 		super(folder);
 		this.folder = folder;
-
-		folder.addListener(SWT.Skin, new Listener() {
-
-			@Override
-			public void handleEvent(Event event) {
-				System.out.println("½ºÅ²");
-			}
-		});
 		updateClassJob.schedule();
 	}
 
@@ -37,17 +27,17 @@ public class TabRendering extends CTabRendering {
 		String classNames = (String) folder
 				.getData(CSSSWTConstants.CSS_CLASS_NAME_KEY);
 
-		CSSClasses cc = new CSSClasses(classNames);
+		CSSClasses classes = new CSSClasses(classNames);
 		if (folder.getItemCount() == 0) {
-			if (cc.add("empty")) {
+			if (classes.add("empty")) {
 				folder.setData(CSSSWTConstants.CSS_CLASS_NAME_KEY,
-						cc.toString());
+						classes.toString());
 				folder.reskin(SWT.ALL);
 			}
 		} else {
-			if (cc.remove("empty")) {
+			if (classes.remove("empty")) {
 				folder.setData(CSSSWTConstants.CSS_CLASS_NAME_KEY,
-						cc.toString());
+						classes.toString());
 				folder.reskin(SWT.ALL);
 			}
 		}
