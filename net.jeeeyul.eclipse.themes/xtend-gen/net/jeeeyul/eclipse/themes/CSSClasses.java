@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function0;
-import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
 @SuppressWarnings("all")
@@ -47,6 +46,15 @@ public class CSSClasses {
     return _xifexpression;
   }
   
+  public boolean contains(final String className) {
+    return this.classes.contains(className);
+  }
+  
+  public boolean operator_add(final String className) {
+    boolean _add = this.add(className);
+    return _add;
+  }
+  
   public boolean remove(final String className) {
     boolean _remove = this.classes.remove(className);
     return _remove;
@@ -55,10 +63,5 @@ public class CSSClasses {
   public String toString() {
     String _join = IterableExtensions.join(this.classes, " ");
     return _join;
-  }
-  
-  public static void main(final String[] args) {
-    CSSClasses _cSSClasses = new CSSClasses("a b c");
-    InputOutput.<CSSClasses>println(_cSSClasses);
   }
 }

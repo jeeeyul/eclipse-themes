@@ -20,6 +20,14 @@ class CSSClasses {
 		}
 	}
 	
+	def boolean contains(String className){
+		return classes.contains(className)
+	}
+	
+	def boolean operator_add(String className){
+		add(className)
+	}
+	
 	def boolean remove(String className){
 		classes.remove(className);
 	}
@@ -27,9 +35,4 @@ class CSSClasses {
 	override String toString() {
 		classes.join(" ");
 	}
-	
-	def static void main(String[] args) {
-		println(new CSSClasses("a b c"));
-	}
-	
 }
