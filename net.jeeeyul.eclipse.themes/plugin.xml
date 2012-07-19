@@ -18,6 +18,11 @@
             id="net.jeeeyul.eclipse.themes.chrome.pink"
             label="Jeeeyul&apos;s themes - Chrome Theme (Pink)">
       </theme>
+      <theme
+            basestylesheeturi="css/chrome-adwaita.css"
+            id="net.jeeeyul.eclipse.themes.chrome.adwaita"
+            label="Jeeeyul&apos;s themes - Chrome Theme (Adwaita)">
+      </theme>
    </extension>
 
 </plugin>
