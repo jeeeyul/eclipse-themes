@@ -51,11 +51,6 @@ CTabFolder.empty{
 	background-color: white #ddd;
 }
 
-.MToolControl.TrimStack {
-	frame-image: url("./adwaita-TSFrame.png");
-	handle-image: url("./adwaita-Handle.png");
-}
-
 #PerspectiveSwitcher {
 	eclipse-perspective-keyline-color: #AAB0BF #AAB0BF;
 	background-color: #F5F7FC #eee 100%;
