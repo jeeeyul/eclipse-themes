@@ -2,7 +2,7 @@
 <?metadataRepository version='1.1.0'?>
 <repository name='Eclipse Themes from Jeeeyul' type='org.eclipse.equinox.internal.p2.metadata.repository.LocalMetadataRepository' version='1'>
   <properties size='2'>
-    <property name='p2.timestamp' value='1342715466710'/>
+    <property name='p2.timestamp' value='1342772043710'/>
     <property name='p2.compressed' value='false'/>
   </properties>
   <references size='2'>
@@ -10,54 +10,7 @@
     <repository uri='https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.updatesite/' url='https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.updatesite/' type='1' options='0'/>
   </references>
   <units size='5'>
-    <unit id='themes' version='1.0.0.2--cLZ-c6773573G733593'>
-      <properties size='2'>
-        <property name='org.eclipse.equinox.p2.name' value='Jeeeyul&apos;s themes'/>
-        <property name='org.eclipse.equinox.p2.type.category' value='true'/>
-      </properties>
-      <provides size='1'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='themes' version='1.0.0.2--cLZ-c6773573G733593'/>
-      </provides>
-      <requires size='1'>
-        <required namespace='org.eclipse.equinox.p2.iu' name='net.jeeeyul.eclipse.themes.feature.feature.group' range='[1.0.0.201207200130,1.0.0.201207200130]'/>
-      </requires>
-      <touchpoint id='null' version='0.0.0'/>
-    </unit>
-    <unit id='net.jeeeyul.eclipse.themes' version='1.0.0.201207200130'>
-      <update id='net.jeeeyul.eclipse.themes' range='[0.0.0,1.0.0.201207200130)' severity='0'/>
-      <properties size='2'>
-        <property name='org.eclipse.equinox.p2.name' value='Themes'/>
-        <property name='org.eclipse.equinox.p2.provider' value='Jeeeyul'/>
-      </properties>
-      <provides size='3'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='net.jeeeyul.eclipse.themes' version='1.0.0.201207200130'/>
-        <provided namespace='osgi.bundle' name='net.jeeeyul.eclipse.themes' version='1.0.0.201207200130'/>
-        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
-      </provides>
-      <requires size='9'>
-        <required namespace='osgi.bundle' name='org.eclipse.ui' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='org.eclipse.core.runtime' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='org.eclipse.e4.ui.css.swt.theme' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='org.eclipse.e4.ui.workbench.renderers.swt' range='0.10.1'/>
-        <required namespace='osgi.bundle' name='org.eclipse.e4.ui.css.core' range='0.10.1'/>
-        <required namespace='osgi.bundle' name='org.eclipse.e4.ui.css.swt' range='0.10.1'/>
-        <required namespace='osgi.bundle' name='org.eclipse.xtend.lib' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='com.google.guava' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='org.eclipse.xtext.xbase.lib' range='0.0.0'/>
-      </requires>
-      <artifacts size='1'>
-        <artifact classifier='osgi.bundle' id='net.jeeeyul.eclipse.themes' version='1.0.0.201207200130'/>
-      </artifacts>
-      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
-      <touchpointData size='1'>
-        <instructions size='1'>
-          <instruction key='manifest'>
-            Bundle-SymbolicName: net.jeeeyul.eclipse.themes;singleton:=true&#xA;Bundle-Version: 1.0.0.201207200130&#xA;
-          </instruction>
-        </instructions>
-      </touchpointData>
-    </unit>
-    <unit id='net.jeeeyul.eclipse.themes.feature.feature.jar' version='1.0.0.201207200130'>
+    <unit id='net.jeeeyul.eclipse.themes.feature.feature.jar' version='1.0.0.201207201713'>
       <properties size='4'>
         <property name='org.eclipse.equinox.p2.name' value='Jeeeyul&apos;s Themes'/>
         <property name='org.eclipse.equinox.p2.description' value='Provide some eclipse 4 themes.'/>
@@ -65,15 +18,15 @@
         <property name='org.eclipse.equinox.p2.provider' value='Jeeeyul@gmail.com'/>
       </properties>
       <provides size='3'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='net.jeeeyul.eclipse.themes.feature.feature.jar' version='1.0.0.201207200130'/>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='net.jeeeyul.eclipse.themes.feature.feature.jar' version='1.0.0.201207201713'/>
         <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='feature' version='1.0.0'/>
-        <provided namespace='org.eclipse.update.feature' name='net.jeeeyul.eclipse.themes.feature' version='1.0.0.201207200130'/>
+        <provided namespace='org.eclipse.update.feature' name='net.jeeeyul.eclipse.themes.feature' version='1.0.0.201207201713'/>
       </provides>
       <filter>
         (org.eclipse.update.install.features=true)
       </filter>
       <artifacts size='1'>
-        <artifact classifier='org.eclipse.update.feature' id='net.jeeeyul.eclipse.themes.feature' version='1.0.0.201207200130'/>
+        <artifact classifier='org.eclipse.update.feature' id='net.jeeeyul.eclipse.themes.feature' version='1.0.0.201207201713'/>
       </artifacts>
       <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
       <touchpointData size='1'>
@@ -92,37 +45,8 @@
         All Copyright 2012 reserved to jeeeyul@gmail.com
       </copyright>
     </unit>
-    <unit id='net.jeeeyul.eclipse.themes.images' version='1.0.0.201207200130' singleton='false'>
-      <update id='net.jeeeyul.eclipse.themes.images' range='[0.0.0,1.0.0.201207200130)' severity='0'/>
-      <properties size='1'>
-        <property name='org.eclipse.equinox.p2.name' value='Images'/>
-      </properties>
-      <provides size='4'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='net.jeeeyul.eclipse.themes.images' version='1.0.0.201207200130'/>
-        <provided namespace='osgi.bundle' name='net.jeeeyul.eclipse.themes.images' version='1.0.0.201207200130'/>
-        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
-        <provided namespace='osgi.fragment' name='org.eclipse.platform' version='1.0.0.201207200130'/>
-      </provides>
-      <requires size='1'>
-        <required namespace='osgi.bundle' name='org.eclipse.platform' range='4.2.0'/>
-      </requires>
-      <artifacts size='1'>
-        <artifact classifier='osgi.bundle' id='net.jeeeyul.eclipse.themes.images' version='1.0.0.201207200130'/>
-      </artifacts>
-      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
-      <touchpointData size='1'>
-        <instructions size='2'>
-          <instruction key='manifest'>
-            Bundle-SymbolicName: net.jeeeyul.eclipse.themes.images&#xA;Bundle-Version: 1.0.0.201207200130&#xA;Fragment-Host: org.eclipse.platform;bundle-version=&quot;4.2.0&quot;&#xA;
-          </instruction>
-          <instruction key='zipped'>
-            true
-          </instruction>
-        </instructions>
-      </touchpointData>
-    </unit>
-    <unit id='net.jeeeyul.eclipse.themes.feature.feature.group' version='1.0.0.201207200130' singleton='false'>
-      <update id='net.jeeeyul.eclipse.themes.feature.feature.group' range='[0.0.0,1.0.0.201207200130)' severity='0'/>
+    <unit id='net.jeeeyul.eclipse.themes.feature.feature.group' version='1.0.0.201207201713' singleton='false'>
+      <update id='net.jeeeyul.eclipse.themes.feature.feature.group' range='[0.0.0,1.0.0.201207201713)' severity='0'/>
       <properties size='5'>
         <property name='org.eclipse.equinox.p2.name' value='Jeeeyul&apos;s Themes'/>
         <property name='org.eclipse.equinox.p2.description' value='Provide some eclipse 4 themes.'/>
@@ -131,7 +55,7 @@
         <property name='org.eclipse.equinox.p2.type.group' value='true'/>
       </properties>
       <provides size='1'>
-        <provided namespace='org.eclipse.equinox.p2.iu' name='net.jeeeyul.eclipse.themes.feature.feature.group' version='1.0.0.201207200130'/>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='net.jeeeyul.eclipse.themes.feature.feature.group' version='1.0.0.201207201713'/>
       </provides>
       <requires size='13'>
         <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.ui' range='0.0.0'/>
@@ -144,9 +68,9 @@
         <required namespace='org.eclipse.equinox.p2.iu' name='com.google.guava' range='0.0.0'/>
         <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.xtext.xbase.lib' range='0.0.0'/>
         <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.platform' range='4.2.0'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='net.jeeeyul.eclipse.themes' range='[1.0.0.201207200130,1.0.0.201207200130]'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='net.jeeeyul.eclipse.themes.images' range='[1.0.0.201207200130,1.0.0.201207200130]'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='net.jeeeyul.eclipse.themes.feature.feature.jar' range='[1.0.0.201207200130,1.0.0.201207200130]'>
+        <required namespace='org.eclipse.equinox.p2.iu' name='net.jeeeyul.eclipse.themes' range='[1.0.0.201207201713,1.0.0.201207201713]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='net.jeeeyul.eclipse.themes.images' range='[1.0.0.201207201713,1.0.0.201207201713]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='net.jeeeyul.eclipse.themes.feature.feature.jar' range='[1.0.0.201207201713,1.0.0.201207201713]'>
           <filter>
             (org.eclipse.update.install.features=true)
           </filter>
@@ -161,6 +85,82 @@
       <copyright uri='https://github.com/jeeeyul/eclipse-themes' url='https://github.com/jeeeyul/eclipse-themes'>
         All Copyright 2012 reserved to jeeeyul@gmail.com
       </copyright>
+    </unit>
+    <unit id='net.jeeeyul.eclipse.themes.images' version='1.0.0.201207201713' singleton='false'>
+      <update id='net.jeeeyul.eclipse.themes.images' range='[0.0.0,1.0.0.201207201713)' severity='0'/>
+      <properties size='1'>
+        <property name='org.eclipse.equinox.p2.name' value='Images'/>
+      </properties>
+      <provides size='4'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='net.jeeeyul.eclipse.themes.images' version='1.0.0.201207201713'/>
+        <provided namespace='osgi.bundle' name='net.jeeeyul.eclipse.themes.images' version='1.0.0.201207201713'/>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+        <provided namespace='osgi.fragment' name='org.eclipse.platform' version='1.0.0.201207201713'/>
+      </provides>
+      <requires size='1'>
+        <required namespace='osgi.bundle' name='org.eclipse.platform' range='4.2.0'/>
+      </requires>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='net.jeeeyul.eclipse.themes.images' version='1.0.0.201207201713'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='2'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: net.jeeeyul.eclipse.themes.images&#xA;Bundle-Version: 1.0.0.201207201713&#xA;Fragment-Host: org.eclipse.platform;bundle-version=&quot;4.2.0&quot;&#xA;
+          </instruction>
+          <instruction key='zipped'>
+            true
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='themes' version='1.0.0.2--cLZ-c6773573G735G59'>
+      <properties size='2'>
+        <property name='org.eclipse.equinox.p2.name' value='Jeeeyul&apos;s themes'/>
+        <property name='org.eclipse.equinox.p2.type.category' value='true'/>
+      </properties>
+      <provides size='1'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='themes' version='1.0.0.2--cLZ-c6773573G735G59'/>
+      </provides>
+      <requires size='1'>
+        <required namespace='org.eclipse.equinox.p2.iu' name='net.jeeeyul.eclipse.themes.feature.feature.group' range='[1.0.0.201207201713,1.0.0.201207201713]'/>
+      </requires>
+      <touchpoint id='null' version='0.0.0'/>
+    </unit>
+    <unit id='net.jeeeyul.eclipse.themes' version='1.0.0.201207201713'>
+      <update id='net.jeeeyul.eclipse.themes' range='[0.0.0,1.0.0.201207201713)' severity='0'/>
+      <properties size='2'>
+        <property name='org.eclipse.equinox.p2.name' value='Themes'/>
+        <property name='org.eclipse.equinox.p2.provider' value='Jeeeyul'/>
+      </properties>
+      <provides size='3'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='net.jeeeyul.eclipse.themes' version='1.0.0.201207201713'/>
+        <provided namespace='osgi.bundle' name='net.jeeeyul.eclipse.themes' version='1.0.0.201207201713'/>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      </provides>
+      <requires size='9'>
+        <required namespace='osgi.bundle' name='org.eclipse.ui' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.core.runtime' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.e4.ui.css.swt.theme' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.e4.ui.workbench.renderers.swt' range='0.10.1'/>
+        <required namespace='osgi.bundle' name='org.eclipse.e4.ui.css.core' range='0.10.1'/>
+        <required namespace='osgi.bundle' name='org.eclipse.e4.ui.css.swt' range='0.10.1'/>
+        <required namespace='osgi.bundle' name='org.eclipse.xtend.lib' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='com.google.guava' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.xtext.xbase.lib' range='0.0.0'/>
+      </requires>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='net.jeeeyul.eclipse.themes' version='1.0.0.201207201713'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-SymbolicName: net.jeeeyul.eclipse.themes;singleton:=true&#xA;Bundle-Version: 1.0.0.201207201713&#xA;
+          </instruction>
+        </instructions>
+      </touchpointData>
     </unit>
   </units>
 </repository>

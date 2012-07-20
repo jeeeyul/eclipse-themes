@@ -2,7 +2,7 @@
 <?artifactRepository version='1.1.0'?>
 <repository name='Eclipse Themes from Jeeeyul' type='org.eclipse.equinox.p2.artifact.repository.simpleRepository' version='1'>
   <properties size='2'>
-    <property name='p2.timestamp' value='1342715466708'/>
+    <property name='p2.timestamp' value='1342772043708'/>
     <property name='p2.compressed' value='false'/>
   </properties>
   <mappings size='3'>
@@ -11,26 +11,26 @@
     <rule filter='(&amp; (classifier=org.eclipse.update.feature))' output='${repoUrl}/features/${id}_${version}.jar'/>
   </mappings>
   <artifacts size='3'>
-    <artifact classifier='org.eclipse.update.feature' id='net.jeeeyul.eclipse.themes.feature' version='1.0.0.201207200130'>
+    <artifact classifier='org.eclipse.update.feature' id='net.jeeeyul.eclipse.themes.feature' version='1.0.0.201207201713'>
       <properties size='4'>
-        <property name='artifact.size' value='5028'/>
-        <property name='download.size' value='5028'/>
-        <property name='download.md5' value='3b54c48e4bd7ddb37487681e7089d5f4'/>
+        <property name='artifact.size' value='5025'/>
+        <property name='download.size' value='5025'/>
+        <property name='download.md5' value='ed0deb8ccd6ce7709d4d51a4d589ad92'/>
         <property name='download.contentType' value='application/zip'/>
       </properties>
     </artifact>
-    <artifact classifier='osgi.bundle' id='net.jeeeyul.eclipse.themes.images' version='1.0.0.201207200130'>
+    <artifact classifier='osgi.bundle' id='net.jeeeyul.eclipse.themes' version='1.0.0.201207201713'>
       <properties size='3'>
-        <property name='artifact.size' value='1795'/>
-        <property name='download.size' value='1795'/>
-        <property name='download.md5' value='d698d2eb3a548e49fa0e067a5c083821'/>
+        <property name='artifact.size' value='20521'/>
+        <property name='download.size' value='20521'/>
+        <property name='download.md5' value='e176f53823802f630f8f780100219e2b'/>
       </properties>
     </artifact>
-    <artifact classifier='osgi.bundle' id='net.jeeeyul.eclipse.themes' version='1.0.0.201207200130'>
+    <artifact classifier='osgi.bundle' id='net.jeeeyul.eclipse.themes.images' version='1.0.0.201207201713'>
       <properties size='3'>
-        <property name='artifact.size' value='20525'/>
-        <property name='download.size' value='20525'/>
-        <property name='download.md5' value='2852324ba65abc7fcb1c534cd9dcc59d'/>
+        <property name='artifact.size' value='1848'/>
+        <property name='download.size' value='1848'/>
+        <property name='download.md5' value='4b82a60a260aa896c908b5f922a5bde5'/>
       </properties>
     </artifact>
   </artifacts>
