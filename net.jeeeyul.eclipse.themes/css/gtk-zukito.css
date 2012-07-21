@@ -32,6 +32,10 @@
 	swt-outer-keyline-color: #9D9D9D;
 }
 
+CTabFolder.empty {
+	swt-unselected-tabs-color: #ddd #ddd #ddd 99% 100%;
+}
+
 .MToolControl.TrimStack {
 	frame-image: url("./zukito-TSFrame.png");
 	handle-image: url("./zukito-Handle.png");
