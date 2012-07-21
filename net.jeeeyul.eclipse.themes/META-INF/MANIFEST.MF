@@ -10,10 +10,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.e4.ui.css.swt.theme,
  org.eclipse.e4.ui.workbench.renderers.swt;bundle-version="0.10.1",
  org.eclipse.e4.ui.css.core;bundle-version="0.10.1",
- org.eclipse.e4.ui.css.swt;bundle-version="0.10.1",
- org.eclipse.xtend.lib,
- com.google.guava,
- org.eclipse.xtext.xbase.lib
+ org.eclipse.e4.ui.css.swt;bundle-version="0.10.1"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 
