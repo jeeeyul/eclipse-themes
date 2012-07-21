@@ -64,9 +64,6 @@
         <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.e4.ui.workbench.renderers.swt' range='0.10.1'/>
         <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.e4.ui.css.core' range='0.10.1'/>
         <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.e4.ui.css.swt' range='0.10.1'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.xtend.lib' range='0.0.0'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='com.google.guava' range='0.0.0'/>
-        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.xtext.xbase.lib' range='0.0.0'/>
         <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.platform' range='4.2.0'/>
         <required namespace='org.eclipse.equinox.p2.iu' name='net.jeeeyul.eclipse.themes' range='[1.0.0.201207201713,1.0.0.201207201713]'/>
         <required namespace='org.eclipse.equinox.p2.iu' name='net.jeeeyul.eclipse.themes.images' range='[1.0.0.201207201713,1.0.0.201207201713]'/>
@@ -146,9 +143,6 @@
         <required namespace='osgi.bundle' name='org.eclipse.e4.ui.workbench.renderers.swt' range='0.10.1'/>
         <required namespace='osgi.bundle' name='org.eclipse.e4.ui.css.core' range='0.10.1'/>
         <required namespace='osgi.bundle' name='org.eclipse.e4.ui.css.swt' range='0.10.1'/>
-        <required namespace='osgi.bundle' name='org.eclipse.xtend.lib' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='com.google.guava' range='0.0.0'/>
-        <required namespace='osgi.bundle' name='org.eclipse.xtext.xbase.lib' range='0.0.0'/>
       </requires>
       <artifacts size='1'>
         <artifact classifier='osgi.bundle' id='net.jeeeyul.eclipse.themes' version='1.0.0.201207201713'/>
