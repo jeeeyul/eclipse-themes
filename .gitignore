@@ -1,0 +1,8 @@
+bin
+build
+target
+*.sw[nop]
+*~
+.#*
+[#]*#
+
