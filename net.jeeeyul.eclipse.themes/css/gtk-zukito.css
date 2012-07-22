@@ -1,0 +1,78 @@
+.MTrimmedWindow.topLevel {
+	margin-top: 5px;
+	margin-bottom: 2px;
+	margin-left: 2px;
+	margin-right: 2px;
+}
+
+.MPartStack {
+	font-size: 9;
+	font-family: Ubuntu, sans-serif;
+	padding: 0px 9px 10px;
+	
+	swt-simple: true;
+	swt-mru-visible: false;
+	swt-shadow-visible: true;
+	
+	swt-tab-renderer: url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.TabRendering');
+	swt-unselected-tabs-color: #dcdcdc #d6d6d6 #f0f0f0 99% 100%;
+	
+	swt-tab-outline: #B6BCCC;
+	swt-outer-keyline-color: #B6BCCC;
+	swt-inner-keyline-color: black;
+}
+
+.MPartStack.active {
+	swt-unselected-tabs-color: #ddd #ccc #f0f0f0 99% 100%;
+	swt-selected-tab-fill: #F2F2F2;
+	swt-shadow-visible: true;
+	
+	swt-tab-outline: #B6BCCC;
+	swt-inner-keyline-color: #B6BCCC;
+	swt-outer-keyline-color: #9D9D9D;
+}
+
+CTabFolder.empty {
+	swt-unselected-tabs-color: #ddd #ddd #ddd 99% 100%;
+}
+
+.MToolControl.TrimStack {
+	frame-image: url("./zukito-TSFrame.png");
+	handle-image: url("./zukito-Handle.png");
+	frame-cuts: 5px 1px 5px 16px;
+}
+
+.MTrimBar,
+.MTrimmedWindow {
+	background-color: #DCDCDC;
+}
+
+.MTrimBar#org-eclipse-ui-main-toolbar {
+	background-color: #dbdbdb #d6d6d6 #d2d2d2;
+}
+
+#PerspectiveSwitcher {
+	eclipse-perspective-keyline-color: #AAB0BF #AAB0BF;
+	background-color: #F5F7FC #dcdcdc 100%;
+}
+
+CTabFolder.MArea .MPartStack,
+CTabFolder.MArea .MPartStack.active {
+	swt-shadow-visible: false;
+}
+
+CTabFolder Canvas {
+	background-color: #F2F2F2;
+}
+
+#org-eclipse-ui-editorss {
+   color: #F0F0F0;
+   padding: 0px 5px 7px;
+   
+   swt-tab-renderer: url('bundleclass://org.eclipse.e4.ui.workbench.renderers.swt/org.eclipse.e4.ui.workbench.renderers.swt.CTabRendering');
+   swt-unselected-tabs-color: #F0F0F0 #F0F0F0 #F0F0F0 100% 100%;
+   swt-outer-keyline-color: #B4B4B4;
+   swt-inner-keyline-color: #F0F0F0;
+   swt-tab-outline: #F0F0F0;
+   swt-tab-height: 8px;  
+}
