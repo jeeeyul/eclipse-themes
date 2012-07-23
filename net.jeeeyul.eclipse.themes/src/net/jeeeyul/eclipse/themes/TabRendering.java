@@ -27,15 +27,6 @@ public class TabRendering extends CTabRendering {
 			updateClassesJob.schedule();
 		}
 
-		if (part == PART_BACKGROUND) {
-			ChromeThemePreference pref = ChromeThemePreference.getINSTANCE();
-			if (oldClasses.contains("active")) {
-				pref.getActiveGradient().apply(tabFolder);
-			} else {
-				pref.getInactiveGradient().apply(tabFolder);
-			}
-		}
-
 		super.draw(part, state, bounds, gc);
 	}
 }

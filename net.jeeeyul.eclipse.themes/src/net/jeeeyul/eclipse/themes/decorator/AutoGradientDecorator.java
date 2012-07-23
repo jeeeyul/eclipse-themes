@@ -1,4 +1,6 @@
-package net.jeeeyul.eclipse.themes;
+package net.jeeeyul.eclipse.themes.decorator;
+
+import java.util.Arrays;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.swt.custom.CTabFolder;
@@ -6,17 +8,18 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Display;
 
-public class CTabFolderGradient {
-	private Display display = Display.getDefault();
+public class AutoGradientDecorator implements ICTabFolderDecorator {
+	private Display display;
 
 	private float[] hsb;
 	private Color[] colors;
 
-	public CTabFolderGradient(float[] hsb) {
+	public AutoGradientDecorator(float[] hsb) {
 		Assert.isNotNull(hsb);
 		this.hsb = hsb;
 	}
 
+	@Override
 	public void apply(CTabFolder tabFolder) {
 		this.display = tabFolder.getDisplay();
 		tabFolder.setBackground(getColors(), new int[] { 99, 100 }, true);
@@ -40,7 +43,7 @@ public class CTabFolderGradient {
 	}
 
 	public float[] getHsb() {
-		return hsb;
+		return Arrays.copyOf(hsb, hsb.length);
 	}
 
 	private void invaidate() {

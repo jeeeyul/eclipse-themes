@@ -18,12 +18,24 @@
             id="net.jeeeyul.eclipse.themes.gtk.zukito"
             label="Jeeeyul&apos;s themes - GTK Theme (Zukito)">
       </theme>
+      <stylesheet
+            uri="css/chrome-tabfolder-preview.css">
+      </stylesheet>
    </extension>
    <extension
          point="org.eclipse.core.runtime.preferences">
       <initializer
-            class="net.jeeeyul.eclipse.themes.ChromePreferenceInitializer">
+            class="net.jeeeyul.eclipse.themes.preference.ChromePreferenceInitializer">
       </initializer>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="org.eclipse.ui.preferencePages.Views"
+            class="net.jeeeyul.eclipse.themes.preference.ChromePreferencePage"
+            id="net.jeeeyul.eclipse.themes.preference.ChromePreferencePage"
+            name="Chrome">
+      </page>
    </extension>
 
 </plugin>

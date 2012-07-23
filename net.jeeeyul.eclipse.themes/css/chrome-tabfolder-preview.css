@@ -1,0 +1,13 @@
+.chrome-tabfolder-preview {
+	font-size: 9;
+	font-family: 'Segoe UI';
+	swt-simple: true;
+	swt-mru-visible: false;
+	swt-tab-renderer: url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.decorator.ChromeTabRendering');
+	padding: 0px 9px 10px;
+	swt-tab-outline: #B6BCCC;
+	swt-shadow-visible: true;
+	swt-mru-visible: false;
+	swt-outer-keyline-color: #B6BCCC;
+	swt-inner-keyline-color: black;
+}
