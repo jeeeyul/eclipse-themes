@@ -9,16 +9,6 @@
             label="Jeeeyul&apos;s themes - Chrome Theme">
       </theme>
       <theme
-            basestylesheeturi="css/chrome-blue.css"
-            id="net.jeeeyul.eclipse.themes.chrome.blue"
-            label="Jeeeyul&apos;s themes - Chrome Theme (Blue)">
-      </theme>
-      <theme
-            basestylesheeturi="css/chrome-pink.css"
-            id="net.jeeeyul.eclipse.themes.chrome.pink"
-            label="Jeeeyul&apos;s themes - Chrome Theme (Pink)">
-      </theme>
-      <theme
             basestylesheeturi="css/gtk-adwaita.css"
             id="net.jeeeyul.eclipse.themes.gtk.adwaita"
             label="Jeeeyul&apos;s themes - GTK Theme (Adwaita)">
