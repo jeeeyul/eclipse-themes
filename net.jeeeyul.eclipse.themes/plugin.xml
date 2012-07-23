@@ -29,5 +29,11 @@
             label="Jeeeyul&apos;s themes - GTK Theme (Zukito)">
       </theme>
    </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="net.jeeeyul.eclipse.themes.ChromePreferenceInitializer">
+      </initializer>
+   </extension>
 
 </plugin>

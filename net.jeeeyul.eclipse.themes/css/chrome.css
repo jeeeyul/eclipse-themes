@@ -12,7 +12,8 @@
 	swt-mru-visible: false;
 	swt-tab-renderer:
 		url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.TabRendering');
-	swt-unselected-tabs-color: #eee #ddd white 99% 100%;
+	
+	/* swt-unselected-tabs-color: #eee #ddd white 99% 100%; */
 	padding: 0px 9px 10px;
 	swt-tab-outline: #B6BCCC;
 	swt-shadow-visible: true;
@@ -24,13 +25,17 @@
 .MPartStack.active {
 	swt-inner-keyline-color: #FFFFFF;
 	swt-tab-outline: #B6BCCC;
-	swt-unselected-tabs-color: #ddd #ccc white 99% 100%;
+	/* swt-unselected-tabs-color: #ddd #ccc white 99% 100%; */
 	swt-shadow-visible: true;
 	swt-outer-keyline-color: #999;
 }
 
 CTabFolder.empty{
 	swt-unselected-tabs-color: #ddd #ddd #ddd 99% 100%;
+}
+
+CTabFolder.empty CTabItem{
+
 }
 
 .MToolControl.TrimStack {
