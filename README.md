@@ -4,6 +4,7 @@ Are you hate Eclipse 4 Juno Theme?
 Change it!
 
 ## Update Site
+* <a href="http://google.co.kr">test</a>
 * https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.updatesite/
 * [Release Note](https://github.com/jeeeyul/eclipse-themes/wiki/Release-Note)
 
