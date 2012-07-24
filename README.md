@@ -1,12 +1,12 @@
 # Jeeeyul's Eclipse Themes
+<a href='http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=339851' title='Drag and drop into a running Eclipse Indigo workspace to install Eclipse 4 Chrome Theme'> 
+  <img src='http://marketplace.eclipse.org/misc/installbutton.png'/>
+</a>
 
 Are you hate Eclipse 4 Juno Theme?
 Change it!
 
 ## Update Site
-<a href='http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=339851' title='Drag and drop into a running Eclipse Indigo workspace to install Eclipse 4 Chrome Theme'> 
-  <img src='http://marketplace.eclipse.org/misc/installbutton.png'/>
-</a>
 * https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.updatesite/
 * [Release Note](https://github.com/jeeeyul/eclipse-themes/wiki/Release-Note)
 
