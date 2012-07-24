@@ -5,6 +5,7 @@ Change it!
 
 ## Update Site
 * https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.updatesite/
+* [Release Note](Release Note)
 
 ## How to install
 1. Copy update site URL
