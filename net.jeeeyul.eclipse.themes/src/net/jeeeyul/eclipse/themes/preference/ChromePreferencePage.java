@@ -4,7 +4,11 @@ import net.jeeeyul.eclipse.themes.Activator;
 import net.jeeeyul.eclipse.themes.CSSClasses;
 import net.jeeeyul.eclipse.themes.SharedImages;
 import net.jeeeyul.eclipse.themes.decorator.GradientDecorator;
+import net.jeeeyul.eclipse.themes.ui.HueScale;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.swt.SWT;
@@ -23,6 +27,7 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
+import org.eclipse.ui.progress.UIJob;
 
 /**
  * 6: Colors and Fonts should be customized in runtime!
@@ -35,14 +40,16 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 	public static final String ID = "net.jeeeyul.eclipse.themes.ChromePreferencePage";
 	private CTabFolder folder;
 	private GradientDecorator decorator;
-	private Scale startHueScale;
+	private HueScale startHueScale;
 	private Scale startSaturationScale;
 	private Scale startBrightnessScale;
-	private Scale endHueScale;
+	private HueScale endHueScale;
 	private Scale endSaturationScale;
 	private Scale endBrightnessScale;
 	private Button lockHueField;
 	private Button autoEndColorField;
+
+	private UIJob updateJob;
 
 	public ChromePreferencePage() {
 		IPreferenceStore store = getStore();
@@ -58,6 +65,12 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		decorator = new GradientDecorator(hsbStart, hsbEnd);
 
 		setDescription("Chrome Theme Configuration");
+	}
+
+	protected void computeEndColor() {
+		endHueScale.setSelection(startHueScale.getSelection());
+		endSaturationScale.setSelection(Math.min((int) (startSaturationScale.getSelection() * 1.15), 100));
+		endBrightnessScale.setSelection((int) (startBrightnessScale.getSelection() * 0.95));
 	}
 
 	@Override
@@ -107,6 +120,12 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		toolItem4.setImage(SharedImages.getImage(SharedImages.MAXMIZE));
 	}
 
+	@Override
+	public void dispose() {
+		decorator.dispose();
+		super.dispose();
+	}
+
 	private void fillContents(Composite body) {
 		Group startGroup = new Group(body, SWT.NORMAL);
 		startGroup.setText("Start Color");
@@ -114,10 +133,8 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		startGroup.setLayout(new GridLayout(2, false));
 
 		new org.eclipse.swt.widgets.Label(startGroup, SWT.NORMAL).setText("Hue:");
-		startHueScale = new Scale(startGroup, SWT.NORMAL);
+		startHueScale = new HueScale(startGroup, SWT.NORMAL);
 		startHueScale.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		startHueScale.setMinimum(0);
-		startHueScale.setMaximum(360);
 		startHueScale.setSelection((int) decorator.getStartHSB()[0]);
 		startHueScale.addListener(SWT.Selection, new Listener() {
 			@Override
@@ -192,10 +209,8 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		lockHueField.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 2, 1));
 
 		new org.eclipse.swt.widgets.Label(endGroup, SWT.NORMAL).setText("Hue:");
-		endHueScale = new Scale(endGroup, SWT.NORMAL);
+		endHueScale = new HueScale(endGroup, SWT.NORMAL);
 		endHueScale.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		endHueScale.setMinimum(0);
-		endHueScale.setMaximum(360);
 		endHueScale.setSelection((int) decorator.getEndHSB()[0]);
 		endHueScale.addListener(SWT.Selection, new Listener() {
 			@Override
@@ -234,63 +249,38 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		updateAuto();
 	}
 
-	protected void computeEndColor() {
-		endHueScale.setSelection(startHueScale.getSelection());
-		endSaturationScale.setSelection(Math.min((int) (startSaturationScale.getSelection() * 1.15), 100));
-		endBrightnessScale.setSelection((int) (startBrightnessScale.getSelection() * 0.95));
+	private IPreferenceStore getStore() {
+		return Activator.getDefault().getPreferenceStore();
 	}
 
-	protected void updateAuto() {
-		boolean isAutomaticEndColor = isAutomaticEndColor();
-		lockHueField.setEnabled(!isAutomaticEndColor);
-		endBrightnessScale.setEnabled(!isAutomaticEndColor);
-		endHueScale.setEnabled(!isAutomaticEndColor);
-		endSaturationScale.setEnabled(!isAutomaticEndColor);
-		if (isAutomaticEndColor) {
-			computeEndColor();
-			update();
+	private UIJob getUpdateJob() {
+		if (updateJob == null) {
+			updateJob = new UIJob("Update") {
+				@Override
+				public IStatus runInUIThread(IProgressMonitor monitor) {
+					if (getControl() == null || getControl().isDisposed()) {
+						return Status.OK_STATUS;
+					}
+
+					float[] start = decorator.getStartHSB();
+					start[0] = startHueScale.getSelection();
+					start[1] = startSaturationScale.getSelection() / 100f;
+					start[2] = startBrightnessScale.getSelection() / 100f;
+					decorator.setStartHSB(start);
+
+					float[] end = decorator.getEndHSB();
+					end[0] = endHueScale.getSelection();
+					end[1] = endSaturationScale.getSelection() / 100f;
+					end[2] = endBrightnessScale.getSelection() / 100f;
+					decorator.setEndHSB(end);
+
+					decorator.apply(folder);
+					return Status.OK_STATUS;
+				}
+			};
+			updateJob.setSystem(true);
 		}
-	}
-
-	private boolean isAutomaticEndColor() {
-		return autoEndColorField.getSelection();
-	}
-
-	protected void updateLock() {
-		if (isHueSynchronized()) {
-			endHueScale.setEnabled(false);
-			endHueScale.setSelection(startHueScale.getSelection());
-		} else {
-			endHueScale.setEnabled(true);
-		}
-
-		update();
-	}
-
-	private boolean isHueSynchronized() {
-		return lockHueField.getSelection();
-	}
-
-	@Override
-	public void dispose() {
-		decorator.dispose();
-		super.dispose();
-	}
-
-	private void update() {
-		float[] start = decorator.getStartHSB();
-		start[0] = startHueScale.getSelection();
-		start[1] = startSaturationScale.getSelection() / 100f;
-		start[2] = startBrightnessScale.getSelection() / 100f;
-		decorator.setStartHSB(start);
-
-		float[] end = decorator.getEndHSB();
-		end[0] = endHueScale.getSelection();
-		end[1] = endSaturationScale.getSelection() / 100f;
-		end[2] = endBrightnessScale.getSelection() / 100f;
-		decorator.setEndHSB(end);
-
-		decorator.apply(folder);
+		return updateJob;
 	}
 
 	@Override
@@ -298,22 +288,12 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 
 	}
 
-	@Override
-	public boolean performOk() {
-		IPreferenceStore store = getStore();
-		float[] start = decorator.getStartHSB();
-		store.setValue("chrome-active-start-hue", start[0]);
-		store.setValue("chrome-active-start-saturation", start[1]);
-		store.setValue("chrome-active-start-brightness", start[2]);
+	private boolean isAutomaticEndColor() {
+		return autoEndColorField.getSelection();
+	}
 
-		float[] end = decorator.getEndHSB();
-		store.setValue("chrome-active-end-hue", end[0]);
-		store.setValue("chrome-active-end-saturation", end[1]);
-		store.setValue("chrome-active-end-brightness", end[2]);
-
-		store.setValue("chrome-auto-end-color", autoEndColorField.getSelection());
-		store.setValue("chrome-lock-hue", lockHueField.getSelection());
-		return super.performOk();
+	private boolean isHueSynchronized() {
+		return lockHueField.getSelection();
 	}
 
 	@Override
@@ -349,7 +329,48 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		update();
 	}
 
-	private IPreferenceStore getStore() {
-		return Activator.getDefault().getPreferenceStore();
+	@Override
+	public boolean performOk() {
+		IPreferenceStore store = getStore();
+		float[] start = decorator.getStartHSB();
+		store.setValue("chrome-active-start-hue", start[0]);
+		store.setValue("chrome-active-start-saturation", start[1]);
+		store.setValue("chrome-active-start-brightness", start[2]);
+
+		float[] end = decorator.getEndHSB();
+		store.setValue("chrome-active-end-hue", end[0]);
+		store.setValue("chrome-active-end-saturation", end[1]);
+		store.setValue("chrome-active-end-brightness", end[2]);
+
+		store.setValue("chrome-auto-end-color", autoEndColorField.getSelection());
+		store.setValue("chrome-lock-hue", lockHueField.getSelection());
+		return super.performOk();
+	}
+
+	private void update() {
+		getUpdateJob().schedule();
+	}
+
+	protected void updateAuto() {
+		boolean isAutomaticEndColor = isAutomaticEndColor();
+		lockHueField.setEnabled(!isAutomaticEndColor);
+		endBrightnessScale.setEnabled(!isAutomaticEndColor);
+		endHueScale.setEnabled(!isAutomaticEndColor);
+		endSaturationScale.setEnabled(!isAutomaticEndColor);
+		if (isAutomaticEndColor) {
+			computeEndColor();
+			update();
+		}
+	}
+
+	protected void updateLock() {
+		if (isHueSynchronized()) {
+			endHueScale.setEnabled(false);
+			endHueScale.setSelection(startHueScale.getSelection());
+		} else {
+			endHueScale.setEnabled(true);
+		}
+
+		update();
 	}
 }

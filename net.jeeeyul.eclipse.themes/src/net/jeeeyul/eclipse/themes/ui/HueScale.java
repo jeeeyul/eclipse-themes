@@ -6,6 +6,7 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.PaletteData;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
@@ -26,6 +27,7 @@ public class HueScale extends Canvas {
 
 		HueScale hueScale = new HueScale(shell, SWT.NORMAL);
 		hueScale.setSelection(180f);
+		shell.pack();
 		shell.open();
 		while (!shell.isDisposed()) {
 			if (!display.readAndDispatch()) {
@@ -36,6 +38,7 @@ public class HueScale extends Canvas {
 
 	private static final int STATE_NORMAL = 0;
 	private static final int STATE_HOVER = 1;
+	private static final int STATE_DRAGGING = 2;
 	private Image hueImage;
 	private float selection;
 	private int state;
@@ -63,20 +66,83 @@ public class HueScale extends Canvas {
 
 			}
 		});
+		addListener(SWT.MouseDown, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				onMouseDown(event);
+			}
+		});
+
+		addListener(SWT.MouseUp, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				onMouseUp(event);
+			}
+		});
 	}
 
-	protected void onMouseMove(Event event) {
-		if (getSelctionArea().contains(event.x, event.y)) {
-			setState(STATE_HOVER);
+	protected void onMouseUp(Event event) {
+		switch (state) {
+		case STATE_DRAGGING:
+			if (getSelctionArea().contains(event.x, event.y))
+				setState(STATE_HOVER);
+			else
+				setState(STATE_NORMAL);
+			break;
+
+		default:
+			setState(STATE_NORMAL);
+			break;
 		}
 	}
 
+	protected void onMouseDown(Event event) {
+		switch (state) {
+		case STATE_HOVER:
+			setState(STATE_DRAGGING);
+			break;
+
+		default:
+			int offset = event.x - getGradientArea().x;
+			float newSelection = (offset / (float) getGradientArea().width) * 360f;
+			newSelection = Math.min(Math.max(0, newSelection), 360f);
+			setSelection(newSelection);
+			setState(STATE_DRAGGING);
+			break;
+		}
+	}
+
+	protected void onMouseMove(Event event) {
+		switch (state) {
+		case STATE_NORMAL:
+			if (getSelctionArea().contains(event.x, event.y)) {
+				setState(STATE_HOVER);
+			}
+			break;
+
+		case STATE_HOVER:
+			if (!getSelctionArea().contains(event.x, event.y)) {
+				setState(STATE_NORMAL);
+			}
+			break;
+		case STATE_DRAGGING:
+			int offset = event.x - getGradientArea().x;
+			float newSelection = (offset / (float) getGradientArea().width) * 360f;
+			newSelection = Math.min(Math.max(0, newSelection), 360f);
+			setSelection(newSelection);
+			break;
+		}
+
+	}
+
 	private Rectangle getGradientArea() {
+		int horizontalMargin = 10;
+		int gradientHeight = 10;
 		Rectangle clientArea = getClientArea();
 		Rectangle gradientArea = getClientArea();
-		gradientArea.height = 10;
+		gradientArea.height = gradientHeight;
 		gradientArea.y = (clientArea.height - gradientArea.height) / 2;
-		gradientArea.width -= 10;
+		gradientArea.width -= horizontalMargin * 2;
 		gradientArea.x = (clientArea.width - gradientArea.width) / 2;
 		return gradientArea;
 	}
@@ -114,9 +180,17 @@ public class HueScale extends Canvas {
 		gc.setAlpha(255);
 		Rectangle selectionBox = getSelctionArea();
 
-		Rectangle outline = expand(selectionBox, 3, 3);
-		gc.setForeground(getDisplay().getSystemColor(SWT.COLOR_BLACK));
-		gc.setBackground(getDisplay().getSystemColor(SWT.COLOR_WHITE));
+		Rectangle outline = expand(selectionBox, 4, 4);
+		if (isEnabled()) {
+			gc.setForeground(getDisplay().getSystemColor(SWT.COLOR_BLACK));
+		} else {
+			gc.setForeground(getDisplay().getSystemColor(SWT.COLOR_GRAY));
+		}
+		if (state == STATE_NORMAL) {
+			gc.setBackground(getDisplay().getSystemColor(SWT.COLOR_WHITE));
+		} else {
+			gc.setBackground(getDisplay().getSystemColor(SWT.COLOR_LIST_SELECTION));
+		}
 		gc.fillRoundRectangle(outline.x, outline.y, outline.width, outline.height, 5, 5);
 		gc.drawRoundRectangle(outline.x, outline.y, outline.width, outline.height, 5, 5);
 
@@ -148,8 +222,20 @@ public class HueScale extends Canvas {
 	}
 
 	public void setSelection(float selection) {
+		if (this.selection == selection) {
+			return;
+		}
 		this.selection = selection;
 		redraw();
+		Event event = new Event();
+		event.widget = this;
+		event.display = getDisplay();
+		notifyListeners(SWT.Selection, event);
+	}
+
+	@Override
+	public Point computeSize(int wHint, int hHint, boolean changed) {
+		return new Point(150, 30);
 	}
 
 	private static Rectangle expand(Rectangle original, int dx, int dy) {
