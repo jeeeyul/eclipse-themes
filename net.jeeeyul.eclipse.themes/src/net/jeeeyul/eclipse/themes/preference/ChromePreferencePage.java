@@ -2,6 +2,7 @@ package net.jeeeyul.eclipse.themes.preference;
 
 import net.jeeeyul.eclipse.themes.Activator;
 import net.jeeeyul.eclipse.themes.CSSClasses;
+import net.jeeeyul.eclipse.themes.SharedImages;
 import net.jeeeyul.eclipse.themes.decorator.GradientDecorator;
 
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -18,6 +19,8 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Scale;
+import org.eclipse.swt.widgets.ToolBar;
+import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
@@ -46,6 +49,8 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		hsbEnd[1] = store.getFloat("chrome-active-end-saturation");
 		hsbEnd[2] = store.getFloat("chrome-active-end-brightness");
 		decorator = new GradientDecorator(hsbStart, hsbEnd);
+
+		setDescription("Chrome Theme Configuration");
 	}
 
 	@Override
@@ -55,6 +60,8 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 
 		folder = new CTabFolder(composite, SWT.NORMAL);
 		folder.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		createFakeToolbar();
+
 		CSSClasses tags = CSSClasses.getStyleClasses(folder);
 		tags.add("chrome-tabfolder-preview");
 		CSSClasses.setStyleClasses(folder, tags);
@@ -75,6 +82,22 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		decorator.apply(folder);
 
 		return composite;
+	}
+
+	private void createFakeToolbar() {
+		ToolBar toolBar = new ToolBar(folder, SWT.NORMAL);
+		folder.setTopRight(toolBar);
+		ToolItem toolItem = new ToolItem(toolBar, SWT.PUSH);
+		toolItem.setImage(SharedImages.getImage(SharedImages.ECLIPSE));
+
+		ToolItem toolItem2 = new ToolItem(toolBar, SWT.PUSH);
+		toolItem2.setImage(SharedImages.getImage(SharedImages.MENU));
+
+		ToolItem toolItem3 = new ToolItem(toolBar, SWT.PUSH);
+		toolItem3.setImage(SharedImages.getImage(SharedImages.MINIMIZE));
+
+		ToolItem toolItem4 = new ToolItem(toolBar, SWT.PUSH);
+		toolItem4.setImage(SharedImages.getImage(SharedImages.MAXMIZE));
 	}
 
 	private void fillContents(Composite body) {
@@ -284,6 +307,39 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		store.setValue("chrome-auto-end-color", autoEndColorField.getSelection());
 		store.setValue("chrome-lock-hue", lockHueField.getSelection());
 		return super.performOk();
+	}
+
+	@Override
+	protected void performDefaults() {
+		IPreferenceStore store = getStore();
+		float[] start = new float[3];
+
+		start[0] = store.getDefaultFloat("chrome-active-start-hue");
+		start[1] = store.getDefaultFloat("chrome-active-start-saturation");
+		start[2] = store.getDefaultFloat("chrome-active-start-brightness");
+
+		float[] end = new float[3];
+		end[0] = store.getDefaultFloat("chrome-active-end-hue");
+		end[1] = store.getDefaultFloat("chrome-active-end-saturation");
+		end[2] = store.getDefaultFloat("chrome-active-end-brightness");
+
+		decorator.setStartHSB(start);
+		decorator.setEndHSB(end);
+
+		startHueScale.setSelection((int) start[0]);
+		startSaturationScale.setSelection((int) (start[1] * 100));
+		startBrightnessScale.setSelection((int) (start[2] * 100));
+
+		endHueScale.setSelection((int) end[0]);
+		endSaturationScale.setSelection((int) (end[1] * 100));
+		endBrightnessScale.setSelection((int) (end[2] * 100));
+
+		autoEndColorField.setSelection(store.getDefaultBoolean("chrome-auto-end-color"));
+		lockHueField.setSelection(store.getDefaultBoolean("chrome-lock-hue"));
+
+		updateLock();
+		updateAuto();
+		update();
 	}
 
 	private IPreferenceStore getStore() {
