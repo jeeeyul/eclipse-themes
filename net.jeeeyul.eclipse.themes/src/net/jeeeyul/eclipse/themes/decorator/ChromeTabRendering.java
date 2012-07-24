@@ -22,7 +22,7 @@ public class ChromeTabRendering extends CTabRendering {
 	protected void draw(int part, int state, Rectangle bounds, GC gc) {
 		CSSClasses tags = CSSClasses.getStyleClasses(tabFolder);
 
-		if (part == PART_BODY) {
+		if (part == PART_BODY && !tags.contains("chrome-tabfolder-preview")) {
 			if (tabFolder.getItemCount() == 0) {
 				preference.getEmptyDecorator().apply(tabFolder);
 

@@ -85,7 +85,6 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		item.setText("Active Gradient");
 
 		folder.setSelection(item);
-		folder.reskin(SWT.ALL);
 
 		decorator.apply(folder);
 
