@@ -15,11 +15,14 @@ Change it!
 
 Installation Figure:
 
-![screenshot](https://github.com/jeeeyul/eclipse-themes/raw/master/net.jeeeyul.eclipse.themes.build/web-resource/how-to-1.png)
+![screenshot](http://jeeeyul.github.com/eclipse-themes/images/how-to-1.png)
 
 Choose Theme Figure:
 
-![screenshot](https://github.com/jeeeyul/eclipse-themes/raw/master/net.jeeeyul.eclipse.themes.build/web-resource/how-to-2.png)
+![screenshot](http://jeeeyul.github.com/eclipse-themes/images/how-to-2.png)
+
+Customize:
+![screenshot](http://jeeeyul.github.com/eclipse-themes/images/customize.png)
 
 ## Screen Shots
 ![screenshot](https://github.com/jeeeyul/eclipse-themes/raw/master/net.jeeeyul.eclipse.themes.build/web-resource/chrome-theme-1.png)
