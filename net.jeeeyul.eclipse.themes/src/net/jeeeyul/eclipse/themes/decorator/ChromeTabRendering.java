@@ -25,6 +25,14 @@ public class ChromeTabRendering extends CTabRendering {
 		if (part == PART_BODY) {
 			if (tabFolder.getItemCount() == 0) {
 				preference.getEmptyDecorator().apply(tabFolder);
+
+				/*
+				 * 7: Editor area - Minimize / maximize look brocken
+				 * https://github.com/jeeeyul/eclipse-themes/issues/issue/7
+				 * 
+				 * Calculated tab height of empty tab seens to cause this
+				 * problems.
+				 */
 				tabFolder.setTabHeight(23);
 			} else if (tags.contains("active")) {
 				preference.getActiveDecorator().apply(tabFolder);
