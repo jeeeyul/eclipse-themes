@@ -22,13 +22,16 @@ public class ChromeTabRendering extends CTabRendering {
 	protected void draw(int part, int state, Rectangle bounds, GC gc) {
 		CSSClasses tags = CSSClasses.getStyleClasses(tabFolder);
 
-		if (part == PART_BACKGROUND && !tags.contains("chrome-tabfolder-preview")) {
+		if (part == PART_BODY) {
 			if (tabFolder.getItemCount() == 0) {
 				preference.getEmptyDecorator().apply(tabFolder);
+				tabFolder.setTabHeight(23);
 			} else if (tags.contains("active")) {
 				preference.getActiveDecorator().apply(tabFolder);
+				tabFolder.setTabHeight(-1);
 			} else {
 				preference.getInactiveDecorator().apply(tabFolder);
+				tabFolder.setTabHeight(-1);
 			}
 		}
 

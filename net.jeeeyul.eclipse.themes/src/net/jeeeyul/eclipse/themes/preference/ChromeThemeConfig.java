@@ -10,6 +10,13 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
 
+/**
+ * 6: Colors and Fonts should be customized in runtime!
+ * https://github.com/jeeeyul/eclipse-themes/issues/issue/6
+ * 
+ * @author Jeeeyul
+ * 
+ */
 public class ChromeThemeConfig implements IPropertyChangeListener {
 	private static ChromeThemeConfig INSTANCE;
 

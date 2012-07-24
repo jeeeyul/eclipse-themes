@@ -24,6 +24,13 @@ import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
+/**
+ * 6: Colors and Fonts should be customized in runtime!
+ * https://github.com/jeeeyul/eclipse-themes/issues/issue/6
+ * 
+ * @author Jeeeyul
+ * 
+ */
 public class ChromePreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 	public static final String ID = "net.jeeeyul.eclipse.themes.ChromePreferencePage";
 	private CTabFolder folder;
@@ -67,6 +74,7 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		CSSClasses.setStyleClasses(folder, tags);
 
 		CTabItem item = new CTabItem(folder, SWT.Close);
+		item.setImage(SharedImages.getImage(SharedImages.PALETTE));
 		Composite body = new Composite(folder, SWT.NORMAL);
 		body.setBackgroundMode(SWT.INHERIT_FORCE);
 		body.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_WHITE));

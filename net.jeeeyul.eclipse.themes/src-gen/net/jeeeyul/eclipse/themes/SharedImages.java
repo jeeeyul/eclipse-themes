@@ -52,6 +52,12 @@ public class SharedImages{
 	 * Image constant for icons/minimize.gif
 	 */
 	public static final String MINIMIZE = "icons/minimize.gif";
+	
+	/**
+	 * <img src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjEwMPRyoQAAAfxJREFUOE+NU79P22AQ9YhUiYmhY7vRgS7tP9INqXv/kYqhQyUkVLVSxy5dKhakShVFBQlQCpQArpWkOEAck9jExEkcitPEj3tnOXX6S410erm7987P5+8zABj5OHEvUTBreLWSxvutkuas/8plPhZ7lz1sHZxi16rDabYRXcVIkkSROevsk5cfpANY3PhSRd3vAPsP0HotZcHRKMHitzt49PKWIvvk5YfoAE52mh3Eg1Eqjg1F5hQP8Qzzb6YlH8LxOuokc2Hw3XYsB9H3H+hL5B0wzzugijzys50YXJB70UMYxWhLhNEAjaCP7ZKvYZ21cR5caT/ssx/Drge6WF0it8wB8eo9XC/MKFK4aXkaBflfdkI8tu9j6qmhSD51OuDd2pEUIhWjaCjuVFo65Ks8/djtwpE+xS/wRJF86sYOjt1wwoF93kXNj+CFYr0/IHHCgS38sQO+i2l7qNQ7qLgSgifNHlrdGAP5jPzV5IlpPxQMhe//3AG3uX1U02XRclLYx6eHc4rWaRvPzQTGrKmYclL++Ctk58Cs+ihWA6zdvovhx1XFAztQ8dtr2ZZgUXLyJs5BdhLX5YQdirX4w4aKibuViwkH7JP320nMhnDy5uEZ9soNEXv4XPbli3jYKzW0/te7kL8cS8tVXRC3zE+V3UbW/3kb/9T8n9oNU6ZBIaM/d/kAAAAASUVORK5CYII=">
+	 * Image constant for icons/palette.gif
+	 */
+	public static final String PALETTE = "icons/palette.gif";
 	private static final ImageRegistry REGISTRY = new ImageRegistry(Display.getDefault());
 	
 	public static Image getImage(String key){

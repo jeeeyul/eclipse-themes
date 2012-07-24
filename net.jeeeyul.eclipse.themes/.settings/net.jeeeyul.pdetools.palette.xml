@@ -4,4 +4,5 @@
   <imageFiles fieldName="MAXMIZE" file="/net.jeeeyul.eclipse.themes/icons/maxmize.gif"/>
   <imageFiles fieldName="MENU" file="/net.jeeeyul.eclipse.themes/icons/menu.gif"/>
   <imageFiles fieldName="MINIMIZE" file="/net.jeeeyul.eclipse.themes/icons/minimize.gif"/>
+  <imageFiles fieldName="PALETTE" file="/net.jeeeyul.eclipse.themes/icons/palette.gif"/>
 </p:Palette>

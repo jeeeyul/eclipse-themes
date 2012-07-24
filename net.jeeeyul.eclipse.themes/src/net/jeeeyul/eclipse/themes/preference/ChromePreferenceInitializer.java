@@ -5,6 +5,13 @@ import net.jeeeyul.eclipse.themes.Activator;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;
 
+/**
+ * 6: Colors and Fonts should be customized in runtime!
+ * https://github.com/jeeeyul/eclipse-themes/issues/issue/6
+ * 
+ * @author Jeeeyul
+ * 
+ */
 public class ChromePreferenceInitializer extends AbstractPreferenceInitializer {
 
 	public ChromePreferenceInitializer() {
