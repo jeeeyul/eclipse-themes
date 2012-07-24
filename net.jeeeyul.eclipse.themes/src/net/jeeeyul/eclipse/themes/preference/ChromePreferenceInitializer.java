@@ -13,10 +13,16 @@ public class ChromePreferenceInitializer extends AbstractPreferenceInitializer {
 	@Override
 	public void initializeDefaultPreferences() {
 		IPreferenceStore store = Activator.getDefault().getPreferenceStore();
+		store.setDefault("chrome-active-start-hue", 221f);
+		store.setDefault("chrome-active-start-saturation", .10f);
+		store.setDefault("chrome-active-start-brightness", .97f);
 
-		store.setDefault("chrome-active-hue", 221f);
-		store.setDefault("chrome-active-saturation", .15f);
-		store.setDefault("chrome-active-brightness", .96f);
+		store.setDefault("chrome-active-end-hue", 222f);
+		store.setDefault("chrome-active-end-saturation", .15f);
+		store.setDefault("chrome-active-end-brightness", .96f);
+
+		store.setDefault("chrome-auto-end-color", true);
+		store.setDefault("chrome-lock-hue", true);
 	}
 
 }

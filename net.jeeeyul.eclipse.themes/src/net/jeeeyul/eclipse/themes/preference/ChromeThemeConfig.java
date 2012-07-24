@@ -1,8 +1,8 @@
 package net.jeeeyul.eclipse.themes.preference;
 
 import net.jeeeyul.eclipse.themes.Activator;
-import net.jeeeyul.eclipse.themes.decorator.AutoGradientDecorator;
 import net.jeeeyul.eclipse.themes.decorator.EmptyDecorator;
+import net.jeeeyul.eclipse.themes.decorator.GradientDecorator;
 import net.jeeeyul.eclipse.themes.decorator.ICTabFolderDecorator;
 import net.jeeeyul.eclipse.themes.decorator.InactiveDecorator;
 
@@ -31,11 +31,16 @@ public class ChromeThemeConfig implements IPropertyChangeListener {
 	public ICTabFolderDecorator getActiveDecorator() {
 		if (activeDecorator == null) {
 			IPreferenceStore store = Activator.getDefault().getPreferenceStore();
-			float hsb[] = new float[3];
-			hsb[0] = store.getFloat("chrome-active-hue");
-			hsb[1] = store.getFloat("chrome-active-saturation");
-			hsb[2] = store.getFloat("chrome-active-brightness");
-			activeDecorator = new AutoGradientDecorator(hsb);
+			float start[] = new float[3];
+			start[0] = store.getFloat("chrome-active-start-hue");
+			start[1] = store.getFloat("chrome-active-start-saturation");
+			start[2] = store.getFloat("chrome-active-start-brightness");
+
+			float end[] = new float[3];
+			end[0] = store.getFloat("chrome-active-end-hue");
+			end[1] = store.getFloat("chrome-active-end-saturation");
+			end[2] = store.getFloat("chrome-active-end-brightness");
+			activeDecorator = new GradientDecorator(start, end);
 		}
 		return activeDecorator;
 	}
