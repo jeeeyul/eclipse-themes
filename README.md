@@ -22,6 +22,7 @@ Choose Theme Figure:
 ![screenshot](http://jeeeyul.github.com/eclipse-themes/images/how-to-2.png)
 
 Customize:
+
 ![screenshot](http://jeeeyul.github.com/eclipse-themes/images/customize.png)
 
 ## Screen Shots
