@@ -1,7 +1,7 @@
 # Jeeeyul's Eclipse Themes
 <table style="border: none;">
 		<tbody>
-			<tr>
+			<tr style="border:none;">
 			<td style="vertical-align: middle; padding-top: 10px; border: none;"><a href="http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=339851" title="Drag and drop into a running Eclipse Indigo workspace to install Eclipse 4 Chrome Theme">
 					<img src="http://marketplace.eclipse.org/misc/installbutton.png">
 			</a></td>
