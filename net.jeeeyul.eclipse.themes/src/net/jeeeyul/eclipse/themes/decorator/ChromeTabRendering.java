@@ -35,6 +35,12 @@ public class ChromeTabRendering extends CTabRendering {
 				INSTANCES.remove(this);
 			}
 		});
+
+		/*
+		 * 10: Window - New Window does not consider Styling
+		 * https://github.com/jeeeyul/eclipse-themes/issues/issue/10
+		 */
+		applyChromeThemePreference();
 	}
 
 	@Override
@@ -75,13 +81,13 @@ public class ChromeTabRendering extends CTabRendering {
 			return;
 		}
 
-		setShadowVisible(preference.usePartShadow());
+		super.setShadowVisible(preference.usePartShadow());
 		invalidateTabItems();
 	}
 
 	private void invalidateTabItems() {
 		int tabHeight = tabFolder.getTabHeight();
-		tabFolder.setTabHeight(99);
+		tabFolder.setTabHeight(1);
 		tabFolder.setTabHeight(tabHeight);
 	}
 }

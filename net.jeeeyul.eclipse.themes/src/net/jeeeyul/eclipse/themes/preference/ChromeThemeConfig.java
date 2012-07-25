@@ -1,6 +1,6 @@
 package net.jeeeyul.eclipse.themes.preference;
 
-import net.jeeeyul.eclipse.themes.Activator;
+import net.jeeeyul.eclipse.themes.ChromeThemeCore;
 import net.jeeeyul.eclipse.themes.decorator.EmptyDecorator;
 import net.jeeeyul.eclipse.themes.decorator.GradientDecorator;
 import net.jeeeyul.eclipse.themes.decorator.ICTabFolderDecorator;
@@ -39,12 +39,12 @@ public class ChromeThemeConfig implements IPropertyChangeListener {
 	Boolean partShadow = null;
 
 	private ChromeThemeConfig() {
-		Activator.getDefault().getPreferenceStore().addPropertyChangeListener(this);
+		ChromeThemeCore.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 	}
 
 	public ICTabFolderDecorator getActiveDecorator() {
 		if (activeDecorator == null) {
-			IPreferenceStore store = Activator.getDefault().getPreferenceStore();
+			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
 			float start[] = new float[3];
 			start[0] = store.getFloat(ChromeConstants.CHROME_ACTIVE_START_HUE);
 			start[1] = store.getFloat(ChromeConstants.CHROME_ACTIVE_START_SATURATION);
@@ -75,7 +75,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener {
 
 	public int getSashWidth() {
 		if (sashWidth == null) {
-			IPreferenceStore store = Activator.getDefault().getPreferenceStore();
+			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
 			String sashPreset = store.getString(ChromeConstants.CHROME_SASH_PRESET);
 			if (ChromeConstants.CHROME_SASH_PRESET_ADVANCED.equals(sashPreset)) {
 				sashWidth = store.getInt(ChromeConstants.CHOME_PART_CONTAINER_SASH_WIDTH);
@@ -107,7 +107,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener {
 
 	public boolean usePartShadow() {
 		if (partShadow == null) {
-			IPreferenceStore store = Activator.getDefault().getPreferenceStore();
+			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
 			String sashPreset = store.getString(ChromeConstants.CHROME_SASH_PRESET);
 			if (ChromeConstants.CHROME_SASH_PRESET_ADVANCED.equals(sashPreset)) {
 				partShadow = store.getBoolean(ChromeConstants.CHOME_PART_SHADOW);

@@ -1,7 +1,7 @@
 package net.jeeeyul.eclipse.themes.preference;
 
-import net.jeeeyul.eclipse.themes.Activator;
 import net.jeeeyul.eclipse.themes.CSSClasses;
+import net.jeeeyul.eclipse.themes.ChromeThemeCore;
 import net.jeeeyul.eclipse.themes.SharedImages;
 import net.jeeeyul.eclipse.themes.decorator.GradientDecorator;
 import net.jeeeyul.eclipse.themes.ui.HueScale;
@@ -16,6 +16,8 @@ import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabFolder2Adapter;
 import org.eclipse.swt.custom.CTabFolderEvent;
 import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -24,12 +26,14 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Scale;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
+import org.eclipse.ui.dialogs.PreferencesUtil;
 import org.eclipse.ui.progress.UIJob;
 
 /**
@@ -121,6 +125,8 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		folder.setSelection(colorTab);
 
 		decorator.apply(folder);
+
+		createLink(composite, "Only works with Chrome Theme, You can change on <a href=\"org.eclipse.ui.preferencePages.Views\">Apearence page</a>");
 
 		return composite;
 	}
@@ -330,7 +336,7 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 	}
 
 	private IPreferenceStore getStore() {
-		return Activator.getDefault().getPreferenceStore();
+		return ChromeThemeCore.getDefault().getPreferenceStore();
 	}
 
 	private UIJob getUpdateJob() {
@@ -463,6 +469,21 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 	private void updateAdvanced() {
 		sashWidthScale.setEnabled(manualSashButton.getSelection());
 		useShadowField.setEnabled(manualSashButton.getSelection());
+	}
+
+	private void createLink(Composite contaienr, String text) {
+		Link link = new Link(contaienr, SWT.NORMAL);
+		link.setText(text);
+		link.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				navigateToOtherPage(e.text);
+			}
+		});
+	}
+
+	protected void navigateToOtherPage(String pageId) {
+		PreferencesUtil.createPreferenceDialogOn(getShell(), pageId, null, null);
 	}
 
 	protected void updateAuto() {

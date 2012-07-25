@@ -2,7 +2,7 @@ package net.jeeeyul.eclipse.themes.e4;
 
 import java.util.HashSet;
 
-import net.jeeeyul.eclipse.themes.Activator;
+import net.jeeeyul.eclipse.themes.ChromeThemeCore;
 
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.model.application.MAddon;
@@ -23,20 +23,20 @@ public class ChromeProcessor {
 		if (!contributionIds.contains(getContributionURI(SashTracker.class))) {
 			MAddon chromeAddon = MApplicationFactory.INSTANCE.createAddon();
 			chromeAddon.setContributionURI(getContributionURI(SashTracker.class));
-			chromeAddon.setContributorURI("plugin://" + Activator.getDefault().getBundle().getSymbolicName());
+			chromeAddon.setContributorURI("plugin://" + ChromeThemeCore.getDefault().getBundle().getSymbolicName());
 			application.getAddons().add(chromeAddon);
 		}
 
 		if (!contributionIds.contains(getContributionURI(ThemeTracker.class))) {
 			MAddon chromeAddon = MApplicationFactory.INSTANCE.createAddon();
 			chromeAddon.setContributionURI(getContributionURI(ThemeTracker.class));
-			chromeAddon.setContributorURI("plugin://" + Activator.getDefault().getBundle().getSymbolicName());
+			chromeAddon.setContributorURI("plugin://" + ChromeThemeCore.getDefault().getBundle().getSymbolicName());
 			application.getAddons().add(chromeAddon);
 		}
 
 	}
 
 	private String getContributionURI(Class<?> addonClass) {
-		return "bundleclass://" + Activator.getDefault().getBundle().getSymbolicName() + "/" + addonClass.getCanonicalName();
+		return "bundleclass://" + ChromeThemeCore.getDefault().getBundle().getSymbolicName() + "/" + addonClass.getCanonicalName();
 	}
 }

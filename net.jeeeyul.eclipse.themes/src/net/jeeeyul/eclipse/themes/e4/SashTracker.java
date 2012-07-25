@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
+import net.jeeeyul.eclipse.themes.ChromeThemeCore;
 import net.jeeeyul.eclipse.themes.preference.ChromeThemeConfig;
 
 import org.eclipse.core.runtime.jobs.ILock;
@@ -42,21 +43,7 @@ public class SashTracker {
 	@Inject
 	IEventBroker eventBroker;
 
-	private void setSashWidth(Composite composite, int sashWidth) {
-		if (composite.isDisposed() || !(composite.getLayout() instanceof SashLayout)) {
-			return;
-		}
-
-		SashLayout layout = (SashLayout) composite.getLayout();
-		try {
-			Field field = SashLayout.class.getDeclaredField("sashWidth");
-			field.setAccessible(true);
-			field.set(layout, sashWidth);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		composite.layout(true, true);
-	}
+	private Field sashWidthField;
 
 	@PreDestroy
 	public void dispose() {
@@ -73,9 +60,8 @@ public class SashTracker {
 				Composite composite = (Composite) value;
 				if (composite.getLayout() instanceof SashLayout) {
 					trackSashContainer(composite);
-
 					if (ThemeTracker.getInstance().isChromeThemeActive()) {
-						setSashWidth(composite, ChromeThemeConfig.getInstance().getSashWidth());
+						updateSash(composite, ChromeThemeConfig.getInstance().getSashWidth());
 					}
 				}
 			}
@@ -122,11 +108,39 @@ public class SashTracker {
 
 		for (Composite each : array) {
 			try {
-				setSashWidth(each, ChromeThemeConfig.getInstance().getSashWidth());
+				updateSash(each, ChromeThemeConfig.getInstance().getSashWidth());
 			} catch (Exception e) {
+				ChromeThemeCore.getDefault().log(e);
 				e.printStackTrace();
 			}
 		}
+	}
+
+	private void updateSash(Composite each, int width) {
+		if (each == null || each.isDisposed()) {
+			return;
+		}
+
+		if (!(each.getLayout() instanceof SashLayout)) {
+			return;
+		}
+
+		SashLayout layout = (SashLayout) each.getLayout();
+		try {
+			getSashWidthField().setInt(layout, width);
+		} catch (Exception e) {
+			ChromeThemeCore.getDefault().log(e);
+			e.printStackTrace();
+		}
+		each.layout(true, true);
+	}
+
+	private Field getSashWidthField() throws SecurityException, NoSuchFieldException {
+		if (sashWidthField == null) {
+			sashWidthField = SashLayout.class.getDeclaredField("sashWidth");
+			sashWidthField.setAccessible(true);
+		}
+		return sashWidthField;
 	}
 
 	/**
@@ -141,9 +155,10 @@ public class SashTracker {
 
 		for (Composite each : array) {
 			try {
-				setSashWidth(each, 4);
+				updateSash(each, 4);
 			} catch (Exception e) {
 				e.printStackTrace();
+				ChromeThemeCore.getDefault().log(e);
 			}
 		}
 	}

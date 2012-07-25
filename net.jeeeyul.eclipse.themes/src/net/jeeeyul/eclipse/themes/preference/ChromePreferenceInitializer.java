@@ -1,6 +1,6 @@
 package net.jeeeyul.eclipse.themes.preference;
 
-import net.jeeeyul.eclipse.themes.Activator;
+import net.jeeeyul.eclipse.themes.ChromeThemeCore;
 
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -19,7 +19,7 @@ public class ChromePreferenceInitializer extends AbstractPreferenceInitializer {
 
 	@Override
 	public void initializeDefaultPreferences() {
-		IPreferenceStore store = Activator.getDefault().getPreferenceStore();
+		IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
 		store.setDefault(ChromeConstants.CHROME_ACTIVE_START_HUE, 221f);
 		store.setDefault(ChromeConstants.CHROME_ACTIVE_START_SATURATION, .10f);
 		store.setDefault(ChromeConstants.CHROME_ACTIVE_START_BRIGHTNESS, .97f);

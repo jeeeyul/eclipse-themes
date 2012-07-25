@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Themes
 Bundle-SymbolicName: net.jeeeyul.eclipse.themes;singleton:=true
 Bundle-Version: 1.1.0.qualifier
-Bundle-Activator: net.jeeeyul.eclipse.themes.Activator
+Bundle-Activator: net.jeeeyul.eclipse.themes.ChromeThemeCore
 Bundle-Vendor: Jeeeyul
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
