@@ -15,8 +15,8 @@ import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 
 @SuppressWarnings("restriction")
-public class ThemeTracker {
-	public static ThemeTracker getInstance() {
+public class ActiveThemeTracker {
+	public static ActiveThemeTracker getInstance() {
 		return INSTANCE;
 	}
 
@@ -27,7 +27,7 @@ public class ThemeTracker {
 		}
 	};
 
-	private static ThemeTracker INSTANCE;
+	private static ActiveThemeTracker INSTANCE;
 
 	private ITheme activeTheme;
 

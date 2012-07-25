@@ -146,7 +146,7 @@ public class WidgetTracker {
 	}
 
 	private boolean isChromeThemeActive() {
-		return ThemeTracker.getInstance().isChromeThemeActive();
+		return ActiveThemeTracker.getInstance().isChromeThemeActive();
 	}
 
 	/**

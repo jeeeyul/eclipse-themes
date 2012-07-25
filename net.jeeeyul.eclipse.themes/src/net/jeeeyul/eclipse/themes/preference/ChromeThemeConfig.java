@@ -5,7 +5,7 @@ import net.jeeeyul.eclipse.themes.decorator.EmptyDecorator;
 import net.jeeeyul.eclipse.themes.decorator.GradientDecorator;
 import net.jeeeyul.eclipse.themes.decorator.ICTabFolderDecorator;
 import net.jeeeyul.eclipse.themes.decorator.InactiveDecorator;
-import net.jeeeyul.eclipse.themes.e4.ThemeTracker;
+import net.jeeeyul.eclipse.themes.e4.ActiveThemeTracker;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
@@ -100,7 +100,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener {
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
 		invalidate();
-		if (ThemeTracker.getInstance().isChromeThemeActive()) {
+		if (ActiveThemeTracker.getInstance().isChromeThemeActive()) {
 			updateJob.schedule();
 		}
 	}
