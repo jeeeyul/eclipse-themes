@@ -152,7 +152,7 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		item.setControl(body);
 
 		Group group = new Group(body, SWT.NORMAL);
-		group.setText("Sash");
+		group.setText("Sash Width");
 		group.setLayout(new GridLayout());
 		group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
