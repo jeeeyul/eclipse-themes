@@ -19,6 +19,15 @@ import org.eclipse.swt.widgets.Shell;
 
 public class HueScale extends Canvas {
 
+	private static final int STATE_NORMAL = 0;
+
+	private static final int STATE_HOVER = 1;
+	private static final int STATE_DRAGGING = 2;
+
+	private static Rectangle expand(Rectangle original, int dx, int dy) {
+		return new Rectangle(original.x - dx, original.y - dy, original.width + dx * 2, original.height + dy * 2);
+	}
+
 	public static void main(String[] args) {
 		Display display = Display.getDefault();
 
@@ -36,20 +45,12 @@ public class HueScale extends Canvas {
 		}
 	}
 
-	private static final int STATE_NORMAL = 0;
-	private static final int STATE_HOVER = 1;
-	private static final int STATE_DRAGGING = 2;
 	private Image hueImage;
 	private float selection;
-	private int state;
 
-	private void setState(int state) {
-		if (this.state == state) {
-			return;
-		}
-		this.state = state;
-		redraw();
-	}
+	private int state;
+	private float saturation = 1f;
+	private float brightness = 1f;
 
 	public HueScale(Composite parent, int style) {
 		super(parent, style | SWT.DOUBLE_BUFFERED);
@@ -81,19 +82,96 @@ public class HueScale extends Canvas {
 		});
 	}
 
-	protected void onMouseUp(Event event) {
-		switch (state) {
-		case STATE_DRAGGING:
-			if (getSelctionArea().contains(event.x, event.y))
-				setState(STATE_HOVER);
-			else
-				setState(STATE_NORMAL);
-			break;
+	@Override
+	public Point computeSize(int wHint, int hHint, boolean changed) {
+		return new Point(150, 30);
+	}
 
-		default:
-			setState(STATE_NORMAL);
-			break;
+	private void drawGradient(GC gc) {
+		Rectangle gradientArea = getGradientArea();
+		gc.drawImage(getHueImage(), 0, 0, 360, 1, gradientArea.x, gradientArea.y, gradientArea.width, gradientArea.height);
+		gc.setForeground(getDisplay().getSystemColor(SWT.COLOR_BLACK));
+		gc.setAlpha(127);
+		gc.drawLine(gradientArea.x, gradientArea.y, gradientArea.x + gradientArea.width, gradientArea.y);
+		gc.drawLine(gradientArea.x, gradientArea.y, gradientArea.x, gradientArea.y + gradientArea.height);
+		gc.setForeground(getDisplay().getSystemColor(SWT.COLOR_WHITE));
+		gc.drawLine(gradientArea.x, gradientArea.y + gradientArea.height, gradientArea.x + gradientArea.width, gradientArea.y + gradientArea.height);
+		gc.drawLine(gradientArea.x + gradientArea.width, gradientArea.y + gradientArea.height, gradientArea.x + gradientArea.width, gradientArea.y);
+	}
+
+	private void drawSelection(GC gc) {
+		gc.setAlpha(255);
+		Rectangle selectionBox = getSelctionArea();
+
+		Rectangle outline = expand(selectionBox, 4, 4);
+		if (isEnabled()) {
+			gc.setForeground(getDisplay().getSystemColor(SWT.COLOR_BLACK));
+		} else {
+			gc.setForeground(getDisplay().getSystemColor(SWT.COLOR_GRAY));
 		}
+		if (state == STATE_NORMAL) {
+			gc.setBackground(getDisplay().getSystemColor(SWT.COLOR_WHITE));
+		} else {
+			gc.setBackground(getDisplay().getSystemColor(SWT.COLOR_LIST_SELECTION));
+		}
+		gc.fillRoundRectangle(outline.x, outline.y, outline.width, outline.height, 5, 5);
+		gc.drawRoundRectangle(outline.x, outline.y, outline.width, outline.height, 5, 5);
+
+		Color color = new Color(getDisplay(), new RGB(selection, saturation, brightness));
+		gc.setBackground(color);
+		gc.fillRectangle(selectionBox);
+		gc.drawRectangle(selectionBox);
+
+		color.dispose();
+	}
+
+	public float getBrightness() {
+		return brightness;
+	}
+
+	private Rectangle getGradientArea() {
+		int horizontalMargin = 10;
+		int gradientHeight = 10;
+		Rectangle clientArea = getClientArea();
+		Rectangle gradientArea = getClientArea();
+		gradientArea.height = gradientHeight;
+		gradientArea.y = (clientArea.height - gradientArea.height) / 2;
+		gradientArea.width -= horizontalMargin * 2;
+		gradientArea.x = (clientArea.width - gradientArea.width) / 2;
+		return gradientArea;
+	}
+
+	public Image getHueImage() {
+		if (hueImage == null) {
+			PaletteData palette = new PaletteData(0xff0000, 0xff00, 0xff);
+			ImageData data = new ImageData(360, 1, 32, palette);
+			for (int x = 0; x < 360; x++) {
+				data.setPixel(x, 0, palette.getPixel(new RGB((float) x, saturation, brightness)));
+			}
+			hueImage = new Image(getDisplay(), data);
+			addListener(SWT.Dispose, new Listener() {
+				@Override
+				public void handleEvent(Event event) {
+					hueImage.dispose();
+				}
+			});
+		}
+		return hueImage;
+	}
+
+	public float getSaturation() {
+		return saturation;
+	}
+
+	private Rectangle getSelctionArea() {
+		Rectangle gradientArea = getGradientArea();
+		int selectionOffset = (int) ((gradientArea.width / 360f) * selection + gradientArea.x);
+		Rectangle selectionBox = new Rectangle(selectionOffset - 5, gradientArea.y - 5, 10, gradientArea.height + 10);
+		return selectionBox;
+	}
+
+	public float getSelection() {
+		return selection;
 	}
 
 	protected void onMouseDown(Event event) {
@@ -135,38 +213,19 @@ public class HueScale extends Canvas {
 
 	}
 
-	private Rectangle getGradientArea() {
-		int horizontalMargin = 10;
-		int gradientHeight = 10;
-		Rectangle clientArea = getClientArea();
-		Rectangle gradientArea = getClientArea();
-		gradientArea.height = gradientHeight;
-		gradientArea.y = (clientArea.height - gradientArea.height) / 2;
-		gradientArea.width -= horizontalMargin * 2;
-		gradientArea.x = (clientArea.width - gradientArea.width) / 2;
-		return gradientArea;
-	}
+	protected void onMouseUp(Event event) {
+		switch (state) {
+		case STATE_DRAGGING:
+			if (getSelctionArea().contains(event.x, event.y))
+				setState(STATE_HOVER);
+			else
+				setState(STATE_NORMAL);
+			break;
 
-	public Image getHueImage() {
-		if (hueImage == null) {
-			PaletteData palette = new PaletteData(0xff0000, 0xff00, 0xff);
-			ImageData data = new ImageData(360, 1, 32, palette);
-			for (int x = 0; x < 360; x++) {
-				data.setPixel(x, 0, palette.getPixel(new RGB((float) x, 1.0f, 1.0f)));
-			}
-			hueImage = new Image(getDisplay(), data);
-			addListener(SWT.Dispose, new Listener() {
-				@Override
-				public void handleEvent(Event event) {
-					hueImage.dispose();
-				}
-			});
+		default:
+			setState(STATE_NORMAL);
+			break;
 		}
-		return hueImage;
-	}
-
-	public float getSelection() {
-		return selection;
 	}
 
 	protected void onPaint(Event event) {
@@ -176,49 +235,35 @@ public class HueScale extends Canvas {
 		drawSelection(gc);
 	}
 
-	private void drawSelection(GC gc) {
-		gc.setAlpha(255);
-		Rectangle selectionBox = getSelctionArea();
-
-		Rectangle outline = expand(selectionBox, 4, 4);
-		if (isEnabled()) {
-			gc.setForeground(getDisplay().getSystemColor(SWT.COLOR_BLACK));
-		} else {
-			gc.setForeground(getDisplay().getSystemColor(SWT.COLOR_GRAY));
+	public void setBrightness(float brightness) {
+		if (brightness < 0f || brightness > 1f) {
+			throw new IllegalArgumentException();
 		}
-		if (state == STATE_NORMAL) {
-			gc.setBackground(getDisplay().getSystemColor(SWT.COLOR_WHITE));
-		} else {
-			gc.setBackground(getDisplay().getSystemColor(SWT.COLOR_LIST_SELECTION));
+		if (this.brightness == brightness) {
+			return;
 		}
-		gc.fillRoundRectangle(outline.x, outline.y, outline.width, outline.height, 5, 5);
-		gc.drawRoundRectangle(outline.x, outline.y, outline.width, outline.height, 5, 5);
-
-		Color color = new Color(getDisplay(), new RGB(selection, 1f, 1f));
-		gc.setBackground(color);
-		gc.fillRectangle(selectionBox);
-		gc.drawRectangle(selectionBox);
-
-		color.dispose();
+		this.brightness = brightness;
+		invalidateHueImage();
+		redraw();
 	}
 
-	private void drawGradient(GC gc) {
-		Rectangle gradientArea = getGradientArea();
-		gc.drawImage(getHueImage(), 0, 0, 360, 1, gradientArea.x, gradientArea.y, gradientArea.width, gradientArea.height);
-		gc.setForeground(getDisplay().getSystemColor(SWT.COLOR_BLACK));
-		gc.setAlpha(127);
-		gc.drawLine(gradientArea.x, gradientArea.y, gradientArea.x + gradientArea.width, gradientArea.y);
-		gc.drawLine(gradientArea.x, gradientArea.y, gradientArea.x, gradientArea.y + gradientArea.height);
-		gc.setForeground(getDisplay().getSystemColor(SWT.COLOR_WHITE));
-		gc.drawLine(gradientArea.x, gradientArea.y + gradientArea.height, gradientArea.x + gradientArea.width, gradientArea.y + gradientArea.height);
-		gc.drawLine(gradientArea.x + gradientArea.width, gradientArea.y + gradientArea.height, gradientArea.x + gradientArea.width, gradientArea.y);
+	private void invalidateHueImage() {
+		if (hueImage != null && !hueImage.isDisposed()) {
+			hueImage.dispose();
+		}
+		hueImage = null;
 	}
 
-	private Rectangle getSelctionArea() {
-		Rectangle gradientArea = getGradientArea();
-		int selectionOffset = (int) ((gradientArea.width / 360f) * selection + gradientArea.x);
-		Rectangle selectionBox = new Rectangle(selectionOffset - 5, gradientArea.y - 5, 10, gradientArea.height + 10);
-		return selectionBox;
+	public void setSaturation(float saturation) {
+		if (saturation < 0f || saturation > 1f) {
+			throw new IllegalArgumentException();
+		}
+		if (this.saturation == saturation) {
+			return;
+		}
+		this.saturation = saturation;
+		invalidateHueImage();
+		redraw();
 	}
 
 	public void setSelection(float selection) {
@@ -233,13 +278,12 @@ public class HueScale extends Canvas {
 		notifyListeners(SWT.Selection, event);
 	}
 
-	@Override
-	public Point computeSize(int wHint, int hHint, boolean changed) {
-		return new Point(150, 30);
-	}
-
-	private static Rectangle expand(Rectangle original, int dx, int dy) {
-		return new Rectangle(original.x - dx, original.y - dy, original.width + dx * 2, original.height + dy * 2);
+	private void setState(int state) {
+		if (this.state == state) {
+			return;
+		}
+		this.state = state;
+		redraw();
 	}
 
 }

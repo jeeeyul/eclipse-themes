@@ -45,5 +45,26 @@
             class="net.jeeeyul.eclipse.themes.e4.ChromeProcessor">
       </processor>
    </extension>
+   <extension
+         point="org.eclipse.ui.preferenceTransfer">
+       <!-- 
+       	16: User can export their chrome theme preferences and reuse it with other workspace
+		https://github.com/jeeeyul/eclipse-themes/issues/issue/16
+		-->
+      <transfer
+            icon="icons/palette.gif"
+            id="net.jeeeyul.eclipse.themes.transfer"
+            name="Chrome Theme Settings">
+         <mapping
+               scope="instance">
+            <entry
+                  node="net.jeeeyul.eclipse.themes">
+            </entry>
+         </mapping>
+         <description>
+            Exports Chrome Theme preference settings.
+         </description>
+      </transfer>
+   </extension>
 
 </plugin>
