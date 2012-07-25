@@ -126,7 +126,7 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 
 		decorator.apply(folder);
 
-		createLink(composite, "Only works with Chrome Theme, You can change on <a href=\"org.eclipse.ui.preferencePages.Views\">Apearence page</a>");
+		createLink(composite, "Only works with Chrome Theme, You can change on <a href=\"org.eclipse.ui.preferencePages.Views\">Appearance page</a>");
 
 		return composite;
 	}
