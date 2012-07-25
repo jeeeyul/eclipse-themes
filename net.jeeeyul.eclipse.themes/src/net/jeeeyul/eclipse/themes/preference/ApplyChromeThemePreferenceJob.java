@@ -12,8 +12,6 @@ import org.eclipse.ui.progress.UIJob;
 
 /**
  * 
- * 
- * 
  * @author Jeeeyul
  * @since 1.2
  */
