@@ -20,16 +20,20 @@ public class ChromePreferenceInitializer extends AbstractPreferenceInitializer {
 	@Override
 	public void initializeDefaultPreferences() {
 		IPreferenceStore store = Activator.getDefault().getPreferenceStore();
-		store.setDefault("chrome-active-start-hue", 221f);
-		store.setDefault("chrome-active-start-saturation", .10f);
-		store.setDefault("chrome-active-start-brightness", .97f);
+		store.setDefault(ChromeConstants.CHROME_ACTIVE_START_HUE, 221f);
+		store.setDefault(ChromeConstants.CHROME_ACTIVE_START_SATURATION, .10f);
+		store.setDefault(ChromeConstants.CHROME_ACTIVE_START_BRIGHTNESS, .97f);
 
-		store.setDefault("chrome-active-end-hue", 222f);
-		store.setDefault("chrome-active-end-saturation", .15f);
-		store.setDefault("chrome-active-end-brightness", .96f);
+		store.setDefault(ChromeConstants.CHROME_ACTIVE_END_HUE, 222f);
+		store.setDefault(ChromeConstants.CHROME_ACTIVE_END_SATURATION, .15f);
+		store.setDefault(ChromeConstants.CHROME_ACTIVE_END_BRIGHTNESS, .96f);
 
-		store.setDefault("chrome-auto-end-color", true);
-		store.setDefault("chrome-lock-hue", true);
+		store.setDefault(ChromeConstants.CHROME_AUTO_END_COLOR, true);
+		store.setDefault(ChromeConstants.CHROME_LOCK_HUE, true);
+
+		store.setDefault(ChromeConstants.CHOME_PART_CONTAINER_SASH_WIDTH, 4);
+		store.setDefault(ChromeConstants.CHOME_PART_SHADOW, true);
+		store.setDefault(ChromeConstants.CHROME_SASH_PRESET, ChromeConstants.CHROME_SASH_PRESET_STANDARD);
 	}
 
 }

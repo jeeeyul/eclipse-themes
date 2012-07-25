@@ -13,6 +13,8 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.custom.CTabFolder2Adapter;
+import org.eclipse.swt.custom.CTabFolderEvent;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -21,6 +23,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Scale;
 import org.eclipse.swt.widgets.ToolBar;
@@ -48,11 +51,17 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 	private Scale endBrightnessScale;
 	private Button lockHueField;
 	private Button autoEndColorField;
-
+	private Scale sashWidthScale;
+	private Button useShadowField;
 	private UIJob updateJob;
+	private Button thinSashButton;
+	private Button standardSashButton;
+	private Button manualSashButton;
 
 	public ChromePreferencePage() {
 		IPreferenceStore store = getStore();
+		setPreferenceStore(store);
+
 		float hsbStart[] = new float[3];
 		hsbStart[0] = store.getFloat("chrome-active-start-hue");
 		hsbStart[1] = store.getFloat("chrome-active-start-saturation");
@@ -73,6 +82,20 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		endBrightnessScale.setSelection((int) (startBrightnessScale.getSelection() * 0.95));
 	}
 
+	private CTabItem createColorTab() {
+		CTabItem item = new CTabItem(folder, SWT.CLOSE);
+		item.setImage(SharedImages.getImage(SharedImages.PALETTE));
+		Composite body = new Composite(folder, SWT.NORMAL);
+		body.setBackgroundMode(SWT.INHERIT_FORCE);
+		body.setBackground(folder.getDisplay().getSystemColor(SWT.COLOR_WHITE));
+		body.setLayout(new GridLayout());
+
+		fillContents(body);
+		item.setControl(body);
+		item.setText("Active Gradient");
+		return item;
+	}
+
 	@Override
 	protected Control createContents(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NORMAL);
@@ -80,24 +103,22 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 
 		folder = new CTabFolder(composite, SWT.NORMAL);
 		folder.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		folder.addCTabFolder2Listener(new CTabFolder2Adapter() {
+			@Override
+			public void close(CTabFolderEvent event) {
+				event.doit = false;
+			}
+		});
 		createFakeToolbar();
 
 		CSSClasses tags = CSSClasses.getStyleClasses(folder);
 		tags.add("chrome-tabfolder-preview");
 		CSSClasses.setStyleClasses(folder, tags);
 
-		CTabItem item = new CTabItem(folder, SWT.Close);
-		item.setImage(SharedImages.getImage(SharedImages.PALETTE));
-		Composite body = new Composite(folder, SWT.NORMAL);
-		body.setBackgroundMode(SWT.INHERIT_FORCE);
-		body.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_WHITE));
-		body.setLayout(new GridLayout());
+		CTabItem colorTab = createColorTab();
+		createSashTab();
 
-		fillContents(body);
-		item.setControl(body);
-		item.setText("Active Gradient");
-
-		folder.setSelection(item);
+		folder.setSelection(colorTab);
 
 		decorator.apply(folder);
 
@@ -118,6 +139,65 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 
 		ToolItem toolItem4 = new ToolItem(toolBar, SWT.PUSH);
 		toolItem4.setImage(SharedImages.getImage(SharedImages.MAXMIZE));
+	}
+
+	private CTabItem createSashTab() {
+		CTabItem item = new CTabItem(folder, SWT.CLOSE);
+		item.setText("Layout");
+		item.setImage(SharedImages.getImage(SharedImages.LAYOUT));
+		Composite body = new Composite(folder, SWT.NORMAL);
+		body.setBackgroundMode(SWT.INHERIT_FORCE);
+		body.setBackground(folder.getDisplay().getSystemColor(SWT.COLOR_WHITE));
+		body.setLayout(new GridLayout());
+		item.setControl(body);
+
+		Group group = new Group(body, SWT.NORMAL);
+		group.setText("Sash");
+		group.setLayout(new GridLayout());
+		group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
+		thinSashButton = new Button(group, SWT.RADIO);
+		thinSashButton.setText("Thin Sash (Classic)");
+
+		standardSashButton = new Button(group, SWT.RADIO);
+		standardSashButton.setText("Standard");
+
+		manualSashButton = new Button(group, SWT.RADIO);
+		manualSashButton.setText("Manual (Advanced)");
+		String preset = getStore().getString(ChromeConstants.CHROME_SASH_PRESET);
+		if (ChromeConstants.CHROME_SASH_PRESET_THIN.equals(preset)) {
+			thinSashButton.setSelection(true);
+		} else if (ChromeConstants.CHROME_SASH_PRESET_STANDARD.equals(preset)) {
+			standardSashButton.setSelection(true);
+		} else {
+			manualSashButton.setSelection(true);
+		}
+		manualSashButton.addListener(SWT.Selection, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				updateAdvanced();
+			}
+		});
+
+		Group advancedGroup = new Group(body, SWT.NORMAL);
+		advancedGroup.setText("Advanced");
+		advancedGroup.setLayout(new GridLayout(2, false));
+		advancedGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
+		useShadowField = new Button(advancedGroup, SWT.CHECK);
+		useShadowField.setText("Cast shadows for parts");
+		useShadowField.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 2, 1));
+		useShadowField.setSelection(ChromeThemeConfig.getInstance().usePartShadow());
+
+		new Label(advancedGroup, SWT.NORMAL).setText("Sash Width:");
+		sashWidthScale = new Scale(advancedGroup, SWT.NORMAL);
+		sashWidthScale.setMinimum(1);
+		sashWidthScale.setMaximum(10);
+		sashWidthScale.setSelection(ChromeThemeConfig.getInstance().getSashWidth());
+		sashWidthScale.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
+		updateAdvanced();
+		return item;
 	}
 
 	@Override
@@ -324,9 +404,26 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		autoEndColorField.setSelection(store.getDefaultBoolean("chrome-auto-end-color"));
 		lockHueField.setSelection(store.getDefaultBoolean("chrome-lock-hue"));
 
+		sashWidthScale.setSelection(store.getDefaultInt(ChromeConstants.CHOME_PART_CONTAINER_SASH_WIDTH));
+		useShadowField.setSelection(store.getDefaultBoolean(ChromeConstants.CHOME_PART_SHADOW));
+
+		thinSashButton.setSelection(false);
+		standardSashButton.setSelection(false);
+		manualSashButton.setSelection(false);
+
+		String defaultPreset = store.getDefaultString(ChromeConstants.CHROME_SASH_PRESET);
+		if (ChromeConstants.CHROME_SASH_PRESET_THIN.equals(defaultPreset)) {
+			thinSashButton.setSelection(true);
+		} else if (ChromeConstants.CHROME_SASH_PRESET_STANDARD.equals(defaultPreset)) {
+			standardSashButton.setSelection(true);
+		} else {
+			manualSashButton.setSelection(true);
+		}
+
 		updateLock();
 		updateAuto();
 		update();
+		updateAdvanced();
 	}
 
 	@Override
@@ -344,11 +441,28 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 
 		store.setValue("chrome-auto-end-color", autoEndColorField.getSelection());
 		store.setValue("chrome-lock-hue", lockHueField.getSelection());
+
+		store.setValue(ChromeConstants.CHOME_PART_CONTAINER_SASH_WIDTH, sashWidthScale.getSelection());
+		store.setValue(ChromeConstants.CHOME_PART_SHADOW, useShadowField.getSelection());
+
+		if (thinSashButton.getSelection()) {
+			store.setValue(ChromeConstants.CHROME_SASH_PRESET, ChromeConstants.CHROME_SASH_PRESET_THIN);
+		} else if (standardSashButton.getSelection()) {
+			store.setValue(ChromeConstants.CHROME_SASH_PRESET, ChromeConstants.CHROME_SASH_PRESET_STANDARD);
+		} else {
+			store.setValue(ChromeConstants.CHROME_SASH_PRESET, ChromeConstants.CHROME_SASH_PRESET_ADVANCED);
+		}
+
 		return super.performOk();
 	}
 
 	private void update() {
 		getUpdateJob().schedule();
+	}
+
+	private void updateAdvanced() {
+		sashWidthScale.setEnabled(manualSashButton.getSelection());
+		useShadowField.setEnabled(manualSashButton.getSelection());
 	}
 
 	protected void updateAuto() {

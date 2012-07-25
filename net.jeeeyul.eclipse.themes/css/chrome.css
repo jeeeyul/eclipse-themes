@@ -10,12 +10,10 @@
 	font-family: 'Segoe UI';
 	swt-simple: true;
 	swt-mru-visible: false;
-	swt-tab-renderer: url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.decorator.ChromeTabRendering');
-	
+	swt-tab-renderer:
+		url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.decorator.ChromeTabRendering');
 	padding: 0px 9px 10px;
 	swt-tab-outline: #B6BCCC;
-	swt-shadow-visible: true;
-	swt-mru-visible: false;
 	swt-outer-keyline-color: #B6BCCC;
 	swt-inner-keyline-color: black;
 }
@@ -23,7 +21,6 @@
 .MPartStack.active {
 	swt-inner-keyline-color: #FFFFFF;
 	swt-tab-outline: #B6BCCC;
-	swt-shadow-visible: true;
 	swt-outer-keyline-color: #999;
 }
 
@@ -56,7 +53,7 @@
 }
 
 CTabFolder.MArea .MPartStack,CTabFolder.MArea .MPartStack.active {
-	swt-shadow-visible: false;
+	
 }
 
 CTabFolder Canvas {
@@ -64,12 +61,13 @@ CTabFolder Canvas {
 }
 
 #org-eclipse-ui-editorss {
-   swt-tab-renderer: url('bundleclass://org.eclipse.e4.ui.workbench.renderers.swt/org.eclipse.e4.ui.workbench.renderers.swt.CTabRendering');
-   swt-unselected-tabs-color: #F0F0F0 #F0F0F0 #F0F0F0 100% 100%;
-   swt-outer-keyline-color: #B4B4B4;
-   swt-inner-keyline-color: #F0F0F0;
-   swt-tab-outline: #F0F0F0;
-   color: #F0F0F0;
-   swt-tab-height: 8px;
-   padding: 0px 5px 7px;
+	swt-tab-renderer:
+		url('bundleclass://org.eclipse.e4.ui.workbench.renderers.swt/org.eclipse.e4.ui.workbench.renderers.swt.CTabRendering');
+	swt-unselected-tabs-color: #F0F0F0 #F0F0F0 #F0F0F0 100% 100%;
+	swt-outer-keyline-color: #B4B4B4;
+	swt-inner-keyline-color: #F0F0F0;
+	swt-tab-outline: #F0F0F0;
+	color: #F0F0F0;
+	swt-tab-height: 8px;
+	padding: 0px 5px 7px;
 }

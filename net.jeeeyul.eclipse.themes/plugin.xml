@@ -37,5 +37,13 @@
             name="Chrome">
       </page>
    </extension>
+   <extension
+         id="id1"
+         point="org.eclipse.e4.workbench.model">
+      <processor
+            beforefragment="true"
+            class="net.jeeeyul.eclipse.themes.e4.ChromeProcessor">
+      </processor>
+   </extension>
 
 </plugin>
