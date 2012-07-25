@@ -3,7 +3,7 @@
   <img src='http://marketplace.eclipse.org/misc/installbutton.png'/>
 </a>
 
-Are you hate Eclipse 4 Juno Theme?
+Do you hate Eclipse 4 Juno Theme?
 Change it!
 
 ## Update Site
@@ -23,11 +23,15 @@ Installation Figure:
 
 Choose Theme Figure:
 
-![screenshot](http://jeeeyul.github.com/eclipse-themes/images/how-to-2.png)
+![screenshot](http://scela.github.com/eclipse-themes/images/screenshot1.png)
 
 Customize:
 
 ![screenshot](http://jeeeyul.github.com/eclipse-themes/images/customize.png)
+
+Customize 2:
+
+![screenshot](http://scela.github.com/eclipse-themes/images/screenshot2.png)
 
 ## Screen Shots
 ![screenshot](https://github.com/jeeeyul/eclipse-themes/raw/master/net.jeeeyul.eclipse.themes.build/web-resource/chrome-theme-1.png)
