@@ -1,6 +1,7 @@
 package net.jeeeyul.eclipse.themes.e4;
 
 import java.util.HashSet;
+import java.util.Set;
 
 import net.jeeeyul.eclipse.themes.ChromeThemeCore;
 
@@ -13,30 +14,41 @@ import org.eclipse.e4.ui.model.application.MApplicationFactory;
 public class ChromeProcessor {
 	@Execute
 	void addAddon(MApplication application) {
-		HashSet<String> contributionIds = new HashSet<String>();
-		for (MAddon a : application.getAddons()) {
-			if (a.getContributionURI() != null) {
-				contributionIds.add(a.getContributionURI());
-			}
-		}
+		Set<String> contributionIds = getContributionURIs(application);
 
-		if (!contributionIds.contains(getContributionURI(SashTracker.class))) {
-			MAddon chromeAddon = MApplicationFactory.INSTANCE.createAddon();
-			chromeAddon.setContributionURI(getContributionURI(SashTracker.class));
-			chromeAddon.setContributorURI("plugin://" + ChromeThemeCore.getDefault().getBundle().getSymbolicName());
-			application.getAddons().add(chromeAddon);
+		if (!contributionIds.contains(getContributionURI(WidgetTracker.class))) {
+			installAddon(application, WidgetTracker.class);
 		}
 
 		if (!contributionIds.contains(getContributionURI(ThemeTracker.class))) {
-			MAddon chromeAddon = MApplicationFactory.INSTANCE.createAddon();
-			chromeAddon.setContributionURI(getContributionURI(ThemeTracker.class));
-			chromeAddon.setContributorURI("plugin://" + ChromeThemeCore.getDefault().getBundle().getSymbolicName());
-			application.getAddons().add(chromeAddon);
+			installAddon(application, ThemeTracker.class);
 		}
-
 	}
 
 	private String getContributionURI(Class<?> addonClass) {
 		return "bundleclass://" + ChromeThemeCore.getDefault().getBundle().getSymbolicName() + "/" + addonClass.getCanonicalName();
+	}
+
+	private Set<String> getContributionURIs(MApplication application) {
+		HashSet<String> result = new HashSet<String>();
+
+		for (MAddon each : application.getAddons()) {
+			String contributionURI = each.getContributionURI();
+			if (contributionURI != null) {
+				result.add(contributionURI);
+			}
+		}
+		return result;
+	}
+
+	private String getContributorURI() {
+		return "plugin://" + ChromeThemeCore.getDefault().getBundle().getSymbolicName();
+	}
+
+	private void installAddon(MApplication application, Class<?> addOn) {
+		MAddon chromeAddon = MApplicationFactory.INSTANCE.createAddon();
+		chromeAddon.setContributionURI(getContributionURI(addOn));
+		chromeAddon.setContributorURI(getContributorURI());
+		application.getAddons().add(chromeAddon);
 	}
 }

@@ -59,7 +59,7 @@ public class ThemeTracker {
 		if (isChromeThemeActivated) {
 			new ApplyChromeThemePreferenceJob().schedule();
 		} else {
-			SashTracker.getInstance().restoreAllSashContainers();
+			WidgetTracker.getInstance().restoreAllSashContainers();
 		}
 	}
 

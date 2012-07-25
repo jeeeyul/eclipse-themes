@@ -59,4 +59,8 @@ public class ChromeThemeCore extends AbstractUIPlugin {
 		getLog().log(new Status(IStatus.ERROR, getBundle().getSymbolicName(), e.getMessage(), e));
 	}
 
+	public void logWarn(String message) {
+		getLog().log(new Status(IStatus.WARNING, getBundle().getSymbolicName(), message));
+	}
+
 }

@@ -3,7 +3,7 @@ package net.jeeeyul.eclipse.themes.preference;
 import java.util.Set;
 
 import net.jeeeyul.eclipse.themes.decorator.ChromeTabRendering;
-import net.jeeeyul.eclipse.themes.e4.SashTracker;
+import net.jeeeyul.eclipse.themes.e4.WidgetTracker;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -39,7 +39,7 @@ public class ApplyChromeThemePreferenceJob extends UIJob {
 		}
 
 		// update sash settings to all sash containers
-		SashTracker.getInstance().applyChromeThemeToAllSashContainers();
+		WidgetTracker.getInstance().applyChromeThemeToAllTopWindows();
 
 		return Status.OK_STATUS;
 	}
