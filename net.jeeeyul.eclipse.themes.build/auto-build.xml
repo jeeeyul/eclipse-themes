@@ -5,7 +5,6 @@
 	<property file="keystore.properties" />
 
 	<target name="default" description="description" depends="clean">
-
 		<eclipse.buildScript elements="feature@net.jeeeyul.eclipse.themes.feature" baselocation="${eclipse.home}" builddirectory="${basedir}/../" />
 		<antcall target="executeBuildScripts" />
 		<antcall target="remove-generated-script" />
