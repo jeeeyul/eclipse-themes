@@ -6,7 +6,6 @@ import java.util.Set;
 import net.jeeeyul.eclipse.themes.CSSClasses;
 import net.jeeeyul.eclipse.themes.preference.ChromeThemeConfig;
 
-import org.eclipse.e4.ui.workbench.renderers.swt.CTabRendering;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.graphics.GC;
@@ -14,8 +13,7 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
-@SuppressWarnings("restriction")
-public class ChromeTabRendering extends CTabRendering {
+public class ChromeTabRendering extends HackedTabRendering {
 	private ChromeThemeConfig preference = ChromeThemeConfig.getInstance();
 	private CTabFolder tabFolder;
 	private static Set<ChromeTabRendering> INSTANCES = new HashSet<ChromeTabRendering>();
@@ -90,4 +88,5 @@ public class ChromeTabRendering extends CTabRendering {
 		tabFolder.setTabHeight(1);
 		tabFolder.setTabHeight(tabHeight);
 	}
+
 }
