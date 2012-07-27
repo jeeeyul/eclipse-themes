@@ -5,13 +5,11 @@ import net.jeeeyul.eclipse.themes.ChromeThemeCore;
 import net.jeeeyul.eclipse.themes.SharedImages;
 import net.jeeeyul.eclipse.themes.css.RewriteChormeCSS;
 import net.jeeeyul.eclipse.themes.decorator.GradientDecorator;
-import net.jeeeyul.eclipse.themes.e4.ActiveThemeTracker;
 import net.jeeeyul.eclipse.themes.ui.HueScale;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.e4.ui.css.swt.theme.IThemeEngine;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.swt.SWT;
@@ -26,7 +24,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
@@ -388,10 +385,6 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 
 	@Override
 	protected void performDefaults() {
-		test();
-		if (true) {
-			return;
-		}
 		IPreferenceStore store = getStore();
 		float[] start = new float[3];
 
@@ -438,11 +431,6 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		updateAuto();
 		update();
 		updateAdvanced();
-	}
-
-	@SuppressWarnings("unused")
-	private void test() {
-		new RewriteChormeCSS().rewrite();
 	}
 
 	@Override

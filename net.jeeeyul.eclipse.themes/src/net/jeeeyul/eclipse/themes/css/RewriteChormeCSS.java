@@ -16,6 +16,12 @@ import org.w3c.dom.css.DocumentCSS;
 import org.w3c.dom.stylesheets.StyleSheet;
 import org.w3c.dom.stylesheets.StyleSheetList;
 
+/**
+ * re-generate "chrome.css" and replace with existing style sheet.
+ * 
+ * @author Jeeeyul
+ * @since 1.2
+ */
 @SuppressWarnings("restriction")
 public class RewriteChormeCSS {
 	public static final String CHROME_THEME_FIRST_SELECTOR = "*[class=\"jeeeyul-chrome-theme\"]";

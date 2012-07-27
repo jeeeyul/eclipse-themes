@@ -7,10 +7,8 @@ class ChromeCSSGenerator {
 		}
 		
 		.MTrimmedWindow.topLevel {
-			background-color: yellow;
-			margin-top:50px;
 			margin-bottom: 2px;
-			margin-left: 30px;
+			margin-left: 2px;
 			margin-right: 2px;
 		}
 		
