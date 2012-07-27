@@ -41,10 +41,15 @@ public class ActiveThemeTracker {
 
 	public ITheme getActiveTheme() {
 		if (activeTheme == null) {
-			IThemeEngine engine = (IThemeEngine) Display.getDefault().getData("org.eclipse.e4.ui.css.swt.theme");
+			IThemeEngine engine = getThemeEngine();
 			activeTheme = engine.getActiveTheme();
 		}
 		return activeTheme;
+	}
+
+	public IThemeEngine getThemeEngine() {
+		IThemeEngine engine = (IThemeEngine) Display.getDefault().getData("org.eclipse.e4.ui.css.swt.theme");
+		return engine;
 	}
 
 	protected void handleThemeChange(Event event) {

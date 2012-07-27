@@ -6,4 +6,5 @@
   <imageFiles fieldName="MENU" file="/net.jeeeyul.eclipse.themes/icons/menu.gif"/>
   <imageFiles fieldName="MINIMIZE" file="/net.jeeeyul.eclipse.themes/icons/minimize.gif"/>
   <imageFiles fieldName="PALETTE" file="/net.jeeeyul.eclipse.themes/icons/palette.gif"/>
+  <imageFiles fieldName="TRANSPARENT" file="/net.jeeeyul.eclipse.themes/icons/transparent.gif"/>
 </p:Palette>
