@@ -19,6 +19,7 @@ public class ChromeTabRendering extends HackedCTabRendering {
 	private IChromeThemeConfig preference = ChromeThemeConfig.getInstance();
 
 	private CTabFolder tabFolder;
+	private int lastKnownTabHeight = -1;
 
 	private static Set<ChromeTabRendering> INSTANCES = new HashSet<ChromeTabRendering>();
 
@@ -32,7 +33,13 @@ public class ChromeTabRendering extends HackedCTabRendering {
 		super(tabFolder);
 		this.tabFolder = tabFolder;
 		updateTags = new UpdateCTabFolderClassesJob(tabFolder);
-		INSTANCES.add(this);
+
+		tabFolder.addListener(SWT.Selection, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				updateEmptyClassIfNeeded();
+			}
+		});
 
 		tabFolder.addListener(SWT.Dispose, new Listener() {
 			@Override
@@ -41,19 +48,9 @@ public class ChromeTabRendering extends HackedCTabRendering {
 			}
 		});
 
-		/*
-		 * 10: Window - New Window does not consider Styling
-		 * https://github.com/jeeeyul/eclipse-themes/issues/issue/10
-		 */
-		applyChromeThemePreference();
-	}
+		INSTANCES.add(this);
 
-	public void applyChromeThemePreference() {
-		if (tabFolder.isDisposed()) {
-			return;
-		}
-
-		invalidateTabItems();
+		updateTags.schedule();
 	}
 
 	@Override
@@ -73,9 +70,13 @@ public class ChromeTabRendering extends HackedCTabRendering {
 			 * Calculated tab height of empty tab seens to cause this problems.
 			 */
 			if (tabFolder.getItemCount() == 0) {
-				tabFolder.setTabHeight(23);
+				if (lastKnownTabHeight < 0) {
+					lastKnownTabHeight = tabFolder.getFont().getFontData()[0].getHeight() + 19;
+				}
+				tabFolder.setTabHeight(lastKnownTabHeight);
 			} else {
 				tabFolder.setTabHeight(-1);
+				lastKnownTabHeight = tabFolder.getTabHeight();
 			}
 		}
 
@@ -86,12 +87,6 @@ public class ChromeTabRendering extends HackedCTabRendering {
 		return preference;
 	}
 
-	private void invalidateTabItems() {
-		int tabHeight = tabFolder.getTabHeight();
-		tabFolder.setTabHeight(1);
-		tabFolder.setTabHeight(tabHeight);
-	}
-
 	private boolean isPreviewingTab() {
 		CSSClasses tags = CSSClasses.getStyleClasses(tabFolder);
 		return tags.contains("chrome-tabfolder-preview");
@@ -99,6 +94,8 @@ public class ChromeTabRendering extends HackedCTabRendering {
 
 	private CSSClasses updateEmptyClassIfNeeded() {
 		CSSClasses tags = CSSClasses.getStyleClasses(tabFolder);
+		if (tags.contains("EditorStack")) {
+		}
 
 		boolean hasEmptyClass = tags.contains("empty");
 		boolean haveToSetEmpty = tabFolder.getItemCount() == 0;
@@ -108,6 +105,10 @@ public class ChromeTabRendering extends HackedCTabRendering {
 		}
 
 		return tags;
+	}
+
+	public void applyChromeThemePreference() {
+
 	}
 
 }

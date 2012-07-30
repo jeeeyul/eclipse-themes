@@ -26,7 +26,7 @@ class ChromeCSSGenerator {
 		}
 		
 		.MPartStack {
-			font-size: 9;
+			font-size: 14;
 			font-family: 'Segoe UI';
 			swt-simple: true;
 			swt-mru-visible: false;
@@ -53,6 +53,11 @@ class ChromeCSSGenerator {
 		
 		.MPartStack.empty {
 			swt-unselected-tabs-color: #ddd #ddd #ddd 99% 100%;
+		}
+		
+		CTabFolder.MPartStack>CTabItem{
+			font-family: NanumGothic;
+			font-size: 25;
 		}
 		
 		.MToolControl.TrimStack {

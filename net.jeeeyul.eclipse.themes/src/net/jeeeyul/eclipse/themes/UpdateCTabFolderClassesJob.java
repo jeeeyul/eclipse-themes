@@ -31,10 +31,11 @@ public class UpdateCTabFolderClassesJob extends UIJob {
 		CSSClasses classes = CSSClasses.getStyleClasses(folder);
 		boolean haveToSetEmpty = folder.getItemCount() == 0;
 
-		if (haveToSetEmpty)
+		if (haveToSetEmpty) {
 			classes.add("empty");
-		else
+		} else {
 			classes.remove("empty");
+		}
 
 		CSSClasses.setStyleClasses(folder, classes);
 		getThemeEngine().applyStyles(folder, true);
