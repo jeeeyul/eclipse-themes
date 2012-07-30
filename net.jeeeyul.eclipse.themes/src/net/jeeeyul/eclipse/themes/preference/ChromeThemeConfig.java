@@ -10,6 +10,7 @@ import net.jeeeyul.eclipse.themes.e4.ActiveThemeTracker;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
+import org.eclipse.swt.graphics.RGB;
 
 /**
  * 6: Colors and Fonts should be customized in runtime!
@@ -38,6 +39,10 @@ public class ChromeThemeConfig implements IPropertyChangeListener {
 
 	Boolean partShadow = null;
 
+	private RGB activePartGradientStart;
+
+	private RGB activePartGradientEnd;
+
 	private ChromeThemeConfig() {
 		ChromeThemeCore.getDefault().getPreferenceStore().addPropertyChangeListener(this);
 	}
@@ -57,6 +62,32 @@ public class ChromeThemeConfig implements IPropertyChangeListener {
 			activeDecorator = new GradientDecorator(start, end);
 		}
 		return activeDecorator;
+	}
+
+	public RGB getActivePartGradientEnd() {
+		if (activePartGradientEnd == null) {
+			float start[] = new float[3];
+			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			start[0] = store.getFloat(ChromeConstants.CHROME_ACTIVE_END_HUE);
+			start[1] = store.getFloat(ChromeConstants.CHROME_ACTIVE_END_SATURATION);
+			start[2] = store.getFloat(ChromeConstants.CHROME_ACTIVE_END_BRIGHTNESS);
+			activePartGradientEnd = new RGB(start[0], start[1], start[2]);
+		}
+
+		return activePartGradientEnd;
+	}
+
+	public RGB getActivePartGradientStart() {
+		if (activePartGradientStart == null) {
+			float start[] = new float[3];
+			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			start[0] = store.getFloat(ChromeConstants.CHROME_ACTIVE_START_HUE);
+			start[1] = store.getFloat(ChromeConstants.CHROME_ACTIVE_START_SATURATION);
+			start[2] = store.getFloat(ChromeConstants.CHROME_ACTIVE_START_BRIGHTNESS);
+			activePartGradientStart = new RGB(start[0], start[1], start[2]);
+		}
+
+		return activePartGradientStart;
 	}
 
 	public ICTabFolderDecorator getEmptyDecorator() {
@@ -93,6 +124,8 @@ public class ChromeThemeConfig implements IPropertyChangeListener {
 			activeDecorator.dispose();
 			activeDecorator = null;
 		}
+		activePartGradientEnd = null;
+		activePartGradientStart = null;
 		sashWidth = null;
 		partShadow = null;
 	}

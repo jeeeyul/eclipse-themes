@@ -22,10 +22,10 @@ import org.eclipse.swt.graphics.TextLayout;
 import org.eclipse.swt.widgets.Display;
 
 public class HackedTabRendering extends CTabFolderRenderer {
-	private static Field CTabItem_closeRect;
-	private static Field CTabItem_shortenText;
-	private static Field CTabItem_shortenTextWidth;
-	private static Field CTabItem_closeImageState;
+	protected static Field CTabItem_closeRect;
+	protected static Field CTabItem_shortenText;
+	protected static Field CTabItem_shortenTextWidth;
+	protected static Field CTabItem_closeImageState;
 
 	static {
 		try {
@@ -89,8 +89,6 @@ public class HackedTabRendering extends CTabFolderRenderer {
 	Color tabOutlineColor;
 
 	int paddingLeft = 0, paddingRight = 0, paddingTop = 0, paddingBottom = 0;
-
-	
 
 	static int blend(int v1, int v2, int ratio) {
 		int b = (ratio * v1 + (100 - ratio) * v2) / 100;
@@ -180,6 +178,10 @@ public class HackedTabRendering extends CTabFolderRenderer {
 		super(parent);
 	}
 
+	protected boolean showUnselectedTabItemShadow() {
+		return true;
+	}
+
 	protected void _drawUnselected(int index, GC gc, Rectangle bounds, int state) {
 		try {
 			CTabItem item = parent.getItem(index);
@@ -235,9 +237,11 @@ public class HackedTabRendering extends CTabFolderRenderer {
 					int textY = y + (height - extent.y) / 2;
 					textY += parent.getTabPosition() == SWT.BOTTOM ? -1 : 1;
 
-					gc.setAlpha(180);
-					gc.setForeground(parent.getDisplay().getSystemColor(SWT.COLOR_WHITE));
-					gc.drawText((String) CTabItem_shortenText.get(item), xDraw, textY + 1, SWT.DRAW_TRANSPARENT | SWT.DRAW_MNEMONIC);
+					if (showUnselectedTabItemShadow()) {
+						gc.setAlpha(180);
+						gc.setForeground(parent.getDisplay().getSystemColor(SWT.COLOR_WHITE));
+						gc.drawText((String) CTabItem_shortenText.get(item), xDraw, textY + 1, SWT.DRAW_TRANSPARENT | SWT.DRAW_MNEMONIC);
+					}
 
 					gc.setAlpha(255);
 					gc.setForeground(parent.getForeground());
@@ -960,15 +964,18 @@ public class HackedTabRendering extends CTabFolderRenderer {
 		this.paddingBottom = paddingBottom;
 		parent.redraw();
 	}
+
 	public void setSelectedTabFill(Color color) {
 		this.selectedTabFillColor = color;
 		parent.redraw();
 	}
+
 	public void setShadowColor(Color color) {
 		this.shadowColor = color;
 		createShadow(parent.getDisplay(), true);
 		parent.redraw();
 	}
+
 	public void setShadowVisible(boolean visible) {
 		this.shadowEnabled = visible;
 		parent.redraw();

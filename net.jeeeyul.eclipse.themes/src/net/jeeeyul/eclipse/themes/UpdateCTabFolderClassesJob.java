@@ -10,11 +10,11 @@ import org.eclipse.ui.progress.UIJob;
 /**
  * Add "empty" class(CSS) into {@link CTabFolder} when there is no item. 
  */
-public class UpdateCTabFolderJob extends UIJob {
+public class UpdateCTabFolderClassesJob extends UIJob {
 	
 	private CTabFolder folder;
 	
-	public UpdateCTabFolderJob(CTabFolder folder) {
+	public UpdateCTabFolderClassesJob(CTabFolder folder) {
 		super("Update CTabFolder CSS");
 		this.folder = folder;
 		this.setSystem(true);

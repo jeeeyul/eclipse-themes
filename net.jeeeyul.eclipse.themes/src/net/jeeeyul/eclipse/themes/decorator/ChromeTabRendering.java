@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import net.jeeeyul.eclipse.themes.CSSClasses;
+import net.jeeeyul.eclipse.themes.UpdateCTabFolderClassesJob;
 import net.jeeeyul.eclipse.themes.preference.ChromeThemeConfig;
 
 import org.eclipse.swt.SWT;
@@ -17,6 +18,7 @@ public class ChromeTabRendering extends HackedTabRendering {
 	private ChromeThemeConfig preference = ChromeThemeConfig.getInstance();
 	private CTabFolder tabFolder;
 	private static Set<ChromeTabRendering> INSTANCES = new HashSet<ChromeTabRendering>();
+	private UpdateCTabFolderClassesJob updateTags;
 
 	public static Set<ChromeTabRendering> getInstances() {
 		return INSTANCES;
@@ -25,6 +27,8 @@ public class ChromeTabRendering extends HackedTabRendering {
 	public ChromeTabRendering(CTabFolder tabFolder) {
 		super(tabFolder);
 		this.tabFolder = tabFolder;
+		updateTags = new UpdateCTabFolderClassesJob(tabFolder);
+
 		INSTANCES.add(this);
 
 		tabFolder.addListener(SWT.Dispose, new Listener() {
@@ -45,20 +49,23 @@ public class ChromeTabRendering extends HackedTabRendering {
 	protected void draw(int part, int state, Rectangle bounds, GC gc) {
 		CSSClasses tags = CSSClasses.getStyleClasses(tabFolder);
 
-		if (part == PART_BODY && !tags.contains("chrome-tabfolder-preview")) {
-			if (tabFolder.getItemCount() == 0) {
-				preference.getEmptyDecorator().apply(tabFolder);
+		boolean hasEmptyClass = tags.contains("empty");
+		boolean haveToSetEmpty = tabFolder.getItemCount() == 0;
 
-				/*
-				 * 7: Editor area - Minimize / maximize look brocken
-				 * https://github.com/jeeeyul/eclipse-themes/issues/issue/7
-				 * 
-				 * Calculated tab height of empty tab seens to cause this
-				 * problems.
-				 */
+		if (hasEmptyClass != haveToSetEmpty) {
+			updateTags.schedule();
+		}
+
+		if (part == PART_BODY && !tags.contains("chrome-tabfolder-preview")) {
+			/*
+			 * 7: Editor area - Minimize / maximize look brocken
+			 * https://github.com/jeeeyul/eclipse-themes/issues/issue/7
+			 * 
+			 * Calculated tab height of empty tab seens to cause this problems.
+			 */
+			if (tabFolder.getItemCount() == 0) {
 				tabFolder.setTabHeight(23);
 			} else if (tags.contains("active")) {
-				preference.getActiveDecorator().apply(tabFolder);
 				tabFolder.setTabHeight(-1);
 			} else {
 				preference.getInactiveDecorator().apply(tabFolder);
@@ -79,7 +86,6 @@ public class ChromeTabRendering extends HackedTabRendering {
 			return;
 		}
 
-		super.setShadowVisible(preference.usePartShadow());
 		invalidateTabItems();
 	}
 

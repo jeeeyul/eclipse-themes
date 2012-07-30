@@ -460,6 +460,8 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 			store.setValue(ChromeConstants.CHROME_SASH_PRESET, ChromeConstants.CHROME_SASH_PRESET_ADVANCED);
 		}
 
+		new RewriteChormeCSS().rewrite();
+
 		return super.performOk();
 	}
 

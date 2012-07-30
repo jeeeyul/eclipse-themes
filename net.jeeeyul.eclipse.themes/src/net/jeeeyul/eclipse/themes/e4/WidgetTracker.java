@@ -83,6 +83,8 @@ public class WidgetTracker {
 		/*
 		 * 13: Vertical padding
 		 * https://github.com/jeeeyul/eclipse-themes/issues/issue/13
+		 * 
+		 * Currently, changing of margin is not handled by CSS engine.
 		 */
 		for (Shell shell : shells) {
 			try {

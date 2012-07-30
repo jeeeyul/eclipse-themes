@@ -4,6 +4,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
+import net.jeeeyul.eclipse.themes.css.RewriteChormeCSS;
 import net.jeeeyul.eclipse.themes.preference.ApplyChromeThemePreferenceJob;
 import net.jeeeyul.eclipse.themes.preference.ChromeConstants;
 
@@ -62,6 +63,7 @@ public class ActiveThemeTracker {
 
 		boolean isChromeThemeActivated = ChromeConstants.CHROME_THEME_ID.equals(theme.getId());
 		if (isChromeThemeActivated) {
+			new RewriteChormeCSS().rewrite();
 			new ApplyChromeThemePreferenceJob().schedule();
 		} else {
 			WidgetTracker.getInstance().restoreAllSashContainers();

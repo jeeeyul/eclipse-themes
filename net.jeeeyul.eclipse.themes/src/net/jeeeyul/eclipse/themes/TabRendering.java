@@ -9,12 +9,12 @@ import org.eclipse.swt.graphics.Rectangle;
 public class TabRendering extends CTabRendering {
 
 	private CTabFolder tabFolder;
-	private UpdateCTabFolderJob updateClassesJob;
+	private UpdateCTabFolderClassesJob updateClassesJob;
 
 	public TabRendering(CTabFolder tabFolder) {
 		super(tabFolder);
 		this.tabFolder = tabFolder;
-		this.updateClassesJob = new UpdateCTabFolderJob(tabFolder);
+		this.updateClassesJob = new UpdateCTabFolderClassesJob(tabFolder);
 	}
 
 	@Override

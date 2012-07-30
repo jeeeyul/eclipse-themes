@@ -1,20 +1,26 @@
 package net.jeeeyul.eclipse.themes.css
 
+import net.jeeeyul.eclipse.themes.preference.ChromeThemeConfig
+import org.eclipse.swt.graphics.RGB
+
 class ChromeCSSGenerator {
+	ChromeThemeConfig config = ChromeThemeConfig::instance
+
 	def generate()'''
 		.jeeeyul-chrome-theme{
 			/* this rule is exist for just detection, do not delete this rule */
 		}
 		
 		.MTrimmedWindow.topLevel {
+			margin-top: «config.sashWidth + if(config.usePartShadow) 3 else 0»
 			margin-bottom: 2px;
 			margin-left: 2px;
 			margin-right: 2px;
 		}
 		
 		.MPartStack {
-			font-size: 15;
-			font-family: 'NanumGothic';
+			font-size: 9;
+			font-family: 'Segoe UI';
 			swt-simple: true;
 			swt-mru-visible: false;
 			swt-tab-renderer:
@@ -23,12 +29,20 @@ class ChromeCSSGenerator {
 			swt-tab-outline: #B6BCCC;
 			swt-outer-keyline-color: #B6BCCC;
 			swt-inner-keyline-color: black;
+			swt-unselected-tabs-color: #eee #ddd white 99% 100%;
+			swt-shadow-visible: «config.usePartShadow»;
+			
 		}
 		
 		.MPartStack.active {
 			swt-inner-keyline-color: #FFFFFF;
 			swt-tab-outline: #B6BCCC;
 			swt-outer-keyline-color: #999;
+			swt-unselected-tabs-color: «config.activePartGradientStart.toHtmlColor» «config.activePartGradientEnd.toHtmlColor» white 99% 100%;
+		}
+		
+		.MPartStack.empty {
+			swt-unselected-tabs-color: #ddd #ddd #ddd 99% 100%;
 		}
 		
 		.MToolControl.TrimStack {
@@ -79,4 +93,8 @@ class ChromeCSSGenerator {
 			padding: 0px 5px 7px;
 		}
 	'''
+
+	def private String toHtmlColor(RGB rgb){
+		return String::format("#%2x%2x%2x", rgb.red, rgb.green, rgb.blue)
+	}
 }
