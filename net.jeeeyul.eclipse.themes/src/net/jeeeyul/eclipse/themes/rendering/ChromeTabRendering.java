@@ -32,13 +32,6 @@ public class ChromeTabRendering extends HackedCTabRendering {
 		super(tabFolder);
 		this.tabFolder = tabFolder;
 		updateTags = new UpdateCTabFolderClassesJob(tabFolder);
-		tabFolder.addListener(SWT.Selection, new Listener() {
-			@Override
-			public void handleEvent(Event event) {
-				updateTags.schedule();
-			}
-		});
-
 		INSTANCES.add(this);
 
 		tabFolder.addListener(SWT.Dispose, new Listener() {
