@@ -36,7 +36,7 @@ public class SharedImages{
 	public static final String CLOSE_ACTIVE = "icons/close-active.png";
 	
 	/**
-	 * <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTAw9HKhAAAAQklEQVQoU2P4//8/AzEYrGjHjh3/QRhdA7I4ikJkxTBFMDG4tcgS6IpANqG4D10xslNIV0iU1djchNUzRAcPMQEOAOX8MXQfZltOAAAAAElFTkSuQmCC">
+	 * <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwAAADsABataJCQAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTAw9HKhAAAAZ0lEQVQoU2NgIAXs2LEjEYivA7EGTB+IDcTXgDgDbhZU0SwQjaQQpBEk1oesEKQbJAhWjKQRxIfbgqwBphhM43Q+kqnYFUIdDnMTsqkoHmRAdhOSZ+BuRnZbAdRa5OCRhIpFkxLUDAD2iIKAntNhNwAAAABJRU5ErkJggg==">
 	 * Image constant for icons/close-normal.png
 	 */
 	public static final String CLOSE_NORMAL = "icons/close-normal.png";
@@ -46,6 +46,12 @@ public class SharedImages{
 	 * Image constant for icons/eclipse.gif
 	 */
 	public static final String ECLIPSE = "icons/eclipse.gif";
+	
+	/**
+	 * <img src="data:image/gif;base64,R0lGODlhEAAQAKIAADdSlm2LsqK1zitXj4egwEF0qMDR4v///yH5BAEAAAcALAAAAAAQABAAAAM1eLrc/jBKI5kZVV2cC+HHNhRWIXBGYVyUNrxcgRUAM1BfeB9DsOw8EgtGks1eFBkrw2w6KwkAOw==">
+	 * Image constant for icons/font.gif
+	 */
+	public static final String FONT = "icons/font.gif";
 	
 	/**
 	 * <img src="data:image/gif;base64,R0lGODlhEAAQAOZqAJOQh+35/9Xz/9fz//P9/uj6/+v6/fn9/9bz//v9//P9/+r5//P7/uv6//j+/vn7//n+/2BaQfH9/+v5/2RXQfr+/WNXQXtqNWxfPO36/vv//9Xz/l9ZQdb1/4JvN5J1MvH6//P7//X9//b9/en7+4NuNylrvY53MPH7/2RZRCpquSdhpu37/ypbmen4/yheovn//cXl/9P1+2NcPmFZQZR6L/b+/9Dp/yhalClXkihnsKLT9ZDG8ytbkyhvxfr//ylXjvb6/2JXPCluwypuv4e/7vP+/yllq3JjPGFaPyduxIpyMdfv++/6/ydbmoC/6ilXkytfoGFaPmFWP5Z4L+b6/ytVjW1gPipnsPP6/yljqihrt7LW+rze+nJlOiduwyltvmdbQdT1/ylhpNP1/ydwxX5oN4xzMGNXRJvM9v///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAGoALAAAAAAQABAAAAeqgGqCg4SFhoeGQDk4LS9jWlgqYENfhEpPRTxpO1xdMTdMPoRWUD1OUStHOlsmRGWENQIyAgADGwJiAwNUhB8CVQUABS4LBRMGJ4RLAhksAA3HJAsNZ4QeCE0BAAHc3SWEFwgEBAAEIBIoWQpmhEgdQQwAEjYKIUYMXoQYAw4PAA8ORBwYceAKoTBkfiQAAAEGhAQaKswgRENIkghSLKSYgoZDBAqIQoo8FAgAOw==">

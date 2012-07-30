@@ -669,7 +669,9 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 		}
 		int[] tmpPoints = new int[index];
 		System.arraycopy(points, 0, tmpPoints, 0, index);
-		gc.fillPolygon(tmpPoints);
+		
+		
+		gc.fillPolygon(translate(tmpPoints, 1, 1));
 		gc.drawLine(selectionX1, selectionY1, selectionX2, selectionY2);
 		if (tabOutlineColor == null)
 			tabOutlineColor = gc.getDevice().getSystemColor(SWT.COLOR_BLACK);
@@ -956,6 +958,10 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 					gc.setFont(gcFont);
 				}
 			}
+
+			// draw close
+			if (parent.getUnselectedCloseVisible() && (hasStyle(parent, SWT.CLOSE) || hasStyle(item, SWT.CLOSE)))
+				_drawClose(gc, getCloseRect(item), getCloseImageState(item));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1038,15 +1044,8 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 			int[] tmpPoints = new int[index];
 			System.arraycopy(points, 0, tmpPoints, 0, index);
 
-			// Image hoverImage =
-			// SharedImages.getImage(SharedImages.PART_HOVER);
-			// Rectangle hoverImageBounds = hoverImage.getBounds();
-			// gc.drawImage(hoverImage, 0, 0, hoverImageBounds.width,
-			// hoverImageBounds.height, bounds.x, bounds.y, bounds.width,
-			// bounds.height);
-
 			gc.setAlpha(160);
-			gc.fillPolygon(tmpPoints);
+			gc.fillPolygon(translate(tmpPoints, 1, 1));
 			Color tempBorder = new Color(gc.getDevice(), 182, 188, 204);
 			gc.setForeground(tempBorder);
 			gc.drawPolygon(tmpPoints);
@@ -1228,4 +1227,13 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 		return true;
 	}
 
+	private int[] translate(int[] pointArray, int dx, int dy) {
+		int[] result = new int[pointArray.length];
+		System.arraycopy(pointArray, 0, result, 0, pointArray.length);
+		for (int i = 0; i < result.length; i += 2) {
+			result[i] += dx;
+			result[i + 1] += dy;
+		}
+		return result;
+	}
 }

@@ -31,9 +31,14 @@ public class ChromePreferenceInitializer extends AbstractPreferenceInitializer {
 		store.setDefault(ChromeConstants.CHROME_AUTO_END_COLOR, true);
 		store.setDefault(ChromeConstants.CHROME_LOCK_HUE, true);
 
-		store.setDefault(ChromeConstants.CHOME_PART_CONTAINER_SASH_WIDTH, 4);
-		store.setDefault(ChromeConstants.CHOME_PART_SHADOW, true);
+		store.setDefault(ChromeConstants.CRHOME_PART_CONTAINER_SASH_WIDTH, 4);
+		store.setDefault(ChromeConstants.CRHOME_PART_SHADOW, true);
 		store.setDefault(ChromeConstants.CHROME_SASH_PRESET, ChromeConstants.CHROME_SASH_PRESET_STANDARD);
+
+		store.setDefault(ChromeConstants.CHROME_PART_FONT_NAME, "Segoe UI");
+		store.setDefault(ChromeConstants.CHROME_PART_FONT_SIZE, 9);
+
+		store.setDefault(ChromeConstants.CHROME_PART_FONT_SHADOW, true);
 	}
 
 }

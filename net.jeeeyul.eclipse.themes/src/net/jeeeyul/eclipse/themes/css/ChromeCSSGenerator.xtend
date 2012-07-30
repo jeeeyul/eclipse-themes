@@ -26,12 +26,13 @@ class ChromeCSSGenerator {
 		}
 		
 		.MPartStack {
-			font-size: 14;
+			font-size: 9;
 			font-family: 'Segoe UI';
 			swt-simple: true;
 			swt-mru-visible: false;
 			swt-tab-renderer:
 				url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.ChromeTabRendering');
+		
 			padding: 0px 9px 10px;
 			swt-tab-outline: #B6BCCC;
 			swt-outer-keyline-color: #B6BCCC;
@@ -39,7 +40,7 @@ class ChromeCSSGenerator {
 			swt-unselected-tabs-color: #eee #ddd white 99% 100%;
 			swt-shadow-visible: «config.usePartShadow»;
 			
-			selected-tab-color: #121482;
+			selected-tab-color: #000;
 			unselected-tab-color: #333;
 			
 		}

@@ -27,6 +27,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.FontDialog;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
@@ -133,6 +134,7 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 
 		CTabItem colorTab = createColorTab();
 		createSashTab();
+		createFontTab();
 
 		folder.setSelection(colorTab);
 
@@ -141,6 +143,27 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		createLink(composite, "Only works with Chrome Theme, You can change on <a href=\"org.eclipse.ui.preferencePages.Views\">Appearance page</a>");
 
 		return composite;
+	}
+
+	private void createFontTab() {
+		CTabItem fontItem = new CTabItem(folder, SWT.CLOSE);
+		fontItem.setText("Font");
+		fontItem.setImage(SharedImages.getImage(SharedImages.FONT));
+
+		Composite composite = new Composite(folder, SWT.NORMAL);
+		composite.setBackground(folder.getDisplay().getSystemColor(SWT.COLOR_WHITE));
+		composite.setBackgroundMode(SWT.INHERIT_FORCE);
+		composite.setLayout(new GridLayout());
+		Button b = new Button(composite, SWT.PUSH);
+		b.addListener(SWT.Selection, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				FontDialog dialog = new FontDialog(getShell());
+				dialog.open();
+			}
+		});
+
+		fontItem.setControl(composite);
 	}
 
 	private void createFakeToolbar() {
@@ -439,8 +462,8 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		autoEndColorField.setSelection(store.getDefaultBoolean("chrome-auto-end-color"));
 		lockHueField.setSelection(store.getDefaultBoolean("chrome-lock-hue"));
 
-		sashWidthScale.setSelection(store.getDefaultInt(ChromeConstants.CHOME_PART_CONTAINER_SASH_WIDTH));
-		useShadowField.setSelection(store.getDefaultBoolean(ChromeConstants.CHOME_PART_SHADOW));
+		sashWidthScale.setSelection(store.getDefaultInt(ChromeConstants.CRHOME_PART_CONTAINER_SASH_WIDTH));
+		useShadowField.setSelection(store.getDefaultBoolean(ChromeConstants.CRHOME_PART_SHADOW));
 
 		thinSashButton.setSelection(false);
 		standardSashButton.setSelection(false);
@@ -477,8 +500,8 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		store.setValue("chrome-auto-end-color", autoEndColorField.getSelection());
 		store.setValue("chrome-lock-hue", lockHueField.getSelection());
 
-		store.setValue(ChromeConstants.CHOME_PART_CONTAINER_SASH_WIDTH, sashWidthScale.getSelection());
-		store.setValue(ChromeConstants.CHOME_PART_SHADOW, useShadowField.getSelection());
+		store.setValue(ChromeConstants.CRHOME_PART_CONTAINER_SASH_WIDTH, sashWidthScale.getSelection());
+		store.setValue(ChromeConstants.CRHOME_PART_SHADOW, useShadowField.getSelection());
 
 		if (thinSashButton.getSelection()) {
 			store.setValue(ChromeConstants.CHROME_SASH_PRESET, ChromeConstants.CHROME_SASH_PRESET_THIN);

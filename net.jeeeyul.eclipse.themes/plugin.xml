@@ -70,6 +70,7 @@
          point="org.eclipse.e4.ui.css.core.propertyHandler">
       <handler
             adapter="org.eclipse.e4.ui.css.swt.dom.CTabFolderElement"
+            composite="false"
             handler="net.jeeeyul.eclipse.themes.css.TabItemColorHandler">
          <property-name
                name="selected-tab-color">

@@ -108,7 +108,5 @@ public class ChromeTabRendering extends HackedCTabRendering {
 	}
 
 	public void applyChromeThemePreference() {
-
 	}
-
 }

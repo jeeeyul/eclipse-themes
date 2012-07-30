@@ -6,6 +6,7 @@ import net.jeeeyul.eclipse.themes.e4.ActiveThemeTracker;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
+import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.RGB;
 
 /**
@@ -36,6 +37,8 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	private RGB activePartGradientEnd;
 
 	private IPreferenceStore preferenceStore;
+
+	private FontData partFontData;
 
 	public ChromeThemeConfig() {
 		this(ChromeThemeCore.getDefault().getPreferenceStore());
@@ -90,6 +93,15 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 		return activePartGradientStart;
 	}
 
+	public FontData getPartFontData() {
+		if (partFontData == null) {
+			partFontData = new FontData(preferenceStore.getString(ChromeConstants.CHROME_PART_FONT_NAME));
+			partFontData.height = preferenceStore.getInt(ChromeConstants.CHROME_PART_FONT_SIZE);
+		}
+
+		return partFontData;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -99,10 +111,10 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	@Override
 	public int getSashWidth() {
 		if (sashWidth == null) {
-			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			IPreferenceStore store = preferenceStore;
 			String sashPreset = store.getString(ChromeConstants.CHROME_SASH_PRESET);
 			if (ChromeConstants.CHROME_SASH_PRESET_ADVANCED.equals(sashPreset)) {
-				sashWidth = store.getInt(ChromeConstants.CHOME_PART_CONTAINER_SASH_WIDTH);
+				sashWidth = store.getInt(ChromeConstants.CRHOME_PART_CONTAINER_SASH_WIDTH);
 			} else if (ChromeConstants.CHROME_SASH_PRESET_THIN.equals(sashPreset)) {
 				sashWidth = 2;
 			} else {
@@ -136,10 +148,10 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	@Override
 	public boolean usePartShadow() {
 		if (partShadow == null) {
-			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			IPreferenceStore store = preferenceStore;
 			String sashPreset = store.getString(ChromeConstants.CHROME_SASH_PRESET);
 			if (ChromeConstants.CHROME_SASH_PRESET_ADVANCED.equals(sashPreset)) {
-				partShadow = store.getBoolean(ChromeConstants.CHOME_PART_SHADOW);
+				partShadow = store.getBoolean(ChromeConstants.CRHOME_PART_SHADOW);
 			} else if (ChromeConstants.CHROME_SASH_PRESET_THIN.equals(sashPreset)) {
 				partShadow = false;
 			} else {

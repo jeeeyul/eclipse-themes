@@ -17,10 +17,10 @@ public interface ChromeConstants {
 	public static final String CHROME_SASH_PRESET_THIN = "chrome-sash-preset-thin";
 	public static final String CHROME_SASH_PRESET_ADVANCED = "chrome-sash-preset-advanced";
 
-	public static final String CHOME_PART_CONTAINER_SASH_WIDTH = "chrome-part-container-sash-width";
-	public static final String CHOME_PART_SHADOW = "chrome-part-shadow";
+	public static final String CRHOME_PART_CONTAINER_SASH_WIDTH = "chrome-part-container-sash-width";
+	public static final String CRHOME_PART_SHADOW = "chrome-part-shadow";
 
-	public static final String CHOME_PART_TAB_ITEM_FONT_NAME = "chrome-part-tab-item-font";
-	public static final String CHOME_PART_TAB_ITEM_FONT_SIZE = "chrome-part-tab-item-font-size";
-	public static final String CHOME_PART_TAB_ITEM_FONT_SHADOW = "chrome-part-tab-item-font-shadow";
+	public static final String CHROME_PART_FONT_NAME = "chrome-part-font-name";
+	public static final String CHROME_PART_FONT_SIZE = "chrome-part-font-size";
+	public static final String CHROME_PART_FONT_SHADOW = "chrome-part-font-shadow";
 }

@@ -3,6 +3,7 @@
   <imageFiles fieldName="CLOSE_ACTIVE" file="/net.jeeeyul.eclipse.themes/icons/close-active.png"/>
   <imageFiles fieldName="CLOSE_NORMAL" file="/net.jeeeyul.eclipse.themes/icons/close-normal.png"/>
   <imageFiles fieldName="ECLIPSE" file="/net.jeeeyul.eclipse.themes/icons/eclipse.gif"/>
+  <imageFiles fieldName="FONT" file="/net.jeeeyul.eclipse.themes/icons/font.gif"/>
   <imageFiles fieldName="LAYOUT" file="/net.jeeeyul.eclipse.themes/icons/layout.gif"/>
   <imageFiles fieldName="MAXMIZE" file="/net.jeeeyul.eclipse.themes/icons/maxmize.gif"/>
   <imageFiles fieldName="MENU" file="/net.jeeeyul.eclipse.themes/icons/menu.gif"/>
