@@ -1,4 +1,4 @@
-package net.jeeeyul.eclipse.themes.decorator;
+package net.jeeeyul.eclipse.themes.rendering;
 
 import java.util.Arrays;
 
@@ -51,6 +51,10 @@ public class GradientDecorator implements ICTabFolderDecorator {
 		super();
 		this.startHSB = startHSB;
 		this.endHSB = endHSB;
+	}
+
+	public GradientDecorator(RGB startRGB, RGB endRGB) {
+		this(startRGB.getHSB(), endRGB.getHSB());
 	}
 
 	public float[] getStartHSB() {

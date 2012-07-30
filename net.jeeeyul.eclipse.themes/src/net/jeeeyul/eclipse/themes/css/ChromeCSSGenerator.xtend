@@ -2,13 +2,20 @@ package net.jeeeyul.eclipse.themes.css
 
 import net.jeeeyul.eclipse.themes.preference.ChromeThemeConfig
 import org.eclipse.swt.graphics.RGB
+import net.jeeeyul.eclipse.themes.preference.IChromeThemeConfig
 
 class ChromeCSSGenerator {
-	ChromeThemeConfig config = ChromeThemeConfig::instance
+	IChromeThemeConfig config = ChromeThemeConfig::instance
 
 	def generate()'''
+		/*
+		 *  Chrome Theme generate css dynamically, So do not inspect this file, See "ChromeCSSGenerator.xtend" instead
+		 */
 		.jeeeyul-chrome-theme{
-			/* this rule is exist for just detection, do not delete this rule */
+			/*
+			 * This selector rule is exist for detect Chrome Theme to find rewrite target. 
+			 * See "RewriteChormeCSS.java"
+			 */	
 		}
 		
 		.MTrimmedWindow.topLevel {
@@ -24,13 +31,16 @@ class ChromeCSSGenerator {
 			swt-simple: true;
 			swt-mru-visible: false;
 			swt-tab-renderer:
-				url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.decorator.ChromeTabRendering');
+				url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.ChromeTabRendering');
 			padding: 0px 9px 10px;
 			swt-tab-outline: #B6BCCC;
 			swt-outer-keyline-color: #B6BCCC;
 			swt-inner-keyline-color: black;
 			swt-unselected-tabs-color: #eee #ddd white 99% 100%;
 			swt-shadow-visible: «config.usePartShadow»;
+			
+			selected-tab-color: #121482;
+			unselected-tab-color: #333;
 			
 		}
 		

@@ -1,4 +1,4 @@
-package net.jeeeyul.eclipse.themes.decorator;
+package net.jeeeyul.eclipse.themes.rendering;
 
 import org.eclipse.swt.custom.CTabFolder;
 

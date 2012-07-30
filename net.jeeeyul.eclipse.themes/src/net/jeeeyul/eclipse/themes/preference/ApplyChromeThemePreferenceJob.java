@@ -2,8 +2,8 @@ package net.jeeeyul.eclipse.themes.preference;
 
 import java.util.Set;
 
-import net.jeeeyul.eclipse.themes.decorator.ChromeTabRendering;
 import net.jeeeyul.eclipse.themes.e4.WidgetTracker;
+import net.jeeeyul.eclipse.themes.rendering.ChromeTabRendering;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;

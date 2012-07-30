@@ -1,8 +1,12 @@
-package net.jeeeyul.eclipse.themes.decorator;
+package net.jeeeyul.eclipse.themes.rendering;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 import javax.inject.Inject;
+
+import net.jeeeyul.eclipse.themes.SharedImages;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabFolderRenderer;
@@ -20,26 +24,39 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.graphics.Region;
 import org.eclipse.swt.graphics.TextLayout;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Widget;
 
-public class HackedTabRendering extends CTabFolderRenderer {
-	protected static Field CTabItem_closeRect;
-	protected static Field CTabItem_shortenText;
-	protected static Field CTabItem_shortenTextWidth;
-	protected static Field CTabItem_closeImageState;
+public class HackedCTabRendering extends CTabFolderRenderer {
+	protected static Field HACK_CTabItem_closeRect;
+	protected static Field HACK_CTabItem_shortenText;
+	protected static Field HACK_CTabItem_shortenTextWidth;
+	protected static Field HACK_CTabItem_closeImageState;
+	protected static Field HACK_CTabFolder_curveWidth;
+	protected static Field HACK_CTabFolder_curveIndent;
+	protected static Method HACK_CTabFolder_getRightItemEdge;
 
 	static {
 		try {
-			CTabItem_closeRect = CTabItem.class.getDeclaredField("closeRect");
-			CTabItem_closeRect.setAccessible(true);
+			HACK_CTabItem_closeRect = CTabItem.class.getDeclaredField("closeRect");
+			HACK_CTabItem_closeRect.setAccessible(true);
 
-			CTabItem_shortenText = CTabItem.class.getDeclaredField("shortenedText");
-			CTabItem_shortenText.setAccessible(true);
+			HACK_CTabItem_shortenText = CTabItem.class.getDeclaredField("shortenedText");
+			HACK_CTabItem_shortenText.setAccessible(true);
 
-			CTabItem_shortenTextWidth = CTabItem.class.getDeclaredField("shortenedTextWidth");
-			CTabItem_shortenTextWidth.setAccessible(true);
+			HACK_CTabItem_shortenTextWidth = CTabItem.class.getDeclaredField("shortenedTextWidth");
+			HACK_CTabItem_shortenTextWidth.setAccessible(true);
 
-			CTabItem_closeImageState = CTabItem.class.getDeclaredField("closeImageState");
-			CTabItem_closeImageState.setAccessible(true);
+			HACK_CTabItem_closeImageState = CTabItem.class.getDeclaredField("closeImageState");
+			HACK_CTabItem_closeImageState.setAccessible(true);
+
+			HACK_CTabFolder_curveWidth = CTabFolderRenderer.class.getDeclaredField("curveWidth");
+			HACK_CTabFolder_curveWidth.setAccessible(true);
+
+			HACK_CTabFolder_curveIndent = CTabFolderRenderer.class.getDeclaredField("curveIndent");
+			HACK_CTabFolder_curveIndent.setAccessible(true);
+
+			HACK_CTabFolder_getRightItemEdge = CTabFolder.class.getDeclaredMethod("getRightItemEdge", GC.class);
+			HACK_CTabFolder_getRightItemEdge.setAccessible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -47,21 +64,28 @@ public class HackedTabRendering extends CTabFolderRenderer {
 
 	// Constants for circle drawing
 	final static int LEFT_TOP = 0;
+
 	final static int LEFT_BOTTOM = 1;
+
 	final static int RIGHT_TOP = 2;
+
 	final static int RIGHT_BOTTOM = 3;
 
 	// drop shadow constants
 	final static int SIDE_DROP_WIDTH = 3;
+
 	final static int BOTTOM_DROP_WIDTH = 4;
 
 	// keylines
 	final static int OUTER_KEYLINE = 1;
+
 	final static int INNER_KEYLINE = 0;
+
 	final static int TOP_KEYLINE = 0;
 
 	// Item Constants
 	static final int ITEM_TOP_MARGIN = 2;
+
 	static final int ITEM_BOTTOM_MARGIN = 6;
 	static final int ITEM_LEFT_MARGIN = 4;
 	static final int ITEM_RIGHT_MARGIN = 4;
@@ -69,26 +93,8 @@ public class HackedTabRendering extends CTabFolderRenderer {
 
 	static final String E4_SHADOW_IMAGE = "org.eclipse.e4.renderer.shadow_image"; //$NON-NLS-1$
 	static final String E4_TOOLBAR_ACTIVE_IMAGE = "org.eclipse.e4.renderer.toolbar_background_active_image"; //$NON-NLS-1$
+
 	static final String E4_TOOLBAR_INACTIVE_IMAGE = "org.eclipse.e4.renderer.toolbar_background_inactive_image"; //$NON-NLS-1$
-
-	int[] shape;
-
-	Image shadowImage, toolbarActiveImage, toolbarInactiveImage;
-
-	int cornerSize = 14;
-
-	boolean shadowEnabled = true;
-	Color shadowColor;
-	Color outerKeyline, innerKeyline;
-	Color[] activeToolbar;
-	int[] activePercents;
-	Color[] inactiveToolbar;
-	int[] inactivePercents;
-	boolean active;
-	Color selectedTabFillColor;
-	Color tabOutlineColor;
-
-	int paddingLeft = 0, paddingRight = 0, paddingTop = 0, paddingBottom = 0;
 
 	static int blend(int v1, int v2, int ratio) {
 		int b = (ratio * v1 + (100 - ratio) * v2) / 100;
@@ -173,84 +179,60 @@ public class HackedTabRendering extends CTabFolderRenderer {
 		return finalArray;
 	}
 
+	int[] shape;
+	Image shadowImage, toolbarActiveImage, toolbarInactiveImage;
+	int cornerSize = 14;
+	boolean shadowEnabled = true;
+
+	Color shadowColor;
+	Color outerKeyline, innerKeyline;
+	Color[] activeToolbar;
+
+	int[] activePercents;
+
+	Color[] inactiveToolbar;
+
+	int[] inactivePercents;
+
+	boolean active;
+	Color selectedTabFillColor;
+	Color tabOutlineColor;
+	int paddingLeft = 0, paddingRight = 0, paddingTop = 0, paddingBottom = 0;
+
+	protected Color selectedTabItemColor;
+	protected Color unselectedTabItemColor;
+
 	@Inject
-	public HackedTabRendering(CTabFolder parent) {
+	public HackedCTabRendering(CTabFolder parent) {
 		super(parent);
 	}
 
-	protected boolean showUnselectedTabItemShadow() {
-		return true;
-	}
+	void _drawClose(GC gc, Rectangle closeRect, int closeImageState) {
+		if (closeRect.width == 0 || closeRect.height == 0)
+			return;
 
-	protected void _drawUnselected(int index, GC gc, Rectangle bounds, int state) {
-		try {
-			CTabItem item = parent.getItem(index);
-			int x = bounds.x;
-			int y = bounds.y;
-			int height = bounds.height;
-			int width = bounds.width;
+		// draw X 9x9
+		int x = closeRect.x + Math.max(1, (closeRect.width - 9) / 2);
+		int y = closeRect.y + Math.max(1, (closeRect.height - 9) / 2);
+		y += parent.getTabPosition() == SWT.BOTTOM ? -1 : 1;
 
-			// Do not draw partial items
-			if (!item.isShowing())
-				return;
-
-			Rectangle clipping = gc.getClipping();
-			if (!clipping.intersects(bounds))
-				return;
-
-			if ((state & SWT.FOREGROUND) != 0) {
-				// draw Image
-				Rectangle trim = computeTrim(index, SWT.NONE, 0, 0, 0, 0);
-				int xDraw = x - trim.x;
-				Image image = item.getImage();
-				if (image != null && !image.isDisposed() && parent.getUnselectedImageVisible()) {
-					Rectangle imageBounds = image.getBounds();
-					// only draw image if it won't overlap with close button
-					int maxImageWidth = x + width - xDraw - (trim.width + trim.x);
-					if (parent.getUnselectedCloseVisible() && ((parent.getStyle() & SWT.CLOSE) != 0 || item.getShowClose())) {
-						maxImageWidth -= ((Rectangle) CTabItem_closeRect.get(item)).width + 4;
-					}
-					if (imageBounds.width < maxImageWidth) {
-						int imageX = xDraw;
-						int imageHeight = imageBounds.height;
-						int imageY = y + (height - imageHeight) / 2;
-						imageY += parent.getTabPosition() == SWT.BOTTOM ? -1 : 1;
-						int imageWidth = imageBounds.width * imageHeight / imageBounds.height;
-						gc.drawImage(image, imageBounds.x, imageBounds.y, imageBounds.width, imageBounds.height, imageX, imageY, imageWidth, imageHeight);
-						xDraw += imageWidth + 4;
-					}
-				}
-
-				// draw Text
-				int textWidth = x + width - xDraw - (trim.width + trim.x);
-				if (parent.getUnselectedCloseVisible() && ((parent.getStyle() & SWT.CLOSE) != 0 || item.getShowClose())) {
-					textWidth -= ((Rectangle) CTabItem_closeRect.get(item)).width + 4;
-				}
-				if (textWidth > 0) {
-					Font gcFont = gc.getFont();
-					gc.setFont(item.getFont() == null ? parent.getFont() : item.getFont());
-					if (CTabItem_shortenText.get(item) == null || CTabItem_shortenTextWidth.getInt(item) != textWidth) {
-						CTabItem_shortenText.set(item, _shortenText(gc, item.getText(), textWidth));
-						CTabItem_shortenTextWidth.setInt(item, textWidth);
-					}
-					Point extent = gc.textExtent((String) CTabItem_shortenText.get(item), SWT.DRAW_TRANSPARENT | SWT.DRAW_MNEMONIC);
-					int textY = y + (height - extent.y) / 2;
-					textY += parent.getTabPosition() == SWT.BOTTOM ? -1 : 1;
-
-					if (showUnselectedTabItemShadow()) {
-						gc.setAlpha(180);
-						gc.setForeground(parent.getDisplay().getSystemColor(SWT.COLOR_WHITE));
-						gc.drawText((String) CTabItem_shortenText.get(item), xDraw, textY + 1, SWT.DRAW_TRANSPARENT | SWT.DRAW_MNEMONIC);
-					}
-
-					gc.setAlpha(255);
-					gc.setForeground(parent.getForeground());
-					gc.drawText((String) CTabItem_shortenText.get(item), xDraw, textY, SWT.DRAW_TRANSPARENT | SWT.DRAW_MNEMONIC);
-					gc.setFont(gcFont);
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		switch (closeImageState & (SWT.HOT | SWT.SELECTED | SWT.BACKGROUND)) {
+		case SWT.NONE: {
+			gc.drawImage(SharedImages.getImage(SharedImages.CLOSE_NORMAL), x, y);
+			break;
+		}
+		case SWT.HOT: {
+			gc.drawImage(SharedImages.getImage(SharedImages.CLOSE_ACTIVE), x, y);
+			break;
+		}
+		case SWT.SELECTED: {
+			gc.drawImage(SharedImages.getImage(SharedImages.CLOSE_ACTIVE), x + 1, y + 1);
+			break;
+		}
+		case SWT.BACKGROUND: {
+			gc.drawImage(SharedImages.getImage(SharedImages.CLOSE_NORMAL), x, y);
+			break;
+		}
 		}
 	}
 
@@ -511,21 +493,23 @@ public class HackedTabRendering extends CTabFolderRenderer {
 				if (bounds.width == 0 || bounds.height == 0)
 					return;
 				gc.setAdvanced(true);
+
 				if ((state & SWT.SELECTED) != 0) {
-					drawSelectedTab(part, gc, bounds, state);
+					drawSelectedTabItemBackground(part, gc, bounds, state);
 					state &= ~SWT.BACKGROUND;
-					super.draw(part, state, bounds, gc);
+					drawSelectedTabItem(part, gc, bounds, state);
 				} else {
-					drawUnselectedTab(part, gc, bounds, state);
+					drawUnselectedTabItemBackground(part, gc, bounds, state);
+
 					if ((state & SWT.HOT) == 0 && !active) {
-						gc.setAlpha(0x7f);
 						state &= ~SWT.BACKGROUND;
-						_drawUnselected(part, gc, bounds, state);
+						drawUnselectedTabItem(part, gc, bounds, state);
 					} else {
 						state &= ~SWT.BACKGROUND;
-						_drawUnselected(part, gc, bounds, state);
+						drawUnselectedTabItem(part, gc, bounds, state);
 					}
 				}
+
 				gc.setAdvanced(false);
 				return;
 			}
@@ -533,7 +517,82 @@ public class HackedTabRendering extends CTabFolderRenderer {
 		super.draw(part, state, bounds, gc);
 	}
 
-	void drawSelectedTab(int itemIndex, GC gc, Rectangle bounds, int state) {
+	protected void drawSelectedTabItem(int itemIndex, GC gc, Rectangle bounds, int state) {
+		CTabItem item = parent.getItem(itemIndex);
+		int x = bounds.x;
+		int y = bounds.y;
+		int height = bounds.height;
+		int width = bounds.width;
+		if (!parent.getSimple() && !parent.getSingle())
+			width -= (getCurveWidth() - getCurveIndent());
+
+		int rightEdge = Math.min(x + width, getRightItemEdge(parent, gc));
+		// Draw selection border across all tabs
+
+		// draw Image
+		Rectangle trim = computeTrim(itemIndex, SWT.NONE, 0, 0, 0, 0);
+		int xDraw = x - trim.x;
+		if (parent.getSingle() && (hasStyle(parent, SWT.CLOSE) || hasStyle(item, SWT.CLOSE)))
+			xDraw += getCloseRect(item).width;
+		Image image = item.getImage();
+		if (image != null && !image.isDisposed()) {
+			Rectangle imageBounds = image.getBounds();
+			// only draw image if it won't overlap with close button
+			int maxImageWidth = rightEdge - xDraw - (trim.width + trim.x);
+			if (!parent.getSingle() && getCloseRect(item).width > 0)
+				maxImageWidth -= getCloseRect(item).width + INTERNAL_SPACING;
+			if (imageBounds.width < maxImageWidth) {
+				int imageX = xDraw;
+				int imageY = y + (height - imageBounds.height) / 2;
+				imageY += parent.getTabPosition() == SWT.BOTTOM ? -1 : 1;
+				gc.drawImage(image, imageX, imageY);
+				xDraw += imageBounds.width + INTERNAL_SPACING;
+			}
+		}
+
+		// draw Text
+		int textWidth = rightEdge - xDraw - (trim.width + trim.x);
+		if (!parent.getSingle() && getCloseRect(item).width > 0)
+			textWidth -= getCloseRect(item).width + INTERNAL_SPACING;
+		if (textWidth > 0) {
+			Font gcFont = gc.getFont();
+			gc.setFont(item.getFont() == null ? parent.getFont() : item.getFont());
+
+			if (getShortenText(item) == null || getShortenTextWidth(item) != textWidth) {
+				setShortenText(item, _shortenText(gc, item.getText(), textWidth));
+				setShortenTextWidth(item, textWidth);
+			}
+			Point extent = gc.textExtent(getShortenText(item), SWT.DRAW_TRANSPARENT | SWT.DRAW_MNEMONIC);
+			int textY = y + (height - extent.y) / 2;
+			textY += parent.getTabPosition() == SWT.BOTTOM ? -1 : 1;
+
+			if (selectedTabItemColor != null) {
+				gc.setForeground(selectedTabItemColor);
+			} else {
+				gc.setForeground(parent.getSelectionForeground());
+			}
+
+			gc.drawText(getShortenText(item), xDraw, textY, SWT.DRAW_TRANSPARENT | SWT.DRAW_MNEMONIC);
+			gc.setFont(gcFont);
+
+			// draw a Focus rectangle
+			if (parent.isFocusControl()) {
+				Display display = parent.getDisplay();
+				if (parent.getSimple() || parent.getSingle()) {
+					gc.setBackground(display.getSystemColor(SWT.COLOR_BLACK));
+					gc.setForeground(display.getSystemColor(SWT.COLOR_WHITE));
+					gc.drawFocus(xDraw - 1, textY - 1, extent.x + 2, extent.y + 2);
+				} else {
+					gc.setForeground(display.getSystemColor(SWT.COLOR_WIDGET_DARK_SHADOW));
+					gc.drawLine(xDraw, textY + extent.y + 1, xDraw + extent.x + 1, textY + extent.y + 1);
+				}
+			}
+		}
+		if (hasStyle(parent, SWT.CLOSE) || hasStyle(item, SWT.CLOSE))
+			_drawClose(gc, getCloseRect(item), getCloseImageState(item));
+	}
+
+	protected void drawSelectedTabItemBackground(int itemIndex, GC gc, Rectangle bounds, int state) {
 		if (parent.getSingle() && parent.getItem(itemIndex).isShowing())
 			return;
 
@@ -825,7 +884,84 @@ public class HackedTabRendering extends CTabFolderRenderer {
 		gc.drawPolyline(shape);
 	}
 
-	void drawUnselectedTab(int itemIndex, GC gc, Rectangle bounds, int state) {
+	protected void drawUnselectedTabItem(int index, GC gc, Rectangle bounds, int state) {
+		try {
+			CTabItem item = parent.getItem(index);
+			int x = bounds.x;
+			int y = bounds.y;
+			int height = bounds.height;
+			int width = bounds.width;
+
+			// Do not draw partial items
+			if (!item.isShowing())
+				return;
+
+			Rectangle clipping = gc.getClipping();
+			if (!clipping.intersects(bounds))
+				return;
+
+			if ((state & SWT.FOREGROUND) != 0) {
+				// draw Image
+				Rectangle trim = computeTrim(index, SWT.NONE, 0, 0, 0, 0);
+				int xDraw = x - trim.x;
+				Image image = item.getImage();
+				if (image != null && !image.isDisposed() && parent.getUnselectedImageVisible()) {
+					Rectangle imageBounds = image.getBounds();
+					// only draw image if it won't overlap with close button
+					int maxImageWidth = x + width - xDraw - (trim.width + trim.x);
+					if (parent.getUnselectedCloseVisible() && ((parent.getStyle() & SWT.CLOSE) != 0 || item.getShowClose())) {
+						maxImageWidth -= ((Rectangle) HACK_CTabItem_closeRect.get(item)).width + 4;
+					}
+					if (imageBounds.width < maxImageWidth) {
+						int imageX = xDraw;
+						int imageHeight = imageBounds.height;
+						int imageY = y + (height - imageHeight) / 2;
+						imageY += parent.getTabPosition() == SWT.BOTTOM ? -1 : 1;
+						int imageWidth = imageBounds.width * imageHeight / imageBounds.height;
+						gc.drawImage(image, imageBounds.x, imageBounds.y, imageBounds.width, imageBounds.height, imageX, imageY, imageWidth, imageHeight);
+						xDraw += imageWidth + 4;
+					}
+				}
+
+				// draw Text
+				int textWidth = x + width - xDraw - (trim.width + trim.x);
+				if (parent.getUnselectedCloseVisible() && ((parent.getStyle() & SWT.CLOSE) != 0 || item.getShowClose())) {
+					textWidth -= ((Rectangle) HACK_CTabItem_closeRect.get(item)).width + 4;
+				}
+				if (textWidth > 0) {
+					Font gcFont = gc.getFont();
+					gc.setFont(item.getFont() == null ? parent.getFont() : item.getFont());
+					if (HACK_CTabItem_shortenText.get(item) == null || HACK_CTabItem_shortenTextWidth.getInt(item) != textWidth) {
+						HACK_CTabItem_shortenText.set(item, _shortenText(gc, item.getText(), textWidth));
+						HACK_CTabItem_shortenTextWidth.setInt(item, textWidth);
+					}
+					Point extent = gc.textExtent((String) HACK_CTabItem_shortenText.get(item), SWT.DRAW_TRANSPARENT | SWT.DRAW_MNEMONIC);
+					int textY = y + (height - extent.y) / 2;
+					textY += parent.getTabPosition() == SWT.BOTTOM ? -1 : 1;
+
+					if (showUnselectedTabItemShadow()) {
+						gc.setAlpha(180);
+						gc.setForeground(parent.getDisplay().getSystemColor(SWT.COLOR_WHITE));
+						gc.drawText((String) HACK_CTabItem_shortenText.get(item), xDraw, textY + 1, SWT.DRAW_TRANSPARENT | SWT.DRAW_MNEMONIC);
+					}
+
+					gc.setAlpha(255);
+
+					if (unselectedTabItemColor != null) {
+						gc.setForeground(unselectedTabItemColor);
+					} else {
+						gc.setForeground(parent.getForeground());
+					}
+					gc.drawText((String) HACK_CTabItem_shortenText.get(item), xDraw, textY, SWT.DRAW_TRANSPARENT | SWT.DRAW_MNEMONIC);
+					gc.setFont(gcFont);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	protected void drawUnselectedTabItemBackground(int itemIndex, GC gc, Rectangle bounds, int state) {
 		if ((state & SWT.HOT) != 0) {
 			int width = bounds.width;
 			int[] points = new int[1024];
@@ -901,29 +1037,107 @@ public class HackedTabRendering extends CTabFolderRenderer {
 			gc.setBackground(gc.getDevice().getSystemColor(SWT.COLOR_WHITE));
 			int[] tmpPoints = new int[index];
 			System.arraycopy(points, 0, tmpPoints, 0, index);
+
+			// Image hoverImage =
+			// SharedImages.getImage(SharedImages.PART_HOVER);
+			// Rectangle hoverImageBounds = hoverImage.getBounds();
+			// gc.drawImage(hoverImage, 0, 0, hoverImageBounds.width,
+			// hoverImageBounds.height, bounds.x, bounds.y, bounds.width,
+			// bounds.height);
+
+			gc.setAlpha(160);
 			gc.fillPolygon(tmpPoints);
 			Color tempBorder = new Color(gc.getDevice(), 182, 188, 204);
 			gc.setForeground(tempBorder);
+			gc.drawPolygon(tmpPoints);
 			tempBorder.dispose();
-			if (active) {
-				gc.drawPolyline(tmpPoints);
-			} else {
-				gc.drawLine(inactive[0], inactive[1], inactive[2], inactive[3]);
-				gc.drawLine(inactive[4], inactive[5], inactive[6], inactive[7]);
-			}
+			gc.setAlpha(255);
 
 			Rectangle rect = null;
 			gc.setClipping(rect);
 
 			if (outerKeyline == null)
 				outerKeyline = gc.getDevice().getSystemColor(SWT.COLOR_BLACK);
-			// gc.setForeground(outerKeyline);
-			// gc.drawPolyline(shape);
+		}
+	}
+
+	private Integer getCloseImageState(CTabItem item) {
+		try {
+			return (Integer) HACK_CTabItem_closeImageState.get(item);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	private Rectangle getCloseRect(CTabItem item) {
+		try {
+			return (Rectangle) HACK_CTabItem_closeRect.get(item);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	private Integer getCurveIndent() {
+		try {
+			return (Integer) HACK_CTabFolder_curveIndent.get(this);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	private Integer getCurveWidth() {
+		try {
+			return (Integer) HACK_CTabFolder_curveWidth.get(this);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 
 	public Rectangle getPadding() {
 		return new Rectangle(paddingTop, paddingRight, paddingBottom, paddingLeft);
+	}
+
+	private Integer getRightItemEdge(CTabFolder folder, GC gc) {
+		try {
+			return (Integer) HACK_CTabFolder_getRightItemEdge.invoke(folder, gc);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public Color getSelectedTabItemColor() {
+		return selectedTabItemColor;
+	}
+
+	private String getShortenText(CTabItem item) {
+		try {
+			return (String) HACK_CTabItem_shortenText.get(item);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	private Integer getShortenTextWidth(CTabItem item) {
+		try {
+			return (Integer) HACK_CTabItem_shortenTextWidth.get(item);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public Color getUnselectedTabItemColor() {
+		return unselectedTabItemColor;
+	}
+
+	private boolean hasStyle(Widget w, int flag) {
+		return (w.getStyle() & flag) != 0;
 	}
 
 	public void setActive(boolean active) {
@@ -970,6 +1184,10 @@ public class HackedTabRendering extends CTabFolderRenderer {
 		parent.redraw();
 	}
 
+	public void setSelectedTabItemColor(Color selectedTabItemColor) {
+		this.selectedTabItemColor = selectedTabItemColor;
+	}
+
 	public void setShadowColor(Color color) {
 		this.shadowColor = color;
 		createShadow(parent.getDisplay(), true);
@@ -981,8 +1199,33 @@ public class HackedTabRendering extends CTabFolderRenderer {
 		parent.redraw();
 	}
 
+	private void setShortenText(CTabItem item, String shortenText) {
+		try {
+			HACK_CTabItem_shortenText.set(item, shortenText);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void setShortenTextWidth(CTabItem item, int width) {
+		try {
+			HACK_CTabItem_shortenTextWidth.set(item, width);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	public void setTabOutline(Color color) {
 		this.tabOutlineColor = color;
 		parent.redraw();
 	}
+
+	public void setUnselectedTabItemColor(Color unselectedTabItemColor) {
+		this.unselectedTabItemColor = unselectedTabItemColor;
+	}
+
+	protected boolean showUnselectedTabItemShadow() {
+		return true;
+	}
+
 }

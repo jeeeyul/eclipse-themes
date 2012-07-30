@@ -20,4 +20,7 @@ public interface ChromeConstants {
 	public static final String CHOME_PART_CONTAINER_SASH_WIDTH = "chrome-part-container-sash-width";
 	public static final String CHOME_PART_SHADOW = "chrome-part-shadow";
 
+	public static final String CHOME_PART_TAB_ITEM_FONT_NAME = "chrome-part-tab-item-font";
+	public static final String CHOME_PART_TAB_ITEM_FONT_SIZE = "chrome-part-tab-item-font-size";
+	public static final String CHOME_PART_TAB_ITEM_FONT_SHADOW = "chrome-part-tab-item-font-shadow";
 }

@@ -1,10 +1,6 @@
 package net.jeeeyul.eclipse.themes.preference;
 
 import net.jeeeyul.eclipse.themes.ChromeThemeCore;
-import net.jeeeyul.eclipse.themes.decorator.EmptyDecorator;
-import net.jeeeyul.eclipse.themes.decorator.GradientDecorator;
-import net.jeeeyul.eclipse.themes.decorator.ICTabFolderDecorator;
-import net.jeeeyul.eclipse.themes.decorator.InactiveDecorator;
 import net.jeeeyul.eclipse.themes.e4.ActiveThemeTracker;
 
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -19,7 +15,7 @@ import org.eclipse.swt.graphics.RGB;
  * @author Jeeeyul
  * 
  */
-public class ChromeThemeConfig implements IPropertyChangeListener {
+public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeConfig {
 	private static ChromeThemeConfig INSTANCE;
 
 	public static ChromeThemeConfig getInstance() {
@@ -31,10 +27,6 @@ public class ChromeThemeConfig implements IPropertyChangeListener {
 
 	ApplyChromeThemePreferenceJob updateJob = new ApplyChromeThemePreferenceJob();
 
-	ICTabFolderDecorator activeDecorator;
-	ICTabFolderDecorator inactiveDecorator;
-	ICTabFolderDecorator emptyDecorator;
-
 	Integer sashWidth = null;
 
 	Boolean partShadow = null;
@@ -43,27 +35,28 @@ public class ChromeThemeConfig implements IPropertyChangeListener {
 
 	private RGB activePartGradientEnd;
 
-	private ChromeThemeConfig() {
-		ChromeThemeCore.getDefault().getPreferenceStore().addPropertyChangeListener(this);
+	private IPreferenceStore preferenceStore;
+
+	public ChromeThemeConfig() {
+		this(ChromeThemeCore.getDefault().getPreferenceStore());
 	}
 
-	public ICTabFolderDecorator getActiveDecorator() {
-		if (activeDecorator == null) {
-			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
-			float start[] = new float[3];
-			start[0] = store.getFloat(ChromeConstants.CHROME_ACTIVE_START_HUE);
-			start[1] = store.getFloat(ChromeConstants.CHROME_ACTIVE_START_SATURATION);
-			start[2] = store.getFloat(ChromeConstants.CHROME_ACTIVE_START_BRIGHTNESS);
-
-			float end[] = new float[3];
-			end[0] = store.getFloat(ChromeConstants.CHROME_ACTIVE_END_HUE);
-			end[1] = store.getFloat(ChromeConstants.CHROME_ACTIVE_END_SATURATION);
-			end[2] = store.getFloat(ChromeConstants.CHROME_ACTIVE_END_BRIGHTNESS);
-			activeDecorator = new GradientDecorator(start, end);
-		}
-		return activeDecorator;
+	public ChromeThemeConfig(IPreferenceStore preferenceStore) {
+		this.preferenceStore = preferenceStore;
+		preferenceStore.addPropertyChangeListener(this);
 	}
 
+	public void dispose() {
+		preferenceStore.removePropertyChangeListener(this);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see net.jeeeyul.eclipse.themes.preference.IChromeThemeConfig#
+	 * getActivePartGradientEnd()
+	 */
+	@Override
 	public RGB getActivePartGradientEnd() {
 		if (activePartGradientEnd == null) {
 			float start[] = new float[3];
@@ -77,6 +70,13 @@ public class ChromeThemeConfig implements IPropertyChangeListener {
 		return activePartGradientEnd;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see net.jeeeyul.eclipse.themes.preference.IChromeThemeConfig#
+	 * getActivePartGradientStart()
+	 */
+	@Override
 	public RGB getActivePartGradientStart() {
 		if (activePartGradientStart == null) {
 			float start[] = new float[3];
@@ -90,20 +90,13 @@ public class ChromeThemeConfig implements IPropertyChangeListener {
 		return activePartGradientStart;
 	}
 
-	public ICTabFolderDecorator getEmptyDecorator() {
-		if (emptyDecorator == null) {
-			emptyDecorator = new EmptyDecorator();
-		}
-		return emptyDecorator;
-	}
-
-	public ICTabFolderDecorator getInactiveDecorator() {
-		if (inactiveDecorator == null) {
-			inactiveDecorator = new InactiveDecorator();
-		}
-		return inactiveDecorator;
-	}
-
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * net.jeeeyul.eclipse.themes.preference.IChromeThemeConfig#getSashWidth()
+	 */
+	@Override
 	public int getSashWidth() {
 		if (sashWidth == null) {
 			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
@@ -120,10 +113,6 @@ public class ChromeThemeConfig implements IPropertyChangeListener {
 	}
 
 	private void invalidate() {
-		if (activeDecorator != null) {
-			activeDecorator.dispose();
-			activeDecorator = null;
-		}
 		activePartGradientEnd = null;
 		activePartGradientStart = null;
 		sashWidth = null;
@@ -138,6 +127,13 @@ public class ChromeThemeConfig implements IPropertyChangeListener {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * net.jeeeyul.eclipse.themes.preference.IChromeThemeConfig#usePartShadow()
+	 */
+	@Override
 	public boolean usePartShadow() {
 		if (partShadow == null) {
 			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
@@ -149,6 +145,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener {
 			} else {
 				partShadow = true;
 			}
+
 		}
 		return partShadow;
 	}

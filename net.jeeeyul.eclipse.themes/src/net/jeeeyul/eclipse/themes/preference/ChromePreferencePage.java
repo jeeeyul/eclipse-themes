@@ -4,12 +4,14 @@ import net.jeeeyul.eclipse.themes.CSSClasses;
 import net.jeeeyul.eclipse.themes.ChromeThemeCore;
 import net.jeeeyul.eclipse.themes.SharedImages;
 import net.jeeeyul.eclipse.themes.css.RewriteChormeCSS;
-import net.jeeeyul.eclipse.themes.decorator.GradientDecorator;
+import net.jeeeyul.eclipse.themes.rendering.ChromeTabRendering;
+import net.jeeeyul.eclipse.themes.rendering.GradientDecorator;
 import net.jeeeyul.eclipse.themes.ui.HueScale;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.swt.SWT;
@@ -35,7 +37,11 @@ import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.ui.dialogs.PreferencesUtil;
+import org.eclipse.ui.preferences.IWorkingCopyManager;
+import org.eclipse.ui.preferences.ScopedPreferenceStore;
+import org.eclipse.ui.preferences.WorkingCopyManager;
 import org.eclipse.ui.progress.UIJob;
+import org.osgi.service.prefs.BackingStoreException;
 
 /**
  * 6: Colors and Fonts should be customized in runtime!
@@ -63,8 +69,13 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 	private Button standardSashButton;
 	private Button manualSashButton;
 
+	private IWorkingCopyManager workingCopyManager;
+
 	public ChromePreferencePage() {
-		IPreferenceStore store = getStore();
+		String bundleId = ChromeThemeCore.getDefault().getBundle().getSymbolicName();
+		workingCopyManager = new WorkingCopyManager();
+
+		ScopedPreferenceStore store = new ScopedPreferenceStore(new WorkingCopyScopeContext(workingCopyManager, InstanceScope.INSTANCE), bundleId);
 		setPreferenceStore(store);
 
 		float hsbStart[] = new float[3];
@@ -148,6 +159,17 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		toolItem4.setImage(SharedImages.getImage(SharedImages.MAXMIZE));
 	}
 
+	private void createLink(Composite contaienr, String text) {
+		Link link = new Link(contaienr, SWT.NORMAL);
+		link.setText(text);
+		link.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				navigateToOtherPage(e.text);
+			}
+		});
+	}
+
 	private CTabItem createSashTab() {
 		CTabItem item = new CTabItem(folder, SWT.CLOSE);
 		item.setText("Layout");
@@ -171,7 +193,7 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 
 		manualSashButton = new Button(group, SWT.RADIO);
 		manualSashButton.setText("Manual (Advanced)");
-		String preset = getStore().getString(ChromeConstants.CHROME_SASH_PRESET);
+		String preset = getPreferenceStore().getString(ChromeConstants.CHROME_SASH_PRESET);
 		if (ChromeConstants.CHROME_SASH_PRESET_THIN.equals(preset)) {
 			thinSashButton.setSelection(true);
 		} else if (ChromeConstants.CHROME_SASH_PRESET_STANDARD.equals(preset)) {
@@ -211,6 +233,25 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 	public void dispose() {
 		decorator.dispose();
 		super.dispose();
+	}
+
+	private void doUpdate() {
+		@SuppressWarnings("unused")
+		ChromeTabRendering rendering = (ChromeTabRendering) folder.getRenderer();
+
+		float[] start = decorator.getStartHSB();
+		start[0] = startHueScale.getSelection();
+		start[1] = startSaturationScale.getSelection() / 100f;
+		start[2] = startBrightnessScale.getSelection() / 100f;
+		decorator.setStartHSB(start);
+
+		float[] end = decorator.getEndHSB();
+		end[0] = endHueScale.getSelection();
+		end[1] = endSaturationScale.getSelection() / 100f;
+		end[2] = endBrightnessScale.getSelection() / 100f;
+		decorator.setEndHSB(end);
+
+		decorator.apply(folder);
 	}
 
 	private void fillContents(Composite body) {
@@ -276,7 +317,7 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		autoEndColorField = new Button(endGroup, SWT.CHECK);
 		autoEndColorField.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 2, 1));
 		autoEndColorField.setText("Choose Automatically");
-		autoEndColorField.setSelection(getStore().getBoolean("chrome-auto-end-color"));
+		autoEndColorField.setSelection(getPreferenceStore().getBoolean("chrome-auto-end-color"));
 		autoEndColorField.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
@@ -286,7 +327,7 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 
 		lockHueField = new Button(endGroup, SWT.CHECK);
 		lockHueField.setText("Lock Hue");
-		lockHueField.setSelection(getStore().getBoolean("chrome-lock-hue"));
+		lockHueField.setSelection(getPreferenceStore().getBoolean("chrome-lock-hue"));
 		lockHueField.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
@@ -336,10 +377,6 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		updateAuto();
 	}
 
-	private IPreferenceStore getStore() {
-		return ChromeThemeCore.getDefault().getPreferenceStore();
-	}
-
 	private UIJob getUpdateJob() {
 		if (updateJob == null) {
 			updateJob = new UIJob("Update") {
@@ -348,20 +385,7 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 					if (getControl() == null || getControl().isDisposed()) {
 						return Status.OK_STATUS;
 					}
-
-					float[] start = decorator.getStartHSB();
-					start[0] = startHueScale.getSelection();
-					start[1] = startSaturationScale.getSelection() / 100f;
-					start[2] = startBrightnessScale.getSelection() / 100f;
-					decorator.setStartHSB(start);
-
-					float[] end = decorator.getEndHSB();
-					end[0] = endHueScale.getSelection();
-					end[1] = endSaturationScale.getSelection() / 100f;
-					end[2] = endBrightnessScale.getSelection() / 100f;
-					decorator.setEndHSB(end);
-
-					decorator.apply(folder);
+					doUpdate();
 					return Status.OK_STATUS;
 				}
 			};
@@ -383,9 +407,13 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		return lockHueField.getSelection();
 	}
 
+	protected void navigateToOtherPage(String pageId) {
+		PreferencesUtil.createPreferenceDialogOn(getShell(), pageId, null, null);
+	}
+
 	@Override
 	protected void performDefaults() {
-		IPreferenceStore store = getStore();
+		IPreferenceStore store = getPreferenceStore();
 		float[] start = new float[3];
 
 		start[0] = store.getDefaultFloat("chrome-active-start-hue");
@@ -435,7 +463,7 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 
 	@Override
 	public boolean performOk() {
-		IPreferenceStore store = getStore();
+		IPreferenceStore store = getPreferenceStore();
 		float[] start = decorator.getStartHSB();
 		store.setValue("chrome-active-start-hue", start[0]);
 		store.setValue("chrome-active-start-saturation", start[1]);
@@ -460,6 +488,12 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 			store.setValue(ChromeConstants.CHROME_SASH_PRESET, ChromeConstants.CHROME_SASH_PRESET_ADVANCED);
 		}
 
+		try {
+			workingCopyManager.applyChanges();
+		} catch (BackingStoreException e) {
+			e.printStackTrace();
+		}
+
 		new RewriteChormeCSS().rewrite();
 
 		return super.performOk();
@@ -472,21 +506,6 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 	private void updateAdvanced() {
 		sashWidthScale.setEnabled(manualSashButton.getSelection());
 		useShadowField.setEnabled(manualSashButton.getSelection());
-	}
-
-	private void createLink(Composite contaienr, String text) {
-		Link link = new Link(contaienr, SWT.NORMAL);
-		link.setText(text);
-		link.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				navigateToOtherPage(e.text);
-			}
-		});
-	}
-
-	protected void navigateToOtherPage(String pageId) {
-		PreferencesUtil.createPreferenceDialogOn(getShell(), pageId, null, null);
 	}
 
 	protected void updateAuto() {
