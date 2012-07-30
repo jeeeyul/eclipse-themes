@@ -5,7 +5,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.e4.ui.css.swt.theme.IThemeEngine;
 import org.eclipse.swt.custom.CTabFolder;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.progress.UIJob;
 
 /**
