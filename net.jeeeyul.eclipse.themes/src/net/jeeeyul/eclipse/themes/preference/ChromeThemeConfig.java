@@ -17,9 +17,9 @@ import org.eclipse.swt.graphics.RGB;
  * 
  */
 public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeConfig {
-	private static ChromeThemeConfig INSTANCE;
+	private static IChromeThemeConfig INSTANCE;
 
-	public static ChromeThemeConfig getInstance() {
+	public static IChromeThemeConfig getInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new ChromeThemeConfig();
 		}
@@ -93,10 +93,12 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 		return activePartGradientStart;
 	}
 
+	@Override
 	public FontData getPartFontData() {
 		if (partFontData == null) {
-			partFontData = new FontData(preferenceStore.getString(ChromeConstants.CHROME_PART_FONT_NAME));
-			partFontData.height = preferenceStore.getInt(ChromeConstants.CHROME_PART_FONT_SIZE);
+			partFontData = new FontData();
+			partFontData.setName(preferenceStore.getString(ChromeConstants.CHROME_PART_FONT_NAME));
+			partFontData.height = preferenceStore.getFloat(ChromeConstants.CHROME_PART_FONT_SIZE);
 		}
 
 		return partFontData;
@@ -128,6 +130,8 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 		activePartGradientEnd = null;
 		activePartGradientStart = null;
 		sashWidth = null;
+		partShadow = null;
+		partFontData = null;
 		partShadow = null;
 	}
 

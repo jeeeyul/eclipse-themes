@@ -1,6 +1,7 @@
 package net.jeeeyul.eclipse.themes.rendering;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import javax.inject.Inject;
@@ -22,6 +23,7 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.graphics.Region;
+import org.eclipse.swt.graphics.Resource;
 import org.eclipse.swt.graphics.TextLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Widget;
@@ -33,7 +35,9 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 	protected static Field HACK_CTabItem_closeImageState;
 	protected static Field HACK_CTabFolder_curveWidth;
 	protected static Field HACK_CTabFolder_curveIndent;
+
 	protected static Method HACK_CTabFolder_getRightItemEdge;
+	protected static Method HACK_CTabFolder_updateItems;
 
 	static {
 		try {
@@ -57,6 +61,10 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 
 			HACK_CTabFolder_getRightItemEdge = CTabFolder.class.getDeclaredMethod("getRightItemEdge", GC.class);
 			HACK_CTabFolder_getRightItemEdge.setAccessible(true);
+
+			HACK_CTabFolder_updateItems = CTabFolder.class.getDeclaredMethod("updateItems");
+			HACK_CTabFolder_updateItems.setAccessible(true);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -205,6 +213,14 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 	@Inject
 	public HackedCTabRendering(CTabFolder parent) {
 		super(parent);
+	}
+
+	protected void updateItems() {
+		try {
+			HACK_CTabFolder_updateItems.invoke(parent);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	void _drawClose(GC gc, Rectangle closeRect, int closeImageState) {
@@ -669,8 +685,7 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 		}
 		int[] tmpPoints = new int[index];
 		System.arraycopy(points, 0, tmpPoints, 0, index);
-		
-		
+
 		gc.fillPolygon(translate(tmpPoints, 1, 1));
 		gc.drawLine(selectionX1, selectionY1, selectionX2, selectionY2);
 		if (tabOutlineColor == null)

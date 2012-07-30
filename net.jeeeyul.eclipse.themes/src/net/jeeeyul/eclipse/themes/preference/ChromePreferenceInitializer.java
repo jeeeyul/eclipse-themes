@@ -36,7 +36,7 @@ public class ChromePreferenceInitializer extends AbstractPreferenceInitializer {
 		store.setDefault(ChromeConstants.CHROME_SASH_PRESET, ChromeConstants.CHROME_SASH_PRESET_STANDARD);
 
 		store.setDefault(ChromeConstants.CHROME_PART_FONT_NAME, "Segoe UI");
-		store.setDefault(ChromeConstants.CHROME_PART_FONT_SIZE, 9);
+		store.setDefault(ChromeConstants.CHROME_PART_FONT_SIZE, 9f);
 
 		store.setDefault(ChromeConstants.CHROME_PART_FONT_SHADOW, true);
 	}

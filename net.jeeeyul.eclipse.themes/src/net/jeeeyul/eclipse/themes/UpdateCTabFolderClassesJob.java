@@ -5,6 +5,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.e4.ui.css.swt.theme.IThemeEngine;
 import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.progress.UIJob;
 
 /**
@@ -23,7 +24,6 @@ public class UpdateCTabFolderClassesJob extends UIJob {
 
 	@Override
 	public IStatus runInUIThread(IProgressMonitor arg0) {
-
 		if (folder == null || folder.isDisposed()) {
 			return Status.OK_STATUS;
 		}
@@ -33,8 +33,10 @@ public class UpdateCTabFolderClassesJob extends UIJob {
 
 		if (haveToSetEmpty) {
 			classes.add("empty");
+			classes.remove("nonEmpty");
 		} else {
 			classes.remove("empty");
+			classes.add("nonEmpty");
 		}
 
 		CSSClasses.setStyleClasses(folder, classes);

@@ -21,6 +21,8 @@ import org.eclipse.swt.custom.CTabFolderEvent;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -71,6 +73,7 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 	private Button manualSashButton;
 
 	private IWorkingCopyManager workingCopyManager;
+	private Label fontPreviewLabel;
 
 	public ChromePreferencePage() {
 		String bundleId = ChromeThemeCore.getDefault().getBundle().getSymbolicName();
@@ -153,18 +156,70 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		Composite composite = new Composite(folder, SWT.NORMAL);
 		composite.setBackground(folder.getDisplay().getSystemColor(SWT.COLOR_WHITE));
 		composite.setBackgroundMode(SWT.INHERIT_FORCE);
-		composite.setLayout(new GridLayout());
+		composite.setLayout(new GridLayout(3, false));
+
+		new Label(composite, SWT.NORMAL).setText("Part Title Font:");
+		fontPreviewLabel = new Label(composite, SWT.NORMAL);
+		GridData layoutData = new GridData(GridData.FILL_HORIZONTAL);
+		fontPreviewLabel.setLayoutData(layoutData);
 		Button b = new Button(composite, SWT.PUSH);
+		b.setText("Change");
 		b.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
-				FontDialog dialog = new FontDialog(getShell());
-				dialog.open();
+				openFontDialog();
 			}
 		});
 
 		fontItem.setControl(composite);
+
+		updateFontTab();
 	}
+
+	private void updateFontTab() {
+		if (previewFont != null && !previewFont.isDisposed()) {
+			previewFont.dispose();
+		}
+
+		String fontName = getPreferenceStore().getString(ChromeConstants.CHROME_PART_FONT_NAME);
+		float height = getPreferenceStore().getFloat(ChromeConstants.CHROME_PART_FONT_SIZE);
+		FontData fontData = new FontData();
+		fontData.setName(fontName);
+		fontData.height = height;
+
+		fontPreviewLabel.setData(fontData);
+		fontPreviewLabel.setText(fontData.getName() + " " + fontData.height + "px");
+
+		previewFont = new Font(getShell().getDisplay(), fontData);
+		fontPreviewLabel.setFont(previewFont);
+		fontPreviewLabel.getParent().layout(true);
+	}
+
+	private void openFontDialog() {
+		FontDialog dialog = new FontDialog(getShell());
+
+		if (fontPreviewLabel.getData() instanceof FontData) {
+			dialog.setFontList(new FontData[] { (FontData) fontPreviewLabel.getData() });
+		}
+
+		FontData fontData = dialog.open();
+		if (fontData == null) {
+			return;
+		}
+
+		if (previewFont != null && !previewFont.isDisposed()) {
+			previewFont.dispose();
+		}
+		fontPreviewLabel.setData(fontData);
+		fontPreviewLabel.getFont();
+		previewFont = new Font(getShell().getDisplay(), fontData);
+		fontPreviewLabel.setFont(previewFont);
+		fontPreviewLabel.setText(fontData.getName() + " " + fontData.height + "px");
+		fontPreviewLabel.setFont(previewFont);
+		fontPreviewLabel.getParent().layout(true);
+	}
+
+	private Font previewFont;
 
 	private void createFakeToolbar() {
 		ToolBar toolBar = new ToolBar(folder, SWT.NORMAL);
@@ -478,6 +533,23 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 			manualSashButton.setSelection(true);
 		}
 
+		if (previewFont != null && !previewFont.isDisposed()) {
+			previewFont.dispose();
+		}
+
+		String fontName = getPreferenceStore().getDefaultString(ChromeConstants.CHROME_PART_FONT_NAME);
+		float height = getPreferenceStore().getDefaultFloat(ChromeConstants.CHROME_PART_FONT_SIZE);
+		FontData fontData = new FontData();
+		fontData.setName(fontName);
+		fontData.height = height;
+
+		fontPreviewLabel.setData(fontData);
+		fontPreviewLabel.setText(fontData.getName() + " " + fontData.height + "px");
+
+		previewFont = new Font(getShell().getDisplay(), fontData);
+		fontPreviewLabel.setFont(previewFont);
+		fontPreviewLabel.getParent().layout(true);
+
 		updateLock();
 		updateAuto();
 		update();
@@ -509,6 +581,13 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 			store.setValue(ChromeConstants.CHROME_SASH_PRESET, ChromeConstants.CHROME_SASH_PRESET_STANDARD);
 		} else {
 			store.setValue(ChromeConstants.CHROME_SASH_PRESET, ChromeConstants.CHROME_SASH_PRESET_ADVANCED);
+		}
+
+		Object data = fontPreviewLabel.getData();
+		if (data instanceof FontData) {
+			FontData fontData = (FontData) data;
+			store.setValue(ChromeConstants.CHROME_PART_FONT_NAME, fontData.getName());
+			store.setValue(ChromeConstants.CHROME_PART_FONT_SIZE, fontData.height);
 		}
 
 		try {

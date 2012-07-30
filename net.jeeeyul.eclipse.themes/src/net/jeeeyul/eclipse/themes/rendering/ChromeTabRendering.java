@@ -92,19 +92,20 @@ public class ChromeTabRendering extends HackedCTabRendering {
 		return tags.contains("chrome-tabfolder-preview");
 	}
 
-	private CSSClasses updateEmptyClassIfNeeded() {
+	private void updateEmptyClassIfNeeded() {
 		CSSClasses tags = CSSClasses.getStyleClasses(tabFolder);
 		if (tags.contains("EditorStack")) {
 		}
 
-		boolean hasEmptyClass = tags.contains("empty");
 		boolean haveToSetEmpty = tabFolder.getItemCount() == 0;
 
-		if (hasEmptyClass != haveToSetEmpty) {
+		if (haveToSetEmpty && !tags.contains("empty")) {
 			updateTags.schedule();
+			updateItems();
+		} else if (!haveToSetEmpty && !tags.contains("nonEmpty")) {
+			updateTags.schedule();
+			updateItems();
 		}
-
-		return tags;
 	}
 
 	public void applyChromeThemePreference() {

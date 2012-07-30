@@ -26,8 +26,8 @@ class ChromeCSSGenerator {
 		}
 		
 		.MPartStack {
-			font-size: 9;
-			font-family: 'Segoe UI';
+			font-size: «config.partFontData.height»;
+			font-family: '«config.partFontData.name»';
 			swt-simple: true;
 			swt-mru-visible: false;
 			swt-tab-renderer:

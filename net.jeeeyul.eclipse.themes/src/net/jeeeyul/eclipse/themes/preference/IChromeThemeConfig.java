@@ -1,5 +1,6 @@
 package net.jeeeyul.eclipse.themes.preference;
 
+import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.RGB;
 
 public interface IChromeThemeConfig {
@@ -11,7 +12,9 @@ public interface IChromeThemeConfig {
 	int getSashWidth();
 
 	boolean usePartShadow();
-	
+
 	void dispose();
+
+	FontData getPartFontData();
 
 }
