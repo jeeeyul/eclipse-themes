@@ -132,7 +132,7 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		Composite body = new Composite(folder, SWT.NORMAL);
 		body.setBackgroundMode(SWT.INHERIT_FORCE);
 		body.setBackground(folder.getDisplay().getSystemColor(SWT.COLOR_WHITE));
-		body.setLayout(new GridLayout());
+		body.setLayout(new GridLayout(2, true));
 
 		fillActivePartTab(body);
 		item.setControl(body);
@@ -339,7 +339,7 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 	private void fillActivePartTab(Composite body) {
 		Group startGroup = new Group(body, SWT.NORMAL);
 		startGroup.setText("Start Color");
-		startGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		startGroup.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1));
 		startGroup.setLayout(new GridLayout(2, false));
 
 		new org.eclipse.swt.widgets.Label(startGroup, SWT.NORMAL).setText("Hue:");
@@ -411,7 +411,7 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 
 		Group endGroup = new Group(body, SWT.NORMAL);
 		endGroup.setText("End Color");
-		endGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		endGroup.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1));
 		endGroup.setLayout(new GridLayout(2, false));
 
 		autoEndColorField = new Button(endGroup, SWT.CHECK);
@@ -475,7 +475,7 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 
 		Group outlineGroup = new Group(body, SWT.NORMAL);
 		outlineGroup.setText("Outline");
-		outlineGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		outlineGroup.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 2, 1));
 		outlineGroup.setLayout(new GridLayout(2, false));
 
 		autoOutlineColorField = new Button(outlineGroup, SWT.CHECK);
