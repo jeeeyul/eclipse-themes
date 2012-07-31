@@ -310,6 +310,9 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 	@Override
 	public void dispose() {
 		decorator.dispose();
+		if (previewFont != null && !previewFont.isDisposed()) {
+			previewFont.dispose();
+		}
 		super.dispose();
 	}
 

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Themes
 Bundle-SymbolicName: net.jeeeyul.eclipse.themes;singleton:=true
-Bundle-Version: 1.1.0.qualifier
+Bundle-Version: 1.2.0.qualifier
 Bundle-Activator: net.jeeeyul.eclipse.themes.ChromeThemeCore
 Bundle-Vendor: Jeeeyul
 Require-Bundle: org.eclipse.ui,
@@ -29,4 +29,3 @@ Bundle-ClassPath: lib/aopalliance.jar,
  lib/org.eclipse.xtend2.lib_2.4.0.v201207240245.jar,
  lib/org.eclipse.xtext.xbase.lib_2.4.0.v201207240245.jar,
  .
-

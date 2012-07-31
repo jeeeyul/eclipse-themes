@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="project" default="default">
+	<taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask" classpath="ant-lib/xmltask.jar" />
+	<taskdef name="updateVersion" classname="net.jeeeyul.eclipse.themes.build.task.UpdateVersionTask" classpath="bin" />
+
 	<property name="build" location="${basedir}/build" />
 	<property name="repository-name" value="Eclipse Themes from Jeeeyul" />
 	<property file="keystore.properties" />
+	<property name="feature-id" value="net.jeeeyul.eclipse.themes.feature" />
+	<property name="version" value="1.2.0" />
 
-	<target name="default" description="description" depends="clean">
+	<target name="default" description="description" depends="clean, init">
 		<eclipse.buildScript elements="feature@net.jeeeyul.eclipse.themes.feature" baselocation="${eclipse.home}" builddirectory="${basedir}/../" />
 		<antcall target="executeBuildScripts" />
 		<antcall target="remove-generated-script" />
@@ -76,5 +81,14 @@
 		</delete>
 	</target>
 
+	<target name="init">
+		<updateVersion feature="net.jeeeyul.eclipse.themes.feature" version="${version}" />
+
+		<echo>카테고리 버전 수정중: ${version}</echo>
+		<xmltask source="${basedir}/category.xml" dest="${basedir}/category.xml" encoding="UTF-8">
+			<replace path="site/feature[@id='${feature-id}']/@version" withText="${version}.qualifier" />
+		</xmltask>
+		<eclipse.refreshLocal depth="infinite" resource="/" />
+	</target>
 </project>
 

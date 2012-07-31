@@ -19,14 +19,14 @@ class ChromeCSSGenerator {
 		}
 		
 		.MTrimmedWindow.topLevel {
-			margin-top: «config.sashWidth + if(config.usePartShadow) 3 else 0»
+			margin-top: «config.sashWidth + if(config.usePartShadow) 3 else 0»px;
 			margin-bottom: 2px;
 			margin-left: 2px;
 			margin-right: 2px;
 		}
 		
 		.MPartStack {
-			font-size: «config.partFontData.height»;
+			font-size: «config.partFontData.height as int»;
 			font-family: '«config.partFontData.name»';
 			swt-simple: true;
 			swt-mru-visible: false;
