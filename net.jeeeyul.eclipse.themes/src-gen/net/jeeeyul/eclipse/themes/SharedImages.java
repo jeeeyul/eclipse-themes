@@ -36,7 +36,7 @@ public class SharedImages{
 	public static final String CLOSE_ACTIVE = "icons/close-active.png";
 	
 	/**
-	 * <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwAAADsABataJCQAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTAw9HKhAAAAZ0lEQVQoU2NgIAXs2LEjEYivA7EGTB+IDcTXgDgDbhZU0SwQjaQQpBEk1oesEKQbJAhWjKQRxIfbgqwBphhM43Q+kqnYFUIdDnMTsqkoHmRAdhOSZ+BuRnZbAdRa5OCRhIpFkxLUDAD2iIKAntNhNwAAAABJRU5ErkJggg==">
+	 * <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOvwAADr8BOAVTJAAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTAw9HKhAAAAZ0lEQVQoU2NgIAVUVlYmAvF1INaA6QOxgfgaEGfAzYIqmgWikRSCNILE+pAVgnSDBMGKkTSC+HBbkDXAFINpnM5HMhW7QqjDYW5CNhXFgwzIbkLyDNzNyG4rgFqLHDySULFoUoKaAQCCfF8Q7f0kfgAAAABJRU5ErkJggg==">
 	 * Image constant for icons/close-normal.png
 	 */
 	public static final String CLOSE_NORMAL = "icons/close-normal.png";
