@@ -47,8 +47,8 @@ class ChromeCSSGenerator {
 		
 		.MPartStack.active {
 			swt-inner-keyline-color: #FFFFFF;
-			swt-tab-outline: #B6BCCC;
-			swt-outer-keyline-color: #999;
+			swt-tab-outline: «config.activeOulineColor.toHtmlColor»;
+			swt-outer-keyline-color: «config.activeOulineColor.toHtmlColor»;
 			swt-unselected-tabs-color: «config.activePartGradientStart.toHtmlColor» «config.activePartGradientEnd.toHtmlColor» white 99% 100%;
 		}
 		
@@ -71,7 +71,7 @@ class ChromeCSSGenerator {
 		}
 		
 		.MTrimBar#org-eclipse-ui-main-toolbar {
-			background-color: #ddd #eee;
+			background-color: #eee #ddd;
 		}
 		
 		.MToolControl.TrimStack {
@@ -106,6 +106,6 @@ class ChromeCSSGenerator {
 	'''
 
 	def private String toHtmlColor(RGB rgb){
-		return String::format("#%2x%2x%2x", rgb.red, rgb.green, rgb.blue)
+		return String::format("#%02x%02x%02x", rgb.red, rgb.green, rgb.blue)
 	}
 }

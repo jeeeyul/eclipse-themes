@@ -19,4 +19,6 @@ public interface IChromeThemeConfig {
 
 	Boolean usePartTextShadow();
 
+	RGB getActiveOulineColor();
+
 }

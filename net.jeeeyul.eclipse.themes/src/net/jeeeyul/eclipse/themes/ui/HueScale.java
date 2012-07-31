@@ -44,6 +44,12 @@ public class HueScale extends Canvas {
 			}
 		}
 	}
+	
+	@Override
+	public void setEnabled(boolean enabled) {
+		super.setEnabled(enabled);
+		redraw();
+	}
 
 	private Image hueImage;
 	private float selection;

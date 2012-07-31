@@ -21,8 +21,10 @@ import org.eclipse.swt.custom.CTabFolderEvent;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
+import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -63,7 +65,7 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 	private HueScale endHueScale;
 	private Scale endSaturationScale;
 	private Scale endBrightnessScale;
-	private Button lockHueField;
+	private Button lockEndHueField;
 	private Button autoEndColorField;
 	private Scale sashWidthScale;
 	private Button useShadowField;
@@ -74,6 +76,22 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 
 	private IWorkingCopyManager workingCopyManager;
 	private Label fontPreviewLabel;
+
+	private Color outlineColor;
+
+	private Font previewFont;
+
+	private Button usePartTextShadowButton;
+
+	private HueScale outlineHueScale;
+
+	private Scale outlineSaturationScale;
+
+	private Scale outlineBrightnessScale;
+
+	private Button autoOutlineColorField;
+
+	private Button lockOutlineHueField;
 
 	public ChromePreferencePage() {
 		String bundleId = ChromeThemeCore.getDefault().getBundle().getSymbolicName();
@@ -102,7 +120,13 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		endBrightnessScale.setSelection((int) (startBrightnessScale.getSelection() * 0.95));
 	}
 
-	private CTabItem createColorTab() {
+	protected void computeOutlineColor() {
+		outlineHueScale.setSelection(startHueScale.getSelection());
+		outlineSaturationScale.setSelection(Math.min((int) (startSaturationScale.getSelection() * 3), 100));
+		outlineBrightnessScale.setSelection((int) (startBrightnessScale.getSelection() * 0.7));
+	}
+
+	private CTabItem createActivePartTab() {
 		CTabItem item = new CTabItem(folder, SWT.CLOSE);
 		item.setImage(SharedImages.getImage(SharedImages.PALETTE));
 		Composite body = new Composite(folder, SWT.NORMAL);
@@ -110,7 +134,7 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		body.setBackground(folder.getDisplay().getSystemColor(SWT.COLOR_WHITE));
 		body.setLayout(new GridLayout());
 
-		fillContents(body);
+		fillActivePartTab(body);
 		item.setControl(body);
 		item.setText("Active Gradient");
 		return item;
@@ -135,7 +159,7 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		tags.add("chrome-tabfolder-preview");
 		CSSClasses.setStyleClasses(folder, tags);
 
-		CTabItem colorTab = createColorTab();
+		CTabItem colorTab = createActivePartTab();
 		createSashTab();
 		createTitleTab();
 
@@ -145,91 +169,9 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 
 		createLink(composite, "Only works with Chrome Theme, You can change on <a href=\"org.eclipse.ui.preferencePages.Views\">Appearance page</a>");
 
+		getUpdateJob().schedule(100);
 		return composite;
 	}
-
-	private void createTitleTab() {
-		CTabItem fontItem = new CTabItem(folder, SWT.CLOSE);
-		fontItem.setText("Title");
-		fontItem.setImage(SharedImages.getImage(SharedImages.FONT));
-
-		Composite composite = new Composite(folder, SWT.NORMAL);
-		composite.setBackground(folder.getDisplay().getSystemColor(SWT.COLOR_WHITE));
-		composite.setBackgroundMode(SWT.INHERIT_FORCE);
-		composite.setLayout(new GridLayout(3, false));
-
-		new Label(composite, SWT.NORMAL).setText("Part Title Font:");
-		fontPreviewLabel = new Label(composite, SWT.NORMAL);
-		GridData layoutData = new GridData(GridData.FILL_HORIZONTAL);
-		fontPreviewLabel.setLayoutData(layoutData);
-		Button changeFontButton = new Button(composite, SWT.PUSH);
-		changeFontButton.setText("Change");
-		changeFontButton.addListener(SWT.Selection, new Listener() {
-			@Override
-			public void handleEvent(Event event) {
-				openFontDialog();
-			}
-		});
-		fontItem.setControl(composite);
-
-		/*
-		 * 17: Shiny Shadow in unselected tab items should be customized
-		 * https://github.com/jeeeyul/eclipse-themes/issues/issue/17
-		 */
-		usePartTextShadowButton = new Button(composite, SWT.CHECK);
-		usePartTextShadowButton.setText("Cast shiny shadows for unselected tabs");
-		usePartTextShadowButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 3, 1));
-
-		updateFontTab();
-	}
-
-	private void updateFontTab() {
-		if (previewFont != null && !previewFont.isDisposed()) {
-			previewFont.dispose();
-		}
-
-		String fontName = getPreferenceStore().getString(ChromeConstants.CHROME_PART_FONT_NAME);
-		float height = getPreferenceStore().getFloat(ChromeConstants.CHROME_PART_FONT_SIZE);
-		FontData fontData = new FontData();
-		fontData.setName(fontName);
-		fontData.height = height;
-
-		fontPreviewLabel.setData(fontData);
-		fontPreviewLabel.setText(fontData.getName() + " " + fontData.height + "px");
-
-		previewFont = new Font(getShell().getDisplay(), fontData);
-		fontPreviewLabel.setFont(previewFont);
-		fontPreviewLabel.getParent().layout(true);
-
-		usePartTextShadowButton.setSelection(getPreferenceStore().getBoolean(ChromeConstants.CHROME_PART_FONT_SHADOW));
-	}
-
-	private void openFontDialog() {
-		FontDialog dialog = new FontDialog(getShell());
-
-		if (fontPreviewLabel.getData() instanceof FontData) {
-			dialog.setFontList(new FontData[] { (FontData) fontPreviewLabel.getData() });
-		}
-
-		FontData fontData = dialog.open();
-		if (fontData == null) {
-			return;
-		}
-
-		if (previewFont != null && !previewFont.isDisposed()) {
-			previewFont.dispose();
-		}
-		fontPreviewLabel.setData(fontData);
-		fontPreviewLabel.getFont();
-		previewFont = new Font(getShell().getDisplay(), fontData);
-		fontPreviewLabel.setFont(previewFont);
-		fontPreviewLabel.setText(fontData.getName() + " " + fontData.height + "px");
-		fontPreviewLabel.setFont(previewFont);
-		fontPreviewLabel.getParent().layout(true);
-	}
-
-	private Font previewFont;
-	private Button usePartTextShadowButton;
 
 	private void createFakeToolbar() {
 		ToolBar toolBar = new ToolBar(folder, SWT.NORMAL);
@@ -317,9 +259,47 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		return item;
 	}
 
+	private void createTitleTab() {
+		CTabItem fontItem = new CTabItem(folder, SWT.CLOSE);
+		fontItem.setText("Title");
+		fontItem.setImage(SharedImages.getImage(SharedImages.FONT));
+
+		Composite composite = new Composite(folder, SWT.NORMAL);
+		composite.setBackground(folder.getDisplay().getSystemColor(SWT.COLOR_WHITE));
+		composite.setBackgroundMode(SWT.INHERIT_FORCE);
+		composite.setLayout(new GridLayout(3, false));
+
+		new Label(composite, SWT.NORMAL).setText("Part Title Font:");
+		fontPreviewLabel = new Label(composite, SWT.NORMAL);
+		GridData layoutData = new GridData(GridData.FILL_HORIZONTAL);
+		fontPreviewLabel.setLayoutData(layoutData);
+		Button changeFontButton = new Button(composite, SWT.PUSH);
+		changeFontButton.setText("Change");
+		changeFontButton.addListener(SWT.Selection, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				openFontDialog();
+			}
+		});
+		fontItem.setControl(composite);
+
+		/*
+		 * 17: Shiny Shadow in unselected tab items should be customized
+		 * https://github.com/jeeeyul/eclipse-themes/issues/issue/17
+		 */
+		usePartTextShadowButton = new Button(composite, SWT.CHECK);
+		usePartTextShadowButton.setText("Cast shiny shadows for unselected tabs");
+		usePartTextShadowButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 3, 1));
+
+		updateFontTab();
+	}
+
 	@Override
 	public void dispose() {
 		decorator.dispose();
+		if (outlineColor != null && !outlineColor.isDisposed()) {
+			outlineColor.dispose();
+		}
 		if (previewFont != null && !previewFont.isDisposed()) {
 			previewFont.dispose();
 		}
@@ -327,7 +307,6 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 	}
 
 	private void doUpdate() {
-		@SuppressWarnings("unused")
 		ChromeTabRendering rendering = (ChromeTabRendering) folder.getRenderer();
 
 		float[] start = decorator.getStartHSB();
@@ -342,10 +321,22 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		end[2] = endBrightnessScale.getSelection() / 100f;
 		decorator.setEndHSB(end);
 
+		if (outlineColor != null && !outlineColor.isDisposed()) {
+			outlineColor.dispose();
+		}
+		float[] out = decorator.getEndHSB();
+		out[0] = outlineHueScale.getSelection();
+		out[1] = outlineSaturationScale.getSelection() / 100f;
+		out[2] = outlineBrightnessScale.getSelection() / 100f;
+		outlineColor = new Color(getShell().getDisplay(), new RGB(out[0], out[1], out[2]));
+
+		rendering.setTabOutline(outlineColor);
+		rendering.setOuterKeyline(outlineColor);
+
 		decorator.apply(folder);
 	}
 
-	private void fillContents(Composite body) {
+	private void fillActivePartTab(Composite body) {
 		Group startGroup = new Group(body, SWT.NORMAL);
 		startGroup.setText("Start Color");
 		startGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -360,8 +351,18 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 			public void handleEvent(Event event) {
 				if (isAutomaticEndColor()) {
 					computeEndColor();
-				} else if (isHueSynchronized()) {
+				}
+
+				else if (isEndHueSynchronized()) {
 					endHueScale.setSelection(startHueScale.getSelection());
+				}
+
+				if (autoOutlineColorField.getSelection()) {
+					computeOutlineColor();
+				}
+
+				else if (lockOutlineHueField.getSelection()) {
+					outlineHueScale.setSelection(startHueScale.getSelection());
 				}
 
 				update();
@@ -380,6 +381,10 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 				if (isAutomaticEndColor()) {
 					computeEndColor();
 				}
+				
+				if (autoOutlineColorField.getSelection()) {
+					computeOutlineColor();
+				}
 				update();
 			}
 		});
@@ -396,6 +401,10 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 				if (isAutomaticEndColor()) {
 					computeEndColor();
 				}
+				
+				if (autoOutlineColorField.getSelection()) {
+					computeOutlineColor();
+				}
 				update();
 			}
 		});
@@ -408,7 +417,7 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		autoEndColorField = new Button(endGroup, SWT.CHECK);
 		autoEndColorField.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 2, 1));
 		autoEndColorField.setText("Choose Automatically");
-		autoEndColorField.setSelection(getPreferenceStore().getBoolean("chrome-auto-end-color"));
+		autoEndColorField.setSelection(getPreferenceStore().getBoolean(ChromeConstants.CHROME_AUTO_END_COLOR));
 		autoEndColorField.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
@@ -416,16 +425,16 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 			}
 		});
 
-		lockHueField = new Button(endGroup, SWT.CHECK);
-		lockHueField.setText("Lock Hue");
-		lockHueField.setSelection(getPreferenceStore().getBoolean("chrome-lock-hue"));
-		lockHueField.addListener(SWT.Selection, new Listener() {
+		lockEndHueField = new Button(endGroup, SWT.CHECK);
+		lockEndHueField.setText("Lock Hue");
+		lockEndHueField.setSelection(getPreferenceStore().getBoolean(ChromeConstants.CHROME_LOCK_END_HUE));
+		lockEndHueField.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
 				updateLock();
 			}
 		});
-		lockHueField.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 2, 1));
+		lockEndHueField.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 2, 1));
 
 		new org.eclipse.swt.widgets.Label(endGroup, SWT.NORMAL).setText("Hue:");
 		endHueScale = new HueScale(endGroup, SWT.NORMAL);
@@ -464,6 +473,70 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 			}
 		});
 
+		Group outlineGroup = new Group(body, SWT.NORMAL);
+		outlineGroup.setText("Outline");
+		outlineGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		outlineGroup.setLayout(new GridLayout(2, false));
+
+		autoOutlineColorField = new Button(outlineGroup, SWT.CHECK);
+		autoOutlineColorField.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 2, 1));
+		autoOutlineColorField.setText("Choose Automatically");
+		autoOutlineColorField.setSelection(getPreferenceStore().getBoolean(ChromeConstants.CHROME_AUTO_OUTLINE_COLOR));
+		autoOutlineColorField.addListener(SWT.Selection, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				updateAuto();
+			}
+		});
+
+		lockOutlineHueField = new Button(outlineGroup, SWT.CHECK);
+		lockOutlineHueField.setText("Lock Hue");
+		lockOutlineHueField.setSelection(getPreferenceStore().getBoolean(ChromeConstants.CHROME_LOCK_OUTLINE_HUE));
+		lockOutlineHueField.addListener(SWT.Selection, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				updateLock();
+			}
+		});
+		lockOutlineHueField.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 2, 1));
+
+		new org.eclipse.swt.widgets.Label(outlineGroup, SWT.NORMAL).setText("Hue:");
+		outlineHueScale = new HueScale(outlineGroup, SWT.NORMAL);
+		outlineHueScale.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		outlineHueScale.setSelection(getPreferenceStore().getFloat(ChromeConstants.CHROME_ACTIVE_OUTLINE_HUE));
+		outlineHueScale.addListener(SWT.Selection, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				update();
+			}
+		});
+
+		new org.eclipse.swt.widgets.Label(outlineGroup, SWT.NORMAL).setText("Saturation:");
+		outlineSaturationScale = new Scale(outlineGroup, SWT.NORMAL);
+		outlineSaturationScale.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		outlineSaturationScale.setMinimum(0);
+		outlineSaturationScale.setMaximum(100);
+		outlineSaturationScale.setSelection((int) (getPreferenceStore().getFloat(ChromeConstants.CHROME_ACTIVE_OUTLINE_SATURATION) * 100));
+		outlineSaturationScale.addListener(SWT.Selection, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				update();
+			}
+		});
+
+		new org.eclipse.swt.widgets.Label(outlineGroup, SWT.NORMAL).setText("Brightness:");
+		outlineBrightnessScale = new Scale(outlineGroup, SWT.NORMAL);
+		outlineBrightnessScale.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		outlineBrightnessScale.setMinimum(0);
+		outlineBrightnessScale.setMaximum(100);
+		outlineBrightnessScale.setSelection((int) (getPreferenceStore().getFloat(ChromeConstants.CHROME_ACTIVE_OUTLINE_BRIGHTNESS) * 100));
+		outlineBrightnessScale.addListener(SWT.Selection, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				update();
+			}
+		});
+
 		updateLock();
 		updateAuto();
 	}
@@ -494,12 +567,36 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		return autoEndColorField.getSelection();
 	}
 
-	private boolean isHueSynchronized() {
-		return lockHueField.getSelection();
+	private boolean isEndHueSynchronized() {
+		return lockEndHueField.getSelection();
 	}
 
 	protected void navigateToOtherPage(String pageId) {
 		PreferencesUtil.createPreferenceDialogOn(getShell(), pageId, null, null);
+	}
+
+	private void openFontDialog() {
+		FontDialog dialog = new FontDialog(getShell());
+
+		if (fontPreviewLabel.getData() instanceof FontData) {
+			dialog.setFontList(new FontData[] { (FontData) fontPreviewLabel.getData() });
+		}
+
+		FontData fontData = dialog.open();
+		if (fontData == null) {
+			return;
+		}
+
+		if (previewFont != null && !previewFont.isDisposed()) {
+			previewFont.dispose();
+		}
+		fontPreviewLabel.setData(fontData);
+		fontPreviewLabel.getFont();
+		previewFont = new Font(getShell().getDisplay(), fontData);
+		fontPreviewLabel.setFont(previewFont);
+		fontPreviewLabel.setText(fontData.getName() + " " + fontData.height + "px");
+		fontPreviewLabel.setFont(previewFont);
+		fontPreviewLabel.getParent().layout(true);
 	}
 
 	@Override
@@ -527,8 +624,15 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		endSaturationScale.setSelection((int) (end[1] * 100));
 		endBrightnessScale.setSelection((int) (end[2] * 100));
 
-		autoEndColorField.setSelection(store.getDefaultBoolean("chrome-auto-end-color"));
-		lockHueField.setSelection(store.getDefaultBoolean("chrome-lock-hue"));
+		autoEndColorField.setSelection(store.getDefaultBoolean(ChromeConstants.CHROME_AUTO_END_COLOR));
+		lockEndHueField.setSelection(store.getDefaultBoolean(ChromeConstants.CHROME_LOCK_END_HUE));
+
+		outlineHueScale.setSelection((int) getPreferenceStore().getDefaultFloat(ChromeConstants.CHROME_ACTIVE_OUTLINE_HUE));
+		outlineSaturationScale.setSelection((int) (getPreferenceStore().getDefaultFloat(ChromeConstants.CHROME_ACTIVE_OUTLINE_SATURATION) * 100));
+		outlineBrightnessScale.setSelection((int) (getPreferenceStore().getDefaultFloat(ChromeConstants.CHROME_ACTIVE_OUTLINE_BRIGHTNESS) * 100));
+
+		autoOutlineColorField.setSelection(store.getDefaultBoolean(ChromeConstants.CHROME_AUTO_OUTLINE_COLOR));
+		lockOutlineHueField.setSelection(store.getDefaultBoolean(ChromeConstants.CHROME_LOCK_OUTLINE_HUE));
 
 		sashWidthScale.setSelection(store.getDefaultInt(ChromeConstants.CRHOME_PART_CONTAINER_SASH_WIDTH));
 		useShadowField.setSelection(store.getDefaultBoolean(ChromeConstants.CRHOME_PART_SHADOW));
@@ -584,8 +688,15 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		store.setValue("chrome-active-end-saturation", end[1]);
 		store.setValue("chrome-active-end-brightness", end[2]);
 
-		store.setValue("chrome-auto-end-color", autoEndColorField.getSelection());
-		store.setValue("chrome-lock-hue", lockHueField.getSelection());
+		store.setValue(ChromeConstants.CHROME_AUTO_END_COLOR, autoEndColorField.getSelection());
+		store.setValue(ChromeConstants.CHROME_LOCK_END_HUE, lockEndHueField.getSelection());
+
+		store.setValue(ChromeConstants.CHROME_ACTIVE_OUTLINE_HUE, (float) outlineHueScale.getSelection());
+		store.setValue(ChromeConstants.CHROME_ACTIVE_OUTLINE_SATURATION, outlineSaturationScale.getSelection() / 100f);
+		store.setValue(ChromeConstants.CHROME_ACTIVE_OUTLINE_BRIGHTNESS, outlineBrightnessScale.getSelection() / 100f);
+
+		store.setValue(ChromeConstants.CHROME_AUTO_OUTLINE_COLOR, autoOutlineColorField.getSelection());
+		store.setValue(ChromeConstants.CHROME_LOCK_OUTLINE_HUE, lockOutlineHueField.getSelection());
 
 		store.setValue(ChromeConstants.CRHOME_PART_CONTAINER_SASH_WIDTH, sashWidthScale.getSelection());
 		store.setValue(ChromeConstants.CRHOME_PART_SHADOW, useShadowField.getSelection());
@@ -629,22 +740,64 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 
 	protected void updateAuto() {
 		boolean isAutomaticEndColor = isAutomaticEndColor();
-		lockHueField.setEnabled(!isAutomaticEndColor);
+		lockEndHueField.setEnabled(!isAutomaticEndColor);
 		endBrightnessScale.setEnabled(!isAutomaticEndColor);
 		endHueScale.setEnabled(!isAutomaticEndColor);
 		endSaturationScale.setEnabled(!isAutomaticEndColor);
+
 		if (isAutomaticEndColor) {
 			computeEndColor();
 			update();
 		}
+
+		boolean isAutomaticOutlineColor = autoOutlineColorField.getSelection();
+
+		lockOutlineHueField.setEnabled(!isAutomaticOutlineColor);
+		outlineBrightnessScale.setEnabled(!isAutomaticOutlineColor);
+		outlineHueScale.setEnabled(!isAutomaticOutlineColor);
+		outlineSaturationScale.setEnabled(!isAutomaticOutlineColor);
+		if (isAutomaticOutlineColor) {
+			computeOutlineColor();
+			update();
+		}
+
+		updateLock();
+	}
+
+	private void updateFontTab() {
+		if (previewFont != null && !previewFont.isDisposed()) {
+			previewFont.dispose();
+		}
+
+		String fontName = getPreferenceStore().getString(ChromeConstants.CHROME_PART_FONT_NAME);
+		float height = getPreferenceStore().getFloat(ChromeConstants.CHROME_PART_FONT_SIZE);
+		FontData fontData = new FontData();
+		fontData.setName(fontName);
+		fontData.height = height;
+
+		fontPreviewLabel.setData(fontData);
+		fontPreviewLabel.setText(fontData.getName() + " " + fontData.height + "px");
+
+		previewFont = new Font(getShell().getDisplay(), fontData);
+		fontPreviewLabel.setFont(previewFont);
+		fontPreviewLabel.getParent().layout(true);
+
+		usePartTextShadowButton.setSelection(getPreferenceStore().getBoolean(ChromeConstants.CHROME_PART_FONT_SHADOW));
 	}
 
 	protected void updateLock() {
-		if (isHueSynchronized()) {
+		if (isEndHueSynchronized()) {
 			endHueScale.setEnabled(false);
 			endHueScale.setSelection(startHueScale.getSelection());
 		} else {
 			endHueScale.setEnabled(true);
+		}
+
+		if (lockOutlineHueField.getSelection()) {
+			outlineHueScale.setEnabled(false);
+			outlineHueScale.setSelection(startHueScale.getSelection());
+		} else {
+			outlineHueScale.setEnabled(true);
 		}
 
 		update();

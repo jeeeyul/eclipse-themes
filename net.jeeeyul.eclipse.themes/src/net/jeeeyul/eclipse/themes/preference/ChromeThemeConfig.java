@@ -38,6 +38,8 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 
 	private RGB activePartGradientEnd;
 
+	private RGB activeOulineColor;
+
 	private IPreferenceStore preferenceStore;
 
 	private FontData partFontData;
@@ -53,6 +55,18 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 
 	public void dispose() {
 		preferenceStore.removePropertyChangeListener(this);
+	}
+
+	public RGB getActiveOulineColor() {
+		if (activeOulineColor == null) {
+			float outline[] = new float[3];
+			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			outline[0] = store.getFloat(ChromeConstants.CHROME_ACTIVE_OUTLINE_HUE);
+			outline[1] = store.getFloat(ChromeConstants.CHROME_ACTIVE_OUTLINE_SATURATION);
+			outline[2] = store.getFloat(ChromeConstants.CHROME_ACTIVE_OUTLINE_BRIGHTNESS);
+			activeOulineColor = new RGB(outline[0], outline[1], outline[2]);
+		}
+		return activeOulineColor;
 	}
 
 	/*
@@ -136,6 +150,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 		partFontData = null;
 		partShadow = null;
 		partTextShadow = null;
+		activeOulineColor = null;
 	}
 
 	@Override

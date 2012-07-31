@@ -24,12 +24,19 @@ public class ChromePreferenceInitializer extends AbstractPreferenceInitializer {
 		store.setDefault(ChromeConstants.CHROME_ACTIVE_START_SATURATION, .10f);
 		store.setDefault(ChromeConstants.CHROME_ACTIVE_START_BRIGHTNESS, .97f);
 
-		store.setDefault(ChromeConstants.CHROME_ACTIVE_END_HUE, 222f);
-		store.setDefault(ChromeConstants.CHROME_ACTIVE_END_SATURATION, .15f);
-		store.setDefault(ChromeConstants.CHROME_ACTIVE_END_BRIGHTNESS, .96f);
+		store.setDefault(ChromeConstants.CHROME_ACTIVE_END_HUE, 221f);
+		store.setDefault(ChromeConstants.CHROME_ACTIVE_END_SATURATION, .11f);
+		store.setDefault(ChromeConstants.CHROME_ACTIVE_END_BRIGHTNESS, .92f);
+
+		store.setDefault(ChromeConstants.CHROME_ACTIVE_OUTLINE_HUE, 221f);
+		store.setDefault(ChromeConstants.CHROME_ACTIVE_OUTLINE_SATURATION, .3f);
+		store.setDefault(ChromeConstants.CHROME_ACTIVE_OUTLINE_BRIGHTNESS, .67f);
 
 		store.setDefault(ChromeConstants.CHROME_AUTO_END_COLOR, true);
-		store.setDefault(ChromeConstants.CHROME_LOCK_HUE, true);
+		store.setDefault(ChromeConstants.CHROME_LOCK_END_HUE, true);
+
+		store.setDefault(ChromeConstants.CHROME_AUTO_OUTLINE_COLOR, true);
+		store.setDefault(ChromeConstants.CHROME_LOCK_OUTLINE_HUE, true);
 
 		store.setDefault(ChromeConstants.CRHOME_PART_CONTAINER_SASH_WIDTH, 4);
 		store.setDefault(ChromeConstants.CRHOME_PART_SHADOW, true);
