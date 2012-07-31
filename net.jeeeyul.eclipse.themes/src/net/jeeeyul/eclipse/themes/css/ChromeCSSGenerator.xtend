@@ -77,7 +77,6 @@ class ChromeCSSGenerator {
 		.MToolControl.TrimStack {
 			frame-image: url("./jeeeyul-TSFrame.png");
 			handle-image: url("./jeeeyul-Handle.png");
-			background-color: red;
 		}
 		
 		#PerspectiveSwitcher {
