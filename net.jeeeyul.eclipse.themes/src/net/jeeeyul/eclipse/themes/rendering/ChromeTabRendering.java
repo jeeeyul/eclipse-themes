@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 public class ChromeTabRendering extends HackedCTabRendering {
-	private IChromeThemeConfig preference = ChromeThemeConfig.getInstance();
+	private IChromeThemeConfig config = ChromeThemeConfig.getInstance();
 
 	private CTabFolder tabFolder;
 	private int lastKnownTabHeight = -1;
@@ -59,6 +59,11 @@ public class ChromeTabRendering extends HackedCTabRendering {
 	}
 
 	@Override
+	protected boolean showUnselectedTabItemShadow() {
+		return config.usePartTextShadow();
+	}
+
+	@Override
 	protected void draw(int part, int state, Rectangle bounds, GC gc) {
 		updateEmptyClassIfNeeded();
 
@@ -84,7 +89,7 @@ public class ChromeTabRendering extends HackedCTabRendering {
 	}
 
 	protected IChromeThemeConfig getPreference() {
-		return preference;
+		return config;
 	}
 
 	private boolean isPreviewingTab() {

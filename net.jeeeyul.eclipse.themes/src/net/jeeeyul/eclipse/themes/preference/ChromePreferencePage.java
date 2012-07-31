@@ -137,7 +137,7 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 
 		CTabItem colorTab = createColorTab();
 		createSashTab();
-		createFontTab();
+		createTitleTab();
 
 		folder.setSelection(colorTab);
 
@@ -148,9 +148,9 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		return composite;
 	}
 
-	private void createFontTab() {
+	private void createTitleTab() {
 		CTabItem fontItem = new CTabItem(folder, SWT.CLOSE);
-		fontItem.setText("Font");
+		fontItem.setText("Title");
 		fontItem.setImage(SharedImages.getImage(SharedImages.FONT));
 
 		Composite composite = new Composite(folder, SWT.NORMAL);
@@ -162,16 +162,23 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		fontPreviewLabel = new Label(composite, SWT.NORMAL);
 		GridData layoutData = new GridData(GridData.FILL_HORIZONTAL);
 		fontPreviewLabel.setLayoutData(layoutData);
-		Button b = new Button(composite, SWT.PUSH);
-		b.setText("Change");
-		b.addListener(SWT.Selection, new Listener() {
+		Button changeFontButton = new Button(composite, SWT.PUSH);
+		changeFontButton.setText("Change");
+		changeFontButton.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
 				openFontDialog();
 			}
 		});
-
 		fontItem.setControl(composite);
+
+		/*
+		 * 17: Shiny Shadow in unselected tab items should be customized
+		 * https://github.com/jeeeyul/eclipse-themes/issues/issue/17
+		 */
+		usePartTextShadowButton = new Button(composite, SWT.CHECK);
+		usePartTextShadowButton.setText("Cast shiny shadows for unselected tabs");
+		usePartTextShadowButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 3, 1));
 
 		updateFontTab();
 	}
@@ -193,6 +200,8 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		previewFont = new Font(getShell().getDisplay(), fontData);
 		fontPreviewLabel.setFont(previewFont);
 		fontPreviewLabel.getParent().layout(true);
+
+		usePartTextShadowButton.setSelection(getPreferenceStore().getBoolean(ChromeConstants.CHROME_PART_FONT_SHADOW));
 	}
 
 	private void openFontDialog() {
@@ -220,6 +229,7 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 	}
 
 	private Font previewFont;
+	private Button usePartTextShadowButton;
 
 	private void createFakeToolbar() {
 		ToolBar toolBar = new ToolBar(folder, SWT.NORMAL);
@@ -553,6 +563,8 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		fontPreviewLabel.setFont(previewFont);
 		fontPreviewLabel.getParent().layout(true);
 
+		usePartTextShadowButton.setSelection(getPreferenceStore().getDefaultBoolean(ChromeConstants.CHROME_PART_FONT_SHADOW));
+
 		updateLock();
 		updateAuto();
 		update();
@@ -592,6 +604,8 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 			store.setValue(ChromeConstants.CHROME_PART_FONT_NAME, fontData.getName());
 			store.setValue(ChromeConstants.CHROME_PART_FONT_SIZE, fontData.height);
 		}
+
+		store.setValue(ChromeConstants.CHROME_PART_FONT_SHADOW, usePartTextShadowButton.getSelection());
 
 		try {
 			workingCopyManager.applyChanges();

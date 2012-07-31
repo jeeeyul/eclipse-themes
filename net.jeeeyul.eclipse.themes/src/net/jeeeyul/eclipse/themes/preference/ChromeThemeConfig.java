@@ -26,11 +26,13 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 		return INSTANCE;
 	}
 
-	ApplyChromeThemePreferenceJob updateJob = new ApplyChromeThemePreferenceJob();
+	private ApplyChromeThemePreferenceJob updateJob = new ApplyChromeThemePreferenceJob();
 
-	Integer sashWidth = null;
+	private Integer sashWidth = null;
 
-	Boolean partShadow = null;
+	private Boolean partShadow = null;
+
+	private Boolean partTextShadow = null;
 
 	private RGB activePartGradientStart;
 
@@ -133,6 +135,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 		partShadow = null;
 		partFontData = null;
 		partShadow = null;
+		partTextShadow = null;
 	}
 
 	@Override
@@ -164,5 +167,12 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 
 		}
 		return partShadow;
+	}
+
+	public Boolean usePartTextShadow() {
+		if (partTextShadow == null) {
+			partTextShadow = preferenceStore.getBoolean(ChromeConstants.CHROME_PART_FONT_SHADOW);
+		}
+		return partTextShadow;
 	}
 }

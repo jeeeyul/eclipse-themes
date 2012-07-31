@@ -17,4 +17,6 @@ public interface IChromeThemeConfig {
 
 	FontData getPartFontData();
 
+	Boolean usePartTextShadow();
+
 }
