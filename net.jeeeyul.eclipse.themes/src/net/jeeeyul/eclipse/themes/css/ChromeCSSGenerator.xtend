@@ -43,6 +43,8 @@ class ChromeCSSGenerator {
 			selected-tab-color: #000;
 			unselected-tab-color: #333;
 			
+			shadow-color: #aaa;
+			
 		}
 		
 		.MPartStack.active {
