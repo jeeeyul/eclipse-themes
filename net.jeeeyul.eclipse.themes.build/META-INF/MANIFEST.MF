@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Build
 Bundle-SymbolicName: net.jeeeyul.eclipse.themes.build
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: net.jeeeyul.eclipse.themes.build.Activator
+Bundle-Activator: net.jeeeyul.eclipse.themes.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.pde.core;bundle-version="3.8.0",

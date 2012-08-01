@@ -1,4 +1,4 @@
-package net.jeeeyul.eclipse.themes.build;
+package net.jeeeyul.eclipse.themes;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
