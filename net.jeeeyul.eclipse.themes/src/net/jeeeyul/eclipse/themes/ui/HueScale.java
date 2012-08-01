@@ -111,12 +111,12 @@ public class HueScale extends Canvas {
 
 		Rectangle outline = expand(selectionBox, 4, 4);
 		if (isEnabled()) {
-			gc.setForeground(getDisplay().getSystemColor(SWT.COLOR_BLACK));
+			gc.setForeground(getDisplay().getSystemColor(SWT.COLOR_WIDGET_BORDER));
 		} else {
 			gc.setForeground(getDisplay().getSystemColor(SWT.COLOR_GRAY));
 		}
 		if (state == STATE_NORMAL) {
-			gc.setBackground(getDisplay().getSystemColor(SWT.COLOR_WHITE));
+			gc.setBackground(getDisplay().getSystemColor(SWT.COLOR_WIDGET_BACKGROUND));
 		} else {
 			gc.setBackground(getDisplay().getSystemColor(SWT.COLOR_LIST_SELECTION));
 		}

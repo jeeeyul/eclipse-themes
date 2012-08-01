@@ -21,4 +21,10 @@ public interface IChromeThemeConfig {
 
 	RGB getActiveOulineColor();
 
+	RGB getInactiveOulineColor();
+
+	RGB getInactivePartGradientEnd();
+
+	RGB getInactivePartGradientStart();
+
 }

@@ -1,5 +1,8 @@
 package net.jeeeyul.eclipse.themes.ui;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
@@ -20,6 +23,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.Scale;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
@@ -40,27 +44,27 @@ public class SWTExtensions {
 		return rectangle;
 	}
 
-	public static int getMenubarHeight(){
-		if(MENU_BAR_HEIGHT != null){
+	public static int getMenubarHeight() {
+		if (MENU_BAR_HEIGHT != null) {
 			return MENU_BAR_HEIGHT;
 		}
-		
-		if(Display.getCurrent() == null){
+
+		if (Display.getCurrent() == null) {
 			throw new SWTException("Invalid Thread Exception");
 		}
-		
+
 		Shell dummy = new Shell();
 		Menu menu = new Menu(dummy, SWT.BAR);
 		dummy.setMenuBar(menu);
 		Rectangle boundsWithMenu = dummy.computeTrim(0, 0, 0, 0);
-		
+
 		dummy.setMenuBar(null);
 		Rectangle boundsWithoutMenu = dummy.computeTrim(0, 0, 0, 0);
-		
+
 		dummy.dispose();
-		
+
 		MENU_BAR_HEIGHT = boundsWithMenu.height - boundsWithoutMenu.height;
-		
+
 		return MENU_BAR_HEIGHT;
 	}
 
@@ -182,6 +186,18 @@ public class SWTExtensions {
 		Label label = _label;
 		initializer.apply(label);
 		return label;
+	}
+	
+	public Scale Scale(final Composite parent, final Procedure1<? super Scale> initializer) {
+		Scale scale = new Scale(parent, SWT.NORMAL);
+		initializer.apply(scale);
+		return scale;
+	}
+
+	public ColorWell ColorWell(final Composite parent, final Procedure1<? super ColorWell> initializer) {
+		ColorWell colorWell = new ColorWell(parent, SWT.NORMAL);
+		initializer.apply(colorWell);
+		return colorWell;
 	}
 
 	public Link Link(final Composite parent, final Procedure1<? super Link> initializer) {
@@ -394,15 +410,37 @@ public class SWTExtensions {
 		initializer.apply(label);
 		return label;
 	}
-	
-	public static Point getLocation(Rectangle rectangle){
+
+	public static Point getLocation(Rectangle rectangle) {
 		return new Point(rectangle.x, rectangle.y);
 	}
-	
-	public static Rectangle setLocation(Rectangle rectangle, Point location){
+
+	public static Rectangle setLocation(Rectangle rectangle, Point location) {
 		rectangle.x = location.x;
 		rectangle.y = location.y;
 		return rectangle;
-		
+
+	}
+	
+	public Control before(Control control){
+		Control[] children = control.getParent().getChildren();
+		List<Control> childList = Arrays.asList(children);
+		int index = childList.indexOf(control);
+		if(index > 0){
+			return children[index - 1];
+		}else{
+			return null;
+		}
+	}
+	
+	public Control next(Control control){
+		Control[] children = control.getParent().getChildren();
+		List<Control> childList = Arrays.asList(children);
+		int index = childList.indexOf(control);
+		if(index < childList.size() - 1){
+			return children[index + 1];
+		}else{
+			return null;
+		}
 	}
 }

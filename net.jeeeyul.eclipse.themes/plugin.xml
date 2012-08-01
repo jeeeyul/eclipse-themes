@@ -36,6 +36,12 @@
             id="net.jeeeyul.eclipse.themes.preference.ChromePreferencePage"
             name="Chrome">
       </page>
+      <page
+            category="org.eclipse.ui.preferencePages.Views"
+            class="net.jeeeyul.eclipse.themes.preference.ChromeThemePrefererncePage"
+            id="net.jeeeyul.eclipse.themes.preference.ChromeThemePrefererncePage"
+            name="크롬 테스트">
+      </page>
    </extension>
    <extension
          id="id1"

@@ -417,7 +417,7 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		autoEndColorField = new Button(endGroup, SWT.CHECK);
 		autoEndColorField.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 2, 1));
 		autoEndColorField.setText("Choose Automatically");
-		autoEndColorField.setSelection(getPreferenceStore().getBoolean(ChromeConstants.CHROME_AUTO_END_COLOR));
+		autoEndColorField.setSelection(getPreferenceStore().getBoolean(ChromeConstants.CHROME_AUTO_ACTIVE_END_COLOR));
 		autoEndColorField.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
@@ -427,7 +427,7 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 
 		lockEndHueField = new Button(endGroup, SWT.CHECK);
 		lockEndHueField.setText("Lock Hue");
-		lockEndHueField.setSelection(getPreferenceStore().getBoolean(ChromeConstants.CHROME_LOCK_END_HUE));
+		lockEndHueField.setSelection(getPreferenceStore().getBoolean(ChromeConstants.CHROME_LOCK_ACTIVE_END_HUE));
 		lockEndHueField.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
@@ -481,7 +481,7 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		autoOutlineColorField = new Button(outlineGroup, SWT.CHECK);
 		autoOutlineColorField.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 2, 1));
 		autoOutlineColorField.setText("Choose Automatically");
-		autoOutlineColorField.setSelection(getPreferenceStore().getBoolean(ChromeConstants.CHROME_AUTO_OUTLINE_COLOR));
+		autoOutlineColorField.setSelection(getPreferenceStore().getBoolean(ChromeConstants.CHROME_AUTO_ACTIVE_OUTLINE_COLOR));
 		autoOutlineColorField.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
@@ -491,7 +491,7 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 
 		lockOutlineHueField = new Button(outlineGroup, SWT.CHECK);
 		lockOutlineHueField.setText("Lock Hue");
-		lockOutlineHueField.setSelection(getPreferenceStore().getBoolean(ChromeConstants.CHROME_LOCK_OUTLINE_HUE));
+		lockOutlineHueField.setSelection(getPreferenceStore().getBoolean(ChromeConstants.CHROME_LOCK_ACTIVE_OUTLINE_HUE));
 		lockOutlineHueField.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
@@ -624,18 +624,18 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		endSaturationScale.setSelection((int) (end[1] * 100));
 		endBrightnessScale.setSelection((int) (end[2] * 100));
 
-		autoEndColorField.setSelection(store.getDefaultBoolean(ChromeConstants.CHROME_AUTO_END_COLOR));
-		lockEndHueField.setSelection(store.getDefaultBoolean(ChromeConstants.CHROME_LOCK_END_HUE));
+		autoEndColorField.setSelection(store.getDefaultBoolean(ChromeConstants.CHROME_AUTO_ACTIVE_END_COLOR));
+		lockEndHueField.setSelection(store.getDefaultBoolean(ChromeConstants.CHROME_LOCK_ACTIVE_END_HUE));
 
 		outlineHueScale.setSelection((int) getPreferenceStore().getDefaultFloat(ChromeConstants.CHROME_ACTIVE_OUTLINE_HUE));
 		outlineSaturationScale.setSelection((int) (getPreferenceStore().getDefaultFloat(ChromeConstants.CHROME_ACTIVE_OUTLINE_SATURATION) * 100));
 		outlineBrightnessScale.setSelection((int) (getPreferenceStore().getDefaultFloat(ChromeConstants.CHROME_ACTIVE_OUTLINE_BRIGHTNESS) * 100));
 
-		autoOutlineColorField.setSelection(store.getDefaultBoolean(ChromeConstants.CHROME_AUTO_OUTLINE_COLOR));
-		lockOutlineHueField.setSelection(store.getDefaultBoolean(ChromeConstants.CHROME_LOCK_OUTLINE_HUE));
+		autoOutlineColorField.setSelection(store.getDefaultBoolean(ChromeConstants.CHROME_AUTO_ACTIVE_OUTLINE_COLOR));
+		lockOutlineHueField.setSelection(store.getDefaultBoolean(ChromeConstants.CHROME_LOCK_ACTIVE_OUTLINE_HUE));
 
-		sashWidthScale.setSelection(store.getDefaultInt(ChromeConstants.CRHOME_PART_CONTAINER_SASH_WIDTH));
-		useShadowField.setSelection(store.getDefaultBoolean(ChromeConstants.CRHOME_PART_SHADOW));
+		sashWidthScale.setSelection(store.getDefaultInt(ChromeConstants.CHROME_PART_CONTAINER_SASH_WIDTH));
+		useShadowField.setSelection(store.getDefaultBoolean(ChromeConstants.CHROME_PART_SHADOW));
 
 		thinSashButton.setSelection(false);
 		standardSashButton.setSelection(false);
@@ -688,18 +688,18 @@ public class ChromePreferencePage extends PreferencePage implements IWorkbenchPr
 		store.setValue("chrome-active-end-saturation", end[1]);
 		store.setValue("chrome-active-end-brightness", end[2]);
 
-		store.setValue(ChromeConstants.CHROME_AUTO_END_COLOR, autoEndColorField.getSelection());
-		store.setValue(ChromeConstants.CHROME_LOCK_END_HUE, lockEndHueField.getSelection());
+		store.setValue(ChromeConstants.CHROME_AUTO_ACTIVE_END_COLOR, autoEndColorField.getSelection());
+		store.setValue(ChromeConstants.CHROME_LOCK_ACTIVE_END_HUE, lockEndHueField.getSelection());
 
 		store.setValue(ChromeConstants.CHROME_ACTIVE_OUTLINE_HUE, (float) outlineHueScale.getSelection());
 		store.setValue(ChromeConstants.CHROME_ACTIVE_OUTLINE_SATURATION, outlineSaturationScale.getSelection() / 100f);
 		store.setValue(ChromeConstants.CHROME_ACTIVE_OUTLINE_BRIGHTNESS, outlineBrightnessScale.getSelection() / 100f);
 
-		store.setValue(ChromeConstants.CHROME_AUTO_OUTLINE_COLOR, autoOutlineColorField.getSelection());
-		store.setValue(ChromeConstants.CHROME_LOCK_OUTLINE_HUE, lockOutlineHueField.getSelection());
+		store.setValue(ChromeConstants.CHROME_AUTO_ACTIVE_OUTLINE_COLOR, autoOutlineColorField.getSelection());
+		store.setValue(ChromeConstants.CHROME_LOCK_ACTIVE_OUTLINE_HUE, lockOutlineHueField.getSelection());
 
-		store.setValue(ChromeConstants.CRHOME_PART_CONTAINER_SASH_WIDTH, sashWidthScale.getSelection());
-		store.setValue(ChromeConstants.CRHOME_PART_SHADOW, useShadowField.getSelection());
+		store.setValue(ChromeConstants.CHROME_PART_CONTAINER_SASH_WIDTH, sashWidthScale.getSelection());
+		store.setValue(ChromeConstants.CHROME_PART_SHADOW, useShadowField.getSelection());
 
 		if (thinSashButton.getSelection()) {
 			store.setValue(ChromeConstants.CHROME_SASH_PRESET, ChromeConstants.CHROME_SASH_PRESET_THIN);

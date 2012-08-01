@@ -40,6 +40,12 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 
 	private RGB activeOulineColor;
 
+	private RGB inactivePartGradientStart;
+
+	private RGB inactivePartGradientEnd;
+
+	private RGB inactiveOulineColor;
+
 	private IPreferenceStore preferenceStore;
 
 	private FontData partFontData;
@@ -109,6 +115,44 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 		return activePartGradientStart;
 	}
 
+	public RGB getInactiveOulineColor() {
+		if (inactiveOulineColor == null) {
+			float outline[] = new float[3];
+			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			outline[0] = store.getFloat(ChromeConstants.CHROME_INACTIVE_OUTLINE_HUE);
+			outline[1] = store.getFloat(ChromeConstants.CHROME_INACTIVE_OUTLINE_SATURATION);
+			outline[2] = store.getFloat(ChromeConstants.CHROME_INACTIVE_OUTLINE_BRIGHTNESS);
+			inactiveOulineColor = new RGB(outline[0], outline[1], outline[2]);
+		}
+		return inactiveOulineColor;
+	}
+
+	public RGB getInactivePartGradientEnd() {
+		if (inactivePartGradientEnd == null) {
+			float start[] = new float[3];
+			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			start[0] = store.getFloat(ChromeConstants.CHROME_INACTIVE_END_HUE);
+			start[1] = store.getFloat(ChromeConstants.CHROME_INACTIVE_END_SATURATION);
+			start[2] = store.getFloat(ChromeConstants.CHROME_INACTIVE_END_BRIGHTNESS);
+			inactivePartGradientEnd = new RGB(start[0], start[1], start[2]);
+		}
+
+		return inactivePartGradientEnd;
+	}
+
+	public RGB getInactivePartGradientStart() {
+		if (inactivePartGradientStart == null) {
+			float start[] = new float[3];
+			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			start[0] = store.getFloat(ChromeConstants.CHROME_INACTIVE_START_HUE);
+			start[1] = store.getFloat(ChromeConstants.CHROME_INACTIVE_START_SATURATION);
+			start[2] = store.getFloat(ChromeConstants.CHROME_INACTIVE_START_BRIGHTNESS);
+			inactivePartGradientStart = new RGB(start[0], start[1], start[2]);
+		}
+
+		return inactivePartGradientStart;
+	}
+
 	@Override
 	public FontData getPartFontData() {
 		if (partFontData == null) {
@@ -132,7 +176,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 			IPreferenceStore store = preferenceStore;
 			String sashPreset = store.getString(ChromeConstants.CHROME_SASH_PRESET);
 			if (ChromeConstants.CHROME_SASH_PRESET_ADVANCED.equals(sashPreset)) {
-				sashWidth = store.getInt(ChromeConstants.CRHOME_PART_CONTAINER_SASH_WIDTH);
+				sashWidth = store.getInt(ChromeConstants.CHROME_PART_CONTAINER_SASH_WIDTH);
 			} else if (ChromeConstants.CHROME_SASH_PRESET_THIN.equals(sashPreset)) {
 				sashWidth = 2;
 			} else {
@@ -145,6 +189,9 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	private void invalidate() {
 		activePartGradientEnd = null;
 		activePartGradientStart = null;
+		inactiveOulineColor = null;
+		inactivePartGradientEnd = null;
+		inactivePartGradientStart = null;
 		sashWidth = null;
 		partShadow = null;
 		partFontData = null;
@@ -173,7 +220,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 			IPreferenceStore store = preferenceStore;
 			String sashPreset = store.getString(ChromeConstants.CHROME_SASH_PRESET);
 			if (ChromeConstants.CHROME_SASH_PRESET_ADVANCED.equals(sashPreset)) {
-				partShadow = store.getBoolean(ChromeConstants.CRHOME_PART_SHADOW);
+				partShadow = store.getBoolean(ChromeConstants.CHROME_PART_SHADOW);
 			} else if (ChromeConstants.CHROME_SASH_PRESET_THIN.equals(sashPreset)) {
 				partShadow = false;
 			} else {

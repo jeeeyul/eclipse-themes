@@ -34,10 +34,10 @@ class ChromeCSSGenerator {
 				url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.ChromeTabRendering');
 		
 			padding: 0px 9px 10px;
-			swt-tab-outline: #B6BCCC;
-			swt-outer-keyline-color: #B6BCCC;
+			swt-tab-outline: «config.inactiveOulineColor.toHtmlColor»;
+			swt-outer-keyline-color: «config.inactiveOulineColor.toHtmlColor»;
 			swt-inner-keyline-color: black;
-			swt-unselected-tabs-color: #eee #ddd white 99% 100%;
+			swt-unselected-tabs-color: «config.inactivePartGradientStart.toHtmlColor» «config.inactivePartGradientEnd.toHtmlColor» white 99% 100%;
 			swt-shadow-visible: «config.usePartShadow»;
 			
 			selected-tab-color: #000;
@@ -56,6 +56,8 @@ class ChromeCSSGenerator {
 		
 		.MPartStack.empty {
 			swt-unselected-tabs-color: #ddd #ddd #ddd 99% 100%;
+			swt-tab-outline: #B8BECC;
+			swt-outer-keyline-color: #B8BECC;
 		}
 		
 		.MToolControl.TrimStack {
