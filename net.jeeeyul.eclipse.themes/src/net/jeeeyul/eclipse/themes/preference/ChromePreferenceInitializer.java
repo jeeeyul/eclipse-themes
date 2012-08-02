@@ -2,6 +2,7 @@ package net.jeeeyul.eclipse.themes.preference;
 
 import net.jeeeyul.eclipse.themes.ChromeThemeCore;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;
 
@@ -76,8 +77,20 @@ public class ChromePreferenceInitializer extends AbstractPreferenceInitializer {
 		store.setDefault(ChromeConstants.CHROME_PART_SHADOW, true);
 		store.setDefault(ChromeConstants.CHROME_SASH_PRESET, ChromeConstants.CHROME_SASH_PRESET_STANDARD);
 
-		store.setDefault(ChromeConstants.CHROME_PART_FONT_NAME, "Segoe UI");
-		store.setDefault(ChromeConstants.CHROME_PART_FONT_SIZE, 9f);
+		
+		String os = Platform.getOS();
+		if(os.equals(Platform.OS_WIN32)){
+			store.setDefault(ChromeConstants.CHROME_PART_FONT_NAME, "Segoe UI");
+			store.setDefault(ChromeConstants.CHROME_PART_FONT_SIZE, 9f);
+		}
+		else if(os.equals(Platform.OS_MACOSX)){
+			store.setDefault(ChromeConstants.CHROME_PART_FONT_NAME, "Helvetica");
+			store.setDefault(ChromeConstants.CHROME_PART_FONT_SIZE, 11f);
+		}
+		else{
+			store.setDefault(ChromeConstants.CHROME_PART_FONT_NAME, "Arial");
+			store.setDefault(ChromeConstants.CHROME_PART_FONT_SIZE, 11f);
+		}
 		
 		store.setDefault(ChromeConstants.CHROME_TOOLBAR_START_HUE, 0f);
 		store.setDefault(ChromeConstants.CHROME_TOOLBAR_START_SATURATION, 0f);
