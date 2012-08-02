@@ -6,6 +6,7 @@ import org.eclipse.jface.preference.IPreferenceStore
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Scale
+import net.jeeeyul.eclipse.themes.rendering.ChromeTabRendering
 
 import static net.jeeeyul.eclipse.themes.preference.ChromeConstants.*
 
@@ -34,15 +35,24 @@ class LayoutPage extends AbstractChromePage {
 				
 				thinSashButton = RadioButton[
 					text = "Thin Sash (Classic, No Shadows)"
+					onSelection = [
+						updatePreview()
+					]
 				]
 				
 				standardButton = RadioButton[
 					text = "Standard (Shadows)"
+					onSelection = [
+						updatePreview()
+					]
 				]
 				
 				manualButton = RadioButton[
 					text = "Manual (Advanced)"
-					onClick = [updateEnablement]
+					onSelection = [
+						updateEnablement()
+						updatePreview()
+					]
 				]
 			]
 			
@@ -56,6 +66,9 @@ class LayoutPage extends AbstractChromePage {
 				partShadowButton = Checkbox[
 					text = "Casts shadows for Parts"
 					layoutData = FILL_HORIZONTAL[horizontalSpan = 2]
+					onSelection = [
+						updatePreview()
+					]
 				]
 				
 				Label[text = "Sash Width:"]
@@ -63,6 +76,10 @@ class LayoutPage extends AbstractChromePage {
 					minimum = 1
 					maximum = 15
 					pageIncrement = 1
+					
+					onSelection = [
+						updatePreview()
+					]
 				]
 			]
 			
@@ -71,6 +88,13 @@ class LayoutPage extends AbstractChromePage {
 			]
 		]
 	}
+	
+	def private void updatePreview() {
+		var renderer = tabFolder.renderer as ChromeTabRendering
+		var useShadow = standardButton.selection || (partShadowButton.selection && manualButton.selection)
+		renderer.shadowVisible = useShadow
+	}
+
 	
 	override load(IPreferenceStore store) {
 		thinSashButton.selection = false

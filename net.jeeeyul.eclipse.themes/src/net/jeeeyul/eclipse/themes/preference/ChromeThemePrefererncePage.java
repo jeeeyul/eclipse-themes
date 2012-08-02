@@ -2,9 +2,9 @@ package net.jeeeyul.eclipse.themes.preference;
 
 import java.util.ArrayList;
 
-import net.jeeeyul.eclipse.themes.CSSClasses;
 import net.jeeeyul.eclipse.themes.ChromeThemeCore;
 import net.jeeeyul.eclipse.themes.SharedImages;
+import net.jeeeyul.eclipse.themes.rendering.ChromeTabRendering;
 
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.swt.SWT;
@@ -46,6 +46,12 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 		container.setLayout(new GridLayout());
 
 		folder = new CTabFolder(container, SWT.CLOSE);
+		ChromeTabRendering renderer = new ChromeTabRendering(folder);
+		renderer.setSelectedTabFill(folder.getDisplay().getSystemColor(SWT.COLOR_WHITE));
+		renderer.setOuterKeyline(folder.getDisplay().getSystemColor(SWT.COLOR_BLACK));
+		renderer.setPadding(9, 9, 0, 10);
+
+		folder.setRenderer(renderer);
 		folder.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		folder.addCTabFolder2Listener(new CTabFolder2Adapter() {
 			@Override
@@ -54,15 +60,13 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 			}
 		});
 		folder.setUnselectedCloseVisible(false);
-		CSSClasses tags = CSSClasses.getStyleClasses(folder);
-		tags.add("chrome-tabfolder-preview");
-		CSSClasses.setStyleClasses(folder, tags);
 
 		for (int i = 0; i < pages.size(); i++) {
 			IChromePage page = pages.get(i);
 			Composite control = new Composite(folder, SWT.NORMAL);
 			control.setBackgroundMode(SWT.INHERIT_FORCE);
 			control.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_WHITE));
+			page.setTabFolder(folder);
 			page.create(control);
 
 			CTabItem item = new CTabItem(folder, SWT.NORMAL);
@@ -141,6 +145,14 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 		addPage(new LayoutPage());
 		addPage(new PartTitlePage());
 		addPage(new ToolbarPage());
+	}
+	
+	@Override
+	public void dispose() {
+		for (IChromePage page : pages) {
+			page.dispose();
+		}
+		super.dispose();
 	}
 
 }

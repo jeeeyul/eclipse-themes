@@ -10,6 +10,7 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.graphics.Resource;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -187,7 +188,7 @@ public class SWTExtensions {
 		initializer.apply(label);
 		return label;
 	}
-	
+
 	public Scale Scale(final Composite parent, final Procedure1<? super Scale> initializer) {
 		Scale scale = new Scale(parent, SWT.NORMAL);
 		initializer.apply(scale);
@@ -421,26 +422,32 @@ public class SWTExtensions {
 		return rectangle;
 
 	}
-	
-	public Control before(Control control){
+
+	public Control before(Control control) {
 		Control[] children = control.getParent().getChildren();
 		List<Control> childList = Arrays.asList(children);
 		int index = childList.indexOf(control);
-		if(index > 0){
+		if (index > 0) {
 			return children[index - 1];
-		}else{
+		} else {
 			return null;
 		}
 	}
-	
-	public Control next(Control control){
+
+	public Control next(Control control) {
 		Control[] children = control.getParent().getChildren();
 		List<Control> childList = Arrays.asList(children);
 		int index = childList.indexOf(control);
-		if(index < childList.size() - 1){
+		if (index < childList.size() - 1) {
 			return children[index + 1];
-		}else{
+		} else {
 			return null;
+		}
+	}
+
+	public void safeDispose(Resource resource) {
+		if (resource != null && !resource.isDisposed()) {
+			resource.dispose();
 		}
 	}
 }

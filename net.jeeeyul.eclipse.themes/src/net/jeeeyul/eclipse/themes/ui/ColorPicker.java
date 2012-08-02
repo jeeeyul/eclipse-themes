@@ -2,7 +2,6 @@ package net.jeeeyul.eclipse.themes.ui;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -11,6 +10,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
 public class ColorPicker extends Dialog {
 	public static void main(String[] args) {
@@ -19,17 +19,19 @@ public class ColorPicker extends Dialog {
 
 	private HueCanvas hueCanvas;
 	private HueScale hueScale;
-	private RGB selection = new RGB(0, 0, 0);
+	private HSB selection = new HSB(0f, 0f, 0f);
 
 	private boolean lockHue;
 	private ColorWell colorWell;
+	private Procedure1<HSB> continuosSelectionHandler;
 
 	public ColorPicker() {
-		super(Display.getDefault().getActiveShell());
+		this(Display.getDefault().getActiveShell());
 	}
 
 	public ColorPicker(Shell parentShell) {
 		super(parentShell);
+		setShellStyle(SWT.TITLE | SWT.CLOSE); 
 	}
 
 	@Override
@@ -59,9 +61,7 @@ public class ColorPicker extends Dialog {
 		hueCanvas.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
-				float[] hsb = hueCanvas.getSelection();
-				selection = new RGB(hsb[0], hsb[1], hsb[2]);
-				colorWell.setSelection(new RGB(hsb[0], hsb[1], hsb[2]));
+				handleNewSelection();
 			}
 		});
 
@@ -71,7 +71,11 @@ public class ColorPicker extends Dialog {
 		return container;
 	}
 
-	public RGB getSelection() {
+	public Procedure1<HSB> getContinuosSelectionHandler() {
+		return continuosSelectionHandler;
+	}
+
+	public HSB getSelection() {
 		return selection;
 	}
 
@@ -79,11 +83,15 @@ public class ColorPicker extends Dialog {
 		return lockHue;
 	}
 
+	public void setContinuosSelectionHandler(Procedure1<HSB> continuosSelectionHandler) {
+		this.continuosSelectionHandler = continuosSelectionHandler;
+	}
+
 	public void setLockHue(boolean lockHue) {
 		this.lockHue = lockHue;
 	}
 
-	public void setSelection(RGB selection) {
+	public void setSelection(HSB selection) {
 		this.selection = selection;
 		update();
 	}
@@ -93,10 +101,17 @@ public class ColorPicker extends Dialog {
 			return;
 		}
 
-		float[] hsb = selection.getHSB();
-		hueCanvas.setSelection(hsb);
-		hueScale.setSelection(hsb[0]);
+		hueCanvas.setSelection(selection.toArray());
+		hueScale.setSelection(selection.hue);
 		hueScale.setEnabled(!lockHue);
+	}
+
+	private void handleNewSelection() {
+		selection = hueCanvas.getSelection();
+		colorWell.setSelection(selection);
+		if (continuosSelectionHandler != null) {
+			continuosSelectionHandler.apply(selection);
+		}
 	}
 
 }

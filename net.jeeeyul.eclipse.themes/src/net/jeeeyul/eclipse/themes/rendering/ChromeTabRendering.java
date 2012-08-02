@@ -29,6 +29,8 @@ public class ChromeTabRendering extends HackedCTabRendering {
 
 	private UpdateCTabFolderClassesJob updateTags;
 
+	private boolean showShineyShadow;
+
 	public ChromeTabRendering(CTabFolder tabFolder) {
 		super(tabFolder);
 		this.tabFolder = tabFolder;
@@ -53,14 +55,12 @@ public class ChromeTabRendering extends HackedCTabRendering {
 		updateTags.schedule();
 	}
 
-	@Override
-	protected void dispose() {
-		super.dispose();
+	public void applyChromeThemePreference() {
 	}
 
 	@Override
-	protected boolean showUnselectedTabItemShadow() {
-		return config.usePartTextShadow();
+	protected void dispose() {
+		super.dispose();
 	}
 
 	@Override
@@ -97,6 +97,19 @@ public class ChromeTabRendering extends HackedCTabRendering {
 		return tags.contains("chrome-tabfolder-preview");
 	}
 
+	public boolean isShowShineyShadow() {
+		return showShineyShadow;
+	}
+
+	public void setShowShineyShadow(boolean showShineyShadow) {
+		this.showShineyShadow = showShineyShadow;
+	}
+
+	@Override
+	protected boolean showUnselectedTabItemShadow() {
+		return showShineyShadow;
+	}
+
 	private void updateEmptyClassIfNeeded() {
 		CSSClasses tags = CSSClasses.getStyleClasses(tabFolder);
 		if (tags.contains("EditorStack")) {
@@ -113,6 +126,4 @@ public class ChromeTabRendering extends HackedCTabRendering {
 		}
 	}
 
-	public void applyChromeThemePreference() {
-	}
 }

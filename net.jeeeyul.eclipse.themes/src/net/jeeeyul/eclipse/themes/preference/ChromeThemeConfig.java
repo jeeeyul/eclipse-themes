@@ -29,26 +29,22 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	private ApplyChromeThemePreferenceJob updateJob = new ApplyChromeThemePreferenceJob();
 
 	private Integer sashWidth = null;
-
 	private Boolean partShadow = null;
-
-	private Boolean partTextShadow = null;
-
+	private Boolean activePartTitleShadow = null;
+	private Boolean inactivePartTitleShadow = null;
 	private RGB activePartGradientStart;
-
 	private RGB activePartGradientEnd;
-
 	private RGB activeOulineColor;
-
+	private RGB activeSelectedTitleColor;
+	private RGB activeUnselectedTitleColor;
+	private RGB inactiveSelectedTitleColor;
+	private RGB inactiveUnselectedTitleColor;
 	private RGB inactivePartGradientStart;
-
 	private RGB inactivePartGradientEnd;
-
 	private RGB inactiveOulineColor;
-
 	private IPreferenceStore preferenceStore;
-
 	private FontData partFontData;
+
 
 	public ChromeThemeConfig() {
 		this(ChromeThemeCore.getDefault().getPreferenceStore());
@@ -63,6 +59,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 		preferenceStore.removePropertyChangeListener(this);
 	}
 
+	@Override
 	public RGB getActiveOulineColor() {
 		if (activeOulineColor == null) {
 			float outline[] = new float[3];
@@ -115,6 +112,33 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 		return activePartGradientStart;
 	}
 
+	@Override
+	public RGB getActiveSelectedTitleColor() {
+		if (activeSelectedTitleColor == null) {
+			float hsb[] = new float[3];
+			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			hsb[0] = store.getFloat(ChromeConstants.CHROME_ACTIVE_SELECTED_TITLE_HUE);
+			hsb[1] = store.getFloat(ChromeConstants.CHROME_ACTIVE_SELECTED_TITLE_SATURATION);
+			hsb[2] = store.getFloat(ChromeConstants.CHROME_ACTIVE_SELECTED_TITLE_BRIGHTNESS);
+			activeSelectedTitleColor = new RGB(hsb[0], hsb[1], hsb[2]);
+		}
+		return activeSelectedTitleColor;
+	}
+
+	@Override
+	public RGB getActiveUnselectedTitleColor() {
+		if (activeUnselectedTitleColor == null) {
+			float hsb[] = new float[3];
+			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			hsb[0] = store.getFloat(ChromeConstants.CHROME_ACTIVE_UNSELECTED_TITLE_HUE);
+			hsb[1] = store.getFloat(ChromeConstants.CHROME_ACTIVE_UNSELECTED_TITLE_SATURATION);
+			hsb[2] = store.getFloat(ChromeConstants.CHROME_ACTIVE_UNSELECTED_TITLE_BRIGHTNESS);
+			activeUnselectedTitleColor = new RGB(hsb[0], hsb[1], hsb[2]);
+		}
+		return activeUnselectedTitleColor;
+	}
+
+	@Override
 	public RGB getInactiveOulineColor() {
 		if (inactiveOulineColor == null) {
 			float outline[] = new float[3];
@@ -127,6 +151,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 		return inactiveOulineColor;
 	}
 
+	@Override
 	public RGB getInactivePartGradientEnd() {
 		if (inactivePartGradientEnd == null) {
 			float start[] = new float[3];
@@ -140,6 +165,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 		return inactivePartGradientEnd;
 	}
 
+	@Override
 	public RGB getInactivePartGradientStart() {
 		if (inactivePartGradientStart == null) {
 			float start[] = new float[3];
@@ -151,6 +177,32 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 		}
 
 		return inactivePartGradientStart;
+	}
+
+	@Override
+	public RGB getInactiveSelectedTitleColor() {
+		if (inactiveSelectedTitleColor == null) {
+			float hsb[] = new float[3];
+			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			hsb[0] = store.getFloat(ChromeConstants.CHROME_INACTIVE_SELECTED_TITLE_HUE);
+			hsb[1] = store.getFloat(ChromeConstants.CHROME_INACTIVE_SELECTED_TITLE_SATURATION);
+			hsb[2] = store.getFloat(ChromeConstants.CHROME_INACTIVE_SELECTED_TITLE_BRIGHTNESS);
+			inactiveSelectedTitleColor = new RGB(hsb[0], hsb[1], hsb[2]);
+		}
+		return inactiveSelectedTitleColor;
+	}
+
+	@Override
+	public RGB getInactiveUnselectedTitleColor() {
+		if (inactiveUnselectedTitleColor == null) {
+			float hsb[] = new float[3];
+			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			hsb[0] = store.getFloat(ChromeConstants.CHROME_INACTIVE_UNSELECTED_TITLE_HUE);
+			hsb[1] = store.getFloat(ChromeConstants.CHROME_INACTIVE_UNSELECTED_TITLE_SATURATION);
+			hsb[2] = store.getFloat(ChromeConstants.CHROME_INACTIVE_UNSELECTED_TITLE_BRIGHTNESS);
+			inactiveUnselectedTitleColor = new RGB(hsb[0], hsb[1], hsb[2]);
+		}
+		return inactiveUnselectedTitleColor;
 	}
 
 	@Override
@@ -189,15 +241,22 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	private void invalidate() {
 		activePartGradientEnd = null;
 		activePartGradientStart = null;
+		activeOulineColor = null;
+		activeSelectedTitleColor = null;
+		activeUnselectedTitleColor = null;
+
 		inactiveOulineColor = null;
 		inactivePartGradientEnd = null;
 		inactivePartGradientStart = null;
+		inactiveSelectedTitleColor = null;
+		inactiveUnselectedTitleColor = null;
+		
 		sashWidth = null;
 		partShadow = null;
 		partFontData = null;
 		partShadow = null;
-		partTextShadow = null;
-		activeOulineColor = null;
+		activePartTitleShadow = null;
+		inactivePartTitleShadow = null;
 	}
 
 	@Override
@@ -231,10 +290,19 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 		return partShadow;
 	}
 
-	public Boolean usePartTextShadow() {
-		if (partTextShadow == null) {
-			partTextShadow = preferenceStore.getBoolean(ChromeConstants.CHROME_PART_FONT_SHADOW);
+	@Override
+	public Boolean useActivePartTitleShadow() {
+		if (activePartTitleShadow == null) {
+			activePartTitleShadow = preferenceStore.getBoolean(ChromeConstants.CHROME_ACTIVE_UNSELECTED_TITLE_SHINEY_SHADOW);
 		}
-		return partTextShadow;
+		return activePartTitleShadow;
+	}
+	
+	@Override
+	public Boolean useInactivePartTitleShadow() {
+		if (inactivePartTitleShadow == null) {
+			inactivePartTitleShadow = preferenceStore.getBoolean(ChromeConstants.CHROME_INACTIVE_UNSELECTED_TITLE_SHINEY_SHADOW);
+		}
+		return inactivePartTitleShadow;
 	}
 }

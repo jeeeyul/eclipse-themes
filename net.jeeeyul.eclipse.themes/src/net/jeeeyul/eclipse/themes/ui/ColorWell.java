@@ -3,14 +3,13 @@ package net.jeeeyul.eclipse.themes.ui;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 public class ColorWell extends Canvas {
-	private RGB selection;
+	private HSB selection = new HSB();
 
 	public ColorWell(Composite parent, int style) {
 		super(parent, style | SWT.BORDER);
@@ -22,7 +21,7 @@ public class ColorWell extends Canvas {
 		});
 	}
 
-	public RGB getSelection() {
+	public HSB getSelection() {
 		return selection;
 	}
 
@@ -36,14 +35,14 @@ public class ColorWell extends Canvas {
 			return;
 		}
 
-		Color color = new Color(getDisplay(), selection);
+		Color color = new Color(getDisplay(), selection.toRGB());
 		event.gc.setBackground(color);
 		event.gc.fillRectangle(getClientArea());
 		color.dispose();
 
 	}
 
-	public void setSelection(RGB selection, boolean notify) {
+	public void setSelection(HSB selection, boolean notify) {
 		this.selection = selection;
 		redraw();
 		if (notify) {
@@ -53,7 +52,7 @@ public class ColorWell extends Canvas {
 		}
 	}
 
-	public void setSelection(RGB selection) {
+	public void setSelection(HSB selection) {
 		setSelection(selection, true);
 	}
 

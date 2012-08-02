@@ -4,27 +4,33 @@ import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.RGB;
 
 public interface IChromeThemeConfig {
+	public abstract RGB getActiveOulineColor();
 
-	RGB getActivePartGradientEnd();
+	public abstract RGB getActivePartGradientEnd();
 
-	RGB getActivePartGradientStart();
+	public abstract RGB getActivePartGradientStart();
 
-	int getSashWidth();
+	public abstract RGB getActiveSelectedTitleColor();
 
-	boolean usePartShadow();
+	public abstract RGB getActiveUnselectedTitleColor();
 
-	void dispose();
+	public abstract RGB getInactiveOulineColor();
 
-	FontData getPartFontData();
+	public abstract RGB getInactivePartGradientEnd();
 
-	Boolean usePartTextShadow();
+	public abstract RGB getInactivePartGradientStart();
 
-	RGB getActiveOulineColor();
+	public abstract RGB getInactiveSelectedTitleColor();
 
-	RGB getInactiveOulineColor();
+	public abstract RGB getInactiveUnselectedTitleColor();
 
-	RGB getInactivePartGradientEnd();
+	public abstract FontData getPartFontData();
 
-	RGB getInactivePartGradientStart();
+	public abstract int getSashWidth();
 
+	public abstract Boolean useActivePartTitleShadow();
+
+	public Boolean useInactivePartTitleShadow();
+
+	public abstract boolean usePartShadow();
 }

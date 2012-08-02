@@ -31,6 +31,15 @@ public class ChromePreferenceInitializer extends AbstractPreferenceInitializer {
 		store.setDefault(ChromeConstants.CHROME_ACTIVE_OUTLINE_HUE, 221f);
 		store.setDefault(ChromeConstants.CHROME_ACTIVE_OUTLINE_SATURATION, .3f);
 		store.setDefault(ChromeConstants.CHROME_ACTIVE_OUTLINE_BRIGHTNESS, .67f);
+		
+		store.setDefault(ChromeConstants.CHROME_ACTIVE_SELECTED_TITLE_BRIGHTNESS, 0f);
+		store.setDefault(ChromeConstants.CHROME_ACTIVE_SELECTED_TITLE_SATURATION, 0f);
+		store.setDefault(ChromeConstants.CHROME_ACTIVE_SELECTED_TITLE_BRIGHTNESS, 0f);
+
+		store.setDefault(ChromeConstants.CHROME_ACTIVE_UNSELECTED_TITLE_BRIGHTNESS, 0f);
+		store.setDefault(ChromeConstants.CHROME_ACTIVE_UNSELECTED_TITLE_SATURATION, 0f);
+		store.setDefault(ChromeConstants.CHROME_ACTIVE_UNSELECTED_TITLE_BRIGHTNESS, 0f);
+		store.setDefault(ChromeConstants.CHROME_ACTIVE_UNSELECTED_TITLE_SHINEY_SHADOW, true);
 
 		store.setDefault(ChromeConstants.CHROME_INACTIVE_START_HUE, 221f);
 		store.setDefault(ChromeConstants.CHROME_INACTIVE_START_SATURATION, 0f);
@@ -43,6 +52,15 @@ public class ChromePreferenceInitializer extends AbstractPreferenceInitializer {
 		store.setDefault(ChromeConstants.CHROME_INACTIVE_OUTLINE_HUE, 221f);
 		store.setDefault(ChromeConstants.CHROME_INACTIVE_OUTLINE_SATURATION, .1f);
 		store.setDefault(ChromeConstants.CHROME_INACTIVE_OUTLINE_BRIGHTNESS, .8f);
+		
+		store.setDefault(ChromeConstants.CHROME_INACTIVE_SELECTED_TITLE_BRIGHTNESS, 0f);
+		store.setDefault(ChromeConstants.CHROME_INACTIVE_SELECTED_TITLE_SATURATION, 0f);
+		store.setDefault(ChromeConstants.CHROME_INACTIVE_SELECTED_TITLE_BRIGHTNESS, 0f);
+
+		store.setDefault(ChromeConstants.CHROME_INACTIVE_UNSELECTED_TITLE_BRIGHTNESS, 0f);
+		store.setDefault(ChromeConstants.CHROME_INACTIVE_UNSELECTED_TITLE_SATURATION, 0f);
+		store.setDefault(ChromeConstants.CHROME_INACTIVE_UNSELECTED_TITLE_BRIGHTNESS, 0f);
+		store.setDefault(ChromeConstants.CHROME_INACTIVE_UNSELECTED_TITLE_SHINEY_SHADOW, true);
 		
 		store.setDefault(ChromeConstants.CHROME_AUTO_ACTIVE_END_COLOR, true);
 		store.setDefault(ChromeConstants.CHROME_LOCK_ACTIVE_END_HUE, true);
@@ -61,7 +79,7 @@ public class ChromePreferenceInitializer extends AbstractPreferenceInitializer {
 		store.setDefault(ChromeConstants.CHROME_PART_FONT_NAME, "Segoe UI");
 		store.setDefault(ChromeConstants.CHROME_PART_FONT_SIZE, 9f);
 
-		store.setDefault(ChromeConstants.CHROME_PART_FONT_SHADOW, true);
+
 	}
 
 }

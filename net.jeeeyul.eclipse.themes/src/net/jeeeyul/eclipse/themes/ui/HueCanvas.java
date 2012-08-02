@@ -173,8 +173,8 @@ public class HueCanvas extends Canvas {
 	 * @return HSB selection.
 	 * @since 1.2
 	 */
-	public float[] getSelection() {
-		return new float[] { hue, saturation, brightness };
+	public HSB getSelection() {
+		return new HSB(hue, saturation, brightness);
 	}
 
 	private void handleDispose() {

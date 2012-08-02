@@ -77,12 +77,15 @@
       <handler
             adapter="org.eclipse.e4.ui.css.swt.dom.CTabFolderElement"
             composite="false"
-            handler="net.jeeeyul.eclipse.themes.css.TabItemColorHandler">
+            handler="net.jeeeyul.eclipse.themes.css.ChromeCSSPropertyHandler">
          <property-name
-               name="selected-tab-color">
+               name="chrome-selected-tab-color">
          </property-name>
          <property-name
-               name="unselected-tab-color">
+               name="chrome-unselected-tab-color">
+         </property-name>
+         <property-name
+               name="chrome-shiney-shadow">
          </property-name>
       </handler>
    </extension>

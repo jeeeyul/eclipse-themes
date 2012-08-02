@@ -40,10 +40,12 @@ class ChromeCSSGenerator {
 			swt-unselected-tabs-color: «config.inactivePartGradientStart.toHtmlColor» «config.inactivePartGradientEnd.toHtmlColor» white 99% 100%;
 			swt-shadow-visible: «config.usePartShadow»;
 			
-			selected-tab-color: #000;
-			unselected-tab-color: #333;
+			chrome-selected-tab-color: «config.inactiveSelectedTitleColor.toHtmlColor»;
+			chrome-unselected-tab-color: «config.inactiveUnselectedTitleColor.toHtmlColor»;
 			
 			swt-shadow-color: #aaa;
+			
+			chrome-shiney-shadow: «config.useInactivePartTitleShadow»
 			
 		}
 		
@@ -52,6 +54,10 @@ class ChromeCSSGenerator {
 			swt-tab-outline: «config.activeOulineColor.toHtmlColor»;
 			swt-outer-keyline-color: «config.activeOulineColor.toHtmlColor»;
 			swt-unselected-tabs-color: «config.activePartGradientStart.toHtmlColor» «config.activePartGradientEnd.toHtmlColor» white 99% 100%;
+			
+			chrome-selected-tab-color: «config.activeSelectedTitleColor.toHtmlColor»;
+			chrome-unselected-tab-color: «config.activeUnselectedTitleColor.toHtmlColor»;
+			chrome-shiney-shadow: «config.useActivePartTitleShadow»
 		}
 		
 		.MPartStack.empty {

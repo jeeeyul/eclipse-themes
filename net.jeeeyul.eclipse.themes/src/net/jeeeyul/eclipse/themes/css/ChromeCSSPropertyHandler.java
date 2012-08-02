@@ -11,9 +11,9 @@ import org.eclipse.swt.graphics.Color;
 import org.w3c.dom.css.CSSValue;
 
 @SuppressWarnings("restriction")
-public class TabItemColorHandler implements ICSSPropertyHandler {
+public class ChromeCSSPropertyHandler implements ICSSPropertyHandler {
 
-	public TabItemColorHandler() {
+	public ChromeCSSPropertyHandler() {
 	}
 
 	@Override
@@ -26,13 +26,18 @@ public class TabItemColorHandler implements ICSSPropertyHandler {
 			return false;
 		}
 
-		ChromeTabRendering rendering = (ChromeTabRendering) renderer;
-		Color color = (Color) engine.convert(value, Color.class, folder.getDisplay());
-
-		if (property.equals("selected-tab-color")) {
+		if (property.equals("chrome-selected-tab-color")) {
+			ChromeTabRendering rendering = (ChromeTabRendering) renderer;
+			Color color = (Color) engine.convert(value, Color.class, folder.getDisplay());
 			rendering.setSelectedTabItemColor(color);
-		} else if (property.equals("unselected-tab-color")) {
+		} else if (property.equals("chrome-unselected-tab-color")) {
+			ChromeTabRendering rendering = (ChromeTabRendering) renderer;
+			Color color = (Color) engine.convert(value, Color.class, folder.getDisplay());
 			rendering.setUnselectedTabItemColor(color);
+		} else if (property.equals("chrome-shiney-shadow")) {
+			ChromeTabRendering rendering = (ChromeTabRendering) renderer;
+			Boolean use = (Boolean) engine.convert(value, Boolean.class, folder.getDisplay());
+			rendering.setShowShineyShadow(use);
 		}
 
 		return true;
