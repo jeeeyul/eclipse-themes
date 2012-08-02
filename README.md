@@ -36,7 +36,7 @@ Installation Figure:
 
 Choose Theme Figure:
 
-![screenshot](http://scela.github.com/eclipse-themes/images/screenshot1.png)
+![screenshot](https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.resource/choose-theme.png)
 
 Customize:
 
