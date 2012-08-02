@@ -40,11 +40,11 @@ Choose Theme Figure:
 
 Customize:
 
-![screenshot](http://jeeeyul.github.com/eclipse-themes/images/customize.png)
+![screenshot](https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.resource/customize-1.png)
 
-Customize 2:
+![screenshot](https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.resource/customize-2.png)
 
-![screenshot](http://scela.github.com/eclipse-themes/images/screenshot2.png)
+![screenshot](https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.resource/customize-3.png)
 
 ## Screen Shots
 ![screenshot](https://github.com/jeeeyul/eclipse-themes/raw/master/net.jeeeyul.eclipse.themes.build/web-resource/chrome-theme-1.png)
