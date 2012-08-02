@@ -73,7 +73,7 @@ class ToolbarPage extends AbstractChromePage {
 					]
 				]
 				Label[
-					text = "Start Color"
+					text = "End Color"
 				]
 				toolBarEndColorWell = ColorWell[
 					onSelection = [updatePreview]
