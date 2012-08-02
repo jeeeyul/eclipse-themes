@@ -18,9 +18,6 @@
             id="net.jeeeyul.eclipse.themes.gtk.zukito"
             label="Jeeeyul&apos;s themes - GTK Theme (Zukito)">
       </theme>
-      <stylesheet
-            uri="css/chrome-tabfolder-preview.css">
-      </stylesheet>
    </extension>
    <extension
          point="org.eclipse.core.runtime.preferences">
