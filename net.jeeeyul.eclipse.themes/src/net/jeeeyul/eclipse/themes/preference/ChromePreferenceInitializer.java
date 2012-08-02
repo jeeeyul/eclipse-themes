@@ -87,7 +87,7 @@ public class ChromePreferenceInitializer extends AbstractPreferenceInitializer {
 			store.setDefault(ChromeConstants.CHROME_PART_FONT_SIZE, 9f);
 		} else if (os.equals(Platform.OS_MACOSX)) {
 			store.setDefault(ChromeConstants.CHROME_PART_FONT_NAME, "Helvetica");
-			store.setDefault(ChromeConstants.CHROME_PART_FONT_SIZE, 11f);
+			store.setDefault(ChromeConstants.CHROME_PART_FONT_SIZE, 12f);
 		} else {
 			store.setDefault(ChromeConstants.CHROME_PART_FONT_NAME, "Arial");
 			store.setDefault(ChromeConstants.CHROME_PART_FONT_SIZE, 11f);

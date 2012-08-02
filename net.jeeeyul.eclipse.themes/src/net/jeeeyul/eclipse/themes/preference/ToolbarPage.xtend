@@ -51,6 +51,15 @@ class ToolbarPage extends AbstractChromePage {
 						it.image = SharedImages::getImage(SharedImages::TOOLBAR)
 					]
 					
+					ToolItem(SWT::^SEPARATOR)[]
+					
+					ToolItem[
+						it.image = SharedImages::getImage(SharedImages::ECLIPSE)
+					]
+					
+					ToolItem[
+						it.image = SharedImages::getImage(SharedImages::TOOLBAR)
+					]
 				]
 			]
 			
