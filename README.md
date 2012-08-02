@@ -12,7 +12,7 @@ Change it!
         </a>
       </td>
       <td style="vertical-align: middle; text-align: left; border: none;">
-        ← Drag it to your eclipse workbench to install!
+        ← Drag it to your eclipse workbench to install! (I recommand Main Toolbar as Drop Target)
       </td>
     </tr>
   </tbody>
