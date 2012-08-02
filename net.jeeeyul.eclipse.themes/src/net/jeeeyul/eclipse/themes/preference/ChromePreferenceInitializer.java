@@ -39,7 +39,7 @@ public class ChromePreferenceInitializer extends AbstractPreferenceInitializer {
 		store.setDefault(ChromeConstants.CHROME_ACTIVE_UNSELECTED_TITLE_BRIGHTNESS, 0f);
 		store.setDefault(ChromeConstants.CHROME_ACTIVE_UNSELECTED_TITLE_SATURATION, 0f);
 		store.setDefault(ChromeConstants.CHROME_ACTIVE_UNSELECTED_TITLE_BRIGHTNESS, 0f);
-		store.setDefault(ChromeConstants.CHROME_ACTIVE_UNSELECTED_TITLE_SHINEY_SHADOW, true);
+		store.setDefault(ChromeConstants.CHROME_ACTIVE_UNSELECTED_TITLE_SHINY_SHADOW, true);
 
 		store.setDefault(ChromeConstants.CHROME_INACTIVE_START_HUE, 221f);
 		store.setDefault(ChromeConstants.CHROME_INACTIVE_START_SATURATION, 0f);
@@ -60,7 +60,7 @@ public class ChromePreferenceInitializer extends AbstractPreferenceInitializer {
 		store.setDefault(ChromeConstants.CHROME_INACTIVE_UNSELECTED_TITLE_BRIGHTNESS, 0f);
 		store.setDefault(ChromeConstants.CHROME_INACTIVE_UNSELECTED_TITLE_SATURATION, 0f);
 		store.setDefault(ChromeConstants.CHROME_INACTIVE_UNSELECTED_TITLE_BRIGHTNESS, 0f);
-		store.setDefault(ChromeConstants.CHROME_INACTIVE_UNSELECTED_TITLE_SHINEY_SHADOW, true);
+		store.setDefault(ChromeConstants.CHROME_INACTIVE_UNSELECTED_TITLE_SHINY_SHADOW, true);
 		
 		store.setDefault(ChromeConstants.CHROME_AUTO_ACTIVE_END_COLOR, true);
 		store.setDefault(ChromeConstants.CHROME_LOCK_ACTIVE_END_HUE, true);
@@ -78,8 +78,14 @@ public class ChromePreferenceInitializer extends AbstractPreferenceInitializer {
 
 		store.setDefault(ChromeConstants.CHROME_PART_FONT_NAME, "Segoe UI");
 		store.setDefault(ChromeConstants.CHROME_PART_FONT_SIZE, 9f);
-
-
+		
+		store.setDefault(ChromeConstants.CHROME_TOOLBAR_START_HUE, 0f);
+		store.setDefault(ChromeConstants.CHROME_TOOLBAR_START_SATURATION, 0f);
+		store.setDefault(ChromeConstants.CHROME_TOOLBAR_START_BRIGHTNESS, .93f);
+		
+		store.setDefault(ChromeConstants.CHROME_TOOLBAR_END_HUE, 0f);
+		store.setDefault(ChromeConstants.CHROME_TOOLBAR_END_SATURATION, 0f);
+		store.setDefault(ChromeConstants.CHROME_TOOLBAR_END_BRIGHTNESS, .86f);
 	}
 
 }

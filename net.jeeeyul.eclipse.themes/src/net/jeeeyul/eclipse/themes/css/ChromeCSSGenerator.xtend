@@ -81,7 +81,7 @@ class ChromeCSSGenerator {
 		}
 		
 		.MTrimBar#org-eclipse-ui-main-toolbar {
-			background-color: #eee #ddd;
+			background-color: «config.toolbarGradientStart.toHtmlColor» «config.toolbarGradientEnd.toHtmlColor»;
 		}
 		
 		.MToolControl.TrimStack {

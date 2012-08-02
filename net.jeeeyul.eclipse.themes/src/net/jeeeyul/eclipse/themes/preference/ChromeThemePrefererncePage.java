@@ -72,7 +72,7 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 			CTabItem item = new CTabItem(folder, SWT.NORMAL);
 			item.setControl(control);
 			item.setText(page.getTitle());
-			item.setImage(page.getImage());
+			item.setImage(page.getPageImage());
 		}
 		folder.setSelection(0);
 
@@ -141,9 +141,8 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 	}
 
 	private void setupPages() {
-		addPage(new GradientPage());
+		addPage(new PartPage());
 		addPage(new LayoutPage());
-		addPage(new PartTitlePage());
 		addPage(new ToolbarPage());
 	}
 	
@@ -154,5 +153,4 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 		}
 		super.dispose();
 	}
-
 }

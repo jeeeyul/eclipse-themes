@@ -11,8 +11,15 @@ import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Composite
 
 import static net.jeeeyul.eclipse.themes.preference.ChromeConstants.*
+import org.eclipse.jface.viewers.ComboViewer
+import net.jeeeyul.eclipse.themes.preference.internal.FontNameProvider
+import org.eclipse.swt.widgets.Combo
+import org.eclipse.swt.SWT
+import org.eclipse.swt.widgets.Text
+import org.eclipse.jface.viewers.StructuredSelection
+import org.eclipse.jface.viewers.IStructuredSelection
 
-class GradientPage extends AbstractChromePage {
+class PartPage extends AbstractChromePage {
 	extension SWTExtensions = new SWTExtensions
 
 	ColorWell activeStartColorWell
@@ -43,14 +50,16 @@ class GradientPage extends AbstractChromePage {
 	Button activePartShinyShadowButton
 	Button inactivePartShinyShadowButton
 	
-	GradientPreview gradientPreview
+	PartPreview gradientPreview
+	ComboViewer fontSelector
+	Text fontSizeField
 	
 	new(){
 		super("Part Gradient", SharedImages::PALETTE)
 	}
 
 	override create(Composite parent) {
-		gradientPreview = new GradientPreview(tabFolder)
+		gradientPreview = new PartPreview(tabFolder)
 		
 		parent=>[
 			layout = GridLayout
@@ -71,6 +80,36 @@ class GradientPage extends AbstractChromePage {
 				previewInactiveButton = RadioButton[
 					text = "Inactive Part Stack"
 					onSelection = [updatePreview]
+				]
+			]
+			
+			Group[
+				layoutData = FILL_HORIZONTAL
+				text = "Font"
+				layout = GridLayout[
+					numColumns = 4
+					makeColumnsEqualWidth = false
+				]
+				
+				Label[text = "Font:"]
+				var combo = new Combo(it, SWT::READ_ONLY)=>[
+					layoutData = FILL_HORIZONTAL
+				]
+				fontSelector = new ComboViewer(combo)
+				fontSelector.contentProvider = new FontNameProvider()
+				fontSelector.input = new Object()
+				fontSelector.addSelectionChangedListener[
+					updatePreview()
+				]
+				
+				Label[text = "Size:"]
+				fontSizeField = TextField[
+					layoutData = GridData[
+						widthHint = 100
+					]
+					onModified = [
+						updatePreview()
+					]
 				]
 			]
 			
@@ -142,7 +181,11 @@ class GradientPage extends AbstractChromePage {
 					text="Outline:"
 				]
 				
-				activeOutlineColorWell = ColorWell[]
+				activeOutlineColorWell = ColorWell[
+					onSelection = [
+						updatePreview()
+					]
+				]
 								
 				PushButton[
 					text = "Change"
@@ -169,7 +212,11 @@ class GradientPage extends AbstractChromePage {
 					text = "Selected Tab Title:"
 				]
 				
-				activeSelectedTitleColorWell = ColorWell[]
+				activeSelectedTitleColorWell = ColorWell[
+					onSelection = [
+						updatePreview()
+					]
+				]
 				PushButton[
 					text = "Change"
 					onClick = [
@@ -187,7 +234,11 @@ class GradientPage extends AbstractChromePage {
 					text = "Unselected Tab Title:"
 				]
 				
-				activeUnselectedTitleColorWell = ColorWell[]
+				activeUnselectedTitleColorWell = ColorWell[
+					onSelection = [
+						updatePreview()
+					]
+				]
 				PushButton[
 					text = "Change"
 					onClick = [
@@ -198,6 +249,10 @@ class GradientPage extends AbstractChromePage {
 				activePartShinyShadowButton = Checkbox[
 					text = "Shiny Shadow"
 					layoutData = FILL_HORIZONTAL[horizontalSpan = 2]
+					
+					onSelection = [
+						updatePreview()
+					]
 				]
 			]
 			
@@ -237,7 +292,11 @@ class GradientPage extends AbstractChromePage {
 					text="Gradient End:"
 				]
 				
-				inactiveEndColorWell = ColorWell[]
+				inactiveEndColorWell = ColorWell[
+					onSelection = [
+						updatePreview()
+					]
+				]
 				
 				PushButton[
 					text = "Change"
@@ -264,7 +323,11 @@ class GradientPage extends AbstractChromePage {
 					text="Outline:"
 				]
 				
-				inactiveOutlineColorWell = ColorWell[]
+				inactiveOutlineColorWell = ColorWell[
+					onSelection = [
+						updatePreview()
+					]
+				]
 				
 				PushButton[
 					text = "Change"
@@ -291,7 +354,11 @@ class GradientPage extends AbstractChromePage {
 					text = "Selected Tab Title:"
 				]
 				
-				inactiveSelectedTitleColorWell = ColorWell[]
+				inactiveSelectedTitleColorWell = ColorWell[
+					onSelection = [
+						updatePreview()
+					]
+				]
 				PushButton[
 					text = "Change"
 					onClick = [
@@ -309,7 +376,11 @@ class GradientPage extends AbstractChromePage {
 					text = "Unselected Tab Title:"
 				]
 				
-				inactiveUnselectedTitleColorWell = ColorWell[]
+				inactiveUnselectedTitleColorWell = ColorWell[
+					onSelection = [
+						updatePreview()
+					]
+				]
 				PushButton[
 					text = "Change"
 					onClick = [
@@ -469,8 +540,11 @@ class GradientPage extends AbstractChromePage {
 		syncInactiveEndColorHueButton.selection = store.getBoolean(CHROME_LOCK_INACTIVE_END_HUE)
 		syncInactiveOutlineColorHueButton.selection = store.getBoolean(CHROME_LOCK_INACTIVE_OUTLINE_HUE)
 		
-		activePartShinyShadowButton.selection = store.getBoolean(CHROME_ACTIVE_UNSELECTED_TITLE_SHINEY_SHADOW)
-		inactivePartShinyShadowButton.selection = store.getBoolean(CHROME_INACTIVE_UNSELECTED_TITLE_SHINEY_SHADOW)
+		activePartShinyShadowButton.selection = store.getBoolean(CHROME_ACTIVE_UNSELECTED_TITLE_SHINY_SHADOW)
+		inactivePartShinyShadowButton.selection = store.getBoolean(CHROME_INACTIVE_UNSELECTED_TITLE_SHINY_SHADOW)
+		
+		fontSelector.selection = new StructuredSelection(store.getString(CHROME_PART_FONT_NAME))
+		fontSizeField.text = Float::toString(store.getFloat(CHROME_PART_FONT_SIZE))
 		
 		updateEnablement()
 		updateSync()
@@ -482,11 +556,31 @@ class GradientPage extends AbstractChromePage {
 			gradientPreview.gradientStart = activeStartColorWell.selection.toRGB
 			gradientPreview.gradientEnd = activeEndColorWell.selection.toRGB
 			gradientPreview.outline = activeOutlineColorWell.selection.toRGB
+			gradientPreview.selectedTitle = activeSelectedTitleColorWell.selection.toRGB
+			gradientPreview.unselectedTitle = activeUnselectedTitleColorWell.selection.toRGB
 		}else{
 			gradientPreview.gradientStart = inactiveStartColorWell.selection.toRGB
 			gradientPreview.gradientEnd = inactiveEndColorWell.selection.toRGB
 			gradientPreview.outline = inactiveOutlineColorWell.selection.toRGB
+			gradientPreview.selectedTitle = inactiveSelectedTitleColorWell.selection.toRGB
+			gradientPreview.unselectedTitle = inactiveUnselectedTitleColorWell.selection.toRGB
 		}
+		var selectedFontName = (fontSelector.selection as IStructuredSelection).firstElement as String
+		
+		var fontSize = 9f 
+		try{
+			fontSize = Float::parseFloat(fontSizeField.text.trim)
+		}catch(Exception e){
+			fontSize = 9f
+		}
+		if(fontSize > 20f){
+			fontSize = 20f;
+		}else if(fontSize < 5f){
+			fontSize = 5f;
+		}
+		
+		gradientPreview.fontName = selectedFontName
+		gradientPreview.fontSize = fontSize
 	}
 	
 	override save(IPreferenceStore store) {
@@ -537,8 +631,27 @@ class GradientPage extends AbstractChromePage {
 		store.setValue(CHROME_AUTO_INACTIVE_OUTLINE_COLOR, autoInactiveOutlineColorButton.selection)
 		
 		
-		store.setValue(CHROME_ACTIVE_UNSELECTED_TITLE_SHINEY_SHADOW, activePartShinyShadowButton.selection)
-		store.setValue(CHROME_INACTIVE_UNSELECTED_TITLE_SHINEY_SHADOW, inactivePartShinyShadowButton.selection)
+		store.setValue(CHROME_ACTIVE_UNSELECTED_TITLE_SHINY_SHADOW, activePartShinyShadowButton.selection)
+		store.setValue(CHROME_INACTIVE_UNSELECTED_TITLE_SHINY_SHADOW, inactivePartShinyShadowButton.selection)
+		
+		
+		var selectedFontName = (fontSelector.selection as IStructuredSelection).firstElement as String
+		store.setValue(CHROME_PART_FONT_NAME, selectedFontName)
+		
+		var fontSize = 9f 
+		try{
+			fontSize = Float::parseFloat(fontSizeField.text.trim)
+		}catch(Exception e){
+			fontSize = 9f
+		}
+		if(fontSize > 20f){
+			fontSize = 20f;
+		}else if(fontSize < 5f){
+			fontSize = 5f;
+		}
+		
+		store.setValue(CHROME_PART_FONT_SIZE, fontSize)
+		
 	}
 
 	override setToDefault(IPreferenceStore store) {
@@ -612,8 +725,11 @@ class GradientPage extends AbstractChromePage {
 		syncInactiveEndColorHueButton.selection = store.getDefaultBoolean(CHROME_LOCK_INACTIVE_END_HUE)
 		syncInactiveOutlineColorHueButton.selection = store.getDefaultBoolean(CHROME_LOCK_INACTIVE_OUTLINE_HUE)
 		
-		activePartShinyShadowButton.selection = store.getDefaultBoolean(CHROME_ACTIVE_UNSELECTED_TITLE_SHINEY_SHADOW)
-		inactivePartShinyShadowButton.selection = store.getDefaultBoolean(CHROME_INACTIVE_UNSELECTED_TITLE_SHINEY_SHADOW)
+		activePartShinyShadowButton.selection = store.getDefaultBoolean(CHROME_ACTIVE_UNSELECTED_TITLE_SHINY_SHADOW)
+		inactivePartShinyShadowButton.selection = store.getDefaultBoolean(CHROME_INACTIVE_UNSELECTED_TITLE_SHINY_SHADOW)
+		
+		fontSelector.selection = new StructuredSelection(store.getDefaultString(CHROME_PART_FONT_NAME))
+		fontSizeField.text = Float::toString(store.getDefaultFloat(CHROME_PART_FONT_SIZE))
 		
 		updateEnablement()
 		updateSync()

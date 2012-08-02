@@ -11,6 +11,7 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.graphics.Resource;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -102,6 +103,13 @@ public class SWTExtensions {
 		return comp;
 	}
 
+	public Composite Composite(final Composite parent, int style, final Procedure1<? super Composite> initializer) {
+		Composite _composite = new Composite(parent, style);
+		Composite comp = _composite;
+		initializer.apply(comp);
+		return comp;
+	}
+
 	public Display display() {
 		Display _default = Display.getDefault();
 		return _default;
@@ -157,6 +165,12 @@ public class SWTExtensions {
 		GridLayout gridLayout = new GridLayout();
 		initializer.apply(gridLayout);
 		return gridLayout;
+	}
+
+	public FillLayout FillLayout(Procedure1<FillLayout> initializer) {
+		FillLayout fillLayout = new FillLayout();
+		initializer.apply(fillLayout);
+		return fillLayout;
 	}
 
 	public Group Group(final Composite parent, final Procedure1<? super Group> initializer) {
@@ -325,6 +339,24 @@ public class SWTExtensions {
 		});
 	}
 
+	public void setOnPaint(final Control control, final Procedure1<Event> handler) {
+		control.addListener(SWT.Paint, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				handler.apply(event);
+			}
+		});
+	}
+
+	public void setOnResize(final Control control, final Procedure1<Event> handler) {
+		control.addListener(SWT.Resize, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				handler.apply(event);
+			}
+		});
+	}
+
 	public void setOnFocusOut(final Control control, final Procedure1<? super Control> handler) {
 		control.addListener(SWT.FocusOut, new Listener() {
 			@Override
@@ -388,13 +420,19 @@ public class SWTExtensions {
 	}
 
 	public ToolBar ToolBar(final Composite parent, final Procedure1<? super ToolBar> initializer) {
-		ToolBar toolBar = new ToolBar(parent, SWT.FLAT);
+		ToolBar toolBar = new ToolBar(parent, SWT.NORMAL);
 		initializer.apply(toolBar);
 		return toolBar;
 	}
 
 	public ToolItem ToolItem(final ToolBar parent, final Procedure1<? super ToolItem> initializer) {
-		ToolItem item = new ToolItem(parent, SWT.FLAT);
+		ToolItem item = new ToolItem(parent, SWT.PUSH);
+		initializer.apply(item);
+		return item;
+	}
+
+	public ToolItem ToolItem(final ToolBar parent, int style, final Procedure1<? super ToolItem> initializer) {
+		ToolItem item = new ToolItem(parent, style);
 		initializer.apply(item);
 		return item;
 	}

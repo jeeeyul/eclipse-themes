@@ -6,18 +6,18 @@ import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.graphics.Image;
 
 public abstract class AbstractChromePage implements IChromePage {
-	private Image image;
+	private Image pageImage;
 	private String title;
 	private CTabFolder tabFolder;
 
 	public AbstractChromePage(String title, String imageURI) {
 		super();
 		this.title = title;
-		this.image = SharedImages.getImage(imageURI);
+		this.pageImage = SharedImages.getImage(imageURI);
 	}
 
-	public Image getImage() {
-		return image;
+	public Image getPageImage() {
+		return pageImage;
 	}
 
 	protected CTabFolder getTabFolder() {
@@ -28,8 +28,8 @@ public abstract class AbstractChromePage implements IChromePage {
 		return title;
 	}
 
-	public void setImage(Image image) {
-		this.image = image;
+	public void setPageImage(Image image) {
+		this.pageImage = image;
 	}
 
 	@Override

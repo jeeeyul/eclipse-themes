@@ -32,6 +32,9 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	private Boolean partShadow = null;
 	private Boolean activePartTitleShadow = null;
 	private Boolean inactivePartTitleShadow = null;
+
+	private RGB toolbarGradientStart;
+	private RGB toolbarGradientEnd;
 	private RGB activePartGradientStart;
 	private RGB activePartGradientEnd;
 	private RGB activeOulineColor;
@@ -44,7 +47,6 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	private RGB inactiveOulineColor;
 	private IPreferenceStore preferenceStore;
 	private FontData partFontData;
-
 
 	public ChromeThemeConfig() {
 		this(ChromeThemeCore.getDefault().getPreferenceStore());
@@ -238,6 +240,32 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 		return sashWidth;
 	}
 
+	@Override
+	public RGB getToolbarGradientEnd() {
+		if (toolbarGradientEnd == null) {
+			float hsb[] = new float[3];
+			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			hsb[0] = store.getFloat(ChromeConstants.CHROME_TOOLBAR_END_HUE);
+			hsb[1] = store.getFloat(ChromeConstants.CHROME_TOOLBAR_END_SATURATION);
+			hsb[2] = store.getFloat(ChromeConstants.CHROME_TOOLBAR_END_BRIGHTNESS);
+			toolbarGradientEnd = new RGB(hsb[0], hsb[1], hsb[2]);
+		}
+		return toolbarGradientEnd;
+	}
+
+	@Override
+	public RGB getToolbarGradientStart() {
+		if (toolbarGradientStart == null) {
+			float hsb[] = new float[3];
+			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			hsb[0] = store.getFloat(ChromeConstants.CHROME_TOOLBAR_START_HUE);
+			hsb[1] = store.getFloat(ChromeConstants.CHROME_TOOLBAR_START_SATURATION);
+			hsb[2] = store.getFloat(ChromeConstants.CHROME_TOOLBAR_START_BRIGHTNESS);
+			toolbarGradientStart = new RGB(hsb[0], hsb[1], hsb[2]);
+		}
+		return toolbarGradientStart;
+	}
+
 	private void invalidate() {
 		activePartGradientEnd = null;
 		activePartGradientStart = null;
@@ -250,13 +278,16 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 		inactivePartGradientStart = null;
 		inactiveSelectedTitleColor = null;
 		inactiveUnselectedTitleColor = null;
-		
+
 		sashWidth = null;
 		partShadow = null;
 		partFontData = null;
 		partShadow = null;
 		activePartTitleShadow = null;
 		inactivePartTitleShadow = null;
+		
+		toolbarGradientEnd = null;
+		toolbarGradientStart = null;
 	}
 
 	@Override
@@ -265,6 +296,22 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 		if (ActiveThemeTracker.getInstance().isChromeThemeActive()) {
 			updateJob.schedule();
 		}
+	}
+
+	@Override
+	public Boolean useActivePartTitleShadow() {
+		if (activePartTitleShadow == null) {
+			activePartTitleShadow = preferenceStore.getBoolean(ChromeConstants.CHROME_ACTIVE_UNSELECTED_TITLE_SHINY_SHADOW);
+		}
+		return activePartTitleShadow;
+	}
+
+	@Override
+	public Boolean useInactivePartTitleShadow() {
+		if (inactivePartTitleShadow == null) {
+			inactivePartTitleShadow = preferenceStore.getBoolean(ChromeConstants.CHROME_INACTIVE_UNSELECTED_TITLE_SHINY_SHADOW);
+		}
+		return inactivePartTitleShadow;
 	}
 
 	/*
@@ -288,21 +335,5 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 
 		}
 		return partShadow;
-	}
-
-	@Override
-	public Boolean useActivePartTitleShadow() {
-		if (activePartTitleShadow == null) {
-			activePartTitleShadow = preferenceStore.getBoolean(ChromeConstants.CHROME_ACTIVE_UNSELECTED_TITLE_SHINEY_SHADOW);
-		}
-		return activePartTitleShadow;
-	}
-	
-	@Override
-	public Boolean useInactivePartTitleShadow() {
-		if (inactivePartTitleShadow == null) {
-			inactivePartTitleShadow = preferenceStore.getBoolean(ChromeConstants.CHROME_INACTIVE_UNSELECTED_TITLE_SHINEY_SHADOW);
-		}
-		return inactivePartTitleShadow;
 	}
 }

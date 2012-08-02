@@ -33,4 +33,8 @@ public interface IChromeThemeConfig {
 	public Boolean useInactivePartTitleShadow();
 
 	public abstract boolean usePartShadow();
+
+	public abstract RGB getToolbarGradientStart();
+
+	public abstract RGB getToolbarGradientEnd();
 }

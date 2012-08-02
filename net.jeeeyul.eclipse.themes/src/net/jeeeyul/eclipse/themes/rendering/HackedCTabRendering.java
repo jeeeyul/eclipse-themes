@@ -27,15 +27,15 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Widget;
 
 public class HackedCTabRendering extends CTabFolderRenderer {
-	protected static Field HACK_CTabItem_closeRect;
-	protected static Field HACK_CTabItem_shortenText;
-	protected static Field HACK_CTabItem_shortenTextWidth;
-	protected static Field HACK_CTabItem_closeImageState;
-	protected static Field HACK_CTabFolder_curveWidth;
-	protected static Field HACK_CTabFolder_curveIndent;
+	public static Field HACK_CTabItem_closeRect;
+	public static Field HACK_CTabItem_shortenText;
+	public static Field HACK_CTabItem_shortenTextWidth;
+	public static Field HACK_CTabItem_closeImageState;
+	public static Field HACK_CTabFolder_curveWidth;
+	public static Field HACK_CTabFolder_curveIndent;
 
-	protected static Method HACK_CTabFolder_getRightItemEdge;
-	protected static Method HACK_CTabFolder_updateItems;
+	public static Method HACK_CTabFolder_getRightItemEdge;
+	public static Method HACK_CTabFolder_updateItems;
 
 	static {
 		try {

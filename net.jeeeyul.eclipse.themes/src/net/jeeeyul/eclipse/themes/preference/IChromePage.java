@@ -8,7 +8,7 @@ import org.eclipse.swt.widgets.Composite;
 public interface IChromePage {
 	public void create(Composite parent);
 
-	public Image getImage();
+	public Image getPageImage();
 
 	public String getTitle();
 
