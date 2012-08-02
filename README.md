@@ -1,6 +1,6 @@
 # Jeeeyul's Eclipse Themes
 
-Do you hate Eclipse 4 Juno Theme?
+Do you want more beautiful Eclipse 4?
 Change it!
 
 <table style="border: none;">
