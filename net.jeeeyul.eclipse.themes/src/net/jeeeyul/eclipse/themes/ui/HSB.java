@@ -17,6 +17,30 @@ public class HSB {
 		this.brightness = brightness;
 	}
 
+	public HSB(float[] hsb) {
+		this(hsb[0], hsb[1], hsb[2]);
+	}
+
+	public HSB(RGB rgb) {
+		this(rgb.getHSB());
+	}
+
+	public HSB ampBrightness(float amp) {
+		return new HSB(hue, saturation, limit(this.brightness * amp, 0f, 1f));
+	}
+
+	public HSB ampSaturation(float amp) {
+		return new HSB(hue, limit(this.saturation * amp, 0f, 1f), brightness);
+	}
+
+	private float limit(float original, float min, float max) {
+		return Math.min(Math.max(original, min), max);
+	}
+
+	public HSB rewriteHue(float newHue) {
+		return new HSB(newHue, saturation, brightness);
+	}
+
 	public float[] toArray() {
 		return new float[] { hue, saturation, brightness };
 	}
@@ -25,19 +49,8 @@ public class HSB {
 		return new RGB(hue, saturation, brightness);
 	}
 
-	public HSB ampSaturation(float amp) {
-		return new HSB(hue, limit(this.saturation * amp, 0f, 1f), brightness);
-	}
-
-	public HSB ampBrightness(float amp) {
-		return new HSB(hue, saturation, limit(this.brightness * amp, 0f, 1f));
-	}
-
-	public HSB rewriteHue(float newHue) {
-		return new HSB(newHue, saturation, brightness);
-	}
-
-	private float limit(float original, float min, float max) {
-		return Math.min(Math.max(original, min), max);
+	@Override
+	public String toString() {
+		return "HSB [hue=" + hue + ", saturation=" + saturation + ", brightness=" + brightness + "]";
 	}
 }

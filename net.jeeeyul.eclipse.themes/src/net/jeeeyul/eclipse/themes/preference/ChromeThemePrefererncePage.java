@@ -78,6 +78,7 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 
 		createFakeToolbar();
 		createLink(container, "Only works with Chrome Theme, You can change on <a href=\"org.eclipse.ui.preferencePages.Views\">Appearance page</a>");
+		
 		load();
 
 		return container;

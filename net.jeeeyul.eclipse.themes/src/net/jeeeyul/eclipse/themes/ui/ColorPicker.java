@@ -4,6 +4,7 @@ import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -31,7 +32,7 @@ public class ColorPicker extends Dialog {
 
 	public ColorPicker(Shell parentShell) {
 		super(parentShell);
-		setShellStyle(SWT.TITLE | SWT.CLOSE); 
+		setShellStyle(SWT.TITLE | SWT.CLOSE | SWT.APPLICATION_MODAL);
 	}
 
 	@Override
@@ -64,6 +65,18 @@ public class ColorPicker extends Dialog {
 				handleNewSelection();
 			}
 		});
+
+		Button pipette = new Button(container, SWT.PUSH);
+		pipette.setText("Pipette Tool");
+		pipette.addListener(SWT.Selection, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				if (!isLockHue()) {
+					openPipetteMode();
+				}
+			}
+		});
+		pipette.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, false, false, 2, 1));
 
 		update();
 
@@ -112,6 +125,14 @@ public class ColorPicker extends Dialog {
 		if (continuosSelectionHandler != null) {
 			continuosSelectionHandler.apply(selection);
 		}
+	}
+
+	private void openPipetteMode() {
+		HSB result = new PipetteTool(getShell()).open();
+		if (result != null) {
+			hueScale.setSelection(result.hue);
+		}
+		hueCanvas.setSelection(result.toArray());
 	}
 
 }
