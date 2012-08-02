@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="project" default="default">
-	<taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask" classpath="ant-lib/xmltask.jar" />
-	<taskdef name="updateVersion" classname="net.jeeeyul.eclipse.themes.build.task.UpdateVersionTask" classpath="bin" />
+	<taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask" classpath="lib/xmltask.jar" />
+	<taskdef name="updateVersion" classname="net.jeeeyul.eclipse.themes.task.UpdateVersionTask" classpath="bin" />
 
 	<property name="build" location="${basedir}/build" />
 	<property name="repository-name" value="Eclipse Themes from Jeeeyul" />
