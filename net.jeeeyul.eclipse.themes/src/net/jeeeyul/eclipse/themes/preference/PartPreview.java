@@ -28,6 +28,7 @@ public class PartPreview extends UIJob {
 	private boolean castShinyShadow;
 	private String fontName = "Segoe UI";
 	private float fontSize = 9f;
+	private long delay = 10;
 
 	private Color gradientStartColor;
 	private Color gradientEndColor;
@@ -46,6 +47,7 @@ public class PartPreview extends UIJob {
 			}
 		});
 		setSystem(true);
+		setDisplay(folder.getDisplay());
 	}
 
 	private void dispose() {
@@ -55,6 +57,7 @@ public class PartPreview extends UIJob {
 		dispose(gradientEndColor);
 		dispose(selectedTitleColor);
 		dispose(unselectedTitleColor);
+		dispose(font);
 	}
 
 	private void dispose(Resource resource) {
@@ -154,6 +157,8 @@ public class PartPreview extends UIJob {
 		if (folder.isDisposed()) {
 			return Status.OK_STATUS;
 		}
+		
+		dispose();
 
 		folder.setBackground(getGradientArray(), new int[] { 99, 100 }, true);
 		ChromeTabRendering renderer = (ChromeTabRendering) folder.getRenderer();
@@ -180,7 +185,7 @@ public class PartPreview extends UIJob {
 
 	public void setCastShinyShadow(boolean castShinyShadow) {
 		this.castShinyShadow = castShinyShadow;
-		schedule(10);
+		schedule(delay);
 	}
 
 	public void setFontName(String fontName) {
@@ -191,48 +196,41 @@ public class PartPreview extends UIJob {
 			return;
 		}
 
-		dispose(font);
 		this.fontName = fontName;
-		schedule(10);
+		schedule(delay);
 	}
 
 	public void setFontSize(float fontSize) {
 		if (this.fontSize == fontSize) {
 			return;
 		}
-		dispose(font);
 		this.fontSize = fontSize;
-		schedule(10);
+		schedule(delay);
 	}
 
 	public void setGradientEnd(RGB gradientEnd) {
-		dispose(gradientEndColor);
 		this.gradientEnd = gradientEnd;
-		schedule(10);
+		schedule(delay);
 	}
 
 	public void setGradientStart(RGB gradientStart) {
-		dispose(gradientStartColor);
 		this.gradientStart = gradientStart;
-		schedule(10);
+		schedule(delay);
 	}
 
 	public void setOutline(RGB outline) {
-		dispose(outlineColor);
 		this.outline = outline;
-		schedule(10);
+		schedule(delay);
 	}
 
 	public void setSelectedTitle(RGB selectedTitle) {
-		dispose(selectedTitleColor);
 		this.selectedTitle = selectedTitle;
-		schedule(10);
+		schedule(delay);
 	}
 
 	public void setUnselectedTitle(RGB unselectedTitle) {
-		dispose(unselectedTitleColor);
 		this.unselectedTitle = unselectedTitle;
-		schedule(10);
+		schedule(delay);
 	}
 
 }

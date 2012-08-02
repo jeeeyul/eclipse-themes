@@ -9,8 +9,6 @@ import org.eclipse.jface.dialogs.IDialogConstants
 import org.eclipse.jface.preference.IPreferenceStore
 import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Composite
-
-import static net.jeeeyul.eclipse.themes.preference.ChromeConstants.*
 import org.eclipse.jface.viewers.ComboViewer
 import net.jeeeyul.eclipse.themes.preference.internal.FontNameProvider
 import org.eclipse.swt.widgets.Combo
@@ -18,6 +16,8 @@ import org.eclipse.swt.SWT
 import org.eclipse.swt.widgets.Text
 import org.eclipse.jface.viewers.StructuredSelection
 import org.eclipse.jface.viewers.IStructuredSelection
+
+import static net.jeeeyul.eclipse.themes.preference.ChromeConstants.*
 
 class PartPage extends AbstractChromePage {
 	extension SWTExtensions = new SWTExtensions
@@ -50,7 +50,7 @@ class PartPage extends AbstractChromePage {
 	Button activePartShinyShadowButton
 	Button inactivePartShinyShadowButton
 	
-	PartPreview gradientPreview
+	PartPreview preview
 	ComboViewer fontSelector
 	Text fontSizeField
 	
@@ -59,7 +59,7 @@ class PartPage extends AbstractChromePage {
 	}
 
 	override create(Composite parent) {
-		gradientPreview = new PartPreview(tabFolder)
+		preview = new PartPreview(tabFolder)
 		
 		parent=>[
 			layout = GridLayout
@@ -467,7 +467,8 @@ class PartPage extends AbstractChromePage {
 		}
 	}
 	
-	
+	override dispose() {
+	}
 
 	override load(IPreferenceStore store) {
 		activeStartColorWell.selection = new HSB(
@@ -553,17 +554,17 @@ class PartPage extends AbstractChromePage {
 	
 	def private void updatePreview(){
 		if(previewActiveButton.selection){
-			gradientPreview.gradientStart = activeStartColorWell.selection.toRGB
-			gradientPreview.gradientEnd = activeEndColorWell.selection.toRGB
-			gradientPreview.outline = activeOutlineColorWell.selection.toRGB
-			gradientPreview.selectedTitle = activeSelectedTitleColorWell.selection.toRGB
-			gradientPreview.unselectedTitle = activeUnselectedTitleColorWell.selection.toRGB
+			preview.gradientStart = activeStartColorWell.selection.toRGB
+			preview.gradientEnd = activeEndColorWell.selection.toRGB
+			preview.outline = activeOutlineColorWell.selection.toRGB
+			preview.selectedTitle = activeSelectedTitleColorWell.selection.toRGB
+			preview.unselectedTitle = activeUnselectedTitleColorWell.selection.toRGB
 		}else{
-			gradientPreview.gradientStart = inactiveStartColorWell.selection.toRGB
-			gradientPreview.gradientEnd = inactiveEndColorWell.selection.toRGB
-			gradientPreview.outline = inactiveOutlineColorWell.selection.toRGB
-			gradientPreview.selectedTitle = inactiveSelectedTitleColorWell.selection.toRGB
-			gradientPreview.unselectedTitle = inactiveUnselectedTitleColorWell.selection.toRGB
+			preview.gradientStart = inactiveStartColorWell.selection.toRGB
+			preview.gradientEnd = inactiveEndColorWell.selection.toRGB
+			preview.outline = inactiveOutlineColorWell.selection.toRGB
+			preview.selectedTitle = inactiveSelectedTitleColorWell.selection.toRGB
+			preview.unselectedTitle = inactiveUnselectedTitleColorWell.selection.toRGB
 		}
 		var selectedFontName = (fontSelector.selection as IStructuredSelection).firstElement as String
 		
@@ -579,8 +580,8 @@ class PartPage extends AbstractChromePage {
 			fontSize = 5f;
 		}
 		
-		gradientPreview.fontName = selectedFontName
-		gradientPreview.fontSize = fontSize
+		preview.fontName = selectedFontName
+		preview.fontSize = fontSize
 	}
 	
 	override save(IPreferenceStore store) {
