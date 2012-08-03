@@ -420,7 +420,7 @@ public class SWTExtensions {
 	}
 
 	public ToolBar ToolBar(final Composite parent, final Procedure1<? super ToolBar> initializer) {
-		ToolBar toolBar = new ToolBar(parent, SWT.NORMAL);
+		ToolBar toolBar = new ToolBar(parent, SWT.FLAT);
 		initializer.apply(toolBar);
 		return toolBar;
 	}

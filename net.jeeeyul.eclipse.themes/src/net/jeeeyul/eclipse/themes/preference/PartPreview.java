@@ -28,7 +28,7 @@ public class PartPreview extends UIJob {
 	private boolean castShinyShadow;
 	private String fontName = "Segoe UI";
 	private float fontSize = 9f;
-	private long delay = 10;
+	private long delay = 25;
 
 	private Color gradientStartColor;
 	private Color gradientEndColor;
@@ -157,7 +157,7 @@ public class PartPreview extends UIJob {
 		if (folder.isDisposed()) {
 			return Status.OK_STATUS;
 		}
-		
+
 		dispose();
 
 		folder.setBackground(getGradientArray(), new int[] { 99, 100 }, true);
@@ -168,14 +168,19 @@ public class PartPreview extends UIJob {
 		renderer.setUnselectedTabItemColor(getUnselectedTitleColor());
 		renderer.setShowShineyShadow(castShinyShadow);
 
-		try {
-			if (folder.getFont() != getFont()) {
+		boolean hasToUpdateFont = false;
+
+		FontData current = folder.getFont().getFontData()[0];
+		hasToUpdateFont = !current.getName().equals(fontName) || current.height != fontSize;
+
+		if (hasToUpdateFont) {
+			try {
 				folder.setFont(getFont());
 				folder.getParent().layout(new Control[] { folder });
 				folder.getParent().update();
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 
 		folder.update();
