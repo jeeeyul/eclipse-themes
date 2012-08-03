@@ -424,6 +424,13 @@ public class SWTExtensions {
 		initializer.apply(toolBar);
 		return toolBar;
 	}
+	
+
+	public ToolBar ToolBar(final Composite parent, int style, final Procedure1<? super ToolBar> initializer) {
+		ToolBar toolBar = new ToolBar(parent, style);
+		initializer.apply(toolBar);
+		return toolBar;
+	}
 
 	public ToolItem ToolItem(final ToolBar parent, final Procedure1<? super ToolItem> initializer) {
 		ToolItem item = new ToolItem(parent, SWT.PUSH);

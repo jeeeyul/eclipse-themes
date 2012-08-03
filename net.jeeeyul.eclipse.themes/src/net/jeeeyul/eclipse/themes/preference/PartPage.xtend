@@ -19,7 +19,7 @@ import org.eclipse.jface.viewers.IStructuredSelection
 
 import static net.jeeeyul.eclipse.themes.preference.ChromeConstants.*
 
-class PartPage extends AbstractChromePage {
+class PartPage extends ChromePage {
 	extension SWTExtensions = new SWTExtensions
 
 	ColorWell activeStartColorWell
@@ -55,11 +55,11 @@ class PartPage extends AbstractChromePage {
 	Text fontSizeField
 	
 	new(){
-		super("Part Gradient", SharedImages::PALETTE)
+		super("Part", SharedImages::PALETTE)
 	}
 
 	override create(Composite parent) {
-		preview = new PartPreview(tabFolder)
+		preview = new PartPreview(getTabFolder)
 		
 		parent=>[
 			layout = GridLayout
@@ -537,8 +537,8 @@ class PartPage extends AbstractChromePage {
 			store.getFloat(CHROME_INACTIVE_UNSELECTED_TITLE_BRIGHTNESS)
 		)
 		
-		autoInactiveEndColorButton.selection = store.getBoolean(CHROME_AUTO_ACTIVE_END_COLOR)
-		autoInactiveOutlineColorButton.selection = store.getBoolean(CHROME_AUTO_ACTIVE_OUTLINE_COLOR)
+		autoInactiveEndColorButton.selection = store.getBoolean(CHROME_AUTO_INACTIVE_END_COLOR)
+		autoInactiveOutlineColorButton.selection = store.getBoolean(CHROME_AUTO_INACTIVE_OUTLINE_COLOR)
 		syncInactiveEndColorHueButton.selection = store.getBoolean(CHROME_LOCK_INACTIVE_END_HUE)
 		syncInactiveOutlineColorHueButton.selection = store.getBoolean(CHROME_LOCK_INACTIVE_OUTLINE_HUE)
 		
@@ -560,12 +560,14 @@ class PartPage extends AbstractChromePage {
 			preview.outline = activeOutlineColorWell.selection.toRGB
 			preview.selectedTitle = activeSelectedTitleColorWell.selection.toRGB
 			preview.unselectedTitle = activeUnselectedTitleColorWell.selection.toRGB
+			preview.castShinyShadow = activePartShinyShadowButton.selection
 		}else{
 			preview.gradientStart = inactiveStartColorWell.selection.toRGB
 			preview.gradientEnd = inactiveEndColorWell.selection.toRGB
 			preview.outline = inactiveOutlineColorWell.selection.toRGB
 			preview.selectedTitle = inactiveSelectedTitleColorWell.selection.toRGB
 			preview.unselectedTitle = inactiveUnselectedTitleColorWell.selection.toRGB
+			preview.castShinyShadow = inactivePartShinyShadowButton.selection
 		}
 		var selectedFontName = (fontSelector.selection as IStructuredSelection).firstElement as String
 		
@@ -583,6 +585,8 @@ class PartPage extends AbstractChromePage {
 		
 		preview.fontName = selectedFontName
 		preview.fontSize = fontSize
+		
+		preview.run();
 	}
 	
 	override save(IPreferenceStore store) {
@@ -722,8 +726,8 @@ class PartPage extends AbstractChromePage {
 			store.getDefaultFloat(CHROME_INACTIVE_UNSELECTED_TITLE_BRIGHTNESS)
 		)
 		
-		autoInactiveEndColorButton.selection = store.getDefaultBoolean(CHROME_AUTO_ACTIVE_END_COLOR)
-		autoInactiveOutlineColorButton.selection = store.getDefaultBoolean(CHROME_AUTO_ACTIVE_OUTLINE_COLOR)
+		autoInactiveEndColorButton.selection = store.getDefaultBoolean(CHROME_AUTO_INACTIVE_END_COLOR)
+		autoInactiveOutlineColorButton.selection = store.getDefaultBoolean(CHROME_AUTO_INACTIVE_OUTLINE_COLOR)
 		syncInactiveEndColorHueButton.selection = store.getDefaultBoolean(CHROME_LOCK_INACTIVE_END_HUE)
 		syncInactiveOutlineColorHueButton.selection = store.getDefaultBoolean(CHROME_LOCK_INACTIVE_OUTLINE_HUE)
 		

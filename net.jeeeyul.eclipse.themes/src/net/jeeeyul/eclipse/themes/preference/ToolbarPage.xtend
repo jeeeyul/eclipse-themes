@@ -13,15 +13,26 @@ import org.eclipse.swt.graphics.Color
 import org.eclipse.swt.widgets.ToolBar
 import org.eclipse.swt.graphics.Image
 import org.eclipse.swt.graphics.GC
-import static net.jeeeyul.eclipse.themes.preference.ChromeConstants.*
 import net.jeeeyul.eclipse.themes.ui.HSB
 
-class ToolbarPage extends AbstractChromePage {
+import static net.jeeeyul.eclipse.themes.preference.ChromeConstants.*
+import org.eclipse.swt.widgets.Button
+
+class ToolbarPage extends ChromePage {
 	extension SWTExtensions = new SWTExtensions
+	
 	ColorWell toolBarStartColorWell
 	ColorWell toolBarEndColorWell
+	
+	ColorWell perspectiveStartColorWell
+	ColorWell perspectiveEndColorWell
+	ColorWell perspectiveOutlineColorWell
+	
+	Button useWindowBackgroundColorButton;
+	
 	Composite previewWrap
 	ToolBar previewBar
+	ToolBar perspectiveBar
 
 	new(){
 		super("Toolbar", SharedImages::TOOLBAR)
@@ -30,25 +41,28 @@ class ToolbarPage extends AbstractChromePage {
 	override create(Composite parent) {
 		parent => [
 			layout = GridLayout
-			previewWrap = Composite(SWT::BORDER)[
-				layout = FillLayout[
+			
+			previewWrap = Composite(SWT::DOUBLE_BUFFERED || SWT::BORDER)[
+				layoutData = FILL_HORIZONTAL
+				layout = GridLayout[
+					makeColumnsEqualWidth = false
+					numColumns = 2
 					marginWidth = 3
 					marginHeight = 3
 				]
-				layoutData = FILL_HORIZONTAL
+				
 				onPaint = [
 					renderPreview(it)
 				]
 				
-				previewBar = ToolBar[
-					onResize = [updateToolbarBackgroundImage()]
+				previewBar = ToolBar(SWT::FLAT || SWT::RIGHT)[
+					layoutData = FILL_HORIZONTAL
+					onResize = [
+						updateToolbarBackgroundImage()
+					]
 				
-					ToolItem[
+					ToolItem(SWT::DROP_DOWN)[
 						it.image = SharedImages::getImage(SharedImages::ECLIPSE)
-					]
-					
-					ToolItem[
-						it.image = SharedImages::getImage(SharedImages::TOOLBAR)
 					]
 					
 					ToolItem(SWT::^SEPARATOR)[]
@@ -60,15 +74,14 @@ class ToolbarPage extends AbstractChromePage {
 					ToolItem[
 						it.image = SharedImages::getImage(SharedImages::TOOLBAR)
 					]
-					
-					ToolItem(SWT::^SEPARATOR)[]
-					
+				]
+				
+				perspectiveBar = ToolBar(SWT::RIGHT || SWT::FLAT)[
+					onResize = [updatePerspectiveBarBackgroundImage()]
+
 					ToolItem[
-						it.image = SharedImages::getImage(SharedImages::ECLIPSE)
-					]
-					
-					ToolItem[
-						it.image = SharedImages::getImage(SharedImages::TOOLBAR)
+						it.image = SharedImages::getImage(SharedImages::PLUGIN)
+						it.text = "Plug-in Development"
 					]
 				]
 			]
@@ -77,7 +90,7 @@ class ToolbarPage extends AbstractChromePage {
 				layout = GridLayout[
 					numColumns = 3
 				]
-				text = "Gradient"
+				text = "Main Tool Bar"
 				layoutData = FILL_HORIZONTAL
 				Label[
 					text = "Start Color"
@@ -104,16 +117,110 @@ class ToolbarPage extends AbstractChromePage {
 					]
 				]
 			]
+			
+			Group[
+				layout = GridLayout[
+					numColumns = 4
+				]
+				text = "Perspective Switcher"
+				layoutData = FILL_HORIZONTAL
+				Label[
+					text = "Start Color"
+				]
+				perspectiveStartColorWell = ColorWell[
+					onSelection = [updatePreview]
+				]
+				PushButton[
+					text = "Change"
+					layoutData = GridData[
+						horizontalSpan = 2
+					]
+					onClick = [
+						perspectiveStartColorWell.showColorPicker()
+					]
+				]
+				Label[
+					text = "End Color"
+				]
+				perspectiveEndColorWell = ColorWell[
+					onSelection = [updatePreview]
+				]
+				PushButton[
+					text = "Change"
+					
+					onClick = [
+						perspectiveEndColorWell.showColorPicker()
+					]
+				]
+				useWindowBackgroundColorButton = Checkbox[
+					text = "Use Window Background Color"
+					onSelection = [
+						updateAutoColors()
+						updateEnablement()
+					]
+				]
+				
+				Label[
+					text = "Outline Color"
+				]
+				perspectiveOutlineColorWell = ColorWell[
+					onSelection = [updatePreview]
+				]
+				PushButton[
+					layoutData = GridData[
+						horizontalSpan = 2
+					]
+					text = "Change"
+					onClick = [
+						perspectiveOutlineColorWell.showColorPicker()
+					]
+				]
+			]
 		]
 	}
+	
+	def updateAutoColors() {
+		if(useWindowBackgroundColorButton.selection){
+			perspectiveEndColorWell.selection = getCompanionPage(typeof(WindowPage)).windowBackgroundColorWell.selection	
+		}
+	}
+
+	def void updateEnablement() {
+		perspectiveEndColorWell.next.enabled = !useWindowBackgroundColorButton.selection
+	}
+
 
 	def void renderPreview(Event e) {
 		var rect = previewWrap.clientArea
-		var start = new Color(tabFolder.display, toolBarStartColorWell.selection.toRGB)
-		var end = new Color(tabFolder.display, toolBarEndColorWell.selection.toRGB)
+		rect.width = previewBar.bounds.width + previewBar.bounds.x
+		
+		var start = new Color(getTabFolder.display, toolBarStartColorWell.selection.toRGB)
+		var end = new Color(getTabFolder.display, toolBarEndColorWell.selection.toRGB)
+		var outline = new Color(getTabFolder.display, perspectiveOutlineColorWell.selection.toRGB)
+		
 		e.gc.foreground = start
 		e.gc.background = end
 		e.gc.fillGradientRectangle(rect.x, rect.y, rect.width, rect.height, true)
+		
+		e.gc.foreground = outline
+		e.gc.drawLine(rect.x, rect.y + rect.height-1, rect.x + rect.width,  rect.y + rect.height-1);
+		e.gc.drawLine(rect.x + rect.width,  rect.y, rect.x + rect.width,  rect.y + rect.height-1);
+		
+		start.safeDispose()
+		end.safeDispose()
+		outline.safeDispose()
+		
+		rect = previewWrap.clientArea
+		rect.width = perspectiveBar.bounds.width + 7
+		rect.x = perspectiveBar.bounds.x - 4
+		
+		start = new Color(getTabFolder.display, perspectiveStartColorWell.selection.toRGB)
+		end = new Color(getTabFolder.display, perspectiveEndColorWell.selection.toRGB)
+		
+		e.gc.foreground = start
+		e.gc.background = end
+		e.gc.fillGradientRectangle(rect.x, rect.y, rect.width, rect.height, true)
+		
 		start.safeDispose()
 		end.safeDispose()
 	}
@@ -121,6 +228,7 @@ class ToolbarPage extends AbstractChromePage {
 	def private void updatePreview() {
 		previewWrap.redraw()
 		updateToolbarBackgroundImage()
+		updatePerspectiveBarBackgroundImage()
 	}
 	
 	def private void updateToolbarBackgroundImage(){
@@ -131,11 +239,11 @@ class ToolbarPage extends AbstractChromePage {
 		
 		previewBar.backgroundImage.safeDispose()
 		
-		var image = new Image(tabFolder.display, size.x, size.y)
+		var image = new Image(getTabFolder.display, 20, size.y)
 		var gc = new GC(image)
 		
-		var start = new Color(tabFolder.display, toolBarStartColorWell.selection.toRGB)
-		var end = new Color(tabFolder.display, toolBarEndColorWell.selection.toRGB)
+		var start = new Color(getTabFolder.display, toolBarStartColorWell.selection.toRGB)
+		var end = new Color(getTabFolder.display, toolBarEndColorWell.selection.toRGB)
 		
 		gc.foreground = start
 		gc.background = end
@@ -148,8 +256,34 @@ class ToolbarPage extends AbstractChromePage {
 		previewBar.backgroundImage = image
 	}
 	
+	def private void updatePerspectiveBarBackgroundImage(){
+		var size = previewBar.size
+		if(size.x <= 0 || size.y <=0){
+			return
+		}
+		
+		perspectiveBar.backgroundImage.safeDispose()
+		
+		var image = new Image(getTabFolder.display, 20, size.y)
+		var gc = new GC(image)
+		
+		var start = new Color(getTabFolder.display, perspectiveStartColorWell.selection.toRGB)
+		var end = new Color(getTabFolder.display, perspectiveEndColorWell.selection.toRGB)
+		
+		gc.foreground = start
+		gc.background = end
+		gc.fillGradientRectangle(0, -3, size.x, size.y+6, true)
+		
+		start.dispose()
+		end.dispose()
+		gc.dispose()
+		
+		perspectiveBar.backgroundImage = image
+	}
+	
 	override dispose() {
-		previewBar.background.safeDispose()
+		previewBar.backgroundImage.safeDispose()
+		perspectiveBar.backgroundImage.safeDispose()
 	}
 
 	override load(IPreferenceStore store) {
@@ -164,6 +298,30 @@ class ToolbarPage extends AbstractChromePage {
 			store.getFloat(CHROME_TOOLBAR_END_SATURATION), 
 			store.getFloat(CHROME_TOOLBAR_END_BRIGHTNESS)
 		)
+		
+		perspectiveStartColorWell.selection = new HSB(
+			store.getFloat(CHROME_PERSPECTIVE_START_HUE),
+			store.getFloat(CHROME_PERSPECTIVE_START_SATURATION), 
+			store.getFloat(CHROME_PERSPECTIVE_START_BRIGHTNESS)
+		)
+		
+		perspectiveEndColorWell.selection = new HSB(
+			store.getFloat(CHROME_PERSPECTIVE_END_HUE),
+			store.getFloat(CHROME_PERSPECTIVE_END_SATURATION), 
+			store.getFloat(CHROME_PERSPECTIVE_END_BRIGHTNESS)
+		)
+		
+		perspectiveOutlineColorWell.selection = new HSB(
+			store.getFloat(CHROME_PERSPECTIVE_OUTLINE_HUE),
+			store.getFloat(CHROME_PERSPECTIVE_OUTLINE_SATURATION), 
+			store.getFloat(CHROME_PERSPECTIVE_OUTLINE_BRIGHTNESS)
+		)
+		
+		useWindowBackgroundColorButton.selection = store.getBoolean(CHROME_USE_WINDOW_BACKGROUND_COLOR_AS_PERSPECTIVE_END_COLOR)
+		
+		updateAutoColors()
+		updateEnablement()
+		updatePreview()
 	}
 
 	override save(IPreferenceStore store) {
@@ -174,6 +332,19 @@ class ToolbarPage extends AbstractChromePage {
 		store.setValue(CHROME_TOOLBAR_END_HUE, toolBarEndColorWell.selection.hue)
 		store.setValue(CHROME_TOOLBAR_END_SATURATION, toolBarEndColorWell.selection.saturation)
 		store.setValue(CHROME_TOOLBAR_END_BRIGHTNESS, toolBarEndColorWell.selection.brightness)
+		
+		
+		store.setValue(CHROME_PERSPECTIVE_START_HUE, perspectiveStartColorWell.selection.hue)
+		store.setValue(CHROME_PERSPECTIVE_START_SATURATION, perspectiveStartColorWell.selection.saturation)
+		store.setValue(CHROME_PERSPECTIVE_START_BRIGHTNESS, perspectiveStartColorWell.selection.brightness)
+		
+		store.setValue(CHROME_PERSPECTIVE_END_HUE, perspectiveEndColorWell.selection.hue)
+		store.setValue(CHROME_PERSPECTIVE_END_SATURATION, perspectiveEndColorWell.selection.saturation)
+		store.setValue(CHROME_PERSPECTIVE_END_BRIGHTNESS, perspectiveEndColorWell.selection.brightness)
+		
+		store.setValue(CHROME_PERSPECTIVE_OUTLINE_HUE, perspectiveOutlineColorWell.selection.hue)
+		store.setValue(CHROME_PERSPECTIVE_OUTLINE_SATURATION, perspectiveOutlineColorWell.selection.saturation)
+		store.setValue(CHROME_PERSPECTIVE_OUTLINE_BRIGHTNESS, perspectiveOutlineColorWell.selection.brightness)
 	}
 
 	override setToDefault(IPreferenceStore store) {
@@ -188,6 +359,30 @@ class ToolbarPage extends AbstractChromePage {
 			store.getDefaultFloat(CHROME_TOOLBAR_END_SATURATION), 
 			store.getDefaultFloat(CHROME_TOOLBAR_END_BRIGHTNESS)
 		)
+		
+		perspectiveStartColorWell.selection = new HSB(
+			store.getDefaultFloat(CHROME_PERSPECTIVE_START_HUE),
+			store.getDefaultFloat(CHROME_PERSPECTIVE_START_SATURATION), 
+			store.getDefaultFloat(CHROME_PERSPECTIVE_START_BRIGHTNESS)
+		)
+		
+		perspectiveEndColorWell.selection = new HSB(
+			store.getDefaultFloat(CHROME_PERSPECTIVE_END_HUE),
+			store.getDefaultFloat(CHROME_PERSPECTIVE_END_SATURATION), 
+			store.getDefaultFloat(CHROME_PERSPECTIVE_END_BRIGHTNESS)
+		)
+		
+		perspectiveOutlineColorWell.selection = new HSB(
+			store.getDefaultFloat(CHROME_PERSPECTIVE_OUTLINE_HUE),
+			store.getDefaultFloat(CHROME_PERSPECTIVE_OUTLINE_SATURATION), 
+			store.getDefaultFloat(CHROME_PERSPECTIVE_OUTLINE_BRIGHTNESS)
+		)
+		
+		useWindowBackgroundColorButton.selection = store.getDefaultBoolean(CHROME_USE_WINDOW_BACKGROUND_COLOR_AS_PERSPECTIVE_END_COLOR)
+		
+		updateAutoColors()
+		updateEnablement()
+		updatePreview()
 	}
 
 	def private void showColorPicker(ColorWell well) {

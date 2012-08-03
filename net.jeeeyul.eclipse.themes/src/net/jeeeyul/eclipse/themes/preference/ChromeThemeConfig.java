@@ -47,6 +47,11 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	private RGB inactiveOulineColor;
 	private IPreferenceStore preferenceStore;
 	private FontData partFontData;
+	private RGB windowBackgroundColor;
+	private RGB perspectiveStartColor;
+	private RGB perspectiveEndColor;
+	private RGB perspectiveOutlineColor;
+	private RGB partShadowColor;
 
 	public ChromeThemeConfig() {
 		this(ChromeThemeCore.getDefault().getPreferenceStore());
@@ -218,6 +223,58 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 		return partFontData;
 	}
 
+	@Override
+	public RGB getPartShadowColor() {
+		if (partShadowColor == null) {
+			float hsb[] = new float[3];
+			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			hsb[0] = store.getFloat(ChromeConstants.CHROME_PART_SHADOW_HUE);
+			hsb[1] = store.getFloat(ChromeConstants.CHROME_PART_SHADOW_SATURATION);
+			hsb[2] = store.getFloat(ChromeConstants.CHROME_PART_SHADOW_BRIGHTNESS);
+			partShadowColor = new RGB(hsb[0], hsb[1], hsb[2]);
+		}
+		return partShadowColor;
+	}
+
+	@Override
+	public RGB getPerspectiveStartColor() {
+		if (perspectiveStartColor == null) {
+			float hsb[] = new float[3];
+			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			hsb[0] = store.getFloat(ChromeConstants.CHROME_PERSPECTIVE_START_HUE);
+			hsb[1] = store.getFloat(ChromeConstants.CHROME_PERSPECTIVE_START_SATURATION);
+			hsb[2] = store.getFloat(ChromeConstants.CHROME_PERSPECTIVE_START_BRIGHTNESS);
+			perspectiveStartColor = new RGB(hsb[0], hsb[1], hsb[2]);
+		}
+		return perspectiveStartColor;
+	}
+
+	@Override
+	public RGB getPerspectiveEndColor() {
+		if (perspectiveEndColor == null) {
+			float hsb[] = new float[3];
+			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			hsb[0] = store.getFloat(ChromeConstants.CHROME_PERSPECTIVE_END_HUE);
+			hsb[1] = store.getFloat(ChromeConstants.CHROME_PERSPECTIVE_END_SATURATION);
+			hsb[2] = store.getFloat(ChromeConstants.CHROME_PERSPECTIVE_END_BRIGHTNESS);
+			perspectiveEndColor = new RGB(hsb[0], hsb[1], hsb[2]);
+		}
+		return perspectiveEndColor;
+	}
+
+	@Override
+	public RGB getPerspectiveOutlineColor() {
+		if (perspectiveOutlineColor == null) {
+			float hsb[] = new float[3];
+			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			hsb[0] = store.getFloat(ChromeConstants.CHROME_PERSPECTIVE_OUTLINE_HUE);
+			hsb[1] = store.getFloat(ChromeConstants.CHROME_PERSPECTIVE_OUTLINE_SATURATION);
+			hsb[2] = store.getFloat(ChromeConstants.CHROME_PERSPECTIVE_OUTLINE_BRIGHTNESS);
+			perspectiveOutlineColor = new RGB(hsb[0], hsb[1], hsb[2]);
+		}
+		return perspectiveOutlineColor;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -266,6 +323,19 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 		return toolbarGradientStart;
 	}
 
+	@Override
+	public RGB getWindowBackgroundColor() {
+		if (windowBackgroundColor == null) {
+			float hsb[] = new float[3];
+			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			hsb[0] = store.getFloat(ChromeConstants.CHROME_WINDOW_BACKGROUND_HUE);
+			hsb[1] = store.getFloat(ChromeConstants.CHROME_WINDOW_BACKGROUND_SATURATION);
+			hsb[2] = store.getFloat(ChromeConstants.CHROME_WINDOW_BACKGROUND_BRIGHTNESS);
+			windowBackgroundColor = new RGB(hsb[0], hsb[1], hsb[2]);
+		}
+		return windowBackgroundColor;
+	}
+
 	private void invalidate() {
 		activePartGradientEnd = null;
 		activePartGradientStart = null;
@@ -285,9 +355,15 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 		partShadow = null;
 		activePartTitleShadow = null;
 		inactivePartTitleShadow = null;
-		
+
 		toolbarGradientEnd = null;
 		toolbarGradientStart = null;
+
+		partShadowColor = null;
+		perspectiveStartColor = null;
+		perspectiveEndColor = null;
+		perspectiveOutlineColor = null;
+		windowBackgroundColor = null;
 	}
 
 	@Override

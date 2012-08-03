@@ -43,7 +43,7 @@ class ChromeCSSGenerator {
 			chrome-selected-tab-color: «config.inactiveSelectedTitleColor.toHtmlColor»;
 			chrome-unselected-tab-color: «config.inactiveUnselectedTitleColor.toHtmlColor»;
 			
-			swt-shadow-color: #aaa;
+			swt-shadow-color: «config.partShadowColor.toHtmlColor»;
 			
 			chrome-shiney-shadow: «config.useInactivePartTitleShadow»
 			
@@ -73,11 +73,11 @@ class ChromeCSSGenerator {
 		}
 		
 		.MTrimmedWindow {
-			background-color: #eee;
+			background-color: «config.windowBackgroundColor.toHtmlColor»;
 		}
 		
 		.MTrimBar {
-			background-color: #eee;
+			background-color: «config.windowBackgroundColor.toHtmlColor»;
 		}
 		
 		.MTrimBar#org-eclipse-ui-main-toolbar {
@@ -90,8 +90,8 @@ class ChromeCSSGenerator {
 		}
 		
 		#PerspectiveSwitcher {
-			eclipse-perspective-keyline-color: #AAB0BF #AAB0BF;
-			background-color: #F5F7FC #eee 100%;
+			eclipse-perspective-keyline-color: «config.perspectiveOutlineColor.toHtmlColor»;
+			background-color: «config.getPerspectiveStartColor.toHtmlColor» «config.perspectiveEndColor.toHtmlColor» 100%;
 		}
 		
 		CTabFolder.MArea .MPartStack,CTabFolder.MArea .MPartStack.active {

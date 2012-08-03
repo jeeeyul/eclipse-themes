@@ -10,6 +10,7 @@
   <imageFiles fieldName="MINIMIZE" file="/net.jeeeyul.eclipse.themes/icons/minimize.gif"/>
   <imageFiles fieldName="PALETTE" file="/net.jeeeyul.eclipse.themes/icons/palette.gif"/>
   <imageFiles fieldName="PART_HOVER" file="/net.jeeeyul.eclipse.themes/icons/part-hover.png"/>
+  <imageFiles fieldName="PLUGIN" file="/net.jeeeyul.eclipse.themes/icons/plugin.gif"/>
   <imageFiles fieldName="TOOLBAR" file="/net.jeeeyul.eclipse.themes/icons/toolbar.gif"/>
   <imageFiles fieldName="TRANSPARENT" file="/net.jeeeyul.eclipse.themes/icons/transparent.gif"/>
 </p:Palette>

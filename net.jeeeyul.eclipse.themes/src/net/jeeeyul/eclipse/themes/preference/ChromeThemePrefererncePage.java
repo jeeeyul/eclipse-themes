@@ -28,7 +28,7 @@ import org.eclipse.ui.dialogs.PreferencesUtil;
 public class ChromeThemePrefererncePage extends PreferencePage implements IWorkbenchPreferencePage {
 	public static final String ID = "net.jeeeyul.eclipse.themes.preference.ChromeThemePrefererncePage";
 
-	private ArrayList<IChromePage> pages = new ArrayList<IChromePage>();
+	private ArrayList<ChromePage> pages = new ArrayList<ChromePage>();
 	private CTabFolder folder;
 
 	public ChromeThemePrefererncePage() {
@@ -36,8 +36,9 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 		setupPages();
 	}
 
-	protected void addPage(IChromePage page) {
+	protected void addPage(ChromePage page) {
 		pages.add(page);
+		page.setParentPage(this);
 	}
 
 	@Override
@@ -62,7 +63,7 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 		folder.setUnselectedCloseVisible(false);
 
 		for (int i = 0; i < pages.size(); i++) {
-			IChromePage page = pages.get(i);
+			ChromePage page = pages.get(i);
 			Composite control = new Composite(folder, SWT.NORMAL);
 			control.setBackgroundMode(SWT.INHERIT_FORCE);
 			control.setBackground(getShell().getDisplay().getSystemColor(SWT.COLOR_WHITE));
@@ -78,7 +79,7 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 
 		createFakeToolbar();
 		createLink(container, "Only works with Chrome Theme, You can change on <a href=\"org.eclipse.ui.preferencePages.Views\">Appearance page</a>");
-		
+
 		load();
 
 		return container;
@@ -112,12 +113,24 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 	}
 
 	@Override
+	public void dispose() {
+		for (ChromePage page : pages) {
+			page.dispose();
+		}
+		super.dispose();
+	}
+
+	public ArrayList<ChromePage> getPages() {
+		return pages;
+	}
+
+	@Override
 	public void init(IWorkbench workbench) {
 
 	}
 
 	private void load() {
-		for (IChromePage page : pages) {
+		for (ChromePage page : pages) {
 			page.load(getPreferenceStore());
 		}
 	}
@@ -128,14 +141,14 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 
 	@Override
 	protected void performDefaults() {
-		for (IChromePage page : pages) {
+		for (ChromePage page : pages) {
 			page.setToDefault(getPreferenceStore());
 		}
 	}
 
 	@Override
 	public boolean performOk() {
-		for (IChromePage page : pages) {
+		for (ChromePage page : pages) {
 			page.save(getPreferenceStore());
 		}
 		return true;
@@ -143,15 +156,7 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 
 	private void setupPages() {
 		addPage(new PartPage());
-		addPage(new LayoutPage());
+		addPage(new WindowPage());
 		addPage(new ToolbarPage());
-	}
-	
-	@Override
-	public void dispose() {
-		for (IChromePage page : pages) {
-			page.dispose();
-		}
-		super.dispose();
 	}
 }

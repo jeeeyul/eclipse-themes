@@ -73,4 +73,26 @@ public interface ChromeConstants {
 
 	public static final String CHROME_PART_FONT_NAME = "chrome-part-font-name";
 	public static final String CHROME_PART_FONT_SIZE = "chrome-part-font-size";
+
+	public static final String CHROME_WINDOW_BACKGROUND_BRIGHTNESS = "chrome-window-background-brightness";
+	public static final String CHROME_WINDOW_BACKGROUND_SATURATION = "chrome-window-background-saturation";
+	public static final String CHROME_WINDOW_BACKGROUND_HUE = "chrome-window-background-hue";
+
+	public static final String CHROME_PART_SHADOW_BRIGHTNESS = "chrome-part-shadow-brightness";
+	public static final String CHROME_PART_SHADOW_SATURATION = "chrome-part-shadow-saturation";
+	public static final String CHROME_PART_SHADOW_HUE = "chrome-part-shadow-hue";
+
+	public static final String CHROME_PERSPECTIVE_START_BRIGHTNESS = "chrome-perspective-start-brightness";
+	public static final String CHROME_PERSPECTIVE_START_SATURATION = "chrome-perspective-start-saturation";
+	public static final String CHROME_PERSPECTIVE_START_HUE = "chrome-perspective-start-hue";
+	
+	public static final String CHROME_PERSPECTIVE_END_BRIGHTNESS = "chrome-perspective-end-brightness";
+	public static final String CHROME_PERSPECTIVE_END_SATURATION = "chrome-perspective-end-saturation";
+	public static final String CHROME_PERSPECTIVE_END_HUE = "chrome-perspective-end-hue";
+	
+	public static final String CHROME_USE_WINDOW_BACKGROUND_COLOR_AS_PERSPECTIVE_END_COLOR= "chrome-use-window-background-color-as-perspective-end-color";
+	
+	public static final String CHROME_PERSPECTIVE_OUTLINE_BRIGHTNESS = "chrome-perspective-outline-brightness";
+	public static final String CHROME_PERSPECTIVE_OUTLINE_SATURATION = "chrome-perspective-outline-saturation";
+	public static final String CHROME_PERSPECTIVE_OUTLINE_HUE = "chrome-perspective-outline-hue";
 }

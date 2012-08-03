@@ -100,6 +100,28 @@ public class ChromePreferenceInitializer extends AbstractPreferenceInitializer {
 		store.setDefault(ChromeConstants.CHROME_TOOLBAR_END_HUE, 0f);
 		store.setDefault(ChromeConstants.CHROME_TOOLBAR_END_SATURATION, 0f);
 		store.setDefault(ChromeConstants.CHROME_TOOLBAR_END_BRIGHTNESS, .86f);
+
+		store.setDefault(ChromeConstants.CHROME_WINDOW_BACKGROUND_HUE, 0f);
+		store.setDefault(ChromeConstants.CHROME_WINDOW_BACKGROUND_SATURATION, 0f);
+		store.setDefault(ChromeConstants.CHROME_WINDOW_BACKGROUND_BRIGHTNESS, .93f);
+
+		store.setDefault(ChromeConstants.CHROME_PART_SHADOW_HUE, 0f);
+		store.setDefault(ChromeConstants.CHROME_PART_SHADOW_SATURATION, 0f);
+		store.setDefault(ChromeConstants.CHROME_PART_SHADOW_BRIGHTNESS, .66f);
+
+		store.setDefault(ChromeConstants.CHROME_PERSPECTIVE_START_HUE, 222f);
+		store.setDefault(ChromeConstants.CHROME_PERSPECTIVE_START_SATURATION, 0.02f);
+		store.setDefault(ChromeConstants.CHROME_PERSPECTIVE_START_BRIGHTNESS, .98f);
+
+		store.setDefault(ChromeConstants.CHROME_PERSPECTIVE_END_HUE, 0f);
+		store.setDefault(ChromeConstants.CHROME_PERSPECTIVE_END_SATURATION, 0f);
+		store.setDefault(ChromeConstants.CHROME_PERSPECTIVE_END_BRIGHTNESS, .93f);
+
+		store.setDefault(ChromeConstants.CHROME_PERSPECTIVE_OUTLINE_HUE, 222f);
+		store.setDefault(ChromeConstants.CHROME_PERSPECTIVE_OUTLINE_SATURATION, 0.1f);
+		store.setDefault(ChromeConstants.CHROME_PERSPECTIVE_OUTLINE_BRIGHTNESS, .74f);
+
+		store.setDefault(ChromeConstants.CHROME_USE_WINDOW_BACKGROUND_COLOR_AS_PERSPECTIVE_END_COLOR, true);
 	}
 
 }

@@ -37,4 +37,14 @@ public interface IChromeThemeConfig {
 	public abstract RGB getToolbarGradientStart();
 
 	public abstract RGB getToolbarGradientEnd();
+
+	public abstract RGB getWindowBackgroundColor();
+
+	public abstract RGB getPerspectiveStartColor();
+
+	public abstract RGB getPartShadowColor();
+
+	public abstract RGB getPerspectiveEndColor();
+
+	public abstract RGB getPerspectiveOutlineColor();
 }
