@@ -1,5 +1,7 @@
 package net.jeeeyul.eclipse.themes.preference;
 
+import java.util.ArrayList;
+
 import net.jeeeyul.eclipse.themes.rendering.ChromeTabRendering;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -13,8 +15,6 @@ import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Resource;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.ui.progress.UIJob;
 
 public class PartPreview extends UIJob {
@@ -37,46 +37,47 @@ public class PartPreview extends UIJob {
 	private Color unselectedTitleColor;
 	private Font font;
 
+	private ArrayList<Resource> disposeQueue = new ArrayList<Resource>();
+
 	public PartPreview(CTabFolder folder) {
 		super("Preview Gradient");
 		this.folder = folder;
-		folder.addListener(SWT.Dispose, new Listener() {
-			@Override
-			public void handleEvent(Event event) {
-				dispose();
-			}
-		});
 		setSystem(true);
 		setDisplay(folder.getDisplay());
 	}
 
-	private void dispose() {
-		cancel();
-		dispose(gradientStartColor);
-		dispose(outlineColor);
-		dispose(gradientEndColor);
-		dispose(selectedTitleColor);
-		dispose(unselectedTitleColor);
-		dispose(font);
+	private void flush() {
+		for (Resource each : disposeQueue) {
+			safeDispose(each);
+		}
+		disposeQueue.clear();
 	}
 
-	private void dispose(Resource resource) {
-		if (resource != null && !resource.isDisposed()) {
-			resource.dispose();
-		}
+	public void dispose() {
+		safeDispose(font);
+		safeDispose(gradientEndColor);
+		safeDispose(gradientStartColor);
+		safeDispose(outlineColor);
+		safeDispose(selectedTitleColor);
+		safeDispose(unselectedTitleColor);
+	}
+
+	private void safeDispose(Resource each) {
+		if (each != null && !each.isDisposed())
+			each.dispose();
 	}
 
 	public Font getFont() {
-		if (font == null || font.isDisposed()) {
-			try {
-				FontData data = new FontData();
-				data.setName(fontName);
-				data.height = fontSize;
-				font = new Font(folder.getDisplay(), data);
-			} catch (Exception e) {
-				FontData[] fallbackDatas = folder.getDisplay().getSystemFont().getFontData();
-				font = new Font(folder.getDisplay(), fallbackDatas);
-			}
+		scheduleDispose(font);
+
+		try {
+			FontData data = new FontData();
+			data.setName(fontName);
+			data.height = fontSize;
+			font = new Font(folder.getDisplay(), data);
+		} catch (Exception e) {
+			FontData[] fallbackDatas = folder.getDisplay().getSystemFont().getFontData();
+			font = new Font(folder.getDisplay(), fallbackDatas);
 		}
 		return font;
 	}
@@ -98,9 +99,8 @@ public class PartPreview extends UIJob {
 	}
 
 	private Color getGradientEndColor() {
-		if (gradientEndColor == null || gradientEndColor.isDisposed()) {
-			gradientEndColor = new Color(folder.getDisplay(), gradientEnd);
-		}
+		scheduleDispose(gradientEndColor);
+		gradientEndColor = new Color(folder.getDisplay(), gradientEnd);
 		return gradientEndColor;
 	}
 
@@ -109,9 +109,8 @@ public class PartPreview extends UIJob {
 	}
 
 	private Color getGradientStartColor() {
-		if (gradientStartColor == null || gradientStartColor.isDisposed()) {
-			gradientStartColor = new Color(folder.getDisplay(), gradientStart);
-		}
+		scheduleDispose(gradientStartColor);
+		gradientStartColor = new Color(folder.getDisplay(), gradientStart);
 		return gradientStartColor;
 	}
 
@@ -120,9 +119,8 @@ public class PartPreview extends UIJob {
 	}
 
 	private Color getOutlineColor() {
-		if (outlineColor == null || outlineColor.isDisposed()) {
-			outlineColor = new Color(folder.getDisplay(), outline);
-		}
+		scheduleDispose(outlineColor);
+		outlineColor = new Color(folder.getDisplay(), outline);
 		return outlineColor;
 	}
 
@@ -131,9 +129,8 @@ public class PartPreview extends UIJob {
 	}
 
 	protected Color getSelectedTitleColor() {
-		if (selectedTitleColor == null || selectedTitleColor.isDisposed()) {
-			selectedTitleColor = new Color(folder.getDisplay(), selectedTitle);
-		}
+		scheduleDispose(selectedTitleColor);
+		selectedTitleColor = new Color(folder.getDisplay(), selectedTitle);
 		return selectedTitleColor;
 	}
 
@@ -142,9 +139,8 @@ public class PartPreview extends UIJob {
 	}
 
 	protected Color getUnselectedTitleColor() {
-		if (unselectedTitleColor == null || unselectedTitleColor.isDisposed()) {
-			unselectedTitleColor = new Color(folder.getDisplay(), unselectedTitle);
-		}
+		scheduleDispose(unselectedTitleColor);
+		unselectedTitleColor = new Color(folder.getDisplay(), unselectedTitle);
 		return unselectedTitleColor;
 	}
 
@@ -158,12 +154,13 @@ public class PartPreview extends UIJob {
 			return Status.OK_STATUS;
 		}
 
-		dispose();
-
 		folder.setBackground(getGradientArray(), new int[] { 99, 100 }, true);
 		ChromeTabRendering renderer = (ChromeTabRendering) folder.getRenderer();
-		renderer.setOuterKeyline(getOutlineColor());
-		renderer.setTabOutline(getOutlineColor());
+		Color outlineColor = getOutlineColor();
+
+		renderer.setOuterKeyline(outlineColor);
+		renderer.setTabOutline(outlineColor);
+
 		renderer.setSelectedTabItemColor(getSelectedTitleColor());
 		renderer.setUnselectedTabItemColor(getUnselectedTitleColor());
 		renderer.setShowShineyShadow(castShinyShadow);
@@ -177,15 +174,20 @@ public class PartPreview extends UIJob {
 			try {
 				folder.setFont(getFont());
 				folder.getParent().layout(new Control[] { folder });
-				folder.getParent().update();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 
 		folder.update();
+		flush();
 
 		return Status.OK_STATUS;
+	}
+
+	private void scheduleDispose(Resource resource) {
+		if (resource != null && !resource.isDisposed() && !disposeQueue.contains(resource))
+			disposeQueue.add(resource);
 	}
 
 	public void setCastShinyShadow(boolean castShinyShadow) {

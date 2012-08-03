@@ -468,6 +468,7 @@ class PartPage extends AbstractChromePage {
 	}
 	
 	override dispose() {
+		preview.dispose()
 	}
 
 	override load(IPreferenceStore store) {
