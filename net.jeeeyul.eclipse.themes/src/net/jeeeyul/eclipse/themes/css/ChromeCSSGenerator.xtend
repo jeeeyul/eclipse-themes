@@ -73,6 +73,15 @@ class ChromeCSSGenerator {
 		}
 		
 		.MTrimmedWindow {
+		  	margin-top: 2px;
+		    margin-bottom: 2px;
+		    «IF config.usePartShadow»
+		    	margin-left: 0px;
+		    	margin-right: 0px;
+		    «ELSE»
+		    	margin-left: 2px;
+		    	margin-right: 2px;
+		    «ENDIF»
 			background-color: «config.windowBackgroundColor.toHtmlColor»;
 		}
 		
@@ -95,7 +104,7 @@ class ChromeCSSGenerator {
 		}
 		
 		CTabFolder.MArea .MPartStack,CTabFolder.MArea .MPartStack.active {
-			
+			swt-shadow-visible: false;
 		}
 		
 		CTabFolder Canvas {

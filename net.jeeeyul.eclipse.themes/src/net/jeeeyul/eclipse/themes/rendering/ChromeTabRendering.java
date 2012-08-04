@@ -3,6 +3,8 @@ package net.jeeeyul.eclipse.themes.rendering;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.inject.Inject;
+
 import net.jeeeyul.eclipse.themes.CSSClasses;
 import net.jeeeyul.eclipse.themes.UpdateCTabFolderClassesJob;
 import net.jeeeyul.eclipse.themes.preference.ChromeThemeConfig;
@@ -31,6 +33,7 @@ public class ChromeTabRendering extends HackedCTabRendering {
 
 	private boolean showShineyShadow;
 
+	@Inject
 	public ChromeTabRendering(CTabFolder tabFolder) {
 		super(tabFolder);
 		this.tabFolder = tabFolder;
@@ -51,8 +54,6 @@ public class ChromeTabRendering extends HackedCTabRendering {
 		});
 
 		INSTANCES.add(this);
-
-		updateTags.schedule();
 	}
 
 	public void applyChromeThemePreference() {
@@ -112,8 +113,6 @@ public class ChromeTabRendering extends HackedCTabRendering {
 
 	private void updateEmptyClassIfNeeded() {
 		CSSClasses tags = CSSClasses.getStyleClasses(tabFolder);
-		if (tags.contains("EditorStack")) {
-		}
 
 		boolean haveToSetEmpty = tabFolder.getItemCount() == 0;
 

@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
+import net.jeeeyul.eclipse.themes.CSSClasses;
 import net.jeeeyul.eclipse.themes.ChromeThemeCore;
 import net.jeeeyul.eclipse.themes.preference.ChromeThemeConfig;
 
@@ -133,9 +134,22 @@ public class WidgetTracker {
 		 */
 		else if (event.getProperty(UIEvents.EventTags.ELEMENT) instanceof MTrimmedWindow) {
 			if (widget instanceof Shell) {
-				trackTopWindowShell((Shell) widget);
+				Shell shell = (Shell) widget;
+
+				/*
+				 * 22: Detached Editor does not show it's content untill resized
+				 * https://github.com/jeeeyul/eclipse-themes/issues/issue/22
+				 * 
+				 * Don't update margin of Container Shell for Detached Part.
+				 */
+				boolean isTopLevel = CSSClasses.getStyleClasses(shell).contains("topLevel");
+				if (!isTopLevel) {
+					return;
+				}
+
+				trackTopWindowShell(shell);
 				if (isChromeThemeActive()) {
-					updateMargin((Shell) widget);
+					updateMargin(shell);
 				}
 			}
 		}
