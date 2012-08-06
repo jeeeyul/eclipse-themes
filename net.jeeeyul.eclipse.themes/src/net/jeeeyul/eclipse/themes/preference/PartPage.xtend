@@ -55,7 +55,7 @@ class PartPage extends ChromePage {
 	Text fontSizeField
 	
 	new(){
-		super("Part", SharedImages::PALETTE)
+		super("Part", SharedImages::PART)
 	}
 
 	override create(Composite parent) {

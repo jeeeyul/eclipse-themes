@@ -11,6 +11,7 @@
   <imageFiles fieldName="OPEN_PERSPECTIVE" file="/net.jeeeyul.eclipse.themes/icons/open-perspective.gif"/>
   <imageFiles fieldName="PALETTE" file="/net.jeeeyul.eclipse.themes/icons/palette.gif"/>
   <imageFiles fieldName="PART_HOVER" file="/net.jeeeyul.eclipse.themes/icons/part-hover.png"/>
+  <imageFiles fieldName="PART" file="/net.jeeeyul.eclipse.themes/icons/part.gif"/>
   <imageFiles fieldName="PLUGIN" file="/net.jeeeyul.eclipse.themes/icons/plugin.gif"/>
   <imageFiles fieldName="TOOLBAR" file="/net.jeeeyul.eclipse.themes/icons/toolbar.gif"/>
   <imageFiles fieldName="TRANSPARENT" file="/net.jeeeyul.eclipse.themes/icons/transparent.gif"/>

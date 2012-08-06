@@ -725,6 +725,7 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 		if (shadowImage == null) {
 			createShadow(display, true);
 		}
+
 		int x = bounds.x;
 		int y = bounds.y;
 		int SIZE = shadowImage.getBounds().width / 3;
