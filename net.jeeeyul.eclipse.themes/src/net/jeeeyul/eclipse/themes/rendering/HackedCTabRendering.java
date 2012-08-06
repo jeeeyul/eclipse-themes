@@ -970,11 +970,10 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 					gc.drawText((String) HACK_CTabItem_shortenText.get(item), xDraw, textY, SWT.DRAW_TRANSPARENT | SWT.DRAW_MNEMONIC);
 					gc.setFont(gcFont);
 				}
+				
+				if ((state & SWT.HOT) != 0 &&parent.getUnselectedCloseVisible() && (hasStyle(parent, SWT.CLOSE) || hasStyle(item, SWT.CLOSE)))
+					_drawClose(gc, getCloseRect(item), getCloseImageState(item));
 			}
-
-			// draw close
-			if (parent.getUnselectedCloseVisible() && (hasStyle(parent, SWT.CLOSE) || hasStyle(item, SWT.CLOSE)))
-				_drawClose(gc, getCloseRect(item), getCloseImageState(item));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1051,8 +1050,8 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 			}
 
 			gc.setClipping(points[0], bounds.y, parent.getSize().x - (shadowEnabled ? SIDE_DROP_WIDTH : 0 + INNER_KEYLINE + OUTER_KEYLINE), bounds.y
-					+ bounds.height);// bounds.height
-			// + 4);
+					+ bounds.height);
+
 			gc.setBackground(gc.getDevice().getSystemColor(SWT.COLOR_WHITE));
 			int[] tmpPoints = new int[index];
 			System.arraycopy(points, 0, tmpPoints, 0, index);
@@ -1064,12 +1063,6 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 			gc.drawPolygon(tmpPoints);
 			tempBorder.dispose();
 			gc.setAlpha(255);
-
-			Rectangle rect = null;
-			gc.setClipping(rect);
-
-			if (outerKeyline == null)
-				outerKeyline = gc.getDevice().getSystemColor(SWT.COLOR_BLACK);
 		}
 	}
 

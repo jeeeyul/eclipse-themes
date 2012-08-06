@@ -78,6 +78,12 @@ class ToolbarPage extends ChromePage {
 				
 				perspectiveBar = ToolBar(SWT::RIGHT || SWT::FLAT)[
 					onResize = [updatePerspectiveBarBackgroundImage()]
+					
+					ToolItem[
+						it.image = SharedImages::getImage(SharedImages::OPEN_PERSPECTIVE)
+					]
+					
+					ToolItem(SWT::^SEPARATOR)[]
 
 					ToolItem[
 						it.image = SharedImages::getImage(SharedImages::PLUGIN)
