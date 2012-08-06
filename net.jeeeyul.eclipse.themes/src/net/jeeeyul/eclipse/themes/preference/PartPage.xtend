@@ -612,6 +612,8 @@ class PartPage extends ChromePage {
 		
 		store.setValue(CHROME_AUTO_ACTIVE_END_COLOR, autoActiveEndColorButton.selection)
 		store.setValue(CHROME_AUTO_ACTIVE_OUTLINE_COLOR, autoActiveOutlineColorButton.selection)
+		store.setValue(CHROME_LOCK_ACTIVE_END_HUE, syncActiveEndColorHueButton.selection)
+		store.setValue(CHROME_LOCK_ACTIVE_OUTLINE_HUE, syncActiveOutlineColorHueButton.selection)
 		
 		store.setValue(CHROME_INACTIVE_START_HUE, inactiveStartColorWell.selection.hue)
 		store.setValue(CHROME_INACTIVE_START_SATURATION, inactiveStartColorWell.selection.saturation)
@@ -636,10 +638,10 @@ class PartPage extends ChromePage {
 		store.setValue(CHROME_AUTO_INACTIVE_END_COLOR, autoInactiveEndColorButton.selection)
 		store.setValue(CHROME_AUTO_INACTIVE_OUTLINE_COLOR, autoInactiveOutlineColorButton.selection)
 		
-		
 		store.setValue(CHROME_ACTIVE_UNSELECTED_TITLE_SHINY_SHADOW, activePartShinyShadowButton.selection)
 		store.setValue(CHROME_INACTIVE_UNSELECTED_TITLE_SHINY_SHADOW, inactivePartShinyShadowButton.selection)
-		
+		store.setValue(CHROME_LOCK_INACTIVE_END_HUE, syncInactiveEndColorHueButton.selection)
+		store.setValue(CHROME_LOCK_INACTIVE_OUTLINE_HUE, syncInactiveOutlineColorHueButton.selection)
 		
 		var selectedFontName = (fontSelector.selection as IStructuredSelection).firstElement as String
 		store.setValue(CHROME_PART_FONT_NAME, selectedFontName)
