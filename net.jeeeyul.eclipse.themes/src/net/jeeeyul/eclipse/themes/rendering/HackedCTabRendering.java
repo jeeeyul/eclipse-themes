@@ -970,8 +970,8 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 					gc.drawText((String) HACK_CTabItem_shortenText.get(item), xDraw, textY, SWT.DRAW_TRANSPARENT | SWT.DRAW_MNEMONIC);
 					gc.setFont(gcFont);
 				}
-				
-				if ((state & SWT.HOT) != 0 &&parent.getUnselectedCloseVisible() && (hasStyle(parent, SWT.CLOSE) || hasStyle(item, SWT.CLOSE)))
+
+				if ((state & SWT.HOT) != 0 && parent.getUnselectedCloseVisible() && (hasStyle(parent, SWT.CLOSE) || hasStyle(item, SWT.CLOSE)))
 					_drawClose(gc, getCloseRect(item), getCloseImageState(item));
 			}
 		} catch (Exception e) {
