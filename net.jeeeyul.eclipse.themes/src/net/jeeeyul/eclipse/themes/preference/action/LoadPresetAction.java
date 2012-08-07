@@ -66,7 +66,5 @@ public class LoadPresetAction extends PreferenceAction {
 				store.setValue(ChromeConstants.CHROME_PART_FONT_SIZE, 11f);
 			}
 		}
-
 	}
-
 }
