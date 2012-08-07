@@ -8,16 +8,6 @@
             id="net.jeeeyul.eclipse.themes.chrome"
             label="Jeeeyul&apos;s themes - Chrome Theme">
       </theme>
-      <theme
-            basestylesheeturi="css/gtk-adwaita.css"
-            id="net.jeeeyul.eclipse.themes.gtk.adwaita"
-            label="Jeeeyul&apos;s themes - GTK Theme (Adwaita)">
-      </theme>
-      <theme
-            basestylesheeturi="css/gtk-zukito.css"
-            id="net.jeeeyul.eclipse.themes.gtk.zukito"
-            label="Jeeeyul&apos;s themes - GTK Theme (Zukito)">
-      </theme>
    </extension>
    <extension
          point="org.eclipse.core.runtime.preferences">

@@ -18,9 +18,7 @@ public class ChromePreferenceInitializer extends AbstractPreferenceInitializer {
 	public ChromePreferenceInitializer() {
 	}
 
-	@Override
-	public void initializeDefaultPreferences() {
-		IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+	public void initializeDefaultPreferences(IPreferenceStore store) {
 		store.setDefault(ChromeConstants.CHROME_ACTIVE_START_HUE, 221f);
 		store.setDefault(ChromeConstants.CHROME_ACTIVE_START_SATURATION, .10f);
 		store.setDefault(ChromeConstants.CHROME_ACTIVE_START_BRIGHTNESS, .97f);
@@ -122,6 +120,12 @@ public class ChromePreferenceInitializer extends AbstractPreferenceInitializer {
 		store.setDefault(ChromeConstants.CHROME_PERSPECTIVE_OUTLINE_BRIGHTNESS, .74f);
 
 		store.setDefault(ChromeConstants.CHROME_USE_WINDOW_BACKGROUND_COLOR_AS_PERSPECTIVE_END_COLOR, true);
+	}
+
+	@Override
+	public void initializeDefaultPreferences() {
+		IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+		initializeDefaultPreferences(store);
 	}
 
 }

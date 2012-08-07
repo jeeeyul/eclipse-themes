@@ -1,11 +1,19 @@
 package net.jeeeyul.eclipse.themes.preference;
 
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Enumeration;
 
 import net.jeeeyul.eclipse.themes.ChromeThemeCore;
 import net.jeeeyul.eclipse.themes.SharedImages;
+import net.jeeeyul.eclipse.themes.preference.action.LoadPresetAction;
 import net.jeeeyul.eclipse.themes.rendering.ChromeTabRendering;
 
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
@@ -14,11 +22,16 @@ import org.eclipse.swt.custom.CTabFolderEvent;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Link;
+import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.IWorkbench;
@@ -30,6 +43,8 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 
 	private ArrayList<ChromePage> pages = new ArrayList<ChromePage>();
 	private CTabFolder folder;
+
+	private ToolItem presetItem;
 
 	public ChromeThemePrefererncePage() {
 		setPreferenceStore(ChromeThemeCore.getDefault().getPreferenceStore());
@@ -77,7 +92,7 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 		}
 		folder.setSelection(0);
 
-		createFakeToolbar();
+		createToolbar();
 		createLink(container, "Only works with Chrome Theme, You can change on <a href=\"org.eclipse.ui.preferencePages.Views\">Appearance page</a>");
 
 		load();
@@ -85,20 +100,21 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 		return container;
 	}
 
-	private void createFakeToolbar() {
-		ToolBar toolBar = new ToolBar(folder, SWT.NORMAL);
+	private void createToolbar() {
+		ToolBar toolBar = new ToolBar(folder, SWT.FLAT | SWT.RIGHT);
 		folder.setTopRight(toolBar);
-		ToolItem toolItem = new ToolItem(toolBar, SWT.PUSH);
-		toolItem.setImage(SharedImages.getImage(SharedImages.ECLIPSE));
 
-		ToolItem toolItem2 = new ToolItem(toolBar, SWT.PUSH);
-		toolItem2.setImage(SharedImages.getImage(SharedImages.MENU));
+		presetItem = new ToolItem(toolBar, SWT.DROP_DOWN);
+		presetItem.setImage(SharedImages.getImage(SharedImages.PALETTE));
+		presetItem.setToolTipText("Preset");
+		presetItem.addListener(SWT.Selection, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
 
-		ToolItem toolItem3 = new ToolItem(toolBar, SWT.PUSH);
-		toolItem3.setImage(SharedImages.getImage(SharedImages.MINIMIZE));
+			}
+		});
 
-		ToolItem toolItem4 = new ToolItem(toolBar, SWT.PUSH);
-		toolItem4.setImage(SharedImages.getImage(SharedImages.MAXMIZE));
+		createPresetMenu();
 	}
 
 	private void createLink(Composite contaienr, String text) {
@@ -108,6 +124,40 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				navigateToOtherPage(e.text);
+			}
+		});
+	}
+
+	private void createPresetMenu() {
+		MenuManager manager = new MenuManager();
+
+		Action label = new Action() {
+		};
+		label.setText("Editor's Presets");
+		label.setEnabled(false);
+		manager.add(label);
+
+		manager.add(new Separator());
+
+		Enumeration<URL> presets = ChromeThemeCore.getDefault().getBundle().findEntries("presets/", "*.epf", false);
+		while (presets.hasMoreElements()) {
+			URL url = presets.nextElement();
+			IPath path = new Path(url.getFile());
+			LoadPresetAction loadPresetAction = new LoadPresetAction(this, url);
+			loadPresetAction.setText(path.removeFileExtension().lastSegment());
+			manager.add(loadPresetAction);
+		}
+
+		final Menu menu = manager.createContextMenu(getShell());
+
+		presetItem.addListener(SWT.Selection, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				Rectangle rect = presetItem.getBounds();
+				Point pt = new Point(rect.x, rect.y + rect.height);
+				pt = presetItem.getParent().toDisplay(pt);
+				menu.setLocation(pt.x, pt.y);
+				menu.setVisible(true);
 			}
 		});
 	}
