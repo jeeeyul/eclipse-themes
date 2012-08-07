@@ -43,7 +43,7 @@ class PartPage extends ChromePage {
 	Button syncInactiveEndColorHueButton
 	Button autoInactiveOutlineColorButton
 	Button syncInactiveOutlineColorHueButton
-	
+
 	Button previewActiveButton
 	Button previewInactiveButton
 	
@@ -135,7 +135,7 @@ class PartPage extends ChromePage {
 				PushButton[
 					text = "Change"
 					onClick = [
-						showColorPickerFor(activeStartColorWell)
+						showColorPicker(activeStartColorWell)
 					]
 				]
 				
@@ -159,7 +159,7 @@ class PartPage extends ChromePage {
 				PushButton[
 					text = "Change"
 					onClick = [
-						showColorPickerFor(activeEndColorWell)
+						showColorPicker(activeEndColorWell)
 					]
 				]
 				
@@ -190,7 +190,7 @@ class PartPage extends ChromePage {
 				PushButton[
 					text = "Change"
 					onClick = [
-						showColorPickerFor(activeOutlineColorWell)
+						showColorPicker(activeOutlineColorWell)
 					]
 				]
 				
@@ -220,7 +220,7 @@ class PartPage extends ChromePage {
 				PushButton[
 					text = "Change"
 					onClick = [
-						showColorPickerFor(activeSelectedTitleColorWell)
+						showColorPicker(activeSelectedTitleColorWell)
 					]
 				]
 				
@@ -242,7 +242,7 @@ class PartPage extends ChromePage {
 				PushButton[
 					text = "Change"
 					onClick = [
-						showColorPickerFor(activeUnselectedTitleColorWell)
+						showColorPicker(activeUnselectedTitleColorWell)
 					]
 				]
 				
@@ -277,7 +277,7 @@ class PartPage extends ChromePage {
 				PushButton[
 					text = "Change"
 					onClick = [
-						showColorPickerFor(inactiveStartColorWell)
+						showColorPicker(inactiveStartColorWell)
 					]
 				]
 				
@@ -301,7 +301,7 @@ class PartPage extends ChromePage {
 				PushButton[
 					text = "Change"
 					onClick = [
-						showColorPickerFor(inactiveEndColorWell)
+						showColorPicker(inactiveEndColorWell)
 					]
 				]
 				
@@ -332,7 +332,7 @@ class PartPage extends ChromePage {
 				PushButton[
 					text = "Change"
 					onClick = [
-						showColorPickerFor(inactiveOutlineColorWell)
+						showColorPicker(inactiveOutlineColorWell)
 					]
 				]
 				
@@ -362,7 +362,7 @@ class PartPage extends ChromePage {
 				PushButton[
 					text = "Change"
 					onClick = [
-						showColorPickerFor(inactiveSelectedTitleColorWell)
+						showColorPicker(inactiveSelectedTitleColorWell)
 					]
 				]
 				
@@ -384,7 +384,7 @@ class PartPage extends ChromePage {
 				PushButton[
 					text = "Change"
 					onClick = [
-						showColorPickerFor(inactiveUnselectedTitleColorWell)
+						showColorPicker(inactiveUnselectedTitleColorWell)
 					]
 				]
 				
@@ -393,6 +393,8 @@ class PartPage extends ChromePage {
 					layoutData = FILL_HORIZONTAL[horizontalSpan = 2]
 				]
 			]
+			
+			
 		]
 	}
 	def private void updateSync() { 
@@ -659,7 +661,6 @@ class PartPage extends ChromePage {
 		}
 		
 		store.setValue(CHROME_PART_FONT_SIZE, fontSize)
-		
 	}
 
 	override setToDefault(IPreferenceStore store) {
@@ -738,13 +739,13 @@ class PartPage extends ChromePage {
 		
 		fontSelector.selection = new StructuredSelection(store.getDefaultString(CHROME_PART_FONT_NAME))
 		fontSizeField.text = Float::toString(store.getDefaultFloat(CHROME_PART_FONT_SIZE))
-		
+
 		updateEnablement()
 		updateSync()
 		updatePreview()
 	}
 	
-	def private void showColorPickerFor(ColorWell well) { 
+	def private void showColorPicker(ColorWell well) { 
 		var picker = new ColorPicker()
 		var original = well.selection
 		

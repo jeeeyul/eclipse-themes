@@ -47,4 +47,8 @@ public interface IChromeThemeConfig {
 	public abstract RGB getPerspectiveEndColor();
 
 	public abstract RGB getPerspectiveOutlineColor();
+
+	public abstract RGB getEmptyPartOutloneColor();
+
+	public abstract RGB getEmptyPartBackgroundColor();
 }

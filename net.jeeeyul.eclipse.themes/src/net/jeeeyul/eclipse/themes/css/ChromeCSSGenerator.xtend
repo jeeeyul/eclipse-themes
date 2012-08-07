@@ -61,9 +61,9 @@ class ChromeCSSGenerator {
 		}
 		
 		.MPartStack.empty {
-			swt-unselected-tabs-color: #ddd #ddd #ddd 99% 100%;
-			swt-tab-outline: #B8BECC;
-			swt-outer-keyline-color: #B8BECC;
+			swt-unselected-tabs-color: «config.emptyPartBackgroundColor.toHtmlColor» «config.emptyPartBackgroundColor.toHtmlColor» «config.emptyPartBackgroundColor.toHtmlColor» 99% 100%;
+			swt-tab-outline: «config.emptyPartOutloneColor.toHtmlColor»;
+			swt-outer-keyline-color: «config.emptyPartOutloneColor.toHtmlColor»;
 		}
 		
 		.MToolControl.TrimStack {

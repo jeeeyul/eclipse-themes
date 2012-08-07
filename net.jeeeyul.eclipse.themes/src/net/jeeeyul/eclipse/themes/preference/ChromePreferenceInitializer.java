@@ -70,7 +70,15 @@ public class ChromePreferenceInitializer extends AbstractPreferenceInitializer {
 		store.setDefault(ChromeConstants.CHROME_LOCK_INACTIVE_END_HUE, true);
 		store.setDefault(ChromeConstants.CHROME_AUTO_INACTIVE_OUTLINE_COLOR, true);
 		store.setDefault(ChromeConstants.CHROME_LOCK_INACTIVE_OUTLINE_HUE, true);
-
+		
+		store.setDefault(ChromeConstants.CHROME_EMPTY_PART_HUE, 0f);
+		store.setDefault(ChromeConstants.CHROME_EMPTY_PART_SATURATION, 0f);
+		store.setDefault(ChromeConstants.CHROME_EMPTY_PART_BRIGHTNESS, 0.87f);
+		
+		store.setDefault(ChromeConstants.CHROME_EMPTY_PART_OUTLINE_HUE, 221f);
+		store.setDefault(ChromeConstants.CHROME_EMPTY_PART_OUTLINE_SATURATION, 0.1f);
+		store.setDefault(ChromeConstants.CHROME_EMPTY_PART_OUTLINE_BRIGHTNESS, 0.8f);
+		
 		store.setDefault(ChromeConstants.CHROME_PART_CONTAINER_SASH_WIDTH, 4);
 		store.setDefault(ChromeConstants.CHROME_PART_SHADOW, true);
 		store.setDefault(ChromeConstants.CHROME_SASH_PRESET, ChromeConstants.CHROME_SASH_PRESET_STANDARD);

@@ -207,6 +207,7 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 	private void setupPages() {
 		addPage(new PartPage());
 		addPage(new WindowPage());
+		addPage(new EmptyPartPage());
 		addPage(new ToolbarPage());
 	}
 }

@@ -63,6 +63,14 @@ public interface ChromeConstants {
 	public static final String CHROME_INACTIVE_UNSELECTED_TITLE_HUE = "chrome-inactive-unselected-title-hue";
 	public static final String CHROME_INACTIVE_UNSELECTED_TITLE_SHINY_SHADOW = "chrome-inactive-unselected-title-shiny-shadow";
 
+	public static final String CHROME_EMPTY_PART_SATURATION = "chrome-empty-part-saturation";
+	public static final String CHROME_EMPTY_PART_HUE = "chrome-empty-part-hue";
+	public static final String CHROME_EMPTY_PART_BRIGHTNESS = "chrome-empty-part-brightness";
+	
+	public static final String CHROME_EMPTY_PART_OUTLINE_SATURATION = "chrome-empty-part-outline-saturation";
+	public static final String CHROME_EMPTY_PART_OUTLINE_HUE = "chrome-empty-part-outline-hue";
+	public static final String CHROME_EMPTY_PART_OUTLINE_BRIGHTNESS = "chrome-empty-part-outline-brightness";
+	
 	public static final String CHROME_SASH_PRESET = "chrome-sash-preset";
 	public static final String CHROME_SASH_PRESET_STANDARD = "chrome-sash-preset-standard";
 	public static final String CHROME_SASH_PRESET_THIN = "chrome-sash-preset-thin";
