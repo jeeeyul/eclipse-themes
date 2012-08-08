@@ -1,6 +1,7 @@
 package net.jeeeyul.eclipse.themes.ui;
 
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.widgets.Event;
 
 public class KRectangle {
 	public int x;
@@ -16,6 +17,26 @@ public class KRectangle {
 		this.y = y;
 		this.width = width;
 		this.height = height;
+	}
+
+	public KRectangle(Rectangle bounds) {
+		this(bounds.x, bounds.y, bounds.width, bounds.height);
+	}
+
+	public KRectangle(Event event) {
+		this(event.x, event.y, event.width, event.height);
+	}
+
+	public boolean contains(int x, int y, int width, int height) {
+		return this.x <= x && this.y <= y && x + width <= this.x + this.width && y + height < this.y + this.height;
+	}
+
+	public boolean contains(KRectangle rect) {
+		return contains(rect.x, rect.y, rect.width, rect.height);
+	}
+
+	public boolean contains(Rectangle rect) {
+		return contains(rect.x, rect.y, rect.width, rect.height);
 	}
 
 	public KRectangle expand(int width, int height) {
@@ -71,6 +92,50 @@ public class KRectangle {
 
 	public KRectangle union(Rectangle bounds) {
 		return union(bounds.x, bounds.y, bounds.width, bounds.height);
+	}
+
+	public KRectangle setSize(int width, int height) {
+		this.width = width;
+		this.height = height;
+		return this;
+	}
+
+	public KRectangle setLocation(int x, int y) {
+		this.x = x;
+		this.y = y;
+		return this;
+	}
+
+	public KPoint getRight() {
+		return new KPoint(x + width, y + height / 2);
+	}
+
+	public boolean contains(int x, int y) {
+		return this.x <= x && this.y <= y && x <= this.x + this.width && y <= this.y + this.height;
+	}
+
+	public boolean contains(KPoint point) {
+		return contains(point.x, point.y);
+	}
+
+	public KPoint getBottom() {
+		return new KPoint(this.x + this.width / 2, this.y + this.height);
+	}
+
+	public KPoint getTopLeft() {
+		return new KPoint(this.x, this.y);
+	}
+
+	public KPoint getTopRight() {
+		return new KPoint(this.x + this.width, this.y);
+	}
+
+	public KPoint getBottomLeft() {
+		return new KPoint(this.x, this.y + this.height);
+	}
+
+	public KPoint getBottomRight() {
+		return new KPoint(this.x + width, this.y + this.height);
 	}
 
 }
