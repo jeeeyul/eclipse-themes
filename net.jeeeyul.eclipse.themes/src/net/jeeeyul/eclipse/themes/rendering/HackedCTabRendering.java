@@ -787,7 +787,9 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 			outerKeyline = gc.getDevice().getSystemColor(SWT.COLOR_BLACK);
 		gc.setForeground(outerKeyline);
 		gc.drawPolyline(shape);
-		gc.drawLine(trim.x, trim.y + trim.height - 2, trim.x + trim.width, trim.y + trim.height - 2);
+
+		if (parent.getItemCount() > 0)
+			gc.drawLine(trim.x, trim.y + trim.height - 2, trim.x + trim.width, trim.y + trim.height - 2);
 	}
 
 	protected void drawUnselectedTabItem(int index, GC gc, Rectangle bounds, int state) {
@@ -872,7 +874,7 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 
 	protected void drawUnselectedTabItemBackground(int itemIndex, GC gc, Rectangle bounds, int state) {
 		if ((state & SWT.HOT) != 0) {
-		
+
 			KRectangle rect = new KRectangle(bounds).expand(-1, 1).translate(0, -1);
 			if (itemIndex == 0 || bounds.x <= 4) {
 				rect.translate(-1, 0).expand(1, 0);
