@@ -4,7 +4,6 @@ import net.jeeeyul.eclipse.themes.preference.internal.ColorFactory;
 import net.jeeeyul.eclipse.themes.preference.internal.FontFactory;
 import net.jeeeyul.eclipse.themes.preference.internal.ResourceRegistry;
 import net.jeeeyul.eclipse.themes.rendering.ChromeTabRendering;
-import net.jeeeyul.eclipse.themes.rendering.HackedCTabRendering;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
@@ -12,8 +11,6 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.RGB;
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 
 public class PartPreview {
 	private CTabFolder folder;
@@ -26,21 +23,21 @@ public class PartPreview {
 	private RGB outline = new RGB(0, 0, 0);
 	private RGB selectedTitle = new RGB(0, 0, 0);
 	private RGB unselectedTitle = new RGB(0, 0, 0);
+	private RGB selectedTabStart = new RGB(0, 0, 0);
+	private RGB selectedTabEnd = new RGB(0, 0, 0);
 	private boolean castShinyShadow;
-	private String fontName = "Segoe UI";
-	private float fontSize = 9f;
 
 	public PartPreview(CTabFolder folder) {
 		this.folder = folder;
 	}
 
-	private Color getColor(RGB rgb) {
-		return colorRegistry.get(rgb);
-	}
-
 	public void dispose() {
 		colorRegistry.dispose();
 		fontRegistry.dispose();
+	}
+
+	private Color getColor(RGB rgb) {
+		return colorRegistry.get(rgb);
 	}
 
 	public RGB getGradientEnd() {
@@ -53,6 +50,14 @@ public class PartPreview {
 
 	public RGB getOutline() {
 		return outline;
+	}
+
+	public RGB getSelectedTabEnd() {
+		return selectedTabEnd;
+	}
+
+	public RGB getSelectedTabStart() {
+		return selectedTabStart;
 	}
 
 	public RGB getSelectedTitle() {
@@ -79,47 +84,16 @@ public class PartPreview {
 		renderer.setTabOutline(getColor(outline));
 		renderer.setSelectedTabItemColor(getColor(selectedTitle));
 		renderer.setUnselectedTabItemColor(getColor(unselectedTitle));
-
+		renderer.setSelectedTabFill(getColor(selectedTabEnd));
+		renderer.setSelectedTabFillHighlightColor(getColor(selectedTabStart));
 		Color[] gradient = new Color[] { getColor(gradientStart), getColor(gradientEnd), folder.getDisplay().getSystemColor(SWT.COLOR_WHITE) };
 		folder.setBackground(gradient, new int[] { 99, 100 }, true);
-
-		FontData oldFont = folder.getFont().getFontData()[0];
-		FontData newFont = getFontData();
-
-		boolean updateFont = !oldFont.getName().equals(newFont.getName()) || oldFont.height != newFont.height;
-		if (updateFont) {
-			Font font = fontRegistry.get(newFont);
-			folder.setFont(font);
-			try {
-				HackedCTabRendering.HACK_CTabFolder_updateItems.invoke(folder);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			folder.getParent().layout(new Control[] { folder });
-		}
-
+		
+		folder.setBackground(getColor(selectedTabEnd));
 	}
 
 	public void setCastShinyShadow(boolean castShinyShadow) {
 		this.castShinyShadow = castShinyShadow;
-	}
-
-	private FontData getFontData() {
-		FontData data = new FontData();
-		data.setName(fontName);
-		data.height = fontSize;
-		return data;
-	}
-
-	public void setFontName(String fontName) {
-		if (fontName == null) {
-			fontName = Display.getCurrent().getSystemFont().getFontData()[0].getName();
-		}
-		this.fontName = fontName;
-	}
-
-	public void setFontSize(float fontSize) {
-		this.fontSize = fontSize;
 	}
 
 	public void setGradientEnd(RGB gradientEnd) {
@@ -132,6 +106,14 @@ public class PartPreview {
 
 	public void setOutline(RGB outline) {
 		this.outline = outline;
+	}
+
+	public void setSelectedTabEnd(RGB selectedTabEnd) {
+		this.selectedTabEnd = selectedTabEnd;
+	}
+
+	public void setSelectedTabStart(RGB selectedTabStart) {
+		this.selectedTabStart = selectedTabStart;
 	}
 
 	public void setSelectedTitle(RGB selectedTitle) {

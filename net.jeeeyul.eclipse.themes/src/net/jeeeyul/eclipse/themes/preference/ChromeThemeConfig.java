@@ -54,6 +54,12 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	private RGB partShadowColor;
 	private RGB emptyPartBackgroundColor;
 	private RGB emptyPartOutloneColor;
+	private RGB activeSelectedTabStartColor;
+	private RGB activeSelectedTabEndColor;
+	private RGB inactiveSelectedTabStartColor;
+	private RGB inactiveSelectedTabEndColor;
+	
+	private Integer partStackPadding;
 
 	public ChromeThemeConfig() {
 		this(ChromeThemeCore.getDefault().getPreferenceStore());
@@ -67,7 +73,6 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	public void dispose() {
 		preferenceStore.removePropertyChangeListener(this);
 	}
-
 	@Override
 	public RGB getActiveOulineColor() {
 		if (activeOulineColor == null) {
@@ -80,7 +85,6 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 		}
 		return activeOulineColor;
 	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -119,6 +123,32 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 		}
 
 		return activePartGradientStart;
+	}
+
+	@Override
+	public RGB getActiveSelectedTabEndColor() {
+		if (activeSelectedTabEndColor == null) {
+			float hsb[] = new float[3];
+			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			hsb[0] = store.getFloat(ChromeConstants.CHROME_ACTIVE_SELECTED_TAB_END_HUE);
+			hsb[1] = store.getFloat(ChromeConstants.CHROME_ACTIVE_SELECTED_TAB_END_SATURATION);
+			hsb[2] = store.getFloat(ChromeConstants.CHROME_ACTIVE_SELECTED_TAB_END_BRIGHTNESS);
+			activeSelectedTabEndColor = new RGB(hsb[0], hsb[1], hsb[2]);
+		}
+		return activeSelectedTabEndColor;
+	}
+
+	@Override
+	public RGB getActiveSelectedTabStartColor() {
+		if (activeSelectedTabStartColor == null) {
+			float hsb[] = new float[3];
+			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			hsb[0] = store.getFloat(ChromeConstants.CHROME_ACTIVE_SELECTED_TAB_START_HUE);
+			hsb[1] = store.getFloat(ChromeConstants.CHROME_ACTIVE_SELECTED_TAB_START_SATURATION);
+			hsb[2] = store.getFloat(ChromeConstants.CHROME_ACTIVE_SELECTED_TAB_START_BRIGHTNESS);
+			activeSelectedTabStartColor = new RGB(hsb[0], hsb[1], hsb[2]);
+		}
+		return activeSelectedTabStartColor;
 	}
 
 	@Override
@@ -215,6 +245,32 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	}
 
 	@Override
+	public RGB getInactiveSelectedTabEndColor() {
+		if (inactiveSelectedTabEndColor == null) {
+			float hsb[] = new float[3];
+			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			hsb[0] = store.getFloat(ChromeConstants.CHROME_INACTIVE_SELECTED_TAB_END_HUE);
+			hsb[1] = store.getFloat(ChromeConstants.CHROME_INACTIVE_SELECTED_TAB_END_SATURATION);
+			hsb[2] = store.getFloat(ChromeConstants.CHROME_INACTIVE_SELECTED_TAB_END_BRIGHTNESS);
+			inactiveSelectedTabEndColor = new RGB(hsb[0], hsb[1], hsb[2]);
+		}
+		return inactiveSelectedTabEndColor;
+	}
+
+	@Override
+	public RGB getInactiveSelectedTabStartColor() {
+		if (inactiveSelectedTabStartColor == null) {
+			float hsb[] = new float[3];
+			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			hsb[0] = store.getFloat(ChromeConstants.CHROME_INACTIVE_SELECTED_TAB_START_HUE);
+			hsb[1] = store.getFloat(ChromeConstants.CHROME_INACTIVE_SELECTED_TAB_START_SATURATION);
+			hsb[2] = store.getFloat(ChromeConstants.CHROME_INACTIVE_SELECTED_TAB_START_BRIGHTNESS);
+			inactiveSelectedTabStartColor = new RGB(hsb[0], hsb[1], hsb[2]);
+		}
+		return inactiveSelectedTabStartColor;
+	}
+
+	@Override
 	public RGB getInactiveSelectedTitleColor() {
 		if (inactiveSelectedTitleColor == null) {
 			float hsb[] = new float[3];
@@ -262,6 +318,15 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 			partShadowColor = new RGB(hsb[0], hsb[1], hsb[2]);
 		}
 		return partShadowColor;
+	}
+
+	@Override
+	public Integer getPartStackPadding() {
+		if(partStackPadding == null){
+			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			partStackPadding = store.getInt(ChromeConstants.CHROME_PART_STACK_PADDING);
+		}
+		return partStackPadding;
 	}
 
 	@Override
@@ -395,6 +460,13 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 		
 		emptyPartBackgroundColor = null;
 		emptyPartOutloneColor = null;
+		
+		activeSelectedTabEndColor = null;
+		activeSelectedTabStartColor = null;
+		inactiveSelectedTabStartColor = null;
+		inactiveSelectedTabEndColor = null;
+		
+		partStackPadding = null;
 	}
 
 	@Override

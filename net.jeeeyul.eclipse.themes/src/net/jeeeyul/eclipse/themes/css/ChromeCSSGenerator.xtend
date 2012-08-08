@@ -33,12 +33,14 @@ class ChromeCSSGenerator {
 			swt-tab-renderer:
 				url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.ChromeTabRendering');
 		
-			padding: 0px 9px 10px;
+			padding: «config.partStackPadding»px «config.partStackPadding+5»px «config.partStackPadding+7»px «config.partStackPadding+5»px; /* top left bottom right */
 			swt-tab-outline: «config.inactiveOulineColor.toHtmlColor»;
 			swt-outer-keyline-color: «config.inactiveOulineColor.toHtmlColor»;
-			swt-inner-keyline-color: black;
-			swt-unselected-tabs-color: «config.inactivePartGradientStart.toHtmlColor» «config.inactivePartGradientEnd.toHtmlColor» white 99% 100%;
+			swt-unselected-tabs-color: «config.inactivePartGradientStart.toHtmlColor» «config.inactivePartGradientEnd.toHtmlColor» «config.inactiveSelectedTabEndColor.toHtmlColor» 99% 100%;
 			swt-shadow-visible: «config.usePartShadow»;
+			
+			swt-selected-tab-fill: «config.inactiveSelectedTabEndColor.toHtmlColor»;
+			chrome-selected-tab-fill-highlight: «config.inactiveSelectedTabStartColor.toHtmlColor»;
 			
 			chrome-selected-tab-color: «config.inactiveSelectedTitleColor.toHtmlColor»;
 			chrome-unselected-tab-color: «config.inactiveUnselectedTitleColor.toHtmlColor»;
@@ -53,7 +55,10 @@ class ChromeCSSGenerator {
 			swt-inner-keyline-color: #FFFFFF;
 			swt-tab-outline: «config.activeOulineColor.toHtmlColor»;
 			swt-outer-keyline-color: «config.activeOulineColor.toHtmlColor»;
-			swt-unselected-tabs-color: «config.activePartGradientStart.toHtmlColor» «config.activePartGradientEnd.toHtmlColor» white 99% 100%;
+			swt-unselected-tabs-color: «config.activePartGradientStart.toHtmlColor» «config.activePartGradientEnd.toHtmlColor» «config.activeSelectedTabEndColor.toHtmlColor» 99% 100%;
+			
+			swt-selected-tab-fill: «config.activeSelectedTabEndColor.toHtmlColor»;
+			chrome-selected-tab-fill-highlight: «config.activeSelectedTabStartColor.toHtmlColor»;
 			
 			chrome-selected-tab-color: «config.activeSelectedTitleColor.toHtmlColor»;
 			chrome-unselected-tab-color: «config.activeUnselectedTitleColor.toHtmlColor»;

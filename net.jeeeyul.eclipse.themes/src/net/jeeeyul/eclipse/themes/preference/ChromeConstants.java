@@ -103,4 +103,23 @@ public interface ChromeConstants {
 	public static final String CHROME_PERSPECTIVE_OUTLINE_BRIGHTNESS = "chrome-perspective-outline-brightness";
 	public static final String CHROME_PERSPECTIVE_OUTLINE_SATURATION = "chrome-perspective-outline-saturation";
 	public static final String CHROME_PERSPECTIVE_OUTLINE_HUE = "chrome-perspective-outline-hue";
+	
+	public static final String CHROME_ACTIVE_SELECTED_TAB_START_BRIGHTNESS = "chrome-active-selected-tab-start-brightness";
+	public static final String CHROME_ACTIVE_SELECTED_TAB_START_SATURATION = "chrome-active-selected-tab-start-saturation";
+	public static final String CHROME_ACTIVE_SELECTED_TAB_START_HUE = "chrome-active-selected-tab-start-hue";
+	
+	public static final String CHROME_ACTIVE_SELECTED_TAB_END_BRIGHTNESS = "chrome-active-selected-tab-end-brightness";
+	public static final String CHROME_ACTIVE_SELECTED_TAB_END_SATURATION = "chrome-active-selected-tab-end-saturation";
+	public static final String CHROME_ACTIVE_SELECTED_TAB_END_HUE = "chrome-active-selected-tab-end-hue";
+	
+	public static final String CHROME_INACTIVE_SELECTED_TAB_START_BRIGHTNESS = "chrome-inactive-selected-tab-start-brightness";
+	public static final String CHROME_INACTIVE_SELECTED_TAB_START_SATURATION = "chrome-inactive-selected-tab-start-saturation";
+	public static final String CHROME_INACTIVE_SELECTED_TAB_START_HUE = "chrome-inactive-selected-tab-start-hue";
+	
+	public static final String CHROME_INACTIVE_SELECTED_TAB_END_BRIGHTNESS = "chrome-inactive-selected-tab-end-brightness";
+	public static final String CHROME_INACTIVE_SELECTED_TAB_END_SATURATION = "chrome-inactive-selected-tab-end-saturation";
+	public static final String CHROME_INACTIVE_SELECTED_TAB_END_HUE = "chrome-inactive-selected-tab-end-hue";
+	
+	public static final String CHROME_PART_STACK_PADDING = "chrome-part-stack-padding";
+	
 }

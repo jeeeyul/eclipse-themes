@@ -55,26 +55,40 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 		pages.add(page);
 		page.setParentPage(this);
 	}
+	
+	public ChromePage getActivePage(){
+		return getPages().get(folder.getSelectionIndex());
+	}
 
 	@Override
 	protected Control createContents(Composite parent) {
 		Composite container = new Composite(parent, SWT.NORMAL);
 		container.setLayout(new GridLayout());
 
-		folder = new CTabFolder(container, SWT.CLOSE);
+		folder = new CTabFolder(container, SWT.MULTI);
+		
 		ChromeTabRendering renderer = new ChromeTabRendering(folder);
 		renderer.setSelectedTabFill(folder.getDisplay().getSystemColor(SWT.COLOR_WHITE));
 		renderer.setOuterKeyline(folder.getDisplay().getSystemColor(SWT.COLOR_BLACK));
 		renderer.setPadding(9, 9, 0, 10);
 
 		folder.setRenderer(renderer);
-		folder.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		GridData layoutData = new GridData(GridData.FILL_HORIZONTAL);
+		folder.setLayoutData(layoutData);
 		folder.addCTabFolder2Listener(new CTabFolder2Adapter() {
 			@Override
 			public void close(CTabFolderEvent event) {
 				event.doit = false;
 			}
 		});
+		
+		folder.addListener(SWT.Selection, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				getPages().get(folder.getSelectionIndex()).onPageSelected();
+			}
+		});
+		
 		folder.setUnselectedCloseVisible(false);
 
 		for (int i = 0; i < pages.size(); i++) {
@@ -205,9 +219,10 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 	}
 
 	private void setupPages() {
-		addPage(new PartPage());
+		addPage(new PartPage("Active Part", true));
+		addPage(new PartPage("Inactive Part", false));
+		addPage(new CommonPartPage());
 		addPage(new WindowPage());
-		addPage(new EmptyPartPage());
 		addPage(new ToolbarPage());
 	}
 }

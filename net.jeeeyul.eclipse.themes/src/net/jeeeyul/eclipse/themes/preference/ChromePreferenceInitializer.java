@@ -128,6 +128,24 @@ public class ChromePreferenceInitializer extends AbstractPreferenceInitializer {
 		store.setDefault(ChromeConstants.CHROME_PERSPECTIVE_OUTLINE_BRIGHTNESS, .74f);
 
 		store.setDefault(ChromeConstants.CHROME_USE_WINDOW_BACKGROUND_COLOR_AS_PERSPECTIVE_END_COLOR, true);
+		
+		store.setDefault(ChromeConstants.CHROME_ACTIVE_SELECTED_TAB_START_HUE, 0f);
+		store.setDefault(ChromeConstants.CHROME_ACTIVE_SELECTED_TAB_START_SATURATION, 0f);
+		store.setDefault(ChromeConstants.CHROME_ACTIVE_SELECTED_TAB_START_BRIGHTNESS, 1f);
+		
+		store.setDefault(ChromeConstants.CHROME_ACTIVE_SELECTED_TAB_END_HUE, 0f);
+		store.setDefault(ChromeConstants.CHROME_ACTIVE_SELECTED_TAB_END_SATURATION, 0f);
+		store.setDefault(ChromeConstants.CHROME_ACTIVE_SELECTED_TAB_END_BRIGHTNESS, 1f);
+		
+		store.setDefault(ChromeConstants.CHROME_INACTIVE_SELECTED_TAB_START_HUE, 0f);
+		store.setDefault(ChromeConstants.CHROME_INACTIVE_SELECTED_TAB_START_SATURATION, 0f);
+		store.setDefault(ChromeConstants.CHROME_INACTIVE_SELECTED_TAB_START_BRIGHTNESS, 1f);
+		
+		store.setDefault(ChromeConstants.CHROME_INACTIVE_SELECTED_TAB_END_HUE, 0f);
+		store.setDefault(ChromeConstants.CHROME_INACTIVE_SELECTED_TAB_END_SATURATION, 0f);
+		store.setDefault(ChromeConstants.CHROME_INACTIVE_SELECTED_TAB_END_BRIGHTNESS, 1f);
+		
+		store.setDefault(ChromeConstants.CHROME_PART_STACK_PADDING, 0);
 	}
 
 	@Override

@@ -207,18 +207,11 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 
 	protected Color selectedTabItemColor;
 	protected Color unselectedTabItemColor;
+	protected Color selectedTabFillHighlightColor;
 
 	@Inject
 	public HackedCTabRendering(CTabFolder parent) {
 		super(parent);
-	}
-
-	protected void updateItems() {
-		try {
-			HACK_CTabFolder_updateItems.invoke(parent);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	void _drawClose(GC gc, Rectangle closeRect, int closeImageState) {
@@ -343,40 +336,16 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 		gc.dispose();
 		int borderTop = TOP_KEYLINE + OUTER_KEYLINE;
 		int borderBottom = INNER_KEYLINE + OUTER_KEYLINE;
-		int marginWidth = parent.marginWidth;
 		int marginHeight = parent.marginHeight;
 		int sideDropWidth = shadowEnabled ? SIDE_DROP_WIDTH : 0;
 		switch (part) {
 		case PART_BODY:
-			if (state == SWT.FILL) {
-				x = -1 - paddingLeft;
-				int tabHeight = parent.getTabHeight() + 1;
-				y = y - paddingTop - marginHeight - tabHeight - borderTop - (cornerSize / 4);
-				width = 2 + paddingLeft + paddingRight;
-				height += paddingTop + paddingBottom;
-				height += tabHeight + (cornerSize / 4) + borderBottom + borderTop;
-			} else {
-				x = x - marginWidth - OUTER_KEYLINE - INNER_KEYLINE - sideDropWidth - (cornerSize / 2);
-				width = width + 2 * OUTER_KEYLINE + 2 * INNER_KEYLINE + 2 * marginWidth + 2 * sideDropWidth + cornerSize;
-				int tabHeight = parent.getTabHeight() + 1; // TODO: Figure out
-															// what
-															// to do about the
-															// +1
-				// TODO: Fix
-				if (parent.getMinimized()) {
-					y = /* parent.onBottom ? y - borderTop : */y - tabHeight - borderTop - 5;
-					height = borderTop + borderBottom + tabHeight;
-				} else {
-					// y = tabFolder.onBottom ? y - marginHeight -
-					// highlight_margin
-					// - borderTop: y - marginHeight - highlight_header -
-					// tabHeight
-					// - borderTop;
-					y = y - marginHeight - tabHeight - borderTop - (cornerSize / 4);
-					height = height + borderBottom + borderTop + 2 * marginHeight + tabHeight + cornerSize / 2 + cornerSize / 4
-							+ (shadowEnabled ? BOTTOM_DROP_WIDTH : 0);
-				}
-			}
+			x = -1 - paddingLeft;
+			int tabHeight = parent.getTabHeight() + 1;
+			y = y - paddingTop - marginHeight - tabHeight - borderTop - (cornerSize / 4);
+			width = 2 + paddingLeft + paddingRight;
+			height += paddingTop + paddingBottom;
+			height += tabHeight + (cornerSize / 4) + borderBottom + borderTop;
 			break;
 		case PART_HEADER:
 			x = x - (INNER_KEYLINE + OUTER_KEYLINE) - sideDropWidth;
@@ -672,15 +641,13 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 			selectedTabFillColor = gc.getDevice().getSystemColor(SWT.COLOR_WHITE);
 		gc.setBackground(selectedTabFillColor);
 		gc.setForeground(selectedTabFillColor);
-		Color gradientTop = null;
 		Pattern backgroundPattern = null;
-		if (!active) {
-			RGB blendColor = gc.getDevice().getSystemColor(SWT.COLOR_WIDGET_LIGHT_SHADOW).getRGB();
-			RGB topGradient = blend(blendColor, parent.getParent().getBackground().getRGB(), 40);
-			gradientTop = new Color(gc.getDevice(), topGradient);
-			backgroundPattern = new Pattern(gc.getDevice(), 0, 0, 0, bounds.height + 1, gradientTop, gc.getDevice().getSystemColor(SWT.COLOR_WHITE));
+
+		if (selectedTabFillHighlightColor != null) {
+			backgroundPattern = new Pattern(gc.getDevice(), 0, 0, 0, bounds.height + 1, selectedTabFillHighlightColor, selectedTabFillColor);
 			gc.setBackgroundPattern(backgroundPattern);
 		}
+
 		int[] tmpPoints = new int[index];
 		System.arraycopy(points, 0, tmpPoints, 0, index);
 
@@ -709,8 +676,6 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 			gc.drawPolyline(shape);
 		} else {
 			gc.drawLine(startX, 0, endX, 0);
-			if (gradientTop != null)
-				gradientTop.dispose();
 			if (backgroundPattern != null)
 				backgroundPattern.dispose();
 			if (gradientLineTop != null)
@@ -1116,6 +1081,10 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 		}
 	}
 
+	public Color getSelectedTabFillHighlightColor() {
+		return selectedTabFillHighlightColor;
+	}
+
 	public Color getSelectedTabItemColor() {
 		return selectedTabItemColor;
 	}
@@ -1190,6 +1159,10 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 		parent.redraw();
 	}
 
+	public void setSelectedTabFillHighlightColor(Color selectedTabFillHighlightColor) {
+		this.selectedTabFillHighlightColor = selectedTabFillHighlightColor;
+	}
+
 	public void setSelectedTabItemColor(Color selectedTabItemColor) {
 		this.selectedTabItemColor = selectedTabItemColor;
 	}
@@ -1242,5 +1215,13 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 			result[i + 1] += dy;
 		}
 		return result;
+	}
+
+	protected void updateItems() {
+		try {
+			HACK_CTabFolder_updateItems.invoke(parent);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

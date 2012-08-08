@@ -27,6 +27,9 @@ class WindowPage extends ChromePage {
 	ColorWell windowBackgroundColorWell
 	ColorWell partShadowColorWell
 	
+	ColorWell emptyPartColorWell
+	ColorWell emptyPartOutlineColorWell
+	
 	new(){
 		super("Window", SharedImages::LAYOUT)
 	}
@@ -131,10 +134,45 @@ class WindowPage extends ChromePage {
 				]
 			]
 			
+			Group[
+				text = "Empty Editor Area"
+				layout = GridLayout[numColumns = 3]
+				layoutData = FILL_HORIZONTAL
+				
+				Label[ text = "Background Color:"]
+				emptyPartColorWell = ColorWell[
+					onSelection = [
+						updatePreview()
+					]
+				]
+				
+				PushButton[
+					text = "Change"
+					onClick = [
+						emptyPartColorWell.showColorPicker()
+					]
+				]
+				
+				Label[ text = "Outline Color:"]
+				emptyPartOutlineColorWell = ColorWell[
+					onSelection = [
+						updatePreview()
+					]
+				]
+				
+				PushButton[
+					text = "Change"
+					onClick = [
+						emptyPartOutlineColorWell.showColorPicker()
+					]
+				]
+			]
+			
 			Label[
 				text = "Using shadow makes more space to draw shadows."
 			]
 		]
+		
 	}
 	
 	def private void updatePreview() {
@@ -178,6 +216,18 @@ class WindowPage extends ChromePage {
 			store.getFloat(CHROME_PART_SHADOW_BRIGHTNESS)
 		)
 		
+		emptyPartColorWell.selection = new HSB(
+			store.getFloat(CHROME_EMPTY_PART_HUE),
+			store.getFloat(CHROME_EMPTY_PART_SATURATION), 
+			store.getFloat(CHROME_EMPTY_PART_BRIGHTNESS)
+		)
+		
+		emptyPartOutlineColorWell.selection = new HSB(
+			store.getFloat(CHROME_EMPTY_PART_OUTLINE_HUE),
+			store.getFloat(CHROME_EMPTY_PART_OUTLINE_SATURATION), 
+			store.getFloat(CHROME_EMPTY_PART_OUTLINE_BRIGHTNESS)
+		)
+		
 		updateEnablement();
 		
 	}
@@ -208,6 +258,14 @@ class WindowPage extends ChromePage {
 		store.setValue(CHROME_PART_SHADOW_HUE, partShadowColorWell.selection.hue);
 		store.setValue(CHROME_PART_SHADOW_SATURATION, partShadowColorWell.selection.saturation);
 		store.setValue(CHROME_PART_SHADOW_BRIGHTNESS, partShadowColorWell.selection.brightness);
+		
+		store.setValue(CHROME_EMPTY_PART_HUE, emptyPartColorWell.selection.hue)
+		store.setValue(CHROME_EMPTY_PART_SATURATION, emptyPartColorWell.selection.saturation)
+		store.setValue(CHROME_EMPTY_PART_BRIGHTNESS, emptyPartColorWell.selection.brightness)
+		
+		store.setValue(CHROME_EMPTY_PART_OUTLINE_HUE, emptyPartOutlineColorWell.selection.hue)
+		store.setValue(CHROME_EMPTY_PART_OUTLINE_SATURATION, emptyPartOutlineColorWell.selection.saturation)
+		store.setValue(CHROME_EMPTY_PART_OUTLINE_BRIGHTNESS, emptyPartOutlineColorWell.selection.brightness)
 	}
 	
 	override setToDefault(IPreferenceStore store) {
@@ -241,6 +299,18 @@ class WindowPage extends ChromePage {
 			store.getDefaultFloat(CHROME_PART_SHADOW_HUE),
 			store.getDefaultFloat(CHROME_PART_SHADOW_SATURATION), 
 			store.getDefaultFloat(CHROME_PART_SHADOW_BRIGHTNESS)
+		)
+		
+		emptyPartColorWell.selection = new HSB(
+			store.getDefaultFloat(CHROME_EMPTY_PART_HUE),
+			store.getDefaultFloat(CHROME_EMPTY_PART_SATURATION), 
+			store.getDefaultFloat(CHROME_EMPTY_PART_BRIGHTNESS)
+		)
+		
+		emptyPartOutlineColorWell.selection = new HSB(
+			store.getDefaultFloat(CHROME_EMPTY_PART_OUTLINE_HUE),
+			store.getDefaultFloat(CHROME_EMPTY_PART_OUTLINE_SATURATION), 
+			store.getDefaultFloat(CHROME_EMPTY_PART_OUTLINE_BRIGHTNESS)
 		)
 		
 		updateEnablement()

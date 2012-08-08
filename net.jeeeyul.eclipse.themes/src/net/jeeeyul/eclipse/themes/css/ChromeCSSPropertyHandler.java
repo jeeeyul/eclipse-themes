@@ -38,6 +38,10 @@ public class ChromeCSSPropertyHandler implements ICSSPropertyHandler {
 			ChromeTabRendering rendering = (ChromeTabRendering) renderer;
 			Boolean use = (Boolean) engine.convert(value, Boolean.class, folder.getDisplay());
 			rendering.setShowShineyShadow(use);
+		} else if (property.equals("chrome-selected-tab-fill-highlight")) {
+			ChromeTabRendering rendering = (ChromeTabRendering) renderer;
+			Color color = (Color) engine.convert(value, Color.class, folder.getDisplay());
+			rendering.setSelectedTabFillHighlightColor(color);
 		}
 
 		return true;

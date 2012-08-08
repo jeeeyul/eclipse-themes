@@ -51,4 +51,14 @@ public interface IChromeThemeConfig {
 	public abstract RGB getEmptyPartOutloneColor();
 
 	public abstract RGB getEmptyPartBackgroundColor();
+
+	public abstract RGB getInactiveSelectedTabStartColor();
+
+	public abstract RGB getInactiveSelectedTabEndColor();
+
+	public abstract RGB getActiveSelectedTabStartColor();
+
+	public abstract RGB getActiveSelectedTabEndColor();
+
+	public abstract Integer getPartStackPadding();
 }

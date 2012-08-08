@@ -68,6 +68,9 @@
          <property-name
                name="chrome-shiney-shadow">
          </property-name>
+         <property-name
+               name="chrome-selected-tab-fill-highlight">
+         </property-name>
       </handler>
    </extension>
 

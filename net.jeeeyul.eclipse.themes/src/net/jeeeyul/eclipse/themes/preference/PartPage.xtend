@@ -9,53 +9,34 @@ import org.eclipse.jface.dialogs.IDialogConstants
 import org.eclipse.jface.preference.IPreferenceStore
 import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Composite
-import org.eclipse.jface.viewers.ComboViewer
-import net.jeeeyul.eclipse.themes.preference.internal.FontNameProvider
-import org.eclipse.swt.widgets.Combo
-import org.eclipse.swt.SWT
-import org.eclipse.swt.widgets.Text
-import org.eclipse.jface.viewers.StructuredSelection
-import org.eclipse.jface.viewers.IStructuredSelection
 
 import static net.jeeeyul.eclipse.themes.preference.ChromeConstants.*
 
 class PartPage extends ChromePage {
 	extension SWTExtensions = new SWTExtensions
+	
+	private boolean isActive
 
-	ColorWell activeStartColorWell
-	ColorWell activeEndColorWell	
-	ColorWell activeOutlineColorWell
-	ColorWell activeSelectedTitleColorWell
-	ColorWell activeUnselectedTitleColorWell
+	ColorWell startColorWell
+	ColorWell endColorWell	
+	ColorWell outlineColorWell
+	ColorWell selectedTitleColorWell
+	ColorWell unselectedTitleColorWell
 	
-	Button autoActiveEndColorButton
-	Button syncActiveEndColorHueButton
-	Button autoActiveOutlineColorButton
-	Button syncActiveOutlineColorHueButton
+	ColorWell selectedTabStartColorWell
+	ColorWell selectedTabEndColorWell
 	
-	ColorWell inactiveStartColorWell
-	ColorWell inactiveEndColorWell	
-	ColorWell inactiveOutlineColorWell
-	ColorWell inactiveSelectedTitleColorWell
-	ColorWell inactiveUnselectedTitleColorWell
-	
-	Button autoInactiveEndColorButton
-	Button syncInactiveEndColorHueButton
-	Button autoInactiveOutlineColorButton
-	Button syncInactiveOutlineColorHueButton
-
-	Button previewActiveButton
-	Button previewInactiveButton
-	
-	Button activePartShinyShadowButton
-	Button inactivePartShinyShadowButton
+	Button autoEndColorButton
+	Button syncEndColorHueButton
+	Button autoOutlineColorButton
+	Button syncOutlineColorHueButton
+	Button partShinyShadowButton
 	
 	PartPreview preview
-	ComboViewer fontSelector
-	Text fontSizeField
 	
-	new(){
-		super("Part", SharedImages::PART)
+	new(String name, boolean isActive){
+		super(name, SharedImages::PART)
+		this.isActive = isActive
 	}
 
 	override create(Composite parent) {
@@ -63,59 +44,10 @@ class PartPage extends ChromePage {
 		
 		parent=>[
 			layout = GridLayout
-			Group[
-				layoutData = FILL_HORIZONTAL
-				text = "Preview Mode"
-				layout = GridLayout[
-					numColumns = 2
-					makeColumnsEqualWidth = false
-				]
-				
-				previewActiveButton = RadioButton[
-					text = "Active Part Stack"
-					selection = true
-					onSelection = [updatePreview]
-				]
-				
-				previewInactiveButton = RadioButton[
-					text = "Inactive Part Stack"
-					onSelection = [updatePreview]
-				]
-			]
 			
 			Group[
 				layoutData = FILL_HORIZONTAL
-				text = "Font"
-				layout = GridLayout[
-					numColumns = 4
-					makeColumnsEqualWidth = false
-				]
-				
-				Label[text = "Font:"]
-				var combo = new Combo(it, SWT::READ_ONLY)=>[
-					layoutData = FILL_HORIZONTAL
-				]
-				fontSelector = new ComboViewer(combo)
-				fontSelector.contentProvider = new FontNameProvider()
-				fontSelector.input = new Object()
-				fontSelector.addSelectionChangedListener[
-					updatePreview()
-				]
-				
-				Label[text = "Size:"]
-				fontSizeField = TextField[
-					layoutData = GridData[
-						widthHint = 100
-					]
-					onModified = [
-						updatePreview()
-					]
-				]
-			]
-			
-			Group[
-				layoutData = FILL_HORIZONTAL
-				text = "Active Part"
+				text = "Colors"
 				layout = GridLayout[
 					numColumns = 5
 					makeColumnsEqualWidth = false
@@ -125,7 +57,7 @@ class PartPage extends ChromePage {
 					text="Gradient Start:"
 				]
 				
-				activeStartColorWell = ColorWell[
+				startColorWell = ColorWell[
 					onSelection = [
 						syncHueAndComputeAutoColors()
 						updatePreview()
@@ -135,7 +67,7 @@ class PartPage extends ChromePage {
 				PushButton[
 					text = "Change"
 					onClick = [
-						showColorPicker(activeStartColorWell)
+						showColorPicker(startColorWell)
 					]
 				]
 				
@@ -150,7 +82,7 @@ class PartPage extends ChromePage {
 					text="Gradient End:"
 				]
 				
-				activeEndColorWell = ColorWell[
+				endColorWell = ColorWell[
 					onSelection = [
 						updatePreview()
 					]
@@ -159,18 +91,18 @@ class PartPage extends ChromePage {
 				PushButton[
 					text = "Change"
 					onClick = [
-						showColorPicker(activeEndColorWell)
+						showColorPicker(endColorWell)
 					]
 				]
 				
-				autoActiveEndColorButton = Checkbox[
+				autoEndColorButton = Checkbox[
 					text = "Auto"
 					onSelection = [
 						updateEnablement()
 					]
 				]
 				
-				syncActiveEndColorHueButton = Checkbox[
+				syncEndColorHueButton = Checkbox[
 					text = "Sync Hue"
 					onSelection = [
 						updateSync()
@@ -181,7 +113,7 @@ class PartPage extends ChromePage {
 					text="Outline:"
 				]
 				
-				activeOutlineColorWell = ColorWell[
+				outlineColorWell = ColorWell[
 					onSelection = [
 						updatePreview()
 					]
@@ -190,109 +122,52 @@ class PartPage extends ChromePage {
 				PushButton[
 					text = "Change"
 					onClick = [
-						showColorPicker(activeOutlineColorWell)
+						showColorPicker(outlineColorWell)
 					]
 				]
 				
-				autoActiveOutlineColorButton = Checkbox[
+				autoOutlineColorButton = Checkbox[
 					text = "Auto"
 					onSelection = [
 						updateEnablement()
 					]
 				]
 				
-				syncActiveOutlineColorHueButton = Checkbox[
+				syncOutlineColorHueButton = Checkbox[
 					text = "Sync Hue"
 					onSelection = [
 						updateSync()
 					]
 				]
 				
-				Label[
-					text = "Selected Tab Title:"
-				]
-				
-				activeSelectedTitleColorWell = ColorWell[
-					onSelection = [
-						updatePreview()
-					]
-				]
-				PushButton[
-					text = "Change"
-					onClick = [
-						showColorPicker(activeSelectedTitleColorWell)
-					]
-				]
-				
-				Label[
-					layoutData = GridData[
-						horizontalSpan = 2
-					]
-				]
-				
-				Label[
-					text = "Unselected Tab Title:"
-				]
-				
-				activeUnselectedTitleColorWell = ColorWell[
-					onSelection = [
-						updatePreview()
-					]
-				]
-				PushButton[
-					text = "Change"
-					onClick = [
-						showColorPicker(activeUnselectedTitleColorWell)
-					]
-				]
-				
-				activePartShinyShadowButton = Checkbox[
-					text = "Shiny Shadow"
-					layoutData = FILL_HORIZONTAL[horizontalSpan = 2]
-					
-					onSelection = [
-						updatePreview()
-					]
-				]
-			]
+			] // end Group
 			
 			Group[
+				text = "Selected Tab"
+				layout = GridLayout[numColumns = 3]
 				layoutData = FILL_HORIZONTAL
-				text = "Inactive Part"
-				layout = GridLayout[
-					numColumns = 5
-					makeColumnsEqualWidth = false
-				]
 				
 				Label[
-					text="Gradient Start:"
+					text = "Text:"
 				]
 				
-				inactiveStartColorWell = ColorWell[
+				selectedTitleColorWell = ColorWell[
 					onSelection = [
-						syncHueAndComputeAutoColors()
+						updatePreview()
 					]
 				]
-				
 				PushButton[
 					text = "Change"
 					onClick = [
-						showColorPicker(inactiveStartColorWell)
+						showColorPicker(selectedTitleColorWell)
 					]
 				]
 				
 				Label[
-					layoutData = GridData[
-						horizontalSpan = 2
-					]
+					text="Fill Start:"
 				]
 				
-				
-				Label[
-					text="Gradient End:"
-				]
-				
-				inactiveEndColorWell = ColorWell[
+				selectedTabStartColorWell = ColorWell[
 					onSelection = [
 						updatePreview()
 					]
@@ -301,29 +176,15 @@ class PartPage extends ChromePage {
 				PushButton[
 					text = "Change"
 					onClick = [
-						showColorPicker(inactiveEndColorWell)
-					]
-				]
-				
-				autoInactiveEndColorButton = Checkbox[
-					text = "Auto"
-					onSelection = [
-						updateEnablement()
-					]
-				]
-				
-				syncInactiveEndColorHueButton = Checkbox[
-					text = "Sync Hue"
-					onSelection = [
-						updateSync()
+						showColorPicker(selectedTabStartColorWell)
 					]
 				]
 				
 				Label[
-					text="Outline:"
+					text="Fill End:"
 				]
 				
-				inactiveOutlineColorWell = ColorWell[
+				selectedTabEndColorWell = ColorWell[
 					onSelection = [
 						updatePreview()
 					]
@@ -332,29 +193,22 @@ class PartPage extends ChromePage {
 				PushButton[
 					text = "Change"
 					onClick = [
-						showColorPicker(inactiveOutlineColorWell)
+						showColorPicker(selectedTabEndColorWell)
 					]
 				]
 				
-				autoInactiveOutlineColorButton = Checkbox[
-					text = "Auto"
-					onSelection = [
-						updateEnablement()
-					]
-				]
-				
-				syncInactiveOutlineColorHueButton = Checkbox[
-					text = "Sync Hue"
-					onSelection = [
-						updateSync()
-					]
-				]
+			] // End Group
+			
+			Group[
+				text = "Unselected Tab"
+				layout = GridLayout[numColumns = 3]
+				layoutData = FILL_HORIZONTAL
 				
 				Label[
-					text = "Selected Tab Title:"
+					text = "Text:"
 				]
 				
-				inactiveSelectedTitleColorWell = ColorWell[
+				unselectedTitleColorWell = ColorWell[
 					onSelection = [
 						updatePreview()
 					]
@@ -362,110 +216,56 @@ class PartPage extends ChromePage {
 				PushButton[
 					text = "Change"
 					onClick = [
-						showColorPicker(inactiveSelectedTitleColorWell)
+						showColorPicker(unselectedTitleColorWell)
 					]
 				]
 				
-				Label[
-					layoutData = GridData[
-						horizontalSpan = 2
-					]
-				]
-				
-				Label[
-					text = "Unselected Tab Title:"
-				]
-				
-				inactiveUnselectedTitleColorWell = ColorWell[
-					onSelection = [
-						updatePreview()
-					]
-				]
-				PushButton[
-					text = "Change"
-					onClick = [
-						showColorPicker(inactiveUnselectedTitleColorWell)
-					]
-				]
-				
-				inactivePartShinyShadowButton = Checkbox[
+				partShinyShadowButton = Checkbox[
 					text = "Shiny Shadow"
-					layoutData = FILL_HORIZONTAL[horizontalSpan = 2]
+					layoutData = GridData[horizontalSpan = 2]
+					onSelection = [
+						updatePreview()
+					]
 				]
-			]
-			
-			
+			] // End Group
 		]
 	}
 	def private void updateSync() { 
-		activeEndColorWell.setData("lock-hue", syncActiveEndColorHueButton.selection)
-		if(syncActiveEndColorHueButton.selection && !autoActiveEndColorButton.selection){
-			activeEndColorWell.selection = activeEndColorWell.selection.rewriteHue(activeStartColorWell.selection.hue)
+		endColorWell.setData("lock-hue", syncEndColorHueButton.selection)
+		if(syncEndColorHueButton.selection && !autoEndColorButton.selection){
+			endColorWell.selection = endColorWell.selection.rewriteHue(startColorWell.selection.hue)
 		}
 		
-		activeOutlineColorWell.setData("lock-hue", syncActiveOutlineColorHueButton.selection)
-		if(syncActiveOutlineColorHueButton.selection && !autoActiveOutlineColorButton.selection){
-			activeOutlineColorWell.selection = activeOutlineColorWell.selection.rewriteHue(activeStartColorWell.selection.hue)
-		}
-		
-		inactiveEndColorWell.setData("lock-hue", syncInactiveEndColorHueButton.selection)
-		if(syncInactiveEndColorHueButton.selection && !autoInactiveEndColorButton.selection){
-			inactiveEndColorWell.selection = inactiveEndColorWell.selection.rewriteHue(inactiveStartColorWell.selection.hue)
-		}
-		
-		inactiveOutlineColorWell.setData("lock-hue", syncInactiveOutlineColorHueButton.selection)
-		if(syncInactiveOutlineColorHueButton.selection && !autoInactiveOutlineColorButton.selection){
-			inactiveOutlineColorWell.selection = inactiveOutlineColorWell.selection.rewriteHue(inactiveStartColorWell.selection.hue)
+		outlineColorWell.setData("lock-hue", syncOutlineColorHueButton.selection)
+		if(syncOutlineColorHueButton.selection && !autoOutlineColorButton.selection){
+			outlineColorWell.selection = outlineColorWell.selection.rewriteHue(startColorWell.selection.hue)
 		}
 	}
 	
 	def private void updateEnablement() {
-		activeEndColorWell.next.enabled = !autoActiveEndColorButton.selection
-		syncActiveEndColorHueButton.enabled = !autoActiveEndColorButton.selection
-		activeOutlineColorWell.next.enabled = !autoActiveOutlineColorButton.selection
-		syncActiveOutlineColorHueButton.enabled = !autoActiveOutlineColorButton.selection
-		
-		inactiveEndColorWell.next.enabled = !autoInactiveEndColorButton.selection
-		syncInactiveEndColorHueButton.enabled = !autoInactiveEndColorButton.selection
-		inactiveOutlineColorWell.next.enabled = !autoInactiveOutlineColorButton.selection
-		syncInactiveOutlineColorHueButton.enabled = !autoInactiveOutlineColorButton.selection
+		endColorWell.next.enabled = !autoEndColorButton.selection
+		syncEndColorHueButton.enabled = !autoEndColorButton.selection
+		outlineColorWell.next.enabled = !autoOutlineColorButton.selection
+		syncOutlineColorHueButton.enabled = !autoOutlineColorButton.selection
 	}
 	
 	def private void syncHueAndComputeAutoColors() {
-		if(autoActiveEndColorButton.selection){
-			var startRGB = activeStartColorWell.selection
-			activeEndColorWell.selection = startRGB.ampSaturation(1.15f).ampBrightness(0.95f)
+		if(autoEndColorButton.selection){
+			var startRGB = startColorWell.selection
+			endColorWell.selection = startRGB.ampSaturation(1.15f).ampBrightness(0.95f)
 		}
 		
-		else if(syncActiveEndColorHueButton.selection){
-			activeEndColorWell.selection = activeEndColorWell.selection.rewriteHue(activeStartColorWell.selection.hue)
+		else if(syncEndColorHueButton.selection){
+			endColorWell.selection = endColorWell.selection.rewriteHue(startColorWell.selection.hue)
 		}
 		
-		if(autoActiveOutlineColorButton.selection){
-			var startRGB = activeStartColorWell.selection
-			activeOutlineColorWell.selection = startRGB.ampSaturation(3f).ampBrightness(0.7f)
+		if(autoOutlineColorButton.selection){
+			var startRGB = startColorWell.selection
+			outlineColorWell.selection = startRGB.ampSaturation(3f).ampBrightness(0.7f)
 		}
 		
-		else if(syncActiveOutlineColorHueButton.selection){
-			activeOutlineColorWell.selection = activeOutlineColorWell.selection.rewriteHue(activeStartColorWell.selection.hue)
-		}
-		
-		if(autoInactiveEndColorButton.selection){
-			var startRGB = inactiveStartColorWell.selection
-			inactiveEndColorWell.selection = startRGB.ampSaturation(1.15f).ampBrightness(0.95f)
-		}
-		
-		else if(syncInactiveEndColorHueButton.selection){
-			inactiveEndColorWell.selection = inactiveEndColorWell.selection.rewriteHue(inactiveStartColorWell.selection.hue)
-		}
-		
-		if(autoInactiveOutlineColorButton.selection){
-			var startRGB = inactiveStartColorWell.selection
-			inactiveOutlineColorWell.selection = startRGB.ampSaturation(3f).ampBrightness(0.7f)
-		}
-		
-		else if(syncInactiveOutlineColorHueButton.selection){
-			inactiveOutlineColorWell.selection = inactiveOutlineColorWell.selection.rewriteHue(inactiveStartColorWell.selection.hue)
+		else if(syncOutlineColorHueButton.selection){
+			outlineColorWell.selection = outlineColorWell.selection.rewriteHue(startColorWell.selection.hue)
 		}
 	}
 	
@@ -474,81 +274,54 @@ class PartPage extends ChromePage {
 	}
 
 	override load(IPreferenceStore store) {
-		activeStartColorWell.selection = new HSB(
-			store.getFloat(CHROME_ACTIVE_START_HUE),
-			store.getFloat(CHROME_ACTIVE_START_SATURATION), 
-			store.getFloat(CHROME_ACTIVE_START_BRIGHTNESS)
+		startColorWell.selection = new HSB(
+			store.getFloat(CHROME_ACTIVE_START_HUE.applyActive),
+			store.getFloat(CHROME_ACTIVE_START_SATURATION.applyActive), 
+			store.getFloat(CHROME_ACTIVE_START_BRIGHTNESS.applyActive)
 		)
 		
-		activeEndColorWell.selection = new HSB(
-			store.getFloat(CHROME_ACTIVE_END_HUE),
-			store.getFloat(CHROME_ACTIVE_END_SATURATION), 
-			store.getFloat(CHROME_ACTIVE_END_BRIGHTNESS)
+		endColorWell.selection = new HSB(
+			store.getFloat(CHROME_ACTIVE_END_HUE.applyActive),
+			store.getFloat(CHROME_ACTIVE_END_SATURATION.applyActive), 
+			store.getFloat(CHROME_ACTIVE_END_BRIGHTNESS.applyActive)
 		)
 		
-		activeOutlineColorWell.selection = new HSB(
-			store.getFloat(CHROME_ACTIVE_OUTLINE_HUE),
-			store.getFloat(CHROME_ACTIVE_OUTLINE_SATURATION), 
-			store.getFloat(CHROME_ACTIVE_OUTLINE_BRIGHTNESS)
+		outlineColorWell.selection = new HSB(
+			store.getFloat(CHROME_ACTIVE_OUTLINE_HUE.applyActive),
+			store.getFloat(CHROME_ACTIVE_OUTLINE_SATURATION.applyActive), 
+			store.getFloat(CHROME_ACTIVE_OUTLINE_BRIGHTNESS.applyActive)
 		)
 		
-		activeSelectedTitleColorWell.selection = new HSB(
-			store.getFloat(CHROME_ACTIVE_SELECTED_TITLE_HUE),
-			store.getFloat(CHROME_ACTIVE_SELECTED_TITLE_SATURATION), 
-			store.getFloat(CHROME_ACTIVE_SELECTED_TITLE_BRIGHTNESS)
+		selectedTitleColorWell.selection = new HSB(
+			store.getFloat(CHROME_ACTIVE_SELECTED_TITLE_HUE.applyActive),
+			store.getFloat(CHROME_ACTIVE_SELECTED_TITLE_SATURATION.applyActive), 
+			store.getFloat(CHROME_ACTIVE_SELECTED_TITLE_BRIGHTNESS.applyActive)
 		)
 		
-		activeUnselectedTitleColorWell.selection = new HSB(
-			store.getFloat(CHROME_ACTIVE_UNSELECTED_TITLE_HUE),
-			store.getFloat(CHROME_ACTIVE_UNSELECTED_TITLE_SATURATION), 
-			store.getFloat(CHROME_ACTIVE_UNSELECTED_TITLE_BRIGHTNESS)
+		unselectedTitleColorWell.selection = new HSB(
+			store.getFloat(CHROME_ACTIVE_UNSELECTED_TITLE_HUE.applyActive),
+			store.getFloat(CHROME_ACTIVE_UNSELECTED_TITLE_SATURATION.applyActive), 
+			store.getFloat(CHROME_ACTIVE_UNSELECTED_TITLE_BRIGHTNESS.applyActive)
 		)
 		
-		autoActiveEndColorButton.selection = store.getBoolean(CHROME_AUTO_ACTIVE_END_COLOR)
-		autoActiveOutlineColorButton.selection = store.getBoolean(CHROME_AUTO_ACTIVE_OUTLINE_COLOR)
-		syncActiveEndColorHueButton.selection = store.getBoolean(CHROME_LOCK_ACTIVE_END_HUE)
-		syncActiveOutlineColorHueButton.selection = store.getBoolean(CHROME_LOCK_ACTIVE_OUTLINE_HUE)
+		autoEndColorButton.selection = store.getBoolean(CHROME_AUTO_ACTIVE_END_COLOR.applyActive)
+		autoOutlineColorButton.selection = store.getBoolean(CHROME_AUTO_ACTIVE_OUTLINE_COLOR.applyActive)
+		syncEndColorHueButton.selection = store.getBoolean(CHROME_LOCK_ACTIVE_END_HUE.applyActive)
+		syncOutlineColorHueButton.selection = store.getBoolean(CHROME_LOCK_ACTIVE_OUTLINE_HUE.applyActive)
 		
-		inactiveStartColorWell.selection = new HSB(
-			store.getFloat(CHROME_INACTIVE_START_HUE),
-			store.getFloat(CHROME_INACTIVE_START_SATURATION), 
-			store.getFloat(CHROME_INACTIVE_START_BRIGHTNESS)
+		partShinyShadowButton.selection = store.getBoolean(CHROME_ACTIVE_UNSELECTED_TITLE_SHINY_SHADOW.applyActive)
+		
+		selectedTabStartColorWell.selection = new HSB(
+			store.getFloat(CHROME_ACTIVE_SELECTED_TAB_START_HUE.applyActive),
+			store.getFloat(CHROME_ACTIVE_SELECTED_TAB_START_SATURATION.applyActive), 
+			store.getFloat(CHROME_ACTIVE_SELECTED_TAB_START_BRIGHTNESS.applyActive)
 		)
 		
-		inactiveEndColorWell.selection = new HSB(
-			store.getFloat(CHROME_INACTIVE_END_HUE),
-			store.getFloat(CHROME_INACTIVE_END_SATURATION), 
-			store.getFloat(CHROME_INACTIVE_END_BRIGHTNESS)
+		selectedTabEndColorWell.selection = new HSB(
+			store.getFloat(CHROME_ACTIVE_SELECTED_TAB_END_HUE.applyActive),
+			store.getFloat(CHROME_ACTIVE_SELECTED_TAB_END_SATURATION.applyActive), 
+			store.getFloat(CHROME_ACTIVE_SELECTED_TAB_END_BRIGHTNESS.applyActive)
 		)
-		
-		inactiveOutlineColorWell.selection = new HSB(
-			store.getFloat(CHROME_INACTIVE_OUTLINE_HUE),
-			store.getFloat(CHROME_INACTIVE_OUTLINE_SATURATION), 
-			store.getFloat(CHROME_INACTIVE_OUTLINE_BRIGHTNESS)
-		)
-		
-		inactiveSelectedTitleColorWell.selection = new HSB(
-			store.getFloat(CHROME_INACTIVE_SELECTED_TITLE_HUE),
-			store.getFloat(CHROME_INACTIVE_SELECTED_TITLE_SATURATION), 
-			store.getFloat(CHROME_INACTIVE_SELECTED_TITLE_BRIGHTNESS)
-		)
-		
-		inactiveUnselectedTitleColorWell.selection = new HSB(
-			store.getFloat(CHROME_INACTIVE_UNSELECTED_TITLE_HUE),
-			store.getFloat(CHROME_INACTIVE_UNSELECTED_TITLE_SATURATION), 
-			store.getFloat(CHROME_INACTIVE_UNSELECTED_TITLE_BRIGHTNESS)
-		)
-		
-		autoInactiveEndColorButton.selection = store.getBoolean(CHROME_AUTO_INACTIVE_END_COLOR)
-		autoInactiveOutlineColorButton.selection = store.getBoolean(CHROME_AUTO_INACTIVE_OUTLINE_COLOR)
-		syncInactiveEndColorHueButton.selection = store.getBoolean(CHROME_LOCK_INACTIVE_END_HUE)
-		syncInactiveOutlineColorHueButton.selection = store.getBoolean(CHROME_LOCK_INACTIVE_OUTLINE_HUE)
-		
-		activePartShinyShadowButton.selection = store.getBoolean(CHROME_ACTIVE_UNSELECTED_TITLE_SHINY_SHADOW)
-		inactivePartShinyShadowButton.selection = store.getBoolean(CHROME_INACTIVE_UNSELECTED_TITLE_SHINY_SHADOW)
-		
-		fontSelector.selection = new StructuredSelection(store.getString(CHROME_PART_FONT_NAME))
-		fontSizeField.text = Float::toString(store.getFloat(CHROME_PART_FONT_SIZE))
 		
 		updateEnablement()
 		updateSync()
@@ -556,190 +329,107 @@ class PartPage extends ChromePage {
 	}
 	
 	def private void updatePreview(){
-		if(previewActiveButton.selection){
-			preview.gradientStart = activeStartColorWell.selection.toRGB
-			preview.gradientEnd = activeEndColorWell.selection.toRGB
-			preview.outline = activeOutlineColorWell.selection.toRGB
-			preview.selectedTitle = activeSelectedTitleColorWell.selection.toRGB
-			preview.unselectedTitle = activeUnselectedTitleColorWell.selection.toRGB
-			preview.castShinyShadow = activePartShinyShadowButton.selection
-		}else{
-			preview.gradientStart = inactiveStartColorWell.selection.toRGB
-			preview.gradientEnd = inactiveEndColorWell.selection.toRGB
-			preview.outline = inactiveOutlineColorWell.selection.toRGB
-			preview.selectedTitle = inactiveSelectedTitleColorWell.selection.toRGB
-			preview.unselectedTitle = inactiveUnselectedTitleColorWell.selection.toRGB
-			preview.castShinyShadow = inactivePartShinyShadowButton.selection
+		if(parentPage.activePage instanceof PartPage && parentPage.activePage != this){
+			return;
 		}
-		var selectedFontName = (fontSelector.selection as IStructuredSelection).firstElement as String
-		
-		var fontSize = 9f 
-		try{
-			fontSize = Float::parseFloat(fontSizeField.text.trim)
-		}catch(Exception e){
-			fontSize = 9f
-		}
-		if(fontSize > 20f){
-			fontSize = 20f;
-		}else if(fontSize < 5f){
-			fontSize = 5f;
-		}
-		
-		preview.fontName = selectedFontName
-		preview.fontSize = fontSize
+		preview.gradientStart = startColorWell.selection.toRGB
+		preview.gradientEnd = endColorWell.selection.toRGB
+		preview.outline = outlineColorWell.selection.toRGB
+		preview.selectedTitle = selectedTitleColorWell.selection.toRGB
+		preview.unselectedTitle = unselectedTitleColorWell.selection.toRGB
+		preview.castShinyShadow = partShinyShadowButton.selection
+		preview.selectedTabStart = selectedTabStartColorWell.selection.toRGB
+		preview.selectedTabEnd = selectedTabEndColorWell.selection.toRGB
 		
 		preview.run();
 	}
 	
 	override save(IPreferenceStore store) {
-		store.setValue(CHROME_ACTIVE_START_HUE, activeStartColorWell.selection.hue)
-		store.setValue(CHROME_ACTIVE_START_SATURATION, activeStartColorWell.selection.saturation)
-		store.setValue(CHROME_ACTIVE_START_BRIGHTNESS, activeStartColorWell.selection.brightness)
+		store.setValue(CHROME_ACTIVE_START_HUE.applyActive, startColorWell.selection.hue)
+		store.setValue(CHROME_ACTIVE_START_SATURATION.applyActive, startColorWell.selection.saturation)
+		store.setValue(CHROME_ACTIVE_START_BRIGHTNESS.applyActive, startColorWell.selection.brightness)
 		
-		store.setValue(CHROME_ACTIVE_END_HUE, activeEndColorWell.selection.hue)
-		store.setValue(CHROME_ACTIVE_END_SATURATION, activeEndColorWell.selection.saturation)
-		store.setValue(CHROME_ACTIVE_END_BRIGHTNESS, activeEndColorWell.selection.brightness)
+		store.setValue(CHROME_ACTIVE_END_HUE.applyActive, endColorWell.selection.hue)
+		store.setValue(CHROME_ACTIVE_END_SATURATION.applyActive, endColorWell.selection.saturation)
+		store.setValue(CHROME_ACTIVE_END_BRIGHTNESS.applyActive, endColorWell.selection.brightness)
 		
-		store.setValue(CHROME_ACTIVE_OUTLINE_HUE, activeOutlineColorWell.selection.hue)
-		store.setValue(CHROME_ACTIVE_OUTLINE_SATURATION, activeOutlineColorWell.selection.saturation)
-		store.setValue(CHROME_ACTIVE_OUTLINE_BRIGHTNESS, activeOutlineColorWell.selection.brightness)
+		store.setValue(CHROME_ACTIVE_OUTLINE_HUE.applyActive, outlineColorWell.selection.hue)
+		store.setValue(CHROME_ACTIVE_OUTLINE_SATURATION.applyActive, outlineColorWell.selection.saturation)
+		store.setValue(CHROME_ACTIVE_OUTLINE_BRIGHTNESS.applyActive, outlineColorWell.selection.brightness)
 		
-		store.setValue(CHROME_ACTIVE_SELECTED_TITLE_HUE, activeSelectedTitleColorWell.selection.hue)
-		store.setValue(CHROME_ACTIVE_SELECTED_TITLE_SATURATION, activeSelectedTitleColorWell.selection.saturation)
-		store.setValue(CHROME_ACTIVE_SELECTED_TITLE_BRIGHTNESS, activeSelectedTitleColorWell.selection.brightness)
+		store.setValue(CHROME_ACTIVE_SELECTED_TITLE_HUE.applyActive, selectedTitleColorWell.selection.hue)
+		store.setValue(CHROME_ACTIVE_SELECTED_TITLE_SATURATION.applyActive, selectedTitleColorWell.selection.saturation)
+		store.setValue(CHROME_ACTIVE_SELECTED_TITLE_BRIGHTNESS.applyActive, selectedTitleColorWell.selection.brightness)
 		
-		store.setValue(CHROME_ACTIVE_UNSELECTED_TITLE_HUE, activeUnselectedTitleColorWell.selection.hue)
-		store.setValue(CHROME_ACTIVE_UNSELECTED_TITLE_SATURATION, activeUnselectedTitleColorWell.selection.saturation)
-		store.setValue(CHROME_ACTIVE_UNSELECTED_TITLE_BRIGHTNESS, activeUnselectedTitleColorWell.selection.brightness)
+		store.setValue(CHROME_ACTIVE_UNSELECTED_TITLE_HUE.applyActive, unselectedTitleColorWell.selection.hue)
+		store.setValue(CHROME_ACTIVE_UNSELECTED_TITLE_SATURATION.applyActive, unselectedTitleColorWell.selection.saturation)
+		store.setValue(CHROME_ACTIVE_UNSELECTED_TITLE_BRIGHTNESS.applyActive, unselectedTitleColorWell.selection.brightness)
 		
-		store.setValue(CHROME_AUTO_ACTIVE_END_COLOR, autoActiveEndColorButton.selection)
-		store.setValue(CHROME_AUTO_ACTIVE_OUTLINE_COLOR, autoActiveOutlineColorButton.selection)
-		store.setValue(CHROME_LOCK_ACTIVE_END_HUE, syncActiveEndColorHueButton.selection)
-		store.setValue(CHROME_LOCK_ACTIVE_OUTLINE_HUE, syncActiveOutlineColorHueButton.selection)
+		store.setValue(CHROME_AUTO_ACTIVE_END_COLOR.applyActive, autoEndColorButton.selection)
+		store.setValue(CHROME_AUTO_ACTIVE_OUTLINE_COLOR.applyActive, autoOutlineColorButton.selection)
+		store.setValue(CHROME_LOCK_ACTIVE_END_HUE.applyActive, syncEndColorHueButton.selection)
+		store.setValue(CHROME_LOCK_ACTIVE_OUTLINE_HUE.applyActive, syncOutlineColorHueButton.selection)
 		
-		store.setValue(CHROME_INACTIVE_START_HUE, inactiveStartColorWell.selection.hue)
-		store.setValue(CHROME_INACTIVE_START_SATURATION, inactiveStartColorWell.selection.saturation)
-		store.setValue(CHROME_INACTIVE_START_BRIGHTNESS, inactiveStartColorWell.selection.brightness)
+		store.setValue(CHROME_ACTIVE_UNSELECTED_TITLE_SHINY_SHADOW.applyActive, partShinyShadowButton.selection)
 		
-		store.setValue(CHROME_INACTIVE_END_HUE, inactiveEndColorWell.selection.hue)
-		store.setValue(CHROME_INACTIVE_END_SATURATION, inactiveEndColorWell.selection.saturation)
-		store.setValue(CHROME_INACTIVE_END_BRIGHTNESS, inactiveEndColorWell.selection.brightness)
+		store.setValue(CHROME_ACTIVE_SELECTED_TAB_START_HUE.applyActive, selectedTabStartColorWell.selection.hue)
+		store.setValue(CHROME_ACTIVE_SELECTED_TAB_START_SATURATION.applyActive, selectedTabStartColorWell.selection.saturation)
+		store.setValue(CHROME_ACTIVE_SELECTED_TAB_START_BRIGHTNESS.applyActive, selectedTabStartColorWell.selection.brightness)
 		
-		store.setValue(CHROME_INACTIVE_SELECTED_TITLE_HUE, inactiveSelectedTitleColorWell.selection.hue)
-		store.setValue(CHROME_INACTIVE_SELECTED_TITLE_SATURATION, inactiveSelectedTitleColorWell.selection.saturation)
-		store.setValue(CHROME_INACTIVE_SELECTED_TITLE_BRIGHTNESS, inactiveSelectedTitleColorWell.selection.brightness)
-		
-		store.setValue(CHROME_INACTIVE_UNSELECTED_TITLE_HUE, inactiveUnselectedTitleColorWell.selection.hue)
-		store.setValue(CHROME_INACTIVE_UNSELECTED_TITLE_SATURATION, inactiveUnselectedTitleColorWell.selection.saturation)
-		store.setValue(CHROME_INACTIVE_UNSELECTED_TITLE_BRIGHTNESS, inactiveUnselectedTitleColorWell.selection.brightness)
-		
-		store.setValue(CHROME_INACTIVE_OUTLINE_HUE, inactiveOutlineColorWell.selection.hue)
-		store.setValue(CHROME_INACTIVE_OUTLINE_SATURATION, inactiveOutlineColorWell.selection.saturation)
-		store.setValue(CHROME_INACTIVE_OUTLINE_BRIGHTNESS, inactiveOutlineColorWell.selection.brightness)
-		
-		store.setValue(CHROME_AUTO_INACTIVE_END_COLOR, autoInactiveEndColorButton.selection)
-		store.setValue(CHROME_AUTO_INACTIVE_OUTLINE_COLOR, autoInactiveOutlineColorButton.selection)
-		
-		store.setValue(CHROME_ACTIVE_UNSELECTED_TITLE_SHINY_SHADOW, activePartShinyShadowButton.selection)
-		store.setValue(CHROME_INACTIVE_UNSELECTED_TITLE_SHINY_SHADOW, inactivePartShinyShadowButton.selection)
-		store.setValue(CHROME_LOCK_INACTIVE_END_HUE, syncInactiveEndColorHueButton.selection)
-		store.setValue(CHROME_LOCK_INACTIVE_OUTLINE_HUE, syncInactiveOutlineColorHueButton.selection)
-		
-		var selectedFontName = (fontSelector.selection as IStructuredSelection).firstElement as String
-		store.setValue(CHROME_PART_FONT_NAME, selectedFontName)
-		
-		var fontSize = 9f 
-		try{
-			fontSize = Float::parseFloat(fontSizeField.text.trim)
-		}catch(Exception e){
-			fontSize = 9f
-		}
-		if(fontSize > 20f){
-			fontSize = 20f;
-		}else if(fontSize < 5f){
-			fontSize = 5f;
-		}
-		
-		store.setValue(CHROME_PART_FONT_SIZE, fontSize)
+		store.setValue(CHROME_ACTIVE_SELECTED_TAB_END_HUE.applyActive, selectedTabEndColorWell.selection.hue)
+		store.setValue(CHROME_ACTIVE_SELECTED_TAB_END_SATURATION.applyActive, selectedTabEndColorWell.selection.saturation)
+		store.setValue(CHROME_ACTIVE_SELECTED_TAB_END_BRIGHTNESS.applyActive, selectedTabEndColorWell.selection.brightness)
 	}
 
 	override setToDefault(IPreferenceStore store) {
-		activeStartColorWell.selection = new HSB(
-			store.getDefaultFloat(CHROME_ACTIVE_START_HUE),
-			store.getDefaultFloat(CHROME_ACTIVE_START_SATURATION), 
-			store.getDefaultFloat(CHROME_ACTIVE_START_BRIGHTNESS)
+		startColorWell.selection = new HSB(
+			store.getDefaultFloat(CHROME_ACTIVE_START_HUE.applyActive),
+			store.getDefaultFloat(CHROME_ACTIVE_START_SATURATION.applyActive), 
+			store.getDefaultFloat(CHROME_ACTIVE_START_BRIGHTNESS.applyActive)
 		)
 		
-		activeEndColorWell.selection = new HSB(
-			store.getDefaultFloat(CHROME_ACTIVE_END_HUE),
-			store.getDefaultFloat(CHROME_ACTIVE_END_SATURATION), 
-			store.getDefaultFloat(CHROME_ACTIVE_END_BRIGHTNESS)
+		endColorWell.selection = new HSB(
+			store.getDefaultFloat(CHROME_ACTIVE_END_HUE.applyActive),
+			store.getDefaultFloat(CHROME_ACTIVE_END_SATURATION.applyActive), 
+			store.getDefaultFloat(CHROME_ACTIVE_END_BRIGHTNESS.applyActive)
 		)
 		
-		activeOutlineColorWell.selection = new HSB(
-			store.getDefaultFloat(CHROME_ACTIVE_OUTLINE_HUE),
-			store.getDefaultFloat(CHROME_ACTIVE_OUTLINE_SATURATION), 
-			store.getDefaultFloat(CHROME_ACTIVE_OUTLINE_BRIGHTNESS)
+		outlineColorWell.selection = new HSB(
+			store.getDefaultFloat(CHROME_ACTIVE_OUTLINE_HUE.applyActive),
+			store.getDefaultFloat(CHROME_ACTIVE_OUTLINE_SATURATION.applyActive), 
+			store.getDefaultFloat(CHROME_ACTIVE_OUTLINE_BRIGHTNESS.applyActive)
 		)
 		
-		activeSelectedTitleColorWell.selection = new HSB(
-			store.getDefaultFloat(CHROME_ACTIVE_SELECTED_TITLE_HUE),
-			store.getDefaultFloat(CHROME_ACTIVE_SELECTED_TITLE_SATURATION), 
-			store.getDefaultFloat(CHROME_ACTIVE_SELECTED_TITLE_BRIGHTNESS)
+		selectedTitleColorWell.selection = new HSB(
+			store.getDefaultFloat(CHROME_ACTIVE_SELECTED_TITLE_HUE.applyActive),
+			store.getDefaultFloat(CHROME_ACTIVE_SELECTED_TITLE_SATURATION.applyActive), 
+			store.getDefaultFloat(CHROME_ACTIVE_SELECTED_TITLE_BRIGHTNESS.applyActive)
 		)
 		
-		activeUnselectedTitleColorWell.selection = new HSB(
-			store.getDefaultFloat(CHROME_ACTIVE_UNSELECTED_TITLE_HUE),
-			store.getDefaultFloat(CHROME_ACTIVE_UNSELECTED_TITLE_SATURATION), 
-			store.getDefaultFloat(CHROME_ACTIVE_UNSELECTED_TITLE_BRIGHTNESS)
+		unselectedTitleColorWell.selection = new HSB(
+			store.getDefaultFloat(CHROME_ACTIVE_UNSELECTED_TITLE_HUE.applyActive),
+			store.getDefaultFloat(CHROME_ACTIVE_UNSELECTED_TITLE_SATURATION.applyActive), 
+			store.getDefaultFloat(CHROME_ACTIVE_UNSELECTED_TITLE_BRIGHTNESS.applyActive)
 		)
 		
-		autoActiveEndColorButton.selection = store.getDefaultBoolean(CHROME_AUTO_ACTIVE_END_COLOR)
-		autoActiveOutlineColorButton.selection = store.getDefaultBoolean(CHROME_AUTO_ACTIVE_OUTLINE_COLOR)
-		syncActiveEndColorHueButton.selection = store.getDefaultBoolean(CHROME_LOCK_ACTIVE_END_HUE)
-		syncActiveOutlineColorHueButton.selection = store.getDefaultBoolean(CHROME_LOCK_ACTIVE_OUTLINE_HUE)
+		autoEndColorButton.selection = store.getDefaultBoolean(CHROME_AUTO_ACTIVE_END_COLOR.applyActive)
+		autoOutlineColorButton.selection = store.getDefaultBoolean(CHROME_AUTO_ACTIVE_OUTLINE_COLOR.applyActive)
+		syncEndColorHueButton.selection = store.getDefaultBoolean(CHROME_LOCK_ACTIVE_END_HUE.applyActive)
+		syncOutlineColorHueButton.selection = store.getDefaultBoolean(CHROME_LOCK_ACTIVE_OUTLINE_HUE.applyActive)
+		partShinyShadowButton.selection = store.getDefaultBoolean(CHROME_ACTIVE_UNSELECTED_TITLE_SHINY_SHADOW.applyActive)
 		
-		inactiveStartColorWell.selection = new HSB(
-			store.getDefaultFloat(CHROME_INACTIVE_START_HUE),
-			store.getDefaultFloat(CHROME_INACTIVE_START_SATURATION), 
-			store.getDefaultFloat(CHROME_INACTIVE_START_BRIGHTNESS)
+		selectedTabStartColorWell.selection = new HSB(
+			store.getDefaultFloat(CHROME_ACTIVE_SELECTED_TAB_START_HUE.applyActive),
+			store.getDefaultFloat(CHROME_ACTIVE_SELECTED_TAB_START_SATURATION.applyActive), 
+			store.getDefaultFloat(CHROME_ACTIVE_SELECTED_TAB_START_BRIGHTNESS.applyActive)
 		)
 		
-		inactiveEndColorWell.selection = new HSB(
-			store.getDefaultFloat(CHROME_INACTIVE_END_HUE),
-			store.getDefaultFloat(CHROME_INACTIVE_END_SATURATION), 
-			store.getDefaultFloat(CHROME_INACTIVE_END_BRIGHTNESS)
+		selectedTabEndColorWell.selection = new HSB(
+			store.getDefaultFloat(CHROME_ACTIVE_SELECTED_TAB_END_HUE.applyActive),
+			store.getDefaultFloat(CHROME_ACTIVE_SELECTED_TAB_END_SATURATION.applyActive), 
+			store.getDefaultFloat(CHROME_ACTIVE_SELECTED_TAB_END_BRIGHTNESS.applyActive)
 		)
 		
-		inactiveOutlineColorWell.selection = new HSB(
-			store.getDefaultFloat(CHROME_INACTIVE_OUTLINE_HUE),
-			store.getDefaultFloat(CHROME_INACTIVE_OUTLINE_SATURATION), 
-			store.getDefaultFloat(CHROME_INACTIVE_OUTLINE_BRIGHTNESS)
-		)
-		
-		inactiveSelectedTitleColorWell.selection = new HSB(
-			store.getDefaultFloat(CHROME_INACTIVE_SELECTED_TITLE_HUE),
-			store.getDefaultFloat(CHROME_INACTIVE_SELECTED_TITLE_SATURATION), 
-			store.getDefaultFloat(CHROME_INACTIVE_SELECTED_TITLE_BRIGHTNESS)
-		)
-		
-		inactiveUnselectedTitleColorWell.selection = new HSB(
-			store.getDefaultFloat(CHROME_INACTIVE_UNSELECTED_TITLE_HUE),
-			store.getDefaultFloat(CHROME_INACTIVE_UNSELECTED_TITLE_SATURATION), 
-			store.getDefaultFloat(CHROME_INACTIVE_UNSELECTED_TITLE_BRIGHTNESS)
-		)
-		
-		autoInactiveEndColorButton.selection = store.getDefaultBoolean(CHROME_AUTO_INACTIVE_END_COLOR)
-		autoInactiveOutlineColorButton.selection = store.getDefaultBoolean(CHROME_AUTO_INACTIVE_OUTLINE_COLOR)
-		syncInactiveEndColorHueButton.selection = store.getDefaultBoolean(CHROME_LOCK_INACTIVE_END_HUE)
-		syncInactiveOutlineColorHueButton.selection = store.getDefaultBoolean(CHROME_LOCK_INACTIVE_OUTLINE_HUE)
-		
-		activePartShinyShadowButton.selection = store.getDefaultBoolean(CHROME_ACTIVE_UNSELECTED_TITLE_SHINY_SHADOW)
-		inactivePartShinyShadowButton.selection = store.getDefaultBoolean(CHROME_INACTIVE_UNSELECTED_TITLE_SHINY_SHADOW)
-		
-		fontSelector.selection = new StructuredSelection(store.getDefaultString(CHROME_PART_FONT_NAME))
-		fontSizeField.text = Float::toString(store.getDefaultFloat(CHROME_PART_FONT_SIZE))
-
 		updateEnablement()
 		updateSync()
 		updatePreview()
@@ -763,4 +453,18 @@ class PartPage extends ChromePage {
 			well.selection = original
 		}
 	}
+	
+	def String applyActive(String key){
+		if(!isActive){
+			return key.replace("active", "inactive")
+		}
+		else{
+			return key
+		}
+	}
+	
+	override onPageSelected() {
+		updatePreview()
+	}
+	
 }

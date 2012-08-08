@@ -72,4 +72,8 @@ public abstract class ChromePage {
 	}
 
 	public abstract void setToDefault(IPreferenceStore preferenceStore);
+
+	public void onPageSelected() {
+		
+	}
 }
