@@ -43,8 +43,8 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 
 	private ArrayList<ChromePage> pages = new ArrayList<ChromePage>();
 	private CTabFolder folder;
-
 	private ToolItem presetItem;
+	private int previousSelection = 0;
 
 	public ChromeThemePrefererncePage() {
 		setPreferenceStore(ChromeThemeCore.getDefault().getPreferenceStore());
@@ -55,8 +55,8 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 		pages.add(page);
 		page.setParentPage(this);
 	}
-	
-	public ChromePage getActivePage(){
+
+	public ChromePage getActivePage() {
 		return getPages().get(folder.getSelectionIndex());
 	}
 
@@ -65,12 +65,12 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 		Composite container = new Composite(parent, SWT.NORMAL);
 		container.setLayout(new GridLayout());
 
-		folder = new CTabFolder(container, SWT.MULTI);
-		
+		folder = new CTabFolder(container, SWT.NORMAL);
+
 		ChromeTabRendering renderer = new ChromeTabRendering(folder);
 		renderer.setSelectedTabFill(folder.getDisplay().getSystemColor(SWT.COLOR_WHITE));
 		renderer.setOuterKeyline(folder.getDisplay().getSystemColor(SWT.COLOR_BLACK));
-		renderer.setPadding(9, 9, 0, 10);
+		renderer.setPadding(5, 5, 0, 7);
 
 		folder.setRenderer(renderer);
 		GridData layoutData = new GridData(GridData.FILL_HORIZONTAL);
@@ -81,14 +81,14 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 				event.doit = false;
 			}
 		});
-		
+
 		folder.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
-				getPages().get(folder.getSelectionIndex()).onPageSelected();
+				handleTabSwitching();
 			}
 		});
-		
+
 		folder.setUnselectedCloseVisible(false);
 
 		for (int i = 0; i < pages.size(); i++) {
@@ -112,6 +112,20 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 		load();
 
 		return container;
+	}
+
+	private void handleTabSwitching() {
+		ChromePage oldPage = getPages().get(previousSelection);
+		ChromePage newPage = getPages().get(folder.getSelectionIndex());
+		if (oldPage != newPage) {
+			if (oldPage != null) {
+				oldPage.onPageDeselected();
+			}
+			if (newPage != null) {
+				newPage.onPageSelected();
+			}
+		}
+		previousSelection = folder.getSelectionIndex();
 	}
 
 	private void createToolbar() {
@@ -219,10 +233,10 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 	}
 
 	private void setupPages() {
-		addPage(new PartPage("Active Part", true));
-		addPage(new PartPage("Inactive Part", false));
+		addPage(new PartPage("Active", true));
+		addPage(new PartPage("Inactive", false));
 		addPage(new CommonPartPage());
-		addPage(new WindowPage());
 		addPage(new ToolbarPage());
+		addPage(new ETCPage());
 	}
 }

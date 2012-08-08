@@ -5,7 +5,6 @@ import net.jeeeyul.eclipse.themes.preference.internal.FontFactory;
 import net.jeeeyul.eclipse.themes.preference.internal.ResourceRegistry;
 import net.jeeeyul.eclipse.themes.rendering.ChromeTabRendering;
 
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
@@ -86,10 +85,8 @@ public class PartPreview {
 		renderer.setUnselectedTabItemColor(getColor(unselectedTitle));
 		renderer.setSelectedTabFill(getColor(selectedTabEnd));
 		renderer.setSelectedTabFillHighlightColor(getColor(selectedTabStart));
-		Color[] gradient = new Color[] { getColor(gradientStart), getColor(gradientEnd), folder.getDisplay().getSystemColor(SWT.COLOR_WHITE) };
+		Color[] gradient = new Color[] { getColor(gradientStart), getColor(gradientEnd), getColor(selectedTabEnd) };
 		folder.setBackground(gradient, new int[] { 99, 100 }, true);
-		
-		folder.setBackground(getColor(selectedTabEnd));
 	}
 
 	public void setCastShinyShadow(boolean castShinyShadow) {

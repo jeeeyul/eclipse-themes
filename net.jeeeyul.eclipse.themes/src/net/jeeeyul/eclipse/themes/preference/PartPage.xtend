@@ -329,9 +329,11 @@ class PartPage extends ChromePage {
 	}
 	
 	def private void updatePreview(){
-		if(parentPage.activePage instanceof PartPage && parentPage.activePage != this){
-			return;
+		var hasToUpdate = parentPage.activePage == this || isActive
+		if(!hasToUpdate){
+			return
 		}
+		
 		preview.gradientStart = startColorWell.selection.toRGB
 		preview.gradientEnd = endColorWell.selection.toRGB
 		preview.outline = outlineColorWell.selection.toRGB
@@ -465,6 +467,13 @@ class PartPage extends ChromePage {
 	
 	override onPageSelected() {
 		updatePreview()
+	}
+	
+	override onPageDeselected() {
+		if(!isActive){
+			var activePage = parentPage.pages.filter(typeof(PartPage)).findFirst[it.isActive]
+			activePage.updatePreview()
+		}
 	}
 	
 }

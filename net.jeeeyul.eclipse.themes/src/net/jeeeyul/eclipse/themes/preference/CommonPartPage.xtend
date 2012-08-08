@@ -2,7 +2,6 @@ package net.jeeeyul.eclipse.themes.preference
 
 import net.jeeeyul.eclipse.themes.SharedImages
 import net.jeeeyul.eclipse.themes.preference.internal.FontNameProvider
-import net.jeeeyul.eclipse.themes.rendering.ChromeTabRendering
 import net.jeeeyul.eclipse.themes.ui.SWTExtensions
 import org.eclipse.jface.preference.IPreferenceStore
 import org.eclipse.jface.viewers.ComboViewer
@@ -26,7 +25,7 @@ class CommonPartPage extends ChromePage {
 	Label paddingLabel
 	
 	new() {
-		super("Common Part", SharedImages::FONT)
+		super("Common", SharedImages::PART)
 	}
 
 	override create(Composite parent) {
@@ -54,7 +53,7 @@ class CommonPartPage extends ChromePage {
 				Label[text = "Size:"]
 				fontSizeField = TextField[
 					layoutData = GridData[
-						widthHint = 100
+						widthHint = 50
 					]
 					onModified = [
 						updatePreview()
@@ -92,11 +91,6 @@ class CommonPartPage extends ChromePage {
 	
 	def void updatePreview() { 
 		paddingLabel.text = paddingScale.selection + "px"
-		
-		var renderer = tabFolder.renderer as ChromeTabRendering
-		renderer.setPadding(paddingScale.selection + 5, paddingScale.selection + 5, paddingScale.selection, paddingScale.selection + 7)
-		tabFolder.layout(true, true)
-		tabFolder.parent.layout(true, true)
 	}
 
 	
