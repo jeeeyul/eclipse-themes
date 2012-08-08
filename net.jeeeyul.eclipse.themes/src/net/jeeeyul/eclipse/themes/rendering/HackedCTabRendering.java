@@ -582,7 +582,7 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 			return;
 
 		KRectangle rect = new KRectangle(bounds).expand(-1, 1).translate(0, -1);
-		if (itemIndex == 0) {
+		if (itemIndex == 0 || bounds.x <= 4) {
 			rect.translate(-1, 0).expand(1, 0);
 		}
 
@@ -605,8 +605,6 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 		gc.setForeground(outerKeyline);
 		gc.drawPath(path);
 
-		// gc.drawLine(paddingLeft-1, bottomLeft.y,parent.getSize().x ,
-		// bottomRight.y);
 		gc.setForeground(parent.getDisplay().getSystemColor(SWT.COLOR_WHITE));
 		gc.drawLine(bottomLeft.x + 1, bottomLeft.y, bottomRight.x - 1, bottomRight.y);
 		path.dispose();
@@ -874,8 +872,9 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 
 	protected void drawUnselectedTabItemBackground(int itemIndex, GC gc, Rectangle bounds, int state) {
 		if ((state & SWT.HOT) != 0) {
+		
 			KRectangle rect = new KRectangle(bounds).expand(-1, 1).translate(0, -1);
-			if (itemIndex == 0) {
+			if (itemIndex == 0 || bounds.x <= 4) {
 				rect.translate(-1, 0).expand(1, 0);
 			}
 
