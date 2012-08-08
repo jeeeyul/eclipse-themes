@@ -1,21 +1,17 @@
 package net.jeeeyul.eclipse.themes.preference;
 
 import net.jeeeyul.eclipse.themes.preference.internal.ColorFactory;
-import net.jeeeyul.eclipse.themes.preference.internal.FontFactory;
 import net.jeeeyul.eclipse.themes.preference.internal.ResourceRegistry;
 import net.jeeeyul.eclipse.themes.rendering.ChromeTabRendering;
 
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.RGB;
 
-public class PartPreview {
+public class ColorPreview {
 	private CTabFolder folder;
 
 	private ResourceRegistry<RGB, Color> colorRegistry = new ResourceRegistry<RGB, Color>(new ColorFactory());
-	private ResourceRegistry<FontData, Font> fontRegistry = new ResourceRegistry<FontData, Font>(new FontFactory());
 
 	private RGB gradientStart = new RGB(0, 0, 0);
 	private RGB gradientEnd = new RGB(0, 0, 0);
@@ -26,13 +22,12 @@ public class PartPreview {
 	private RGB selectedTabEnd = new RGB(0, 0, 0);
 	private boolean castShinyShadow;
 
-	public PartPreview(CTabFolder folder) {
+	public ColorPreview(CTabFolder folder) {
 		this.folder = folder;
 	}
 
 	public void dispose() {
 		colorRegistry.dispose();
-		fontRegistry.dispose();
 	}
 
 	private Color getColor(RGB rgb) {

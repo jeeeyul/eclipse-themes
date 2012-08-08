@@ -24,13 +24,21 @@ class CommonPartPage extends ChromePage {
 	Scale paddingScale
 	Label paddingLabel
 	
+	FontPreview fontPreview
+	
 	new() {
 		super("Common", SharedImages::PART)
 	}
 
 	override create(Composite parent) {
+		fontPreview = new FontPreview(tabFolder)
+		
 		parent=>[
 			layout = GridLayout
+			
+			Label[
+				text = "Configurations for Part Stack."
+			]
 			
 			Group[
 				layoutData = FILL_HORIZONTAL
@@ -69,7 +77,7 @@ class CommonPartPage extends ChromePage {
 				]
 				
 				Label[
-					text = "Padding"
+					text = "Part Padding:"
 				]
 				
 				paddingLabel = Label[
@@ -91,6 +99,23 @@ class CommonPartPage extends ChromePage {
 	
 	def void updatePreview() { 
 		paddingLabel.text = paddingScale.selection + "px"
+		
+		var selectedFontName = (fontSelector.selection as IStructuredSelection).firstElement as String
+		var fontSize = 9f 
+		try{
+			fontSize = Float::parseFloat(fontSizeField.text.trim)
+		}catch(Exception e){
+			fontSize = 9f
+		}
+		if(fontSize > 20f){
+			fontSize = 20f;
+		}else if(fontSize < 5f){
+			fontSize = 5f;
+		}
+		
+		fontPreview.fontHeight = fontSize
+		fontPreview.fontName = selectedFontName
+		fontPreview.run()
 	}
 
 	
@@ -128,4 +153,9 @@ class CommonPartPage extends ChromePage {
 		
 		updatePreview()
 	}
+	
+	override dispose() {
+		fontPreview.dispose()
+	}
+	
 }

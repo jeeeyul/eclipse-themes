@@ -38,6 +38,10 @@ class ETCPage extends ChromePage {
 		parent=>[
 			layout = GridLayout
 			
+			Label[
+				text = "Configurations for other features."
+			]
+			
 			Group[
 				text = "Window"
 				layoutData = FILL_HORIZONTAL

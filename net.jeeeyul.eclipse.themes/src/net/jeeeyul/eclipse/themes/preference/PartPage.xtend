@@ -32,7 +32,7 @@ class PartPage extends ChromePage {
 	Button syncOutlineColorHueButton
 	Button partShinyShadowButton
 	
-	PartPreview preview
+	ColorPreview preview
 	
 	new(String name, boolean isActive){
 		super(name, SharedImages::PART)
@@ -40,10 +40,18 @@ class PartPage extends ChromePage {
 	}
 
 	override create(Composite parent) {
-		preview = new PartPreview(getTabFolder)
+		preview = new ColorPreview(getTabFolder)
 		
 		parent=>[
 			layout = GridLayout
+			
+			Label[
+				text = 	
+					if(isActive) 
+						"Configurations for Active Part Stack."
+					else
+						"Configurations for Inactive Part Stack."
+			]
 			
 			Group[
 				layoutData = FILL_HORIZONTAL

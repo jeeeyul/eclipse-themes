@@ -37,6 +37,11 @@ class ToolbarPage extends ChromePage {
 	override create(Composite parent) {
 		parent => [
 			layout = GridLayout
+			
+			Label[
+				text = "Configurations for main tool bar and Perspective Switcher"
+			]
+			
 			previewWrap = Composite(SWT::DOUBLE_BUFFERED || SWT::BORDER)[
 				layoutData = FILL_HORIZONTAL
 				layout = GridLayout[
