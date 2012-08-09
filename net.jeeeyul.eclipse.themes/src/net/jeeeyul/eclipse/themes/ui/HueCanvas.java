@@ -98,6 +98,15 @@ public class HueCanvas extends Canvas {
 			}
 		});
 
+		Listener repainter = new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				redraw();
+			}
+		};
+		addListener(SWT.FocusIn, repainter);
+		addListener(SWT.FocusOut, repainter);
+
 		setCursor(getDisplay().getSystemCursor(SWT.CURSOR_CROSS));
 	}
 
@@ -195,6 +204,8 @@ public class HueCanvas extends Canvas {
 	}
 
 	private void onMouseDown(Event event) {
+		setFocus();
+
 		computeNewSelection(event);
 
 		if (event.button == 1)
@@ -240,6 +251,10 @@ public class HueCanvas extends Canvas {
 
 		selectionColor.dispose();
 
+		if (isFocusControl()) {
+			Point size = getSize();
+			gc.drawFocus(0, 0, size.x, size.y);
+		}
 	}
 
 	private void scheduleNotifySelection() {

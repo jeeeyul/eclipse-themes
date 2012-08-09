@@ -16,6 +16,10 @@ public class HSB {
 		this.saturation = saturation;
 		this.brightness = brightness;
 	}
+	
+	public HSB(int red, int green, int blue){
+		this(new RGB(red, green, blue).getHSB());
+	}
 
 	public HSB(float[] hsb) {
 		this(hsb[0], hsb[1], hsb[2]);

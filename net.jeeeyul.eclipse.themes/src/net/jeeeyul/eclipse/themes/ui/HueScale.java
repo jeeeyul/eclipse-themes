@@ -44,7 +44,7 @@ public class HueScale extends Canvas {
 			}
 		}
 	}
-	
+
 	@Override
 	public void setEnabled(boolean enabled) {
 		super.setEnabled(enabled);
@@ -84,6 +84,20 @@ public class HueScale extends Canvas {
 			@Override
 			public void handleEvent(Event event) {
 				onMouseUp(event);
+			}
+		});
+
+		addListener(SWT.FocusIn, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				redraw();
+			}
+		});
+
+		addListener(SWT.FocusOut, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				redraw();
 			}
 		});
 	}
@@ -181,6 +195,8 @@ public class HueScale extends Canvas {
 	}
 
 	protected void onMouseDown(Event event) {
+		setFocus();
+
 		switch (state) {
 		case STATE_HOVER:
 			setState(STATE_DRAGGING);
@@ -239,6 +255,10 @@ public class HueScale extends Canvas {
 		gc.setAntialias(SWT.ON);
 		drawGradient(gc);
 		drawSelection(gc);
+		if (isFocusControl()) {
+			Point size = getSize();
+			gc.drawFocus(0, 0, size.x, size.y);
+		}
 	}
 
 	public void setBrightness(float brightness) {
