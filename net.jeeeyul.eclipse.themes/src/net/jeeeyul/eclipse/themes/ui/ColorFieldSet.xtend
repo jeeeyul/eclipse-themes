@@ -202,11 +202,12 @@ class ColorFieldSet {
 		}
 	}
 	
-	def setSelection(HSB hsb){
-		if(this.fSelection != hsb){
-			this.fSelection = hsb
-			updateField(null)
+	def void setSelection(HSB hsb){
+		if(this.fSelection == hsb || this.fSelection.equals(hsb)){
+			return;
 		}
+		this.fSelection = hsb.getCopy()
+		updateField(null)
 	}
 
 	def private updateField(String excludeKind) {

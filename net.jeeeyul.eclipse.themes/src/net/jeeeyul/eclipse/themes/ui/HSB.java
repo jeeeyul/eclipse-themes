@@ -52,9 +52,27 @@ public class HSB {
 	public RGB toRGB() {
 		return new RGB(hue, saturation, brightness);
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof HSB){
+			HSB other = (HSB) obj;
+			return this.hue == other.hue && this.saturation == other.saturation && this.brightness == other.brightness;
+		}
+		return super.equals(obj);
+	}
+	
+	@Override
+	public int hashCode() {
+		return toString().hashCode();
+	}
 
 	@Override
 	public String toString() {
 		return "HSB [hue=" + hue + ", saturation=" + saturation + ", brightness=" + brightness + "]";
+	}
+	
+	public HSB getCopy(){
+		return new HSB(hue, saturation, brightness);
 	}
 }
