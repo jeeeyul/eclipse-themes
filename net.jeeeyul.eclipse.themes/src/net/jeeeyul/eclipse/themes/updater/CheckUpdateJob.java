@@ -47,7 +47,7 @@ public class CheckUpdateJob extends Job {
 			IProfile profileSelf = regProfile.getProfile(IProfileRegistry.SELF);
 
 			// 쿼리 생성 및, 오퍼레이션 생성
-			IQuery<IInstallableUnit> query = QueryUtil.createIUQuery("업데이트할 피쳐 ID");
+			IQuery<IInstallableUnit> query = QueryUtil.createIUQuery("net.jeeeyul.eclipse.themes.feature");
 			IQueryResult<IInstallableUnit> result = profileSelf.query(query, new NullProgressMonitor());
 			UpdateOperation operation = new UpdateOperation(ProvisioningUI.getDefaultUI().getSession(), result.toSet());
 
