@@ -1,14 +1,13 @@
 package net.jeeeyul.eclipse.themes.updater;
 
 import java.net.URI;
-import java.util.Iterator;
 
 import net.jeeeyul.eclipse.themes.ChromeThemeCore;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.equinox.p2.core.IProvisioningAgent;
 import org.eclipse.equinox.p2.core.IProvisioningAgentProvider;
@@ -32,11 +31,11 @@ public class CheckUpdateJob extends Job {
 
 	@Override
 	protected IStatus run(IProgressMonitor monitor) {
+		monitor.beginTask("Check Updates for Chrome Theme", 1000);
 		try {
 
 			URI updateSite = new URI("https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.updatesite/");
-			ProvisioningUI.getDefaultUI().loadMetadataRepository(updateSite, true, null);
-			ProvisioningUI.getDefaultUI().loadArtifactRepository(updateSite, true, null);
+			ProvisioningUI.getDefaultUI().loadArtifactRepository(updateSite, false, new SubProgressMonitor(monitor, 100));
 			BundleContext context = ChromeThemeCore.getDefault().getBundle().getBundleContext();
 
 			// P2 에이전트를 얻음
@@ -52,23 +51,20 @@ public class CheckUpdateJob extends Job {
 
 			// 쿼리 생성 및, 오퍼레이션 생성
 			IQuery<IInstallableUnit> query = QueryUtil.createIUQuery("net.jeeeyul.eclipse.themes.feature.feature.group");
-			IQueryResult<IInstallableUnit> result = profileSelf.query(query, new NullProgressMonitor());
-			Iterator<IInstallableUnit> iter = result.iterator();
-			while (iter.hasNext()) {
-				System.out.println(iter.next().getId());
-			}
-
+			IQueryResult<IInstallableUnit> result = profileSelf.query(query, new SubProgressMonitor(monitor, 100));
 			UpdateOperation operation = new UpdateOperation(ProvisioningUI.getDefaultUI().getSession(), result.toSet());
 
 			// 업데이트 가능 여부 확인
-			IStatus resolveResult = operation.resolveModal(monitor);
+			IStatus resolveResult = operation.resolveModal(new SubProgressMonitor(monitor, 800));
 			if (resolveResult.isOK()) {
 				showNotification(operation);
 			} else {
-				System.out.println(resolveResult.getMessage());
+				return new Status(IStatus.INFO, ChromeThemeCore.PLUGIN_ID, resolveResult.getMessage());
 			}
 		} catch (Exception e) {
 			return new Status(IStatus.WARNING, ChromeThemeCore.PLUGIN_ID, "Could not check new update.", e);
+		} finally {
+			monitor.done();
 		}
 
 		return Status.OK_STATUS;

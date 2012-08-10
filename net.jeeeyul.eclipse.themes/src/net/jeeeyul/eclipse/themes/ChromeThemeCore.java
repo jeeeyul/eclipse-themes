@@ -35,7 +35,7 @@ public class ChromeThemeCore extends AbstractUIPlugin {
 		super.start(context);
 		plugin = this;
 
-		new CheckUpdateJob().schedule();
+		new CheckUpdateJob().schedule(20000);
 	}
 
 	/*
