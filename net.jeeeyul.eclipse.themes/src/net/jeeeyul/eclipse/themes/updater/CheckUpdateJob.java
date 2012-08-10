@@ -6,6 +6,7 @@ import net.jeeeyul.eclipse.themes.ChromeThemeCore;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.core.runtime.jobs.Job;
@@ -14,6 +15,7 @@ import org.eclipse.equinox.p2.core.IProvisioningAgentProvider;
 import org.eclipse.equinox.p2.engine.IProfile;
 import org.eclipse.equinox.p2.engine.IProfileRegistry;
 import org.eclipse.equinox.p2.metadata.IInstallableUnit;
+import org.eclipse.equinox.p2.operations.ProvisioningJob;
 import org.eclipse.equinox.p2.operations.UpdateOperation;
 import org.eclipse.equinox.p2.query.IQuery;
 import org.eclipse.equinox.p2.query.IQueryResult;
@@ -55,7 +57,10 @@ public class CheckUpdateJob extends Job {
 			UpdateOperation operation = new UpdateOperation(ProvisioningUI.getDefaultUI().getSession(), result.toSet());
 
 			// 업데이트 가능 여부 확인
-			IStatus resolveResult = operation.resolveModal(new SubProgressMonitor(monitor, 800));
+			ProvisioningJob resolveJob = operation.getResolveJob(new NullProgressMonitor());
+			resolveJob.run(new SubProgressMonitor(monitor, 800));
+			IStatus resolveResult = operation.getResolutionResult();
+
 			if (resolveResult.isOK()) {
 				showNotification(operation);
 			} else {
