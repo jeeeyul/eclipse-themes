@@ -10,6 +10,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolBar;
@@ -19,8 +20,7 @@ import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 public class ColorPicker extends Dialog {
 	public static void main(String[] args) {
 		ColorPicker picker = new ColorPicker(null);
-		picker.setSelection(new HSB(255, 0 , 0));
-		picker.setLockHue(true);
+		picker.setSelection(new HSB(255, 0, 0));
 		picker.open();
 	}
 
@@ -48,9 +48,10 @@ public class ColorPicker extends Dialog {
 	protected Control createDialogArea(Composite parent) {
 		Composite container = (Composite) super.createDialogArea(parent);
 
-		GridLayout layout = (GridLayout) container.getLayout();
-		layout.numColumns = 2;
-		layout.marginWidth = layout.marginHeight = 5;
+		GridLayout mainLayout = (GridLayout) container.getLayout();
+		mainLayout.numColumns = 2;
+		mainLayout.marginWidth = mainLayout.marginHeight = 0;
+		mainLayout.horizontalSpacing = 0;
 
 		Composite left = new Composite(container, SWT.NORMAL);
 		left.setLayout(new GridLayout());
@@ -60,14 +61,12 @@ public class ColorPicker extends Dialog {
 		hueCanvas.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		hueCanvas.setLayoutData(new GridData(GridData.FILL_BOTH));
 
-		
 		hueCanvas.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
 				handleNewSelection();
 			}
 		});
-
 
 		fieldSet = new ColorFieldSet(container);
 		fieldSet.getControl().setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false));
@@ -77,13 +76,18 @@ public class ColorPicker extends Dialog {
 				setSelection(hsb);
 			}
 		});
-		
+
+		new Label(container, SWT.HORIZONTAL | SWT.SEPARATOR).setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 2, 1));
+
 		Composite bottom = new Composite(container, SWT.NORMAL);
 		bottom.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 2, 1));
-		bottom.setLayout(new GridLayout(3, false));
-		
+		GridLayout bottomLayout = new GridLayout(3, false);
+		bottomLayout.marginHeight = 0;
+		bottomLayout.marginWidth = 15;
+		bottom.setLayout(bottomLayout);
+
 		colorWell = new ColorWell(bottom, SWT.BORDER);
-		
+
 		ToolBar toolBar = new ToolBar(bottom, SWT.FLAT);
 
 		pipette = new ToolItem(toolBar, SWT.PUSH);
@@ -106,13 +110,14 @@ public class ColorPicker extends Dialog {
 				hueCanvas.setHue(hueScale.getSelection());
 			}
 		});
+		
+		new Label(container, SWT.HORIZONTAL | SWT.SEPARATOR).setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 2, 1));
 
-
-		getShell().setText("Jeeeyul's Color Picker");
+		getShell().setText("Color Picker");
 		update();
-		
+
 		hueCanvas.setFocus();
-		
+
 		return container;
 	}
 

@@ -22,6 +22,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Layout;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
@@ -202,7 +203,17 @@ public class SWTExtensions {
 		initializer.apply(label);
 		return label;
 	}
-	
+
+	public Label Separator(final Composite parent, final Procedure1<? super Label> initializer) {
+		Label separator = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
+		initializer.apply(separator);
+		Layout layout = parent.getLayout();
+		if (layout instanceof GridLayout) {
+			GridLayout gridLayout = (GridLayout) layout;
+			separator.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, gridLayout.numColumns, 1));
+		}
+		return separator;
+	}
 
 	public Scale Scale(final Composite parent, final Procedure1<? super Scale> initializer) {
 		Scale scale = new Scale(parent, SWT.NORMAL);
@@ -425,7 +436,6 @@ public class SWTExtensions {
 		initializer.apply(toolBar);
 		return toolBar;
 	}
-	
 
 	public ToolBar ToolBar(final Composite parent, int style, final Procedure1<? super ToolBar> initializer) {
 		ToolBar toolBar = new ToolBar(parent, style);

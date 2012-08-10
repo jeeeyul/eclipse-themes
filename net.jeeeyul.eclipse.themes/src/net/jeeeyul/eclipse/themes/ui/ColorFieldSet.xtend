@@ -63,6 +63,8 @@ class ColorFieldSet {
 				kind = "rgb"
 			]
 			
+			Separator[]
+			
 			Label[
 				text = "Hue"
 			]
@@ -86,6 +88,8 @@ class ColorFieldSet {
 				validRange = 0f -> 1f
 				kind = "hsb"
 			]
+			
+			Separator[]
 			
 			Label[
 				text = "HTML Code"
@@ -188,6 +192,10 @@ class ColorFieldSet {
 					converter.apply(greenString),
 					converter.apply(blueString)
 				)
+				
+				if(newHSB.saturation == 0f){
+					newHSB.hue = fSelection.hue
+				}
 			}
 		}
 		
