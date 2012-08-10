@@ -202,6 +202,7 @@ public class SWTExtensions {
 		initializer.apply(label);
 		return label;
 	}
+	
 
 	public Scale Scale(final Composite parent, final Procedure1<? super Scale> initializer) {
 		Scale scale = new Scale(parent, SWT.NORMAL);
