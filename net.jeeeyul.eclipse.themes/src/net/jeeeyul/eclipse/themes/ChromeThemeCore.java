@@ -1,7 +1,5 @@
 package net.jeeeyul.eclipse.themes;
 
-import net.jeeeyul.eclipse.themes.updater.CheckUpdateJob;
-
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -34,8 +32,6 @@ public class ChromeThemeCore extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
-
-		new CheckUpdateJob().schedule(20000);
 	}
 
 	/*

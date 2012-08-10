@@ -175,6 +175,7 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 			loadPresetAction.setText(path.removeFileExtension().lastSegment());
 			manager.add(loadPresetAction);
 		}
+		manager.add(new Separator());
 
 		final Menu menu = manager.createContextMenu(getShell());
 
