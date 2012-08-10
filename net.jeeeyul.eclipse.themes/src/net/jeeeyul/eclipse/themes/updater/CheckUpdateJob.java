@@ -33,6 +33,10 @@ public class CheckUpdateJob extends Job {
 	@Override
 	protected IStatus run(IProgressMonitor monitor) {
 		try {
+
+			URI updateSite = new URI("https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.updatesite/");
+			ProvisioningUI.getDefaultUI().loadMetadataRepository(updateSite, true, null);
+			ProvisioningUI.getDefaultUI().loadArtifactRepository(updateSite, true, null);
 			BundleContext context = ChromeThemeCore.getDefault().getBundle().getBundleContext();
 
 			// P2 에이전트를 얻음
@@ -50,17 +54,16 @@ public class CheckUpdateJob extends Job {
 			IQuery<IInstallableUnit> query = QueryUtil.createIUQuery("net.jeeeyul.eclipse.themes.feature.feature.group");
 			IQueryResult<IInstallableUnit> result = profileSelf.query(query, new NullProgressMonitor());
 			Iterator<IInstallableUnit> iter = result.iterator();
-			while(iter.hasNext()){
+			while (iter.hasNext()) {
 				System.out.println(iter.next().getId());
 			}
-			
+
 			UpdateOperation operation = new UpdateOperation(ProvisioningUI.getDefaultUI().getSession(), result.toSet());
 
 			// 업데이트 가능 여부 확인
 			IStatus resolveResult = operation.resolveModal(monitor);
 			if (resolveResult.isOK()) {
-				ChromeUpdateNotificationPopup popup = new ChromeUpdateNotificationPopup(Display.getDefault(), operation);
-				popup.open();
+				showNotification(operation);
 			} else {
 				System.out.println(resolveResult.getMessage());
 			}
@@ -69,6 +72,16 @@ public class CheckUpdateJob extends Job {
 		}
 
 		return Status.OK_STATUS;
+	}
+
+	private void showNotification(final UpdateOperation operation) {
+		Display.getDefault().asyncExec(new Runnable() {
+			@Override
+			public void run() {
+				ChromeUpdateNotificationPopup popup = new ChromeUpdateNotificationPopup(Display.getDefault(), operation);
+				popup.open();
+			}
+		});
 	}
 
 }
