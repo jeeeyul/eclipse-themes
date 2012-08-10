@@ -1,6 +1,7 @@
 package net.jeeeyul.eclipse.themes.updater;
 
 import java.net.URI;
+import java.util.Iterator;
 
 import net.jeeeyul.eclipse.themes.ChromeThemeCore;
 
@@ -27,7 +28,6 @@ public class CheckUpdateJob extends Job {
 
 	public CheckUpdateJob() {
 		super("Check update for Jeeeyul's eclipse 4 themes");
-		setSystem(true);
 	}
 
 	@Override
@@ -47,12 +47,17 @@ public class CheckUpdateJob extends Job {
 			IProfile profileSelf = regProfile.getProfile(IProfileRegistry.SELF);
 
 			// 쿼리 생성 및, 오퍼레이션 생성
-			IQuery<IInstallableUnit> query = QueryUtil.createIUQuery("net.jeeeyul.eclipse.themes.feature");
+			IQuery<IInstallableUnit> query = QueryUtil.createIUQuery("net.jeeeyul.eclipse.themes.feature.feature.group");
 			IQueryResult<IInstallableUnit> result = profileSelf.query(query, new NullProgressMonitor());
+			Iterator<IInstallableUnit> iter = result.iterator();
+			while(iter.hasNext()){
+				System.out.println(iter.next().getId());
+			}
+			
 			UpdateOperation operation = new UpdateOperation(ProvisioningUI.getDefaultUI().getSession(), result.toSet());
 
 			// 업데이트 가능 여부 확인
-			IStatus resolveResult = operation.resolveModal(new NullProgressMonitor());
+			IStatus resolveResult = operation.resolveModal(monitor);
 			if (resolveResult.isOK()) {
 				ChromeUpdateNotificationPopup popup = new ChromeUpdateNotificationPopup(Display.getDefault(), operation);
 				popup.open();

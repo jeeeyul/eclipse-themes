@@ -58,7 +58,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	private RGB activeSelectedTabEndColor;
 	private RGB inactiveSelectedTabStartColor;
 	private RGB inactiveSelectedTabEndColor;
-	
+
 	private Integer partStackPadding;
 
 	public ChromeThemeConfig() {
@@ -73,6 +73,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	public void dispose() {
 		preferenceStore.removePropertyChangeListener(this);
 	}
+
 	@Override
 	public RGB getActiveOulineColor() {
 		if (activeOulineColor == null) {
@@ -85,6 +86,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 		}
 		return activeOulineColor;
 	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -184,7 +186,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
 			hsb[0] = store.getFloat(ChromeConstants.CHROME_EMPTY_PART_HUE);
 			hsb[1] = store.getFloat(ChromeConstants.CHROME_EMPTY_PART_SATURATION);
-			hsb[2] = store.getFloat(ChromeConstants.CHROME_EMPTY_PART_BRIGHTNESS);	
+			hsb[2] = store.getFloat(ChromeConstants.CHROME_EMPTY_PART_BRIGHTNESS);
 			emptyPartBackgroundColor = new RGB(hsb[0], hsb[1], hsb[2]);
 		}
 		return emptyPartBackgroundColor;
@@ -322,7 +324,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 
 	@Override
 	public Integer getPartStackPadding() {
-		if(partStackPadding == null){
+		if (partStackPadding == null) {
 			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
 			partStackPadding = store.getInt(ChromeConstants.CHROME_PART_STACK_PADDING);
 		}
@@ -457,15 +459,15 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 		perspectiveEndColor = null;
 		perspectiveOutlineColor = null;
 		windowBackgroundColor = null;
-		
+
 		emptyPartBackgroundColor = null;
 		emptyPartOutloneColor = null;
-		
+
 		activeSelectedTabEndColor = null;
 		activeSelectedTabStartColor = null;
 		inactiveSelectedTabStartColor = null;
 		inactiveSelectedTabEndColor = null;
-		
+
 		partStackPadding = null;
 	}
 
