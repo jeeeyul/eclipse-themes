@@ -126,6 +126,10 @@ public class KRectangle {
 		return new KPoint(this.x, this.y);
 	}
 
+	public KPoint getTop() {
+		return new KPoint(this.x + this.width / 2, this.y);
+	}
+
 	public KPoint getTopRight() {
 		return new KPoint(this.x + this.width, this.y);
 	}

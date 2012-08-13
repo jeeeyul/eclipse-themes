@@ -75,4 +75,8 @@ public class HSB {
 	public HSB getCopy(){
 		return new HSB(hue, saturation, brightness);
 	}
+
+	public HSB mixWith(HSB color, float strength) {
+		return null;
+	}
 }

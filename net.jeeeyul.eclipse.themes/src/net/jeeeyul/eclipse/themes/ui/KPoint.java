@@ -1,6 +1,7 @@
 package net.jeeeyul.eclipse.themes.ui;
 
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.widgets.Event;
 
 public class KPoint {
 	public int x;
@@ -18,6 +19,10 @@ public class KPoint {
 	public KPoint(KPoint original) {
 		this.x = original.x;
 		this.y = original.y;
+	}
+
+	public KPoint(Event event) {
+		this(event.x, event.y);
 	}
 
 	public KPoint getCopy() {
