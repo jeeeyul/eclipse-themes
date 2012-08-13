@@ -16,8 +16,8 @@ public class HSB {
 		this.saturation = saturation;
 		this.brightness = brightness;
 	}
-	
-	public HSB(int red, int green, int blue){
+
+	public HSB(int red, int green, int blue) {
 		this(new RGB(red, green, blue).getHSB());
 	}
 
@@ -52,16 +52,16 @@ public class HSB {
 	public RGB toRGB() {
 		return new RGB(hue, saturation, brightness);
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
-		if(obj instanceof HSB){
+		if (obj instanceof HSB) {
 			HSB other = (HSB) obj;
 			return this.hue == other.hue && this.saturation == other.saturation && this.brightness == other.brightness;
 		}
 		return super.equals(obj);
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return toString().hashCode();
@@ -71,12 +71,26 @@ public class HSB {
 	public String toString() {
 		return "HSB [hue=" + hue + ", saturation=" + saturation + ", brightness=" + brightness + "]";
 	}
-	
-	public HSB getCopy(){
+
+	public HSB getCopy() {
 		return new HSB(hue, saturation, brightness);
 	}
 
 	public HSB mixWith(HSB color, float strength) {
-		return null;
+		RGB thisRGB = toRGB();
+		RGB otherRGB = color.toRGB();
+		RGB newRGB = new RGB(0, 0, 0);
+
+		newRGB.red = (int) (thisRGB.red * (1f - strength) + otherRGB.red * strength);
+		newRGB.green = (int) (thisRGB.green * (1f - strength) + otherRGB.green * strength);
+		newRGB.blue = (int) (thisRGB.blue * (1f - strength) + otherRGB.blue * strength);
+
+		float[] hsb = newRGB.getHSB();
+
+		this.hue = hsb[0];
+		this.saturation = hsb[1];
+		this.brightness = hsb[2];
+
+		return this;
 	}
 }
