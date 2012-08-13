@@ -46,16 +46,6 @@ public class Gradient extends ArrayList<ColorStop> {
 		});
 	}
 
-	public static void main(String[] args) {
-		Gradient g = new Gradient();
-		g.add(new ColorStop(360f, 0f, 0f, 0f));
-		g.add(new ColorStop(170f, 0f, 1f, 1f));
-
-		String notaion = g.getCopy().toString();
-
-		System.out.println(Gradient.createFromString(notaion));
-	}
-
 	public Gradient getCopy() {
 		Gradient copy = new Gradient();
 		for (ColorStop each : this) {

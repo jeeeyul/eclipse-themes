@@ -465,6 +465,7 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 
 	protected void draw(int part, int state, Rectangle bounds, GC gc) {
 		switch (part) {
+		
 		case PART_BODY:
 			this.drawTabBody(gc, bounds, state);
 			return;
@@ -803,9 +804,6 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 	}
 
 	void drawTabHeader(GC gc, Rectangle bounds, int state) {
-		// gc.setClipping(bounds.x, bounds.y, bounds.width,
-		// parent.getTabHeight() + 1);
-
 		int[] points = new int[1024];
 		int index = 0;
 		int radius = cornerSize / 2;
