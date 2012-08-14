@@ -72,6 +72,30 @@
                name="chrome-selected-tab-fill-highlight">
          </property-name>
       </handler>
+      <handler
+            adapter="net.jeeeyul.eclipse.themes.e4.SectionElement"
+            handler="net.jeeeyul.eclipse.themes.css.SectionCSSPropertyHandler">
+         <property-name
+               name="section-title-bar-background">
+         </property-name>
+         <property-name
+               name="section-title-bar-border-color">
+         </property-name>
+         <property-name
+               name="section-active-toggle-color">
+         </property-name>
+         <property-name
+               name="section-title-bar-foreground">
+         </property-name>
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.e4.ui.css.core.elementProvider">
+      <provider
+            class="net.jeeeyul.eclipse.themes.e4.SectionElementProvider">
+         <widget
+               class="org.eclipse.ui.forms.widgets.Section"></widget>
+      </provider>
    </extension>
 
 </plugin>

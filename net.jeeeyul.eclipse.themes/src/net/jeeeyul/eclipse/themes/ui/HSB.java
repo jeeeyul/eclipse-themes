@@ -1,10 +1,23 @@
 package net.jeeeyul.eclipse.themes.ui;
 
+import java.util.Scanner;
+
 import org.eclipse.swt.graphics.RGB;
 
 public class HSB {
+	public static HSB createFromString(String literal) {
+		Scanner scanner = new Scanner(literal);
+		scanner.useDelimiter(",");
+		HSB result = new HSB();
+		result.hue = scanner.nextFloat();
+		result.saturation = scanner.nextFloat();
+		result.brightness = scanner.nextFloat();
+		return result;
+	}
+
 	public float hue;
 	public float saturation;
+
 	public float brightness;
 
 	public HSB() {
@@ -17,12 +30,12 @@ public class HSB {
 		this.brightness = brightness;
 	}
 
-	public HSB(int red, int green, int blue) {
-		this(new RGB(red, green, blue).getHSB());
-	}
-
 	public HSB(float[] hsb) {
 		this(hsb[0], hsb[1], hsb[2]);
+	}
+
+	public HSB(int red, int green, int blue) {
+		this(new RGB(red, green, blue).getHSB());
 	}
 
 	public HSB(RGB rgb) {
@@ -37,22 +50,6 @@ public class HSB {
 		return new HSB(hue, limit(this.saturation * amp, 0f, 1f), brightness);
 	}
 
-	private float limit(float original, float min, float max) {
-		return Math.min(Math.max(original, min), max);
-	}
-
-	public HSB rewriteHue(float newHue) {
-		return new HSB(newHue, saturation, brightness);
-	}
-
-	public float[] toArray() {
-		return new float[] { hue, saturation, brightness };
-	}
-
-	public RGB toRGB() {
-		return new RGB(hue, saturation, brightness);
-	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof HSB) {
@@ -62,18 +59,17 @@ public class HSB {
 		return super.equals(obj);
 	}
 
+	public HSB getCopy() {
+		return new HSB(hue, saturation, brightness);
+	}
+
 	@Override
 	public int hashCode() {
 		return toString().hashCode();
 	}
 
-	@Override
-	public String toString() {
-		return "HSB [hue=" + hue + ", saturation=" + saturation + ", brightness=" + brightness + "]";
-	}
-
-	public HSB getCopy() {
-		return new HSB(hue, saturation, brightness);
+	private float limit(float original, float min, float max) {
+		return Math.min(Math.max(original, min), max);
 	}
 
 	public HSB mixWith(HSB color, float strength) {
@@ -92,5 +88,26 @@ public class HSB {
 		this.brightness = hsb[2];
 
 		return this;
+	}
+
+	public HSB rewriteHue(float newHue) {
+		return new HSB(newHue, saturation, brightness);
+	}
+
+	public String serialize() {
+		return String.format("%f,%f,%f", hue, saturation, brightness);
+	}
+
+	public float[] toArray() {
+		return new float[] { hue, saturation, brightness };
+	}
+
+	public RGB toRGB() {
+		return new RGB(hue, saturation, brightness);
+	}
+
+	@Override
+	public String toString() {
+		return String.format("%f,%f,%f", hue, saturation, brightness);
 	}
 }
