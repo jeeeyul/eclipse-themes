@@ -1,3 +1,4 @@
 eclipse.preferences.version=1
 encoding//META-INF/MANIFEST.MF=ISO-8859-1
 encoding//src/net/jeeeyul/eclipse/themes/css/ChromeCSSGenerator.xtend=UTF-8
+encoding//src/net/jeeeyul/eclipse/themes/rendering/KTabRenderer.xtend=UTF-8
