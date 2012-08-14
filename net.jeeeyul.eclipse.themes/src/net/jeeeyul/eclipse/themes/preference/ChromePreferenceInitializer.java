@@ -146,6 +146,8 @@ public class ChromePreferenceInitializer extends AbstractPreferenceInitializer {
 		store.setDefault(ChromeConstants.CHROME_INACTIVE_SELECTED_TAB_END_BRIGHTNESS, 1f);
 		
 		store.setDefault(ChromeConstants.CHROME_PART_STACK_PADDING, 1);
+		
+		store.setDefault(ChromeConstants.CHROME_PART_STACK_USE_MRU, true);
 	}
 
 	@Override

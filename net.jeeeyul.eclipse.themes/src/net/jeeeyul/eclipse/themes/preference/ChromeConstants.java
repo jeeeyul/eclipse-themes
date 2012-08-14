@@ -66,11 +66,11 @@ public interface ChromeConstants {
 	public static final String CHROME_EMPTY_PART_SATURATION = "chrome-empty-part-saturation";
 	public static final String CHROME_EMPTY_PART_HUE = "chrome-empty-part-hue";
 	public static final String CHROME_EMPTY_PART_BRIGHTNESS = "chrome-empty-part-brightness";
-	
+
 	public static final String CHROME_EMPTY_PART_OUTLINE_SATURATION = "chrome-empty-part-outline-saturation";
 	public static final String CHROME_EMPTY_PART_OUTLINE_HUE = "chrome-empty-part-outline-hue";
 	public static final String CHROME_EMPTY_PART_OUTLINE_BRIGHTNESS = "chrome-empty-part-outline-brightness";
-	
+
 	public static final String CHROME_SASH_PRESET = "chrome-sash-preset";
 	public static final String CHROME_SASH_PRESET_STANDARD = "chrome-sash-preset-standard";
 	public static final String CHROME_SASH_PRESET_THIN = "chrome-sash-preset-thin";
@@ -93,33 +93,39 @@ public interface ChromeConstants {
 	public static final String CHROME_PERSPECTIVE_START_BRIGHTNESS = "chrome-perspective-start-brightness";
 	public static final String CHROME_PERSPECTIVE_START_SATURATION = "chrome-perspective-start-saturation";
 	public static final String CHROME_PERSPECTIVE_START_HUE = "chrome-perspective-start-hue";
-	
+
 	public static final String CHROME_PERSPECTIVE_END_BRIGHTNESS = "chrome-perspective-end-brightness";
 	public static final String CHROME_PERSPECTIVE_END_SATURATION = "chrome-perspective-end-saturation";
 	public static final String CHROME_PERSPECTIVE_END_HUE = "chrome-perspective-end-hue";
-	
-	public static final String CHROME_USE_WINDOW_BACKGROUND_COLOR_AS_PERSPECTIVE_END_COLOR= "chrome-use-window-background-color-as-perspective-end-color";
-	
+
+	public static final String CHROME_USE_WINDOW_BACKGROUND_COLOR_AS_PERSPECTIVE_END_COLOR = "chrome-use-window-background-color-as-perspective-end-color";
+
 	public static final String CHROME_PERSPECTIVE_OUTLINE_BRIGHTNESS = "chrome-perspective-outline-brightness";
 	public static final String CHROME_PERSPECTIVE_OUTLINE_SATURATION = "chrome-perspective-outline-saturation";
 	public static final String CHROME_PERSPECTIVE_OUTLINE_HUE = "chrome-perspective-outline-hue";
-	
+
 	public static final String CHROME_ACTIVE_SELECTED_TAB_START_BRIGHTNESS = "chrome-active-selected-tab-start-brightness";
 	public static final String CHROME_ACTIVE_SELECTED_TAB_START_SATURATION = "chrome-active-selected-tab-start-saturation";
 	public static final String CHROME_ACTIVE_SELECTED_TAB_START_HUE = "chrome-active-selected-tab-start-hue";
-	
+
 	public static final String CHROME_ACTIVE_SELECTED_TAB_END_BRIGHTNESS = "chrome-active-selected-tab-end-brightness";
 	public static final String CHROME_ACTIVE_SELECTED_TAB_END_SATURATION = "chrome-active-selected-tab-end-saturation";
 	public static final String CHROME_ACTIVE_SELECTED_TAB_END_HUE = "chrome-active-selected-tab-end-hue";
-	
+
 	public static final String CHROME_INACTIVE_SELECTED_TAB_START_BRIGHTNESS = "chrome-inactive-selected-tab-start-brightness";
 	public static final String CHROME_INACTIVE_SELECTED_TAB_START_SATURATION = "chrome-inactive-selected-tab-start-saturation";
 	public static final String CHROME_INACTIVE_SELECTED_TAB_START_HUE = "chrome-inactive-selected-tab-start-hue";
-	
+
 	public static final String CHROME_INACTIVE_SELECTED_TAB_END_BRIGHTNESS = "chrome-inactive-selected-tab-end-brightness";
 	public static final String CHROME_INACTIVE_SELECTED_TAB_END_SATURATION = "chrome-inactive-selected-tab-end-saturation";
 	public static final String CHROME_INACTIVE_SELECTED_TAB_END_HUE = "chrome-inactive-selected-tab-end-hue";
-	
+
 	public static final String CHROME_PART_STACK_PADDING = "chrome-part-stack-padding";
-	
+
+	/*
+	 * 35: Expose the mru-visible css property
+	 * https://github.com/jeeeyul/eclipse-themes/issues/issue/35
+	 */
+	public static final String CHROME_PART_STACK_USE_MRU = "chrome-part-stack-use-mru";
+
 }

@@ -6,6 +6,10 @@ import net.jeeeyul.eclipse.themes.preference.IChromeThemeConfig
 
 class ChromeCSSGenerator {
 	IChromeThemeConfig config = ChromeThemeConfig::instance
+	
+	def setConfig(IChromeThemeConfig config){
+		this.config = config
+	}
 
 	def generate()'''
 		/*
@@ -29,7 +33,6 @@ class ChromeCSSGenerator {
 			font-size: «config.partFontData.height as int»;
 			font-family: '«config.partFontData.name»';
 			swt-simple: true;
-			swt-mru-visible: false;
 			swt-tab-renderer:
 				url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.ChromeTabRendering');
 		
@@ -47,8 +50,8 @@ class ChromeCSSGenerator {
 			
 			swt-shadow-color: «config.partShadowColor.toHtmlColor»;
 			
-			chrome-shiney-shadow: «config.useInactivePartTitleShadow»
-			
+			chrome-shiney-shadow: «config.useInactivePartTitleShadow»;
+			swt-mru-visible: «config.mruVisible»;
 		}
 		
 		.MPartStack.active {
@@ -62,7 +65,7 @@ class ChromeCSSGenerator {
 			
 			chrome-selected-tab-color: «config.activeSelectedTitleColor.toHtmlColor»;
 			chrome-unselected-tab-color: «config.activeUnselectedTitleColor.toHtmlColor»;
-			chrome-shiney-shadow: «config.useActivePartTitleShadow»
+			chrome-shiney-shadow: «config.useActivePartTitleShadow»;
 		}
 		
 		.MPartStack.empty {
@@ -79,14 +82,14 @@ class ChromeCSSGenerator {
 		
 		.MTrimmedWindow {
 		  	margin-top: 2px;
-		    margin-bottom: 2px;
-		    «IF config.usePartShadow»
-		    	margin-left: 0px;
-		    	margin-right: 0px;
-		    «ELSE»
-		    	margin-left: 2px;
-		    	margin-right: 2px;
-		    «ENDIF»
+			margin-bottom: 2px;
+			«IF config.usePartShadow»
+				margin-left: 0px;
+				margin-right: 0px;
+			«ELSE»
+				margin-left: 2px;
+				margin-right: 2px;
+			«ENDIF»
 			background-color: «config.windowBackgroundColor.toHtmlColor»;
 		}
 		

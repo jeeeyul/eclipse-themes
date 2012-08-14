@@ -13,8 +13,9 @@ import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Label
 import org.eclipse.swt.widgets.Scale
 import org.eclipse.swt.widgets.Text
-
+import org.eclipse.swt.program.Program
 import static net.jeeeyul.eclipse.themes.preference.ChromeConstants.*
+import org.eclipse.swt.widgets.Button
 
 class CommonPartPage extends ChromePage {
 	extension SWTExtensions = new SWTExtensions
@@ -23,6 +24,7 @@ class CommonPartPage extends ChromePage {
 	Text fontSizeField
 	Scale paddingScale
 	Label paddingLabel
+	Button useMruButton
 	
 	FontPreview fontPreview
 	
@@ -93,6 +95,29 @@ class CommonPartPage extends ChromePage {
 						updatePreview()
 					]
 				]
+				
+				/*
+				 * 35: Expose the mru-visible css property
+				 * https://github.com/jeeeyul/eclipse-themes/issues/issue/35
+				 */
+				useMruButton = Checkbox[
+					text = "Make MRU Visible"
+					layoutData = GridData[horizontalSpan = 3]
+				]
+				
+				Link[
+					text = "When the MRU visibility turned on,\r\n" 
+					+ "the tabs that are visible will be the tabs most recently selected.\r\n"
+					+ "<a href=\"http://help.eclipse.org/juno/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Freference%2Fapi%2Forg%2Feclipse%2Fswt%2Fcustom%2FCTabFolder.html&anchor=setMRUVisible(boolean)\">Get more information</a>"
+					layoutData = GridData[
+						horizontalSpan = 3
+						horizontalIndent = 20
+					]
+					
+					addListener(SWT::Selection)[
+						Program::launch(it.text)
+					]
+				]
 			] // GROUP
 		]
 	}
@@ -123,6 +148,7 @@ class CommonPartPage extends ChromePage {
 		fontSelector.selection = new StructuredSelection(store.getString(CHROME_PART_FONT_NAME))
 		fontSizeField.text = Float::toString(store.getFloat(CHROME_PART_FONT_SIZE))
 		paddingScale.selection = store.getInt(CHROME_PART_STACK_PADDING)
+		useMruButton.selection = store.getBoolean(CHROME_PART_STACK_USE_MRU)
 		updatePreview()
 	}
 	
@@ -144,13 +170,14 @@ class CommonPartPage extends ChromePage {
 		
 		store.setValue(CHROME_PART_FONT_SIZE, fontSize)
 		store.setValue(CHROME_PART_STACK_PADDING, paddingScale.selection)
+		store.setValue(CHROME_PART_STACK_USE_MRU, useMruButton.selection)
 	}
 	
 	override setToDefault(IPreferenceStore store) {
 		fontSelector.selection = new StructuredSelection(store.getDefaultString(CHROME_PART_FONT_NAME))
 		fontSizeField.text = Float::toString(store.getDefaultFloat(CHROME_PART_FONT_SIZE))
 		paddingScale.selection = store.getDefaultInt(CHROME_PART_STACK_PADDING)
-		
+		useMruButton.selection = store.getDefaultBoolean(CHROME_PART_STACK_USE_MRU)
 		updatePreview()
 	}
 	

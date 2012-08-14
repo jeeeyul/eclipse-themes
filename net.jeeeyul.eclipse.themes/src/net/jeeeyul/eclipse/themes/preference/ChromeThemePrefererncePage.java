@@ -7,6 +7,7 @@ import java.util.Enumeration;
 import net.jeeeyul.eclipse.themes.ChromeThemeCore;
 import net.jeeeyul.eclipse.themes.SharedImages;
 import net.jeeeyul.eclipse.themes.preference.action.LoadPresetAction;
+import net.jeeeyul.eclipse.themes.preference.action.ShowCurrentCSSAction;
 import net.jeeeyul.eclipse.themes.rendering.ChromeTabRendering;
 
 import org.eclipse.core.runtime.IPath;
@@ -176,6 +177,7 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 			manager.add(loadPresetAction);
 		}
 		manager.add(new Separator());
+		manager.add(new ShowCurrentCSSAction(this));
 
 		final Menu menu = manager.createContextMenu(getShell());
 

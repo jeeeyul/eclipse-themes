@@ -61,4 +61,13 @@ public interface IChromeThemeConfig {
 	public abstract RGB getActiveSelectedTabEndColor();
 
 	public abstract Integer getPartStackPadding();
+
+	/**
+	 * 35: Expose the mru-visible css property
+	 * https://github.com/jeeeyul/eclipse-themes/issues/issue/35
+	 * 
+	 * @return
+	 * @since 1.4
+	 */
+	public abstract Boolean getMruVisible();
 }

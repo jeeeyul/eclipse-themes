@@ -58,6 +58,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	private RGB activeSelectedTabEndColor;
 	private RGB inactiveSelectedTabStartColor;
 	private RGB inactiveSelectedTabEndColor;
+	private Boolean mruVisible;
 
 	private Integer partStackPadding;
 
@@ -78,13 +79,17 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	public RGB getActiveOulineColor() {
 		if (activeOulineColor == null) {
 			float outline[] = new float[3];
-			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			IPreferenceStore store = getStore();
 			outline[0] = store.getFloat(ChromeConstants.CHROME_ACTIVE_OUTLINE_HUE);
 			outline[1] = store.getFloat(ChromeConstants.CHROME_ACTIVE_OUTLINE_SATURATION);
 			outline[2] = store.getFloat(ChromeConstants.CHROME_ACTIVE_OUTLINE_BRIGHTNESS);
 			activeOulineColor = new RGB(outline[0], outline[1], outline[2]);
 		}
 		return activeOulineColor;
+	}
+
+	private IPreferenceStore getStore() {
+		return preferenceStore;
 	}
 
 	/*
@@ -97,7 +102,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	public RGB getActivePartGradientEnd() {
 		if (activePartGradientEnd == null) {
 			float start[] = new float[3];
-			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			IPreferenceStore store = getStore();
 			start[0] = store.getFloat(ChromeConstants.CHROME_ACTIVE_END_HUE);
 			start[1] = store.getFloat(ChromeConstants.CHROME_ACTIVE_END_SATURATION);
 			start[2] = store.getFloat(ChromeConstants.CHROME_ACTIVE_END_BRIGHTNESS);
@@ -117,7 +122,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	public RGB getActivePartGradientStart() {
 		if (activePartGradientStart == null) {
 			float start[] = new float[3];
-			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			IPreferenceStore store = getStore();
 			start[0] = store.getFloat(ChromeConstants.CHROME_ACTIVE_START_HUE);
 			start[1] = store.getFloat(ChromeConstants.CHROME_ACTIVE_START_SATURATION);
 			start[2] = store.getFloat(ChromeConstants.CHROME_ACTIVE_START_BRIGHTNESS);
@@ -131,7 +136,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	public RGB getActiveSelectedTabEndColor() {
 		if (activeSelectedTabEndColor == null) {
 			float hsb[] = new float[3];
-			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			IPreferenceStore store = getStore();
 			hsb[0] = store.getFloat(ChromeConstants.CHROME_ACTIVE_SELECTED_TAB_END_HUE);
 			hsb[1] = store.getFloat(ChromeConstants.CHROME_ACTIVE_SELECTED_TAB_END_SATURATION);
 			hsb[2] = store.getFloat(ChromeConstants.CHROME_ACTIVE_SELECTED_TAB_END_BRIGHTNESS);
@@ -144,7 +149,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	public RGB getActiveSelectedTabStartColor() {
 		if (activeSelectedTabStartColor == null) {
 			float hsb[] = new float[3];
-			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			IPreferenceStore store = getStore();
 			hsb[0] = store.getFloat(ChromeConstants.CHROME_ACTIVE_SELECTED_TAB_START_HUE);
 			hsb[1] = store.getFloat(ChromeConstants.CHROME_ACTIVE_SELECTED_TAB_START_SATURATION);
 			hsb[2] = store.getFloat(ChromeConstants.CHROME_ACTIVE_SELECTED_TAB_START_BRIGHTNESS);
@@ -157,7 +162,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	public RGB getActiveSelectedTitleColor() {
 		if (activeSelectedTitleColor == null) {
 			float hsb[] = new float[3];
-			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			IPreferenceStore store = getStore();
 			hsb[0] = store.getFloat(ChromeConstants.CHROME_ACTIVE_SELECTED_TITLE_HUE);
 			hsb[1] = store.getFloat(ChromeConstants.CHROME_ACTIVE_SELECTED_TITLE_SATURATION);
 			hsb[2] = store.getFloat(ChromeConstants.CHROME_ACTIVE_SELECTED_TITLE_BRIGHTNESS);
@@ -170,7 +175,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	public RGB getActiveUnselectedTitleColor() {
 		if (activeUnselectedTitleColor == null) {
 			float hsb[] = new float[3];
-			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			IPreferenceStore store = getStore();
 			hsb[0] = store.getFloat(ChromeConstants.CHROME_ACTIVE_UNSELECTED_TITLE_HUE);
 			hsb[1] = store.getFloat(ChromeConstants.CHROME_ACTIVE_UNSELECTED_TITLE_SATURATION);
 			hsb[2] = store.getFloat(ChromeConstants.CHROME_ACTIVE_UNSELECTED_TITLE_BRIGHTNESS);
@@ -183,7 +188,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	public RGB getEmptyPartBackgroundColor() {
 		if (emptyPartBackgroundColor == null) {
 			float hsb[] = new float[3];
-			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			IPreferenceStore store = getStore();
 			hsb[0] = store.getFloat(ChromeConstants.CHROME_EMPTY_PART_HUE);
 			hsb[1] = store.getFloat(ChromeConstants.CHROME_EMPTY_PART_SATURATION);
 			hsb[2] = store.getFloat(ChromeConstants.CHROME_EMPTY_PART_BRIGHTNESS);
@@ -196,7 +201,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	public RGB getEmptyPartOutloneColor() {
 		if (emptyPartOutloneColor == null) {
 			float hsb[] = new float[3];
-			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			IPreferenceStore store = getStore();
 			hsb[0] = store.getFloat(ChromeConstants.CHROME_EMPTY_PART_OUTLINE_HUE);
 			hsb[1] = store.getFloat(ChromeConstants.CHROME_EMPTY_PART_OUTLINE_SATURATION);
 			hsb[2] = store.getFloat(ChromeConstants.CHROME_EMPTY_PART_OUTLINE_BRIGHTNESS);
@@ -209,7 +214,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	public RGB getInactiveOulineColor() {
 		if (inactiveOulineColor == null) {
 			float outline[] = new float[3];
-			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			IPreferenceStore store = getStore();
 			outline[0] = store.getFloat(ChromeConstants.CHROME_INACTIVE_OUTLINE_HUE);
 			outline[1] = store.getFloat(ChromeConstants.CHROME_INACTIVE_OUTLINE_SATURATION);
 			outline[2] = store.getFloat(ChromeConstants.CHROME_INACTIVE_OUTLINE_BRIGHTNESS);
@@ -222,7 +227,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	public RGB getInactivePartGradientEnd() {
 		if (inactivePartGradientEnd == null) {
 			float start[] = new float[3];
-			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			IPreferenceStore store = getStore();
 			start[0] = store.getFloat(ChromeConstants.CHROME_INACTIVE_END_HUE);
 			start[1] = store.getFloat(ChromeConstants.CHROME_INACTIVE_END_SATURATION);
 			start[2] = store.getFloat(ChromeConstants.CHROME_INACTIVE_END_BRIGHTNESS);
@@ -236,7 +241,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	public RGB getInactivePartGradientStart() {
 		if (inactivePartGradientStart == null) {
 			float start[] = new float[3];
-			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			IPreferenceStore store = getStore();
 			start[0] = store.getFloat(ChromeConstants.CHROME_INACTIVE_START_HUE);
 			start[1] = store.getFloat(ChromeConstants.CHROME_INACTIVE_START_SATURATION);
 			start[2] = store.getFloat(ChromeConstants.CHROME_INACTIVE_START_BRIGHTNESS);
@@ -250,7 +255,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	public RGB getInactiveSelectedTabEndColor() {
 		if (inactiveSelectedTabEndColor == null) {
 			float hsb[] = new float[3];
-			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			IPreferenceStore store = getStore();
 			hsb[0] = store.getFloat(ChromeConstants.CHROME_INACTIVE_SELECTED_TAB_END_HUE);
 			hsb[1] = store.getFloat(ChromeConstants.CHROME_INACTIVE_SELECTED_TAB_END_SATURATION);
 			hsb[2] = store.getFloat(ChromeConstants.CHROME_INACTIVE_SELECTED_TAB_END_BRIGHTNESS);
@@ -263,7 +268,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	public RGB getInactiveSelectedTabStartColor() {
 		if (inactiveSelectedTabStartColor == null) {
 			float hsb[] = new float[3];
-			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			IPreferenceStore store = getStore();
 			hsb[0] = store.getFloat(ChromeConstants.CHROME_INACTIVE_SELECTED_TAB_START_HUE);
 			hsb[1] = store.getFloat(ChromeConstants.CHROME_INACTIVE_SELECTED_TAB_START_SATURATION);
 			hsb[2] = store.getFloat(ChromeConstants.CHROME_INACTIVE_SELECTED_TAB_START_BRIGHTNESS);
@@ -276,7 +281,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	public RGB getInactiveSelectedTitleColor() {
 		if (inactiveSelectedTitleColor == null) {
 			float hsb[] = new float[3];
-			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			IPreferenceStore store = getStore();
 			hsb[0] = store.getFloat(ChromeConstants.CHROME_INACTIVE_SELECTED_TITLE_HUE);
 			hsb[1] = store.getFloat(ChromeConstants.CHROME_INACTIVE_SELECTED_TITLE_SATURATION);
 			hsb[2] = store.getFloat(ChromeConstants.CHROME_INACTIVE_SELECTED_TITLE_BRIGHTNESS);
@@ -289,7 +294,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	public RGB getInactiveUnselectedTitleColor() {
 		if (inactiveUnselectedTitleColor == null) {
 			float hsb[] = new float[3];
-			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			IPreferenceStore store = getStore();
 			hsb[0] = store.getFloat(ChromeConstants.CHROME_INACTIVE_UNSELECTED_TITLE_HUE);
 			hsb[1] = store.getFloat(ChromeConstants.CHROME_INACTIVE_UNSELECTED_TITLE_SATURATION);
 			hsb[2] = store.getFloat(ChromeConstants.CHROME_INACTIVE_UNSELECTED_TITLE_BRIGHTNESS);
@@ -299,11 +304,19 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	}
 
 	@Override
+	public Boolean getMruVisible() {
+		if (mruVisible == null) {
+			mruVisible = getStore().getBoolean(ChromeConstants.CHROME_PART_STACK_USE_MRU);
+		}
+		return mruVisible;
+	}
+
+	@Override
 	public FontData getPartFontData() {
 		if (partFontData == null) {
 			partFontData = new FontData();
-			partFontData.setName(preferenceStore.getString(ChromeConstants.CHROME_PART_FONT_NAME));
-			partFontData.height = preferenceStore.getFloat(ChromeConstants.CHROME_PART_FONT_SIZE);
+			partFontData.setName(getStore().getString(ChromeConstants.CHROME_PART_FONT_NAME));
+			partFontData.height = getStore().getFloat(ChromeConstants.CHROME_PART_FONT_SIZE);
 		}
 
 		return partFontData;
@@ -313,7 +326,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	public RGB getPartShadowColor() {
 		if (partShadowColor == null) {
 			float hsb[] = new float[3];
-			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			IPreferenceStore store = getStore();
 			hsb[0] = store.getFloat(ChromeConstants.CHROME_PART_SHADOW_HUE);
 			hsb[1] = store.getFloat(ChromeConstants.CHROME_PART_SHADOW_SATURATION);
 			hsb[2] = store.getFloat(ChromeConstants.CHROME_PART_SHADOW_BRIGHTNESS);
@@ -325,7 +338,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	@Override
 	public Integer getPartStackPadding() {
 		if (partStackPadding == null) {
-			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			IPreferenceStore store = getStore();
 			partStackPadding = store.getInt(ChromeConstants.CHROME_PART_STACK_PADDING);
 		}
 		return partStackPadding;
@@ -335,7 +348,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	public RGB getPerspectiveEndColor() {
 		if (perspectiveEndColor == null) {
 			float hsb[] = new float[3];
-			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			IPreferenceStore store = getStore();
 			hsb[0] = store.getFloat(ChromeConstants.CHROME_PERSPECTIVE_END_HUE);
 			hsb[1] = store.getFloat(ChromeConstants.CHROME_PERSPECTIVE_END_SATURATION);
 			hsb[2] = store.getFloat(ChromeConstants.CHROME_PERSPECTIVE_END_BRIGHTNESS);
@@ -348,7 +361,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	public RGB getPerspectiveOutlineColor() {
 		if (perspectiveOutlineColor == null) {
 			float hsb[] = new float[3];
-			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			IPreferenceStore store = getStore();
 			hsb[0] = store.getFloat(ChromeConstants.CHROME_PERSPECTIVE_OUTLINE_HUE);
 			hsb[1] = store.getFloat(ChromeConstants.CHROME_PERSPECTIVE_OUTLINE_SATURATION);
 			hsb[2] = store.getFloat(ChromeConstants.CHROME_PERSPECTIVE_OUTLINE_BRIGHTNESS);
@@ -361,7 +374,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	public RGB getPerspectiveStartColor() {
 		if (perspectiveStartColor == null) {
 			float hsb[] = new float[3];
-			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			IPreferenceStore store = getStore();
 			hsb[0] = store.getFloat(ChromeConstants.CHROME_PERSPECTIVE_START_HUE);
 			hsb[1] = store.getFloat(ChromeConstants.CHROME_PERSPECTIVE_START_SATURATION);
 			hsb[2] = store.getFloat(ChromeConstants.CHROME_PERSPECTIVE_START_BRIGHTNESS);
@@ -379,7 +392,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	@Override
 	public int getSashWidth() {
 		if (sashWidth == null) {
-			IPreferenceStore store = preferenceStore;
+			IPreferenceStore store = getStore();
 			String sashPreset = store.getString(ChromeConstants.CHROME_SASH_PRESET);
 			if (ChromeConstants.CHROME_SASH_PRESET_ADVANCED.equals(sashPreset)) {
 				sashWidth = store.getInt(ChromeConstants.CHROME_PART_CONTAINER_SASH_WIDTH);
@@ -396,7 +409,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	public RGB getToolbarGradientEnd() {
 		if (toolbarGradientEnd == null) {
 			float hsb[] = new float[3];
-			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			IPreferenceStore store = getStore();
 			hsb[0] = store.getFloat(ChromeConstants.CHROME_TOOLBAR_END_HUE);
 			hsb[1] = store.getFloat(ChromeConstants.CHROME_TOOLBAR_END_SATURATION);
 			hsb[2] = store.getFloat(ChromeConstants.CHROME_TOOLBAR_END_BRIGHTNESS);
@@ -409,7 +422,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	public RGB getToolbarGradientStart() {
 		if (toolbarGradientStart == null) {
 			float hsb[] = new float[3];
-			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			IPreferenceStore store = getStore();
 			hsb[0] = store.getFloat(ChromeConstants.CHROME_TOOLBAR_START_HUE);
 			hsb[1] = store.getFloat(ChromeConstants.CHROME_TOOLBAR_START_SATURATION);
 			hsb[2] = store.getFloat(ChromeConstants.CHROME_TOOLBAR_START_BRIGHTNESS);
@@ -422,7 +435,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	public RGB getWindowBackgroundColor() {
 		if (windowBackgroundColor == null) {
 			float hsb[] = new float[3];
-			IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+			IPreferenceStore store = getStore();
 			hsb[0] = store.getFloat(ChromeConstants.CHROME_WINDOW_BACKGROUND_HUE);
 			hsb[1] = store.getFloat(ChromeConstants.CHROME_WINDOW_BACKGROUND_SATURATION);
 			hsb[2] = store.getFloat(ChromeConstants.CHROME_WINDOW_BACKGROUND_BRIGHTNESS);
@@ -469,6 +482,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 		inactiveSelectedTabEndColor = null;
 
 		partStackPadding = null;
+		mruVisible = null;
 	}
 
 	@Override
@@ -482,7 +496,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	@Override
 	public Boolean useActivePartTitleShadow() {
 		if (activePartTitleShadow == null) {
-			activePartTitleShadow = preferenceStore.getBoolean(ChromeConstants.CHROME_ACTIVE_UNSELECTED_TITLE_SHINY_SHADOW);
+			activePartTitleShadow = getStore().getBoolean(ChromeConstants.CHROME_ACTIVE_UNSELECTED_TITLE_SHINY_SHADOW);
 		}
 		return activePartTitleShadow;
 	}
@@ -490,7 +504,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	@Override
 	public Boolean useInactivePartTitleShadow() {
 		if (inactivePartTitleShadow == null) {
-			inactivePartTitleShadow = preferenceStore.getBoolean(ChromeConstants.CHROME_INACTIVE_UNSELECTED_TITLE_SHINY_SHADOW);
+			inactivePartTitleShadow = getStore().getBoolean(ChromeConstants.CHROME_INACTIVE_UNSELECTED_TITLE_SHINY_SHADOW);
 		}
 		return inactivePartTitleShadow;
 	}
@@ -504,7 +518,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	@Override
 	public boolean usePartShadow() {
 		if (partShadow == null) {
-			IPreferenceStore store = preferenceStore;
+			IPreferenceStore store = getStore();
 			String sashPreset = store.getString(ChromeConstants.CHROME_SASH_PRESET);
 			if (ChromeConstants.CHROME_SASH_PRESET_ADVANCED.equals(sashPreset)) {
 				partShadow = store.getBoolean(ChromeConstants.CHROME_PART_SHADOW);

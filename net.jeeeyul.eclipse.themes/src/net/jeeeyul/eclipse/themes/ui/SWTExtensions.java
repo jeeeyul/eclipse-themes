@@ -83,7 +83,7 @@ public class SWTExtensions {
 		initializer.apply(label);
 		return label;
 	}
-
+	
 	public CLabel CLabel(final Composite parent, final Procedure1<? super CLabel> initializer) {
 		CLabel _label = new CLabel(parent, SWT.NORMAL);
 		CLabel label = _label;
