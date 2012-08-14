@@ -46,7 +46,7 @@ class KTabRenderer extends CTabFolderRenderer {
 				super.draw(part, state.removeFlag(SWT::BACKGROUND), bounds, gc)
 			}
 		default:{
-				super.draw(part, state, bounds, gc)				
+				super.draw(part, state, bounds, gc)
 			}
 		}
 	}
@@ -62,10 +62,6 @@ class KTabRenderer extends CTabFolderRenderer {
 		}
 		sizeCache.put(part, result)
 		return result
-	}
-
-	override drawBackground(GC gc, Rectangle bounds, int state) {
-		println("오냐")
 	}
 
 	override protected computeTrim(int part, int state, int x, int y, int width, int height) {
