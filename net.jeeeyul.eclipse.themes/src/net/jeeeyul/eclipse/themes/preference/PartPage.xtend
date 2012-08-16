@@ -107,6 +107,7 @@ class PartPage extends ChromePage {
 					text = "Auto"
 					onSelection = [
 						updateEnablement()
+						syncHueAndComputeAutoColors()
 					]
 				]
 				
@@ -138,6 +139,7 @@ class PartPage extends ChromePage {
 					text = "Auto"
 					onSelection = [
 						updateEnablement()
+						syncHueAndComputeAutoColors()
 					]
 				]
 				
