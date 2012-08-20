@@ -1021,7 +1021,7 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 			int[] tmpPoints = new int[index];
 			System.arraycopy(points, 0, tmpPoints, 0, index);
 
-			gc.setAlpha(160);
+			gc.setAlpha(120);
 			gc.fillPolygon(translate(tmpPoints, 1, 1));
 			Color tempBorder = new Color(gc.getDevice(), 182, 188, 204);
 			gc.setForeground(tempBorder);
