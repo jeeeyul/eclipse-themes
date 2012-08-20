@@ -5,6 +5,7 @@
   <imageFiles fieldName="ECLIPSE" file="/net.jeeeyul.eclipse.themes/icons/eclipse.gif"/>
   <imageFiles fieldName="EDITOR_AREA" file="/net.jeeeyul.eclipse.themes/icons/editor-area.gif"/>
   <imageFiles fieldName="FONT" file="/net.jeeeyul.eclipse.themes/icons/font.gif"/>
+  <imageFiles fieldName="GITHUB" file="/net.jeeeyul.eclipse.themes/icons/github.png"/>
   <imageFiles fieldName="LAYOUT" file="/net.jeeeyul.eclipse.themes/icons/layout.gif"/>
   <imageFiles fieldName="MAXMIZE" file="/net.jeeeyul.eclipse.themes/icons/maxmize.gif"/>
   <imageFiles fieldName="MENU" file="/net.jeeeyul.eclipse.themes/icons/menu.gif"/>

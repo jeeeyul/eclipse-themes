@@ -27,9 +27,11 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.program.Program;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
@@ -110,9 +112,30 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 		createToolbar();
 		createLink(container, "Only works with Chrome Theme, You can change on <a href=\"org.eclipse.ui.preferencePages.Views\">Appearance page</a>");
 
+		createGitHubLink(container);
+
 		load();
 
 		return container;
+	}
+
+	private void createGitHubLink(Composite container) {
+		Composite composite = new Composite(container, SWT.NORMAL);
+		GridLayout layout = new GridLayout(2, false);
+		layout.marginWidth = layout.marginHeight = 0;
+		composite.setLayout(layout);
+
+		Label icon = new Label(composite, SWT.NORMAL);
+		icon.setImage(SharedImages.getImage(SharedImages.GITHUB));
+
+		Link forkMeLink = new Link(composite, SWT.NORMAL);
+		forkMeLink.setText("Fork me on <a href=\"https://github.com/jeeeyul/eclipse-themes\">GitHub</a>, also don't forget <a href=\"http://marketplace.eclipse.org/content/eclipse-4-chrome-theme\">favorite me on marketplace</a>.");
+		forkMeLink.addListener(SWT.Selection, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				Program.launch(event.text);
+			}
+		});
 	}
 
 	private void handleTabSwitching() {
