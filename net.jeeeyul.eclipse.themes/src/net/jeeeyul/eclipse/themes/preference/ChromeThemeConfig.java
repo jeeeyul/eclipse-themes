@@ -2,6 +2,7 @@ package net.jeeeyul.eclipse.themes.preference;
 
 import net.jeeeyul.eclipse.themes.ChromeThemeCore;
 import net.jeeeyul.eclipse.themes.e4.ActiveThemeTracker;
+import net.jeeeyul.eclipse.themes.ui.HSB;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
@@ -62,6 +63,12 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 
 	private Integer partStackPadding;
 
+	private Boolean editorLineVisible;
+
+	private Boolean editorLineDashed;
+
+	private RGB editorLineColor;
+
 	public ChromeThemeConfig() {
 		this(ChromeThemeCore.getDefault().getPreferenceStore());
 	}
@@ -86,10 +93,6 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 			activeOulineColor = new RGB(outline[0], outline[1], outline[2]);
 		}
 		return activeOulineColor;
-	}
-
-	private IPreferenceStore getStore() {
-		return preferenceStore;
 	}
 
 	/*
@@ -182,6 +185,31 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 			activeUnselectedTitleColor = new RGB(hsb[0], hsb[1], hsb[2]);
 		}
 		return activeUnselectedTitleColor;
+	}
+
+	@Override
+	public RGB getEditorLineColor() {
+		if (editorLineColor == null) {
+			String exp = getStore().getString(ChromeConstants.CHROME_EDITOR_LINE_COLOR);
+			editorLineColor = HSB.createFromString(exp).toRGB();
+		}
+		return editorLineColor;
+	}
+
+	@Override
+	public Boolean getEditorLineDashed() {
+		if (editorLineDashed == null) {
+			editorLineDashed = getStore().getBoolean(ChromeConstants.CHROME_EDITOR_LINE_DASH);
+		}
+		return editorLineDashed;
+	}
+
+	@Override
+	public Boolean getEditorLineVisible() {
+		if (editorLineVisible == null) {
+			editorLineVisible = getStore().getBoolean(ChromeConstants.CHROME_EDITOR_LINE_VISIBLE);
+		}
+		return editorLineVisible;
 	}
 
 	@Override
@@ -405,6 +433,10 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 		return sashWidth;
 	}
 
+	private IPreferenceStore getStore() {
+		return preferenceStore;
+	}
+
 	@Override
 	public RGB getToolbarGradientEnd() {
 		if (toolbarGradientEnd == null) {
@@ -483,6 +515,10 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 
 		partStackPadding = null;
 		mruVisible = null;
+
+		editorLineColor = null;
+		editorLineDashed = null;
+		editorLineVisible = null;
 	}
 
 	@Override

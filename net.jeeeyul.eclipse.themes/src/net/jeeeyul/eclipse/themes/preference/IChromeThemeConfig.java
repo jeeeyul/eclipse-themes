@@ -70,4 +70,10 @@ public interface IChromeThemeConfig {
 	 * @since 1.4
 	 */
 	public abstract Boolean getMruVisible();
+
+	public abstract Boolean getEditorLineVisible();
+
+	public abstract Boolean getEditorLineDashed();
+
+	public abstract RGB getEditorLineColor();
 }

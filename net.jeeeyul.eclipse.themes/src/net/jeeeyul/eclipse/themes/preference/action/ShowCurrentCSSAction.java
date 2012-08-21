@@ -5,6 +5,7 @@ import net.jeeeyul.eclipse.themes.preference.ChromePage;
 import net.jeeeyul.eclipse.themes.preference.ChromePreferenceInitializer;
 import net.jeeeyul.eclipse.themes.preference.ChromeThemeConfig;
 import net.jeeeyul.eclipse.themes.preference.ChromeThemePrefererncePage;
+import net.jeeeyul.eclipse.themes.preference.IChromeThemeConfig;
 
 import org.eclipse.jface.preference.PreferenceStore;
 import org.eclipse.swt.widgets.Display;
@@ -26,7 +27,7 @@ public class ShowCurrentCSSAction extends PreferenceAction {
 			each.save(store);
 		}
 
-		ChromeThemeConfig config = new ChromeThemeConfig(store);
+		IChromeThemeConfig config = new ChromeThemeConfig(store);
 		ChromeCSSGenerator generator = new ChromeCSSGenerator();
 		generator.setConfig(config);
 		String cssContents = generator.generate().toString();

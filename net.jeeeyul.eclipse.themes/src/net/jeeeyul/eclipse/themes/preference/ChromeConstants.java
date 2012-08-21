@@ -128,4 +128,8 @@ public interface ChromeConstants {
 	 */
 	public static final String CHROME_PART_STACK_USE_MRU = "chrome-part-stack-use-mru";
 
+	public static final String CHROME_EDITOR_LINE_VISIBLE = "chrome-editor-line-visible";
+	public static final String CHROME_EDITOR_LINE_COLOR = "chrome-editor-line-color";
+	public static final String CHROME_EDITOR_LINE_DASH = "chrome-editor-line-dash";
+
 }

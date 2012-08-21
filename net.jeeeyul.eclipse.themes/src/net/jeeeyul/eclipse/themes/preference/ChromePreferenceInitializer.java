@@ -70,15 +70,15 @@ public class ChromePreferenceInitializer extends AbstractPreferenceInitializer {
 		store.setDefault(ChromeConstants.CHROME_LOCK_INACTIVE_END_HUE, true);
 		store.setDefault(ChromeConstants.CHROME_AUTO_INACTIVE_OUTLINE_COLOR, true);
 		store.setDefault(ChromeConstants.CHROME_LOCK_INACTIVE_OUTLINE_HUE, true);
-		
+
 		store.setDefault(ChromeConstants.CHROME_EMPTY_PART_HUE, 0f);
 		store.setDefault(ChromeConstants.CHROME_EMPTY_PART_SATURATION, 0f);
 		store.setDefault(ChromeConstants.CHROME_EMPTY_PART_BRIGHTNESS, 0.87f);
-		
+
 		store.setDefault(ChromeConstants.CHROME_EMPTY_PART_OUTLINE_HUE, 221f);
 		store.setDefault(ChromeConstants.CHROME_EMPTY_PART_OUTLINE_SATURATION, 0.1f);
 		store.setDefault(ChromeConstants.CHROME_EMPTY_PART_OUTLINE_BRIGHTNESS, 0.8f);
-		
+
 		store.setDefault(ChromeConstants.CHROME_PART_CONTAINER_SASH_WIDTH, 4);
 		store.setDefault(ChromeConstants.CHROME_PART_SHADOW, true);
 		store.setDefault(ChromeConstants.CHROME_SASH_PRESET, ChromeConstants.CHROME_SASH_PRESET_STANDARD);
@@ -128,26 +128,30 @@ public class ChromePreferenceInitializer extends AbstractPreferenceInitializer {
 		store.setDefault(ChromeConstants.CHROME_PERSPECTIVE_OUTLINE_BRIGHTNESS, .74f);
 
 		store.setDefault(ChromeConstants.CHROME_USE_WINDOW_BACKGROUND_COLOR_AS_PERSPECTIVE_END_COLOR, true);
-		
+
 		store.setDefault(ChromeConstants.CHROME_ACTIVE_SELECTED_TAB_START_HUE, 0f);
 		store.setDefault(ChromeConstants.CHROME_ACTIVE_SELECTED_TAB_START_SATURATION, 0f);
 		store.setDefault(ChromeConstants.CHROME_ACTIVE_SELECTED_TAB_START_BRIGHTNESS, 1f);
-		
+
 		store.setDefault(ChromeConstants.CHROME_ACTIVE_SELECTED_TAB_END_HUE, 0f);
 		store.setDefault(ChromeConstants.CHROME_ACTIVE_SELECTED_TAB_END_SATURATION, 0f);
 		store.setDefault(ChromeConstants.CHROME_ACTIVE_SELECTED_TAB_END_BRIGHTNESS, 1f);
-		
+
 		store.setDefault(ChromeConstants.CHROME_INACTIVE_SELECTED_TAB_START_HUE, 0f);
 		store.setDefault(ChromeConstants.CHROME_INACTIVE_SELECTED_TAB_START_SATURATION, 0f);
 		store.setDefault(ChromeConstants.CHROME_INACTIVE_SELECTED_TAB_START_BRIGHTNESS, 1f);
-		
+
 		store.setDefault(ChromeConstants.CHROME_INACTIVE_SELECTED_TAB_END_HUE, 0f);
 		store.setDefault(ChromeConstants.CHROME_INACTIVE_SELECTED_TAB_END_SATURATION, 0f);
 		store.setDefault(ChromeConstants.CHROME_INACTIVE_SELECTED_TAB_END_BRIGHTNESS, 1f);
-		
+
 		store.setDefault(ChromeConstants.CHROME_PART_STACK_PADDING, 1);
-		
+
 		store.setDefault(ChromeConstants.CHROME_PART_STACK_USE_MRU, true);
+
+		store.setDefault(ChromeConstants.CHROME_EDITOR_LINE_VISIBLE, false);
+		store.setDefault(ChromeConstants.CHROME_EDITOR_LINE_DASH, true);
+		store.setDefault(ChromeConstants.CHROME_EDITOR_LINE_COLOR, "0,0,0.9");
 	}
 
 	@Override

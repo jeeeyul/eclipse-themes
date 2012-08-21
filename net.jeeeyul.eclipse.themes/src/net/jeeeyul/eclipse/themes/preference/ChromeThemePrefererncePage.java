@@ -129,7 +129,8 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 		icon.setImage(SharedImages.getImage(SharedImages.GITHUB));
 
 		Link forkMeLink = new Link(composite, SWT.NORMAL);
-		forkMeLink.setText("Fork me on <a href=\"https://github.com/jeeeyul/eclipse-themes\">GitHub</a>, also don't forget <a href=\"http://marketplace.eclipse.org/content/eclipse-4-chrome-theme\">favorite me on marketplace</a>.");
+		forkMeLink
+				.setText("Fork me on <a href=\"https://github.com/jeeeyul/eclipse-themes\">GitHub</a>, also don't forget <a href=\"http://marketplace.eclipse.org/content/eclipse-4-chrome-theme\">favorite me on marketplace</a>.");
 		forkMeLink.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
@@ -263,6 +264,7 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 		addPage(new PartPage("Inactive", false));
 		addPage(new CommonPartPage());
 		addPage(new ToolbarPage());
+		addPage(new EditorPage());
 		addPage(new ETCPage());
 	}
 }

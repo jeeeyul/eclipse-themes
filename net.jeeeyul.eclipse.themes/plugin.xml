@@ -72,6 +72,28 @@
                name="chrome-selected-tab-fill-highlight">
          </property-name>
       </handler>
+      <handler
+            adapter="net.jeeeyul.eclipse.themes.e4.StyledTextElement"
+            handler="net.jeeeyul.eclipse.themes.css.StyledTextCSSHandler">
+         <property-name
+               name="chrome-line-color">
+         </property-name>
+         <property-name
+               name="chrome-line-dash">
+         </property-name>
+         <property-name
+               name="chrome-line-visible">
+         </property-name>
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.e4.ui.css.core.elementProvider">
+      <provider
+            class="net.jeeeyul.eclipse.themes.e4.StyledTextElementProvider">
+         <widget
+               class="org.eclipse.swt.custom.StyledText">
+         </widget>
+      </provider>
    </extension>
 
 </plugin>
