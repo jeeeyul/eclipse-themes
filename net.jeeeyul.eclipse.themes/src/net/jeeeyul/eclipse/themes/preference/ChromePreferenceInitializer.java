@@ -151,7 +151,7 @@ public class ChromePreferenceInitializer extends AbstractPreferenceInitializer {
 
 		store.setDefault(ChromeConstants.CHROME_EDITOR_LINE_VISIBLE, false);
 		store.setDefault(ChromeConstants.CHROME_EDITOR_LINE_DASH, true);
-		store.setDefault(ChromeConstants.CHROME_EDITOR_LINE_COLOR, "0,0,0.9");
+		store.setDefault(ChromeConstants.CHROME_EDITOR_LINE_COLOR, "0,0,0.94");
 	}
 
 	@Override
