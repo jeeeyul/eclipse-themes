@@ -76,6 +76,8 @@ public class ChromeEditorLiner {
 		Image result = new Image(text.getDisplay(), 20, text.getLineHeight());
 
 		GC gc = new GC(result);
+		gc.setBackground(text.getBackground());
+		gc.fillRectangle(0, 0, 20, text.getLineHeight());
 
 		if (lineColor != null) {
 			gc.setForeground(lineColor);
