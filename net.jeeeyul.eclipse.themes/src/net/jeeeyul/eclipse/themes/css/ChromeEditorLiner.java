@@ -73,11 +73,11 @@ public class ChromeEditorLiner {
 
 	private Image computeNewImage() {
 		int offset = text.getLineHeight() - (text.getVerticalBar().getSelection() % text.getLineHeight());
-		Image result = new Image(text.getDisplay(), 28, text.getLineHeight());
+		Image result = new Image(text.getDisplay(), 20, text.getLineHeight());
 
 		GC gc = new GC(result);
 		gc.setBackground(text.getBackground());
-		gc.fillRectangle(0, 0, 28, text.getLineHeight());
+		gc.fillRectangle(0, 0, 20, text.getLineHeight());
 
 		if (lineColor != null) {
 			gc.setForeground(lineColor);
@@ -87,10 +87,10 @@ public class ChromeEditorLiner {
 
 		if (dash) {
 			gc.setLineStyle(SWT.LINE_DASH);
-			gc.setLineDash(new int[] { 4, 3 });
+			gc.setLineDash(new int[] { 2, 2 });
 		}
 
-		gc.drawLine(0, offset - 1, 28, offset - 1);
+		gc.drawLine(0, offset - 1, 20, offset - 1);
 		gc.dispose();
 
 		return result;
