@@ -1,17 +1,24 @@
 package net.jeeeyul.eclipse.themes.ui;
 
-import java.util.Scanner;
+import net.jeeeyul.eclipse.themes.ChromeThemeCore;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.swt.graphics.RGB;
 
 public class HSB {
 	public static HSB createFromString(String literal) {
-		Scanner scanner = new Scanner(literal);
-		scanner.useDelimiter(",");
 		HSB result = new HSB();
-		result.hue = scanner.nextFloat();
-		result.saturation = scanner.nextFloat();
-		result.brightness = scanner.nextFloat();
+
+		try {
+			String[] segments = literal.split(",");
+			result.hue = Float.parseFloat(segments[0]);
+			result.saturation = Float.parseFloat(segments[1]);
+			result.brightness = Float.parseFloat(segments[2]);
+		} catch (Exception e) {
+			ChromeThemeCore.getDefault().getLog().log(new Status(IStatus.ERROR, ChromeThemeCore.PLUGIN_ID, "Could not restore color from " + literal, e));
+			result = new HSB(0f, 0.5f, 0.5f);
+		}
 		return result;
 	}
 

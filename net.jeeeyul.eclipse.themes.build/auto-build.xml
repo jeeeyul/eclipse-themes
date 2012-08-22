@@ -22,6 +22,7 @@
 			<features dir="${build}/features" includes="*.jar" />
 			<bundles dir="${build}/plugins" includes="*.jar" />
 		</eclipse.publish.featuresAndBundles>
+		
 		<replaceregexp file="${build}/repo/artifacts.xml" match="file:.+ - artifacts" replace="${repository-name}" encoding="utf-8" />
 		<replaceregexp file="${build}/repo/content.xml" match="file:.+ - metadata" replace="${repository-name}" encoding="utf-8" />
 		<jar destfile="${build}/repo/artifacts.jar">
@@ -95,6 +96,7 @@
 		<echo>Update versions in category.xml: ${version}</echo>
 		<xmltask source="${basedir}/category.xml" dest="${basedir}/category.xml" encoding="UTF-8">
 			<replace path="site/feature[@id='${feature-id}']/@version" withText="${version}.qualifier" />
+			<replace path="site/feature[@id='${feature-id}']/@url" withText="features/net.jeeeyul.eclipse.themes.feature_${version}.qualifier.jar" />
 		</xmltask>
 		<eclipse.refreshLocal depth="infinite" resource="/" />
 	</target>
