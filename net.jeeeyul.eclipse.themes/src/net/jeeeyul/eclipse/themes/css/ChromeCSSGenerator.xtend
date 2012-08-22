@@ -6,7 +6,7 @@ import net.jeeeyul.eclipse.themes.preference.IChromeThemeConfig
 
 class ChromeCSSGenerator {
 	IChromeThemeConfig config = ChromeThemeConfig::instance
-	
+
 	def setConfig(IChromeThemeConfig config){
 		this.config = config
 	}

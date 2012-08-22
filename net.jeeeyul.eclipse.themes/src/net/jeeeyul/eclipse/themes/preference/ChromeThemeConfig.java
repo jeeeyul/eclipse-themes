@@ -9,6 +9,7 @@ import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.widgets.Display;
 
 /**
  * 6: Colors and Fonts should be customized in runtime!
@@ -343,8 +344,13 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	public FontData getPartFontData() {
 		if (partFontData == null) {
 			partFontData = new FontData();
-			partFontData.setName(getStore().getString(ChromeConstants.CHROME_PART_FONT_NAME));
-			partFontData.height = getStore().getFloat(ChromeConstants.CHROME_PART_FONT_SIZE);
+			try {
+				partFontData.setName(getStore().getString(ChromeConstants.CHROME_PART_FONT_NAME));
+				partFontData.height = getStore().getFloat(ChromeConstants.CHROME_PART_FONT_SIZE);
+			} catch (Exception e) {
+				partFontData = Display.getDefault().getSystemFont().getFontData()[0];
+				partFontData.height = getStore().getFloat(ChromeConstants.CHROME_PART_FONT_SIZE);
+			}
 		}
 
 		return partFontData;
