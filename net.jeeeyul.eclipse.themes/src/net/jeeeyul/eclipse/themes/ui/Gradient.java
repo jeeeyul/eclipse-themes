@@ -17,22 +17,27 @@ public class Gradient extends ArrayList<ColorStop> {
 
 	public static Gradient createFromString(String str) {
 		Gradient result = new Gradient();
+		try {
+			String[] segments = str.split("/");
 
-		String[] segments = str.split("/");
+			for (String each : segments) {
+				Scanner scanner = new Scanner(each);
+				scanner.useDelimiter("\\|");
+				scanner.useLocale(Locale.ENGLISH);
+				ColorStop stop = new ColorStop();
+				stop.color = new HSB();
 
-		for (String each : segments) {
-			Scanner scanner = new Scanner(each);
-			scanner.useDelimiter("\\|");
-			scanner.useLocale(Locale.ENGLISH);
-			ColorStop stop = new ColorStop();
-			stop.color = new HSB();
+				stop.color.hue = scanner.nextFloat();
+				stop.color.saturation = scanner.nextFloat();
+				stop.color.brightness = scanner.nextFloat();
+				stop.percent = scanner.nextFloat();
 
-			stop.color.hue = scanner.nextFloat();
-			stop.color.saturation = scanner.nextFloat();
-			stop.color.brightness = scanner.nextFloat();
-			stop.percent = scanner.nextFloat();
-
-			result.add(stop);
+				result.add(stop);
+			}
+		} catch (Exception e) {
+			// FIXME report error to user
+			result = new Gradient();
+			result.add(new ColorStop(0f, 1f, 1f, 0f));
 		}
 
 		return result;

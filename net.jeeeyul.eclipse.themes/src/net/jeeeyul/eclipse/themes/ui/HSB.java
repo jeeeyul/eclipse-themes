@@ -7,16 +7,18 @@ import org.eclipse.swt.graphics.RGB;
 
 public class HSB {
 	public static HSB createFromString(String literal) {
-		Scanner scanner = new Scanner(literal);
-		scanner.useDelimiter("\\|");
-		scanner.useLocale(Locale.US);
-
 		HSB result = new HSB();
+
 		try {
+			Scanner scanner = new Scanner(literal);
+			scanner.useDelimiter("\\|");
+			scanner.useLocale(Locale.US);
+
 			result.hue = scanner.nextFloat();
 			result.saturation = scanner.nextFloat();
 			result.brightness = scanner.nextFloat();
 		} catch (Exception e) {
+			// FIXME report to user.
 			result = new HSB(0f, 1f, 1f);
 		}
 		return result;
