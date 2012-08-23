@@ -11,16 +11,18 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 public class ChromeEditorLiner {
+	public static final HashSet<ChromeEditorLiner> instances = new HashSet<ChromeEditorLiner>();
+
 	private StyledText text;
 	private Image lineImage;
+	private LineProperty imageInfo = new LineProperty();
+
 	private boolean dash;
 
 	private Color lineColor;
 	private Listener invalidator;
 	private Listener disposer;
 	private boolean visible;
-
-	public static final HashSet<ChromeEditorLiner> instances = new HashSet<ChromeEditorLiner>();
 
 	public static void disposeAll() {
 		for (ChromeEditorLiner each : instances.toArray(new ChromeEditorLiner[instances.size()])) {
@@ -49,6 +51,41 @@ public class ChromeEditorLiner {
 		update();
 	}
 
+	private int computeLineOffset() {
+		int offset = text.getLineHeight() - (text.getVerticalBar().getSelection() % text.getLineHeight());
+		return offset;
+	}
+
+	private Image computeNewImage() {
+		int lineOffset = computeLineOffset();
+
+		imageInfo.setOffset(lineOffset);
+		imageInfo.setColor(lineColor);
+		imageInfo.setUseDash(dash);
+
+		Image result = new Image(text.getDisplay(), 20, text.getLineHeight());
+
+		GC gc = new GC(result);
+		gc.setBackground(text.getBackground());
+		gc.fillRectangle(0, 0, 20, text.getLineHeight());
+
+		if (lineColor != null) {
+			gc.setForeground(lineColor);
+		} else {
+			gc.setForeground(text.getDisplay().getSystemColor(SWT.COLOR_BLACK));
+		}
+
+		if (dash) {
+			gc.setLineStyle(SWT.LINE_DASH);
+			gc.setLineDash(new int[] { 2, 2 });
+		}
+
+		gc.drawLine(0, lineOffset - 1, 20, lineOffset - 1);
+		gc.dispose();
+
+		return result;
+	}
+
 	public void dispose() {
 		if (text != null || !text.isDisposed()) {
 			text.removeListener(SWT.Dispose, disposer);
@@ -71,31 +108,6 @@ public class ChromeEditorLiner {
 		return lineColor;
 	}
 
-	private Image computeNewImage() {
-		int offset = text.getLineHeight() - (text.getVerticalBar().getSelection() % text.getLineHeight());
-		Image result = new Image(text.getDisplay(), 20, text.getLineHeight());
-
-		GC gc = new GC(result);
-		gc.setBackground(text.getBackground());
-		gc.fillRectangle(0, 0, 20, text.getLineHeight());
-
-		if (lineColor != null) {
-			gc.setForeground(lineColor);
-		} else {
-			gc.setForeground(text.getDisplay().getSystemColor(SWT.COLOR_BLACK));
-		}
-
-		if (dash) {
-			gc.setLineStyle(SWT.LINE_DASH);
-			gc.setLineDash(new int[] { 2, 2 });
-		}
-
-		gc.drawLine(0, offset - 1, 20, offset - 1);
-		gc.dispose();
-
-		return result;
-	}
-
 	protected void handleDispose() {
 		dispose();
 	}
@@ -108,6 +120,15 @@ public class ChromeEditorLiner {
 		update();
 	}
 
+	private boolean hasToCreateNewImage() {
+		if (!visible) {
+			return false;
+		}
+		int offset = computeLineOffset();
+		return imageInfo.isUseDash() != dash || imageInfo.getOffset() != offset || imageInfo.getColor() != lineColor || lineImage == null
+				|| lineImage.isDisposed();
+	}
+
 	public boolean isDash() {
 		return dash;
 	}
@@ -117,16 +138,26 @@ public class ChromeEditorLiner {
 	}
 
 	public void setDash(boolean dash) {
+		if (this.dash == dash) {
+			return;
+		}
+
 		this.dash = dash;
 		update();
 	}
 
 	public void setLineColor(Color lineColor) {
+		if (this.lineColor == lineColor) {
+			return;
+		}
 		this.lineColor = lineColor;
 		update();
 	}
 
 	public void setVisible(boolean visible) {
+		if (this.visible == visible) {
+			return;
+		}
 		this.visible = visible;
 		update();
 	}
@@ -135,15 +166,19 @@ public class ChromeEditorLiner {
 		Image oldImage = lineImage;
 
 		if (visible) {
-			Image newImage = computeNewImage();
-			text.setBackgroundImage(newImage);
-			lineImage = newImage;
+			if (hasToCreateNewImage()) {
+				Image newImage = computeNewImage();
+				text.setBackgroundImage(newImage);
+				lineImage = newImage;
+				if (oldImage != null && !oldImage.isDisposed()) {
+					oldImage.dispose();
+				}
+			}
 		} else {
 			text.setBackgroundImage(null);
-		}
-
-		if (oldImage != null && !oldImage.isDisposed()) {
-			oldImage.dispose();
+			if (oldImage != null && !oldImage.isDisposed()) {
+				oldImage.dispose();
+			}
 		}
 	}
 }

@@ -66,7 +66,6 @@ class EditorPage extends ChromePage {
 						lineColorWell.showColorPicker()
 					]
 				]
-				
 			]
 		]
 	}

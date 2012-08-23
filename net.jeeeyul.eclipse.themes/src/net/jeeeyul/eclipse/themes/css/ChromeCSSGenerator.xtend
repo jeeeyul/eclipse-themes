@@ -37,7 +37,7 @@ class ChromeCSSGenerator {
 		
 		.MPartStack {
 			font-size: «config.partFontData.height as int»;
-			font-family: '«config.partFontData.name»';
+			font-family: '«config.partFontData.getName()»';
 			swt-simple: true;
 			swt-tab-renderer:
 				url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.ChromeTabRendering');
