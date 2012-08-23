@@ -101,7 +101,7 @@ public class HSB {
 	}
 
 	public String serialize() {
-		return String.format("%f|%f|%f", hue, saturation, brightness);
+		return String.format(Locale.ENGLISH, "%f|%f|%f", hue, saturation, brightness);
 	}
 
 	public float[] toArray() {
