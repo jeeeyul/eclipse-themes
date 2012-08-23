@@ -12,15 +12,18 @@ public class HSB {
 		scanner.useLocale(Locale.US);
 
 		HSB result = new HSB();
-		result.hue = scanner.nextFloat();
-		result.saturation = scanner.nextFloat(); 
-		result.brightness = scanner.nextFloat();
+		try {
+			result.hue = scanner.nextFloat();
+			result.saturation = scanner.nextFloat();
+			result.brightness = scanner.nextFloat();
+		} catch (Exception e) {
+			result = new HSB(0f, 1f, 1f);
+		}
 		return result;
 	}
 
 	public float hue;
 	public float saturation;
-
 	public float brightness;
 
 	public HSB() {
