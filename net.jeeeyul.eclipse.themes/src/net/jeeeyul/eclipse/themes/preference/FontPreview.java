@@ -50,7 +50,7 @@ public class FontPreview {
 			data.setName(fontName);
 			data.height = fontHeight;
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("Fall back font was used to preview");
 			data = Display.getDefault().getSystemFont().getFontData()[0];
 		}
 

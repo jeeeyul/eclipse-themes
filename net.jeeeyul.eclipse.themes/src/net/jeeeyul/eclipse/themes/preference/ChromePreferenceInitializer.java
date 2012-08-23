@@ -95,8 +95,8 @@ public class ChromePreferenceInitializer extends AbstractPreferenceInitializer {
 			store.setDefault(ChromeConstants.CHROME_PART_FONT_NAME, "Lucida Grande");
 			store.setDefault(ChromeConstants.CHROME_PART_FONT_SIZE, 12f);
 		} else {
-			store.setDefault(ChromeConstants.CHROME_PART_FONT_NAME, "Arial");
-			store.setDefault(ChromeConstants.CHROME_PART_FONT_SIZE, 11f);
+			store.setDefault(ChromeConstants.CHROME_PART_FONT_NAME, "Verdana");
+			store.setDefault(ChromeConstants.CHROME_PART_FONT_SIZE, 10f);
 		}
 
 		store.setDefault(ChromeConstants.CHROME_TOOLBAR_START_HUE, 0f);

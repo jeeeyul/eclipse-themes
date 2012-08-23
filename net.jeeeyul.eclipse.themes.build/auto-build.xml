@@ -32,7 +32,7 @@
 			<fileset dir="${build}/repo/" includes="content.xml" />
 		</jar>
 		<delete dir="${build}/repo/" includes="*.xml" />
-		<signjar jar="${build}/repo/*.jar" alias="Jeeeyul" keystore="${basedir}/keystore" keypass="${keypass}" storepass="${storepass}" />
+		<signjar jar="${build}/repo/*.jar" alias="${sign-alias}" keystore="${basedir}/keystore" keypass="${keypass}" storepass="${storepass}" />
 
 		<copydir dest="${basedir}/../${update-project}" src="${build}/repo">
 		</copydir>
