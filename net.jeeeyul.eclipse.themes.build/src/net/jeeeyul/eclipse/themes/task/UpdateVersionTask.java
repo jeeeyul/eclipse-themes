@@ -33,9 +33,6 @@ public class UpdateVersionTask extends Task {
 			ArrayList<IProject> projects = getProjects();
 			ArrayList<String> bundleIdList = new ArrayList<String>();
 			for (IProject eachProject : projects) {
-				if (eachProject.getName().contains("kr.or.eclipse")) {
-					continue;
-				}
 				IFile manifestFile = eachProject.getFile(new Path(
 						"META-INF/MANIFEST.MF"));
 				Manifest m = new Manifest(manifestFile);
@@ -44,20 +41,22 @@ public class UpdateVersionTask extends Task {
 			}
 
 			for (Manifest m : manifests) {
-				System.out.println(m.getBundleId() + " 버전 수정 > " + this.version
-						+ ".qualifier");
+				System.out.println(MessageFormat.format(
+						"Updating version:{0} {1}.qualifier", m.getBundleId(),
+						this.version));
 				m.setBundleVersion(this.version + ".qualifier");
 				m.updateDependencies(bundleIdList, this.version);
 				m.save();
 			}
 
-			System.out.println("피쳐 파일의 버전을 수정하는 중...");
+			System.out.println("Update versions in feature project...");
 			IFile featureFile = getFeatureProject().getFile("feature.xml");
 			String featureContent = read(featureFile.getContents(),
 					featureFile.getCharset());
 			String newcontent = featureContent.replaceAll(
 					"version=\"[0-9]+\\.[0-9]+\\.[0-9]+\\.qualifier\"",
-					"version=\"" + this.version + ".qualifier\"");
+					MessageFormat.format("version=\"{0}.qualifier\"",
+							this.version));
 			write(featureFile, newcontent, featureFile.getCharset());
 
 		} catch (Exception e) {
