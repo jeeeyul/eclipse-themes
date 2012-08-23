@@ -8,14 +8,14 @@ import org.eclipse.swt.graphics.RGB;
 public class HSB {
 	public static HSB createFromString(String literal) {
 		Scanner scanner = new Scanner(literal);
-        scanner.useDelimiter(",");
-        scanner.useLocale(Locale.US);
-        
-        HSB result = new HSB();
-        result.hue = scanner.nextFloat(); // works
-        result.saturation = scanner.nextFloat(); // works
-        result.brightness = scanner.nextFloat(); // fails
-        return result;
+		scanner.useDelimiter("\\|");
+		scanner.useLocale(Locale.US);
+
+		HSB result = new HSB();
+		result.hue = scanner.nextFloat();
+		result.saturation = scanner.nextFloat(); 
+		result.brightness = scanner.nextFloat();
+		return result;
 	}
 
 	public float hue;
@@ -98,7 +98,7 @@ public class HSB {
 	}
 
 	public String serialize() {
-		return String.format("%f,%f,%f", hue, saturation, brightness);
+		return String.format("%f|%f|%f", hue, saturation, brightness);
 	}
 
 	public float[] toArray() {
@@ -111,6 +111,6 @@ public class HSB {
 
 	@Override
 	public String toString() {
-		return String.format("%f,%f,%f", hue, saturation, brightness);
+		return String.format("%f|%f|%f", hue, saturation, brightness);
 	}
 }

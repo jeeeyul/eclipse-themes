@@ -1,6 +1,7 @@
 package net.jeeeyul.eclipse.themes.preference;
 
 import net.jeeeyul.eclipse.themes.ChromeThemeCore;
+import net.jeeeyul.eclipse.themes.ui.HSB;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
@@ -151,7 +152,7 @@ public class ChromePreferenceInitializer extends AbstractPreferenceInitializer {
 
 		store.setDefault(ChromeConstants.CHROME_EDITOR_LINE_VISIBLE, false);
 		store.setDefault(ChromeConstants.CHROME_EDITOR_LINE_DASH, true);
-		store.setDefault(ChromeConstants.CHROME_EDITOR_LINE_COLOR, "0,0,0.94");
+		store.setDefault(ChromeConstants.CHROME_EDITOR_LINE_COLOR, new HSB(0f, 0f, 0.94f).serialize());
 	}
 
 	@Override
