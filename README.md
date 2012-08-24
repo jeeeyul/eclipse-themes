@@ -53,3 +53,7 @@ Customize:
 
 ![screenshot](https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.resource/screen-shot-2.png)
 
+## License
+Jeeeyul's Eclipse Themes is distributed under the license [EPL](http://www.eclipse.org/legal/epl-v10.html).
+
+This license basically provide unlimited freedom expcept very specific case.
