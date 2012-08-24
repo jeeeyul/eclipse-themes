@@ -59,7 +59,7 @@ class ChromeCSSGenerator {
 			chrome-shiney-shadow: «config.useInactivePartTitleShadow»;
 			swt-mru-visible: «config.mruVisible»;
 			
-			swt-corner-radius: 6px;
+			swt-corner-radius: «config.partStackCornerRadius»px;
 		}
 		
 		.MPartStack.active {

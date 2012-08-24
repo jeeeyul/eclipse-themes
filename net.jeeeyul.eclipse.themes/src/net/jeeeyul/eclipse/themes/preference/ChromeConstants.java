@@ -132,4 +132,10 @@ public interface ChromeConstants {
 	public static final String CHROME_EDITOR_LINE_COLOR = "chrome-editor-line-color";
 	public static final String CHROME_EDITOR_LINE_DASH = "chrome-editor-line-dash";
 
+	/*
+	 * 43: Flag to disable round corners
+	 * https://github.com/jeeeyul/eclipse-themes/issues/issue/43
+	 */
+	public static final String CHROME_PART_STACK_CORNER_RADIUS = "chrome-part-stack-corner-radius";
+
 }

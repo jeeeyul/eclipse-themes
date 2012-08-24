@@ -70,6 +70,12 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 
 	private RGB editorLineColor;
 
+	/**
+	 * 43: Flag to disable round corners
+	 * https://github.com/jeeeyul/eclipse-themes/issues/issue/43
+	 */
+	private Integer partStackCornerRadius;
+
 	public ChromeThemeConfig() {
 		this(ChromeThemeCore.getDefault().getPreferenceStore());
 	}
@@ -370,6 +376,15 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	}
 
 	@Override
+	public Integer getPartStackCornerRadius() {
+		if (partStackCornerRadius == null) {
+			IPreferenceStore store = getStore();
+			partStackCornerRadius = store.getInt(ChromeConstants.CHROME_PART_STACK_CORNER_RADIUS);
+		}
+		return partStackCornerRadius;
+	}
+
+	@Override
 	public Integer getPartStackPadding() {
 		if (partStackPadding == null) {
 			IPreferenceStore store = getStore();
@@ -525,6 +540,8 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 		editorLineColor = null;
 		editorLineDashed = null;
 		editorLineVisible = null;
+
+		partStackCornerRadius = null;
 	}
 
 	@Override

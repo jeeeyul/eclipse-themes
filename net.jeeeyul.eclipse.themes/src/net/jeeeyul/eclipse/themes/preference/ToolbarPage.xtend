@@ -173,7 +173,7 @@ class ToolbarPage extends ChromePage {
 
 	def updateAutoColors() {
 		if(useWindowBackgroundColorButton.selection) {
-			perspectiveEndColorWell.selection = getCompanionPage(typeof(ETCPage)).windowBackgroundColorWell.selection
+			perspectiveEndColorWell.selection = getCompanionPage(typeof(GeneralPage)).windowBackgroundColorWell.selection
 		}
 	}
 

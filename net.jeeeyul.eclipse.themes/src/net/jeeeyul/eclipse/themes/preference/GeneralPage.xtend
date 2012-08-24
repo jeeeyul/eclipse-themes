@@ -14,7 +14,7 @@ import net.jeeeyul.eclipse.themes.ui.HSB
 
 import static net.jeeeyul.eclipse.themes.preference.ChromeConstants.*
 
-class ETCPage extends ChromePage {
+class GeneralPage extends ChromePage {
 	extension SWTExtensions = new SWTExtensions
 	
 	Button thinSashButton
@@ -31,7 +31,7 @@ class ETCPage extends ChromePage {
 	ColorWell emptyPartOutlineColorWell
 	
 	new(){
-		super("etc", SharedImages::LAYOUT)
+		super("General", SharedImages::LAYOUT)
 	}
 
 	override create(Composite parent) {

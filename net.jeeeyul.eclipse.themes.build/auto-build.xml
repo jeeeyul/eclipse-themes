@@ -8,7 +8,7 @@
 	<property file="keystore.properties" />
 	<property name="feature-id" value="net.jeeeyul.eclipse.themes.feature" />
 	<property name="update-project" value="net.jeeeyul.eclipse.themes.beta-updatesite" />
-	<property name="version" value="1.4.0" />
+	<property name="version" value="1.5.0" />
 
 	<target name="beta-release" description="description" depends="clean, init">
 		<eclipse.buildScript elements="feature@${feature-id}" baselocation="${eclipse.home}" builddirectory="${basedir}/../" />

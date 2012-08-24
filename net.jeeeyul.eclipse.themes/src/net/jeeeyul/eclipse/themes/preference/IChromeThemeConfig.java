@@ -76,4 +76,6 @@ public interface IChromeThemeConfig {
 	public abstract Boolean getEditorLineDashed();
 
 	public abstract RGB getEditorLineColor();
+
+	public abstract Integer getPartStackCornerRadius();
 }

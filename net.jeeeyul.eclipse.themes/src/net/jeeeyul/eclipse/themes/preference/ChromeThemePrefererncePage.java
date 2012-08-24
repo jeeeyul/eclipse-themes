@@ -68,7 +68,7 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 		Composite container = new Composite(parent, SWT.NORMAL);
 		container.setLayout(new GridLayout());
 
-		folder = new CTabFolder(container, SWT.NORMAL);
+		folder = new CTabFolder(container, SWT.MULTI);
 
 		ChromeTabRendering renderer = new ChromeTabRendering(folder);
 		renderer.setSelectedTabFill(folder.getDisplay().getSystemColor(SWT.COLOR_WHITE));
@@ -260,11 +260,11 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 	}
 
 	private void setupPages() {
+		addPage(new GeneralPage());
 		addPage(new PartPage("Active", true));
 		addPage(new PartPage("Inactive", false));
 		addPage(new CommonPartPage());
 		addPage(new ToolbarPage());
 		addPage(new EditorPage());
-		addPage(new ETCPage());
 	}
 }
