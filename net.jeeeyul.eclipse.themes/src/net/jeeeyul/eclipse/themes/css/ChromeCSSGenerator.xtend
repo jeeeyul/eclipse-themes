@@ -133,6 +133,16 @@ class ChromeCSSGenerator {
 			swt-tab-height: 8px;
 			padding: 0px 5px 7px;
 		}
+		
+		#org-eclipse-ui-trim-status{
+			chrome-border-top-visible: «config.useStatusBarOutline»;
+			«IF config.useStatusBarOutline»
+				chrome-border-top-color: «config.statusBarOutlineColor»;
+			«ENDIF»
+			«IF !config.useWindowBackgroundAsStatusBarBackground»
+				background-color: «config.statusBarBackgroundColor.toHtmlColor»;
+			«ENDIF»
+		}
 	'''
 
 	def private String toHtmlColor(RGB rgb){

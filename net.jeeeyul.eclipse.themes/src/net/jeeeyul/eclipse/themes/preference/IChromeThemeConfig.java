@@ -78,4 +78,12 @@ public interface IChromeThemeConfig {
 	public abstract RGB getEditorLineColor();
 
 	public abstract Integer getPartStackCornerRadius();
+
+	public abstract Boolean getUseStatusBarOutline();
+
+	public abstract Boolean getUseWindowBackgroundAsStatusBarBackground();
+
+	public abstract RGB getStatusBarBackgroundColor();
+
+	public abstract RGB getStatusBarOutlineColor();
 }

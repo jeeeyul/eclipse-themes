@@ -69,6 +69,51 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	private Boolean editorLineDashed;
 
 	private RGB editorLineColor;
+	private Boolean useStatusBarOutline;
+	private Boolean useWindowBackgroundAsStatusBarBackground;
+	private RGB statusBarOutlineColor;
+	private RGB statusBarBackgroundColor;
+	
+	@Override
+	public RGB getStatusBarOutlineColor() {
+		if (statusBarOutlineColor == null) {
+			statusBarOutlineColor = HSB.createFromString(getStore().getString(ChromeConstants.CHROME_STATUS_BAR_OUTLINE_COLOR)).toRGB();
+		}
+		return statusBarOutlineColor;
+	}
+	
+
+	@Override
+	public RGB getStatusBarBackgroundColor() {
+		if (statusBarBackgroundColor == null) {
+			if (getUseWindowBackgroundAsStatusBarBackground()) {
+				statusBarBackgroundColor = getWindowBackgroundColor();
+			} else {
+				statusBarBackgroundColor = HSB.createFromString(getStore().getString(ChromeConstants.CHROME_STATUS_BAR_BACKGROUND_COLOR)).toRGB();
+			}
+		}
+		return statusBarBackgroundColor;
+	}
+
+	@Override
+	public Boolean getUseWindowBackgroundAsStatusBarBackground() {
+		if (useWindowBackgroundAsStatusBarBackground == null) {
+			useWindowBackgroundAsStatusBarBackground = getStore().getBoolean(ChromeConstants.CHROME_USE_WINDOW_BACKGROUND_AS_STATUS_BAR_BACKGROUND);
+		}
+		return useWindowBackgroundAsStatusBarBackground;
+	}
+
+	@Override
+	public Boolean getUseStatusBarOutline() {
+		if (useStatusBarOutline == null) {
+			if (getUseWindowBackgroundAsStatusBarBackground()) {
+				useStatusBarOutline = Boolean.FALSE;
+			} else {
+				useStatusBarOutline = getStore().getBoolean(ChromeConstants.CHROME_USE_STATUS_BAR_OUTLINE);
+			}
+		}
+		return useStatusBarOutline;
+	}
 
 	/**
 	 * 43: Flag to disable round corners
@@ -542,6 +587,12 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 		editorLineVisible = null;
 
 		partStackCornerRadius = null;
+		
+		useWindowBackgroundAsStatusBarBackground = null;
+		useStatusBarOutline = null;
+		
+		statusBarBackgroundColor = null;
+		statusBarOutlineColor = null;
 	}
 
 	@Override

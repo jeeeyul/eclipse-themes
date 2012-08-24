@@ -159,6 +159,11 @@ public class ChromePreferenceInitializer extends AbstractPreferenceInitializer {
 		 * https://github.com/jeeeyul/eclipse-themes/issues/issue/43
 		 */
 		store.setDefault(ChromeConstants.CHROME_PART_STACK_CORNER_RADIUS, 14);
+
+		store.setDefault(ChromeConstants.CHROME_USE_WINDOW_BACKGROUND_AS_STATUS_BAR_BACKGROUND, true);
+		store.setDefault(ChromeConstants.CHROME_USE_STATUS_BAR_OUTLINE, false);
+		store.setDefault(ChromeConstants.CHROME_STATUS_BAR_OUTLINE_COLOR, new HSB(0f, 0f, 0.9f).serialize());
+		store.setDefault(ChromeConstants.CHROME_STATUS_BAR_BACKGROUND_COLOR, new HSB(0f, 0f, 0.94f).serialize());
 	}
 
 	@Override

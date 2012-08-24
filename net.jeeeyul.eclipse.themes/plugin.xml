@@ -94,6 +94,16 @@
                name="chrome-line-visible">
          </property-name>
       </handler>
+      <handler
+            adapter="org.eclipse.e4.ui.css.swt.dom.CompositeElement"
+            handler="net.jeeeyul.eclipse.themes.css.StatusBarCSSHandler">
+         <property-name
+               name="chrome-border-top-color">
+         </property-name>
+         <property-name
+               name="chrome-border-top-visible">
+         </property-name>
+      </handler>
    </extension>
    <extension
          point="org.eclipse.e4.ui.css.core.elementProvider">

@@ -52,3 +52,6 @@ chrome-empty-part-brightness=0.5638298
 chrome-inactive-outline-saturation=0.15425532
 chrome-active-start-brightness=0.7021277
 chrome-inactive-start-brightness=0.9255319
+chrome-status-bar-background-color=0.0|0.3|0.9f
+chrome-use-status-bar-outline=true
+chrome-use-window-background-as-status-bar-background=false

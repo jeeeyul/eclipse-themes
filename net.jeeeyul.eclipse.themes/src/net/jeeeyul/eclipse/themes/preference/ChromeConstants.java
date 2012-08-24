@@ -138,4 +138,9 @@ public interface ChromeConstants {
 	 */
 	public static final String CHROME_PART_STACK_CORNER_RADIUS = "chrome-part-stack-corner-radius";
 
+	public static final String CHROME_USE_WINDOW_BACKGROUND_AS_STATUS_BAR_BACKGROUND = "chrome-use-window-background-as-status-bar-background";
+	public static final String CHROME_USE_STATUS_BAR_OUTLINE = "chrome-use-status-bar-outline";
+	public static final String CHROME_STATUS_BAR_BACKGROUND_COLOR = "chrome-status-bar-background-color";
+	public static final String CHROME_STATUS_BAR_OUTLINE_COLOR = "chrome-status-bar-outline-color";
+
 }
