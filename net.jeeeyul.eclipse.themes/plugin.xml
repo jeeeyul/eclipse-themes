@@ -9,7 +9,7 @@
             label="Jeeeyul&apos;s themes - Chrome Theme">
       </theme>
       <stylesheet
-            uri="css/chrome.css">
+            uri="css/empty.css">
          <themeid
                refid="net.jeeeyul.eclipse.themes.chrome">
          </themeid>

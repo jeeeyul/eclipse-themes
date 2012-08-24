@@ -82,12 +82,6 @@ class ChromeCSSGenerator {
 			swt-outer-keyline-color: «config.emptyPartOutloneColor.toHtmlColor»;
 		}
 		
-		.MToolControl.TrimStack {
-			frame-image: url("./winXPTSFrame.png");
-			handle-image: url("./winXPHandle.png");
-			frame-cuts: 5px 1px 5px 16px;
-		}
-		
 		.MTrimmedWindow {
 		  	margin-top: 2px;
 			margin-bottom: 2px;
@@ -110,8 +104,9 @@ class ChromeCSSGenerator {
 		}
 		
 		.MToolControl.TrimStack {
-			frame-image: url("./jeeeyul-TSFrame.png");
-			handle-image: url("./jeeeyul-Handle.png");
+			frame-image: url("./images/jeeeyul-TSFrame.png");
+			handle-image: url("./images/jeeeyul-Handle.png");
+			frame-cuts: 5px 1px 5px 16px;
 		}
 		
 		#PerspectiveSwitcher {

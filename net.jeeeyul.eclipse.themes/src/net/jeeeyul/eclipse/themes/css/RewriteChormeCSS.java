@@ -32,7 +32,9 @@ public class RewriteChormeCSS {
 		try {
 			CSSEngine cssEngine = WidgetElement.getEngine(display);
 			ExtendedDocumentCSS documentCSS = (ExtendedDocumentCSS) cssEngine.getDocumentCSS();
+
 			StyleSheet chromeSheet = findChromeSheet(documentCSS);
+
 			ChromeCSSGenerator generator = new ChromeCSSGenerator();
 
 			String newCSSContent = generator.generate().toString();
@@ -40,12 +42,15 @@ public class RewriteChormeCSS {
 
 			StyleSheetList oldSheetList = documentCSS.getStyleSheets();
 			List<StyleSheet> newSheetList = new ArrayList<StyleSheet>();
+
 			for (int i = 0; i < oldSheetList.getLength(); i++) {
-				StyleSheet sheet = oldSheetList.item(i);
-				if (sheet != chromeSheet) {
-					newSheetList.add(sheet);
+				StyleSheet oldSheet = oldSheetList.item(i);
+				if (oldSheet != chromeSheet) {
+					if (!newSheetList.contains(oldSheet))
+						newSheetList.add(oldSheet);
 				} else {
-					newSheetList.add(newSheet);
+					if (!newSheetList.contains(newSheet))
+						newSheetList.add(newSheet);
 				}
 			}
 
@@ -55,7 +60,6 @@ public class RewriteChormeCSS {
 			}
 
 			cssEngine.reapply();
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -85,6 +89,7 @@ public class RewriteChormeCSS {
 					}
 				}
 			}
+
 		}
 		return chromeSheet;
 	}
