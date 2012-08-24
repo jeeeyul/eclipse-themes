@@ -64,12 +64,20 @@ public class ActiveThemeTracker {
 
 		boolean isChromeThemeActivated = ChromeConstants.CHROME_THEME_ID.equals(theme.getId());
 		if (isChromeThemeActivated) {
-			new RewriteChormeCSS().rewrite();
-			new ApplyChromeThemePreferenceJob().schedule();
+			handleChromeThemeActivation();
 		} else {
-			WidgetTracker.getInstance().restoreAllSashContainers();
-			ChromeEditorLiner.disposeAll();
+			handleChromeThemeDeactivation();
 		}
+	}
+
+	private void handleChromeThemeDeactivation() {
+		WidgetTracker.getInstance().restoreAllSashContainers();
+		ChromeEditorLiner.disposeAll();
+	}
+
+	private void handleChromeThemeActivation() {
+		new RewriteChormeCSS().rewrite();
+		new ApplyChromeThemePreferenceJob().schedule();
 	}
 
 	@PostConstruct

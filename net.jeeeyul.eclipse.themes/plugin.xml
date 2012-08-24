@@ -8,6 +8,15 @@
             id="net.jeeeyul.eclipse.themes.chrome"
             label="Jeeeyul&apos;s themes - Chrome Theme">
       </theme>
+      <stylesheet
+            uri="css/chrome.css">
+         <themeid
+               refid="net.jeeeyul.eclipse.themes.chrome">
+         </themeid>
+         <osgiresourcelocator
+               uri="platform:/plugin/net.jeeeyul.eclipse.themes/css">
+         </osgiresourcelocator>
+      </stylesheet>
    </extension>
    <extension
          point="org.eclipse.core.runtime.preferences">
