@@ -9,6 +9,7 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.ScrollBar;
 
 public class ChromeEditorLiner {
 	public static final HashSet<ChromeEditorLiner> instances = new HashSet<ChromeEditorLiner>();
@@ -46,7 +47,10 @@ public class ChromeEditorLiner {
 				handleVerticalScroll();
 			}
 		};
-		text.getVerticalBar().addListener(SWT.Selection, invalidator);
+		ScrollBar verticalBar = text.getVerticalBar();
+		if (verticalBar != null) {
+			verticalBar.addListener(SWT.Selection, invalidator);
+		}
 		instances.add(this);
 		update();
 	}
@@ -89,7 +93,8 @@ public class ChromeEditorLiner {
 	public void dispose() {
 		if (text != null || !text.isDisposed()) {
 			text.removeListener(SWT.Dispose, disposer);
-			text.getVerticalBar().removeListener(SWT.Selection, invalidator);
+			if (text != null && text.getVerticalBar() != null)
+				text.getVerticalBar().removeListener(SWT.Selection, invalidator);
 			text.setBackgroundImage(null);
 			text.setData("chrome-liner", null);
 		}
