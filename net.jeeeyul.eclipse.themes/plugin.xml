@@ -14,7 +14,7 @@
                refid="net.jeeeyul.eclipse.themes.chrome">
          </themeid>
          <osgiresourcelocator
-               uri="platform:/plugin/net.jeeeyul.eclipse.themes/css">
+               uri="platform:/plugin/net.jeeeyul.eclipse.themes/css/">
          </osgiresourcelocator>
       </stylesheet>
    </extension>

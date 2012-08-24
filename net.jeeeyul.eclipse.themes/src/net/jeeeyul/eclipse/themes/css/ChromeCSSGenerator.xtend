@@ -104,8 +104,8 @@ class ChromeCSSGenerator {
 		}
 		
 		.MToolControl.TrimStack {
-			frame-image: url("./images/jeeeyul-TSFrame.png");
-			handle-image: url("./images/jeeeyul-Handle.png");
+			frame-image: url("images/jeeeyul-TSFrame.png");
+			handle-image: url("images/jeeeyul-Handle.png");
 			frame-cuts: 5px 1px 5px 16px;
 		}
 		
