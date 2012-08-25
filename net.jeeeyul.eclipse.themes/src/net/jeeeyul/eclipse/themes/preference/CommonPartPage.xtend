@@ -176,7 +176,7 @@ class CommonPartPage extends ChromePage {
 	override save(IPreferenceStore store) {
 		var selectedFontName = (fontSelector.selection as IStructuredSelection).firstElement as String
 		if(selectedFontName == null || selectedFontName.trim.empty) {
-			selectedFontName = display.systemFont.fontData.get(0).name
+			selectedFontName = display.systemFont.fontData.get(0).getName()
 		}
 		store.setValue(CHROME_PART_FONT_NAME, selectedFontName)
 		var fontSize = 9f
