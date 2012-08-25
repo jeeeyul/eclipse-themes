@@ -44,9 +44,6 @@ public class LoadPresetAction extends PreferenceAction {
 			for (ChromePage each : pages) {
 				each.load(store);
 			}
-			
-			System.out.println(store.getBoolean(ChromeConstants.CHROME_USE_WINDOW_BACKGROUND_AS_STATUS_BAR_BACKGROUND));
-			System.out.println(store.getString(ChromeConstants.CHROME_STATUS_BAR_BACKGROUND_COLOR));
 		} catch (IOException e) {
 			ChromeThemeCore.getDefault().getLog().log(new Status(IStatus.ERROR, ChromeThemeCore.PLUGIN_ID, e.getLocalizedMessage(), e));
 			e.printStackTrace();

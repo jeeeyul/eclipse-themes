@@ -137,7 +137,7 @@ class ChromeCSSGenerator {
 		#org-eclipse-ui-trim-status{
 			chrome-border-top-visible: «config.useStatusBarOutline»;
 			«IF config.useStatusBarOutline»
-				chrome-border-top-color: «config.statusBarOutlineColor»;
+				chrome-border-top-color: «config.statusBarOutlineColor.toHtmlColor»;
 			«ENDIF»
 			«IF !config.useWindowBackgroundAsStatusBarBackground»
 				background-color: «config.statusBarBackgroundColor.toHtmlColor»;

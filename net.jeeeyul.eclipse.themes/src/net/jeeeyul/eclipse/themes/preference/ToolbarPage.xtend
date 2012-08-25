@@ -3,32 +3,41 @@ package net.jeeeyul.eclipse.themes.preference
 import net.jeeeyul.eclipse.themes.SharedImages
 import net.jeeeyul.eclipse.themes.ui.ColorPicker
 import net.jeeeyul.eclipse.themes.ui.ColorWell
+import net.jeeeyul.eclipse.themes.ui.HSB
 import net.jeeeyul.eclipse.themes.ui.SWTExtensions
 import org.eclipse.jface.dialogs.IDialogConstants
 import org.eclipse.jface.preference.IPreferenceStore
 import org.eclipse.swt.SWT
+import org.eclipse.swt.graphics.Color
+import org.eclipse.swt.graphics.GC
+import org.eclipse.swt.graphics.Image
+import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Event
-import org.eclipse.swt.graphics.Color
 import org.eclipse.swt.widgets.ToolBar
-import org.eclipse.swt.graphics.Image
-import org.eclipse.swt.graphics.GC
-import net.jeeeyul.eclipse.themes.ui.HSB
-import org.eclipse.swt.widgets.Button
 
 import static net.jeeeyul.eclipse.themes.preference.ChromeConstants.*
 
 class ToolbarPage extends ChromePage {
 	extension SWTExtensions = new SWTExtensions
+	extension ChromePreferenceExtensions = new ChromePreferenceExtensions
+	
 	ColorWell toolBarStartColorWell
 	ColorWell toolBarEndColorWell
 	ColorWell perspectiveStartColorWell
 	ColorWell perspectiveEndColorWell
 	ColorWell perspectiveOutlineColorWell
-	Button useWindowBackgroundColorButton;
+	Button useWBColorAsPerspectiveColorButton;
 	Composite previewWrap
 	ToolBar previewBar
 	ToolBar perspectiveBar
+	
+	Button useWBColorAsStatusBarColorButton;
+	ColorWell statusBarBackgroundColorWell;
+	
+	Button useStatusBarOutlineButton;
+	ColorWell statusBarOutlineColorWell;
+	
 
 	new(){
 		super("Toolbar", SharedImages::TOOLBAR)
@@ -145,7 +154,7 @@ class ToolbarPage extends ChromePage {
 						perspectiveEndColorWell.showColorPicker()
 					]
 				]
-				useWindowBackgroundColorButton = Checkbox[
+				useWBColorAsPerspectiveColorButton = Checkbox[
 					text = "Use Window Background Color"
 					onSelection = [
 						updateAutoColors()
@@ -167,18 +176,75 @@ class ToolbarPage extends ChromePage {
 						perspectiveOutlineColorWell.showColorPicker()
 					]
 				]
-			]
+			]// Group
+			
+			Group[
+				text = "Status Bar"
+				layoutData = FILL_HORIZONTAL
+				layout = GridLayout[
+					numColumns = 4
+				]
+				
+				
+				Label[
+					text = "Background:"
+				]
+				
+				statusBarBackgroundColorWell = ColorWell[
+					onSelection = [
+						updatePreview()
+					]
+				]
+				
+				PushButton[
+					text = "Change"
+					onClick = [
+						statusBarBackgroundColorWell.showColorPicker()
+					]
+				]
+				
+				useWBColorAsStatusBarColorButton = Checkbox[
+					text = "Use Window Background Color"
+					onSelection = [
+						updateEnablement()
+					]
+				]
+				
+				Label[
+					text = "Outline:"
+				]
+				
+				statusBarOutlineColorWell = ColorWell[
+					updatePreview()
+				]
+				
+				PushButton[
+					text = "Change"
+					onClick = [
+						statusBarOutlineColorWell.showColorPicker()
+					]
+				]
+				
+				useStatusBarOutlineButton = Checkbox[
+					text = "Show Outline"
+					onSelection = [
+						updateEnablement()
+					]
+				]
+				
+			] // End of Group
 		]
 	}
 
 	def updateAutoColors() {
-		if(useWindowBackgroundColorButton.selection) {
+		if(useWBColorAsPerspectiveColorButton.selection) {
 			perspectiveEndColorWell.selection = getCompanionPage(typeof(GeneralPage)).windowBackgroundColorWell.selection
 		}
 	}
 
 	def void updateEnablement() {
-		perspectiveEndColorWell.next.enabled = !useWindowBackgroundColorButton.selection
+		perspectiveEndColorWell.next.enabled = !useWBColorAsPerspectiveColorButton.selection
+		statusBarBackgroundColorWell.next.enabled = !useWBColorAsStatusBarColorButton.selection
 	}
 
 	def void renderPreview(Event e) {
@@ -283,7 +349,13 @@ class ToolbarPage extends ChromePage {
 			store.getFloat(CHROME_PERSPECTIVE_OUTLINE_SATURATION), 
 			store.getFloat(CHROME_PERSPECTIVE_OUTLINE_BRIGHTNESS)
 		)
-		useWindowBackgroundColorButton.selection = store.getBoolean(CHROME_USE_WINDOW_BACKGROUND_COLOR_AS_PERSPECTIVE_END_COLOR)
+		useWBColorAsPerspectiveColorButton.selection = store.getBoolean(CHROME_USE_WINDOW_BACKGROUND_COLOR_AS_PERSPECTIVE_END_COLOR)
+		
+		useWBColorAsStatusBarColorButton.selection = store.getBoolean(CHROME_USE_WINDOW_BACKGROUND_AS_STATUS_BAR_BACKGROUND)
+		statusBarBackgroundColorWell.selection = store.getHSB(CHROME_STATUS_BAR_BACKGROUND_COLOR)
+		useStatusBarOutlineButton.selection = store.getBoolean(CHROME_USE_STATUS_BAR_OUTLINE)
+		statusBarOutlineColorWell.selection = store.getHSB(CHROME_STATUS_BAR_OUTLINE_COLOR)
+		
 		updateAutoColors()
 		updateEnablement()
 		updatePreview()
@@ -305,6 +377,12 @@ class ToolbarPage extends ChromePage {
 		store.setValue(CHROME_PERSPECTIVE_OUTLINE_HUE, perspectiveOutlineColorWell.selection.hue)
 		store.setValue(CHROME_PERSPECTIVE_OUTLINE_SATURATION, perspectiveOutlineColorWell.selection.saturation)
 		store.setValue(CHROME_PERSPECTIVE_OUTLINE_BRIGHTNESS, perspectiveOutlineColorWell.selection.brightness)
+		
+		store.setValue(CHROME_USE_WINDOW_BACKGROUND_AS_STATUS_BAR_BACKGROUND, useWBColorAsStatusBarColorButton.selection)
+		store.setValue(CHROME_STATUS_BAR_BACKGROUND_COLOR, statusBarBackgroundColorWell.selection)
+		store.setValue(CHROME_USE_STATUS_BAR_OUTLINE, useStatusBarOutlineButton.selection)
+		store.setValue(CHROME_STATUS_BAR_OUTLINE_COLOR, statusBarOutlineColorWell.selection)
+		
 	}
 
 	override setToDefault(IPreferenceStore store) {
@@ -333,7 +411,13 @@ class ToolbarPage extends ChromePage {
 			store.getDefaultFloat(CHROME_PERSPECTIVE_OUTLINE_SATURATION), 
 			store.getDefaultFloat(CHROME_PERSPECTIVE_OUTLINE_BRIGHTNESS)
 		)
-		useWindowBackgroundColorButton.selection = store.getDefaultBoolean(CHROME_USE_WINDOW_BACKGROUND_COLOR_AS_PERSPECTIVE_END_COLOR)
+		useWBColorAsPerspectiveColorButton.selection = store.getDefaultBoolean(CHROME_USE_WINDOW_BACKGROUND_COLOR_AS_PERSPECTIVE_END_COLOR)
+		
+		useWBColorAsStatusBarColorButton.selection = store.getDefaultBoolean(CHROME_USE_WINDOW_BACKGROUND_AS_STATUS_BAR_BACKGROUND)
+		statusBarBackgroundColorWell.selection = store.getDefaultHSB(CHROME_STATUS_BAR_BACKGROUND_COLOR)
+		useStatusBarOutlineButton.selection = store.getDefaultBoolean(CHROME_USE_STATUS_BAR_OUTLINE)
+		statusBarOutlineColorWell.selection = store.getDefaultHSB(CHROME_STATUS_BAR_OUTLINE_COLOR)
+		
 		updateAutoColors()
 		updateEnablement()
 		updatePreview()

@@ -29,6 +29,7 @@ public class StatusBarCSSHandler implements ICSSPropertyHandler {
 		if (property.equals("chrome-border-top-visible")) {
 			Boolean visible = (Boolean) engine.convert(value, Boolean.class, comp.getDisplay());
 			trimLayout.marginTop = visible ? 1 : 0;
+			ChromeBorder.get(comp).setTopVisible(visible);
 			return true;
 		}
 
