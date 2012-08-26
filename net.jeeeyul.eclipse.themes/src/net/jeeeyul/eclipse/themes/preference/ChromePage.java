@@ -1,7 +1,5 @@
 package net.jeeeyul.eclipse.themes.preference;
 
-import net.jeeeyul.eclipse.themes.SharedImages;
-
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.graphics.Image;
@@ -16,7 +14,7 @@ public abstract class ChromePage {
 	public ChromePage(String title, String imageURI) {
 		super();
 		this.title = title;
-		this.pageImage = SharedImages.getImage(imageURI);
+//		this.pageImage = SharedImages.getImage(imageURI);
 	}
 
 	public abstract void create(Composite control);
