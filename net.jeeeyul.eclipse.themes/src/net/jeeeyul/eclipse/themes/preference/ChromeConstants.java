@@ -56,7 +56,7 @@ public interface ChromeConstants {
 
 	public static final String CHROME_INACTIVE_SELECTED_TITLE_BRIGHTNESS = "chrome-inactive-selected-title-brightness";
 	public static final String CHROME_INACTIVE_SELECTED_TITLE_SATURATION = "chrome-inactive-selected-title-saturation";
-	public static final String CHROME_INACTIVE_SELECTED_TITLE_HUE = "chrome-active-inselected-title-hue";
+	public static final String CHROME_INACTIVE_SELECTED_TITLE_HUE = "chrome-inactive-selected-title-hue";
 
 	public static final String CHROME_INACTIVE_UNSELECTED_TITLE_BRIGHTNESS = "chrome-inactive-unselected-title-brightness";
 	public static final String CHROME_INACTIVE_UNSELECTED_TITLE_SATURATION = "chrome-inactive-unselected-title-saturation";
