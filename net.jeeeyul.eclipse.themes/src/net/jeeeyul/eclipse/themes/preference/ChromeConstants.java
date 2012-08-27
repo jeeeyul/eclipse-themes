@@ -143,5 +143,5 @@ public interface ChromeConstants {
 	public static final String CHROME_STATUS_BAR_BACKGROUND_COLOR = "chrome-status-bar-background-color";
 	public static final String CHROME_STATUS_BAR_OUTLINE_COLOR = "chrome-status-bar-outline-color";
 
-	public static final String CHROME_USE_BORDER_FOR_TRIM_STACK = "chrome-use-border-for-trim-stack";
+	public static final String CHROME_TRIM_STACK_BORDER = "chrome-trim-stack-border";
 }
