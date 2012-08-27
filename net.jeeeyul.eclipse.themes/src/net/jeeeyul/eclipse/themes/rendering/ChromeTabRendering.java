@@ -66,6 +66,10 @@ public class ChromeTabRendering extends HackedCTabRendering {
 
 	@Override
 	protected void draw(int part, int state, Rectangle bounds, GC gc) {
+		if (parent.isDisposed() || gc.isDisposed()) {
+			return;
+		}
+
 		updateEmptyClassIfNeeded();
 
 		if (part == PART_BODY && !isPreviewingTab()) {
