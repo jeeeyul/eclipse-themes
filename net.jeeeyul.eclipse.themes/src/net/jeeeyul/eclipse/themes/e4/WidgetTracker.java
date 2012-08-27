@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import net.jeeeyul.eclipse.themes.CSSClasses;
 import net.jeeeyul.eclipse.themes.ChromeThemeCore;
 import net.jeeeyul.eclipse.themes.preference.ChromeThemeConfig;
+import net.jeeeyul.eclipse.themes.preference.IChromeThemeConfig;
 
 import org.eclipse.core.runtime.jobs.ILock;
 import org.eclipse.core.runtime.jobs.Job;
@@ -233,10 +234,16 @@ public class WidgetTracker {
 	private void updateMargin(Shell widget) {
 		TrimmedPartLayout layout = (TrimmedPartLayout) ((Shell) widget).getLayout();
 		int marginTop = ChromeThemeConfig.getInstance().getSashWidth();
-		if (ChromeThemeConfig.getInstance().usePartShadow()) {
+		int marginBottom = ChromeThemeConfig.getInstance().getSashWidth();
+		IChromeThemeConfig config = ChromeThemeConfig.getInstance();
+		if (config.usePartShadow()) {
 			marginTop += 3;
 		}
+		if (!config.getUseStatusBarOutline()) {
+			marginBottom = 0;
+		}
 		layout.gutterTop = marginTop;
+		layout.gutterBottom = marginBottom;
 		((Shell) widget).layout();
 	}
 
