@@ -19,7 +19,7 @@ Change it!
 </table>
 
 ## Update Site
-* <input type="text" value="https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.updatesite/">
+<input type="text" value="https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.updatesite/">
 * [Release Note](https://github.com/jeeeyul/eclipse-themes/wiki/Release-Note)
 * [Developer Guide](https://github.com/jeeeyul/eclipse-themes/wiki/Developer-Guide)
 
