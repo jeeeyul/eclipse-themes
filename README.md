@@ -22,6 +22,7 @@ Change it!
 <pre>https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.updatesite</pre>
 * [Release Note](https://github.com/jeeeyul/eclipse-themes/wiki/Release-Note)
 * [Developer Guide](https://github.com/jeeeyul/eclipse-themes/wiki/Developer-Guide)
+Update site is not for web browser, don't try.
 
 ## How to install
 1. Copy update site URL
