@@ -22,6 +22,7 @@ Change it!
 <pre>https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.updatesite</pre>
 * [Release Note](https://github.com/jeeeyul/eclipse-themes/wiki/Release-Note)
 * [Developer Guide](https://github.com/jeeeyul/eclipse-themes/wiki/Developer-Guide)
+* [Meet me at Eclipse Market Place](http://marketplace.eclipse.org/content/eclipse-4-chrome-theme)
 
 Update site is not for web browser, don't try.
 
