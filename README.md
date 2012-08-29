@@ -26,6 +26,8 @@ Change it!
 
 Update site is not for web browser, don't try.
 ## How to install
+You need eclipse 4.2 or above version to install this theme.
+
 1. Drag <b>Install Button</b>(Shown above) on to your eclipse's main toolbar.
 2. Done.
 
