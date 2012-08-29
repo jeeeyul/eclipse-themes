@@ -29,22 +29,6 @@ Update site is not for web browser, don't try.
 1. Drag <b>Install Button</b>(Shown above) on to your eclipse's main toolbar.
 2. Done.
 
-### Altanative Install 1
-1. Press <b>Ctrl(or Command) + 3</b>
-2. Type <b>Market Place</b> and <b>enter</b>.
-3. Search with keyword as <b>Jeeeyul</b>
-4. Press <b>Install button</b> next to <b>Chrome Theme</b>
-
-### Altanative Install 2
-1. Copy update site URL
-<pre>https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.updatesite</pre>
-2. Select [Help] / [Install New Software...] from system menu.
-3. Paste URL into "Work with" Text Field, and Press Enter.
-4. Fill check "Jeeeyul's Themes" under the category "Jeeeyul's Themes", then click [Finish] Button.
-5. After installation, Open Preference Dialog Page, Choose "Appearnce" node, then select "Jeeeyul's Theme - Chrome" as Theme.
-
-![screenshot](http://jeeeyul.github.com/eclipse-themes/images/how-to-1.png)
-
 Choose Theme Figure:
 
 ![screenshot](https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.resource/choose-theme.png)
