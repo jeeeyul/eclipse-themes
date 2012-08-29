@@ -29,7 +29,7 @@ Update site is not for web browser, don't try.
 1. Drag <b>Install Button</b>(Shown above) on to your eclipse's main toolbar.
 2. Done.
 
-* [Alternative Install](https://github.com/jeeeyul/eclipse-themes/wiki/Altanative-Install)
+* [Alternative Installation Guide](https://github.com/jeeeyul/eclipse-themes/wiki/Altanative-Install)
 
 ## Choose Theme
 
