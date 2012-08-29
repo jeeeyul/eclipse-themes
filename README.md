@@ -29,10 +29,6 @@ Update site is not for web browser, don't try.
 1. Drag <b>Install Button</b>(Shown above) on to your eclipse's main toolbar.
 2. Done.
 
-Installation Figure:
-
-![screenshot](http://jeeeyul.github.com/eclipse-themes/images/how-to-1.png)
-
 ### Altanative Install 1
 1. Press <b>Ctrl(or Command) + 3</b>
 2. Type <b>Market Place</b> and <b>enter</b>.
@@ -47,6 +43,7 @@ Installation Figure:
 4. Fill check "Jeeeyul's Themes" under the category "Jeeeyul's Themes", then click [Finish] Button.
 5. After installation, Open Preference Dialog Page, Choose "Appearnce" node, then select "Jeeeyul's Theme - Chrome" as Theme.
 
+![screenshot](http://jeeeyul.github.com/eclipse-themes/images/how-to-1.png)
 
 Choose Theme Figure:
 
