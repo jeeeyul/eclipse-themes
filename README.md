@@ -29,6 +29,8 @@ Update site is not for web browser, don't try.
 1. Drag <b>Install Button</b>(Shown above) on to your eclipse's main toolbar.
 2. Done.
 
+* [Altanative-Install]
+
 Choose Theme Figure:
 
 ![screenshot](https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.resource/choose-theme.png)
