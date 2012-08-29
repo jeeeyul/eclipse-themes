@@ -29,13 +29,13 @@ Update site is not for web browser, don't try.
 1. Drag <b>Install Button</b>(Shown above) on to your eclipse's main toolbar.
 2. Done.
 
-* [Alternative Install](Altanative-Install)
+* [Alternative Install](https://github.com/jeeeyul/eclipse-themes/wiki/Altanative-Install)
 
-Choose Theme Figure:
+## Choose Theme
 
 ![screenshot](https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.resource/choose-theme.png)
 
-Customize:
+## Customize
 
 ![screenshot](https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.resource/customize-1.png)
 
