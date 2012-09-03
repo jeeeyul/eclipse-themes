@@ -170,7 +170,7 @@ public class ChromeEditorLiner {
 	private void update() {
 		Image oldImage = lineImage;
 
-		if (visible) {
+		if (visible && text != null && !text.isDisposed() && text.getVerticalBar() != null) {
 			if (hasToCreateNewImage()) {
 				Image newImage = computeNewImage();
 				text.setBackgroundImage(newImage);
