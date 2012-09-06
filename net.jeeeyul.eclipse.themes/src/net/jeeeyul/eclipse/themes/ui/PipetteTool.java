@@ -33,8 +33,11 @@ public class PipetteTool {
 
 		for (Monitor monitor : display.getMonitors()) {
 			Shell eachPipetteShell = createPipetteShell(monitor);
-			eachPipetteShell.open();
 			pipetteShells.add(eachPipetteShell);
+		}
+
+		for (Shell each : pipetteShells) {
+			each.setVisible(true);
 		}
 
 		while (!loopExpired) {
@@ -55,14 +58,10 @@ public class PipetteTool {
 		GC gc = new GC(display);
 		gc.copyArea(image, monitorArea.x, monitorArea.y);
 		gc.dispose();
-		final Shell shell = new Shell(parentShell, SWT.ON_TOP | SWT.NO_TRIM);
+		final Shell shell = new Shell(parentShell, SWT.ON_TOP | SWT.NO_TRIM | SWT.DOUBLE_BUFFERED);
 		shell.setBounds(monitorArea);
-		shell.addListener(SWT.Paint, new Listener() {
-			@Override
-			public void handleEvent(Event event) {
-				event.gc.drawImage(image, 0, 0);
-			}
-		});
+		shell.setBackgroundImage(image);
+
 		shell.addListener(SWT.Dispose, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
@@ -109,6 +108,7 @@ public class PipetteTool {
 
 				Cursor newCursor = new Cursor(shell.getDisplay(), cursorData, 1, 14);
 				shell.setCursor(newCursor);
+				shell.redraw(event.x - 100, event.y - 100, 200, 200, false);
 
 			}
 		});

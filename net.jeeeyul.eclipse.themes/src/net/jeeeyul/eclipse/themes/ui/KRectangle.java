@@ -61,6 +61,10 @@ public class KRectangle {
 		return getCopy().union(x, y, width, height);
 	}
 
+	public KRectangle getUnion(KRectangle other) {
+		return getUnion(other.x, other.y, other.width, other.height);
+	}
+
 	public Rectangle toRectangle() {
 		return new Rectangle(x, y, width, height);
 	}
@@ -88,6 +92,32 @@ public class KRectangle {
 		this.height = newHeight;
 
 		return this;
+	}
+
+	public KRectangle intersect(int x, int y, int width, int height) {
+		int newX = Math.max(this.x, x);
+		int newY = Math.max(this.y, y);
+		int newWidth = Math.min(this.x + this.width, x + width) - newX;
+		int newHeight = Math.min(this.y + this.height, y + height) - newY;
+
+		this.x = newX;
+		this.y = newY;
+		this.width = newWidth;
+		this.height = newHeight;
+
+		return this;
+	}
+
+	public KRectangle intersect(KRectangle rectangle) {
+		return intersect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+	}
+
+	public KRectangle getIntersection(int x, int y, int width, int height) {
+		return getCopy().intersect(x, y, width, height);
+	}
+
+	public KRectangle getIntersection(KRectangle rectangle) {
+		return getIntersection(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
 	}
 
 	public KRectangle union(Rectangle bounds) {
