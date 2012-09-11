@@ -34,5 +34,4 @@ public class GlobalAdjustmentAction extends PreferenceAction {
 		}
 		return originalStore;
 	}
-
 }
