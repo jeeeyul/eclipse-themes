@@ -6,13 +6,13 @@ import java.util.Enumeration;
 
 import net.jeeeyul.eclipse.themes.ChromeThemeCore;
 import net.jeeeyul.eclipse.themes.SharedImages;
+import net.jeeeyul.eclipse.themes.preference.action.GlobalAdjustmentAction;
 import net.jeeeyul.eclipse.themes.preference.action.LoadPresetAction;
 import net.jeeeyul.eclipse.themes.preference.action.ShowCurrentCSSAction;
 import net.jeeeyul.eclipse.themes.rendering.ChromeTabRendering;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.preference.PreferencePage;
@@ -184,13 +184,7 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 	private void createPresetMenu() {
 		MenuManager manager = new MenuManager();
 
-		Action label = new Action() {
-		};
-		label.setText("Editor's Presets");
-		label.setEnabled(false);
-		manager.add(label);
-
-		manager.add(new Separator());
+		MenuManager presetMenu = new MenuManager("Editor's Presets", SharedImages.getImageDescriptor(SharedImages.PRESET), "preset");
 
 		Enumeration<URL> presets = ChromeThemeCore.getDefault().getBundle().findEntries("presets/", "*.epf", false);
 		while (presets.hasMoreElements()) {
@@ -198,8 +192,12 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 			IPath path = new Path(url.getFile());
 			LoadPresetAction loadPresetAction = new LoadPresetAction(this, url);
 			loadPresetAction.setText(path.removeFileExtension().lastSegment());
-			manager.add(loadPresetAction);
+			presetMenu.add(loadPresetAction);
 		}
+		manager.add(presetMenu);
+
+		manager.add(new GlobalAdjustmentAction(this));
+
 		manager.add(new Separator());
 		manager.add(new ShowCurrentCSSAction(this));
 

@@ -41,40 +41,28 @@ import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 public class SWTExtensions {
 	private static Integer MENU_BAR_HEIGHT = null;
 
-	public static Rectangle expand(Rectangle rectangle, int width, int height) {
-		rectangle.width += width;
-		rectangle.height += height;
-		return rectangle;
+	public static SWTExtensions INSTANCE = new SWTExtensions();
+
+	public Point getLocation(Rectangle rectangle) {
+		return new Point(rectangle.x, rectangle.y);
 	}
 
-	public static int getMenubarHeight() {
-		if (MENU_BAR_HEIGHT != null) {
-			return MENU_BAR_HEIGHT;
-		}
+	public Rectangle setLocation(Rectangle rectangle, Point location) {
+		rectangle.x = location.x;
+		rectangle.y = location.y;
+		return rectangle;
 
-		if (Display.getCurrent() == null) {
-			throw new SWTException("Invalid Thread Exception");
-		}
-
-		Shell dummy = new Shell();
-		Menu menu = new Menu(dummy, SWT.BAR);
-		dummy.setMenuBar(menu);
-		Rectangle boundsWithMenu = dummy.computeTrim(0, 0, 0, 0);
-
-		dummy.setMenuBar(null);
-		Rectangle boundsWithoutMenu = dummy.computeTrim(0, 0, 0, 0);
-
-		dummy.dispose();
-
-		MENU_BAR_HEIGHT = boundsWithMenu.height - boundsWithoutMenu.height;
-
-		return MENU_BAR_HEIGHT;
 	}
 
-	public static Rectangle translate(Rectangle rectangle, int dx, int dy) {
-		rectangle.x += dx;
-		rectangle.y += dy;
-		return rectangle;
+	public Control before(Control control) {
+		Control[] children = control.getParent().getChildren();
+		List<Control> childList = Arrays.asList(children);
+		int index = childList.indexOf(control);
+		if (index > 0) {
+			return children[index - 1];
+		} else {
+			return null;
+		}
 	}
 
 	public Button Checkbox(final Composite parent, final Procedure1<? super Button> initializer) {
@@ -91,17 +79,16 @@ public class SWTExtensions {
 		return label;
 	}
 
+	public ColorWell ColorWell(final Composite parent, final Procedure1<? super ColorWell> initializer) {
+		ColorWell colorWell = new ColorWell(parent, SWT.NORMAL);
+		initializer.apply(colorWell);
+		return colorWell;
+	}
+
 	public Combo Combo(final Composite parent, int style, final Procedure1<? super Combo> initializer) {
 		Combo combo = new Combo(parent, style);
 		initializer.apply(combo);
 		return combo;
-	}
-
-	public Composite Composite(final Composite parent, final Procedure1<? super Composite> initializer) {
-		Composite _composite = new Composite(parent, SWT.NORMAL);
-		Composite comp = _composite;
-		initializer.apply(comp);
-		return comp;
 	}
 
 	public Composite Composite(final Composite parent, int style, final Procedure1<? super Composite> initializer) {
@@ -111,9 +98,22 @@ public class SWTExtensions {
 		return comp;
 	}
 
+	public Composite Composite(final Composite parent, final Procedure1<? super Composite> initializer) {
+		Composite _composite = new Composite(parent, SWT.NORMAL);
+		Composite comp = _composite;
+		initializer.apply(comp);
+		return comp;
+	}
+
 	public Display display() {
 		Display _default = Display.getDefault();
 		return _default;
+	}
+
+	public Rectangle expand(Rectangle rectangle, int width, int height) {
+		rectangle.width += width;
+		rectangle.height += height;
+		return rectangle;
 	}
 
 	public GridData FILL_BOTH() {
@@ -142,6 +142,12 @@ public class SWTExtensions {
 		return gd;
 	}
 
+	public FillLayout FillLayout(Procedure1<FillLayout> initializer) {
+		FillLayout fillLayout = new FillLayout();
+		initializer.apply(fillLayout);
+		return fillLayout;
+	}
+
 	public ImageRegistry getImageRegistry() {
 		ImageRegistry result = (ImageRegistry) Display.getDefault().getData("imageRegistry");
 		if (result == null) {
@@ -149,6 +155,30 @@ public class SWTExtensions {
 			Display.getDefault().setData("imageRegistry", result);
 		}
 		return result;
+	}
+
+	public int getMenubarHeight() {
+		if (MENU_BAR_HEIGHT != null) {
+			return MENU_BAR_HEIGHT;
+		}
+
+		if (Display.getCurrent() == null) {
+			throw new SWTException("Invalid Thread Exception");
+		}
+
+		Shell dummy = new Shell();
+		Menu menu = new Menu(dummy, SWT.BAR);
+		dummy.setMenuBar(menu);
+		Rectangle boundsWithMenu = dummy.computeTrim(0, 0, 0, 0);
+
+		dummy.setMenuBar(null);
+		Rectangle boundsWithoutMenu = dummy.computeTrim(0, 0, 0, 0);
+
+		dummy.dispose();
+
+		MENU_BAR_HEIGHT = boundsWithMenu.height - boundsWithoutMenu.height;
+
+		return MENU_BAR_HEIGHT;
 	}
 
 	public GridData GridData(final Procedure1<? super GridData> initializer) {
@@ -166,12 +196,6 @@ public class SWTExtensions {
 		GridLayout gridLayout = new GridLayout();
 		initializer.apply(gridLayout);
 		return gridLayout;
-	}
-
-	public FillLayout FillLayout(Procedure1<FillLayout> initializer) {
-		FillLayout fillLayout = new FillLayout();
-		initializer.apply(fillLayout);
-		return fillLayout;
 	}
 
 	public Group Group(final Composite parent, final Procedure1<? super Group> initializer) {
@@ -204,29 +228,6 @@ public class SWTExtensions {
 		return label;
 	}
 
-	public Label Separator(final Composite parent, final Procedure1<? super Label> initializer) {
-		Label separator = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
-		initializer.apply(separator);
-		Layout layout = parent.getLayout();
-		if (layout instanceof GridLayout) {
-			GridLayout gridLayout = (GridLayout) layout;
-			separator.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, gridLayout.numColumns, 1));
-		}
-		return separator;
-	}
-
-	public Scale Scale(final Composite parent, final Procedure1<? super Scale> initializer) {
-		Scale scale = new Scale(parent, SWT.NORMAL);
-		initializer.apply(scale);
-		return scale;
-	}
-
-	public ColorWell ColorWell(final Composite parent, final Procedure1<? super ColorWell> initializer) {
-		ColorWell colorWell = new ColorWell(parent, SWT.NORMAL);
-		initializer.apply(colorWell);
-		return colorWell;
-	}
-
 	public Link Link(final Composite parent, final Procedure1<? super Link> initializer) {
 		Link _link = new Link(parent, SWT.CHECK);
 		initializer.apply(_link);
@@ -238,6 +239,17 @@ public class SWTExtensions {
 		Composite comp = _composite;
 		initializer.apply(comp);
 		return comp;
+	}
+
+	public Control next(Control control) {
+		Control[] children = control.getParent().getChildren();
+		List<Control> childList = Arrays.asList(children);
+		int index = childList.indexOf(control);
+		if (index < childList.size() - 1) {
+			return children[index + 1];
+		} else {
+			return null;
+		}
 	}
 
 	public int operator_and(int e1, int e2) {
@@ -308,6 +320,18 @@ public class SWTExtensions {
 		}
 	}
 
+	public void safeDispose(Resource resource) {
+		if (resource != null && !resource.isDisposed()) {
+			resource.dispose();
+		}
+	}
+
+	public Scale Scale(final Composite parent, final Procedure1<? super Scale> initializer) {
+		Scale scale = new Scale(parent, SWT.NORMAL);
+		initializer.apply(scale);
+		return scale;
+	}
+
 	public void schedule(final Procedure1<Display> p) {
 		Display.getDefault().asyncExec(new Runnable() {
 			@Override
@@ -322,6 +346,17 @@ public class SWTExtensions {
 		Text label = _text;
 		initializer.apply(label);
 		return label;
+	}
+
+	public Label Separator(final Composite parent, final Procedure1<? super Label> initializer) {
+		Label separator = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
+		initializer.apply(separator);
+		Layout layout = parent.getLayout();
+		if (layout instanceof GridLayout) {
+			GridLayout gridLayout = (GridLayout) layout;
+			separator.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, gridLayout.numColumns, 1));
+		}
+		return separator;
 	}
 
 	public void setOnClick(final Button button, final Procedure1<Button> function) {
@@ -351,24 +386,6 @@ public class SWTExtensions {
 		});
 	}
 
-	public void setOnPaint(final Control control, final Procedure1<Event> handler) {
-		control.addListener(SWT.Paint, new Listener() {
-			@Override
-			public void handleEvent(Event event) {
-				handler.apply(event);
-			}
-		});
-	}
-
-	public void setOnResize(final Control control, final Procedure1<Event> handler) {
-		control.addListener(SWT.Resize, new Listener() {
-			@Override
-			public void handleEvent(Event event) {
-				handler.apply(event);
-			}
-		});
-	}
-
 	public void setOnFocusOut(final Control control, final Procedure1<? super Control> handler) {
 		control.addListener(SWT.FocusOut, new Listener() {
 			@Override
@@ -383,6 +400,24 @@ public class SWTExtensions {
 			@Override
 			public void handleEvent(Event event) {
 				handler.apply(w);
+			}
+		});
+	}
+
+	public void setOnPaint(final Control control, final Procedure1<Event> handler) {
+		control.addListener(SWT.Paint, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				handler.apply(event);
+			}
+		});
+	}
+
+	public void setOnResize(final Control control, final Procedure1<Event> handler) {
+		control.addListener(SWT.Resize, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				handler.apply(event);
 			}
 		});
 	}
@@ -431,16 +466,22 @@ public class SWTExtensions {
 		return label;
 	}
 
+	public ToolBar ToolBar(final Composite parent, int style, final Procedure1<? super ToolBar> initializer) {
+		ToolBar toolBar = new ToolBar(parent, style);
+		initializer.apply(toolBar);
+		return toolBar;
+	}
+
 	public ToolBar ToolBar(final Composite parent, final Procedure1<? super ToolBar> initializer) {
 		ToolBar toolBar = new ToolBar(parent, SWT.FLAT);
 		initializer.apply(toolBar);
 		return toolBar;
 	}
 
-	public ToolBar ToolBar(final Composite parent, int style, final Procedure1<? super ToolBar> initializer) {
-		ToolBar toolBar = new ToolBar(parent, style);
-		initializer.apply(toolBar);
-		return toolBar;
+	public ToolItem ToolItem(final ToolBar parent, int style, final Procedure1<? super ToolItem> initializer) {
+		ToolItem item = new ToolItem(parent, style);
+		initializer.apply(item);
+		return item;
 	}
 
 	public ToolItem ToolItem(final ToolBar parent, final Procedure1<? super ToolItem> initializer) {
@@ -449,10 +490,10 @@ public class SWTExtensions {
 		return item;
 	}
 
-	public ToolItem ToolItem(final ToolBar parent, int style, final Procedure1<? super ToolItem> initializer) {
-		ToolItem item = new ToolItem(parent, style);
-		initializer.apply(item);
-		return item;
+	public Rectangle translate(Rectangle rectangle, int dx, int dy) {
+		rectangle.x += dx;
+		rectangle.y += dy;
+		return rectangle;
 	}
 
 	public Tree Tree(Composite parent, final Procedure1<Tree> initializer) {
@@ -466,44 +507,5 @@ public class SWTExtensions {
 		Label label = _label;
 		initializer.apply(label);
 		return label;
-	}
-
-	public static Point getLocation(Rectangle rectangle) {
-		return new Point(rectangle.x, rectangle.y);
-	}
-
-	public static Rectangle setLocation(Rectangle rectangle, Point location) {
-		rectangle.x = location.x;
-		rectangle.y = location.y;
-		return rectangle;
-
-	}
-
-	public Control before(Control control) {
-		Control[] children = control.getParent().getChildren();
-		List<Control> childList = Arrays.asList(children);
-		int index = childList.indexOf(control);
-		if (index > 0) {
-			return children[index - 1];
-		} else {
-			return null;
-		}
-	}
-
-	public Control next(Control control) {
-		Control[] children = control.getParent().getChildren();
-		List<Control> childList = Arrays.asList(children);
-		int index = childList.indexOf(control);
-		if (index < childList.size() - 1) {
-			return children[index + 1];
-		} else {
-			return null;
-		}
-	}
-
-	public void safeDispose(Resource resource) {
-		if (resource != null && !resource.isDisposed()) {
-			resource.dispose();
-		}
 	}
 }

@@ -200,12 +200,30 @@ class CommonPartPage extends ChromePage {
 	}
 
 	def private void previewLayout(){
+		var dirty = false;
+		
 		var renderer = tabFolder.renderer as ChromeTabRendering
-		renderer.cornerRadius = cornerRadiusScale.selection
+
+
+		if(renderer.cornerRadius != cornerRadiusScale.selection){
+			renderer.cornerRadius = cornerRadiusScale.selection
+			dirty = true	
+		}
 		
 		var pad = paddingScale.selection
-		renderer.setPadding(pad + 5, pad + 5, pad, pad + 7)
-		tabFolder.getParent().layout(true, true);
+		
+		// top, right, bottom, left
+		var oldPaddings = renderer.padding 
+		
+		if(oldPaddings.x != pad || oldPaddings.y != pad + 5 || oldPaddings.width != pad + 7 || oldPaddings.height != pad + 5){
+			// left, right, top, bottom
+			renderer.setPadding(pad + 5, pad + 5, pad, pad + 7)
+			dirty = true
+		}
+		
+		if(dirty){
+			tabFolder.getParent().layout(true, true);	
+		}
 	}
 
 	override setToDefault(IPreferenceStore store) {

@@ -1,5 +1,7 @@
 package net.jeeeyul.eclipse.themes.ui;
 
+import net.jeeeyul.eclipse.themes.SharedImages;
+
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
@@ -114,6 +116,7 @@ public class ColorPicker extends Dialog {
 		new Label(container, SWT.HORIZONTAL | SWT.SEPARATOR).setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 2, 1));
 
 		getShell().setText("Color Picker");
+		getShell().setImage(SharedImages.getImage(SharedImages.PALETTE));
 		update();
 
 		hueCanvas.setFocus();

@@ -1127,6 +1127,10 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 		cornerSize = radius;
 		parent.redraw();
 	}
+	
+	public int getCornerRadius(){
+		return cornerSize;
+	}
 
 	public void setInactiveToolbarGradient(Color[] color, int[] percents) {
 		inactiveToolbar = color;

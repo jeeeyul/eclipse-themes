@@ -54,7 +54,13 @@ public class FontPreview {
 			data = Display.getDefault().getSystemFont().getFontData()[0];
 		}
 
-		folder.setFont(fontRegistry.get(data));
+		Font newFont = fontRegistry.get(data);
+		
+		if(newFont == folder.getFont()){
+			return;
+		}
+		
+		folder.setFont(newFont);
 		try {
 			HackedCTabRendering.HACK_CTabFolder_updateItems.invoke(folder);
 		} catch (Exception e) {
