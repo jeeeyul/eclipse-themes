@@ -1,18 +1,16 @@
 package net.jeeeyul.eclipse.themes.preference.action;
 
-import org.eclipse.jface.dialogs.IDialogConstants;
-import org.eclipse.jface.preference.PreferenceStore;
-
-import net.jeeeyul.eclipse.themes.SharedImages;
 import net.jeeeyul.eclipse.themes.preference.ChromePage;
 import net.jeeeyul.eclipse.themes.preference.ChromePreferenceInitializer;
 import net.jeeeyul.eclipse.themes.preference.ChromeThemePrefererncePage;
+
+import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.preference.PreferenceStore;
 
 public class GlobalAdjustmentAction extends PreferenceAction {
 	public GlobalAdjustmentAction(ChromeThemePrefererncePage prefererncePage) {
 		super(prefererncePage);
 		setText("Adjust Colors Globally");
-		setImageDescriptor(SharedImages.getImageDescriptor(SharedImages.ADJUST));
 	}
 
 	@Override
