@@ -63,9 +63,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	private Boolean mruVisible;
 
 	private Integer partStackPadding;
-
 	private Boolean editorLineVisible;
-
 	private Boolean editorLineDashed;
 
 	private RGB editorLineColor;
@@ -74,41 +72,11 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	private RGB statusBarOutlineColor;
 	private RGB statusBarBackgroundColor;
 
-	@Override
-	public RGB getStatusBarOutlineColor() {
-		if (statusBarOutlineColor == null) {
-			statusBarOutlineColor = HSB.createFromString(getStore().getString(ChromeConstants.CHROME_STATUS_BAR_OUTLINE_COLOR)).toRGB();
-		}
-		return statusBarOutlineColor;
-	}
-
-	@Override
-	public RGB getStatusBarBackgroundColor() {
-		if (statusBarBackgroundColor == null) {
-			if (getUseWindowBackgroundAsStatusBarBackground()) {
-				statusBarBackgroundColor = getWindowBackgroundColor();
-			} else {
-				statusBarBackgroundColor = HSB.createFromString(getStore().getString(ChromeConstants.CHROME_STATUS_BAR_BACKGROUND_COLOR)).toRGB();
-			}
-		}
-		return statusBarBackgroundColor;
-	}
-
-	@Override
-	public Boolean getUseWindowBackgroundAsStatusBarBackground() {
-		if (useWindowBackgroundAsStatusBarBackground == null) {
-			useWindowBackgroundAsStatusBarBackground = getStore().getBoolean(ChromeConstants.CHROME_USE_WINDOW_BACKGROUND_AS_STATUS_BAR_BACKGROUND);
-		}
-		return useWindowBackgroundAsStatusBarBackground;
-	}
-
-	@Override
-	public Boolean getUseStatusBarOutline() {
-		if (useStatusBarOutline == null) {
-			useStatusBarOutline = getStore().getBoolean(ChromeConstants.CHROME_USE_STATUS_BAR_OUTLINE);
-		}
-		return useStatusBarOutline;
-	}
+	/**
+	 * 48: User should can use no border for trim stack.
+	 * https://github.com/jeeeyul/eclipse-themes/issues/issue/48
+	 */
+	private Boolean useTrimStackImageBorder;
 
 	/**
 	 * 43: Flag to disable round corners
@@ -494,6 +462,26 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 		return sashWidth;
 	}
 
+	@Override
+	public RGB getStatusBarBackgroundColor() {
+		if (statusBarBackgroundColor == null) {
+			if (getUseWindowBackgroundAsStatusBarBackground()) {
+				statusBarBackgroundColor = getWindowBackgroundColor();
+			} else {
+				statusBarBackgroundColor = HSB.createFromString(getStore().getString(ChromeConstants.CHROME_STATUS_BAR_BACKGROUND_COLOR)).toRGB();
+			}
+		}
+		return statusBarBackgroundColor;
+	}
+
+	@Override
+	public RGB getStatusBarOutlineColor() {
+		if (statusBarOutlineColor == null) {
+			statusBarOutlineColor = HSB.createFromString(getStore().getString(ChromeConstants.CHROME_STATUS_BAR_OUTLINE_COLOR)).toRGB();
+		}
+		return statusBarOutlineColor;
+	}
+
 	private IPreferenceStore getStore() {
 		return preferenceStore;
 	}
@@ -522,6 +510,30 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 			toolbarGradientStart = new RGB(hsb[0], hsb[1], hsb[2]);
 		}
 		return toolbarGradientStart;
+	}
+
+	@Override
+	public Boolean getUseStatusBarOutline() {
+		if (useStatusBarOutline == null) {
+			useStatusBarOutline = getStore().getBoolean(ChromeConstants.CHROME_USE_STATUS_BAR_OUTLINE);
+		}
+		return useStatusBarOutline;
+	}
+
+	@Override
+	public Boolean getUseTrimStackImageBorder() {
+		if (useTrimStackImageBorder == null) {
+			useTrimStackImageBorder = getStore().getBoolean(ChromeConstants.CHROME_USE_TRIMSTACK_IMAGE_BORDER);
+		}
+		return useTrimStackImageBorder;
+	}
+
+	@Override
+	public Boolean getUseWindowBackgroundAsStatusBarBackground() {
+		if (useWindowBackgroundAsStatusBarBackground == null) {
+			useWindowBackgroundAsStatusBarBackground = getStore().getBoolean(ChromeConstants.CHROME_USE_WINDOW_BACKGROUND_AS_STATUS_BAR_BACKGROUND);
+		}
+		return useWindowBackgroundAsStatusBarBackground;
 	}
 
 	@Override
@@ -588,6 +600,8 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 
 		statusBarBackgroundColor = null;
 		statusBarOutlineColor = null;
+		
+		useTrimStackImageBorder = null;
 	}
 
 	@Override

@@ -20,6 +20,7 @@ class GeneralPage extends ChromePage {
 	Button thinSashButton
 	Button standardButton
 	Button manualButton
+	Button useTrimStackButton
 	
 	Button partShadowButton
 	Scale sashWidthScale
@@ -75,6 +76,13 @@ class GeneralPage extends ChromePage {
 					onSelection = [
 						updateEnablement()
 						updatePreview()
+					]
+				]
+				
+				Label[
+					text = "Using shadow makes more space to draw shadows."
+					layoutData = FILL_HORIZONTAL[
+						horizontalIndent = 16
 					]
 				]
 				
@@ -172,8 +180,9 @@ class GeneralPage extends ChromePage {
 				]
 			]
 			
-			Label[
-				text = "Using shadow makes more space to draw shadows."
+			useTrimStackButton = Checkbox[
+				text = "Use image border for trim stack."
+				layoutData = FILL_HORIZONTAL
 			]
 		]
 		
@@ -232,6 +241,8 @@ class GeneralPage extends ChromePage {
 			store.getFloat(CHROME_EMPTY_PART_OUTLINE_BRIGHTNESS)
 		)
 		
+		useTrimStackButton.selection = store.getBoolean(CHROME_USE_TRIMSTACK_IMAGE_BORDER)
+		
 		updateEnablement();
 		
 	}
@@ -270,6 +281,9 @@ class GeneralPage extends ChromePage {
 		store.setValue(CHROME_EMPTY_PART_OUTLINE_HUE, emptyPartOutlineColorWell.selection.hue)
 		store.setValue(CHROME_EMPTY_PART_OUTLINE_SATURATION, emptyPartOutlineColorWell.selection.saturation)
 		store.setValue(CHROME_EMPTY_PART_OUTLINE_BRIGHTNESS, emptyPartOutlineColorWell.selection.brightness)
+		
+		
+		store.setValue(CHROME_USE_TRIMSTACK_IMAGE_BORDER, useTrimStackButton.selection)
 	}
 	
 	override setToDefault(IPreferenceStore store) {
@@ -316,6 +330,8 @@ class GeneralPage extends ChromePage {
 			store.getDefaultFloat(CHROME_EMPTY_PART_OUTLINE_SATURATION), 
 			store.getDefaultFloat(CHROME_EMPTY_PART_OUTLINE_BRIGHTNESS)
 		)
+		
+		useTrimStackButton.selection = store.getDefaultBoolean(CHROME_USE_TRIMSTACK_IMAGE_BORDER)
 		
 		updateEnablement()
 		updatePreview()
