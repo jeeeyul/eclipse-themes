@@ -1,4 +1,4 @@
-# Jeeeyul's Eclipse Themes
+# Jeeeyul's Eclipse Themes - Chrome
 
 Do you want more beautiful Eclipse 4?
 Change it!
@@ -17,6 +17,8 @@ Change it!
     </tr>
   </tbody>
 </table>
+
+Chrome theme is not only just an altanative theme also full featured e4 theme customzier.
 
 ## Update Site
 <pre>https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.updatesite</pre>
