@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import net.jeeeyul.eclipse.themes.SharedImages;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabFolderRenderer;
@@ -652,7 +653,12 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 		int[] tmpPoints = new int[index];
 		System.arraycopy(points, 0, tmpPoints, 0, index);
 
-		gc.fillPolygon(translate(tmpPoints, 1, 1));
+		if(Platform.getOS().equals(Platform.OS_LINUX)){
+			gc.fillPolygon(tmpPoints);
+		}else{
+			gc.fillPolygon(translate(tmpPoints, 1, 1));	
+		}
+		
 		gc.drawLine(selectionX1, selectionY1, selectionX2, selectionY2);
 		if (tabOutlineColor == null)
 			tabOutlineColor = gc.getDevice().getSystemColor(SWT.COLOR_BLACK);
@@ -1022,7 +1028,13 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 			System.arraycopy(points, 0, tmpPoints, 0, index);
 
 			gc.setAlpha(120);
-			gc.fillPolygon(translate(tmpPoints, 1, 1));
+			
+			if(Platform.getOS().equals(Platform.OS_LINUX)){
+				gc.fillPolygon(tmpPoints);
+			}else{
+				gc.fillPolygon(translate(tmpPoints, 1, 1));	
+			}
+			
 			Color tempBorder = new Color(gc.getDevice(), 182, 188, 204);
 			gc.setForeground(tempBorder);
 			gc.drawPolygon(tmpPoints);
