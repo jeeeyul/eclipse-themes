@@ -36,8 +36,9 @@
 
 		<copydir dest="${basedir}/../${update-project}" src="${build}/repo">
 		</copydir>
-		<copydir dest="${basedir}/../${update-project}" src="${basedir}/web-resource">
-		</copydir>
+		
+		<zip destfile="${basedir}/../${update-project}/update-site.zip" basedir="${basedir}/../${update-project}"></zip>
+		
 		<eclipse.refreshLocal resource="/" depth="infinite" />
 	</target>
 
