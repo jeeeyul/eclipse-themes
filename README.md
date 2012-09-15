@@ -22,6 +22,7 @@ Chrome theme is not only just an altanative theme also full featured e4 theme cu
 
 ## Update Site
 <pre>https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.updatesite</pre>
+* [Downloadable Update Site](https://github.com/jeeeyul/eclipse-themes/blob/master/net.jeeeyul.eclipse.themes.updatesite/update-site.zip?raw=true)
 * [Release Note](https://github.com/jeeeyul/eclipse-themes/wiki/Release-Note)
 * [Developer Guide](https://github.com/jeeeyul/eclipse-themes/wiki/Developer-Guide)
 * [Meet me at Eclipse Market Place](http://marketplace.eclipse.org/content/eclipse-4-chrome-theme)
