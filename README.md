@@ -22,6 +22,7 @@ Chrome theme is not only just an altanative theme also full featured e4 theme cu
 
 ## Update Site
 <pre>https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.updatesite</pre>
+* [Downloadable Update Site](https://github.com/jeeeyul/eclipse-themes/blob/master/net.jeeeyul.eclipse.themes.updatesite/update-site.zip?raw=true)
 * [Release Note](https://github.com/jeeeyul/eclipse-themes/wiki/Release-Note)
 * [Developer Guide](https://github.com/jeeeyul/eclipse-themes/wiki/Developer-Guide)
 * [Meet me at Eclipse Market Place](http://marketplace.eclipse.org/content/eclipse-4-chrome-theme)
@@ -51,10 +52,6 @@ You need eclipse 4.2 or above version to install this theme.
 ![screenshot](https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.resource/screen-shot-3.png)
 
 ![screenshot](https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.resource/gtk-screenshot.png)
-
-![screenshot](https://github.com/jeeeyul/eclipse-themes/raw/master/net.jeeeyul.eclipse.themes.build/web-resource/chrome-theme-1.png)
-
-![screenshot](https://github.com/jeeeyul/eclipse-themes/raw/master/net.jeeeyul.eclipse.themes.build/web-resource/chrome-theme-2.png)
 
 ![screenshot](https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.resource/screen-shot-2.png)
 
