@@ -38,7 +38,6 @@ class ToolbarPage extends ChromePage {
 	Button useStatusBarOutlineButton;
 	ColorWell statusBarOutlineColorWell;
 	
-
 	new(){
 		super("Toolbar", SharedImages::TOOLBAR)
 	}
