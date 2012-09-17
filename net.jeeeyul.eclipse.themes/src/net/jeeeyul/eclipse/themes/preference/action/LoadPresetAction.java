@@ -14,6 +14,7 @@ import net.jeeeyul.eclipse.themes.preference.ChromeThemePrefererncePage;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceStore;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.widgets.Display;
@@ -37,7 +38,6 @@ public class LoadPresetAction extends PreferenceAction {
 			store.load(stream);
 			stream.close();
 
-			
 			applyFallBackFont(store);
 
 			ArrayList<ChromePage> pages = getPrefererncePage().getPages();
@@ -45,10 +45,20 @@ public class LoadPresetAction extends PreferenceAction {
 				each.load(store);
 			}
 		} catch (IOException e) {
-			ChromeThemeCore.getDefault().getLog().log(new Status(IStatus.ERROR, ChromeThemeCore.PLUGIN_ID, e.getLocalizedMessage(), e));
-			e.printStackTrace();
+			ChromeThemeCore.getDefault().getLog()
+					.log(new Status(IStatus.ERROR, ChromeThemeCore.PLUGIN_ID, "Applying preset results some errors, default settings was applied.", e));
+
+			fallBackToDefaults();
 		}
 		super.run();
+	}
+
+	private void fallBackToDefaults() {
+		IPreferenceStore store = ChromeThemeCore.getDefault().getPreferenceStore();
+		ArrayList<ChromePage> pages = getPrefererncePage().getPages();
+		for (ChromePage each : pages) {
+			each.setToDefault(store);
+		}
 	}
 
 	private void applyFallBackFont(PreferenceStore store) {

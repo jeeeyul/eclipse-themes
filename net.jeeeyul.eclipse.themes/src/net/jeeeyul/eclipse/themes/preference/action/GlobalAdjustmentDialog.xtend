@@ -58,6 +58,7 @@ class GlobalAdjustmentDialog extends Dialog {
 			]
 			
 			hueScale = Scale[
+				layoutData = FILL_HORIZONTAL
 				minimum = 0
 				maximum = 360
 				selection = 180
@@ -72,6 +73,7 @@ class GlobalAdjustmentDialog extends Dialog {
 			]
 			
 			saturationScale = Scale[
+				layoutData = FILL_HORIZONTAL
 				minimum = 0
 				maximum = 200
 				selection = 100
@@ -86,6 +88,7 @@ class GlobalAdjustmentDialog extends Dialog {
 			]
 			
 			brightnessScale = Scale[
+				layoutData = FILL_HORIZONTAL
 				minimum = 0
 				maximum = 200
 				selection = 100

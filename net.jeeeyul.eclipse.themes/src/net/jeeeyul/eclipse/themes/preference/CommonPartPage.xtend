@@ -89,6 +89,7 @@ class CommonPartPage extends ChromePage {
 					maximum = 25
 					selection = 10
 					pageIncrement = 1
+					layoutData = FILL_HORIZONTAL
 					onSelection = [
 						updatePreview()
 					]
@@ -105,6 +106,7 @@ class CommonPartPage extends ChromePage {
 					maximum = 10
 					selection = 0
 					pageIncrement = 1
+					layoutData = FILL_HORIZONTAL
 					onSelection = [
 						updatePreview()
 					]
