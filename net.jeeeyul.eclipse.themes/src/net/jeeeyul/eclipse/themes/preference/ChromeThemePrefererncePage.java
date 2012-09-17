@@ -10,9 +10,16 @@ import net.jeeeyul.eclipse.themes.preference.action.GlobalAdjustmentAction;
 import net.jeeeyul.eclipse.themes.preference.action.LoadPresetAction;
 import net.jeeeyul.eclipse.themes.preference.action.ShowCurrentCSSAction;
 import net.jeeeyul.eclipse.themes.rendering.ChromeTabRendering;
+import net.jeeeyul.eclipse.themes.userpreset.AddUserPresetAction;
+import net.jeeeyul.eclipse.themes.userpreset.LoadUserPresetAction;
+import net.jeeeyul.eclipse.themes.userpreset.ManageUserPresetAction;
+import net.jeeeyul.eclipse.themes.userpreset.UserPreset;
+import net.jeeeyul.eclipse.themes.userpreset.UserPresetRepository;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jface.action.IMenuListener;
+import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.preference.PreferencePage;
@@ -166,7 +173,7 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 			}
 		});
 
-		createPresetMenu();
+		createMenu();
 	}
 
 	private void createLink(Composite contaienr, String text) {
@@ -180,28 +187,18 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 		});
 	}
 
-	private void createPresetMenu() {
+	private void createMenu() {
 		MenuManager manager = new MenuManager();
 
-		MenuManager presetMenu = new MenuManager("Editor's Presets", SharedImages.getImageDescriptor(SharedImages.PRESET), "preset");
-
-		Enumeration<URL> presets = ChromeThemeCore.getDefault().getBundle().findEntries("presets/", "*.epf", false);
-		while (presets.hasMoreElements()) {
-			URL url = presets.nextElement();
-			IPath path = new Path(url.getFile());
-			LoadPresetAction loadPresetAction = new LoadPresetAction(this, url);
-			loadPresetAction.setText(path.removeFileExtension().lastSegment());
-			presetMenu.add(loadPresetAction);
-		}
-		manager.add(presetMenu);
-
-		manager.add(new GlobalAdjustmentAction(this));
-
-		manager.add(new Separator());
-		manager.add(new ShowCurrentCSSAction(this));
+		manager.setRemoveAllWhenShown(true);
+		manager.addMenuListener(new IMenuListener() {
+			@Override
+			public void menuAboutToShow(IMenuManager manager) {
+				updateMenu(manager);
+			}
+		});
 
 		final Menu menu = manager.createContextMenu(getShell());
-
 		presetItem.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
@@ -212,6 +209,35 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 				menu.setVisible(true);
 			}
 		});
+
+	}
+
+	private void updateMenu(IMenuManager manager) {
+		MenuManager presetMenu = new MenuManager("Editor's Presets", SharedImages.getImageDescriptor(SharedImages.PRESET), "preset");
+		Enumeration<URL> presets = ChromeThemeCore.getDefault().getBundle().findEntries("presets/", "*.epf", false);
+		while (presets.hasMoreElements()) {
+			URL url = presets.nextElement();
+			IPath path = new Path(url.getFile());
+			LoadPresetAction loadPresetAction = new LoadPresetAction(this, url);
+			loadPresetAction.setText(path.removeFileExtension().lastSegment());
+			presetMenu.add(loadPresetAction);
+		}
+		manager.add(presetMenu);
+
+		MenuManager userPresetMenu = new MenuManager("User's Presets", SharedImages.getImageDescriptor(SharedImages.PRESET), "preset");
+		userPresetMenu.add(new ManageUserPresetAction(this));
+		userPresetMenu.add(new AddUserPresetAction(this));
+		userPresetMenu.add(new Separator());
+
+		for (UserPreset each : UserPresetRepository.INSTANCE.getUserPresets()) {
+			userPresetMenu.add(new LoadUserPresetAction(this, each));
+		}
+		manager.add(userPresetMenu);
+
+		manager.add(new GlobalAdjustmentAction(this));
+		manager.add(new Separator());
+		manager.add(new ShowCurrentCSSAction(this));
+
 	}
 
 	@Override
