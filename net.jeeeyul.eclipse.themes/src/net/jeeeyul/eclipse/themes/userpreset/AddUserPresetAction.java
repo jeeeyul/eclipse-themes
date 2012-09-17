@@ -1,5 +1,6 @@
 package net.jeeeyul.eclipse.themes.userpreset;
 
+import net.jeeeyul.eclipse.themes.SharedImages;
 import net.jeeeyul.eclipse.themes.preference.ChromePage;
 import net.jeeeyul.eclipse.themes.preference.ChromePreferenceInitializer;
 import net.jeeeyul.eclipse.themes.preference.ChromeThemePrefererncePage;
@@ -14,6 +15,7 @@ public class AddUserPresetAction extends PreferenceAction {
 	public AddUserPresetAction(ChromeThemePrefererncePage prefererncePage) {
 		super(prefererncePage);
 		setText("Adds an user preset with current settings");
+		setImageDescriptor(SharedImages.getImageDescriptor(SharedImages.ADD));
 	}
 
 	@Override
