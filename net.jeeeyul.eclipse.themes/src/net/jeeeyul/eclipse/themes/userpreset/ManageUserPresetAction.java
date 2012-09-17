@@ -17,7 +17,7 @@ public class ManageUserPresetAction extends PreferenceAction {
 
 	@Override
 	public void run() {
-		List<UserPreset> workingCopy = new ArrayList<UserPreset>(UserPresetRepository.INSTANCE.getUserPresets());
+		List<UserPreset> workingCopy = new ArrayList<UserPreset>(UserPresetRepository.INSTANCE.getUserPresets(true));
 		UserPresetDialog dialog = new UserPresetDialog(getPrefererncePage().getShell(), workingCopy);
 
 		if (dialog.open() == IDialogConstants.OK_ID) {

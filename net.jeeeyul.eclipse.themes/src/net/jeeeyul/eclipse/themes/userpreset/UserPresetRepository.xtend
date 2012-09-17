@@ -53,10 +53,14 @@ class UserPresetRepository {
 	/**
 	 * Modifying result will change presets.
 	 */
-	def List<UserPreset> getUserPresets(){
+	def getUserPresets(){
+		return getUserPresets(false)
+	}
+	
+	def getUserPresets(boolean forceReload){
 		lock.acquire()
 		
-		if(userPresets == null){
+		if(userPresets == null || forceReload){
 			load();
 		}
 		
@@ -64,7 +68,7 @@ class UserPresetRepository {
 		return userPresets
 	}
 	
-	def load() {
+	def private load() {
 		lock.acquire()
 		
 		userPresets = new ArrayList<UserPreset>

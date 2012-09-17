@@ -229,7 +229,7 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 		userPresetMenu.add(new AddUserPresetAction(this));
 		userPresetMenu.add(new Separator());
 
-		for (UserPreset each : UserPresetRepository.INSTANCE.getUserPresets()) {
+		for (UserPreset each : UserPresetRepository.INSTANCE.getUserPresets(true)) {
 			userPresetMenu.add(new LoadUserPresetAction(this, each));
 		}
 		manager.add(userPresetMenu);
