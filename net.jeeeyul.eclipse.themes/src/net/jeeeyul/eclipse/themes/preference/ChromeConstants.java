@@ -275,15 +275,6 @@ public interface ChromeConstants {
 	@ValueType(boolean.class)
 	public static final String CHROME_PART_STACK_USE_MRU = "chrome-part-stack-use-mru";
 
-	@ValueType(boolean.class)
-	public static final String CHROME_EDITOR_LINE_VISIBLE = "chrome-editor-line-visible";
-
-	@ValueType(HSB.class)
-	public static final String CHROME_EDITOR_LINE_COLOR = "chrome-editor-line-color";
-
-	@ValueType(boolean.class)
-	public static final String CHROME_EDITOR_LINE_DASH = "chrome-editor-line-dash";
-
 	/*
 	 * 43: Flag to disable round corners
 	 * https://github.com/jeeeyul/eclipse-themes/issues/issue/43

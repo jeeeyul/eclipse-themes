@@ -71,12 +71,6 @@ public interface IChromeThemeConfig {
 	 */
 	public abstract Boolean getMruVisible();
 
-	public abstract Boolean getEditorLineVisible();
-
-	public abstract Boolean getEditorLineDashed();
-
-	public abstract RGB getEditorLineColor();
-
 	public abstract Integer getPartStackCornerRadius();
 
 	public abstract Boolean getUseStatusBarOutline();

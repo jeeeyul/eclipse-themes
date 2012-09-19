@@ -63,10 +63,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	private Boolean mruVisible;
 
 	private Integer partStackPadding;
-	private Boolean editorLineVisible;
-	private Boolean editorLineDashed;
 
-	private RGB editorLineColor;
 	private Boolean useStatusBarOutline;
 	private Boolean useWindowBackgroundAsStatusBarBackground;
 	private RGB statusBarOutlineColor;
@@ -200,31 +197,6 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 			activeUnselectedTitleColor = new RGB(hsb[0], hsb[1], hsb[2]);
 		}
 		return activeUnselectedTitleColor;
-	}
-
-	@Override
-	public RGB getEditorLineColor() {
-		if (editorLineColor == null) {
-			String exp = getStore().getString(ChromeConstants.CHROME_EDITOR_LINE_COLOR);
-			editorLineColor = HSB.createFromString(exp).toRGB();
-		}
-		return editorLineColor;
-	}
-
-	@Override
-	public Boolean getEditorLineDashed() {
-		if (editorLineDashed == null) {
-			editorLineDashed = getStore().getBoolean(ChromeConstants.CHROME_EDITOR_LINE_DASH);
-		}
-		return editorLineDashed;
-	}
-
-	@Override
-	public Boolean getEditorLineVisible() {
-		if (editorLineVisible == null) {
-			editorLineVisible = getStore().getBoolean(ChromeConstants.CHROME_EDITOR_LINE_VISIBLE);
-		}
-		return editorLineVisible;
 	}
 
 	@Override
@@ -589,10 +561,6 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 		partStackPadding = null;
 		mruVisible = null;
 
-		editorLineColor = null;
-		editorLineDashed = null;
-		editorLineVisible = null;
-
 		partStackCornerRadius = null;
 
 		useWindowBackgroundAsStatusBarBackground = null;
@@ -600,7 +568,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 
 		statusBarBackgroundColor = null;
 		statusBarOutlineColor = null;
-		
+
 		useTrimStackImageBorder = null;
 	}
 

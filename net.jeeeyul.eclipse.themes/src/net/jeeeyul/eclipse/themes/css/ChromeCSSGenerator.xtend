@@ -22,12 +22,6 @@ class ChromeCSSGenerator {
 			 */	
 		}
 		
-		.Editor StyledText{
-			chrome-line-visible: «config.editorLineVisible»;
-			chrome-line-dash: «config.editorLineDashed»;
-			chrome-line-color: «config.editorLineColor.toHtmlColor»;
-		}
-		
 		.MTrimmedWindow.topLevel {
 			margin-top: «config.sashWidth + if(config.usePartShadow) 3 else 0»px;
 			margin-bottom: 2px;

@@ -153,10 +153,6 @@ public class ChromePreferenceInitializer extends AbstractPreferenceInitializer {
 
 		store.setDefault(ChromeConstants.CHROME_PART_STACK_USE_MRU, true);
 
-		store.setDefault(ChromeConstants.CHROME_EDITOR_LINE_VISIBLE, false);
-		store.setDefault(ChromeConstants.CHROME_EDITOR_LINE_DASH, true);
-		store.setDefault(ChromeConstants.CHROME_EDITOR_LINE_COLOR, new HSB(0f, 0f, 0.94f).serialize());
-
 		/*
 		 * 43: Flag to disable round corners
 		 * https://github.com/jeeeyul/eclipse-themes/issues/issue/43
