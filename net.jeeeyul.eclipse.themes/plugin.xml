@@ -82,19 +82,6 @@
          </property-name>
       </handler>
       <handler
-            adapter="net.jeeeyul.eclipse.themes.e4.StyledTextElement"
-            handler="net.jeeeyul.eclipse.themes.css.StyledTextCSSHandler">
-         <property-name
-               name="chrome-line-color">
-         </property-name>
-         <property-name
-               name="chrome-line-dash">
-         </property-name>
-         <property-name
-               name="chrome-line-visible">
-         </property-name>
-      </handler>
-      <handler
             adapter="org.eclipse.e4.ui.css.swt.dom.CompositeElement"
             handler="net.jeeeyul.eclipse.themes.css.StatusBarCSSHandler">
          <property-name
