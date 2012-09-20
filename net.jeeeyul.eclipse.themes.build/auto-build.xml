@@ -15,8 +15,8 @@
 		<antcall target="executeBuildScripts" />
 		<antcall target="remove-generated-script" />
 
-		<signjar jar="${build}/features/*.jar" alias="Jeeeyul" keystore="${basedir}/keystore" keypass="${keypass}" storepass="${storepass}" />
-		<signjar jar="${build}/plugins/*.jar" alias="Jeeeyul" keystore="${basedir}/keystore" keypass="${keypass}" storepass="${storepass}" />
+		<signjar jar="${build}/features/*.jar" alias="${sign-alias}" keystore="${basedir}/keystore" keypass="${keypass}" storepass="${storepass}" />
+		<signjar jar="${build}/plugins/*.jar" alias="${sign-alias}" keystore="${basedir}/keystore" keypass="${keypass}" storepass="${storepass}" />
 
 		<eclipse.publish.featuresAndBundles metadatarepository="file:${build}/repo" artifactrepository="file:${build}/repo" metadatarepositoryname="${repository-name}" artifactrepositoryname="${repository-name}" category="file:${basedir}/category.xml">
 			<features dir="${build}/features" includes="*.jar" />
@@ -25,6 +25,7 @@
 		
 		<replaceregexp file="${build}/repo/artifacts.xml" match="file:.+ - artifacts" replace="${repository-name}" encoding="utf-8" />
 		<replaceregexp file="${build}/repo/content.xml" match="file:.+ - metadata" replace="${repository-name}" encoding="utf-8" />
+		
 		<jar destfile="${build}/repo/artifacts.jar">
 			<fileset dir="${build}/repo" includes="artifacts.xml" />
 		</jar>
