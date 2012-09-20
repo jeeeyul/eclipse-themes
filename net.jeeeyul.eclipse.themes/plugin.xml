@@ -92,14 +92,5 @@
          </property-name>
       </handler>
    </extension>
-   <extension
-         point="org.eclipse.e4.ui.css.core.elementProvider">
-      <provider
-            class="net.jeeeyul.eclipse.themes.e4.StyledTextElementProvider">
-         <widget
-               class="org.eclipse.swt.custom.StyledText">
-         </widget>
-      </provider>
-   </extension>
 
 </plugin>
