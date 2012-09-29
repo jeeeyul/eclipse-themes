@@ -34,6 +34,8 @@ You need eclipse 4.2 or above version to install this theme.
 1. Drag <b>Install Button</b>(Shown above) on to your eclipse's main toolbar.
 2. Done.
 
+<font style="color:red;">http://www.eclipse.org/downloads/packages/release/juno/r</font>
+
 * [Alternative Installation Guide](https://github.com/jeeeyul/eclipse-themes/wiki/Alternative-Install)
 
 ## Choose Theme
