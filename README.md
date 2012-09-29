@@ -20,6 +20,10 @@ Change it!
 
 Chrome theme is not only just an altanative theme also full featured e4 theme customzier.
 
+## Juno SR1 is not supported!
+Juno SR1 has critical bugs which has no way around, Plase use old Juno Release, You can download old Juno packages at 
+http://www.eclipse.org/downloads/packages/release/juno/r
+
 ## Update Site
 <pre>https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.updatesite</pre>
 * [Downloadable Update Site](https://github.com/jeeeyul/eclipse-themes/blob/master/net.jeeeyul.eclipse.themes.updatesite/update-site.zip?raw=true)
@@ -34,8 +38,7 @@ You need eclipse 4.2 or above version to install this theme.
 1. Drag <b>Install Button</b>(Shown above) on to your eclipse's main toolbar.
 2. Done.
 
-<font style="color:red;">Juno SR1 has critical bugs which has no way around, Plase use old Juno Release
-http://www.eclipse.org/downloads/packages/release/juno/r</font>
+
 
 * [Alternative Installation Guide](https://github.com/jeeeyul/eclipse-themes/wiki/Alternative-Install)
 
