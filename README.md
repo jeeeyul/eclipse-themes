@@ -20,7 +20,7 @@ Change it!
 
 Chrome theme is not only just an altanative theme also full featured e4 theme customzier.
 
-## Juno SR1 is not supported!
+### Juno SR1 is not supported!
 Juno SR1 has critical bugs which has no way around, Plase use old Juno Release, You can download old Juno packages at 
 http://www.eclipse.org/downloads/packages/release/juno/r
 
