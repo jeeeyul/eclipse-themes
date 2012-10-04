@@ -105,11 +105,6 @@ class ChromeCSSGenerator {
 			«ENDIF»
 		}
 		
-		#PerspectiveSwitcher {
-			eclipse-perspective-keyline-color: «config.perspectiveOutlineColor.toHtmlColor»;
-			background-color: «config.getPerspectiveStartColor.toHtmlColor» «config.perspectiveEndColor.toHtmlColor» 100%;
-		}
-		
 		CTabFolder.MArea .MPartStack,CTabFolder.MArea .MPartStack.active {
 			swt-shadow-visible: false;
 		}
@@ -146,6 +141,12 @@ class ChromeCSSGenerator {
 		
 		.MToolControl.Draggable {
 			handle-image:  url(images/jeeeyul-Handle.png);
+		}
+		
+		#PerspectiveSwitcher {
+			eclipse-perspective-keyline-color: «config.perspectiveOutlineColor.toHtmlColor»;
+			background-color: «config.getPerspectiveStartColor.toHtmlColor» «config.perspectiveEndColor.toHtmlColor» 100%;
+			handle-image: none;
 		}
 	'''
 
