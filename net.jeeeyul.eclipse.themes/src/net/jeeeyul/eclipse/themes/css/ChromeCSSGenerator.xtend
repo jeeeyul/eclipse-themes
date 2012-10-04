@@ -148,6 +148,10 @@ class ChromeCSSGenerator {
 			background-color: «config.getPerspectiveStartColor.toHtmlColor» «config.perspectiveEndColor.toHtmlColor» 100%;
 			handle-image: none;
 		}
+		
+		#PerspectiveSpacer{
+			// TODO
+		}
 	'''
 
 	def private String toHtmlColor(RGB rgb){
