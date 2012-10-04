@@ -139,6 +139,14 @@ class ChromeCSSGenerator {
 				background-color: «config.statusBarBackgroundColor.toHtmlColor»;
 			«ENDIF»
 		}
+		
+		.MToolBar.Draggable {
+			handle-image:  url(images/jeeeyul-Handle.png);
+		}
+		
+		.MToolControl.Draggable {
+			handle-image:  url(images/jeeeyul-Handle.png);
+		}
 	'''
 
 	def private String toHtmlColor(RGB rgb){
