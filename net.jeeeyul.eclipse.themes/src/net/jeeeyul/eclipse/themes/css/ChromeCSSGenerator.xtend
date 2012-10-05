@@ -3,8 +3,12 @@ package net.jeeeyul.eclipse.themes.css
 import net.jeeeyul.eclipse.themes.preference.ChromeThemeConfig
 import org.eclipse.swt.graphics.RGB
 import net.jeeeyul.eclipse.themes.preference.IChromeThemeConfig
+import net.jeeeyul.eclipse.themes.E4Platform
+import net.jeeeyul.eclipse.themes.ui.HSB
 
 class ChromeCSSGenerator {
+	extension E4Platform = E4Platform::INSTANCE
+	
 	IChromeThemeConfig config = ChromeThemeConfig::instance
 
 	def setConfig(IChromeThemeConfig config){
@@ -99,9 +103,17 @@ class ChromeCSSGenerator {
 		
 		.MToolControl.TrimStack {
 			«IF config.useTrimStackImageBorder»
-				frame-image: url("images/jeeeyul-TSFrame.png");
-				handle-image: url("images/jeeeyul-Handle.png");
+				«IF junoSR1»
+					frame-image: url(chrome://frame/«config.windowBackgroundColor.toHSB.serialize»);
+				«ELSE»
+					frame-image: url(images/frame.png);
+				«ENDIF»
 				frame-cuts: 5px 1px 5px 16px;
+			«ENDIF»
+			«IF junoSR1»
+				handle-image: url(chrome://drag-handle/22/«config.windowBackgroundColor.toHSB.serialize»);
+			«ELSE»
+				handle-image: url(images/handle.png);
 			«ENDIF»
 		}
 		
@@ -138,26 +150,36 @@ class ChromeCSSGenerator {
 			«ENDIF»
 		}
 		
-		.MToolBar.Draggable {
-			handle-image:  url(images/jeeeyul-Handle.png);
-		}
-		
-		.MToolControl.Draggable {
-			handle-image:  url(images/jeeeyul-Handle.png);
-		}
+		«IF junoSR1»
+			.MToolBar.Draggable {
+				handle-image: url(chrome://drag-handle/22/«config.toolbarGradientStart.toHSB.serialize»);
+			}
+			
+			.MToolControl.Draggable {
+				handle-image: url(chrome://drag-handle/22/«config.windowBackgroundColor.toHSB.serialize»);
+			}
+		«ENDIF»
 		
 		#PerspectiveSwitcher {
 			eclipse-perspective-keyline-color: «config.perspectiveOutlineColor.toHtmlColor»;
 			background-color: «config.getPerspectiveStartColor.toHtmlColor» «config.perspectiveEndColor.toHtmlColor» 100%;
-			handle-image: none;
+			«IF junoSR1»
+				handle-image: none;
+			«ENDIF»
 		}
 		
-		#PerspectiveSpacer{
-			chrome-border-bottom-color: «config.perspectiveOutlineColor.toHtmlColor»;
-			chrome-border-bottom-visible: true;
-		}
+		«IF junoSR1»
+			#PerspectiveSpacer{
+				chrome-border-bottom-color: «config.perspectiveOutlineColor.toHtmlColor»;
+				chrome-border-bottom-visible: true;
+			}
+		«ENDIF»
 	'''
 
+	def private HSB toHSB(RGB rgb){
+		return new HSB(rgb)
+	}
+	
 	def private String toHtmlColor(RGB rgb){
 		return String::format("#%02x%02x%02x", rgb.red, rgb.green, rgb.blue)
 	}
