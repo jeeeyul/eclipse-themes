@@ -83,12 +83,46 @@
       </handler>
       <handler
             adapter="org.eclipse.e4.ui.css.swt.dom.CompositeElement"
-            handler="net.jeeeyul.eclipse.themes.css.StatusBarCSSHandler">
+            handler="net.jeeeyul.eclipse.themes.css.CompositeBorderHandler">
          <property-name
                name="chrome-border-top-color">
          </property-name>
          <property-name
                name="chrome-border-top-visible">
+         </property-name>
+         <property-name
+               name="chrome-border-bottom-color">
+         </property-name>
+         <property-name
+               name="chrome-border-bottom-visible">
+         </property-name>
+         <property-name
+               name="chrome-border-left-color">
+         </property-name>
+         <property-name
+               name="chrome-border-left-visible">
+         </property-name>
+         <property-name
+               name="chrome-border-right-color">
+         </property-name>
+         <property-name
+               name="chrome-border-right-visible">
+         </property-name>
+      </handler>
+      <handler
+            adapter="org.eclipse.e4.ui.css.swt.dom.CompositeElement"
+            handler="net.jeeeyul.eclipse.themes.css.CompositePaddingHandler">
+         <property-name
+               name="chrome-padding-top">
+         </property-name>
+         <property-name
+               name="chrome-padding-left">
+         </property-name>
+         <property-name
+               name="chrome-padding-right">
+         </property-name>
+         <property-name
+               name="chrome-padding-bottom">
          </property-name>
       </handler>
    </extension>

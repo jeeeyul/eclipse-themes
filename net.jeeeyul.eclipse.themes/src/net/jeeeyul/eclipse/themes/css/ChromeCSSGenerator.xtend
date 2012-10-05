@@ -129,6 +129,9 @@ class ChromeCSSGenerator {
 			chrome-border-top-visible: «config.useStatusBarOutline»;
 			«IF config.useStatusBarOutline»
 				chrome-border-top-color: «config.statusBarOutlineColor.toHtmlColor»;
+				chrome-padding-top: 1;
+			«ELSE»
+				chrome-padding-top: 0;
 			«ENDIF»
 			«IF !config.useWindowBackgroundAsStatusBarBackground»
 				background-color: «config.statusBarBackgroundColor.toHtmlColor»;
@@ -150,7 +153,8 @@ class ChromeCSSGenerator {
 		}
 		
 		#PerspectiveSpacer{
-			// TODO
+			chrome-border-bottom-color: «config.perspectiveOutlineColor.toHtmlColor»;
+			chrome-border-bottom-visible: true;
 		}
 	'''
 

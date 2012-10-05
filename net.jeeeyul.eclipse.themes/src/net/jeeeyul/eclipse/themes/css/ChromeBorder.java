@@ -37,9 +37,7 @@ public class ChromeBorder {
 	private boolean topVisible = false;
 	private boolean leftVisible = false;
 	private boolean rightVisible = false;
-
 	private boolean bottomVisible = false;
-
 	private Listener controlHook;
 
 	public ChromeBorder(Composite parent) {
@@ -62,6 +60,7 @@ public class ChromeBorder {
 
 	public void dispose() {
 		if (!parent.isDisposed()) {
+			parent.setData(ChromeBorder.class.getName(), null);
 			parent.removeListener(SWT.Paint, controlHook);
 			parent.removeListener(SWT.Dispose, controlHook);
 		}
@@ -118,30 +117,41 @@ public class ChromeBorder {
 			event.gc.setForeground(topColor);
 			event.gc.drawLine(bounds.x, bounds.y, bounds.x + bounds.width, bounds.y);
 		}
+
+		if (bottomVisible && bottomColor != null) {
+			event.gc.setForeground(bottomColor);
+			event.gc.drawLine(bounds.x, bounds.y + bounds.height - 1, bounds.x + bounds.width, bounds.y + bounds.height - 1);
+		}
 	}
 
 	public void setBottomColor(Color bottom) {
 		this.bottomColor = bottom;
+		parent.redraw();
 	}
 
 	public void setBottomVisible(boolean bottomVisible) {
 		this.bottomVisible = bottomVisible;
+		parent.redraw();
 	}
 
 	public void setLeftColor(Color left) {
 		this.leftColor = left;
+		parent.redraw();
 	}
 
 	public void setLeftVisible(boolean leftVisible) {
 		this.leftVisible = leftVisible;
+		parent.redraw();
 	}
 
 	public void setRightColor(Color right) {
 		this.rightColor = right;
+		parent.redraw();
 	}
 
 	public void setRightVisible(boolean rightVisible) {
 		this.rightVisible = rightVisible;
+		parent.redraw();
 	}
 
 	public void setTopColor(Color top) {
@@ -151,6 +161,7 @@ public class ChromeBorder {
 
 	public void setTopVisible(boolean topVisible) {
 		this.topVisible = topVisible;
+		parent.redraw();
 	}
 
 }
