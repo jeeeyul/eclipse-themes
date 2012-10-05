@@ -30,7 +30,8 @@ public class DragHandleFactory {
 		List<RGB> newRGBs = new ArrayList<RGB>();
 		for (RGB each : result.palette.colors) {
 			try {
-				HSB hsb = new HSB(each);
+				HSB hsb = backgroundColor.getCopy();
+				hsb.brightness = new HSB(each).brightness;
 				hsb = hsb.mixWith(backgroundColor, 0.5f);
 				newRGBs.add(hsb.toRGB());
 			} catch (Exception e) {

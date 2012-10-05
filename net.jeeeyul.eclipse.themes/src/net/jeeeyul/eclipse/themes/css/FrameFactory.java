@@ -16,9 +16,11 @@ public class FrameFactory {
 		List<RGB> newRGBs = new ArrayList<RGB>();
 		for (RGB each : source.palette.colors) {
 			try {
+				HSB copy = backgroundColor.getCopy();
 				HSB hsb = new HSB(each);
-				hsb = hsb.mixWith(backgroundColor, 0.6f);
-				newRGBs.add(hsb.toRGB());
+				copy.brightness = hsb.brightness;
+				copy = copy.mixWith(backgroundColor, 0.5f);
+				newRGBs.add(copy.toRGB());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

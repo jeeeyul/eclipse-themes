@@ -15,7 +15,7 @@
 <stringAttribute key="location" value="${workspace_loc}/../runtime-New_configuration"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-os ${target.os} -ws ${target.ws} -arch ${target.arch} -nl ${target.nl} -consoleLog"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.pde.ui.workbenchClasspathProvider"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Dosgi.requiredJavaVersion=1.5 -Dhelp.lucene.tokenizer=standard -Xms40m -Xmx512m&#13;&#10;-XX:MaxPermSize=512m&#13;&#10;-XX:+UseParNewGC&#13;&#10;-XX:+UseConcMarkSweepGC"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Dosgi.requiredJavaVersion=1.5 -Dhelp.lucene.tokenizer=standard -Xms40m -Xmx512m&#13;&#10;-XX:MaxPermSize=512m&#13;&#10;-XX:+UseParNewGC&#13;&#10;-XX:+UseConcMarkSweepGC&#10;-Dorg.eclipse.swt.internal.carbon.smallFonts"/>
 <stringAttribute key="pde.version" value="3.3"/>
 <stringAttribute key="product" value="org.eclipse.platform.ide"/>
 <booleanAttribute key="show_selected_only" value="false"/>
