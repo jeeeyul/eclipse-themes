@@ -3,11 +3,11 @@ package net.jeeeyul.eclipse.themes.css
 import net.jeeeyul.eclipse.themes.preference.ChromeThemeConfig
 import org.eclipse.swt.graphics.RGB
 import net.jeeeyul.eclipse.themes.preference.IChromeThemeConfig
-import net.jeeeyul.eclipse.themes.E4Platform
+import net.jeeeyul.eclipse.themes.ENV
 import net.jeeeyul.eclipse.themes.ui.HSB
 
 class ChromeCSSGenerator {
-	extension E4Platform = E4Platform::INSTANCE
+	extension ENV = ENV::INSTANCE
 	
 	IChromeThemeConfig config = ChromeThemeConfig::instance
 
@@ -103,15 +103,15 @@ class ChromeCSSGenerator {
 		
 		.MToolControl.TrimStack {
 			«IF config.useTrimStackImageBorder»
-				«IF junoSR1»
+				«IF isJunoSR1»
 					frame-image: url(chrome://frame?background-color=«config.windowBackgroundColor.toHSB.toHTMLCode»);
 				«ELSE»
 					frame-image: url(images/frame.png);
 				«ENDIF»
 				frame-cuts: 5px 1px 5px 16px;
 			«ENDIF»
-			«IF junoSR1»
-				handle-image: url(chrome://drag-handle?height=22&background-color=«config.windowBackgroundColor.toHSB.toHTMLCode»&embossed=«config.useEmbossedDragHandle»);
+			«IF isJunoSR1»
+				handle-image: url(chrome://drag-handle?height=«toolbarHeight»&background-color=«config.windowBackgroundColor.toHSB.toHTMLCode»&embossed=«config.useEmbossedDragHandle»);
 			«ELSE»
 				handle-image: url(images/handle.png);
 			«ENDIF»
@@ -150,25 +150,25 @@ class ChromeCSSGenerator {
 			«ENDIF»
 		}
 		
-		«IF junoSR1»
+		«IF isJunoSR1»
 			.MToolBar.Draggable {
-				handle-image: url(chrome://drag-handle?height=22&background-color=«config.toolbarGradientStart.toHSB.toHTMLCode»&embossed=«config.useEmbossedDragHandle»);
+				handle-image: url(chrome://drag-handle?height=«toolbarHeight»&background-color=«config.toolbarGradientStart.toHSB.toHTMLCode»&embossed=«config.useEmbossedDragHandle»);
 			}
 			
 			.MToolControl.Draggable {
-				handle-image: url(chrome://drag-handle?height=22&background-color=«config.windowBackgroundColor.toHSB.toHTMLCode»&embossed=«config.useEmbossedDragHandle»);
+				handle-image: url(chrome://drag-handle?height=«toolbarHeight»&background-color=«config.windowBackgroundColor.toHSB.toHTMLCode»&embossed=«config.useEmbossedDragHandle»);
 			}
 		«ENDIF»
 		
 		#PerspectiveSwitcher {
 			eclipse-perspective-keyline-color: «config.perspectiveOutlineColor.toHtmlColor»;
 			background-color: «config.getPerspectiveStartColor.toHtmlColor» «config.perspectiveEndColor.toHtmlColor» 100%;
-			«IF junoSR1»
+			«IF isJunoSR1»
 				handle-image: none;
 			«ENDIF»
 		}
 		
-		«IF junoSR1»
+		«IF isJunoSR1»
 			#PerspectiveSpacer{
 				chrome-border-bottom-color: «config.perspectiveOutlineColor.toHtmlColor»;
 				chrome-border-bottom-visible: true;

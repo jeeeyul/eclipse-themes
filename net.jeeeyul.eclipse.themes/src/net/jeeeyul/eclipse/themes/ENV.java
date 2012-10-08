@@ -6,8 +6,8 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.Constants;
 import org.osgi.framework.Version;
 
-public class E4Platform {
-	public static final E4Platform INSTANCE = new E4Platform();
+public class ENV {
+	public static final ENV INSTANCE = new ENV();
 
 	public static final VersionRange JUNO_RANGE = new VersionRange("[4.2.0, 4.2.1)");
 	public static final VersionRange JUNO_SR1_RANGE = new VersionRange("[4.2.1, 4.2.2)");
@@ -25,6 +25,18 @@ public class E4Platform {
 
 	public boolean isJunoSR1() {
 		return JUNO_SR1_RANGE.isIncluded(getVersion());
+	}
+
+	public String getOS() {
+		return Platform.getOS();
+	}
+
+	public int getToolbarHeight() {
+		if (Platform.getOS().equals(Platform.OS_LINUX)) {
+			return 30;
+		} else {
+			return 22;
+		}
 	}
 
 }
