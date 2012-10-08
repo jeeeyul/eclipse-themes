@@ -82,4 +82,6 @@ public interface IChromeThemeConfig {
 	public abstract RGB getStatusBarOutlineColor();
 
 	public abstract Boolean getUseTrimStackImageBorder();
+
+	public abstract Boolean getUseEmbossedDragHandle();
 }

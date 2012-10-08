@@ -19,11 +19,11 @@ public class ChromePreferenceExtensions {
 	}
 
 	public HSB getHSB(IPreferenceStore store, String key) {
-		return HSB.createFromString(store.getString(key));
+		return HSB.deserialize(store.getString(key));
 	}
 
 	public HSB getDefaultHSB(IPreferenceStore store, String key) {
-		return HSB.createFromString(store.getDefaultString(key));
+		return HSB.deserialize(store.getDefaultString(key));
 	}
 
 	public void setDefaultValue(IPreferenceStore store, String key, HSB value) {

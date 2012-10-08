@@ -11,6 +11,7 @@ import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Composite
 
 import static net.jeeeyul.eclipse.themes.preference.ChromeConstants.*
+import org.eclipse.swt.widgets.Control
 
 class PartPage extends ChromePage {
 	extension SWTExtensions = new SWTExtensions
@@ -43,9 +44,9 @@ class PartPage extends ChromePage {
 		preview = new ColorPreview(getTabFolder)
 		
 		parent=>[
-			layout = GridLayout
+			layout = newGridLayout
 			
-			Label[
+			newLabel[
 				text = 	
 					if(isActive) 
 						"Configurations for Active Part Stack."
@@ -53,57 +54,57 @@ class PartPage extends ChromePage {
 						"Configurations for Inactive Part Stack."
 			]
 			
-			Group[
+			newGroup[
 				layoutData = FILL_HORIZONTAL
 				text = "Colors"
-				layout = GridLayout[
+				layout = newGridLayout[
 					numColumns = 5
 					makeColumnsEqualWidth = false
 				]
 				
-				Label[
+				newLabel[
 					text="Gradient Start:"
 				]
 				
-				startColorWell = ColorWell[
+				startColorWell = newColorWell[
 					onSelection = [
 						syncHueAndComputeAutoColors()
 						updatePreview()
 					]
 				]
 				
-				PushButton[
+				newPushButton[
 					text = "Change"
 					onClick = [
 						showColorPicker(startColorWell)
 					]
 				]
 				
-				Label[
-					layoutData = GridData[
+				newLabel[
+					layoutData = newGridData[
 						horizontalSpan = 2
 					]
 				]
 				
 				
-				Label[
+				newLabel[
 					text="Gradient End:"
 				]
 				
-				endColorWell = ColorWell[
+				endColorWell = newColorWell[
 					onSelection = [
 						updatePreview()
 					]
 				]
 				
-				PushButton[
+				newPushButton[
 					text = "Change"
 					onClick = [
 						showColorPicker(endColorWell)
 					]
 				]
 				
-				autoEndColorButton = Checkbox[
+				autoEndColorButton = newCheckbox[
 					text = "Auto"
 					onSelection = [
 						updateEnablement()
@@ -111,31 +112,31 @@ class PartPage extends ChromePage {
 					]
 				]
 				
-				syncEndColorHueButton = Checkbox[
+				syncEndColorHueButton = newCheckbox[
 					text = "Sync Hue"
 					onSelection = [
 						updateSync()
 					]
 				]
 				
-				Label[
+				newLabel[
 					text="Outline:"
 				]
 				
-				outlineColorWell = ColorWell[
+				outlineColorWell = newColorWell[
 					onSelection = [
 						updatePreview()
 					]
 				]
 								
-				PushButton[
+				newPushButton[
 					text = "Change"
 					onClick = [
 						showColorPicker(outlineColorWell)
 					]
 				]
 				
-				autoOutlineColorButton = Checkbox[
+				autoOutlineColorButton = newCheckbox[
 					text = "Auto"
 					onSelection = [
 						updateEnablement()
@@ -143,7 +144,7 @@ class PartPage extends ChromePage {
 					]
 				]
 				
-				syncOutlineColorHueButton = Checkbox[
+				syncOutlineColorHueButton = newCheckbox[
 					text = "Sync Hue"
 					onSelection = [
 						updateSync()
@@ -152,55 +153,55 @@ class PartPage extends ChromePage {
 				
 			] // end Group
 			
-			Group[
+			newGroup[
 				text = "Selected Tab"
-				layout = GridLayout[numColumns = 3]
+				layout = newGridLayout[numColumns = 3]
 				layoutData = FILL_HORIZONTAL
 				
-				Label[
+				newLabel[
 					text = "Text:"
 				]
 				
-				selectedTitleColorWell = ColorWell[
+				selectedTitleColorWell = newColorWell[
 					onSelection = [
 						updatePreview()
 					]
 				]
-				PushButton[
+				newPushButton[
 					text = "Change"
 					onClick = [
 						showColorPicker(selectedTitleColorWell)
 					]
 				]
 				
-				Label[
+				newLabel[
 					text="Fill Start:"
 				]
 				
-				selectedTabStartColorWell = ColorWell[
+				selectedTabStartColorWell = newColorWell[
 					onSelection = [
 						updatePreview()
 					]
 				]
 				
-				PushButton[
+				newPushButton[
 					text = "Change"
 					onClick = [
 						showColorPicker(selectedTabStartColorWell)
 					]
 				]
 				
-				Label[
+				newLabel[
 					text="Fill End:"
 				]
 				
-				selectedTabEndColorWell = ColorWell[
+				selectedTabEndColorWell = newColorWell[
 					onSelection = [
 						updatePreview()
 					]
 				]
 				
-				PushButton[
+				newPushButton[
 					text = "Change"
 					onClick = [
 						showColorPicker(selectedTabEndColorWell)
@@ -209,30 +210,30 @@ class PartPage extends ChromePage {
 				
 			] // End Group
 			
-			Group[
+			newGroup[
 				text = "Unselected Tab"
-				layout = GridLayout[numColumns = 3]
+				layout = newGridLayout[numColumns = 3]
 				layoutData = FILL_HORIZONTAL
 				
-				Label[
+				newLabel[
 					text = "Text:"
 				]
 				
-				unselectedTitleColorWell = ColorWell[
+				unselectedTitleColorWell = newColorWell[
 					onSelection = [
 						updatePreview()
 					]
 				]
-				PushButton[
+				newPushButton[
 					text = "Change"
 					onClick = [
 						showColorPicker(unselectedTitleColorWell)
 					]
 				]
 				
-				partShinyShadowButton = Checkbox[
+				partShinyShadowButton = newCheckbox[
 					text = "Shiny Shadow"
-					layoutData = GridData[horizontalSpan = 2]
+					layoutData = newGridData[horizontalSpan = 2]
 					onSelection = [
 						updatePreview()
 					]
@@ -257,6 +258,11 @@ class PartPage extends ChromePage {
 		syncEndColorHueButton.enabled = !autoEndColorButton.selection
 		outlineColorWell.next.enabled = !autoOutlineColorButton.selection
 		syncOutlineColorHueButton.enabled = !autoOutlineColorButton.selection
+	}
+	
+	def Control next(Control control){
+		var index = control.parent.children.indexOf(control)
+		return control.parent.children.get(index + 1)
 	}
 	
 	def private void syncHueAndComputeAutoColors() {

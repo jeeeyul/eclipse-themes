@@ -17,6 +17,7 @@ import org.eclipse.swt.widgets.Event
 import org.eclipse.swt.widgets.ToolBar
 
 import static net.jeeeyul.eclipse.themes.preference.ChromeConstants.*
+import org.eclipse.swt.widgets.Control
 
 class ToolbarPage extends ChromePage {
 	extension SWTExtensions = new SWTExtensions
@@ -44,130 +45,133 @@ class ToolbarPage extends ChromePage {
 
 	override create(Composite parent) {
 		parent => [
-			layout = GridLayout
+			layout = newGridLayout
 			
-			Label[
+			newLabel[
 				text = "Configurations for main tool bar and Perspective Switcher"
 			]
 			
-			previewWrap = Composite(SWT::DOUBLE_BUFFERED || SWT::BORDER)[
+			previewWrap = newCompositeWithStyle(SWT::DOUBLE_BUFFERED || SWT::BORDER)[
 				layoutData = FILL_HORIZONTAL
-				layout = GridLayout[
+				layout = newGridLayout[
 					makeColumnsEqualWidth = false
 					numColumns = 2
 					marginWidth = 3
 					marginHeight = 3
 				]
+				
 				onPaint = [
 					renderPreview(it)
 				]
-				previewBar = ToolBar(SWT::FLAT || SWT::RIGHT)[
+				
+				previewBar = newToolBar(SWT::FLAT || SWT::RIGHT)[
 					layoutData = FILL_HORIZONTAL
 					onResize = [
 						updateToolbarBackgroundImage()
 					]
-					ToolItem(SWT::DROP_DOWN)[
+					newToolItem(SWT::DROP_DOWN)[
 						it.image = SharedImages::getImage(SharedImages::ECLIPSE)
 					]
-					ToolItem(SWT::^SEPARATOR)[]
-					ToolItem[
+					newToolItem(SWT::^SEPARATOR)[]
+					newToolItem[
 						it.image = SharedImages::getImage(SharedImages::ECLIPSE)
 					]
-					ToolItem[
+					newToolItem[
 						it.image = SharedImages::getImage(SharedImages::TOOLBAR)
 					]
 				]
-				perspectiveBar = ToolBar(SWT::RIGHT || SWT::FLAT)[
+				
+				perspectiveBar = newToolBar(SWT::RIGHT || SWT::FLAT)[
 					onResize = [updatePerspectiveBarBackgroundImage()]
-					ToolItem[
+					newToolItem[
 						it.image = SharedImages::getImage(SharedImages::OPEN_PERSPECTIVE)
 					]
-					ToolItem(SWT::^SEPARATOR)[]
-					ToolItem[
+					newToolItem(SWT::^SEPARATOR)[]
+					newToolItem[
 						it.image = SharedImages::getImage(SharedImages::PLUGIN)
 						it.text = "Plug-in Development"
 					]
 				]
 			]
-			Group[
-				layout = GridLayout[
+			newGroup[
+				layout = newGridLayout[
 					numColumns = 3
 				]
 				text = "Main Tool Bar"
 				layoutData = FILL_HORIZONTAL
-				Label[
+				newLabel[
 					text = "Start Color"
 				]
-				toolBarStartColorWell = ColorWell[
+				toolBarStartColorWell = newColorWell[
 					onSelection = [updatePreview]
 				]
-				PushButton[
+				newPushButton[
 					text = "Change"
 					onClick = [
 						toolBarStartColorWell.showColorPicker()
 					]
 				]
-				Label[
+				newLabel[
 					text = "End Color"
 				]
-				toolBarEndColorWell = ColorWell[
+				toolBarEndColorWell = newColorWell[
 					onSelection = [updatePreview]
 				]
-				PushButton[
+				newPushButton[
 					text = "Change"
 					onClick = [
 						toolBarEndColorWell.showColorPicker()
 					]
 				]
 			]
-			Group[
-				layout = GridLayout[
+			newGroup[
+				layout = newGridLayout[
 					numColumns = 4
 				]
 				text = "Perspective Switcher"
 				layoutData = FILL_HORIZONTAL
-				Label[
+				newLabel[
 					text = "Start Color"
 				]
-				perspectiveStartColorWell = ColorWell[
+				perspectiveStartColorWell = newColorWell[
 					onSelection = [updatePreview]
 				]
-				PushButton[
+				newPushButton[
 					text = "Change"
-					layoutData = GridData[
+					layoutData = newGridData[
 						horizontalSpan = 2
 					]
 					onClick = [
 						perspectiveStartColorWell.showColorPicker()
 					]
 				]
-				Label[
+				newLabel[
 					text = "End Color"
 				]
-				perspectiveEndColorWell = ColorWell[
+				perspectiveEndColorWell = newColorWell[
 					onSelection = [updatePreview]
 				]
-				PushButton[
+				newPushButton[
 					text = "Change"
 					onClick = [
 						perspectiveEndColorWell.showColorPicker()
 					]
 				]
-				useWBColorAsPerspectiveColorButton = Checkbox[
+				useWBColorAsPerspectiveColorButton = newCheckbox[
 					text = "Use Window Background Color"
 					onSelection = [
 						updateAutoColors()
 						updateEnablement()
 					]
 				]
-				Label[
+				newLabel[
 					text = "Outline Color"
 				]
-				perspectiveOutlineColorWell = ColorWell[
+				perspectiveOutlineColorWell = newColorWell[
 					onSelection = [updatePreview]
 				]
-				PushButton[
-					layoutData = GridData[
+				newPushButton[
+					layoutData = newGridData[
 						horizontalSpan = 2
 					]
 					text = "Change"
@@ -177,54 +181,54 @@ class ToolbarPage extends ChromePage {
 				]
 			]// Group
 			
-			Group[
+			newGroup[
 				text = "Status Bar"
 				layoutData = FILL_HORIZONTAL
-				layout = GridLayout[
+				layout = newGridLayout[
 					numColumns = 4
 				]
 				
 				
-				Label[
+				newLabel[
 					text = "Background:"
 				]
 				
-				statusBarBackgroundColorWell = ColorWell[
+				statusBarBackgroundColorWell = newColorWell[
 					onSelection = [
 						updatePreview()
 					]
 				]
 				
-				PushButton[
+				newPushButton[
 					text = "Change"
 					onClick = [
 						statusBarBackgroundColorWell.showColorPicker()
 					]
 				]
 				
-				useWBColorAsStatusBarColorButton = Checkbox[
+				useWBColorAsStatusBarColorButton = newCheckbox[
 					text = "Use Window Background Color"
 					onSelection = [
 						updateEnablement()
 					]
 				]
 				
-				Label[
+				newLabel[
 					text = "Outline:"
 				]
 				
-				statusBarOutlineColorWell = ColorWell[
+				statusBarOutlineColorWell = newColorWell[
 					updatePreview()
 				]
 				
-				PushButton[
+				newPushButton[
 					text = "Change"
 					onClick = [
 						statusBarOutlineColorWell.showColorPicker()
 					]
 				]
 				
-				useStatusBarOutlineButton = Checkbox[
+				useStatusBarOutlineButton = newCheckbox[
 					text = "Show Outline"
 					onSelection = [
 						updateEnablement()
@@ -244,6 +248,11 @@ class ToolbarPage extends ChromePage {
 	def void updateEnablement() {
 		perspectiveEndColorWell.next.enabled = !useWBColorAsPerspectiveColorButton.selection
 		statusBarBackgroundColorWell.next.enabled = !useWBColorAsStatusBarColorButton.selection
+	}
+	
+	def Control next(Control control){
+		var index = control.parent.children.indexOf(control)
+		return control.parent.children.get(index + 1)
 	}
 
 	def void renderPreview(Event e) {

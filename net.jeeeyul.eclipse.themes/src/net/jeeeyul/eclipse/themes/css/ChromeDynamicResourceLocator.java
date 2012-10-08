@@ -32,12 +32,16 @@ public class ChromeDynamicResourceLocator implements IResourceLocator {
 
 	@Override
 	public InputStream getInputStream(String uri) throws Exception {
-		String[] segments = uri.substring(9).split("/");
-		if (segments[0].equals("drag-handle")) {
-			int height = Integer.parseInt(segments[1].trim());
-			HSB hue = HSB.createFromString(segments[2].trim());
+		ChromeResourceURI curi = new ChromeResourceURI(uri);
 
-			ImageData image = dragHandleFactory.create(height, hue);
+		String command = curi.getCommand();
+
+		if (command.equals("drag-handle")) {
+			int height = Integer.parseInt(curi.getArgument("height", "22"));
+			HSB backgroundColor = new HSB(curi.getArgument("background-color"));
+			boolean embossed = Boolean.parseBoolean(curi.getArgument("embossed", "false"));
+
+			ImageData image = dragHandleFactory.create(height, backgroundColor, embossed);
 			ImageLoader save = new ImageLoader();
 
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -46,8 +50,8 @@ public class ChromeDynamicResourceLocator implements IResourceLocator {
 			return new ByteArrayInputStream(baos.toByteArray());
 		}
 
-		else if (segments[0].equals("frame")) {
-			HSB hue = HSB.createFromString(segments[1].trim());
+		else if (command.equals("frame")) {
+			HSB hue = new HSB(curi.getArgument("background-color"));
 
 			ImageData image = frameFactory.create(hue);
 			ImageLoader save = new ImageLoader();

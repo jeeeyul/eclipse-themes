@@ -20,7 +20,6 @@ class GeneralPage extends ChromePage {
 	Button thinSashButton
 	Button standardButton
 	Button manualButton
-	Button useTrimStackButton
 	
 	Button partShadowButton
 	Scale sashWidthScale
@@ -37,28 +36,28 @@ class GeneralPage extends ChromePage {
 
 	override create(Composite parent) {
 		parent=>[
-			layout = GridLayout
+			layout = newGridLayout
 			
-			Label[
+			newLabel[
 				text = "Configurations for other features."
 			]
 			
-			Group[
+			newGroup[
 				text = "Window"
 				layoutData = FILL_HORIZONTAL
-				layout = GridLayout[numColumns = 3]
+				layout = newGridLayout[numColumns = 3]
 				
-				Label[
+				newLabel[
 					text = "Background Color:"
 				]
 				
-				windowBackgroundColorWell = ColorWell[
+				windowBackgroundColorWell = newColorWell[
 					onSelection = [
 						getCompanionPage(typeof(ToolbarPage)).updateAutoColors()
 					]
 				]
 				
-				PushButton[
+				newPushButton[
 					text = "Change"
 					onClick = [
 						windowBackgroundColorWell.showColorPicker()
@@ -66,12 +65,12 @@ class GeneralPage extends ChromePage {
 				]
 			]
 			
-			Group[
+			newGroup[
 				text = "Sash Width"
 				layoutData = FILL_HORIZONTAL
-				layout = GridLayout
+				layout = newGridLayout
 				
-				thinSashButton = RadioButton[
+				thinSashButton = newRadioButton[
 					text = "Thin Sash (Classic, No Shadows)"
 					onSelection = [
 						updateEnablement()
@@ -79,14 +78,14 @@ class GeneralPage extends ChromePage {
 					]
 				]
 				
-				Label[
+				newLabel[
 					text = "Using shadow makes more space to draw shadows."
 					layoutData = FILL_HORIZONTAL[
 						horizontalIndent = 16
 					]
 				]
 				
-				standardButton = RadioButton[
+				standardButton = newRadioButton[
 					text = "Standard (Shadows)"
 					onSelection = [
 						updateEnablement()
@@ -94,7 +93,7 @@ class GeneralPage extends ChromePage {
 					]
 				]
 				
-				manualButton = RadioButton[
+				manualButton = newRadioButton[
 					text = "Manual (Advanced)"
 					onSelection = [
 						updateEnablement()
@@ -103,14 +102,14 @@ class GeneralPage extends ChromePage {
 				]
 			]
 			
-			Group[
+			newGroup[
 				text = "Advanced"
 				layoutData = FILL_HORIZONTAL
-				layout = GridLayout[
+				layout = newGridLayout[
 					numColumns = 3
 				]
 				
-				partShadowButton = Checkbox[
+				partShadowButton = newCheckbox[
 					text = "Casts shadows for Parts"
 					layoutData = FILL_HORIZONTAL[horizontalSpan = 3]
 					onSelection = [
@@ -118,8 +117,8 @@ class GeneralPage extends ChromePage {
 					]
 				]
 				
-				Label[text = "Sash Width:"]
-				sashWidthScale = Scale[
+				newLabel[text = "Sash Width:"]
+				sashWidthScale = newScale[
 					layoutData = FILL_HORIZONTAL[horizontalSpan = 2]
 					minimum = 1
 					maximum = 15
@@ -130,15 +129,15 @@ class GeneralPage extends ChromePage {
 					]
 				]
 				
-				Label[
+				newLabel[
 					text = "Part Shadow Color:"
 				]
 				
-				partShadowColorWell = ColorWell[
+				partShadowColorWell = newColorWell[
 					
 				]
 				
-				PushButton[
+				newPushButton[
 					text = "Change"
 					onClick = [
 						partShadowColorWell.showColorPicker()
@@ -146,43 +145,38 @@ class GeneralPage extends ChromePage {
 				]
 			]
 			
-			Group[
+			newGroup[
 				text = "Empty Editor Area"
-				layout = GridLayout[numColumns = 3]
+				layout = newGridLayout[numColumns = 3]
 				layoutData = FILL_HORIZONTAL
 				
-				Label[ text = "Background Color:"]
-				emptyPartColorWell = ColorWell[
+				newLabel[ text = "Background Color:"]
+				emptyPartColorWell = newColorWell[
 					onSelection = [
 						updatePreview()
 					]
 				]
 				
-				PushButton[
+				newPushButton[
 					text = "Change"
 					onClick = [
 						emptyPartColorWell.showColorPicker()
 					]
 				]
 				
-				Label[ text = "Outline Color:"]
-				emptyPartOutlineColorWell = ColorWell[
+				newLabel[ text = "Outline Color:"]
+				emptyPartOutlineColorWell = newColorWell[
 					onSelection = [
 						updatePreview()
 					]
 				]
 				
-				PushButton[
+				newPushButton[
 					text = "Change"
 					onClick = [
 						emptyPartOutlineColorWell.showColorPicker()
 					]
 				]
-			]
-			
-			useTrimStackButton = Checkbox[
-				text = "Use image border for trim stack."
-				layoutData = FILL_HORIZONTAL
 			]
 		]
 		
@@ -241,8 +235,6 @@ class GeneralPage extends ChromePage {
 			store.getFloat(CHROME_EMPTY_PART_OUTLINE_BRIGHTNESS)
 		)
 		
-		useTrimStackButton.selection = store.getBoolean(CHROME_USE_TRIMSTACK_IMAGE_BORDER)
-		
 		updateEnablement();
 		
 	}
@@ -281,9 +273,6 @@ class GeneralPage extends ChromePage {
 		store.setValue(CHROME_EMPTY_PART_OUTLINE_HUE, emptyPartOutlineColorWell.selection.hue)
 		store.setValue(CHROME_EMPTY_PART_OUTLINE_SATURATION, emptyPartOutlineColorWell.selection.saturation)
 		store.setValue(CHROME_EMPTY_PART_OUTLINE_BRIGHTNESS, emptyPartOutlineColorWell.selection.brightness)
-		
-		
-		store.setValue(CHROME_USE_TRIMSTACK_IMAGE_BORDER, useTrimStackButton.selection)
 	}
 	
 	override setToDefault(IPreferenceStore store) {
@@ -330,8 +319,6 @@ class GeneralPage extends ChromePage {
 			store.getDefaultFloat(CHROME_EMPTY_PART_OUTLINE_SATURATION), 
 			store.getDefaultFloat(CHROME_EMPTY_PART_OUTLINE_BRIGHTNESS)
 		)
-		
-		useTrimStackButton.selection = store.getDefaultBoolean(CHROME_USE_TRIMSTACK_IMAGE_BORDER)
 		
 		updateEnablement()
 		updatePreview()

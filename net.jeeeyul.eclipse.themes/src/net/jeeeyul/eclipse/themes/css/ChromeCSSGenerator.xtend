@@ -104,14 +104,14 @@ class ChromeCSSGenerator {
 		.MToolControl.TrimStack {
 			«IF config.useTrimStackImageBorder»
 				«IF junoSR1»
-					frame-image: url(chrome://frame/«config.windowBackgroundColor.toHSB.serialize»);
+					frame-image: url(chrome://frame?background-color=«config.windowBackgroundColor.toHSB.toHTMLCode»);
 				«ELSE»
 					frame-image: url(images/frame.png);
 				«ENDIF»
 				frame-cuts: 5px 1px 5px 16px;
 			«ENDIF»
 			«IF junoSR1»
-				handle-image: url(chrome://drag-handle/22/«config.windowBackgroundColor.toHSB.serialize»);
+				handle-image: url(chrome://drag-handle?height=22&background-color=«config.windowBackgroundColor.toHSB.toHTMLCode»&embossed=«config.useEmbossedDragHandle»);
 			«ELSE»
 				handle-image: url(images/handle.png);
 			«ENDIF»
@@ -152,11 +152,11 @@ class ChromeCSSGenerator {
 		
 		«IF junoSR1»
 			.MToolBar.Draggable {
-				handle-image: url(chrome://drag-handle/22/«config.toolbarGradientStart.toHSB.serialize»);
+				handle-image: url(chrome://drag-handle?height=22&background-color=«config.toolbarGradientStart.toHSB.toHTMLCode»&embossed=«config.useEmbossedDragHandle»);
 			}
 			
 			.MToolControl.Draggable {
-				handle-image: url(chrome://drag-handle/22/«config.windowBackgroundColor.toHSB.serialize»);
+				handle-image: url(chrome://drag-handle?height=22&background-color=«config.windowBackgroundColor.toHSB.toHTMLCode»&embossed=«config.useEmbossedDragHandle»);
 			}
 		«ENDIF»
 		

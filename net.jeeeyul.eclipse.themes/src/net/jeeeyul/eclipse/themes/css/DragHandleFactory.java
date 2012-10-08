@@ -10,8 +10,16 @@ import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.RGB;
 
 public class DragHandleFactory {
-	public ImageData create(int height, HSB backgroundColor) {
-		ImageData source = SharedImages.getImageDescriptor(SharedImages.HANDLE).getImageData();
+	public ImageData create(int height, HSB backgroundColor, boolean embossed) {
+
+		ImageData source = null;
+
+		if (embossed) {
+			source = SharedImages.getImageDescriptor(SharedImages.HANDLE_EMBOSSED).getImageData();
+		} else {
+			source = SharedImages.getImageDescriptor(SharedImages.HANDLE).getImageData();
+		}
+
 		ImageData result = new ImageData(source.width, height, source.depth, source.palette);
 
 		int offset = (result.height - source.height) / 2;

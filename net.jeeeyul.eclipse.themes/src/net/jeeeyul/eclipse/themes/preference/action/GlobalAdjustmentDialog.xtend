@@ -40,24 +40,24 @@ class GlobalAdjustmentDialog extends Dialog {
 	}
 	
 	override protected createButtonBar(Composite parent) {
-		parent.Separator[]
+		parent.newSeparator[]
 		super.createButtonBar(parent)
 	}
 	
 	override protected createDialogArea(Composite parent) {
 		var container = super.createDialogArea(parent) as Composite
 		
-		container.Composite[
+		container.newComposite[
 			layoutData = FILL_HORIZONTAL
-			layout = GridLayout[
+			layout = newGridLayout[
 				numColumns = 2
 			]
 			
-			Label[
+			newLabel[
 				text = "Hue Shifting"
 			]
 			
-			hueScale = Scale[
+			hueScale = newScale[
 				layoutData = FILL_HORIZONTAL
 				minimum = 0
 				maximum = 360
@@ -68,11 +68,11 @@ class GlobalAdjustmentDialog extends Dialog {
 				]
 			]
 			
-			Label[
+			newLabel[
 				text = "Saturation Amp"
 			]
 			
-			saturationScale = Scale[
+			saturationScale = newScale[
 				layoutData = FILL_HORIZONTAL
 				minimum = 0
 				maximum = 200
@@ -83,11 +83,11 @@ class GlobalAdjustmentDialog extends Dialog {
 				]
 			]
 			
-			Label[
+			newLabel[
 				text = "Brightness Amp"
 			]
 			
-			brightnessScale = Scale[
+			brightnessScale = newScale[
 				layoutData = FILL_HORIZONTAL
 				minimum = 0
 				maximum = 200

@@ -296,4 +296,7 @@ public interface ChromeConstants {
 
 	@ValueType(boolean.class)
 	public static final String CHROME_USE_TRIMSTACK_IMAGE_BORDER = "chrome-use-trimstack-image-border";
+	
+	@ValueType(boolean.class)
+	public static final String CHROME_USE_EMBOSSED_DRAG_HANDLE = "chrome-use-embossed-drag-handle";
 }

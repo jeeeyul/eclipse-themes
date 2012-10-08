@@ -80,6 +80,8 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	 * https://github.com/jeeeyul/eclipse-themes/issues/issue/43
 	 */
 	private Integer partStackCornerRadius;
+	
+	private Boolean useEmbossedDragHandle;
 
 	public ChromeThemeConfig() {
 		this(ChromeThemeCore.getDefault().getPreferenceStore());
@@ -440,7 +442,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 			if (getUseWindowBackgroundAsStatusBarBackground()) {
 				statusBarBackgroundColor = getWindowBackgroundColor();
 			} else {
-				statusBarBackgroundColor = HSB.createFromString(getStore().getString(ChromeConstants.CHROME_STATUS_BAR_BACKGROUND_COLOR)).toRGB();
+				statusBarBackgroundColor = HSB.deserialize(getStore().getString(ChromeConstants.CHROME_STATUS_BAR_BACKGROUND_COLOR)).toRGB();
 			}
 		}
 		return statusBarBackgroundColor;
@@ -449,7 +451,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	@Override
 	public RGB getStatusBarOutlineColor() {
 		if (statusBarOutlineColor == null) {
-			statusBarOutlineColor = HSB.createFromString(getStore().getString(ChromeConstants.CHROME_STATUS_BAR_OUTLINE_COLOR)).toRGB();
+			statusBarOutlineColor = HSB.deserialize(getStore().getString(ChromeConstants.CHROME_STATUS_BAR_OUTLINE_COLOR)).toRGB();
 		}
 		return statusBarOutlineColor;
 	}
@@ -482,6 +484,14 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 			toolbarGradientStart = new RGB(hsb[0], hsb[1], hsb[2]);
 		}
 		return toolbarGradientStart;
+	}
+
+	@Override
+	public Boolean getUseEmbossedDragHandle() {
+		if (useEmbossedDragHandle == null) {
+			useEmbossedDragHandle = getStore().getBoolean(ChromeConstants.CHROME_USE_EMBOSSED_DRAG_HANDLE);
+		}
+		return useEmbossedDragHandle;
 	}
 
 	@Override
@@ -570,6 +580,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 		statusBarOutlineColor = null;
 
 		useTrimStackImageBorder = null;
+		useEmbossedDragHandle = null;
 	}
 
 	@Override

@@ -26,9 +26,9 @@ class UserPresetEditor {
 	}
 	
 	def private void create(Composite container){
-		container.Composite[
+		container.newComposite[
 			layoutData = FILL_BOTH
-			layout = GridLayout[
+			layout = newGridLayout[
 				numColumns = 2
 			]
 			
@@ -52,9 +52,9 @@ class UserPresetEditor {
 				handleSelectionChange(it)
 			]
 			
-			removeButton = PushButton[
+			removeButton = newPushButton[
 				text = "Remove"
-				layoutData = GridData[
+				layoutData = newGridData[
 					verticalAlignment = SWT::TOP
 					horizontalAlignment = SWT::FILL
 				]
@@ -63,9 +63,9 @@ class UserPresetEditor {
 				]
 			]
 			
-			renameButton = PushButton[
+			renameButton = newPushButton[
 				text = "Rename"
-				layoutData = GridData[
+				layoutData = newGridData[
 					verticalAlignment = SWT::TOP
 					horizontalAlignment = SWT::FILL
 				]
@@ -74,9 +74,9 @@ class UserPresetEditor {
 				]
 			]
 			
-			upButton = PushButton[
+			upButton = newPushButton[
 				text = "UP"
-				layoutData = GridData[
+				layoutData = newGridData[
 					verticalAlignment = SWT::TOP
 					horizontalAlignment = SWT::FILL
 				]
@@ -85,9 +85,9 @@ class UserPresetEditor {
 				]
 			]
 			
-			downButton = PushButton[
+			downButton = newPushButton[
 				text = "Down"
-				layoutData = GridData[
+				layoutData = newGridData[
 					verticalAlignment = SWT::TOP
 					horizontalAlignment = SWT::FILL
 				]

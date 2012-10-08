@@ -95,10 +95,10 @@ public class ChromePreferenceInitializer extends AbstractPreferenceInitializer {
 		} else if (os.equals(Platform.OS_MACOSX)) {
 			store.setDefault(ChromeConstants.CHROME_PART_FONT_NAME, "Lucida Grande");
 			store.setDefault(ChromeConstants.CHROME_PART_FONT_SIZE, 12f);
-		} else if(os.equals(Platform.OS_LINUX)){
+		} else if (os.equals(Platform.OS_LINUX)) {
 			store.setDefault(ChromeConstants.CHROME_PART_FONT_NAME, "FreeSans");
 			store.setDefault(ChromeConstants.CHROME_PART_FONT_SIZE, 9f);
-		}else {
+		} else {
 			store.setDefault(ChromeConstants.CHROME_PART_FONT_NAME, "Verdana");
 			store.setDefault(ChromeConstants.CHROME_PART_FONT_SIZE, 10f);
 		}
@@ -163,12 +163,14 @@ public class ChromePreferenceInitializer extends AbstractPreferenceInitializer {
 		store.setDefault(ChromeConstants.CHROME_USE_STATUS_BAR_OUTLINE, false);
 		store.setDefault(ChromeConstants.CHROME_STATUS_BAR_OUTLINE_COLOR, new HSB(0f, 0f, 0.9f).serialize());
 		store.setDefault(ChromeConstants.CHROME_STATUS_BAR_BACKGROUND_COLOR, new HSB(0f, 0f, 0.94f).serialize());
-		
-		if(os.equals(Platform.OS_LINUX)){
+
+		if (os.equals(Platform.OS_LINUX)) {
 			store.setDefault(ChromeConstants.CHROME_USE_TRIMSTACK_IMAGE_BORDER, false);
-		}else{
+		} else {
 			store.setDefault(ChromeConstants.CHROME_USE_TRIMSTACK_IMAGE_BORDER, true);
 		}
+
+		store.setDefault(ChromeConstants.CHROME_USE_EMBOSSED_DRAG_HANDLE, false);
 	}
 
 	@Override

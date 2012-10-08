@@ -16,7 +16,9 @@ public abstract class ChromePage {
 	public ChromePage(String title, String imageURI) {
 		super();
 		this.title = title;
-		this.pageImage = SharedImages.getImage(imageURI);
+
+		if (imageURI != null)
+			this.pageImage = SharedImages.getImage(imageURI);
 	}
 
 	public abstract void create(Composite control);

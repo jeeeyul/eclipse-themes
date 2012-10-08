@@ -35,66 +35,66 @@ class ColorFieldSet {
 	
 	def private void create(Composite parent){
 		control = new Composite(parent, SWT::NORMAL) => [
-			layout = GridLayout[
+			layout = newGridLayout[
 				numColumns = 2
 			]
 			
-			Label[
+			newLabel[
 				text = "Red"
 			]
-			redField = TextField[
+			redField = newTextField[
 				validRange = 0 -> 255
 				kind = "rgb"
 			]
 			
-			Label[
+			newLabel[
 				text = "Green"
 			]
-			greenField = TextField[
+			greenField = newTextField[
 				validRange = 0 -> 255
 				kind = "rgb"
 			]
 			
-			Label[
+			newLabel[
 				text = "Blue"
 			]
-			blueField = TextField[
+			blueField = newTextField[
 				validRange = 0 -> 255
 				kind = "rgb"
 			]
 			
-			Separator[]
+			newSeparator[]
 			
-			Label[
+			newLabel[
 				text = "Hue"
 			]
-			hueField = TextField[
+			hueField = newTextField[
 				validRange = 0f -> 360f
 				kind = "hsb"
 			]
 			
-			Label[
+			newLabel[
 				text = "Saturation"
 			]
-			saturationField = TextField[
+			saturationField = newTextField[
 				validRange = 0f -> 1f
 				kind = "hsb"
 			]
 			
-			Label[
+			newLabel[
 				text = "Brightness"
 			]
-			brightnessField = TextField[
+			brightnessField = newTextField[
 				validRange = 0f -> 1f
 				kind = "hsb"
 			]
 			
-			Separator[]
+			newSeparator[]
 			
-			Label[
+			newLabel[
 				text = "HTML Code"
 			]
-			htmlField = TextField[
+			htmlField = newTextField[
 				kind = "html"
 				validExpression = "#?[0-9a-fA-F]{0,6}"
 				onFocusOut = [

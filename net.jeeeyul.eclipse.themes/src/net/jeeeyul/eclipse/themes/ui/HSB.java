@@ -6,7 +6,7 @@ import java.util.Scanner;
 import org.eclipse.swt.graphics.RGB;
 
 public class HSB {
-	public static HSB createFromString(String literal) {
+	public static HSB deserialize(String literal) {
 		HSB result = new HSB();
 
 		try {
@@ -24,8 +24,14 @@ public class HSB {
 		return result;
 	}
 
+	public static void main(String[] args) {
+		HSB hsb = new HSB(0, 1f, 1f);
+		System.out.println(hsb.toHTMLCode());
+	}
+
 	public float hue;
 	public float saturation;
+
 	public float brightness;
 
 	public HSB() {
@@ -48,6 +54,33 @@ public class HSB {
 
 	public HSB(RGB rgb) {
 		this(rgb.getHSB());
+	}
+
+	public HSB(String htmlCode) {
+		if (htmlCode.startsWith("#")) {
+			htmlCode = htmlCode.substring(1);
+		}
+
+		RGB rgb = new RGB(0, 0, 0);
+
+		if (htmlCode.matches("[0-9a-fA-F]{6}")) {
+			rgb.red = Integer.parseInt(htmlCode.substring(0, 2), 16);
+			rgb.green = Integer.parseInt(htmlCode.substring(2, 4), 16);
+			rgb.blue = Integer.parseInt(htmlCode.substring(4, 6), 16);
+		} else if (htmlCode.matches("[0-9a-fA-F]{3}")) {
+			rgb.red = Integer.parseInt(htmlCode.substring(0, 1) + htmlCode.substring(0, 1), 16);
+			rgb.green = Integer.parseInt(htmlCode.substring(1, 2) + htmlCode.substring(1, 2), 16);
+			rgb.blue = Integer.parseInt(htmlCode.substring(2, 3) + htmlCode.substring(2, 3), 16);
+		}
+
+		else {
+			throw new UnsupportedOperationException(htmlCode + " is not supported color code.");
+		}
+
+		float[] hsb = rgb.getHSB();
+		this.hue = hsb[0];
+		this.saturation = hsb[1];
+		this.brightness = hsb[2];
 	}
 
 	public HSB ampBrightness(float amp) {
@@ -108,6 +141,11 @@ public class HSB {
 
 	public float[] toArray() {
 		return new float[] { hue, saturation, brightness };
+	}
+
+	public String toHTMLCode() {
+		RGB rgb = toRGB();
+		return String.format("#%02x%02x%02x", rgb.red, rgb.green, rgb.blue);
 	}
 
 	public RGB toRGB() {

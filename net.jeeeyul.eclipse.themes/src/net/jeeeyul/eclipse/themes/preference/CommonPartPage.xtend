@@ -37,18 +37,18 @@ class CommonPartPage extends ChromePage {
 	override create(Composite parent) {
 		fontPreview = new FontPreview(tabFolder)
 		parent=>[
-			layout = GridLayout
-			Label[
+			layout = newGridLayout
+			newLabel[
 				text = "Configurations for Part Stack."
 			]
-			Group[
+			newGroup[
 				layoutData = FILL_HORIZONTAL
 				text = "Part Title"
-				layout = GridLayout[
+				layout = newGridLayout[
 					numColumns = 4
 					makeColumnsEqualWidth = false
 				]
-				Label[ text = "Font:" ]
+				newLabel[ text = "Font:" ]
 				var combo = new Combo(it, SWT::READ_ONLY)=>[]
 				fontSelector = new ComboViewer(combo)
 				fontSelector.contentProvider = new FontNameProvider()
@@ -56,9 +56,9 @@ class CommonPartPage extends ChromePage {
 				fontSelector.addSelectionChangedListener[
 					updatePreview()
 				]
-				Label[ text = "Size:" ]
-				fontSizeField = TextField[
-					layoutData = GridData[
+				newLabel[ text = "Size:" ]
+				fontSizeField = newTextField[
+					layoutData = newGridData[
 						widthHint = 50
 					]
 					onModified = [
@@ -68,23 +68,23 @@ class CommonPartPage extends ChromePage {
 			]
 			// End Group
 			
-			Group[
+			newGroup[
 				text = "Part Stack Shape"
 				layoutData = FILL_HORIZONTAL
-				layout = GridLayout[
+				layout = newGridLayout[
 					numColumns = 3
 				]
 				
-				Label[
+				newLabel[
 					text = "Corner Radius:"
 				]
-				cornerRadiusLabel = Label[
+				cornerRadiusLabel = newLabel[
 					text = "10px"
-					layoutData = GridData[
+					layoutData = newGridData[
 						widthHint = 35
 					]
 				]
-				cornerRadiusScale = Scale[
+				cornerRadiusScale = newScale[
 					minimum = 6
 					maximum = 25
 					selection = 10
@@ -95,13 +95,13 @@ class CommonPartPage extends ChromePage {
 					]
 				]
 				
-				Label[
+				newLabel[
 					text = "Part Padding:"
 				]
-				paddingLabel = Label[
+				paddingLabel = newLabel[
 					text = "10px"
 				]
-				paddingScale = Scale[
+				paddingScale = newScale[
 					minimum = 0
 					maximum = 10
 					selection = 0
@@ -119,15 +119,15 @@ class CommonPartPage extends ChromePage {
 			 * 35: Expose the mru-visible css property
 			 * https://github.com/jeeeyul/eclipse-themes/issues/issue/35
 			 */
-			useMruButton = Checkbox[
+			useMruButton = newCheckbox[
 				text = "Make MRU Visible"
-				layoutData = GridData[ horizontalSpan = 3 ]
+				layoutData = newGridData[ horizontalSpan = 3 ]
 			]
-			Link[
+			newLink[
 				text = "When the MRU visibility turned on,\r\n" 
 				+ "the tabs that are visible will be the tabs most recently selected.\r\n"
 				+ "<a href=\"http://help.eclipse.org/juno/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Freference%2Fapi%2Forg%2Feclipse%2Fswt%2Fcustom%2FCTabFolder.html&anchor=setMRUVisible(boolean)\">Get more information</a>"
-				layoutData = GridData[
+				layoutData = newGridData[
 					horizontalSpan = 3
 					horizontalIndent = 20
 				]
@@ -136,7 +136,7 @@ class CommonPartPage extends ChromePage {
 				]
 			]
 			
-			Label[
+			newLabel[
 				text = "To preview some layout settings, use Apply Button"				
 			]
 		]

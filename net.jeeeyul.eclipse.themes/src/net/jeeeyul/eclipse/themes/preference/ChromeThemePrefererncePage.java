@@ -288,5 +288,6 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 		addPage(new PartPage("Inactive", false));
 		addPage(new CommonPartPage());
 		addPage(new ToolbarPage());
+		addPage(new OtherPage());
 	}
 }
