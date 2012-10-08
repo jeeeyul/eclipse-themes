@@ -3,11 +3,11 @@ package net.jeeeyul.eclipse.themes.css
 import net.jeeeyul.eclipse.themes.preference.ChromeThemeConfig
 import org.eclipse.swt.graphics.RGB
 import net.jeeeyul.eclipse.themes.preference.IChromeThemeConfig
-import net.jeeeyul.eclipse.themes.ENV
+import net.jeeeyul.eclipse.themes.Nature
 import net.jeeeyul.eclipse.themes.ui.HSB
 
 class ChromeCSSGenerator {
-	extension ENV = ENV::INSTANCE
+	extension Nature = Nature::INSTANCE
 	
 	IChromeThemeConfig config = ChromeThemeConfig::instance
 
@@ -111,7 +111,7 @@ class ChromeCSSGenerator {
 				frame-cuts: 5px 1px 5px 16px;
 			«ENDIF»
 			«IF isJunoSR1»
-				handle-image: url(chrome://drag-handle?height=«toolbarHeight»&background-color=«config.windowBackgroundColor.toHSB.toHTMLCode»&embossed=«config.useEmbossedDragHandle»);
+				handle-image: url(chrome://drag-handle?height=«getToolbarHeight»&background-color=«config.windowBackgroundColor.toHSB.toHTMLCode»&embossed=«config.useEmbossedDragHandle»);
 			«ELSE»
 				handle-image: url(images/handle.png);
 			«ENDIF»
@@ -152,11 +152,11 @@ class ChromeCSSGenerator {
 		
 		«IF isJunoSR1»
 			.MToolBar.Draggable {
-				handle-image: url(chrome://drag-handle?height=«toolbarHeight»&background-color=«config.toolbarGradientStart.toHSB.toHTMLCode»&embossed=«config.useEmbossedDragHandle»);
+				handle-image: url(chrome://drag-handle?height=«getToolbarHeight»&background-color=«config.toolbarGradientStart.toHSB.toHTMLCode»&embossed=«config.useEmbossedDragHandle»);
 			}
 			
 			.MToolControl.Draggable {
-				handle-image: url(chrome://drag-handle?height=«toolbarHeight»&background-color=«config.windowBackgroundColor.toHSB.toHTMLCode»&embossed=«config.useEmbossedDragHandle»);
+				handle-image: url(chrome://drag-handle?height=«getToolbarHeight»&background-color=«config.windowBackgroundColor.toHSB.toHTMLCode»&embossed=«config.useEmbossedDragHandle»);
 			}
 		«ENDIF»
 		

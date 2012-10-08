@@ -6,8 +6,8 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.Constants;
 import org.osgi.framework.Version;
 
-public class ENV {
-	public static final ENV INSTANCE = new ENV();
+public class Nature {
+	public static final Nature INSTANCE = new Nature();
 
 	public static final VersionRange JUNO_RANGE = new VersionRange("[4.2.0, 4.2.1)");
 	public static final VersionRange JUNO_SR1_RANGE = new VersionRange("[4.2.1, 4.2.2)");

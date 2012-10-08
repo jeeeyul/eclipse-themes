@@ -59,7 +59,7 @@ public class ChromeThemeCore extends AbstractUIPlugin {
 		super.start(context);
 		plugin = this;
 
-		if (ENV.INSTANCE.isJunoSR1()) {
+		if (Nature.INSTANCE.isJunoSR1()) {
 			ServiceReference<IThemeManager> serviceReference = context.getServiceReference(IThemeManager.class);
 			IThemeManager manager = context.getService(serviceReference);
 
