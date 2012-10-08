@@ -113,7 +113,11 @@ class ChromeCSSGenerator {
 			«IF isJunoSR1»
 				handle-image: url(chrome://drag-handle?height=«getToolbarHeight»&background-color=«config.windowBackgroundColor.toHSB.toHTMLCode»&embossed=«config.useEmbossedDragHandle»);
 			«ELSE»
-				handle-image: url(images/handle.png);
+				«IF config.useEmbossedDragHandle»
+					handle-image: url(images/handle-embossed.png);
+				«ELSE»
+					handle-image: url(images/handle.png);
+				«ENDIF»
 			«ENDIF»
 		}
 		
