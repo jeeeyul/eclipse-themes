@@ -1,4 +1,5 @@
-# Jeeeyul's Eclipse Themes - Chrome
+<a style="float:right;" href='http://www.pledgie.com/campaigns/18377'><img alt='Click here to lend your support to: Eclipse 4 Chrome Theme and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/18377.png?skin_name=chrome' border='0' /></a>
+## Jeeeyul's Eclipse Themes - Chrome
 
 Do you want more beautiful Eclipse 4?
 Change it!
@@ -20,9 +21,7 @@ Change it!
 
 Chrome theme is not only just an altanative theme also full featured e4 theme customzier.
 
-<a href='http://www.pledgie.com/campaigns/18377'><img alt='Click here to lend your support to: Eclipse 4 Chrome Theme and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/18377.png?skin_name=chrome' border='0' /></a>
-
-## Juno SR1 is now supported!
+# Juno SR1 is now supported!
 * [Release Note](https://github.com/jeeeyul/eclipse-themes/wiki/Release-Note)
 
 ## Update Site
