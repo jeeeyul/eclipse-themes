@@ -3,10 +3,10 @@
 <table style="border:none; width:100%;">
 <tbody>
   <tr>
-    <td>
+    <td style="vertical-align: middle; padding-top: 10px; border: none;">
       Do you want more beautiful Eclipse 4? Change it!
     </td>
-    <td>
+    <td style="vertical-align: middle; padding-top: 10px; border: none;">
       <a href='http://www.pledgie.com/campaigns/18377'><img alt='Click here to lend your support to: Eclipse 4 Chrome Theme and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/18377.png?skin_name=chrome' border='0' /></a>
     </td>
   </tr>
