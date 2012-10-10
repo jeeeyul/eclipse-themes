@@ -1,6 +1,6 @@
 ## Jeeeyul's Eclipse Themes - Chrome
 
-<table>
+<table style="border:none; width:100%;">
 <tr>
 <td>
 Do you want more beautiful Eclipse 4?
