@@ -178,6 +178,18 @@ class ChromeCSSGenerator {
 				chrome-border-bottom-visible: true;
 			}
 		«ENDIF»
+		
+«««		#org-eclipse-jdt-junit-ResultView > Composite > Composite Text{
+«««			background-color: red;
+«««		}
+«««		
+«««		.MPart Composite, .MPart Tree, .MPart Table{
+«««			background-color: orange;
+«««		}
+
+		/* User CSS */
+		«config.userCSS»
+		
 	'''
 
 	def private HSB toHSB(RGB rgb){

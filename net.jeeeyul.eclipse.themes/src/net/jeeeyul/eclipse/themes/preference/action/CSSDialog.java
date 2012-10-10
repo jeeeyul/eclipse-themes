@@ -31,6 +31,7 @@ public class CSSDialog extends Dialog {
 
 		text = new Text(container, SWT.V_SCROLL | SWT.BORDER | SWT.MULTI);
 		text.setLayoutData(new GridData(GridData.FILL_BOTH));
+		text.setEditable(false);
 		if (cssContent != null) {
 			text.setText(cssContent);
 		}

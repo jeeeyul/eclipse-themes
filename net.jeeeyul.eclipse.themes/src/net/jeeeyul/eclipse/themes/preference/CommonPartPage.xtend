@@ -45,7 +45,7 @@ class CommonPartPage extends ChromePage {
 				layoutData = FILL_HORIZONTAL
 				text = "Part Title"
 				layout = newGridLayout[
-					numColumns = 4
+					numColumns = 2
 					makeColumnsEqualWidth = false
 				]
 				newLabel[ text = "Font:" ]
@@ -115,28 +115,33 @@ class CommonPartPage extends ChromePage {
 				
 			] // GROUP
 			
-			/*
-			 * 35: Expose the mru-visible css property
-			 * https://github.com/jeeeyul/eclipse-themes/issues/issue/35
-			 */
-			useMruButton = newCheckbox[
-				text = "Make MRU Visible"
-				layoutData = newGridData[ horizontalSpan = 3 ]
-			]
-			newLink[
-				text = "When the MRU visibility turned on,\r\n" 
-				+ "the tabs that are visible will be the tabs most recently selected.\r\n"
-				+ "<a href=\"http://help.eclipse.org/juno/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Freference%2Fapi%2Forg%2Feclipse%2Fswt%2Fcustom%2FCTabFolder.html&anchor=setMRUVisible(boolean)\">Get more information</a>"
-				layoutData = newGridData[
-					horizontalSpan = 3
-					horizontalIndent = 20
+			
+			newComposite[
+				layout = newGridLayout[
+					numColumns = 2
+					marginWidth = 0
+					marginHeight = 0
 				]
-				addListener(SWT::Selection)[
-					Program::launch(it.text)
+				
+				/*
+				 * 35: Expose the mru-visible css property
+				 * https://github.com/jeeeyul/eclipse-themes/issues/issue/35
+				 */
+				useMruButton = newCheckbox[
+					text = "Make MRU Visible"
+				]
+				
+				newLink[
+					text = "(<a href=\"http://help.eclipse.org/juno/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Freference%2Fapi%2Forg%2Feclipse%2Fswt%2Fcustom%2FCTabFolder.html&anchor=setMRUVisible(boolean)\">Info</a>)"
+					addListener(SWT::Selection)[
+						Program::launch(it.text)
+					]
 				]
 			]
 			
-			newLabel[
+			
+			newCLabel[
+				image = SharedImages::getImage(SharedImages::WARN_TSK)
 				text = "To preview some layout settings, use Apply Button"				
 			]
 		]

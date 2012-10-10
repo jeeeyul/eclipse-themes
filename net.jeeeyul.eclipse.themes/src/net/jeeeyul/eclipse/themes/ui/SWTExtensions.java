@@ -31,6 +31,8 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Scale;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.TabFolder;
+import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
@@ -39,11 +41,13 @@ import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.swt.widgets.Widget;
+import org.eclipse.ui.part.PageBook;
 import org.eclipse.ui.progress.UIJob;
 import org.eclipse.xtext.xbase.lib.BooleanExtensions;
 import org.eclipse.xtext.xbase.lib.IntegerExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure0;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
+
 
 public class SWTExtensions {
 	private static Integer MENU_BAR_HEIGHT = null;
@@ -319,6 +323,12 @@ public class SWTExtensions {
 		return label;
 	}
 
+	public PageBook newPageBook(final Composite parent, final Procedure1<? super PageBook> initializer) {
+		PageBook pageBook = new PageBook(parent, SWT.NORMAL);
+		initializer.apply(pageBook);
+		return pageBook;
+	}
+
 	public Button newPushButton(final Composite parent, final Procedure1<? super Button> initializer) {
 		Button _button = new Button(parent, SWT.PUSH);
 		Button label = _button;
@@ -433,6 +443,18 @@ public class SWTExtensions {
 		initializer.apply(table);
 		return table;
 	}
+	
+	public TabFolder newTabFolder(Composite parent, final Procedure1<? super TabFolder> initializer){
+		TabFolder tabFolder = new TabFolder(parent, SWT.NORMAL);
+		initializer.apply(tabFolder);
+		return tabFolder;
+	}
+	
+	public TabItem newTabItem(TabFolder tabFolder, Procedure1<? super TabItem> initializer){
+		TabItem item = new TabItem(tabFolder, SWT.NORMAL);
+		initializer.apply(item);
+		return item;
+	}
 
 	public TableItem newTableItem(Table parent, final Procedure1<TableItem> initializer) {
 		TableItem tableItem = new TableItem(parent, SWT.NORMAL);
@@ -469,8 +491,8 @@ public class SWTExtensions {
 	}
 
 	/**
-	 * 주어진 {@link Shell}을 기준으로 UI 루프를 운영합니다. 해당 {@link Shell}이 디스포즈 되기 전까지
-	 * 운영됩니다.
+	 * 주어진 {@link Shell}을 기준으로 UI 루프를 운영합니다. 해당 {@link Shell}
+	 * 이 디스포즈 되기 전까지 운영됩니다.
 	 * 
 	 * @param UI
 	 *            루프를 실행할 {@link Shell}.

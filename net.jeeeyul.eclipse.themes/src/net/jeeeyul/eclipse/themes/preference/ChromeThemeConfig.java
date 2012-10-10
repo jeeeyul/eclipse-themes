@@ -80,8 +80,14 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	 * https://github.com/jeeeyul/eclipse-themes/issues/issue/43
 	 */
 	private Integer partStackCornerRadius;
-	
+
 	private Boolean useEmbossedDragHandle;
+
+	/**
+	 * 58: User Custom CSS
+	 * https://github.com/jeeeyul/eclipse-themes/issues/issue/58
+	 */
+	private String userCSS;
 
 	public ChromeThemeConfig() {
 		this(ChromeThemeCore.getDefault().getPreferenceStore());
@@ -494,6 +500,21 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 		return useEmbossedDragHandle;
 	}
 
+	/**
+	 * 
+	 * 58: User Custom CSS
+	 * https://github.com/jeeeyul/eclipse-themes/issues/issue/58
+	 * 
+	 * @return User custom CSS content.
+	 */
+	@Override
+	public String getUserCSS() {
+		if (userCSS == null) {
+			userCSS = getStore().getString(ChromeConstants.CHROME_USER_CSS);
+		}
+		return userCSS;
+	}
+
 	@Override
 	public Boolean getUseStatusBarOutline() {
 		if (useStatusBarOutline == null) {
@@ -581,6 +602,8 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 
 		useTrimStackImageBorder = null;
 		useEmbossedDragHandle = null;
+		
+		userCSS = null;
 	}
 
 	@Override

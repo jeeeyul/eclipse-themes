@@ -158,7 +158,7 @@ class ToolbarPage extends ChromePage {
 					]
 				]
 				useWBColorAsPerspectiveColorButton = newCheckbox[
-					text = "Use Window Background Color"
+					text = "Use Window Background"
 					onSelection = [
 						updateAutoColors()
 						updateEnablement()
@@ -207,7 +207,7 @@ class ToolbarPage extends ChromePage {
 				]
 				
 				useWBColorAsStatusBarColorButton = newCheckbox[
-					text = "Use Window Background Color"
+					text = "Use Window Background"
 					onSelection = [
 						updateEnablement()
 					]

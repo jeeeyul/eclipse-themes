@@ -84,4 +84,6 @@ public interface IChromeThemeConfig {
 	public abstract Boolean getUseTrimStackImageBorder();
 
 	public abstract Boolean getUseEmbossedDragHandle();
+
+	public abstract String getUserCSS();
 }

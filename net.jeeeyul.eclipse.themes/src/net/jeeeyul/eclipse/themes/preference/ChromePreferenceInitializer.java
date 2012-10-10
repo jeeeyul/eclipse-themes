@@ -171,6 +171,8 @@ public class ChromePreferenceInitializer extends AbstractPreferenceInitializer {
 		}
 
 		store.setDefault(ChromeConstants.CHROME_USE_EMBOSSED_DRAG_HANDLE, false);
+		
+		store.setDefault(ChromeConstants.CHROME_USER_CSS, "");
 	}
 
 	@Override
