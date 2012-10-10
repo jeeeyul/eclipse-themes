@@ -1,6 +1,6 @@
 ## Jeeeyul's Eclipse Themes - Chrome
 
-<table style="border:none; width:100%; float:right;">
+<table style="border:none; width:100%;">
 <tbody>
   <tr style="border: none;">
     <td style="vertical-align: middle; padding-top: 10px; border: none;">
