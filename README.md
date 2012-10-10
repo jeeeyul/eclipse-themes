@@ -18,8 +18,6 @@ Chrome theme is not only just an altanative theme also full featured e4 theme cu
   </tbody>
 </table>
 
-<a href='http://www.pledgie.com/campaigns/18377'><img alt='Click here to lend your support to: Eclipse 4 Chrome Theme and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/18377.png?skin_name=chrome' border='0' /></a>
-
 # Juno SR1 is now supported!
 * [Release Note](https://github.com/jeeeyul/eclipse-themes/wiki/Release-Note)
 
@@ -60,3 +58,7 @@ You need eclipse 4.2 or above version to install this theme.
 Jeeeyul's Eclipse Themes is distributed under the [EPL](http://www.eclipse.org/legal/epl-v10.html).
 
 This license basically provide unlimited freedom expcept very specific case.
+
+## Donation
+<a href='http://www.pledgie.com/campaigns/18377'><img alt='Click here to lend your support to: Eclipse 4 Chrome Theme and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/18377.png?skin_name=chrome' border='0' /></a>
+
