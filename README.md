@@ -2,7 +2,7 @@
 
 <table style="border:none; width:100%;">
 <tbody>
-  <tr>
+  <tr style="border: none;">
     <td style="vertical-align: middle; padding-top: 10px; border: none;">
       Do you want more beautiful Eclipse 4? Change it!
     </td>
