@@ -1,5 +1,5 @@
 ## Jeeeyul's Eclipse Themes - Chrome
-<div style="float: right"><img src="whatever.jpg" />
+<div style="float: right">
 <a href='http://www.pledgie.com/campaigns/18377'><img alt='Click here to lend your support to: Eclipse 4 Chrome Theme and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/18377.png?skin_name=chrome' border='0' /></a>
 </div>
 Do you want more beautiful Eclipse 4?
