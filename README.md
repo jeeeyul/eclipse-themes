@@ -48,7 +48,7 @@ You need eclipse 4.2 or above version to install this theme.
 
 
 
-* [Alternative Installation Guide](https://github.com/jeeeyul/eclipse-themes/wiki/Alternative-Install)
+* [Alternative Installation Guide]right(https://github.com/jeeeyul/eclipse-themes/wiki/Alternative-Install)
 
 ## Choose Theme
 
