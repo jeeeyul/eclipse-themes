@@ -48,9 +48,6 @@ You need eclipse 4.2 or above version to install this theme.
 
 ![screenshot](https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.resource/customize-1.png)
 
-![screenshot](https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.resource/customize-2.png)
-
-![screenshot](https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.resource/customize-3.png)
 
 ## Screen Shots
 ![screenshot](https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.resource/screen-shot-3.png)
