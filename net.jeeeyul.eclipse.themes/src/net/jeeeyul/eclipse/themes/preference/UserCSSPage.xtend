@@ -9,6 +9,7 @@ import org.eclipse.swt.SWT
 import org.eclipse.jface.text.source.ISourceViewer
 import org.eclipse.jface.text.Document
 import net.jeeeyul.eclipse.themes.SharedImages
+import org.eclipse.jface.text.TextViewerUndoManager
 
 /**
  * 58: User Custom CSS
@@ -31,7 +32,7 @@ class UserCSSPage extends ChromePage {
 		
 		srcViewer = new SourceViewer(parent, null, SWT::V_SCROLL || SWT::BORDER);
 		srcViewer.textWidget.layoutData = FILL_BOTH
-		
+		new TextViewerUndoManager(50).connect(srcViewer)		
 		parent.newComposite[
 			layoutData = FILL_HORIZONTAL
 			layout = newGridLayout[
