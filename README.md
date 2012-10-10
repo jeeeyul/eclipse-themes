@@ -18,7 +18,7 @@ Chrome theme is not only just an altanative theme also full featured e4 theme cu
   </tbody>
 </table>
 
-If you liked this software, consider <a href="#donation">Donation</a>.
+If you liked this software and want to support me, consider <a href="#donation">Donation</a>.
 
 # Juno SR1 is now supported!
 * [Release Note](https://github.com/jeeeyul/eclipse-themes/wiki/Release-Note)
