@@ -143,6 +143,7 @@ class ChromeCSSGenerator {
 				«ENDIF»
 				frame-cuts: 5px 1px 5px 16px;
 			«ENDIF»
+			
 			«IF isJunoSR1»
 				handle-image: url(chrome://drag-handle?height=«getToolbarHeight»&background-color=«config.windowBackgroundColor.toHSB.toHTMLCode»&embossed=«config.useEmbossedDragHandle»);
 			«ELSE»
@@ -164,19 +165,22 @@ class ChromeCSSGenerator {
 			}
 			
 			.MTrimBar#org-eclipse-ui-main-toolbar .TrimStack {
-				frame-image: url(chrome://frame?background-color=«config.toolbarGradientStart.toHSB.toHTMLCode»);
-					handle-image: url(chrome://drag-handle?height=«getToolbarHeight»&background-color=«config.toolbarGradientStart.toHSB.toHTMLCode»&embossed=«config.useEmbossedDragHandle»);
-					frame-cuts: 5px 1px 5px 16px;
+				«IF config.useTrimStackImageBorder»
+					frame-image: url(chrome://frame?background-color=«config.toolbarGradientStart.toHSB.toHTMLCode»);
+				«ENDIF»
+				handle-image: url(chrome://drag-handle?height=«getToolbarHeight»&background-color=«config.toolbarGradientStart.toHSB.toHTMLCode»&embossed=«config.useEmbossedDragHandle»);
 			}
+			
 			«IF !config.useWindowBackgroundAsStatusBarBackground»
 				.MTrimBar#org-eclipse-ui-trim-status .Draggable {
 					handle-image: url(chrome://drag-handle?height=«getToolbarHeight»&background-color=«config.statusBarBackgroundColor.toHSB.toHTMLCode»&embossed=«config.useEmbossedDragHandle»);
 				}
 				
 				.MTrimBar#org-eclipse-ui-trim-status .TrimStack {
-					frame-image: url(chrome://frame?background-color=«config.statusBarBackgroundColor.toHSB.toHTMLCode»);
+					«IF config.useTrimStackImageBorder»
+						frame-image: url(chrome://frame?background-color=«config.statusBarBackgroundColor.toHSB.toHTMLCode»);
+					«ENDIF»
 					handle-image: url(chrome://drag-handle?height=«getToolbarHeight»&background-color=«config.statusBarBackgroundColor.toHSB.toHTMLCode»&embossed=«config.useEmbossedDragHandle»);
-					frame-cuts: 5px 1px 5px 16px;
 				}
 			«ENDIF»
 		«ENDIF»
