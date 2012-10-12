@@ -6,14 +6,20 @@ import org.eclipse.swt.widgets.Composite
 import net.jeeeyul.eclipse.themes.ui.SWTExtensions
 import org.eclipse.swt.widgets.Button
 import static net.jeeeyul.eclipse.themes.preference.ChromeConstants.*
+import net.jeeeyul.eclipse.themes.ui.ColorWell
+import net.jeeeyul.eclipse.themes.ui.ColorPicker
+import org.eclipse.jface.dialogs.IDialogConstants
+import org.eclipse.swt.widgets.Control
 
 class OtherPage extends ChromePage {
 	extension SWTExtensions = SWTExtensions::INSTANCE
+	extension ChromePreferenceExtensions = new ChromePreferenceExtensions
 	
-	Button engravedButton
-	Button embossedButton
+	Button useWBColorAsStatusBarColorButton;
+	ColorWell statusBarBackgroundColorWell;
 	
-	Button useTrimStackBorderButton
+	Button useStatusBarOutlineButton;
+	ColorWell statusBarOutlineColorWell;
 	
 	new() {
 		super("Others", null)
@@ -24,56 +30,122 @@ class OtherPage extends ChromePage {
 			layout = newGridLayout
 			layoutData = FILL_HORIZONTAL
 			
+			
+			
 			newGroup[
-				text = "Drag Handle && Stack Border"
-				layout = newGridLayout[
-					numColumns = 3
-				]
+				text = "Status Bar"
 				layoutData = FILL_HORIZONTAL
+				layout = newGridLayout[
+					numColumns = 4
+				]
+				
 				
 				newLabel[
-					text = "Handle Type:"
-				]				
-				
-				engravedButton = newRadioButton[
-					text = "Engraved"
+					text = "Background:"
 				]
 				
-				embossedButton = newRadioButton[
-					text = "Embossed"
-				]
-				
-				useTrimStackBorderButton = newCheckbox[
-					text = "Use image border for trim stack."
-					layoutData = newGridData[
-						horizontalSpan = 3
+				statusBarBackgroundColorWell = newColorWell[
+					onSelection = [
+						updatePreview()
 					]
 				]
-			]
-			
-			newLabel[
-				text = "New workbench window needs to be open to take effect."
-			]
+				
+				newPushButton[
+					text = "Change"
+					onClick = [
+						statusBarBackgroundColorWell.showColorPicker()
+					]
+				]
+				
+				useWBColorAsStatusBarColorButton = newCheckbox[
+					text = "Use Window Background"
+					onSelection = [
+						updateEnablement()
+					]
+				]
+				
+				newLabel[
+					text = "Outline:"
+				]
+				
+				statusBarOutlineColorWell = newColorWell[
+					updatePreview()
+				]
+				
+				newPushButton[
+					text = "Change"
+					onClick = [
+						statusBarOutlineColorWell.showColorPicker()
+					]
+				]
+				
+				useStatusBarOutlineButton = newCheckbox[
+					text = "Show Outline"
+					onSelection = [
+						updateEnablement()
+					]
+				]
+				
+			] // End of Group
 		]
 	}
 	
-	override load(IPreferenceStore preferenceStore) {
-		embossedButton.selection = preferenceStore.getBoolean(CHROME_USE_EMBOSSED_DRAG_HANDLE)
-		engravedButton.selection = !preferenceStore.getBoolean(CHROME_USE_EMBOSSED_DRAG_HANDLE)
+	override load(IPreferenceStore store) {
+		useWBColorAsStatusBarColorButton.selection = store.getBoolean(CHROME_USE_WINDOW_BACKGROUND_AS_STATUS_BAR_BACKGROUND)
+		statusBarBackgroundColorWell.selection = store.getHSB(CHROME_STATUS_BAR_BACKGROUND_COLOR)
+		useStatusBarOutlineButton.selection = store.getBoolean(CHROME_USE_STATUS_BAR_OUTLINE)
+		statusBarOutlineColorWell.selection = store.getHSB(CHROME_STATUS_BAR_OUTLINE_COLOR)
 		
-		useTrimStackBorderButton.selection = preferenceStore.getBoolean(CHROME_USE_TRIMSTACK_IMAGE_BORDER)
+		updateEnablement()
+		updatePreview()
 	}
 	
-	override save(IPreferenceStore preferenceStore) {
-		preferenceStore.setValue(CHROME_USE_EMBOSSED_DRAG_HANDLE, embossedButton.selection)
-		preferenceStore.setValue(CHROME_USE_TRIMSTACK_IMAGE_BORDER, useTrimStackBorderButton.selection)
+	override save(IPreferenceStore store) {
+		store.setValue(CHROME_USE_WINDOW_BACKGROUND_AS_STATUS_BAR_BACKGROUND, useWBColorAsStatusBarColorButton.selection)
+		store.setValue(CHROME_STATUS_BAR_BACKGROUND_COLOR, statusBarBackgroundColorWell.selection)
+		store.setValue(CHROME_USE_STATUS_BAR_OUTLINE, useStatusBarOutlineButton.selection)
+		store.setValue(CHROME_STATUS_BAR_OUTLINE_COLOR, statusBarOutlineColorWell.selection)
 	}
 	
-	override setToDefault(IPreferenceStore preferenceStore) {
-			embossedButton.selection = preferenceStore.getDefaultBoolean(CHROME_USE_EMBOSSED_DRAG_HANDLE)
-		engravedButton.selection = !preferenceStore.getDefaultBoolean(CHROME_USE_EMBOSSED_DRAG_HANDLE)
+	override setToDefault(IPreferenceStore store) {
+		useWBColorAsStatusBarColorButton.selection = store.getDefaultBoolean(CHROME_USE_WINDOW_BACKGROUND_AS_STATUS_BAR_BACKGROUND)
+		statusBarBackgroundColorWell.selection = store.getDefaultHSB(CHROME_STATUS_BAR_BACKGROUND_COLOR)
+		useStatusBarOutlineButton.selection = store.getDefaultBoolean(CHROME_USE_STATUS_BAR_OUTLINE)
+		statusBarOutlineColorWell.selection = store.getDefaultHSB(CHROME_STATUS_BAR_OUTLINE_COLOR)
 		
-		useTrimStackBorderButton.selection = preferenceStore.getDefaultBoolean(CHROME_USE_TRIMSTACK_IMAGE_BORDER)
+		updateEnablement()
+		updatePreview()
+	}
+	
+	def Control next(Control control){
+		var index = control.parent.children.indexOf(control)
+		return control.parent.children.get(index + 1)
+	}
+	
+	def void updateEnablement() {
+		statusBarBackgroundColorWell.next.enabled = !useWBColorAsStatusBarColorButton.selection
+	}
+	
+	def updatePreview(){
+		
+	}
+	
+	def private void showColorPicker(ColorWell well) {
+		var picker = new ColorPicker()
+		var original = well.selection
+		picker.selection = well.selection
+		picker.continuosSelectionHandler = [
+			well.selection = it
+		]
+		
+		if(well.getData("lock-hue") == true) {
+			picker.lockHue = true
+		}
+		if(picker.open() == IDialogConstants::OK_ID) {
+			well.selection = picker.selection
+		} else {
+			well.selection = original
+		}
 	}
 	
 }

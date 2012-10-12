@@ -1,6 +1,7 @@
 package net.jeeeyul.eclipse.themes.preference
 
 import net.jeeeyul.eclipse.themes.SharedImages
+import net.jeeeyul.eclipse.themes.css.DragHandleFactory
 import net.jeeeyul.eclipse.themes.ui.ColorPicker
 import net.jeeeyul.eclipse.themes.ui.ColorWell
 import net.jeeeyul.eclipse.themes.ui.HSB
@@ -13,15 +14,14 @@ import org.eclipse.swt.graphics.GC
 import org.eclipse.swt.graphics.Image
 import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Composite
+import org.eclipse.swt.widgets.Control
 import org.eclipse.swt.widgets.Event
 import org.eclipse.swt.widgets.ToolBar
 
 import static net.jeeeyul.eclipse.themes.preference.ChromeConstants.*
-import org.eclipse.swt.widgets.Control
 
 class ToolbarPage extends ChromePage {
 	extension SWTExtensions = new SWTExtensions
-	extension ChromePreferenceExtensions = new ChromePreferenceExtensions
 	
 	ColorWell toolBarStartColorWell
 	ColorWell toolBarEndColorWell
@@ -30,14 +30,14 @@ class ToolbarPage extends ChromePage {
 	ColorWell perspectiveOutlineColorWell
 	Button useWBColorAsPerspectiveColorButton;
 	Composite previewWrap
-	ToolBar previewBar
+	Composite previewBar
 	ToolBar perspectiveBar
 	
-	Button useWBColorAsStatusBarColorButton;
-	ColorWell statusBarBackgroundColorWell;
 	
-	Button useStatusBarOutlineButton;
-	ColorWell statusBarOutlineColorWell;
+	Button engravedButton
+	Button embossedButton
+	
+	Button useTrimStackBorderButton
 	
 	new(){
 		super("Toolbar", SharedImages::TOOLBAR)
@@ -64,22 +64,50 @@ class ToolbarPage extends ChromePage {
 					renderPreview(it)
 				]
 				
-				previewBar = newToolBar(SWT::FLAT || SWT::RIGHT)[
+				previewBar = newComposite[
 					layoutData = FILL_HORIZONTAL
+					layout = newGridLayout[
+						marginWidth = 0
+						marginHeight = 0
+						numColumns = 4
+						horizontalSpacing = 1
+					]
 					onResize = [
 						updateToolbarBackgroundImage()
 					]
-					newToolItem(SWT::DROP_DOWN)[
-						it.image = SharedImages::getImage(SharedImages::ECLIPSE)
+					
+					newComposite[
+						layoutData = newGridData[
+							widthHint = 5
+							heightHint = 20
+						]
+						onPaint = [renderHandle]
 					]
-					newToolItem(SWT::^SEPARATOR)[]
-					newToolItem[
-						it.image = SharedImages::getImage(SharedImages::ECLIPSE)
+					
+					newToolBar(SWT::FLAT || SWT::RIGHT)[
+						newToolItem(SWT::DROP_DOWN)[
+							it.image = SharedImages::getImage(SharedImages::ECLIPSE)
+						]
 					]
-					newToolItem[
-						it.image = SharedImages::getImage(SharedImages::TOOLBAR)
+					
+					newComposite[
+						layoutData = newGridData[
+							widthHint = 5
+							heightHint = 20
+						]
+						onPaint = [renderHandle]
+					]
+					
+					newToolBar(SWT::FLAT || SWT::RIGHT)[
+						newToolItem[
+							it.image = SharedImages::getImage(SharedImages::ECLIPSE)
+						]
+						newToolItem[
+							it.image = SharedImages::getImage(SharedImages::TOOLBAR)
+						]
 					]
 				]
+				
 				
 				perspectiveBar = newToolBar(SWT::RIGHT || SWT::FLAT)[
 					onResize = [updatePerspectiveBarBackgroundImage()]
@@ -182,61 +210,49 @@ class ToolbarPage extends ChromePage {
 			]// Group
 			
 			newGroup[
-				text = "Status Bar"
-				layoutData = FILL_HORIZONTAL
+				text = "Drag Handle && Stack Border"
 				layout = newGridLayout[
-					numColumns = 4
+					numColumns = 3
 				]
-				
+				layoutData = FILL_HORIZONTAL
 				
 				newLabel[
-					text = "Background:"
-				]
+					text = "Handle Type:"
+				]				
 				
-				statusBarBackgroundColorWell = newColorWell[
+				engravedButton = newRadioButton[
+					text = "Engraved"
 					onSelection = [
 						updatePreview()
 					]
 				]
 				
-				newPushButton[
-					text = "Change"
-					onClick = [
-						statusBarBackgroundColorWell.showColorPicker()
-					]
-				]
-				
-				useWBColorAsStatusBarColorButton = newCheckbox[
-					text = "Use Window Background"
+				embossedButton = newRadioButton[
+					text = "Embossed"
 					onSelection = [
-						updateEnablement()
+						updatePreview()
 					]
 				]
 				
-				newLabel[
-					text = "Outline:"
-				]
-				
-				statusBarOutlineColorWell = newColorWell[
-					updatePreview()
-				]
-				
-				newPushButton[
-					text = "Change"
-					onClick = [
-						statusBarOutlineColorWell.showColorPicker()
+				useTrimStackBorderButton = newCheckbox[
+					text = "Use image border for trim stack."
+					layoutData = newGridData[
+						horizontalSpan = 3
 					]
 				]
-				
-				useStatusBarOutlineButton = newCheckbox[
-					text = "Show Outline"
-					onSelection = [
-						updateEnablement()
-					]
-				]
-				
-			] // End of Group
+			]//end
+			
+			newLabel[
+				text = "New workbench window needs to be open to update handles."
+			]
 		]
+	}
+	
+	def renderHandle(Event e){
+		var data = new DragHandleFactory().create(e.height, toolBarStartColorWell.selection, embossedButton.selection)
+		var image = new Image(display, data)
+		e.gc.drawImage(image, 0, 0);
+		image.dispose()
 	}
 
 	def updateAutoColors() {
@@ -247,7 +263,6 @@ class ToolbarPage extends ChromePage {
 
 	def void updateEnablement() {
 		perspectiveEndColorWell.next.enabled = !useWBColorAsPerspectiveColorButton.selection
-		statusBarBackgroundColorWell.next.enabled = !useWBColorAsStatusBarColorButton.selection
 	}
 	
 	def Control next(Control control){
@@ -359,10 +374,10 @@ class ToolbarPage extends ChromePage {
 		)
 		useWBColorAsPerspectiveColorButton.selection = store.getBoolean(CHROME_USE_WINDOW_BACKGROUND_COLOR_AS_PERSPECTIVE_END_COLOR)
 		
-		useWBColorAsStatusBarColorButton.selection = store.getBoolean(CHROME_USE_WINDOW_BACKGROUND_AS_STATUS_BAR_BACKGROUND)
-		statusBarBackgroundColorWell.selection = store.getHSB(CHROME_STATUS_BAR_BACKGROUND_COLOR)
-		useStatusBarOutlineButton.selection = store.getBoolean(CHROME_USE_STATUS_BAR_OUTLINE)
-		statusBarOutlineColorWell.selection = store.getHSB(CHROME_STATUS_BAR_OUTLINE_COLOR)
+		
+		embossedButton.selection = store.getBoolean(CHROME_USE_EMBOSSED_DRAG_HANDLE)
+		engravedButton.selection = !store.getBoolean(CHROME_USE_EMBOSSED_DRAG_HANDLE)
+		useTrimStackBorderButton.selection = store.getBoolean(CHROME_USE_TRIMSTACK_IMAGE_BORDER)
 		
 		updateAutoColors()
 		updateEnablement()
@@ -386,11 +401,9 @@ class ToolbarPage extends ChromePage {
 		store.setValue(CHROME_PERSPECTIVE_OUTLINE_SATURATION, perspectiveOutlineColorWell.selection.saturation)
 		store.setValue(CHROME_PERSPECTIVE_OUTLINE_BRIGHTNESS, perspectiveOutlineColorWell.selection.brightness)
 		
-		store.setValue(CHROME_USE_WINDOW_BACKGROUND_AS_STATUS_BAR_BACKGROUND, useWBColorAsStatusBarColorButton.selection)
-		store.setValue(CHROME_STATUS_BAR_BACKGROUND_COLOR, statusBarBackgroundColorWell.selection)
-		store.setValue(CHROME_USE_STATUS_BAR_OUTLINE, useStatusBarOutlineButton.selection)
-		store.setValue(CHROME_STATUS_BAR_OUTLINE_COLOR, statusBarOutlineColorWell.selection)
 		
+		store.setValue(CHROME_USE_EMBOSSED_DRAG_HANDLE, embossedButton.selection)
+		store.setValue(CHROME_USE_TRIMSTACK_IMAGE_BORDER, useTrimStackBorderButton.selection)
 	}
 
 	override setToDefault(IPreferenceStore store) {
@@ -421,10 +434,11 @@ class ToolbarPage extends ChromePage {
 		)
 		useWBColorAsPerspectiveColorButton.selection = store.getDefaultBoolean(CHROME_USE_WINDOW_BACKGROUND_COLOR_AS_PERSPECTIVE_END_COLOR)
 		
-		useWBColorAsStatusBarColorButton.selection = store.getDefaultBoolean(CHROME_USE_WINDOW_BACKGROUND_AS_STATUS_BAR_BACKGROUND)
-		statusBarBackgroundColorWell.selection = store.getDefaultHSB(CHROME_STATUS_BAR_BACKGROUND_COLOR)
-		useStatusBarOutlineButton.selection = store.getDefaultBoolean(CHROME_USE_STATUS_BAR_OUTLINE)
-		statusBarOutlineColorWell.selection = store.getDefaultHSB(CHROME_STATUS_BAR_OUTLINE_COLOR)
+		
+		embossedButton.selection = store.getDefaultBoolean(CHROME_USE_EMBOSSED_DRAG_HANDLE)
+		engravedButton.selection = !store.getDefaultBoolean(CHROME_USE_EMBOSSED_DRAG_HANDLE)
+		useTrimStackBorderButton.selection = store.getDefaultBoolean(CHROME_USE_TRIMSTACK_IMAGE_BORDER)
+	
 		
 		updateAutoColors()
 		updateEnablement()
