@@ -101,26 +101,6 @@ class ChromeCSSGenerator {
 			background-color: «config.toolbarGradientStart.toHtmlColor» «config.toolbarGradientEnd.toHtmlColor»;
 		}
 		
-		.MToolControl.TrimStack {
-			«IF config.useTrimStackImageBorder»
-				«IF isJunoSR1»
-					frame-image: url(chrome://frame?background-color=«config.windowBackgroundColor.toHSB.toHTMLCode»);
-				«ELSE»
-					frame-image: url(images/frame.png);
-				«ENDIF»
-				frame-cuts: 5px 1px 5px 16px;
-			«ENDIF»
-			«IF isJunoSR1»
-				handle-image: url(chrome://drag-handle?height=«getToolbarHeight»&background-color=«config.windowBackgroundColor.toHSB.toHTMLCode»&embossed=«config.useEmbossedDragHandle»);
-			«ELSE»
-				«IF config.useEmbossedDragHandle»
-					handle-image: url(images/handle-embossed.png);
-				«ELSE»
-					handle-image: url(images/handle.png);
-				«ENDIF»
-			«ENDIF»
-		}
-		
 		CTabFolder.MArea .MPartStack,CTabFolder.MArea .MPartStack.active {
 			swt-shadow-visible: false;
 		}
@@ -154,17 +134,54 @@ class ChromeCSSGenerator {
 			«ENDIF»
 		}
 		
+		.MToolControl.TrimStack {
+			«IF config.useTrimStackImageBorder»
+				«IF isJunoSR1»
+					frame-image: url(chrome://frame?background-color=«config.windowBackgroundColor.toHSB.toHTMLCode»);
+				«ELSE»
+					frame-image: url(images/frame.png);
+				«ENDIF»
+				frame-cuts: 5px 1px 5px 16px;
+			«ENDIF»
+			«IF isJunoSR1»
+				handle-image: url(chrome://drag-handle?height=«getToolbarHeight»&background-color=«config.windowBackgroundColor.toHSB.toHTMLCode»&embossed=«config.useEmbossedDragHandle»);
+			«ELSE»
+				«IF config.useEmbossedDragHandle»
+					handle-image: url(images/handle-embossed.png);
+				«ELSE»
+					handle-image: url(images/handle.png);
+				«ENDIF»
+			«ENDIF»
+		}
+		
 		«IF isJunoSR1»
-			.MToolBar.Draggable {
+			.MTrimBar .Draggable {
+				handle-image: url(chrome://drag-handle?height=«getToolbarHeight»&background-color=«config.windowBackgroundColor.toHSB.toHTMLCode»&embossed=«config.useEmbossedDragHandle»);
+			}
+			
+			.MTrimBar#org-eclipse-ui-main-toolbar .Draggable {
 				handle-image: url(chrome://drag-handle?height=«getToolbarHeight»&background-color=«config.toolbarGradientStart.toHSB.toHTMLCode»&embossed=«config.useEmbossedDragHandle»);
 			}
 			
-			.MToolControl.Draggable {
-				handle-image: url(chrome://drag-handle?height=«getToolbarHeight»&background-color=«config.windowBackgroundColor.toHSB.toHTMLCode»&embossed=«config.useEmbossedDragHandle»);
+			.MTrimBar#org-eclipse-ui-main-toolbar .TrimStack {
+				frame-image: url(chrome://frame?background-color=«config.toolbarGradientStart.toHSB.toHTMLCode»);
+					handle-image: url(chrome://drag-handle?height=«getToolbarHeight»&background-color=«config.toolbarGradientStart.toHSB.toHTMLCode»&embossed=«config.useEmbossedDragHandle»);
+					frame-cuts: 5px 1px 5px 16px;
 			}
+			«IF !config.useWindowBackgroundAsStatusBarBackground»
+				.MTrimBar#org-eclipse-ui-trim-status .Draggable {
+					handle-image: url(chrome://drag-handle?height=«getToolbarHeight»&background-color=«config.statusBarBackgroundColor.toHSB.toHTMLCode»&embossed=«config.useEmbossedDragHandle»);
+				}
+				
+				.MTrimBar#org-eclipse-ui-trim-status .TrimStack {
+					frame-image: url(chrome://frame?background-color=«config.statusBarBackgroundColor.toHSB.toHTMLCode»);
+					handle-image: url(chrome://drag-handle?height=«getToolbarHeight»&background-color=«config.statusBarBackgroundColor.toHSB.toHTMLCode»&embossed=«config.useEmbossedDragHandle»);
+					frame-cuts: 5px 1px 5px 16px;
+				}
+			«ENDIF»
 		«ENDIF»
 		
-		#PerspectiveSwitcher {
+		#org-eclipse-ui-main-toolbar #PerspectiveSwitcher {
 			eclipse-perspective-keyline-color: «config.perspectiveOutlineColor.toHtmlColor»;
 			background-color: «config.getPerspectiveStartColor.toHtmlColor» «config.perspectiveEndColor.toHtmlColor» 100%;
 			«IF isJunoSR1»

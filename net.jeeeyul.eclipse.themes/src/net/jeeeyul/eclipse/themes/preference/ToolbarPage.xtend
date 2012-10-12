@@ -401,6 +401,7 @@ class ToolbarPage extends ChromePage {
 		store.setValue(CHROME_PERSPECTIVE_OUTLINE_SATURATION, perspectiveOutlineColorWell.selection.saturation)
 		store.setValue(CHROME_PERSPECTIVE_OUTLINE_BRIGHTNESS, perspectiveOutlineColorWell.selection.brightness)
 		
+		store.setValue(CHROME_USE_WINDOW_BACKGROUND_COLOR_AS_PERSPECTIVE_END_COLOR, useWBColorAsPerspectiveColorButton.selection)
 		
 		store.setValue(CHROME_USE_EMBOSSED_DRAG_HANDLE, embossedButton.selection)
 		store.setValue(CHROME_USE_TRIMSTACK_IMAGE_BORDER, useTrimStackBorderButton.selection)
