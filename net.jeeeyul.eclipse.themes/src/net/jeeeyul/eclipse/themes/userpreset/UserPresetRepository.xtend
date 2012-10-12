@@ -9,14 +9,12 @@ import javax.xml.parsers.SAXParserFactory
 import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
 import javax.xml.transform.stream.StreamResult
-import net.jeeeyul.eclipse.themes.ChromeThemeCore
-import org.eclipse.core.runtime.IPath
-import org.eclipse.core.runtime.Path
 import org.eclipse.core.runtime.Platform
 import org.eclipse.core.runtime.jobs.ILock
 import org.eclipse.core.runtime.jobs.Job
 import org.eclipse.jface.preference.PreferenceStore
 import org.w3c.dom.Node
+import net.jeeeyul.eclipse.themes.ChromeThemeCore
 
 class UserPresetRepository {
 	public static val UserPresetRepository INSTANCE = new UserPresetRepository()
@@ -32,9 +30,8 @@ class UserPresetRepository {
 			return null
 		}
 		
-		var IPath path = new Path(location.URL.toExternalForm).setDevice(null)
-		var file = path.append('''«ChromeThemeCore::^default.bundle.symbolicName»''').toFile
-		
+		var file = new File('''«location.URL.file»/«ChromeThemeCore::^default.bundle.symbolicName»''')
+		println(file)
 		if(!file.exists){
 			try{
 				file.mkdirs()
