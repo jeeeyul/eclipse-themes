@@ -1,6 +1,7 @@
 package net.jeeeyul.eclipse.themes.preference;
 
 import net.jeeeyul.eclipse.themes.ChromeThemeCore;
+import net.jeeeyul.eclipse.themes.css.RewriteChormeCSS;
 import net.jeeeyul.eclipse.themes.e4.ActiveThemeTracker;
 import net.jeeeyul.eclipse.themes.ui.HSB;
 
@@ -610,6 +611,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	public void propertyChange(PropertyChangeEvent event) {
 		invalidate();
 		if (ActiveThemeTracker.getInstance().isChromeThemeActive()) {
+			new RewriteChormeCSS().rewrite();
 			updateJob.schedule();
 		}
 	}

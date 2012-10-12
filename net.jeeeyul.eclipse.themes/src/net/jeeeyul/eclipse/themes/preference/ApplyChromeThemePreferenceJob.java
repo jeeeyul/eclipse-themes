@@ -2,7 +2,6 @@ package net.jeeeyul.eclipse.themes.preference;
 
 import java.util.Set;
 
-import net.jeeeyul.eclipse.themes.css.RewriteChormeCSS;
 import net.jeeeyul.eclipse.themes.e4.WidgetTracker;
 import net.jeeeyul.eclipse.themes.rendering.ChromeTabRendering;
 
@@ -25,8 +24,6 @@ public class ApplyChromeThemePreferenceJob extends UIJob {
 
 	@Override
 	public IStatus runInUIThread(IProgressMonitor monitor) {
-		new RewriteChormeCSS().rewrite();
-		
 		// gets alive chrome tab renderings.
 		Set<ChromeTabRendering> instances = ChromeTabRendering.getInstances();
 		ChromeTabRendering[] renderings = new ChromeTabRendering[instances.size()];
