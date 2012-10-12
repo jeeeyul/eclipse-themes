@@ -136,7 +136,7 @@ class ChromeCSSGenerator {
 		
 		.MToolControl.TrimStack {
 			«IF config.useTrimStackImageBorder»
-				«IF isJunoSR1»
+				«IF afterJunoSR1»
 					frame-image: url(chrome://frame?background-color=«config.windowBackgroundColor.toHSB.toHTMLCode»);
 				«ELSE»
 					frame-image: url(images/frame.png);
@@ -144,7 +144,7 @@ class ChromeCSSGenerator {
 				frame-cuts: 5px 1px 5px 16px;
 			«ENDIF»
 			
-			«IF isJunoSR1»
+			«IF afterJunoSR1»
 				handle-image: url(chrome://drag-handle?height=«getToolbarHeight»&background-color=«config.windowBackgroundColor.toHSB.toHTMLCode»&embossed=«config.useEmbossedDragHandle»);
 			«ELSE»
 				«IF config.useEmbossedDragHandle»
@@ -155,7 +155,7 @@ class ChromeCSSGenerator {
 			«ENDIF»
 		}
 		
-		«IF isJunoSR1»
+		«IF afterJunoSR1»
 			.MTrimBar .Draggable {
 				handle-image: url(chrome://drag-handle?height=«getToolbarHeight»&background-color=«config.windowBackgroundColor.toHSB.toHTMLCode»&embossed=«config.useEmbossedDragHandle»);
 			}
@@ -188,12 +188,12 @@ class ChromeCSSGenerator {
 		#org-eclipse-ui-main-toolbar #PerspectiveSwitcher {
 			eclipse-perspective-keyline-color: «config.perspectiveOutlineColor.toHtmlColor»;
 			background-color: «config.getPerspectiveStartColor.toHtmlColor» «config.perspectiveEndColor.toHtmlColor» 100%;
-			«IF isJunoSR1»
+			«IF afterJunoSR1»
 				handle-image: none;
 			«ENDIF»
 		}
 		
-		«IF isJunoSR1»
+		«IF afterJunoSR1»
 			#PerspectiveSpacer{
 				chrome-border-bottom-color: «config.perspectiveOutlineColor.toHtmlColor»;
 				chrome-border-bottom-visible: true;

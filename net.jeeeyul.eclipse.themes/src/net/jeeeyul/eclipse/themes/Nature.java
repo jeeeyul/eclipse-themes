@@ -23,8 +23,8 @@ public class Nature {
 		return version;
 	}
 
-	public boolean isJunoSR1() {
-		return JUNO_SR1_RANGE.isIncluded(getVersion());
+	public boolean afterJunoSR1() {
+		return getVersion().compareTo(JUNO_SR1_RANGE.getMinimum()) >= 0;
 	}
 
 	public String getOS() {
@@ -39,4 +39,6 @@ public class Nature {
 		}
 	}
 
+	public static void main(String[] args) {
+	}
 }
