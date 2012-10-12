@@ -1,0 +1,1 @@
+This project is a google app project as Sharing Server.
