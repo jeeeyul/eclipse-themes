@@ -5,6 +5,7 @@ import org.eclipse.jface.preference.IPreferenceStore
 import org.eclipse.swt.widgets.Composite
 import net.jeeeyul.eclipse.themes.ui.SWTExtensions
 import org.eclipse.swt.SWT
+import net.jeeeyul.eclipse.themes.SharedImages
 
 class PartPage extends ChromePage {
 	extension SWTExtensions = SWTExtensions::INSTANCE
@@ -14,7 +15,7 @@ class PartPage extends ChromePage {
 	StateBasedPartPage inactivePage
 	
 	new(){
-		super("Part", null);
+		super("Part", SharedImages::PART);
 		
 		commonPage = new CommonPartPage
 		activePage = new StateBasedPartPage("Active", true)
@@ -31,7 +32,7 @@ class PartPage extends ChromePage {
 			
 			newCTabItem[
 				text = "Common"
-				
+				image = SharedImages::getImage(SharedImages::LAYOUT)
 				control = it.parent.newComposite[
 					commonPage.parentPage = parentPage
 					commonPage.tabFolder = tabFolder
@@ -43,7 +44,7 @@ class PartPage extends ChromePage {
 			
 			newCTabItem[
 				text = "Active"
-				
+				image = SharedImages::getImage(SharedImages::ACTIVE_PART)
 				control = it.parent.newComposite[
 					activePage.parentPage = parentPage
 					activePage.tabFolder = tabFolder
@@ -53,7 +54,7 @@ class PartPage extends ChromePage {
 			
 			newCTabItem[
 				text = "Inactive"
-				
+				image = SharedImages::getImage(SharedImages::PART)
 				control = it.parent.newComposite[
 					inactivePage.parentPage = parentPage
 					inactivePage.tabFolder = tabFolder

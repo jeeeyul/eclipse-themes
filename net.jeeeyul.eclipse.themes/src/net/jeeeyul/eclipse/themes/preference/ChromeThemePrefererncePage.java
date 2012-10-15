@@ -112,6 +112,7 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 			CTabItem item = new CTabItem(folder, SWT.NORMAL);
 			item.setControl(control);
 			item.setText(page.getTitle());
+			item.setImage(page.getPageImage());
 		}
 		folder.setSelection(0);
 
