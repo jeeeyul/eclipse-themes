@@ -17,8 +17,11 @@ import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Control
 import org.eclipse.swt.widgets.Event
 import org.eclipse.swt.widgets.ToolBar
+import org.eclipse.ui.IWorkbenchPreferenceConstants
+import org.eclipse.ui.internal.util.PrefUtil
 
 import static net.jeeeyul.eclipse.themes.preference.ChromeConstants.*
+import org.eclipse.swt.widgets.ToolItem
 
 class ToolbarPage extends ChromePage {
 	extension SWTExtensions = new SWTExtensions
@@ -32,12 +35,14 @@ class ToolbarPage extends ChromePage {
 	Composite previewWrap
 	Composite previewBar
 	ToolBar perspectiveBar
-	
+	ToolItem pdeItem;
 	
 	Button engravedButton
 	Button embossedButton
 	
 	Button useTrimStackBorderButton
+	
+	Button showPerspectiveNameButton
 	
 	new(){
 		super("Toolbar", SharedImages::TOOLBAR)
@@ -51,82 +56,15 @@ class ToolbarPage extends ChromePage {
 				text = "Configurations for main tool bar and Perspective Switcher"
 			]
 			
-			previewWrap = newCompositeWithStyle(SWT::DOUBLE_BUFFERED || SWT::BORDER)[
-				layoutData = FILL_HORIZONTAL
-				layout = newGridLayout[
-					makeColumnsEqualWidth = false
-					numColumns = 2
-					marginWidth = 3
-					marginHeight = 3
-				]
-				
-				onPaint = [
-					renderPreview(it)
-				]
-				
-				previewBar = newComposite[
-					layoutData = FILL_HORIZONTAL
-					layout = newGridLayout[
-						marginWidth = 0
-						marginHeight = 0
-						numColumns = 4
-						horizontalSpacing = 1
-					]
-					onResize = [
-						updateToolbarBackgroundImage()
-					]
-					
-					newComposite[
-						layoutData = newGridData[
-							widthHint = 5
-							heightHint = 20
-						]
-						onPaint = [renderHandle]
-					]
-					
-					newToolBar(SWT::FLAT || SWT::RIGHT)[
-						newToolItem(SWT::DROP_DOWN)[
-							it.image = SharedImages::getImage(SharedImages::ECLIPSE)
-						]
-					]
-					
-					newComposite[
-						layoutData = newGridData[
-							widthHint = 5
-							heightHint = 20
-						]
-						onPaint = [renderHandle]
-					]
-					
-					newToolBar(SWT::FLAT || SWT::RIGHT)[
-						newToolItem[
-							it.image = SharedImages::getImage(SharedImages::ECLIPSE)
-						]
-						newToolItem[
-							it.image = SharedImages::getImage(SharedImages::TOOLBAR)
-						]
-					]
-				]
-				
-				
-				perspectiveBar = newToolBar(SWT::RIGHT || SWT::FLAT)[
-					onResize = [updatePerspectiveBarBackgroundImage()]
-					newToolItem[
-						it.image = SharedImages::getImage(SharedImages::OPEN_PERSPECTIVE)
-					]
-					newToolItem(SWT::^SEPARATOR)[]
-					newToolItem[
-						it.image = SharedImages::getImage(SharedImages::PLUGIN)
-						it.text = "Plug-in Development"
-					]
-				]
-			]
+			it.createPreview()
+			
 			newGroup[
 				layout = newGridLayout[
 					numColumns = 3
 				]
 				text = "Main Tool Bar"
-				layoutData = FILL_HORIZONTAL
+				layoutData = FILL_HORIZONTAL[]
+				
 				newLabel[
 					text = "Start Color"
 				]
@@ -152,62 +90,8 @@ class ToolbarPage extends ChromePage {
 					]
 				]
 			]
-			newGroup[
-				layout = newGridLayout[
-					numColumns = 4
-				]
-				text = "Perspective Switcher"
-				layoutData = FILL_HORIZONTAL
-				newLabel[
-					text = "Start Color"
-				]
-				perspectiveStartColorWell = newColorWell[
-					onSelection = [updatePreview]
-				]
-				newPushButton[
-					text = "Change"
-					layoutData = newGridData[
-						horizontalSpan = 2
-					]
-					onClick = [
-						perspectiveStartColorWell.showColorPicker()
-					]
-				]
-				newLabel[
-					text = "End Color"
-				]
-				perspectiveEndColorWell = newColorWell[
-					onSelection = [updatePreview]
-				]
-				newPushButton[
-					text = "Change"
-					onClick = [
-						perspectiveEndColorWell.showColorPicker()
-					]
-				]
-				useWBColorAsPerspectiveColorButton = newCheckbox[
-					text = "Use Window Background"
-					onSelection = [
-						updateAutoColors()
-						updateEnablement()
-					]
-				]
-				newLabel[
-					text = "Outline Color"
-				]
-				perspectiveOutlineColorWell = newColorWell[
-					onSelection = [updatePreview]
-				]
-				newPushButton[
-					layoutData = newGridData[
-						horizontalSpan = 2
-					]
-					text = "Change"
-					onClick = [
-						perspectiveOutlineColorWell.showColorPicker()
-					]
-				]
-			]// Group
+			
+			it.createPerspectiveSwitcherGroup()
 			
 			newGroup[
 				text = "Drag Handle && Stack Border"
@@ -246,6 +130,150 @@ class ToolbarPage extends ChromePage {
 				text = "New workbench window needs to be open to update handles."
 			]
 		]
+	}
+	
+	def private createPreview(Composite composite) { 
+		previewWrap = composite.newCompositeWithStyle(SWT::DOUBLE_BUFFERED || SWT::BORDER)[
+			layoutData = FILL_HORIZONTAL
+			layout = newGridLayout[
+				makeColumnsEqualWidth = false
+				numColumns = 2
+				marginWidth = 3
+				marginHeight = 3
+			]
+			
+			onPaint = [
+				renderPreview(it)
+			]
+			
+			previewBar = newComposite[
+				layoutData = FILL_HORIZONTAL
+				layout = newGridLayout[
+					marginWidth = 0
+					marginHeight = 0
+					numColumns = 4
+					horizontalSpacing = 1
+				]
+				onResize = [
+					updateToolbarBackgroundImage()
+				]
+				
+				newComposite[
+					layoutData = newGridData[
+						widthHint = 5
+						heightHint = 20
+					]
+					onPaint = [renderHandle]
+				]
+				
+				newToolBar(SWT::FLAT || SWT::RIGHT)[
+					newToolItem(SWT::DROP_DOWN)[
+						it.image = SharedImages::getImage(SharedImages::ECLIPSE)
+					]
+				]
+				
+				newComposite[
+					layoutData = newGridData[
+						widthHint = 5
+						heightHint = 20
+					]
+					onPaint = [renderHandle]
+				]
+				
+				newToolBar(SWT::FLAT || SWT::RIGHT)[
+					newToolItem[
+						it.image = SharedImages::getImage(SharedImages::ECLIPSE)
+					]
+					newToolItem[
+						it.image = SharedImages::getImage(SharedImages::TOOLBAR)
+					]
+				]
+			]
+			
+			perspectiveBar = newToolBar(SWT::RIGHT || SWT::FLAT)[
+				onResize = [updatePerspectiveBarBackgroundImage()]
+				newToolItem[
+					it.image = SharedImages::getImage(SharedImages::OPEN_PERSPECTIVE)
+				]
+				newToolItem(SWT::^SEPARATOR)[]
+				pdeItem = newToolItem[
+					it.image = SharedImages::getImage(SharedImages::PLUGIN)
+					it.text = "Plug-in Development"
+				]
+			]
+		]
+	}
+
+	def private createPerspectiveSwitcherGroup(Composite composite) { 
+		composite.newGroup[
+			text = "Perspective Switcher"
+			layout = newGridLayout[
+				numColumns = 4
+			]
+			
+			layoutData = FILL_HORIZONTAL
+			newLabel[
+				text = "Start Color"
+			]
+			perspectiveStartColorWell = newColorWell[
+				onSelection = [updatePreview]
+			]
+			newPushButton[
+				text = "Change"
+				layoutData = newGridData[
+					horizontalSpan = 2
+				]
+				onClick = [
+					perspectiveStartColorWell.showColorPicker()
+				]
+			]
+			newLabel[
+				text = "End Color"
+			]
+			perspectiveEndColorWell = newColorWell[
+				onSelection = [updatePreview]
+			]
+			newPushButton[
+				text = "Change"
+				onClick = [
+					perspectiveEndColorWell.showColorPicker()
+				]
+			]
+			useWBColorAsPerspectiveColorButton = newCheckbox[
+				text = "Use Window Background"
+				onSelection = [
+					updateAutoColors()
+					updateEnablement()
+				]
+			]
+			newLabel[
+				text = "Outline Color"
+			]
+			perspectiveOutlineColorWell = newColorWell[
+				onSelection = [
+					updatePreview()
+				]
+			]
+			newPushButton[
+				layoutData = newGridData[
+					horizontalSpan = 2
+				]
+				text = "Change"
+				onClick = [
+					perspectiveOutlineColorWell.showColorPicker()
+				]
+			]
+			
+			showPerspectiveNameButton = newCheckbox[
+				layoutData = FILL_HORIZONTAL[
+					horizontalSpan = 4
+				]
+				text = "Show Perspective Name"
+				onSelection = [
+					updatePreview()
+				]
+			]
+		]// Group
 	}
 	
 	def renderHandle(Event e){
@@ -298,6 +326,14 @@ class ToolbarPage extends ChromePage {
 	}
 
 	def private void updatePreview() {
+		if(showPerspectiveNameButton.selection){
+			pdeItem.setText("Plug-in Development")			
+		}
+		else{
+			pdeItem.setText("")	
+		}
+		
+		previewWrap.layout(true, true)
 		previewWrap.redraw()
 		updateToolbarBackgroundImage()
 		updatePerspectiveBarBackgroundImage()
@@ -379,6 +415,8 @@ class ToolbarPage extends ChromePage {
 		engravedButton.selection = !store.getBoolean(CHROME_USE_EMBOSSED_DRAG_HANDLE)
 		useTrimStackBorderButton.selection = store.getBoolean(CHROME_USE_TRIMSTACK_IMAGE_BORDER)
 		
+		showPerspectiveNameButton.selection = PrefUtil::APIPreferenceStore.getBoolean(IWorkbenchPreferenceConstants::SHOW_TEXT_ON_PERSPECTIVE_BAR);
+		
 		updateAutoColors()
 		updateEnablement()
 		updatePreview()
@@ -405,6 +443,11 @@ class ToolbarPage extends ChromePage {
 		
 		store.setValue(CHROME_USE_EMBOSSED_DRAG_HANDLE, embossedButton.selection)
 		store.setValue(CHROME_USE_TRIMSTACK_IMAGE_BORDER, useTrimStackBorderButton.selection)
+		
+		if(showPerspectiveNameButton.selection != PrefUtil::APIPreferenceStore.getDefaultBoolean(IWorkbenchPreferenceConstants::SHOW_TEXT_ON_PERSPECTIVE_BAR)){
+			PrefUtil::internalPreferenceStore.setValue("overridepresentation", true)
+		}
+		PrefUtil::APIPreferenceStore.setValue(IWorkbenchPreferenceConstants::SHOW_TEXT_ON_PERSPECTIVE_BAR, showPerspectiveNameButton.selection)
 	}
 
 	override setToDefault(IPreferenceStore store) {
@@ -439,8 +482,10 @@ class ToolbarPage extends ChromePage {
 		embossedButton.selection = store.getDefaultBoolean(CHROME_USE_EMBOSSED_DRAG_HANDLE)
 		engravedButton.selection = !store.getDefaultBoolean(CHROME_USE_EMBOSSED_DRAG_HANDLE)
 		useTrimStackBorderButton.selection = store.getDefaultBoolean(CHROME_USE_TRIMSTACK_IMAGE_BORDER)
-	
 		
+		
+		showPerspectiveNameButton.selection = PrefUtil::APIPreferenceStore.getDefaultBoolean(IWorkbenchPreferenceConstants::SHOW_TEXT_ON_PERSPECTIVE_BAR);
+	
 		updateAutoColors()
 		updateEnablement()
 		updatePreview()

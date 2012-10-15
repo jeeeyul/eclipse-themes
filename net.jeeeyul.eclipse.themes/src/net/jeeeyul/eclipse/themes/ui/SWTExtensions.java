@@ -7,6 +7,8 @@ import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
@@ -452,6 +454,25 @@ public class SWTExtensions {
 	
 	public TabItem newTabItem(TabFolder tabFolder, Procedure1<? super TabItem> initializer){
 		TabItem item = new TabItem(tabFolder, SWT.NORMAL);
+		initializer.apply(item);
+		return item;
+	}
+	
+	
+	public CTabFolder newCTabFolder(Composite parent, final Procedure1<? super CTabFolder> initializer){
+		CTabFolder tabFolder = new CTabFolder(parent, SWT.NORMAL);
+		initializer.apply(tabFolder);
+		return tabFolder;
+	}
+	
+	public CTabFolder newCTabFolder(Composite parent, int style, final Procedure1<? super CTabFolder> initializer){
+		CTabFolder tabFolder = new CTabFolder(parent, style);
+		initializer.apply(tabFolder);
+		return tabFolder;
+	}
+	
+	public CTabItem newCTabItem(CTabFolder tabFolder, Procedure1<? super CTabItem> initializer){
+		CTabItem item = new CTabItem(tabFolder, SWT.NORMAL);
 		initializer.apply(item);
 		return item;
 	}

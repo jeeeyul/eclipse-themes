@@ -4,6 +4,7 @@ import net.jeeeyul.eclipse.themes.preference.ChromePage
 import org.eclipse.jface.preference.IPreferenceStore
 import org.eclipse.swt.widgets.Composite
 import net.jeeeyul.eclipse.themes.ui.SWTExtensions
+import org.eclipse.swt.SWT
 
 class PartPage extends ChromePage {
 	extension SWTExtensions = SWTExtensions::INSTANCE
@@ -22,10 +23,13 @@ class PartPage extends ChromePage {
 
 	override create(Composite parent) {
 		parent.layout = newGridLayout
-		parent.newTabFolder[
-			layoutData = FILL_HORIZONTAL
+		parent.newCTabFolder(SWT::BOTTOM)[
+			layoutData = FILL_BOTH
 			
-			newTabItem[
+			marginWidth = 0
+			marginHeight = 0
+			
+			newCTabItem[
 				text = "Common"
 				
 				control = it.parent.newComposite[
@@ -33,10 +37,12 @@ class PartPage extends ChromePage {
 					commonPage.tabFolder = tabFolder
 					commonPage.create(it)
 				]
+				
+				it.parent.selection = it
 			]
 			
-			newTabItem[
-				text = "Active Part"
+			newCTabItem[
+				text = "Active"
 				
 				control = it.parent.newComposite[
 					activePage.parentPage = parentPage
@@ -45,8 +51,8 @@ class PartPage extends ChromePage {
 				]
 			]
 			
-			newTabItem[
-				text = "Inactive Part"
+			newCTabItem[
+				text = "Inactive"
 				
 				control = it.parent.newComposite[
 					inactivePage.parentPage = parentPage
