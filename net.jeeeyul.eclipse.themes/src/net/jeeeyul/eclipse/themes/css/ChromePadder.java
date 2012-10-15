@@ -34,6 +34,11 @@ public class ChromePadder {
 		return padder;
 	}
 
+	public static boolean exists(Composite comp) {
+		ChromePadder padder = (ChromePadder) comp.getData(ChromePadder.class.getName());
+		return padder != null;
+	}
+
 	private UIJob updateJob;
 	private Composite parent;
 	private Listener controlHook;

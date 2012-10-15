@@ -44,6 +44,31 @@ public class CompositePaddingHandler implements ICSSPropertyHandler {
 
 	@Override
 	public String retrieveCSSProperty(Object element, String property, String pseudo, CSSEngine engine) throws Exception {
+		if (!(element instanceof CompositeElement)) {
+			return null;
+		}
+		CompositeElement compositeElement = (CompositeElement) element;
+		Composite comp = (Composite) compositeElement.getNativeWidget();
+		if (!ChromePadder.exists(comp)) {
+			return null;
+		}
+
+		if (property.equals("chrome-padding-top")) {
+			return Integer.toString(ChromePadder.get(comp).getTop());
+		}
+
+		if (property.equals("chrome-padding-left")) {
+			return Integer.toString(ChromePadder.get(comp).getLeft());
+		}
+
+		if (property.equals("chrome-padding-right")) {
+			return Integer.toString(ChromePadder.get(comp).getRight());
+		}
+
+		if (property.equals("chrome-padding-bottom")) {
+			return Integer.toString(ChromePadder.get(comp).getBottom());
+		}
+
 		return null;
 	}
 

@@ -1,6 +1,7 @@
 package net.jeeeyul.eclipse.themes.css;
 
 import net.jeeeyul.eclipse.themes.rendering.ChromeTabRendering;
+import net.jeeeyul.eclipse.themes.ui.HSB;
 
 import org.eclipse.e4.ui.css.core.dom.properties.ICSSPropertyHandler;
 import org.eclipse.e4.ui.css.core.engine.CSSEngine;
@@ -49,9 +50,36 @@ public class ChromeCSSPropertyHandler implements ICSSPropertyHandler {
 
 	@Override
 	public String retrieveCSSProperty(Object element, String property, String pseudo, CSSEngine engine) throws Exception {
-		/*
-		 * It seems to be not used anywhere.
-		 */
+		CTabFolderElement model = (CTabFolderElement) element;
+		CTabFolder folder = (CTabFolder) model.getNativeWidget();
+		CTabFolderRenderer renderer = folder.getRenderer();
+
+		if (!(renderer instanceof ChromeTabRendering)) {
+			return null;
+		}
+
+		ChromeTabRendering rendering = (ChromeTabRendering) renderer;
+		if (property.equals("chrome-selected-tab-color")) {
+			Color color = rendering.getSelectedTabItemColor();
+			if (color == null) {
+				return null;
+			}
+			return new HSB(color.getRGB()).toHTMLCode();
+		} else if (property.equals("chrome-unselected-tab-color")) {
+			Color color = rendering.getUnselectedTabItemColor();
+			if (color == null) {
+				return null;
+			}
+			return new HSB(color.getRGB()).toHTMLCode();
+		} else if (property.equals("chrome-shiney-shadow")) {
+			return Boolean.toString(rendering.isShowShineyShadow());
+		} else if (property.equals("chrome-selected-tab-fill-highlight")) {
+			Color color = rendering.getSelectedTabFillHighlightColor();
+			if (color == null) {
+				return null;
+			}
+			return new HSB(color.getRGB()).toHTMLCode();
+		}
 		return null;
 	}
 

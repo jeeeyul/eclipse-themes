@@ -21,6 +21,11 @@ public class ChromeBorder {
 		}
 	}
 
+	public static boolean exists(Composite comp) {
+		ChromeBorder border = (ChromeBorder) comp.getData(ChromeBorder.class.getName());
+		return border != null;
+	}
+
 	public static ChromeBorder get(Composite control) {
 		ChromeBorder border = (ChromeBorder) control.getData(ChromeBorder.class.getName());
 		if (border == null) {
@@ -38,6 +43,7 @@ public class ChromeBorder {
 	private boolean leftVisible = false;
 	private boolean rightVisible = false;
 	private boolean bottomVisible = false;
+
 	private Listener controlHook;
 
 	public ChromeBorder(Composite parent) {
@@ -121,6 +127,16 @@ public class ChromeBorder {
 		if (bottomVisible && bottomColor != null) {
 			event.gc.setForeground(bottomColor);
 			event.gc.drawLine(bounds.x, bounds.y + bounds.height - 1, bounds.x + bounds.width, bounds.y + bounds.height - 1);
+		}
+
+		if (leftVisible && leftColor != null) {
+			event.gc.setForeground(leftColor);
+			event.gc.drawLine(bounds.x, bounds.y, bounds.x, bounds.y + bounds.height);
+		}
+
+		if (rightVisible && rightColor != null) {
+			event.gc.setForeground(rightColor);
+			event.gc.drawLine(bounds.x + bounds.width - 1, bounds.y + bounds.height - 1, bounds.x + bounds.width - 1, bounds.y);
 		}
 	}
 

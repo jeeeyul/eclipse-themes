@@ -17,11 +17,9 @@ import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Control
 import org.eclipse.swt.widgets.Event
 import org.eclipse.swt.widgets.ToolBar
-import org.eclipse.ui.IWorkbenchPreferenceConstants
-import org.eclipse.ui.internal.util.PrefUtil
+import org.eclipse.swt.widgets.ToolItem
 
 import static net.jeeeyul.eclipse.themes.preference.ChromeConstants.*
-import org.eclipse.swt.widgets.ToolItem
 
 class ToolbarPage extends ChromePage {
 	extension SWTExtensions = new SWTExtensions
@@ -415,7 +413,7 @@ class ToolbarPage extends ChromePage {
 		engravedButton.selection = !store.getBoolean(CHROME_USE_EMBOSSED_DRAG_HANDLE)
 		useTrimStackBorderButton.selection = store.getBoolean(CHROME_USE_TRIMSTACK_IMAGE_BORDER)
 		
-		showPerspectiveNameButton.selection = PrefUtil::APIPreferenceStore.getBoolean(IWorkbenchPreferenceConstants::SHOW_TEXT_ON_PERSPECTIVE_BAR);
+		showPerspectiveNameButton.selection = store.getBoolean(CHROME_SHOW_TEXT_ON_PERSPECTIVE_SWITCHER)
 		
 		updateAutoColors()
 		updateEnablement()
@@ -443,11 +441,8 @@ class ToolbarPage extends ChromePage {
 		
 		store.setValue(CHROME_USE_EMBOSSED_DRAG_HANDLE, embossedButton.selection)
 		store.setValue(CHROME_USE_TRIMSTACK_IMAGE_BORDER, useTrimStackBorderButton.selection)
-		
-		if(showPerspectiveNameButton.selection != PrefUtil::APIPreferenceStore.getDefaultBoolean(IWorkbenchPreferenceConstants::SHOW_TEXT_ON_PERSPECTIVE_BAR)){
-			PrefUtil::internalPreferenceStore.setValue("overridepresentation", true)
-		}
-		PrefUtil::APIPreferenceStore.setValue(IWorkbenchPreferenceConstants::SHOW_TEXT_ON_PERSPECTIVE_BAR, showPerspectiveNameButton.selection)
+
+		store.setValue(CHROME_SHOW_TEXT_ON_PERSPECTIVE_SWITCHER, showPerspectiveNameButton.selection)		
 	}
 
 	override setToDefault(IPreferenceStore store) {
@@ -483,8 +478,7 @@ class ToolbarPage extends ChromePage {
 		engravedButton.selection = !store.getDefaultBoolean(CHROME_USE_EMBOSSED_DRAG_HANDLE)
 		useTrimStackBorderButton.selection = store.getDefaultBoolean(CHROME_USE_TRIMSTACK_IMAGE_BORDER)
 		
-		
-		showPerspectiveNameButton.selection = PrefUtil::APIPreferenceStore.getDefaultBoolean(IWorkbenchPreferenceConstants::SHOW_TEXT_ON_PERSPECTIVE_BAR);
+		showPerspectiveNameButton.selection = store.getDefaultBoolean(CHROME_SHOW_TEXT_ON_PERSPECTIVE_SWITCHER)
 	
 		updateAutoColors()
 		updateEnablement()

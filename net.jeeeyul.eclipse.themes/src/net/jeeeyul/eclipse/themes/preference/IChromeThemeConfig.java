@@ -86,4 +86,6 @@ public interface IChromeThemeConfig {
 	public abstract Boolean getUseEmbossedDragHandle();
 
 	public abstract String getUserCSS();
+
+	public abstract Boolean getShowTextOnPerspectiveSwitcher();
 }

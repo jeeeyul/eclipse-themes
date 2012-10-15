@@ -125,6 +125,13 @@
                name="chrome-padding-bottom">
          </property-name>
       </handler>
+      <handler
+            adapter="org.eclipse.e4.ui.css.swt.dom.CompositeElement"
+            handler="net.jeeeyul.eclipse.themes.css.PerspectiveSwitcherCSSHandler">
+         <property-name
+               name="chrome-show-perspective-name">
+         </property-name>
+      </handler>
    </extension>
 
 </plugin>

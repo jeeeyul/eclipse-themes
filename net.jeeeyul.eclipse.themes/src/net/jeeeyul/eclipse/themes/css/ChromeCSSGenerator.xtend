@@ -191,6 +191,7 @@ class ChromeCSSGenerator {
 			«IF afterJunoSR1»
 				handle-image: none;
 			«ENDIF»
+			chrome-show-perspective-name: «config.showTextOnPerspectiveSwitcher»;
 		}
 		
 		«IF afterJunoSR1»

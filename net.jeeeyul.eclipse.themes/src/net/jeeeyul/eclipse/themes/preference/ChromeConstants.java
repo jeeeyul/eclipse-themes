@@ -306,4 +306,7 @@ public interface ChromeConstants {
 	 */
 	@ValueType(String.class)
 	public static final String CHROME_USER_CSS = "chrome-user-css";
+
+	@ValueType(String.class)
+	public static final String CHROME_SHOW_TEXT_ON_PERSPECTIVE_SWITCHER = "chrome-show-text-on-perspective-switcher";
 }

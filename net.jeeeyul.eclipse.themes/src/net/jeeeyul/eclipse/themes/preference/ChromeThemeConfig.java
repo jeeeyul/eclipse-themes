@@ -90,6 +90,8 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	 */
 	private String userCSS;
 
+	private Boolean showTextOnPerspectiveSwitcher;
+
 	public ChromeThemeConfig() {
 		this(ChromeThemeCore.getDefault().getPreferenceStore());
 	}
@@ -444,6 +446,14 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	}
 
 	@Override
+	public Boolean getShowTextOnPerspectiveSwitcher() {
+		if (showTextOnPerspectiveSwitcher == null) {
+			showTextOnPerspectiveSwitcher = getStore().getBoolean(ChromeConstants.CHROME_SHOW_TEXT_ON_PERSPECTIVE_SWITCHER);
+		}
+		return showTextOnPerspectiveSwitcher;
+	}
+
+	@Override
 	public RGB getStatusBarBackgroundColor() {
 		if (statusBarBackgroundColor == null) {
 			if (getUseWindowBackgroundAsStatusBarBackground()) {
@@ -603,8 +613,10 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 
 		useTrimStackImageBorder = null;
 		useEmbossedDragHandle = null;
-		
+
 		userCSS = null;
+		
+		showTextOnPerspectiveSwitcher = null;
 	}
 
 	@Override
