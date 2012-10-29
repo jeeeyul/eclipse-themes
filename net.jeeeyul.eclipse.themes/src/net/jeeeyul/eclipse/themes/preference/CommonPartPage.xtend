@@ -132,7 +132,7 @@ class CommonPartPage extends ChromePage {
 				]
 				
 				newLink[
-					text = "(<a href=\"http://help.eclipse.org/juno/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Freference%2Fapi%2Forg%2Feclipse%2Fswt%2Fcustom%2FCTabFolder.html&anchor=setMRUVisible(boolean)\">Info</a>)"
+					text = '''(<a href="http://help.eclipse.org/juno/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Freference%2Fapi%2Forg%2Feclipse%2Fswt%2Fcustom%2FCTabFolder.html&anchor=setMRUVisible(boolean)">«Messages::DETAIL_INFO»</a>)'''
 					addListener(SWT::Selection)[
 						Program::launch(it.text)
 					]

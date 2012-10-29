@@ -5,6 +5,8 @@ import org.eclipse.osgi.util.NLS;
 public class Messages extends NLS {
 	private static final String BUNDLE_NAME = "net.jeeeyul.eclipse.themes.preference.messages"; //$NON-NLS-1$
 
+	public static String MANAGE_USER_PRESET;
+
 	public static String APPLY_TO_PREVIEW;
 	public static String CASTS_SHADOWS_FOR_PARTS;
 
@@ -57,6 +59,8 @@ public class Messages extends NLS {
 	public static String ACTIVE;
 
 	public static String ACTIVE_PART_DESCRIPTION;
+	public static String ADJUST_COLORS_GLOBALLY;
+
 	public static String ADVANCED;
 
 	public static String AUTO;

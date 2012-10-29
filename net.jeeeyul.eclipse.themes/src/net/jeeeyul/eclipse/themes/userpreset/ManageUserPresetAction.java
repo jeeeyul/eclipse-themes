@@ -3,16 +3,17 @@ package net.jeeeyul.eclipse.themes.userpreset;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jface.dialogs.IDialogConstants;
-
 import net.jeeeyul.eclipse.themes.preference.ChromeThemePrefererncePage;
+import net.jeeeyul.eclipse.themes.preference.Messages;
 import net.jeeeyul.eclipse.themes.preference.action.PreferenceAction;
+
+import org.eclipse.jface.dialogs.IDialogConstants;
 
 public class ManageUserPresetAction extends PreferenceAction {
 
 	public ManageUserPresetAction(ChromeThemePrefererncePage prefererncePage) {
 		super(prefererncePage);
-		setText("Manage user presets");
+		setText(Messages.MANAGE_USER_PRESET);
 	}
 
 	@Override
