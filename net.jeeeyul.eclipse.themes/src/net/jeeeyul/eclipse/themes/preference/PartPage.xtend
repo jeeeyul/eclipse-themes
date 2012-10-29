@@ -15,11 +15,11 @@ class PartPage extends ChromePage {
 	StateBasedPartPage inactivePage
 	
 	new(){
-		super("Part", SharedImages::PART);
+		super(Messages::PART, SharedImages::PART);
 		
 		commonPage = new CommonPartPage
-		activePage = new StateBasedPartPage("Active", true)
-		inactivePage = new StateBasedPartPage("Inactive", false);
+		activePage = new StateBasedPartPage(Messages::ACTIVE, true)
+		inactivePage = new StateBasedPartPage(Messages::INACTIVE, false);
 	}
 
 	override create(Composite parent) {
@@ -31,7 +31,7 @@ class PartPage extends ChromePage {
 			marginHeight = 0
 			
 			newCTabItem[
-				text = "Common"
+				text = Messages::COMMON
 				image = SharedImages::getImage(SharedImages::LAYOUT)
 				control = it.parent.newComposite[
 					commonPage.parentPage = parentPage
@@ -43,7 +43,7 @@ class PartPage extends ChromePage {
 			]
 			
 			newCTabItem[
-				text = "Active"
+				text = Messages::ACTIVE
 				image = SharedImages::getImage(SharedImages::ACTIVE_PART)
 				control = it.parent.newComposite[
 					activePage.parentPage = parentPage
@@ -53,7 +53,7 @@ class PartPage extends ChromePage {
 			]
 			
 			newCTabItem[
-				text = "Inactive"
+				text = Messages::INACTIVE
 				image = SharedImages::getImage(SharedImages::PART)
 				control = it.parent.newComposite[
 					inactivePage.parentPage = parentPage

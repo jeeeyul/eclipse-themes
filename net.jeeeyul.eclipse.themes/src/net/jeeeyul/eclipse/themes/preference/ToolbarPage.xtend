@@ -43,7 +43,7 @@ class ToolbarPage extends ChromePage {
 	Button showPerspectiveNameButton
 	
 	new(){
-		super("Toolbar", SharedImages::TOOLBAR)
+		super(Messages::TOOLBAR, SharedImages::TOOLBAR)
 	}
 
 	override create(Composite parent) {
@@ -51,7 +51,7 @@ class ToolbarPage extends ChromePage {
 			layout = newGridLayout
 			
 			newLabel[
-				text = "Configurations for main tool bar and Perspective Switcher"
+				text = Messages::TOOLBAR_DESCRIPTION
 			]
 			
 			it.createPreview()
@@ -60,29 +60,29 @@ class ToolbarPage extends ChromePage {
 				layout = newGridLayout[
 					numColumns = 3
 				]
-				text = "Main Tool Bar"
+				text = Messages::MAIN_TOOLBAR
 				layoutData = FILL_HORIZONTAL[]
 				
 				newLabel[
-					text = "Start Color"
+					text = Messages::FILL_START + ":"
 				]
 				toolBarStartColorWell = newColorWell[
 					onSelection = [updatePreview]
 				]
 				newPushButton[
-					text = "Change"
+					text = Messages::CHANGE
 					onClick = [
 						toolBarStartColorWell.showColorPicker()
 					]
 				]
 				newLabel[
-					text = "End Color"
+					text = Messages::FILL_END + ":"
 				]
 				toolBarEndColorWell = newColorWell[
 					onSelection = [updatePreview]
 				]
 				newPushButton[
-					text = "Change"
+					text = Messages::CHANGE
 					onClick = [
 						toolBarEndColorWell.showColorPicker()
 					]
@@ -92,32 +92,32 @@ class ToolbarPage extends ChromePage {
 			it.createPerspectiveSwitcherGroup()
 			
 			newGroup[
-				text = "Drag Handle && Stack Border"
+				text = Messages::DRAG_HANDLE_AND_STACK_BORDER
 				layout = newGridLayout[
 					numColumns = 3
 				]
 				layoutData = FILL_HORIZONTAL
 				
 				newLabel[
-					text = "Handle Type:"
+					text = Messages::HANDLE_TYPE + ":"
 				]				
 				
 				engravedButton = newRadioButton[
-					text = "Engraved"
+					text = Messages::ENGRAVED
 					onSelection = [
 						updatePreview()
 					]
 				]
 				
 				embossedButton = newRadioButton[
-					text = "Embossed"
+					text = Messages::EMBOSSED
 					onSelection = [
 						updatePreview()
 					]
 				]
 				
 				useTrimStackBorderButton = newCheckbox[
-					text = "Use image border for trim stack."
+					text = Messages::USE_IMAGE_BORDER_FOR_TRIM_STACK
 					layoutData = newGridData[
 						horizontalSpan = 3
 					]
@@ -125,7 +125,7 @@ class ToolbarPage extends ChromePage {
 			]//end
 			
 			newLabel[
-				text = "New workbench window needs to be open to update handles."
+				text = Messages::NEW_WINDOW_WARNNING
 			]
 		]
 	}
@@ -204,20 +204,20 @@ class ToolbarPage extends ChromePage {
 
 	def private createPerspectiveSwitcherGroup(Composite composite) { 
 		composite.newGroup[
-			text = "Perspective Switcher"
+			text = Messages::PERSPECTIVE_SWITCHER
 			layout = newGridLayout[
 				numColumns = 4
 			]
 			
 			layoutData = FILL_HORIZONTAL
 			newLabel[
-				text = "Start Color"
+				text = Messages::FILL_START + ":"
 			]
 			perspectiveStartColorWell = newColorWell[
 				onSelection = [updatePreview]
 			]
 			newPushButton[
-				text = "Change"
+				text = Messages::CHANGE
 				layoutData = newGridData[
 					horizontalSpan = 2
 				]
@@ -226,26 +226,26 @@ class ToolbarPage extends ChromePage {
 				]
 			]
 			newLabel[
-				text = "End Color"
+				text = Messages::FILL_END + ":"
 			]
 			perspectiveEndColorWell = newColorWell[
 				onSelection = [updatePreview]
 			]
 			newPushButton[
-				text = "Change"
+				text = Messages::CHANGE
 				onClick = [
 					perspectiveEndColorWell.showColorPicker()
 				]
 			]
 			useWBColorAsPerspectiveColorButton = newCheckbox[
-				text = "Use Window Background"
+				text = Messages::USE_WINDOW_BACKGROUND
 				onSelection = [
 					updateAutoColors()
 					updateEnablement()
 				]
 			]
 			newLabel[
-				text = "Outline Color"
+				text = Messages::OUTLINE_COLOR + ":"
 			]
 			perspectiveOutlineColorWell = newColorWell[
 				onSelection = [
@@ -256,7 +256,7 @@ class ToolbarPage extends ChromePage {
 				layoutData = newGridData[
 					horizontalSpan = 2
 				]
-				text = "Change"
+				text = Messages::CHANGE
 				onClick = [
 					perspectiveOutlineColorWell.showColorPicker()
 				]
@@ -266,7 +266,7 @@ class ToolbarPage extends ChromePage {
 				layoutData = FILL_HORIZONTAL[
 					horizontalSpan = 4
 				]
-				text = "Show Perspective Name"
+				text = Messages::SHOW_PERSPECTIVE_NAME
 				onSelection = [
 					updatePreview()
 				]

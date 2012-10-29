@@ -21,13 +21,13 @@ class UserCSSPage extends ChromePage {
 	ISourceViewer srcViewer
 	
 	new() {
-		super("CSS", null);
+		super(Messages::CSS, null);
 	}
 
 	override create(Composite parent) {
 		parent.layout = newGridLayout
 		parent.newLabel[
-			text = "Custom CSS:"
+			text = Messages::CUSTOM_CSS
 		]
 		
 		srcViewer = new SourceViewer(parent, null, SWT::V_SCROLL || SWT::BORDER);
@@ -41,11 +41,11 @@ class UserCSSPage extends ChromePage {
 			
 			newCLabel[
 				image = SharedImages::getImage(SharedImages::WARN_TSK)
-				text = "Using this feature may not safe."	
+				text = Messages::USING_THIS_FEATURE_WARNING
 			]
 			
 			newPushButton[
-				text = "Clear"
+				text = Messages::CLEAR
 				onClick = [
 					srcViewer.document.set("")
 				]

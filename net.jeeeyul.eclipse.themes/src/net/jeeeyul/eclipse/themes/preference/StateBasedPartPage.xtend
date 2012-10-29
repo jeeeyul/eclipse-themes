@@ -49,21 +49,21 @@ class StateBasedPartPage extends ChromePage {
 			newLabel[
 				text = 	
 					if(isActive) 
-						"Configurations for Active Part Stack."
+						Messages::ACTIVE_PART_DESCRIPTION
 					else
-						"Configurations for Inactive Part Stack."
+						Messages::INACTIVE_PART_DESCRIPTION
 			]
 			
 			newGroup[
 				layoutData = FILL_HORIZONTAL
-				text = "Colors"
+				text = Messages::COLORS
 				layout = newGridLayout[
 					numColumns = 5
 					makeColumnsEqualWidth = false
 				]
 				
 				newLabel[
-					text="Gradient Start:"
+					text= Messages::FILL_START + ":"
 				]
 				
 				startColorWell = newColorWell[
@@ -74,7 +74,7 @@ class StateBasedPartPage extends ChromePage {
 				]
 				
 				newPushButton[
-					text = "Change"
+					text = Messages::CHANGE
 					onClick = [
 						showColorPicker(startColorWell)
 					]
@@ -88,7 +88,7 @@ class StateBasedPartPage extends ChromePage {
 				
 				
 				newLabel[
-					text="Gradient End:"
+					text = Messages::FILL_END + ":"
 				]
 				
 				endColorWell = newColorWell[
@@ -98,14 +98,14 @@ class StateBasedPartPage extends ChromePage {
 				]
 				
 				newPushButton[
-					text = "Change"
+					text = Messages::CHANGE
 					onClick = [
 						showColorPicker(endColorWell)
 					]
 				]
 				
 				autoEndColorButton = newCheckbox[
-					text = "Auto"
+					text = Messages::AUTO
 					onSelection = [
 						updateEnablement()
 						syncHueAndComputeAutoColors()
@@ -113,14 +113,14 @@ class StateBasedPartPage extends ChromePage {
 				]
 				
 				syncEndColorHueButton = newCheckbox[
-					text = "Sync Hue"
+					text = Messages::SYNC_HUE
 					onSelection = [
 						updateSync()
 					]
 				]
 				
 				newLabel[
-					text="Outline:"
+					text = Messages::OUTLINE + ":"
 				]
 				
 				outlineColorWell = newColorWell[
@@ -130,14 +130,14 @@ class StateBasedPartPage extends ChromePage {
 				]
 								
 				newPushButton[
-					text = "Change"
+					text = Messages::CHANGE
 					onClick = [
 						showColorPicker(outlineColorWell)
 					]
 				]
 				
 				autoOutlineColorButton = newCheckbox[
-					text = "Auto"
+					text = Messages::AUTO
 					onSelection = [
 						updateEnablement()
 						syncHueAndComputeAutoColors()
@@ -145,7 +145,7 @@ class StateBasedPartPage extends ChromePage {
 				]
 				
 				syncOutlineColorHueButton = newCheckbox[
-					text = "Sync Hue"
+					text = Messages::SYNC_HUE
 					onSelection = [
 						updateSync()
 					]
@@ -154,12 +154,12 @@ class StateBasedPartPage extends ChromePage {
 			] // end Group
 			
 			newGroup[
-				text = "Selected Tab"
+				text = Messages::SELECTED_TAB
 				layout = newGridLayout[numColumns = 3]
 				layoutData = FILL_HORIZONTAL
 				
 				newLabel[
-					text = "Text:"
+					text = Messages::TEXT + ":"
 				]
 				
 				selectedTitleColorWell = newColorWell[
@@ -168,14 +168,14 @@ class StateBasedPartPage extends ChromePage {
 					]
 				]
 				newPushButton[
-					text = "Change"
+					text = Messages::CHANGE
 					onClick = [
 						showColorPicker(selectedTitleColorWell)
 					]
 				]
 				
 				newLabel[
-					text="Fill Start:"
+					text=Messages::FILL_START + ":"
 				]
 				
 				selectedTabStartColorWell = newColorWell[
@@ -185,14 +185,14 @@ class StateBasedPartPage extends ChromePage {
 				]
 				
 				newPushButton[
-					text = "Change"
+					text = Messages::CHANGE
 					onClick = [
 						showColorPicker(selectedTabStartColorWell)
 					]
 				]
 				
 				newLabel[
-					text="Fill End:"
+					text=Messages::FILL_END + ":"
 				]
 				
 				selectedTabEndColorWell = newColorWell[
@@ -202,7 +202,7 @@ class StateBasedPartPage extends ChromePage {
 				]
 				
 				newPushButton[
-					text = "Change"
+					text = Messages::CHANGE
 					onClick = [
 						showColorPicker(selectedTabEndColorWell)
 					]
@@ -211,12 +211,12 @@ class StateBasedPartPage extends ChromePage {
 			] // End Group
 			
 			newGroup[
-				text = "Unselected Tab"
+				text = Messages::UNSELECTED_TAB
 				layout = newGridLayout[numColumns = 3]
 				layoutData = FILL_HORIZONTAL
 				
 				newLabel[
-					text = "Text:"
+					text = Messages::TEXT + ":"
 				]
 				
 				unselectedTitleColorWell = newColorWell[
@@ -225,14 +225,14 @@ class StateBasedPartPage extends ChromePage {
 					]
 				]
 				newPushButton[
-					text = "Change"
+					text = Messages::CHANGE
 					onClick = [
 						showColorPicker(unselectedTitleColorWell)
 					]
 				]
 				
 				partShinyShadowButton = newCheckbox[
-					text = "Shiny Shadow"
+					text = Messages::SHINY_SHADOW
 					layoutData = newGridData[horizontalSpan = 2]
 					onSelection = [
 						updatePreview()

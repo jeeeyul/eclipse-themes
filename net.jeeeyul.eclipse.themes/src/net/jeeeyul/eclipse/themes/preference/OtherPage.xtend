@@ -22,7 +22,7 @@ class OtherPage extends ChromePage {
 	ColorWell statusBarOutlineColorWell;
 	
 	new() {
-		super("Others", null)
+		super(Messages::OTHERS, null)
 	}
 
 	override create(Composite control) {
@@ -30,10 +30,8 @@ class OtherPage extends ChromePage {
 			layout = newGridLayout
 			layoutData = FILL_HORIZONTAL
 			
-			
-			
 			newGroup[
-				text = "Status Bar"
+				text = Messages::STATUS_BAR
 				layoutData = FILL_HORIZONTAL
 				layout = newGridLayout[
 					numColumns = 4
@@ -41,7 +39,7 @@ class OtherPage extends ChromePage {
 				
 				
 				newLabel[
-					text = "Background:"
+					text = Messages::BACKGROUND + ":"
 				]
 				
 				statusBarBackgroundColorWell = newColorWell[
@@ -51,21 +49,21 @@ class OtherPage extends ChromePage {
 				]
 				
 				newPushButton[
-					text = "Change"
+					text = Messages::CHANGE
 					onClick = [
 						statusBarBackgroundColorWell.showColorPicker()
 					]
 				]
 				
 				useWBColorAsStatusBarColorButton = newCheckbox[
-					text = "Use Window Background"
+					text = Messages::USE_WINDOW_BACKGROUND
 					onSelection = [
 						updateEnablement()
 					]
 				]
 				
 				newLabel[
-					text = "Outline:"
+					text = Messages::OUTLINE + ":"
 				]
 				
 				statusBarOutlineColorWell = newColorWell[
@@ -73,14 +71,14 @@ class OtherPage extends ChromePage {
 				]
 				
 				newPushButton[
-					text = "Change"
+					text = Messages::CHANGE
 					onClick = [
 						statusBarOutlineColorWell.showColorPicker()
 					]
 				]
 				
 				useStatusBarOutlineButton = newCheckbox[
-					text = "Show Outline"
+					text = Messages::SHOW_OUTLINE
 					onSelection = [
 						updateEnablement()
 					]

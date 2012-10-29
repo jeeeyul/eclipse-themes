@@ -31,7 +31,7 @@ class CommonPartPage extends ChromePage {
 	FontPreview fontPreview
 
 	new() {
-		super("Part", SharedImages::PART)
+		super(Messages::PART, SharedImages::PART)
 	}
 
 	override create(Composite parent) {
@@ -39,16 +39,16 @@ class CommonPartPage extends ChromePage {
 		parent=>[
 			layout = newGridLayout
 			newLabel[
-				text = "Configurations for Part Stack."
+				text = Messages::PART_DESCRIPTION
 			]
 			newGroup[
 				layoutData = FILL_HORIZONTAL
-				text = "Part Title"
+				text = Messages::PART_TITLE
 				layout = newGridLayout[
 					numColumns = 2
 					makeColumnsEqualWidth = false
 				]
-				newLabel[ text = "Font:" ]
+				newLabel[ text = Messages::FONT + ":" ]
 				var combo = new Combo(it, SWT::READ_ONLY)=>[]
 				fontSelector = new ComboViewer(combo)
 				fontSelector.contentProvider = new FontNameProvider()
@@ -56,7 +56,7 @@ class CommonPartPage extends ChromePage {
 				fontSelector.addSelectionChangedListener[
 					updatePreview()
 				]
-				newLabel[ text = "Size:" ]
+				newLabel[ text = Messages::SIZE + ":" ]
 				fontSizeField = newTextField[
 					layoutData = newGridData[
 						widthHint = 50
@@ -69,14 +69,14 @@ class CommonPartPage extends ChromePage {
 			// End Group
 			
 			newGroup[
-				text = "Part Stack Shape"
+				text = Messages::PART_STACK_SHAPE
 				layoutData = FILL_HORIZONTAL
 				layout = newGridLayout[
 					numColumns = 3
 				]
 				
 				newLabel[
-					text = "Corner Radius:"
+					text = Messages::CORNER_RADIUS + ":"
 				]
 				cornerRadiusLabel = newLabel[
 					text = "10px"
@@ -96,7 +96,7 @@ class CommonPartPage extends ChromePage {
 				]
 				
 				newLabel[
-					text = "Part Padding:"
+					text = Messages::PART_PADDING + ":"
 				]
 				paddingLabel = newLabel[
 					text = "10px"
@@ -128,7 +128,7 @@ class CommonPartPage extends ChromePage {
 				 * https://github.com/jeeeyul/eclipse-themes/issues/issue/35
 				 */
 				useMruButton = newCheckbox[
-					text = "Make MRU Visible"
+					text = Messages::MAKE_MRU_VISIBLE
 				]
 				
 				newLink[
@@ -142,7 +142,7 @@ class CommonPartPage extends ChromePage {
 			
 			newCLabel[
 				image = SharedImages::getImage(SharedImages::WARN_TSK)
-				text = "To preview some layout settings, use Apply Button"				
+				text = Messages::APPLY_TO_PREVIEW			
 			]
 		]
 	}

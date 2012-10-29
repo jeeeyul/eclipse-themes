@@ -31,7 +31,7 @@ class GeneralPage extends ChromePage {
 	ColorWell emptyPartOutlineColorWell
 	
 	new(){
-		super("General", SharedImages::LAYOUT)
+		super(Messages::GENERAL, SharedImages::LAYOUT)
 	}
 
 	override create(Composite parent) {
@@ -39,16 +39,16 @@ class GeneralPage extends ChromePage {
 			layout = newGridLayout
 			
 			newLabel[
-				text = "Configurations for other features."
+				text = Messages::GENERAL_DESCRIPTION
 			]
 			
 			newGroup[
-				text = "Window"
+				text = Messages::WINDOW
 				layoutData = FILL_HORIZONTAL
 				layout = newGridLayout[numColumns = 3]
 				
 				newLabel[
-					text = "Background Color:"
+					text = Messages::BACKGROUND_COLOR + ":"
 				]
 				
 				windowBackgroundColorWell = newColorWell[
@@ -58,7 +58,7 @@ class GeneralPage extends ChromePage {
 				]
 				
 				newPushButton[
-					text = "Change"
+					text = Messages::CHANGE
 					onClick = [
 						windowBackgroundColorWell.showColorPicker()
 					]
@@ -66,12 +66,12 @@ class GeneralPage extends ChromePage {
 			]
 			
 			newGroup[
-				text = "Sash Width"
+				text = Messages::SASH_WIDTH
 				layoutData = FILL_HORIZONTAL
 				layout = newGridLayout
 				
 				thinSashButton = newRadioButton[
-					text = "Thin Sash (Classic, No Shadows)"
+					text = Messages::THIN_SASH
 					onSelection = [
 						updateEnablement()
 						updatePreview()
@@ -79,14 +79,14 @@ class GeneralPage extends ChromePage {
 				]
 				
 				newLabel[
-					text = "Using shadow makes more space to draw shadows."
+					text = Messages::SHADOW_WARNING
 					layoutData = FILL_HORIZONTAL[
 						horizontalIndent = 16
 					]
 				]
 				
 				standardButton = newRadioButton[
-					text = "Standard (Shadows)"
+					text = Messages::STANDARD_SASH
 					onSelection = [
 						updateEnablement()
 						updatePreview()
@@ -94,7 +94,7 @@ class GeneralPage extends ChromePage {
 				]
 				
 				manualButton = newRadioButton[
-					text = "Manual (Advanced)"
+					text = Messages::MANUAL_SASH
 					onSelection = [
 						updateEnablement()
 						updatePreview()
@@ -103,21 +103,21 @@ class GeneralPage extends ChromePage {
 			]
 			
 			newGroup[
-				text = "Advanced"
+				text = Messages::ADVANCED
 				layoutData = FILL_HORIZONTAL
 				layout = newGridLayout[
 					numColumns = 3
 				]
 				
 				partShadowButton = newCheckbox[
-					text = "Casts shadows for Parts"
+					text = Messages::CASTS_SHADOWS_FOR_PARTS
 					layoutData = FILL_HORIZONTAL[horizontalSpan = 3]
 					onSelection = [
 						updatePreview()
 					]
 				]
 				
-				newLabel[text = "Sash Width:"]
+				newLabel[text = Messages::SASH_WIDTH + ":"]
 				sashWidthScale = newScale[
 					layoutData = FILL_HORIZONTAL[horizontalSpan = 2]
 					minimum = 1
@@ -130,7 +130,7 @@ class GeneralPage extends ChromePage {
 				]
 				
 				newLabel[
-					text = "Part Shadow Color:"
+					text = Messages::PART_SHADOW_COLOR + ":"
 				]
 				
 				partShadowColorWell = newColorWell[
@@ -146,11 +146,11 @@ class GeneralPage extends ChromePage {
 			]
 			
 			newGroup[
-				text = "Empty Editor Area"
+				text = Messages::EMPTY_EDITOR_AREA
 				layout = newGridLayout[numColumns = 3]
 				layoutData = FILL_HORIZONTAL
 				
-				newLabel[ text = "Background Color:"]
+				newLabel[ text = Messages::BACKGROUND_COLOR + ":"]
 				emptyPartColorWell = newColorWell[
 					onSelection = [
 						updatePreview()
@@ -158,13 +158,13 @@ class GeneralPage extends ChromePage {
 				]
 				
 				newPushButton[
-					text = "Change"
+					text = Messages::CHANGE
 					onClick = [
 						emptyPartColorWell.showColorPicker()
 					]
 				]
 				
-				newLabel[ text = "Outline Color:"]
+				newLabel[ text = Messages::OUTLINE_COLOR + ":"]
 				emptyPartOutlineColorWell = newColorWell[
 					onSelection = [
 						updatePreview()
@@ -172,7 +172,7 @@ class GeneralPage extends ChromePage {
 				]
 				
 				newPushButton[
-					text = "Change"
+					text = Messages::CHANGE
 					onClick = [
 						emptyPartOutlineColorWell.showColorPicker()
 					]

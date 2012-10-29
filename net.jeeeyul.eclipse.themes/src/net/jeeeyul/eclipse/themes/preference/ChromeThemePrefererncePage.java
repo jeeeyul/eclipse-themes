@@ -49,7 +49,7 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.ui.dialogs.PreferencesUtil;
 
 public class ChromeThemePrefererncePage extends PreferencePage implements IWorkbenchPreferencePage {
-	public static final String ID = "net.jeeeyul.eclipse.themes.preference.ChromeThemePrefererncePage";
+	public static final String ID = "net.jeeeyul.eclipse.themes.preference.ChromeThemePrefererncePage"; //$NON-NLS-1$
 
 	private ArrayList<ChromePage> pages = new ArrayList<ChromePage>();
 	private CTabFolder folder;
@@ -117,7 +117,7 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 		folder.setSelection(0);
 
 		createToolbar();
-		createLink(container, "Only works with Chrome Theme, You can change on <a href=\"org.eclipse.ui.preferencePages.Views\">Appearance page</a>");
+		createLink(container, Messages.ONLY_WORKS_WITH_CHROME_LINK);
 
 		createGitHubLink(container);
 
@@ -137,7 +137,7 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 
 		Link forkMeLink = new Link(composite, SWT.NORMAL);
 		forkMeLink
-				.setText("Fork me on <a href=\"https://github.com/jeeeyul/eclipse-themes\">GitHub</a>, also don't forget <a href=\"http://marketplace.eclipse.org/content/eclipse-4-chrome-theme\">favorite me on marketplace</a>.");
+				.setText(Messages.FORK_LINK);
 		forkMeLink.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
@@ -166,7 +166,7 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 
 		presetItem = new ToolItem(toolBar, SWT.DROP_DOWN);
 		presetItem.setImage(SharedImages.getImage(SharedImages.PALETTE));
-		presetItem.setToolTipText("Preset");
+		presetItem.setToolTipText(Messages.PRESET);
 		presetItem.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
@@ -214,8 +214,8 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 	}
 
 	private void updateMenu(IMenuManager manager) {
-		MenuManager presetMenu = new MenuManager("Editor's Presets", SharedImages.getImageDescriptor(SharedImages.PRESET), "preset");
-		Enumeration<URL> presets = ChromeThemeCore.getDefault().getBundle().findEntries("presets/", "*.epf", false);
+		MenuManager presetMenu = new MenuManager(Messages.EDITORS_PRESET, SharedImages.getImageDescriptor(SharedImages.PRESET), "preset"); //$NON-NLS-2$
+		Enumeration<URL> presets = ChromeThemeCore.getDefault().getBundle().findEntries("presets/", "*.epf", false); //$NON-NLS-1$ //$NON-NLS-2$
 		while (presets.hasMoreElements()) {
 			URL url = presets.nextElement();
 			IPath path = new Path(url.getFile());
@@ -225,7 +225,7 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 		}
 		manager.add(presetMenu);
 
-		MenuManager userPresetMenu = new MenuManager("User's Presets", SharedImages.getImageDescriptor(SharedImages.PRESET), "preset");
+		MenuManager userPresetMenu = new MenuManager(Messages.USERS_PRESET, SharedImages.getImageDescriptor(SharedImages.PRESET), "preset"); //$NON-NLS-2$
 		userPresetMenu.add(new ManageUserPresetAction(this));
 		userPresetMenu.add(new AddUserPresetAction(this));
 		userPresetMenu.add(new Separator());
