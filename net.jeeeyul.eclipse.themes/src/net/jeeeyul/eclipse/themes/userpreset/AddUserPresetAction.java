@@ -1,5 +1,6 @@
 package net.jeeeyul.eclipse.themes.userpreset;
 
+import net.jeeeyul.eclipse.themes.Messages;
 import net.jeeeyul.eclipse.themes.SharedImages;
 import net.jeeeyul.eclipse.themes.preference.ChromePage;
 import net.jeeeyul.eclipse.themes.preference.ChromePreferenceInitializer;
@@ -14,7 +15,7 @@ public class AddUserPresetAction extends PreferenceAction {
 
 	public AddUserPresetAction(ChromeThemePrefererncePage prefererncePage) {
 		super(prefererncePage);
-		setText("Adds an user preset with current settings");
+		setText(Messages.ADD_USER_PRESET);
 		setImageDescriptor(SharedImages.getImageDescriptor(SharedImages.ADD));
 	}
 
@@ -25,7 +26,7 @@ public class AddUserPresetAction extends PreferenceAction {
 		for (ChromePage eachPage : getPrefererncePage().getPages()) {
 			eachPage.save(store);
 		}
-		InputDialog dialog = new InputDialog(getPrefererncePage().getShell(), "Jeeeyul's Eclipse Themes", "Enter a preset's name:", "My preset", null);
+		InputDialog dialog = new InputDialog(getPrefererncePage().getShell(), "Jeeeyul's Eclipse Themes", Messages.ENTER_PRESET_NAME + ":", Messages.MY_PRESET, null); //$NON-NLS-1$
 		if (dialog.open() == IDialogConstants.OK_ID) {
 			UserPresetRepository.INSTANCE.addPreset(dialog.getValue(), store);
 			UserPresetRepository.INSTANCE.save();

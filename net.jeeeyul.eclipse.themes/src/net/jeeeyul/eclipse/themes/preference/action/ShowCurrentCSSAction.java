@@ -1,5 +1,6 @@
 package net.jeeeyul.eclipse.themes.preference.action;
 
+import net.jeeeyul.eclipse.themes.Messages;
 import net.jeeeyul.eclipse.themes.css.ChromeCSSGenerator;
 import net.jeeeyul.eclipse.themes.preference.ChromePage;
 import net.jeeeyul.eclipse.themes.preference.ChromePreferenceInitializer;
@@ -15,7 +16,7 @@ public class ShowCurrentCSSAction extends PreferenceAction {
 
 	public ShowCurrentCSSAction(ChromeThemePrefererncePage prefererncePage) {
 		super(prefererncePage);
-		setText("Show CSS");
+		setText(Messages.SHOW_CSS);
 	}
 
 	@Override

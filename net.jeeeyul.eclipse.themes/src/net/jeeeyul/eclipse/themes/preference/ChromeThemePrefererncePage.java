@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 
 import net.jeeeyul.eclipse.themes.ChromeThemeCore;
+import net.jeeeyul.eclipse.themes.Messages;
 import net.jeeeyul.eclipse.themes.SharedImages;
 import net.jeeeyul.eclipse.themes.preference.action.GlobalAdjustmentAction;
 import net.jeeeyul.eclipse.themes.preference.action.LoadPresetAction;

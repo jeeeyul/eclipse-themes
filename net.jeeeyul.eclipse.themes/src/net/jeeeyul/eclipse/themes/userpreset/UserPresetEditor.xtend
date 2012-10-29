@@ -10,6 +10,7 @@ import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.jface.dialogs.InputDialog
 import org.eclipse.jface.dialogs.IDialogConstants
+import net.jeeeyul.eclipse.themes.Messages
 
 class UserPresetEditor {
 	extension SWTExtensions = SWTExtensions::INSTANCE
@@ -53,7 +54,7 @@ class UserPresetEditor {
 			]
 			
 			removeButton = newPushButton[
-				text = "Remove"
+				text = Messages::REMOVE
 				layoutData = newGridData[
 					verticalAlignment = SWT::TOP
 					horizontalAlignment = SWT::FILL
@@ -64,7 +65,7 @@ class UserPresetEditor {
 			]
 			
 			renameButton = newPushButton[
-				text = "Rename"
+				text = Messages::RENAME
 				layoutData = newGridData[
 					verticalAlignment = SWT::TOP
 					horizontalAlignment = SWT::FILL
@@ -75,7 +76,7 @@ class UserPresetEditor {
 			]
 			
 			upButton = newPushButton[
-				text = "UP"
+				text = Messages::UP
 				layoutData = newGridData[
 					verticalAlignment = SWT::TOP
 					horizontalAlignment = SWT::FILL
@@ -86,7 +87,7 @@ class UserPresetEditor {
 			]
 			
 			downButton = newPushButton[
-				text = "Down"
+				text = Messages::DOWN
 				layoutData = newGridData[
 					verticalAlignment = SWT::TOP
 					horizontalAlignment = SWT::FILL
@@ -130,7 +131,7 @@ class UserPresetEditor {
 	}
 	
 	def private void renameSelected() { 
-		var dialog = new InputDialog(viewer.control.shell, "Jeeeyul's Eclipse Themes", "Enter a preset's name:", "My preset", null);
+		var dialog = new InputDialog(viewer.control.shell, "Jeeeyul's Eclipse Themes", Messages::ENTER_PRESET_NAME + ":", Messages::MY_PRESET, null);
 		
 		if (dialog.open() == IDialogConstants::OK_ID) {
 			selection.head.name = dialog.value

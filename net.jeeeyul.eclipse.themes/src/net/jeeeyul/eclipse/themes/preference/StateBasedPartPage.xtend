@@ -10,8 +10,8 @@ import org.eclipse.jface.preference.IPreferenceStore
 import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Control
-
 import static net.jeeeyul.eclipse.themes.preference.ChromeConstants.*
+import net.jeeeyul.eclipse.themes.Messages
 
 class StateBasedPartPage extends ChromePage {
 	extension SWTExtensions = new SWTExtensions

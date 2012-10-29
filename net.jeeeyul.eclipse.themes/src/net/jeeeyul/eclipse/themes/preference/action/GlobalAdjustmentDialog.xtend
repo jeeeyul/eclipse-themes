@@ -12,6 +12,7 @@ import org.eclipse.jface.preference.PreferenceStore
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Scale
 import net.jeeeyul.eclipse.themes.SharedImages
+import net.jeeeyul.eclipse.themes.Messages
 
 class GlobalAdjustmentDialog extends Dialog {
 	extension SWTExtensions = SWTExtensions::INSTANCE
@@ -35,7 +36,7 @@ class GlobalAdjustmentDialog extends Dialog {
 	
 	override create() {
 		super.create()
-		shell.text = "Global Adjustment"
+		shell.text = Messages::GLOBAL_ADJUSTMENT
 		shell.image = SharedImages::getImage(SharedImages::PALETTE)
 	}
 	
@@ -54,7 +55,7 @@ class GlobalAdjustmentDialog extends Dialog {
 			]
 			
 			newLabel[
-				text = "Hue Shifting"
+				text = Messages::HUE_SHIFTING
 			]
 			
 			hueScale = newScale[
@@ -69,7 +70,7 @@ class GlobalAdjustmentDialog extends Dialog {
 			]
 			
 			newLabel[
-				text = "Saturation Amp"
+				text = Messages::SATURATION_AMP
 			]
 			
 			saturationScale = newScale[
@@ -84,7 +85,7 @@ class GlobalAdjustmentDialog extends Dialog {
 			]
 			
 			newLabel[
-				text = "Brightness Amp"
+				text = Messages::BRIGHTNESS_AMP
 			]
 			
 			brightnessScale = newScale[

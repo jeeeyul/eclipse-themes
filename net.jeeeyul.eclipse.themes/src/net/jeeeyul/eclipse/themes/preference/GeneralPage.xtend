@@ -1,16 +1,17 @@
 package net.jeeeyul.eclipse.themes.preference
 
+import net.jeeeyul.eclipse.themes.Messages
 import net.jeeeyul.eclipse.themes.SharedImages
-import net.jeeeyul.eclipse.themes.ui.SWTExtensions
-import org.eclipse.jface.preference.IPreferenceStore
-import org.eclipse.swt.widgets.Composite
-import org.eclipse.swt.widgets.Button
-import org.eclipse.swt.widgets.Scale
 import net.jeeeyul.eclipse.themes.rendering.ChromeTabRendering
-import net.jeeeyul.eclipse.themes.ui.ColorWell
 import net.jeeeyul.eclipse.themes.ui.ColorPicker
-import org.eclipse.jface.dialogs.IDialogConstants
+import net.jeeeyul.eclipse.themes.ui.ColorWell
 import net.jeeeyul.eclipse.themes.ui.HSB
+import net.jeeeyul.eclipse.themes.ui.SWTExtensions
+import org.eclipse.jface.dialogs.IDialogConstants
+import org.eclipse.jface.preference.IPreferenceStore
+import org.eclipse.swt.widgets.Button
+import org.eclipse.swt.widgets.Composite
+import org.eclipse.swt.widgets.Scale
 
 import static net.jeeeyul.eclipse.themes.preference.ChromeConstants.*
 

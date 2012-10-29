@@ -18,6 +18,7 @@ import org.eclipse.swt.widgets.Scale
 import org.eclipse.swt.widgets.Text
 
 import static net.jeeeyul.eclipse.themes.preference.ChromeConstants.*
+import net.jeeeyul.eclipse.themes.Messages
 
 class CommonPartPage extends ChromePage {
 	extension SWTExtensions = new SWTExtensions

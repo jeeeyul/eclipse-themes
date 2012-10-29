@@ -10,6 +10,7 @@ import org.eclipse.jface.text.source.ISourceViewer
 import org.eclipse.jface.text.Document
 import net.jeeeyul.eclipse.themes.SharedImages
 import org.eclipse.jface.text.TextViewerUndoManager
+import net.jeeeyul.eclipse.themes.Messages
 
 /**
  * 58: User Custom CSS

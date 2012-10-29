@@ -30,7 +30,7 @@
             category="org.eclipse.ui.preferencePages.Views"
             class="net.jeeeyul.eclipse.themes.preference.ChromeThemePrefererncePage"
             id="net.jeeeyul.eclipse.themes.preference.ChromeThemePrefererncePage"
-            name="Chrome Theme">
+            name="%PreferencePageName">
       </page>
    </extension>
    <extension
@@ -50,7 +50,7 @@
       <transfer
             icon="icons/palette.gif"
             id="net.jeeeyul.eclipse.themes.transfer"
-            name="Chrome Theme Settings">
+            name="%TransferName">
          <mapping
                scope="instance">
             <entry
@@ -58,7 +58,7 @@
             </entry>
          </mapping>
          <description>
-            Exports Chrome Theme preference settings.
+            %TransferDescription
          </description>
       </transfer>
    </extension>

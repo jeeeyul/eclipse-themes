@@ -1,15 +1,16 @@
 package net.jeeeyul.eclipse.themes.preference
 
-import net.jeeeyul.eclipse.themes.preference.ChromePage
-import org.eclipse.jface.preference.IPreferenceStore
-import org.eclipse.swt.widgets.Composite
-import net.jeeeyul.eclipse.themes.ui.SWTExtensions
-import org.eclipse.swt.widgets.Button
-import static net.jeeeyul.eclipse.themes.preference.ChromeConstants.*
-import net.jeeeyul.eclipse.themes.ui.ColorWell
 import net.jeeeyul.eclipse.themes.ui.ColorPicker
+import net.jeeeyul.eclipse.themes.ui.ColorWell
+import net.jeeeyul.eclipse.themes.ui.SWTExtensions
 import org.eclipse.jface.dialogs.IDialogConstants
+import org.eclipse.jface.preference.IPreferenceStore
+import org.eclipse.swt.widgets.Button
+import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Control
+
+import static net.jeeeyul.eclipse.themes.preference.ChromeConstants.*
+import net.jeeeyul.eclipse.themes.Messages
 
 class OtherPage extends ChromePage {
 	extension SWTExtensions = SWTExtensions::INSTANCE

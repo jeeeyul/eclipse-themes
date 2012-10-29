@@ -18,6 +18,7 @@ import org.eclipse.swt.widgets.Control
 import org.eclipse.swt.widgets.Event
 import org.eclipse.swt.widgets.ToolBar
 import org.eclipse.swt.widgets.ToolItem
+import net.jeeeyul.eclipse.themes.Messages
 
 import static net.jeeeyul.eclipse.themes.preference.ChromeConstants.*
 

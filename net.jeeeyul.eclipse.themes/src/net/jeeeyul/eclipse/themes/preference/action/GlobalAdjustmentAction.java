@@ -1,9 +1,9 @@
 package net.jeeeyul.eclipse.themes.preference.action;
 
+import net.jeeeyul.eclipse.themes.Messages;
 import net.jeeeyul.eclipse.themes.preference.ChromePage;
 import net.jeeeyul.eclipse.themes.preference.ChromePreferenceInitializer;
 import net.jeeeyul.eclipse.themes.preference.ChromeThemePrefererncePage;
-import net.jeeeyul.eclipse.themes.preference.Messages;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.preference.PreferenceStore;
