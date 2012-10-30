@@ -432,41 +432,35 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 	}
 
 	void createShadow(final Display display, boolean recreate) {
-		Object obj = display.getData(E4_SHADOW_IMAGE);
-		if (obj != null && !recreate) {
-			shadowImage = (Image) obj;
-		} else {
-			ImageData data = new ImageData(60, 60, 32, new PaletteData(0xFF0000, 0xFF00, 0xFF));
-			Image tmpImage = shadowImage = new Image(display, data);
-			GC gc = new GC(tmpImage);
-			if (shadowColor == null)
-				shadowColor = gc.getDevice().getSystemColor(SWT.COLOR_GRAY);
-			gc.setBackground(shadowColor);
-			drawTabBody(gc, new Rectangle(0, 0, 60, 60), SWT.None);
-			ImageData blured = blur(tmpImage, 5, 25);
-			shadowImage = new Image(display, blured);
-			display.setData(E4_SHADOW_IMAGE, shadowImage);
-			tmpImage.dispose();
-			display.disposeExec(new Runnable() {
-				public void run() {
-					Object obj = display.getData(E4_SHADOW_IMAGE);
-					if (obj != null) {
-						Image tmp = (Image) obj;
-						tmp.dispose();
-						display.setData(E4_SHADOW_IMAGE, null);
-					}
-				}
-			});
+		if (shadowImage != null && !shadowImage.isDisposed()) {
+			shadowImage.dispose();
+			shadowImage = null;
 		}
+
+		ImageData data = new ImageData(60, 60, 32, new PaletteData(0xFF0000, 0xFF00, 0xFF));
+		Image tmpImage = shadowImage = new Image(display, data);
+		GC gc = new GC(tmpImage);
+		if (shadowColor == null)
+			shadowColor = gc.getDevice().getSystemColor(SWT.COLOR_GRAY);
+		gc.setBackground(shadowColor);
+		drawTabBody(gc, new Rectangle(0, 0, 60, 60), SWT.None);
+		ImageData blured = blur(tmpImage, 5, 25);
+		shadowImage = new Image(display, blured);
+		display.setData(E4_SHADOW_IMAGE, shadowImage);
+		tmpImage.dispose();
 	}
 
 	protected void dispose() {
+		if (shadowImage != null && !shadowImage.isDisposed()) {
+			shadowImage.dispose();
+			shadowImage = null;
+		}
 		super.dispose();
 	}
 
 	protected void draw(int part, int state, Rectangle bounds, GC gc) {
 		switch (part) {
-		
+
 		case PART_BODY:
 			this.drawTabBody(gc, bounds, state);
 			return;
@@ -653,12 +647,12 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 		int[] tmpPoints = new int[index];
 		System.arraycopy(points, 0, tmpPoints, 0, index);
 
-		if(Platform.getOS().equals(Platform.OS_LINUX)){
+		if (Platform.getOS().equals(Platform.OS_LINUX)) {
 			gc.fillPolygon(tmpPoints);
-		}else{
-			gc.fillPolygon(translate(tmpPoints, 1, 1));	
+		} else {
+			gc.fillPolygon(translate(tmpPoints, 1, 1));
 		}
-		
+
 		gc.drawLine(selectionX1, selectionY1, selectionX2, selectionY2);
 		if (tabOutlineColor == null)
 			tabOutlineColor = gc.getDevice().getSystemColor(SWT.COLOR_BLACK);
@@ -683,14 +677,14 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 			gc.drawPolyline(shape);
 		} else {
 			gc.drawLine(startX, 0, endX, 0);
-			if (backgroundPattern != null)
-				backgroundPattern.dispose();
-			if (gradientLineTop != null)
-				gradientLineTop.dispose();
-			if (foregroundPattern != null)
-				foregroundPattern.dispose();
-
 		}
+
+		if (backgroundPattern != null)
+			backgroundPattern.dispose();
+		if (gradientLineTop != null)
+			gradientLineTop.dispose();
+		if (foregroundPattern != null)
+			foregroundPattern.dispose();
 	}
 
 	void drawShadow(final Display display, Rectangle bounds, GC gc) {
@@ -1028,13 +1022,13 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 			System.arraycopy(points, 0, tmpPoints, 0, index);
 
 			gc.setAlpha(120);
-			
-			if(Platform.getOS().equals(Platform.OS_LINUX)){
+
+			if (Platform.getOS().equals(Platform.OS_LINUX)) {
 				gc.fillPolygon(tmpPoints);
-			}else{
-				gc.fillPolygon(translate(tmpPoints, 1, 1));	
+			} else {
+				gc.fillPolygon(translate(tmpPoints, 1, 1));
 			}
-			
+
 			Color tempBorder = new Color(gc.getDevice(), 182, 188, 204);
 			gc.setForeground(tempBorder);
 			gc.drawPolygon(tmpPoints);
@@ -1139,8 +1133,8 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 		cornerSize = radius;
 		parent.redraw();
 	}
-	
-	public int getCornerRadius(){
+
+	public int getCornerRadius() {
 		return cornerSize;
 	}
 
