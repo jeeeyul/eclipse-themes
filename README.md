@@ -1,4 +1,4 @@
-![stat](http://ga.webdigi.co.uk/fbga.php?googlecode=UA-36177050-1&googledomain=https%3A//github.com/jeeeyul/eclipse-themes/&pagelink=&pagetitle=)
+![stat](http://ga.webdigi.co.uk/fbga.php?googlecode=UA-36177050-1&googledomain=https%3A//github.com/jeeeyul/eclipse-themes/&pagelink=&pagetitle=stat)
 
 ## Jeeeyul's Eclipse Themes - Chrome
 Do you want more beautiful Eclipse 4? Change it!
