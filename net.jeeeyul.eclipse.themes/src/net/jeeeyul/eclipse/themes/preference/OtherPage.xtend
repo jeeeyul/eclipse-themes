@@ -86,6 +86,13 @@ class OtherPage extends ChromePage {
 				]
 				
 			] // End of Group
+			
+			newGroup[
+				text = "Editor"
+				layout = newGridLayout
+				
+				
+			]
 		]
 	}
 	

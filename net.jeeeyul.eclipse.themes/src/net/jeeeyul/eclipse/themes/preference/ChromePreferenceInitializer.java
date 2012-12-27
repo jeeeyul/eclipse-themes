@@ -175,6 +175,9 @@ public class ChromePreferenceInitializer extends AbstractPreferenceInitializer {
 		store.setDefault(ChromeConstants.CHROME_USER_CSS, "");
 
 		store.setDefault(ChromeConstants.CHROME_SHOW_TEXT_ON_PERSPECTIVE_SWITCHER, false);
+
+		store.setDefault(ChromeConstants.CHROME_EDITOR_LINE_COLOR, new HSB(0f, 0f, 0.94f).serialize());
+		store.setDefault(ChromeConstants.CHROME_EDITOR_LINE_STYLE, "none");
 	}
 
 	@Override

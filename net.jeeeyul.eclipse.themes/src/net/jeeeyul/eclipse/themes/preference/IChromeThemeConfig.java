@@ -88,4 +88,8 @@ public interface IChromeThemeConfig {
 	public abstract String getUserCSS();
 
 	public abstract Boolean getShowTextOnPerspectiveSwitcher();
+
+	public abstract String getEditorLineStyle();
+
+	public abstract RGB getEditorLineColor();
 }

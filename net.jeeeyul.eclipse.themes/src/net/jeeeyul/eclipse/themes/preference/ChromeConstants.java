@@ -309,4 +309,18 @@ public interface ChromeConstants {
 
 	@ValueType(String.class)
 	public static final String CHROME_SHOW_TEXT_ON_PERSPECTIVE_SWITCHER = "chrome-show-text-on-perspective-switcher";
+
+	/**
+	 * 65: Editor Lining are Gone
+	 * https://github.com/jeeeyul/eclipse-themes/issues/issue/65
+	 */
+	@ValueType(String.class)
+	public static final String CHROME_EDITOR_LINE_STYLE = "chrome-editor-line-style";
+
+	/**
+	 * 65: Editor Lining are Gone
+	 * https://github.com/jeeeyul/eclipse-themes/issues/issue/65
+	 */
+	@ValueType(HSB.class)
+	public static final String CHROME_EDITOR_LINE_COLOR = "chrome-editor-line-color";
 }

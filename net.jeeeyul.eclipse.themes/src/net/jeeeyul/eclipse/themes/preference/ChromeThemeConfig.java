@@ -92,6 +92,9 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 
 	private Boolean showTextOnPerspectiveSwitcher;
 
+	private String editorLineStyle;
+	private RGB editorLineColor;
+
 	public ChromeThemeConfig() {
 		this(ChromeThemeCore.getDefault().getPreferenceStore());
 	}
@@ -208,6 +211,22 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 			activeUnselectedTitleColor = new RGB(hsb[0], hsb[1], hsb[2]);
 		}
 		return activeUnselectedTitleColor;
+	}
+
+	@Override
+	public RGB getEditorLineColor() {
+		if (editorLineColor == null) {
+			editorLineColor = HSB.deserialize(getStore().getString(ChromeConstants.CHROME_EDITOR_LINE_COLOR)).toRGB();
+		}
+		return editorLineColor;
+	}
+
+	@Override
+	public String getEditorLineStyle() {
+		if (editorLineStyle == null) {
+			editorLineStyle = getStore().getString(ChromeConstants.CHROME_EDITOR_LINE_STYLE);
+		}
+		return editorLineStyle;
 	}
 
 	@Override
@@ -615,7 +634,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 		useEmbossedDragHandle = null;
 
 		userCSS = null;
-		
+
 		showTextOnPerspectiveSwitcher = null;
 	}
 
