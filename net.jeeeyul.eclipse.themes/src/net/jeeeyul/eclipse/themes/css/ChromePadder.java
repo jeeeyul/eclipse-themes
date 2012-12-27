@@ -26,17 +26,17 @@ public class ChromePadder {
 		}
 	}
 
+	public static boolean exists(Composite comp) {
+		ChromePadder padder = (ChromePadder) comp.getData(ChromePadder.class.getName());
+		return padder != null;
+	}
+
 	public static ChromePadder get(Composite control) {
 		ChromePadder padder = (ChromePadder) control.getData(ChromePadder.class.getName());
 		if (padder == null) {
 			padder = new ChromePadder(control);
 		}
 		return padder;
-	}
-
-	public static boolean exists(Composite comp) {
-		ChromePadder padder = (ChromePadder) comp.getData(ChromePadder.class.getName());
-		return padder != null;
 	}
 
 	private UIJob updateJob;

@@ -132,6 +132,16 @@
                name="chrome-show-perspective-name">
          </property-name>
       </handler>
+      <handler
+            adapter="org.eclipse.e4.ui.css.swt.dom.CompositeElement"
+            handler="net.jeeeyul.eclipse.themes.css.StyleTextLineHandler">
+         <property-name
+               name="chrome-line-style">
+         </property-name>
+         <property-name
+               name="chrome-line-color">
+         </property-name>
+      </handler>
    </extension>
 
 </plugin>
