@@ -636,6 +636,9 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 		userCSS = null;
 
 		showTextOnPerspectiveSwitcher = null;
+
+		editorLineColor = null;
+		editorLineStyle = null;
 	}
 
 	@Override

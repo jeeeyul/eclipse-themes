@@ -11,6 +11,7 @@ import org.eclipse.swt.widgets.Composite
 import org.eclipse.jface.dialogs.InputDialog
 import org.eclipse.jface.dialogs.IDialogConstants
 import net.jeeeyul.eclipse.themes.Messages
+import net.jeeeyul.eclipse.themes.ui.CollectionContentProvider
 
 class UserPresetEditor {
 	extension SWTExtensions = SWTExtensions::INSTANCE

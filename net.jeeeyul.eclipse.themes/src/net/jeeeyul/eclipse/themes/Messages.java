@@ -130,11 +130,15 @@ public class Messages extends NLS {
 
 	public static String USING_THIS_FEATURE_WARNING;
 	public static String WINDOW;
-	
+
 	public static String GLOBAL_ADJUSTMENT;
 	public static String HUE_SHIFTING;
 	public static String SATURATION_AMP;
 	public static String BRIGHTNESS_AMP;
+
+	public static String TEXT_EDITOR_LINE;
+	public static String LINE_STYLE;
+	public static String LINE_COLOR;
 
 	static {
 		// initialize resource bundle

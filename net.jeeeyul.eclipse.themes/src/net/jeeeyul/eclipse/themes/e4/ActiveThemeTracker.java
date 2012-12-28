@@ -5,6 +5,7 @@ import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
 import net.jeeeyul.eclipse.themes.css.ChromeBorder;
+import net.jeeeyul.eclipse.themes.css.ChromeEditorLiner;
 import net.jeeeyul.eclipse.themes.css.ChromePadder;
 import net.jeeeyul.eclipse.themes.css.RewriteChormeCSS;
 import net.jeeeyul.eclipse.themes.preference.ApplyChromeThemePreferenceJob;
@@ -75,6 +76,7 @@ public class ActiveThemeTracker {
 		WidgetTracker.getInstance().restoreAllSashContainers();
 		ChromeBorder.disposeAll();
 		ChromePadder.disposeAll();
+		ChromeEditorLiner.disposeAll();
 	}
 
 	private void handleChromeThemeActivation() {

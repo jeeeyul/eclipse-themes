@@ -1,26 +1,35 @@
 package net.jeeeyul.eclipse.themes.preference
 
+import net.jeeeyul.eclipse.themes.Messages
+import net.jeeeyul.eclipse.themes.ui.CollectionContentProvider
 import net.jeeeyul.eclipse.themes.ui.ColorPicker
 import net.jeeeyul.eclipse.themes.ui.ColorWell
+import net.jeeeyul.eclipse.themes.ui.DelegateLabelProvider
+import net.jeeeyul.eclipse.themes.ui.LineStyle
 import net.jeeeyul.eclipse.themes.ui.SWTExtensions
 import org.eclipse.jface.dialogs.IDialogConstants
 import org.eclipse.jface.preference.IPreferenceStore
+import org.eclipse.jface.viewers.ComboViewer
+import org.eclipse.swt.SWT
 import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Control
 
 import static net.jeeeyul.eclipse.themes.preference.ChromeConstants.*
-import net.jeeeyul.eclipse.themes.Messages
+import org.eclipse.jface.viewers.StructuredSelection
 
 class OtherPage extends ChromePage {
 	extension SWTExtensions = SWTExtensions::INSTANCE
 	extension ChromePreferenceExtensions = new ChromePreferenceExtensions
 	
-	Button useWBColorAsStatusBarColorButton;
-	ColorWell statusBarBackgroundColorWell;
+	Button useWBColorAsStatusBarColorButton
+	ColorWell statusBarBackgroundColorWell
 	
-	Button useStatusBarOutlineButton;
-	ColorWell statusBarOutlineColorWell;
+	Button useStatusBarOutlineButton
+	ColorWell statusBarOutlineColorWell
+	
+	ColorWell editorLineColorWell
+	ComboViewer editorLineStyleChooser
 	
 	new() {
 		super(Messages::OTHERS, null)
@@ -78,7 +87,7 @@ class OtherPage extends ChromePage {
 					]
 				]
 				
-				useStatusBarOutlineButton = newCheckbox[
+				useStatusBarOutlineButton = newCheckbox[ 
 					text = Messages::SHOW_OUTLINE
 					onSelection = [
 						updateEnablement()
@@ -88,10 +97,44 @@ class OtherPage extends ChromePage {
 			] // End of Group
 			
 			newGroup[
-				text = "Editor"
-				layout = newGridLayout
+				text =  Messages::TEXT_EDITOR_LINE
+				layout = newGridLayout[
+					numColumns = 3
+				]
+				layoutData = FILL_HORIZONTAL
 				
+				newLabel[
+					text = Messages::LINE_COLOR + ":"
+				]
 				
+				editorLineColorWell = newColorWell[
+					onSelection = [
+						updatePreview()
+					]
+				]
+				
+				newPushButton[
+					text = Messages::CHANGE
+					onClick = [
+						editorLineColorWell.showColorPicker()
+					]
+				]
+				
+				newLabel[
+					text = Messages::LINE_STYLE + ":"
+				]
+				
+				editorLineStyleChooser = new ComboViewer(it, SWT::READ_ONLY) => [
+					contentProvider = new CollectionContentProvider()
+					labelProvider = new DelegateLabelProvider<LineStyle>() => [
+						textGetter = [it.literal]
+					]
+					input = LineStyle::VALUES
+					
+					it.control.layoutData = newGridData[
+						horizontalSpan = 2
+					]
+				]
 			]
 		]
 	}
@@ -102,6 +145,11 @@ class OtherPage extends ChromePage {
 		useStatusBarOutlineButton.selection = store.getBoolean(CHROME_USE_STATUS_BAR_OUTLINE)
 		statusBarOutlineColorWell.selection = store.getHSB(CHROME_STATUS_BAR_OUTLINE_COLOR)
 		
+		var lineStyleLiteral = store.getString(CHROME_EDITOR_LINE_STYLE)
+		var lineStyle = LineStyle::getByLiteral(lineStyleLiteral) as Object
+		editorLineStyleChooser.setSelection(new StructuredSelection(lineStyle))
+		editorLineColorWell.selection = store.getHSB(CHROME_EDITOR_LINE_COLOR)
+		
 		updateEnablement()
 		updatePreview()
 	}
@@ -111,6 +159,11 @@ class OtherPage extends ChromePage {
 		store.setValue(CHROME_STATUS_BAR_BACKGROUND_COLOR, statusBarBackgroundColorWell.selection)
 		store.setValue(CHROME_USE_STATUS_BAR_OUTLINE, useStatusBarOutlineButton.selection)
 		store.setValue(CHROME_STATUS_BAR_OUTLINE_COLOR, statusBarOutlineColorWell.selection)
+		
+		
+		var lineStyle = (editorLineStyleChooser.selection as StructuredSelection).firstElement as LineStyle
+		store.setValue(CHROME_EDITOR_LINE_STYLE, lineStyle.literal)
+		store.setValue(CHROME_EDITOR_LINE_COLOR, editorLineColorWell.selection)
 	}
 	
 	override setToDefault(IPreferenceStore store) {
@@ -118,6 +171,11 @@ class OtherPage extends ChromePage {
 		statusBarBackgroundColorWell.selection = store.getDefaultHSB(CHROME_STATUS_BAR_BACKGROUND_COLOR)
 		useStatusBarOutlineButton.selection = store.getDefaultBoolean(CHROME_USE_STATUS_BAR_OUTLINE)
 		statusBarOutlineColorWell.selection = store.getDefaultHSB(CHROME_STATUS_BAR_OUTLINE_COLOR)
+		
+		var lineStyleLiteral = store.getDefaultString(CHROME_EDITOR_LINE_STYLE)
+		var lineStyle = LineStyle::getByLiteral(lineStyleLiteral) as Object
+		editorLineStyleChooser.setSelection(new StructuredSelection(lineStyle))
+		editorLineColorWell.selection = store.getDefaultHSB(CHROME_EDITOR_LINE_COLOR)
 		
 		updateEnablement()
 		updatePreview()

@@ -1,8 +1,14 @@
 package net.jeeeyul.eclipse.themes.css;
 
+import java.util.HashSet;
+
+import net.jeeeyul.eclipse.themes.ui.LineStyle;
+
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.ILock;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.graphics.Color;
@@ -13,46 +19,55 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.ui.progress.UIJob;
 
 public class ChromeEditorLiner {
+	private static ILock GLOBAL_LOCK = Job.getJobManager().newLock();
+
+	private static HashSet<ChromeEditorLiner> INSTANCES = new HashSet<ChromeEditorLiner>();
+
+	public static void disposeAll() {
+		GLOBAL_LOCK.acquire();
+		ChromeEditorLiner[] array = INSTANCES.toArray(new ChromeEditorLiner[INSTANCES.size()]);
+		for (ChromeEditorLiner each : array) {
+			each.dispose();
+		}
+		INSTANCES.clear();
+		GLOBAL_LOCK.release();
+	}
+
 	public static ChromeEditorLiner get(StyledText client) {
+		GLOBAL_LOCK.acquire();
 		ChromeEditorLiner liner = (ChromeEditorLiner) client.getData(ChromeEditorLiner.class.getCanonicalName());
 		if (liner == null) {
 			liner = new ChromeEditorLiner(client);
 		}
+		GLOBAL_LOCK.release();
 		return liner;
 	}
 
 	private StyledText client;
-
-	/**
-	 * @see SWT#NONE
-	 * @see SWT#LINE_SOLID
-	 * @see SWT#LINE_DASH
-	 * @see SWT#LINE_DASHDOT
-	 * @see SWT#LINE_DASHDOTDOT
-	 * @see SWT#LINE_DOT
-	 */
-	private int lineStyle;
+	private LineStyle lineStyle;
 	private Color color;
-
 	private UIJob refreshJob;
-
 	private Image backgroundImage;
+	private boolean isDisposed = false;
 
 	private Listener listener = new Listener() {
 		@Override
 		public void handleEvent(Event event) {
-			doHandle(event);
+			if (!isDisposed) {
+				doHandle(event);
+			}
 		}
 	};
 
 	private ChromeEditorLiner(StyledText client) {
 		this.client = client;
+		INSTANCES.add(this);
 		client.setData(ChromeEditorLiner.class.getCanonicalName(), this);
 		hook();
 	}
 
 	private Image createNewBackgroundImage() {
-		if (lineStyle == SWT.NONE) {
+		if (lineStyle == LineStyle.NONE || isDisposed) {
 			return null;
 		}
 
@@ -64,8 +79,19 @@ public class ChromeEditorLiner {
 		gc.setBackground(client.getBackground());
 		gc.fillRectangle(0, 0, width, height);
 		gc.setForeground(color);
-		gc.setLineDash(new int[] { 2, 2 });
-		gc.setLineStyle(lineStyle);
+
+		switch (lineStyle) {
+		case DASH:
+			gc.setLineDash(new int[] { 2, 2 });
+			break;
+		case SOLID:
+			break;
+		case NONE:
+			break;
+		default:
+			break;
+		}
+
 		gc.drawLine(0, offset, width, offset);
 		gc.dispose();
 		gc.dispose();
@@ -75,6 +101,10 @@ public class ChromeEditorLiner {
 	}
 
 	public void dispose() {
+		if (isDisposed) {
+			return;
+		}
+		GLOBAL_LOCK.acquire();
 		if (client != null && !client.isDisposed()) {
 			client.setBackgroundImage(null);
 			client.setData(ChromeEditorLiner.class.getCanonicalName(), null);
@@ -84,6 +114,10 @@ public class ChromeEditorLiner {
 		if (backgroundImage != null && !backgroundImage.isDisposed()) {
 			backgroundImage.dispose();
 		}
+
+		INSTANCES.remove(this);
+		isDisposed = true;
+		GLOBAL_LOCK.release();
 	}
 
 	private void doHandle(Event event) {
@@ -110,7 +144,7 @@ public class ChromeEditorLiner {
 		return color;
 	}
 
-	public int getLineStyle() {
+	public LineStyle getLineStyle() {
 		return lineStyle;
 	}
 
@@ -147,7 +181,7 @@ public class ChromeEditorLiner {
 		invalidate();
 	}
 
-	public void setLineStyle(int lineStyle) {
+	public void setLineStyle(LineStyle lineStyle) {
 		if (this.lineStyle == lineStyle) {
 			return;
 		}
@@ -156,29 +190,7 @@ public class ChromeEditorLiner {
 	}
 
 	public void setLineStyle(String lineStyleString) {
-		if (lineStyleString.equalsIgnoreCase("solid")) {
-			setLineStyle(SWT.LINE_SOLID);
-		}
-
-		else if (lineStyleString.equalsIgnoreCase("dash")) {
-			setLineStyle(SWT.LINE_DASH);
-		}
-
-		else if (lineStyleString.equalsIgnoreCase("dash-dot")) {
-			setLineStyle(SWT.LINE_DASHDOT);
-		}
-
-		else if (lineStyleString.equalsIgnoreCase("dash-dot-dot")) {
-			setLineStyle(SWT.LINE_DASHDOTDOT);
-		}
-
-		else if (lineStyleString.equalsIgnoreCase("dot")) {
-			setLineStyle(SWT.LINE_DOT);
-		}
-
-		else {
-			setLineStyle(SWT.NONE);
-		}
+		setLineStyle(LineStyle.getByLiteral(lineStyleString));
 	}
 
 	private void unhook() {

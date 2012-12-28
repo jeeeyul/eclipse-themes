@@ -1,4 +1,4 @@
-package net.jeeeyul.eclipse.themes.userpreset;
+package net.jeeeyul.eclipse.themes.ui;
 
 import java.util.Collection;
 

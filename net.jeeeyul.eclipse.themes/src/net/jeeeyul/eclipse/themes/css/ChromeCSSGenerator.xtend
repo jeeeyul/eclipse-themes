@@ -200,6 +200,11 @@ class ChromeCSSGenerator {
 				chrome-border-bottom-visible: true;
 			}
 		«ENDIF»
+		
+		.MPart.Editor StyledText{
+			chrome-line-style: «config.editorLineStyle»;
+			chrome-line-color: «config.editorLineColor.toHtmlColor»;
+		}
 
 		/* User CSS */
 		«config.userCSS»
