@@ -73,7 +73,12 @@ public class ChromeEditorLiner {
 
 		int width = 36;
 		int height = client.getLineHeight();
-		int offset = height - (client.getVerticalBar().getSelection() % height) - 1;
+
+		int offset = height - 1;
+		if (client.getVerticalBar() != null) {
+			offset = height - (client.getVerticalBar().getSelection() % height) - 1;
+		}
+
 		Image image = new Image(client.getDisplay(), width, height);
 		GC gc = new GC(image);
 		gc.setBackground(client.getBackground());
@@ -166,7 +171,8 @@ public class ChromeEditorLiner {
 
 	private void hook() {
 		client.addListener(SWT.Dispose, listener);
-		client.getVerticalBar().addListener(SWT.Selection, listener);
+		if (client.getVerticalBar() != null)
+			client.getVerticalBar().addListener(SWT.Selection, listener);
 	}
 
 	private void invalidate() {
@@ -195,6 +201,7 @@ public class ChromeEditorLiner {
 
 	private void unhook() {
 		client.removeListener(SWT.Dispose, listener);
-		client.getVerticalBar().removeListener(SWT.Selection, listener);
+		if (client.getVerticalBar() != null)
+			client.getVerticalBar().removeListener(SWT.Selection, listener);
 	}
 }

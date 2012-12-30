@@ -16,8 +16,14 @@ public class StyleTextLineHandler implements ICSSPropertyHandler {
 			return false;
 		}
 		CompositeElement compositeElement = (CompositeElement) element;
+		if (!(compositeElement.getNativeWidget() instanceof StyledText)) {
+			return false;
+		}
 
 		StyledText styledText = (StyledText) compositeElement.getNativeWidget();
+		if (styledText.getVerticalBar() == null) {
+			return false;
+		}
 
 		if (property.equals("chrome-line-style")) {
 			String lineStyle = value.getCssText();
