@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: net.jeeeyul.eclipse.themes;singleton:=true
-Bundle-Version: 1.7.1.qualifier
+Bundle-Version: 1.7.2.qualifier
 Bundle-Activator: net.jeeeyul.eclipse.themes.ChromeThemeCore
 Bundle-Vendor: %Bundle-Vendor
 Bundle-Localization: OSGI-INF/l10n/bundle

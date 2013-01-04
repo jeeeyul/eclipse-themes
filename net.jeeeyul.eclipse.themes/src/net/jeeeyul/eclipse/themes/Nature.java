@@ -9,23 +9,11 @@ import org.osgi.framework.Version;
 public class Nature {
 	public static final Nature INSTANCE = new Nature();
 
-	public static final VersionRange JUNO_RANGE = new VersionRange("[4.2.0, 4.2.1)");
-	public static final VersionRange JUNO_SR1_RANGE = new VersionRange("[4.2.1, 4.2.2)");
+	public final VersionRange JUNO_RANGE = new VersionRange("[4.2.0, 4.2.1)");
+	public final VersionRange JUNO_SR1_RANGE = new VersionRange("[4.2.1, 4.2.2)");
+	public final VersionRange KEPLER_RANGE = new VersionRange("[4.3.0, 4.3.1)");
 
 	private Version version;
-
-	public Version getVersion() {
-		if (version == null) {
-			Bundle bundle = Platform.getBundle("org.eclipse.platform");
-			String versionString = bundle.getHeaders().get(Constants.BUNDLE_VERSION);
-			version = new Version(versionString);
-		}
-		return version;
-	}
-
-	public boolean afterJunoSR1() {
-		return getVersion().compareTo(JUNO_SR1_RANGE.getMinimum()) >= 0;
-	}
 
 	public String getOS() {
 		return Platform.getOS();
@@ -39,6 +27,20 @@ public class Nature {
 		}
 	}
 
-	public static void main(String[] args) {
+	public Version getVersion() {
+		if (version == null) {
+			Bundle bundle = Platform.getBundle("org.eclipse.platform");
+			String versionString = bundle.getHeaders().get(Constants.BUNDLE_VERSION);
+			version = new Version(versionString);
+		}
+		return version;
+	}
+
+	public boolean isAfter(Version version, VersionRange range) {
+		return version.compareTo(range.getMinimum()) >= 0;
+	}
+	
+	public boolean isIncluded(Version version, VersionRange range) {
+		return range.isIncluded(version);
 	}
 }

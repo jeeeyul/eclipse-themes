@@ -8,14 +8,14 @@ import net.jeeeyul.eclipse.themes.ui.HSB
 
 class ChromeCSSGenerator {
 	extension Nature = Nature::INSTANCE
-	
+
 	IChromeThemeConfig config = ChromeThemeConfig::instance
 
-	def setConfig(IChromeThemeConfig config){
+	def setConfig(IChromeThemeConfig config) {
 		this.config = config
 	}
 
-	def generate()'''
+	def generate() '''
 		/*
 		 *  Chrome Theme generate css dynamically, So do not inspect this file, See "ChromeCSSGenerator.xtend" instead
 		 */
@@ -40,7 +40,7 @@ class ChromeCSSGenerator {
 			swt-tab-renderer:
 				url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.ChromeTabRendering');
 		
-			padding: «config.partStackPadding»px «config.partStackPadding+5»px «config.partStackPadding+7»px «config.partStackPadding+5»px; /* top left bottom right */
+			padding: «config.partStackPadding»px «config.partStackPadding + 5»px «config.partStackPadding + 7»px «config.partStackPadding + 5»px; /* top left bottom right */
 			swt-tab-outline: «config.inactiveOulineColor.toHtmlColor»;
 			swt-outer-keyline-color: «config.inactiveOulineColor.toHtmlColor»;
 			swt-unselected-tabs-color: «config.inactivePartGradientStart.toHtmlColor» «config.inactivePartGradientEnd.toHtmlColor» «config.inactiveSelectedTabEndColor.toHtmlColor» 99% 100%;
@@ -110,8 +110,7 @@ class ChromeCSSGenerator {
 		}
 		
 		#org-eclipse-ui-editorss {
-			swt-tab-renderer:
-				url('bundleclass://org.eclipse.e4.ui.workbench.renderers.swt/org.eclipse.e4.ui.workbench.renderers.swt.CTabRendering');
+			swt-tab-renderer: url('bundleclass://org.eclipse.e4.ui.workbench.renderers.swt/org.eclipse.e4.ui.workbench.renderers.swt.CTabRendering');
 			swt-unselected-tabs-color: #F0F0F0 #F0F0F0 #F0F0F0 100% 100%;
 			swt-outer-keyline-color: #B4B4B4;
 			swt-inner-keyline-color: #F0F0F0;
@@ -136,7 +135,7 @@ class ChromeCSSGenerator {
 		
 		.MToolControl.TrimStack {
 			«IF config.useTrimStackImageBorder»
-				«IF afterJunoSR1»
+				«IF version.isAfter(JUNO_SR1_RANGE)»
 					frame-image: url(chrome://frame?background-color=«config.windowBackgroundColor.toHSB.toHTMLCode»);
 				«ELSE»
 					frame-image: url(images/frame.png);
@@ -144,7 +143,7 @@ class ChromeCSSGenerator {
 				frame-cuts: 5px 1px 5px 16px;
 			«ENDIF»
 			
-			«IF afterJunoSR1»
+			«IF version.isAfter(JUNO_SR1_RANGE)»
 				handle-image: url(chrome://drag-handle?height=«getToolbarHeight»&background-color=«config.windowBackgroundColor.toHSB.toHTMLCode»&embossed=«config.useEmbossedDragHandle»);
 			«ELSE»
 				«IF config.useEmbossedDragHandle»
@@ -155,7 +154,7 @@ class ChromeCSSGenerator {
 			«ENDIF»
 		}
 		
-		«IF afterJunoSR1»
+		«IF version.isAfter(JUNO_SR1_RANGE)»
 			.MTrimBar .Draggable {
 				handle-image: url(chrome://drag-handle?height=«getToolbarHeight»&background-color=«config.windowBackgroundColor.toHSB.toHTMLCode»&embossed=«config.useEmbossedDragHandle»);
 			}
@@ -188,13 +187,13 @@ class ChromeCSSGenerator {
 		#org-eclipse-ui-main-toolbar #PerspectiveSwitcher {
 			eclipse-perspective-keyline-color: «config.perspectiveOutlineColor.toHtmlColor»;
 			background-color: «config.getPerspectiveStartColor.toHtmlColor» «config.perspectiveEndColor.toHtmlColor» 100%;
-			«IF afterJunoSR1»
+			«IF version.isAfter(JUNO_SR1_RANGE)»
 				handle-image: none;
 			«ENDIF»
 			chrome-show-perspective-name: «config.showTextOnPerspectiveSwitcher»;
 		}
 		
-		«IF afterJunoSR1»
+		«IF version.isIncluded(JUNO_SR1_RANGE)»
 			#PerspectiveSpacer{
 				chrome-border-bottom-color: «config.perspectiveOutlineColor.toHtmlColor»;
 				chrome-border-bottom-visible: true;
@@ -205,17 +204,16 @@ class ChromeCSSGenerator {
 			chrome-line-style: «config.editorLineStyle»;
 			chrome-line-color: «config.editorLineColor.toHtmlColor»;
 		}
-
+		
 		/* User CSS */
 		«config.userCSS»
-		
 	'''
 
-	def private HSB toHSB(RGB rgb){
+	def private HSB toHSB(RGB rgb) {
 		return new HSB(rgb)
 	}
-	
-	def private String toHtmlColor(RGB rgb){
+
+	def private String toHtmlColor(RGB rgb) {
 		return String::format("#%02x%02x%02x", rgb.red, rgb.green, rgb.blue)
 	}
 }

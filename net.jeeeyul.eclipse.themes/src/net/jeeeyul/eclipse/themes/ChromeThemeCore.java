@@ -10,6 +10,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
+import org.osgi.framework.Version;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -48,34 +49,20 @@ public class ChromeThemeCore extends AbstractUIPlugin {
 		getLog().log(new Status(IStatus.WARNING, getBundle().getSymbolicName(), message));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext
-	 * )
-	 */
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
 
-		if (Nature.INSTANCE.afterJunoSR1()) {
+		Version version = Nature.INSTANCE.getVersion();
+		if (Nature.INSTANCE.isAfter(version, Nature.INSTANCE.JUNO_SR1_RANGE)) {
 			ServiceReference<IThemeManager> serviceReference = context.getServiceReference(IThemeManager.class);
 			IThemeManager manager = context.getService(serviceReference);
 
 			IThemeEngine engine = manager.getEngineForDisplay(Display.getDefault());
 			engine.registerResourceLocator(new ChromeDynamicResourceLocator());
-			System.out.println("Chrome Resource Locator was installed.");
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext
-	 * )
-	 */
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;
 		super.stop(context);
