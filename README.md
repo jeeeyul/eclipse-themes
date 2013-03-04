@@ -20,7 +20,7 @@ Chrome theme is not only just an altanative theme also full featured e4 theme cu
 
 If you liked this software and want to support me, consider <a href="#donation">Donation</a>.
 
-# Kepler is now supported!
+# Juno SR2 & Kepler is now supported!
 * [Release Note](https://github.com/jeeeyul/eclipse-themes/wiki/Release-Note)
 
 ## Update Site
