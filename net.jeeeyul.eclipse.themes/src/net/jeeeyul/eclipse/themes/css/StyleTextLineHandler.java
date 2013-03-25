@@ -1,5 +1,8 @@
 package net.jeeeyul.eclipse.themes.css;
 
+import net.jeeeyul.eclipse.themes.ui.HSB;
+import net.jeeeyul.eclipse.themes.ui.LineStyle;
+
 import org.eclipse.e4.ui.css.core.dom.properties.ICSSPropertyHandler;
 import org.eclipse.e4.ui.css.core.engine.CSSEngine;
 import org.eclipse.e4.ui.css.swt.dom.CompositeElement;
@@ -42,6 +45,32 @@ public class StyleTextLineHandler implements ICSSPropertyHandler {
 
 	@Override
 	public String retrieveCSSProperty(Object element, String property, String pseudo, CSSEngine engine) throws Exception {
+		if (!(element instanceof CompositeElement)) {
+			return null;
+		}
+		CompositeElement compositeElement = (CompositeElement) element;
+		if (!(compositeElement.getNativeWidget() instanceof StyledText)) {
+			return null;
+		}
+		StyledText styledText = (StyledText) compositeElement.getNativeWidget();
+
+		if (property.equals("chrome-line-style")) {
+			LineStyle lineStyle = ChromeEditorLiner.get(styledText).getLineStyle();
+			if (lineStyle == null) {
+				return null;
+			} else {
+				return lineStyle.getLiteral();
+			}
+		}
+
+		else if (property.equals("chrome-line-color")) {
+			Color color = ChromeEditorLiner.get(styledText).getColor();
+			if (color == null) {
+				return null;
+			} else {
+				return new HSB(color.getRGB()).toHTMLCode();
+			}
+		}
 
 		return null;
 	}
