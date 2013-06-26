@@ -13,7 +13,6 @@ import org.eclipse.e4.ui.model.application.MAddon;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.MApplicationFactory;
 
-@SuppressWarnings("restriction")
 public class ChromeProcessor {
 	@Execute
 	void addAddon(MApplication application) {
