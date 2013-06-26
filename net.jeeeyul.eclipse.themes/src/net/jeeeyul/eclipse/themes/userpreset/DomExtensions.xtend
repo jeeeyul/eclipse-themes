@@ -42,7 +42,7 @@ class DomExtensions {
 	}
 	
 	def Document newDocument((Document)=>void initializer){
-		var factory = DocumentBuilderFactory::newInstance
+		var factory = typeof(DocumentBuilderFactory).newInstance
 		var builder = factory.newDocumentBuilder
 		val doc = builder.newDocument()
 		

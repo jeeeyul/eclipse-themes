@@ -10,8 +10,6 @@ import org.eclipse.swt.graphics.Point
 import org.eclipse.swt.graphics.Rectangle
 import org.eclipse.swt.widgets.Control
 
-import static org.eclipse.swt.custom.CTabFolderRenderer.*
-
 class KTabRenderer extends CTabFolderRenderer {
 	extension KTabRendererHelper = new KTabRendererHelper
 	CTabFolder parent
