@@ -71,7 +71,7 @@ class UserPresetRepository {
 		userPresets = new ArrayList<UserPreset>
 		
 		if(userPresetFile.exists){
-			var parser = typeof(SAXParserFactory).newInstance().newSAXParser
+			var parser =SAXParserFactory::newInstance().newSAXParser()
 			var loader = new UserPresetLoader()
 			
 			try{
@@ -101,7 +101,7 @@ class UserPresetRepository {
 			]
 		}
 		
-		var transformer = typeof(TransformerFactory).newInstance.newTransformer
+		var transformer = TransformerFactory::newInstance().newTransformer()
 		transformer.transform(new DOMSource(doc), new StreamResult(fos))
 		
 		fos.close
