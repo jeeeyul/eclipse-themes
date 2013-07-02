@@ -59,7 +59,7 @@ You need eclipse 4.2 or above version to install this theme.
 ## License
 Jeeeyul's Eclipse Themes is distributed under the [EPL](http://www.eclipse.org/legal/epl-v10.html).
 
-This license basically provide unlimited freedom expcept very specific case.
+This license basically provide unlimited freedom except very specific case.
 
 ## Donation
 <a href='http://www.pledgie.com/campaigns/18377'><img alt='Click here to lend your support to: Eclipse 4 Chrome Theme and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/18377.png?skin_name=chrome' border='0' /></a>
