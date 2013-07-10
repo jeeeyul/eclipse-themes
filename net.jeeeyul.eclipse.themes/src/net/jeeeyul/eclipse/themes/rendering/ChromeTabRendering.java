@@ -121,10 +121,10 @@ public class ChromeTabRendering extends HackedCTabRendering {
 		boolean haveToSetEmpty = tabFolder.getItemCount() == 0;
 
 		if (haveToSetEmpty && !tags.contains("empty")) {
-			updateTags.schedule();
+			updateTags.schedule(10);
 			updateItems();
 		} else if (!haveToSetEmpty && !tags.contains("nonEmpty")) {
-			updateTags.schedule();
+			updateTags.schedule(10);
 			updateItems();
 		}
 	}
