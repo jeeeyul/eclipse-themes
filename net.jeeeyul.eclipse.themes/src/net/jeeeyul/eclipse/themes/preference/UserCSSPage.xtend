@@ -34,6 +34,7 @@ class UserCSSPage extends ChromePage {
 		srcViewer = new SourceViewer(parent, null, SWT::V_SCROLL || SWT::BORDER);
 		srcViewer.textWidget.layoutData = FILL_BOTH[
 			heightHint = 200
+			widthHint = 200
 		]
 		
 		new TextViewerUndoManager(50).connect(srcViewer)		
