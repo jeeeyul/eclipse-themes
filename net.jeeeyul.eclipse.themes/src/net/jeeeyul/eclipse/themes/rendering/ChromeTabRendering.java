@@ -21,8 +21,6 @@ public class ChromeTabRendering extends HackedCTabRendering {
 	private IChromeThemeConfig config = ChromeThemeConfig.getInstance();
 
 	private CTabFolder tabFolder;
-	private int lastKnownTabHeight = -1;
-
 	private static Set<ChromeTabRendering> INSTANCES = new HashSet<ChromeTabRendering>();
 
 	public static Set<ChromeTabRendering> getInstances() {
@@ -69,37 +67,12 @@ public class ChromeTabRendering extends HackedCTabRendering {
 		if (parent.isDisposed() || gc.isDisposed()) {
 			return;
 		}
-
 		updateEmptyClassIfNeeded();
-
-		if (part == PART_BODY && !isPreviewingTab()) {
-			/*
-			 * 7: Editor area - Minimize / maximize look brocken
-			 * https://github.com/jeeeyul/eclipse-themes/issues/issue/7
-			 * 
-			 * Calculated tab height of empty tab seens to cause this problems.
-			 */
-			if (tabFolder.getItemCount() == 0) {
-				if (lastKnownTabHeight < 0) {
-					lastKnownTabHeight = tabFolder.getFont().getFontData()[0].getHeight() + 19;
-				}
-				tabFolder.setTabHeight(lastKnownTabHeight);
-			} else {
-				tabFolder.setTabHeight(-1);
-				lastKnownTabHeight = tabFolder.getTabHeight();
-			}
-		}
-
 		super.draw(part, state, bounds, gc);
 	}
 
 	protected IChromeThemeConfig getPreference() {
 		return config;
-	}
-
-	private boolean isPreviewingTab() {
-		CSSClasses tags = CSSClasses.getStyleClasses(tabFolder);
-		return tags.contains("chrome-tabfolder-preview");
 	}
 
 	public boolean isShowShineyShadow() {
@@ -126,5 +99,4 @@ public class ChromeTabRendering extends HackedCTabRendering {
 			updateTags.schedule(10);
 		}
 	}
-
 }
