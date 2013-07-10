@@ -122,10 +122,8 @@ public class ChromeTabRendering extends HackedCTabRendering {
 
 		if (haveToSetEmpty && !tags.contains("empty")) {
 			updateTags.schedule(10);
-			updateItems();
 		} else if (!haveToSetEmpty && !tags.contains("nonEmpty")) {
 			updateTags.schedule(10);
-			updateItems();
 		}
 	}
 
