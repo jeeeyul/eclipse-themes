@@ -333,8 +333,6 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 	}
 
 	protected Rectangle computeTrim(int part, int state, int x, int y, int width, int height) {
-		GC gc = new GC(parent);
-		gc.dispose();
 		int borderTop = TOP_KEYLINE + OUTER_KEYLINE;
 		int borderBottom = INNER_KEYLINE + OUTER_KEYLINE;
 		int marginHeight = parent.marginHeight;
