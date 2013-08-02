@@ -109,6 +109,9 @@ class ChromeCSSGenerator {
 			background-color: #F8F8F8;
 		}
 		
+		CTabItem {
+			show-close: «config.showCloseTabButton»;
+		}
 		#org-eclipse-ui-editorss {
 			swt-tab-renderer: url('bundleclass://org.eclipse.e4.ui.workbench.renderers.swt/org.eclipse.e4.ui.workbench.renderers.swt.CTabRendering');
 			swt-unselected-tabs-color: #F0F0F0 #F0F0F0 #F0F0F0 100% 100%;

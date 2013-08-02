@@ -29,6 +29,7 @@ class CommonPartPage extends ChromePage {
 	Label paddingLabel
 	Label cornerRadiusLabel
 	Button useMruButton
+	Button showCloseTabButton
 	FontPreview fontPreview
 
 	new() {
@@ -132,6 +133,10 @@ class CommonPartPage extends ChromePage {
 					text = Messages::MAKE_MRU_VISIBLE
 				]
 				
+				showCloseTabButton = newCheckbox[
+					text = Messages::SHOW_CLOSE_TAB_BUTTON
+				]
+				
 				newLink[
 					text = '''(<a href="http://help.eclipse.org/juno/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Freference%2Fapi%2Forg%2Feclipse%2Fswt%2Fcustom%2FCTabFolder.html&anchor=setMRUVisible(boolean)">«Messages::DETAIL_INFO»</a>)'''
 					addListener(SWT::Selection)[
@@ -176,6 +181,7 @@ class CommonPartPage extends ChromePage {
 		cornerRadiusScale.selection = store.getInt(CHROME_PART_STACK_CORNER_RADIUS)
 		paddingScale.selection = store.getInt(CHROME_PART_STACK_PADDING)
 		useMruButton.selection = store.getBoolean(CHROME_PART_STACK_USE_MRU)
+		showCloseTabButton.selection = store.getBoolean(CHROME_PART_SHOW_CLOSE_TAB_BUTTON)
 		
 		previewLayout()
 		updatePreview()
@@ -203,6 +209,7 @@ class CommonPartPage extends ChromePage {
 		store.setValue(CHROME_PART_STACK_PADDING, paddingScale.selection)
 		store.setValue(CHROME_PART_STACK_CORNER_RADIUS, cornerRadiusScale.selection)
 		store.setValue(CHROME_PART_STACK_USE_MRU, useMruButton.selection)
+		store.setValue(CHROME_PART_SHOW_CLOSE_TAB_BUTTON, showCloseTabButton.selection)
 		
 		previewLayout()		
 	}
@@ -240,6 +247,7 @@ class CommonPartPage extends ChromePage {
 		cornerRadiusScale.selection = store.getDefaultInt(CHROME_PART_STACK_CORNER_RADIUS)
 		paddingScale.selection = store.getDefaultInt(CHROME_PART_STACK_PADDING)
 		useMruButton.selection = store.getDefaultBoolean(CHROME_PART_STACK_USE_MRU)
+		showCloseTabButton.selection = store.getDefaultBoolean(CHROME_PART_SHOW_CLOSE_TAB_BUTTON)
 		updatePreview()
 		previewLayout()		
 	}

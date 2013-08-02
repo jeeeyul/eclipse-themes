@@ -62,6 +62,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	private RGB inactiveSelectedTabStartColor;
 	private RGB inactiveSelectedTabEndColor;
 	private Boolean mruVisible;
+	private Boolean showCloseTabButton;
 
 	private Integer partStackPadding;
 
@@ -357,6 +358,14 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	}
 
 	@Override
+	public Boolean getShowCloseTabButton() {
+		if (showCloseTabButton == null) {
+			showCloseTabButton = getStore().getBoolean(ChromeConstants.CHROME_PART_SHOW_CLOSE_TAB_BUTTON);
+		}
+		return showCloseTabButton;
+	}
+
+	@Override
 	public FontData getPartFontData() {
 		if (partFontData == null) {
 			partFontData = new FontData();
@@ -621,6 +630,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 
 		partStackPadding = null;
 		mruVisible = null;
+		showCloseTabButton = null;
 
 		partStackCornerRadius = null;
 

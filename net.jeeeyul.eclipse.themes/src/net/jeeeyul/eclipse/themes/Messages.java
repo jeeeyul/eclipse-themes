@@ -30,6 +30,7 @@ public class Messages extends NLS {
 	public static String MAIN_TOOLBAR;
 
 	public static String MAKE_MRU_VISIBLE;
+	public static String SHOW_CLOSE_TAB_BUTTON;
 	public static String MANUAL_SASH;
 
 	public static String MY_PRESET;

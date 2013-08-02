@@ -71,6 +71,8 @@ public interface IChromeThemeConfig {
 	 */
 	public abstract Boolean getMruVisible();
 
+	public abstract Boolean getShowCloseTabButton();
+
 	public abstract Integer getPartStackCornerRadius();
 
 	public abstract Boolean getUseStatusBarOutline();

@@ -152,6 +152,7 @@ public class ChromePreferenceInitializer extends AbstractPreferenceInitializer {
 		store.setDefault(ChromeConstants.CHROME_PART_STACK_PADDING, 1);
 
 		store.setDefault(ChromeConstants.CHROME_PART_STACK_USE_MRU, true);
+		store.setDefault(ChromeConstants.CHROME_PART_SHOW_CLOSE_TAB_BUTTON, true);
 
 		/*
 		 * 43: Flag to disable round corners
