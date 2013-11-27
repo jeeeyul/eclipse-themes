@@ -41,8 +41,8 @@ class ChromeCSSGenerator {
 				url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.ChromeTabRendering');
 		
 			padding: «config.partStackPadding»px «config.partStackPadding + 5»px «config.partStackPadding + 7»px «config.partStackPadding + 5»px; /* top left bottom right */
-			swt-tab-outline: «config.inactiveOulineColor.toHtmlColor»;
-			swt-outer-keyline-color: «config.inactiveOulineColor.toHtmlColor»;
+			swt-tab-outline: «config.inactiveOutlineColor.toHtmlColor»;
+			swt-outer-keyline-color: «config.inactiveOutlineColor.toHtmlColor»;
 			swt-unselected-tabs-color: «config.inactivePartGradientStart.toHtmlColor» «config.inactivePartGradientEnd.toHtmlColor» «config.inactiveSelectedTabEndColor.toHtmlColor» 99% 100%;
 			swt-shadow-visible: «config.usePartShadow»;
 			
@@ -62,8 +62,8 @@ class ChromeCSSGenerator {
 		
 		.MPartStack.active {
 			swt-inner-keyline-color: #FFFFFF;
-			swt-tab-outline: «config.activeOulineColor.toHtmlColor»;
-			swt-outer-keyline-color: «config.activeOulineColor.toHtmlColor»;
+			swt-tab-outline: «config.activeOutlineColor.toHtmlColor»;
+			swt-outer-keyline-color: «config.activeOutlineColor.toHtmlColor»;
 			swt-unselected-tabs-color: «config.activePartGradientStart.toHtmlColor» «config.activePartGradientEnd.toHtmlColor» «config.activeSelectedTabEndColor.toHtmlColor» 99% 100%;
 			
 			swt-selected-tab-fill: «config.activeSelectedTabEndColor.toHtmlColor»;
@@ -76,8 +76,8 @@ class ChromeCSSGenerator {
 		
 		.MPartStack.empty {
 			swt-unselected-tabs-color: «config.emptyPartBackgroundColor.toHtmlColor» «config.emptyPartBackgroundColor.toHtmlColor» «config.emptyPartBackgroundColor.toHtmlColor» 99% 100%;
-			swt-tab-outline: «config.emptyPartOutloneColor.toHtmlColor»;
-			swt-outer-keyline-color: «config.emptyPartOutloneColor.toHtmlColor»;
+			swt-tab-outline: «config.emptyPartOutlineColor.toHtmlColor»;
+			swt-outer-keyline-color: «config.emptyPartOutlineColor.toHtmlColor»;
 		}
 		
 		.MTrimmedWindow {

@@ -4,7 +4,7 @@ import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.RGB;
 
 public interface IChromeThemeConfig {
-	public abstract RGB getActiveOulineColor();
+	public abstract RGB getActiveOutlineColor();
 
 	public abstract RGB getActivePartGradientEnd();
 
@@ -14,7 +14,7 @@ public interface IChromeThemeConfig {
 
 	public abstract RGB getActiveUnselectedTitleColor();
 
-	public abstract RGB getInactiveOulineColor();
+	public abstract RGB getInactiveOutlineColor();
 
 	public abstract RGB getInactivePartGradientEnd();
 
@@ -48,7 +48,7 @@ public interface IChromeThemeConfig {
 
 	public abstract RGB getPerspectiveOutlineColor();
 
-	public abstract RGB getEmptyPartOutloneColor();
+	public abstract RGB getEmptyPartOutlineColor();
 
 	public abstract RGB getEmptyPartBackgroundColor();
 
