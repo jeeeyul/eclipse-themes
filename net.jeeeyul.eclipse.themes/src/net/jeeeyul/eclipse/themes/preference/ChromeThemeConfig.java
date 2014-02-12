@@ -1,5 +1,9 @@
 package net.jeeeyul.eclipse.themes.preference;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+
 import net.jeeeyul.eclipse.themes.ChromeThemeCore;
 import net.jeeeyul.eclipse.themes.css.RewriteChormeCSS;
 import net.jeeeyul.eclipse.themes.e4.ActiveThemeTracker;
@@ -20,6 +24,12 @@ import org.eclipse.swt.widgets.Display;
  * 
  */
 public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeConfig {
+	private static final String RGB_AS_HEX = "#%02x%02x%02x"; //$NON-NLS-1$
+	private static final String TOKEN_SUFFIX = "'"; //$NON-NLS-1$
+	private static final String TOKEN_PREFIX = "'#"; //$NON-NLS-1$
+	private static final String EMPTY_REPLACEMENT = ""; //$NON-NLS-1$
+	private static final String GET = "get"; //$NON-NLS-1$
+
 	private static IChromeThemeConfig INSTANCE;
 
 	public static IChromeThemeConfig getInstance() {
@@ -40,14 +50,14 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	private RGB toolbarGradientEnd;
 	private RGB activePartGradientStart;
 	private RGB activePartGradientEnd;
-	private RGB activeOulineColor;
+	private RGB activeOutlineColor;
 	private RGB activeSelectedTitleColor;
 	private RGB activeUnselectedTitleColor;
 	private RGB inactiveSelectedTitleColor;
 	private RGB inactiveUnselectedTitleColor;
 	private RGB inactivePartGradientStart;
 	private RGB inactivePartGradientEnd;
-	private RGB inactiveOulineColor;
+	private RGB inactiveOutlineColor;
 	private IPreferenceStore preferenceStore;
 	private FontData partFontData;
 	private RGB windowBackgroundColor;
@@ -56,7 +66,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	private RGB perspectiveOutlineColor;
 	private RGB partShadowColor;
 	private RGB emptyPartBackgroundColor;
-	private RGB emptyPartOutloneColor;
+	private RGB emptyPartOutlineColor;
 	private RGB activeSelectedTabStartColor;
 	private RGB activeSelectedTabEndColor;
 	private RGB inactiveSelectedTabStartColor;
@@ -109,16 +119,16 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	}
 
 	@Override
-	public RGB getActiveOulineColor() {
-		if (activeOulineColor == null) {
+	public RGB getActiveOutlineColor() {
+		if (activeOutlineColor == null) {
 			float outline[] = new float[3];
 			IPreferenceStore store = getStore();
 			outline[0] = store.getFloat(ChromeConstants.CHROME_ACTIVE_OUTLINE_HUE);
 			outline[1] = store.getFloat(ChromeConstants.CHROME_ACTIVE_OUTLINE_SATURATION);
 			outline[2] = store.getFloat(ChromeConstants.CHROME_ACTIVE_OUTLINE_BRIGHTNESS);
-			activeOulineColor = new RGB(outline[0], outline[1], outline[2]);
+			activeOutlineColor = new RGB(outline[0], outline[1], outline[2]);
 		}
-		return activeOulineColor;
+		return activeOutlineColor;
 	}
 
 	/*
@@ -243,29 +253,29 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	}
 
 	@Override
-	public RGB getEmptyPartOutloneColor() {
-		if (emptyPartOutloneColor == null) {
+	public RGB getEmptyPartOutlineColor() {
+		if (emptyPartOutlineColor == null) {
 			float hsb[] = new float[3];
 			IPreferenceStore store = getStore();
 			hsb[0] = store.getFloat(ChromeConstants.CHROME_EMPTY_PART_OUTLINE_HUE);
 			hsb[1] = store.getFloat(ChromeConstants.CHROME_EMPTY_PART_OUTLINE_SATURATION);
 			hsb[2] = store.getFloat(ChromeConstants.CHROME_EMPTY_PART_OUTLINE_BRIGHTNESS);
-			emptyPartOutloneColor = new RGB(hsb[0], hsb[1], hsb[2]);
+			emptyPartOutlineColor = new RGB(hsb[0], hsb[1], hsb[2]);
 		}
-		return emptyPartOutloneColor;
+		return emptyPartOutlineColor;
 	}
 
 	@Override
-	public RGB getInactiveOulineColor() {
-		if (inactiveOulineColor == null) {
+	public RGB getInactiveOutlineColor() {
+		if (inactiveOutlineColor == null) {
 			float outline[] = new float[3];
 			IPreferenceStore store = getStore();
 			outline[0] = store.getFloat(ChromeConstants.CHROME_INACTIVE_OUTLINE_HUE);
 			outline[1] = store.getFloat(ChromeConstants.CHROME_INACTIVE_OUTLINE_SATURATION);
 			outline[2] = store.getFloat(ChromeConstants.CHROME_INACTIVE_OUTLINE_BRIGHTNESS);
-			inactiveOulineColor = new RGB(outline[0], outline[1], outline[2]);
+			inactiveOutlineColor = new RGB(outline[0], outline[1], outline[2]);
 		}
-		return inactiveOulineColor;
+		return inactiveOutlineColor;
 	}
 
 	@Override
@@ -542,7 +552,52 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 		if (userCSS == null) {
 			userCSS = getStore().getString(ChromeConstants.CHROME_USER_CSS);
 		}
-		return userCSS;
+		return replace(userCSS);
+	}
+
+	private String replace(String css) {
+		Method[] methods = getClass().getSuperclass().getDeclaredMethods();
+		for (int i = 0; i < methods.length; i++) {
+			Method method = methods[i];
+			String name = method.getName();
+			if (isCompatibleSignature(method, name)) {
+				name = tokenForReplacement(name);
+				boolean accessible = method.isAccessible();
+				try {
+					if (accessible == false) {
+						method.setAccessible(true);
+					}
+					RGB result = (RGB) method.invoke(this);
+					String replacement = toHtmlColor(result);
+					css = css.replace(name, replacement);
+				} catch (IllegalAccessException e) {
+					// Ignored
+				} catch (IllegalArgumentException e) {
+					// Ignored
+				} catch (InvocationTargetException e) {
+					// Ignored
+				} finally {
+					if (accessible == false) {
+						method.setAccessible(false);
+					}
+				}
+			}
+		}
+		return css;
+	}
+
+	private static String tokenForReplacement(String name) {
+		return TOKEN_PREFIX + name.replace(GET, EMPTY_REPLACEMENT) + TOKEN_SUFFIX;
+	}
+
+	private static boolean isCompatibleSignature(Method method, String name) {
+		return name.startsWith(GET) && method.getReturnType() == RGB.class
+				&& Modifier.isStatic(method.getModifiers()) == false
+				&& method.getParameterTypes().length == 0;
+	}
+
+	private static String toHtmlColor(RGB rgb) {
+		return String.format(RGB_AS_HEX, rgb.red, rgb.green, rgb.blue);
 	}
 
 	@Override
@@ -585,11 +640,11 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	private void invalidate() {
 		activePartGradientEnd = null;
 		activePartGradientStart = null;
-		activeOulineColor = null;
+		activeOutlineColor = null;
 		activeSelectedTitleColor = null;
 		activeUnselectedTitleColor = null;
 
-		inactiveOulineColor = null;
+		inactiveOutlineColor = null;
 		inactivePartGradientEnd = null;
 		inactivePartGradientStart = null;
 		inactiveSelectedTitleColor = null;
@@ -612,7 +667,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 		windowBackgroundColor = null;
 
 		emptyPartBackgroundColor = null;
-		emptyPartOutloneColor = null;
+		emptyPartOutlineColor = null;
 
 		activeSelectedTabEndColor = null;
 		activeSelectedTabStartColor = null;
