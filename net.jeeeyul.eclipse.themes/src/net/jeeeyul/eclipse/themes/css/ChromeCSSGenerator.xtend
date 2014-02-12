@@ -204,7 +204,8 @@ class ChromeCSSGenerator {
 			}
 		«ENDIF»
 		
-		.MPart.Editor StyledText{
+		.MPart.Editor StyledText,
+		.MPart.Editor StyledTextWithoutVerticalBar{
 			chrome-line-style: «config.editorLineStyle»;
 			chrome-line-color: «config.editorLineColor.toHtmlColor»;
 		}
