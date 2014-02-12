@@ -91,6 +91,10 @@ public class ActiveThemeTracker {
 	}
 
 	public boolean isChromeThemeActive() {
-		return ChromeConstants.CHROME_THEME_ID.equals(getActiveTheme().getId());
+		if (getActiveTheme() == null) {
+			return false;
+		} else {
+			return getActiveTheme().getId().equals(ChromeConstants.CHROME_THEME_ID);
+		}
 	}
 }
