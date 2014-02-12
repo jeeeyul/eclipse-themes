@@ -60,6 +60,10 @@ class ChromeCSSGenerator {
 			swt-corner-radius: «config.partStackCornerRadius»px;
 		}
 		
+		.MPartStack CTabItem {
+			swt-show-close: «config.showCloseTabButton»;
+		}
+		
 		.MPartStack.active {
 			swt-inner-keyline-color: #FFFFFF;
 			swt-tab-outline: «config.activeOutlineColor.toHtmlColor»;
@@ -109,9 +113,7 @@ class ChromeCSSGenerator {
 			background-color: #F8F8F8;
 		}
 		
-		CTabItem {
-			swt-show-close: «config.showCloseTabButton»;
-		}
+		
 
 		#org-eclipse-ui-editorss {
 			swt-tab-renderer: url('bundleclass://org.eclipse.e4.ui.workbench.renderers.swt/org.eclipse.e4.ui.workbench.renderers.swt.CTabRendering');
