@@ -18,6 +18,10 @@ Chrome theme is not only just an altanative theme also full featured e4 theme cu
   </tbody>
 </table>
 
+# Luna
+What if you are using eclipse luna, please use this update site
+<pre>https://raw.github.com/jeeeyul/eclipse-themes/luna/net.jeeeyul.eclipse.themes.updatesite</pre>
+
 If you liked this software and want to support me, consider <a href="#donation">Donation</a>.
 
 # Juno SR2 & Kepler is now supported!
