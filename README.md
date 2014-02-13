@@ -17,6 +17,8 @@ Chrome theme is not only just an altanative theme also full featured e4 theme cu
     </tr>
   </tbody>
 </table>
+What if you don't have **Market Place Client** on your eclipse, please refer [Alternative Installation Guide](https://github.com/jeeeyul/eclipse-themes/wiki/Alternative-Install).
+
 
 # Luna
 What if you are using eclipse luna, please use this update site
