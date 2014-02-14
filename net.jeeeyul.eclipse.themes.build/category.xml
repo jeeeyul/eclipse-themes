@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <site>
-   <feature id="net.jeeeyul.eclipse.themes.feature" url="features/net.jeeeyul.eclipse.themes.feature_1.7.5.qualifier.jar" version="1.7.5.qualifier">
+   <feature id="net.jeeeyul.eclipse.themes.feature" url="features/net.jeeeyul.eclipse.themes.feature_1.7.6.qualifier.jar" version="1.7.6.qualifier">
       <category name="themes"/>
    </feature>
    <category-def label="Jeeeyul's themes" name="themes"/>
