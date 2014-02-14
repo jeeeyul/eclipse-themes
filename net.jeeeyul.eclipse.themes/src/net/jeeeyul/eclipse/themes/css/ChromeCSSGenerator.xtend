@@ -37,8 +37,13 @@ class ChromeCSSGenerator {
 			font-size: «config.partFontData.height as int»;
 			font-family: '«config.partFontData.getName()»';
 			swt-simple: true;
-			swt-tab-renderer:
-				url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.ChromeTabRendering');
+			«IF LUNA_RANGE.isIncluded(version)»
+				swt-tab-renderer:
+					url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.ChromeTabRenderingLuna');
+			«ELSE»
+				swt-tab-renderer:
+					url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.ChromeTabRendering');
+			«ENDIF»
 		
 			padding: «config.partStackPadding»px «config.partStackPadding + 5»px «config.partStackPadding + 7»px «config.partStackPadding + 5»px; /* top left bottom right */
 			swt-tab-outline: «config.inactiveOutlineColor.toHtmlColor»;
@@ -60,7 +65,7 @@ class ChromeCSSGenerator {
 			swt-corner-radius: «config.partStackCornerRadius»px;
 		}
 		
-		.MPartStack CTabItem {
+		.MPartStack > CTabItem {
 			swt-show-close: «config.showCloseTabButton»;
 		}
 		

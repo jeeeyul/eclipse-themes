@@ -11,7 +11,8 @@ public class Nature {
 
 	public final VersionRange JUNO_RANGE = new VersionRange("[4.2.0, 4.2.1)");
 	public final VersionRange JUNO_SR1_RANGE = new VersionRange("[4.2.1, 4.2.2)");
-	public final VersionRange KEPLER_RANGE = new VersionRange("[4.3.0, 4.3.1)");
+	public final VersionRange KEPLER_RANGE = new VersionRange("[4.3.0, 4.4.0)");
+	public final VersionRange LUNA_RANGE = new VersionRange("[4.4.0, 4.5.0)");
 
 	private Version version;
 
