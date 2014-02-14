@@ -21,8 +21,7 @@ What if you don't have **Market Place Client** on your eclipse, please refer [Al
 
 
 # Luna
-What if you are using eclipse luna, please use this update site
-<pre>https://raw.github.com/jeeeyul/eclipse-themes/luna/net.jeeeyul.eclipse.themes.updatesite</pre>
+Now Chorme Theme supports Luna also.
 
 If you liked this software and want to support me, consider <a href="#donation">Donation</a>.
 
