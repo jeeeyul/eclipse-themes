@@ -7,7 +7,7 @@
 	<property name="repository-name" value="Eclipse Themes from Jeeeyul (Beta)" />
 	<property file="keystore.properties" />
 	<property name="feature-id" value="net.jeeeyul.eclipse.themes.feature" />
-	<property name="update-project" value="net.jeeeyul.eclipse.themes.beta-updatesite" />
+	<property name="update-project" value="beta-update-site" />
 	<property name="version" value="1.7.6" />
 
 	<target name="beta-release" description="description" depends="clean, init">
@@ -35,10 +35,10 @@
 		<delete dir="${build}/repo/" includes="*.xml" />
 		<signjar jar="${build}/repo/*.jar" alias="${sign-alias}" keystore="${basedir}/keystore" keypass="${keypass}" storepass="${storepass}" />
 
-		<copydir dest="${basedir}/../${update-project}" src="${build}/repo">
+		<copydir dest="${basedir}/../../eclipse-theme-updatesite/${update-project}" src="${build}/repo">
 		</copydir>
 		
-		<zip destfile="${basedir}/../${update-project}/update-site.zip" basedir="${basedir}/../${update-project}"></zip>
+		<zip destfile="${basedir}/../../eclipse-theme-updatesite/${update-project}/update-site.zip" basedir="${basedir}/../../eclipse-theme-updatesite/${update-project}"></zip>
 		
 		<eclipse.refreshLocal resource="/" depth="infinite" />
 	</target>
@@ -46,7 +46,7 @@
 	<target name="release">
 		<antcall target="beta-release">
 			<param name="repository-name" value="Eclipse Themes from Jeeeyul" />
-			<param name="update-project" value="net.jeeeyul.eclipse.themes.updatesite" />
+			<param name="update-project" value="update-site" />
 		</antcall>
 	</target>
 
