@@ -117,8 +117,6 @@ class ChromeCSSGenerator {
 		CTabFolder Canvas {
 			background-color: #F8F8F8;
 		}
-		
-		
 
 		#org-eclipse-ui-editorss {
 			swt-tab-renderer: url('bundleclass://org.eclipse.e4.ui.workbench.renderers.swt/org.eclipse.e4.ui.workbench.renderers.swt.CTabRendering');
