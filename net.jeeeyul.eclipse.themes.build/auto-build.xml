@@ -35,10 +35,10 @@
 		<delete dir="${build}/repo/" includes="*.xml" />
 		<signjar jar="${build}/repo/*.jar" alias="${sign-alias}" keystore="${basedir}/keystore" keypass="${keypass}" storepass="${storepass}" />
 
-		<copydir dest="${basedir}/../../eclipse-theme-updatesite/${update-project}" src="${build}/repo">
+		<copydir dest="${basedir}/../../eclipse-themes-updatesite/${update-project}" src="${build}/repo">
 		</copydir>
 		
-		<zip destfile="${basedir}/../../eclipse-theme-updatesite/${update-project}/update-site.zip" basedir="${basedir}/../../eclipse-theme-updatesite/${update-project}"></zip>
+		<zip destfile="${basedir}/../../eclipse-themes-updatesite/${update-project}/update-site.zip" basedir="${basedir}/../../eclipse-themes-updatesite/${update-project}"></zip>
 		
 		<eclipse.refreshLocal resource="/" depth="infinite" />
 	</target>

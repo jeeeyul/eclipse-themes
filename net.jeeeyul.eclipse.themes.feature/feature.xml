@@ -87,7 +87,7 @@ This Agreement is governed by the laws of the State of New York and the intellec
    </license>
 
    <url>
-      <update label="Jeeeyul&apos;s Eclipse Themes" url="https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.updatesite/"/>
+      <update label="Jeeeyul&apos;s Eclipse Themes" url="http://jeeeyul.github.io/eclipse-themes/update-site"/>
    </url>
 
    <requires>
