@@ -19,15 +19,6 @@ Chrome theme is not only just an altanative theme also full featured e4 theme cu
 </table>
 What if you don't have **Market Place Client** on your eclipse, please refer [Alternative Installation Guide](https://github.com/jeeeyul/eclipse-themes/wiki/Alternative-Install).
 
-
-# Luna
-Now Chorme Theme supports Luna also.
-
-If you liked this software and want to support me, consider <a href="#donation">Donation</a>.
-
-# Juno SR2 & Kepler is now supported!
-* [Release Note](https://github.com/jeeeyul/eclipse-themes/wiki/Release-Note)
-
 ## Update Site
 <pre>https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.updatesite</pre>
 * [Downloadable Update Site](https://github.com/jeeeyul/eclipse-themes/blob/master/net.jeeeyul.eclipse.themes.updatesite/update-site.zip?raw=true)
