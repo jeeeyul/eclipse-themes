@@ -9,8 +9,9 @@ public class HSB {
 	public static HSB deserialize(String literal) {
 		HSB result = new HSB();
 
+		Scanner scanner = null;
 		try {
-			Scanner scanner = new Scanner(literal);
+			scanner = new Scanner(literal);
 			scanner.useDelimiter("\\|");
 			scanner.useLocale(Locale.US);
 
@@ -20,6 +21,10 @@ public class HSB {
 		} catch (Exception e) {
 			// FIXME report to user.
 			result = new HSB(0f, 1f, 1f);
+		} finally {
+			if (scanner != null) {
+				scanner.close();
+			}
 		}
 		return result;
 	}

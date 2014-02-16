@@ -22,8 +22,10 @@ Require-Bundle: javax.annotation;bundle-version="1.0.0",
  org.eclipse.jface.text,
  org.eclipse.e4.ui.widgets,
  org.eclipse.emf.ecore,
- org.eclipse.e4.ui.model.workbench,
- org.eclipse.xtend2.lib
+ org.eclipse.e4.ui.model.workbench
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
-Bundle-ClassPath: .
+Bundle-ClassPath: .,
+ lib/com.google.guava_10.0.1.v201203051515.jar,
+ lib/org.eclipse.xtend.lib_2.5.1.v201401280830.jar,
+ lib/org.eclipse.xtext.xbase.lib_2.5.1.v201401280830.jar

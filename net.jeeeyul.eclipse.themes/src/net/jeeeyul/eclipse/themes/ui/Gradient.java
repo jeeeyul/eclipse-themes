@@ -33,6 +33,8 @@ public class Gradient extends ArrayList<ColorStop> {
 				stop.percent = scanner.nextFloat();
 
 				result.add(stop);
+				
+				scanner.close();
 			}
 		} catch (Exception e) {
 			// FIXME report error to user
