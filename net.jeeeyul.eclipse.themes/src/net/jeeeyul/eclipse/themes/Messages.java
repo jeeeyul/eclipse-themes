@@ -27,6 +27,7 @@ public class Messages extends NLS {
 	public static String FONT;
 
 	public static String FORK_LINK;
+	public static String PLEDGIE_LINK;
 	public static String MAIN_TOOLBAR;
 
 	public static String MAKE_MRU_VISIBLE;

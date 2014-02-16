@@ -133,13 +133,24 @@ public class ChromeThemePrefererncePage extends PreferencePage implements IWorkb
 		layout.marginWidth = layout.marginHeight = 0;
 		composite.setLayout(layout);
 
-		Label icon = new Label(composite, SWT.NORMAL);
-		icon.setImage(SharedImages.getImage(SharedImages.GITHUB));
+		Label githubIcon = new Label(composite, SWT.NORMAL);
+		githubIcon.setImage(SharedImages.getImage(SharedImages.GITHUB));
 
 		Link forkMeLink = new Link(composite, SWT.NORMAL);
-		forkMeLink
-				.setText(Messages.FORK_LINK);
+		forkMeLink.setText(Messages.FORK_LINK);
 		forkMeLink.addListener(SWT.Selection, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				Program.launch(event.text);
+			}
+		});
+
+		Label pledgieIcon = new Label(composite, SWT.NORMAL);
+		pledgieIcon.setImage(SharedImages.getImage(SharedImages.PLEDGIE));
+
+		Link pledgieLink = new Link(composite, SWT.NORMAL);
+		pledgieLink.setText(Messages.PLEDGIE_LINK);
+		pledgieLink.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
 				Program.launch(event.text);
