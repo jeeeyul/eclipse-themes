@@ -7,7 +7,8 @@
 	<property name="repository-name" value="Eclipse Themes from Jeeeyul (Beta)" />
 	<property file="keystore.properties" />
 	<property name="feature-id" value="net.jeeeyul.eclipse.themes.feature" />
-	<property name="update-project" value="beta-update-site" />
+	<property name="update-site-project" location="${basedir}/../../eclipse-themes-updatesite" />
+	<property name="update-channel" value="beta-update-site" />
 	<property name="version" value="1.7.6" />
 
 	<target name="beta-release" description="description" depends="clean, init">
@@ -22,10 +23,10 @@
 			<features dir="${build}/features" includes="*.jar" />
 			<bundles dir="${build}/plugins" includes="*.jar" />
 		</eclipse.publish.featuresAndBundles>
-		
+
 		<replaceregexp file="${build}/repo/artifacts.xml" match="file:.+ - artifacts" replace="${repository-name}" encoding="utf-8" />
 		<replaceregexp file="${build}/repo/content.xml" match="file:.+ - metadata" replace="${repository-name}" encoding="utf-8" />
-		
+
 		<jar destfile="${build}/repo/artifacts.jar">
 			<fileset dir="${build}/repo" includes="artifacts.xml" />
 		</jar>
@@ -35,18 +36,19 @@
 		<delete dir="${build}/repo/" includes="*.xml" />
 		<signjar jar="${build}/repo/*.jar" alias="${sign-alias}" keystore="${basedir}/keystore" keypass="${keypass}" storepass="${storepass}" />
 
-		<copydir dest="${basedir}/../../eclipse-themes-updatesite/${update-project}" src="${build}/repo">
+		<copydir dest="${update-site-project}/${update-channel}" src="${build}/repo">
 		</copydir>
-		
-		<zip destfile="${basedir}/../../eclipse-themes-updatesite/${update-project}/update-site.zip" basedir="${basedir}/../../eclipse-themes-updatesite/${update-project}"></zip>
-		
+
+		<zip destfile="${update-site-project}/${update-channel}/update-site.zip" basedir="${update-site-project}/${update-channel}">
+		</zip>
+
 		<eclipse.refreshLocal resource="/" depth="infinite" />
 	</target>
 
 	<target name="release">
 		<antcall target="beta-release">
 			<param name="repository-name" value="Eclipse Themes from Jeeeyul" />
-			<param name="update-project" value="update-site" />
+			<param name="update-channel" value="update-site" />
 		</antcall>
 	</target>
 
@@ -65,7 +67,7 @@
 			<fileset dir="${build}">
 				<include name="**/*" />
 			</fileset>
-			<fileset dir="${basedir}/../../eclipse-themes-updatesite/${update-project}">
+			<fileset dir="${update-site-project}/${update-channel}">
 				<include name="**/*" />
 				<exclude name=".project" />
 			</fileset>
