@@ -65,7 +65,7 @@
 			<fileset dir="${build}">
 				<include name="**/*" />
 			</fileset>
-			<fileset dir="${basedir}/../${update-project}">
+			<fileset dir="${basedir}/../../eclipse-themes-updatesite/${update-project}">
 				<include name="**/*" />
 				<exclude name=".project" />
 			</fileset>
