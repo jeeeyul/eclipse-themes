@@ -1,11 +1,11 @@
 package net.jeeeyul.eclipse.themes.preference
 
+import net.jeeeyul.eclipse.themes.Messages
 import net.jeeeyul.eclipse.themes.SharedImages
-import net.jeeeyul.eclipse.themes.ui.SWTExtensions
+import net.jeeeyul.swtend.SWTExtensions
 import org.eclipse.jface.preference.IPreferenceStore
 import org.eclipse.swt.SWT
 import org.eclipse.swt.widgets.Composite
-import net.jeeeyul.eclipse.themes.Messages
 
 class PartPage extends ChromePage {
 	extension SWTExtensions = SWTExtensions::INSTANCE

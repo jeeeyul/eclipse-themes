@@ -1,11 +1,12 @@
 package net.jeeeyul.eclipse.themes.preference
 
+import net.jeeeyul.eclipse.themes.Messages
 import net.jeeeyul.eclipse.themes.SharedImages
 import net.jeeeyul.eclipse.themes.css.DragHandleFactory
 import net.jeeeyul.eclipse.themes.ui.ColorPicker
 import net.jeeeyul.eclipse.themes.ui.ColorWell
 import net.jeeeyul.eclipse.themes.ui.HSB
-import net.jeeeyul.eclipse.themes.ui.SWTExtensions
+import net.jeeeyul.swtend.SWTExtensions
 import org.eclipse.jface.dialogs.IDialogConstants
 import org.eclipse.jface.preference.IPreferenceStore
 import org.eclipse.swt.SWT
@@ -18,13 +19,12 @@ import org.eclipse.swt.widgets.Control
 import org.eclipse.swt.widgets.Event
 import org.eclipse.swt.widgets.ToolBar
 import org.eclipse.swt.widgets.ToolItem
-import net.jeeeyul.eclipse.themes.Messages
 
 import static net.jeeeyul.eclipse.themes.preference.ChromeConstants.*
 
 class ToolbarPage extends ChromePage {
 	extension SWTExtensions = new SWTExtensions
-	
+
 	ColorWell toolBarStartColorWell
 	ColorWell toolBarEndColorWell
 	ColorWell perspectiveStartColorWell
@@ -35,35 +35,31 @@ class ToolbarPage extends ChromePage {
 	Composite previewBar
 	ToolBar perspectiveBar
 	ToolItem pdeItem;
-	
+
 	Button engravedButton
 	Button embossedButton
-	
+
 	Button useTrimStackBorderButton
-	
+
 	Button showPerspectiveNameButton
-	
-	new(){
+
+	new() {
 		super(Messages::TOOLBAR, SharedImages::TOOLBAR)
 	}
 
 	override create(Composite parent) {
 		parent => [
 			layout = newGridLayout
-			
 			newLabel[
 				text = Messages::TOOLBAR_DESCRIPTION
 			]
-			
 			it.createPreview()
-			
 			newGroup[
 				layout = newGridLayout[
 					numColumns = 3
 				]
 				text = Messages::MAIN_TOOLBAR
 				layoutData = FILL_HORIZONTAL[]
-				
 				newLabel[
 					text = Messages::FILL_START + ":"
 				]
@@ -89,50 +85,43 @@ class ToolbarPage extends ChromePage {
 					]
 				]
 			]
-			
 			it.createPerspectiveSwitcherGroup()
-			
 			newGroup[
 				text = Messages::DRAG_HANDLE_AND_STACK_BORDER
 				layout = newGridLayout[
 					numColumns = 3
 				]
 				layoutData = FILL_HORIZONTAL
-				
 				newLabel[
 					text = Messages::HANDLE_TYPE + ":"
-				]				
-				
+				]
 				engravedButton = newRadioButton[
 					text = Messages::ENGRAVED
 					onSelection = [
 						updatePreview()
 					]
 				]
-				
 				embossedButton = newRadioButton[
 					text = Messages::EMBOSSED
 					onSelection = [
 						updatePreview()
 					]
 				]
-				
 				useTrimStackBorderButton = newCheckbox[
 					text = Messages::USE_IMAGE_BORDER_FOR_TRIM_STACK
 					layoutData = newGridData[
 						horizontalSpan = 3
 					]
 				]
-			]//end
-			
+			] //end
 			newLabel[
 				text = Messages::NEW_WINDOW_WARNNING
 			]
 		]
 	}
-	
-	def private createPreview(Composite composite) { 
-		previewWrap = composite.newCompositeWithStyle(SWT::DOUBLE_BUFFERED || SWT::BORDER)[
+
+	def private createPreview(Composite composite) {
+		previewWrap = composite.newComposite(SWT::DOUBLE_BUFFERED || SWT::BORDER) [
 			layoutData = FILL_HORIZONTAL
 			layout = newGridLayout[
 				makeColumnsEqualWidth = false
@@ -140,11 +129,9 @@ class ToolbarPage extends ChromePage {
 				marginWidth = 3
 				marginHeight = 3
 			]
-			
 			onPaint = [
 				renderPreview(it)
 			]
-			
 			previewBar = newComposite[
 				layoutData = FILL_HORIZONTAL
 				layout = newGridLayout[
@@ -156,7 +143,6 @@ class ToolbarPage extends ChromePage {
 				onResize = [
 					updateToolbarBackgroundImage()
 				]
-				
 				newComposite[
 					layoutData = newGridData[
 						widthHint = 5
@@ -164,13 +150,11 @@ class ToolbarPage extends ChromePage {
 					]
 					onPaint = [renderHandle]
 				]
-				
-				newToolBar(SWT::FLAT || SWT::RIGHT)[
-					newToolItem(SWT::DROP_DOWN)[
+				newToolBar(SWT::FLAT || SWT::RIGHT) [
+					newToolItem(SWT::DROP_DOWN) [
 						it.image = SharedImages::getImage(SharedImages::ECLIPSE)
 					]
 				]
-				
 				newComposite[
 					layoutData = newGridData[
 						widthHint = 5
@@ -178,8 +162,7 @@ class ToolbarPage extends ChromePage {
 					]
 					onPaint = [renderHandle]
 				]
-				
-				newToolBar(SWT::FLAT || SWT::RIGHT)[
+				newToolBar(SWT::FLAT || SWT::RIGHT) [
 					newToolItem[
 						it.image = SharedImages::getImage(SharedImages::ECLIPSE)
 					]
@@ -188,8 +171,7 @@ class ToolbarPage extends ChromePage {
 					]
 				]
 			]
-			
-			perspectiveBar = newToolBar(SWT::RIGHT || SWT::FLAT)[
+			perspectiveBar = newToolBar(SWT::RIGHT || SWT::FLAT) [
 				onResize = [updatePerspectiveBarBackgroundImage()]
 				newToolItem[
 					it.image = SharedImages::getImage(SharedImages::OPEN_PERSPECTIVE)
@@ -203,13 +185,12 @@ class ToolbarPage extends ChromePage {
 		]
 	}
 
-	def private createPerspectiveSwitcherGroup(Composite composite) { 
-		composite.newGroup[
+	def private createPerspectiveSwitcherGroup(Composite composite) {
+		composite.newGroup [
 			text = Messages::PERSPECTIVE_SWITCHER
 			layout = newGridLayout[
 				numColumns = 4
 			]
-			
 			layoutData = FILL_HORIZONTAL
 			newLabel[
 				text = Messages::FILL_START + ":"
@@ -262,7 +243,6 @@ class ToolbarPage extends ChromePage {
 					perspectiveOutlineColorWell.showColorPicker()
 				]
 			]
-			
 			showPerspectiveNameButton = newCheckbox[
 				layoutData = FILL_HORIZONTAL[
 					horizontalSpan = 4
@@ -272,10 +252,10 @@ class ToolbarPage extends ChromePage {
 					updatePreview()
 				]
 			]
-		]// Group
+		] // Group
 	}
-	
-	def renderHandle(Event e){
+
+	def renderHandle(Event e) {
 		var data = new DragHandleFactory().create(e.height, toolBarStartColorWell.selection, embossedButton.selection)
 		var image = new Image(display, data)
 		e.gc.drawImage(image, 0, 0);
@@ -291,8 +271,8 @@ class ToolbarPage extends ChromePage {
 	def void updateEnablement() {
 		perspectiveEndColorWell.next.enabled = !useWBColorAsPerspectiveColorButton.selection
 	}
-	
-	def Control next(Control control){
+
+	def Control next(Control control) {
 		var index = control.parent.children.indexOf(control)
 		return control.parent.children.get(index + 1)
 	}
@@ -307,8 +287,8 @@ class ToolbarPage extends ChromePage {
 		e.gc.background = end
 		e.gc.fillGradientRectangle(rect.x, rect.y, rect.width, rect.height, true)
 		e.gc.foreground = outline
-		e.gc.drawLine(rect.x, rect.y + rect.height-1, rect.x + rect.width,  rect.y + rect.height-1);
-		e.gc.drawLine(rect.x + rect.width,  rect.y, rect.x + rect.width,  rect.y + rect.height-1);
+		e.gc.drawLine(rect.x, rect.y + rect.height - 1, rect.x + rect.width, rect.y + rect.height - 1);
+		e.gc.drawLine(rect.x + rect.width, rect.y, rect.x + rect.width, rect.y + rect.height - 1);
 		start.safeDispose()
 		end.safeDispose()
 		outline.safeDispose()
@@ -325,22 +305,21 @@ class ToolbarPage extends ChromePage {
 	}
 
 	def private void updatePreview() {
-		if(showPerspectiveNameButton.selection){
-			pdeItem.setText("Plug-in Development")			
+		if(showPerspectiveNameButton.selection) {
+			pdeItem.setText("Plug-in Development")
+		} else {
+			pdeItem.setText("")
 		}
-		else{
-			pdeItem.setText("")	
-		}
-		
+
 		previewWrap.layout(true, true)
 		previewWrap.redraw()
 		updateToolbarBackgroundImage()
 		updatePerspectiveBarBackgroundImage()
 	}
 
-	def private void updateToolbarBackgroundImage(){
+	def private void updateToolbarBackgroundImage() {
 		var size = previewBar.size
-		if(size.x <= 0 || size.y <=0) {
+		if(size.x <= 0 || size.y <= 0) {
 			return
 		}
 		previewBar.backgroundImage.safeDispose()
@@ -350,16 +329,16 @@ class ToolbarPage extends ChromePage {
 		var end = new Color(getTabFolder.display, toolBarEndColorWell.selection.toRGB)
 		gc.foreground = start
 		gc.background = end
-		gc.fillGradientRectangle(0, -3, size.x, size.y+6, true)
+		gc.fillGradientRectangle(0, -3, size.x, size.y + 6, true)
 		start.dispose()
 		end.dispose()
 		gc.dispose()
 		previewBar.backgroundImage = image
 	}
 
-	def private void updatePerspectiveBarBackgroundImage(){
+	def private void updatePerspectiveBarBackgroundImage() {
 		var size = previewBar.size
-		if(size.y <=0) {
+		if(size.y <= 0) {
 			return
 		}
 		perspectiveBar.backgroundImage.safeDispose()
@@ -369,7 +348,7 @@ class ToolbarPage extends ChromePage {
 		var end = new Color(getTabFolder.display, perspectiveEndColorWell.selection.toRGB)
 		gc.foreground = start
 		gc.background = end
-		gc.fillGradientRectangle(0, -3, size.x, size.y+6, true)
+		gc.fillGradientRectangle(0, -3, size.x, size.y + 6, true)
 		start.dispose()
 		end.dispose()
 		gc.dispose()
@@ -384,38 +363,37 @@ class ToolbarPage extends ChromePage {
 	override load(IPreferenceStore store) {
 		toolBarStartColorWell.selection = new HSB(
 			store.getFloat(CHROME_TOOLBAR_START_HUE),
-			store.getFloat(CHROME_TOOLBAR_START_SATURATION), 
+			store.getFloat(CHROME_TOOLBAR_START_SATURATION),
 			store.getFloat(CHROME_TOOLBAR_START_BRIGHTNESS)
 		)
 		toolBarEndColorWell.selection = new HSB(
 			store.getFloat(CHROME_TOOLBAR_END_HUE),
-			store.getFloat(CHROME_TOOLBAR_END_SATURATION), 
+			store.getFloat(CHROME_TOOLBAR_END_SATURATION),
 			store.getFloat(CHROME_TOOLBAR_END_BRIGHTNESS)
 		)
 		perspectiveStartColorWell.selection = new HSB(
 			store.getFloat(CHROME_PERSPECTIVE_START_HUE),
-			store.getFloat(CHROME_PERSPECTIVE_START_SATURATION), 
+			store.getFloat(CHROME_PERSPECTIVE_START_SATURATION),
 			store.getFloat(CHROME_PERSPECTIVE_START_BRIGHTNESS)
 		)
 		perspectiveEndColorWell.selection = new HSB(
 			store.getFloat(CHROME_PERSPECTIVE_END_HUE),
-			store.getFloat(CHROME_PERSPECTIVE_END_SATURATION), 
+			store.getFloat(CHROME_PERSPECTIVE_END_SATURATION),
 			store.getFloat(CHROME_PERSPECTIVE_END_BRIGHTNESS)
 		)
 		perspectiveOutlineColorWell.selection = new HSB(
 			store.getFloat(CHROME_PERSPECTIVE_OUTLINE_HUE),
-			store.getFloat(CHROME_PERSPECTIVE_OUTLINE_SATURATION), 
+			store.getFloat(CHROME_PERSPECTIVE_OUTLINE_SATURATION),
 			store.getFloat(CHROME_PERSPECTIVE_OUTLINE_BRIGHTNESS)
 		)
 		useWBColorAsPerspectiveColorButton.selection = store.getBoolean(CHROME_USE_WINDOW_BACKGROUND_COLOR_AS_PERSPECTIVE_END_COLOR)
-		
-		
+
 		embossedButton.selection = store.getBoolean(CHROME_USE_EMBOSSED_DRAG_HANDLE)
 		engravedButton.selection = !store.getBoolean(CHROME_USE_EMBOSSED_DRAG_HANDLE)
 		useTrimStackBorderButton.selection = store.getBoolean(CHROME_USE_TRIMSTACK_IMAGE_BORDER)
-		
+
 		showPerspectiveNameButton.selection = store.getBoolean(CHROME_SHOW_TEXT_ON_PERSPECTIVE_SWITCHER)
-		
+
 		updateAutoColors()
 		updateEnablement()
 		updatePreview()
@@ -437,50 +415,49 @@ class ToolbarPage extends ChromePage {
 		store.setValue(CHROME_PERSPECTIVE_OUTLINE_HUE, perspectiveOutlineColorWell.selection.hue)
 		store.setValue(CHROME_PERSPECTIVE_OUTLINE_SATURATION, perspectiveOutlineColorWell.selection.saturation)
 		store.setValue(CHROME_PERSPECTIVE_OUTLINE_BRIGHTNESS, perspectiveOutlineColorWell.selection.brightness)
-		
+
 		store.setValue(CHROME_USE_WINDOW_BACKGROUND_COLOR_AS_PERSPECTIVE_END_COLOR, useWBColorAsPerspectiveColorButton.selection)
-		
+
 		store.setValue(CHROME_USE_EMBOSSED_DRAG_HANDLE, embossedButton.selection)
 		store.setValue(CHROME_USE_TRIMSTACK_IMAGE_BORDER, useTrimStackBorderButton.selection)
 
-		store.setValue(CHROME_SHOW_TEXT_ON_PERSPECTIVE_SWITCHER, showPerspectiveNameButton.selection)		
+		store.setValue(CHROME_SHOW_TEXT_ON_PERSPECTIVE_SWITCHER, showPerspectiveNameButton.selection)
 	}
 
 	override setToDefault(IPreferenceStore store) {
 		toolBarStartColorWell.selection = new HSB(
 			store.getDefaultFloat(CHROME_TOOLBAR_START_HUE),
-			store.getDefaultFloat(CHROME_TOOLBAR_START_SATURATION), 
+			store.getDefaultFloat(CHROME_TOOLBAR_START_SATURATION),
 			store.getDefaultFloat(CHROME_TOOLBAR_START_BRIGHTNESS)
 		)
 		toolBarEndColorWell.selection = new HSB(
 			store.getDefaultFloat(CHROME_TOOLBAR_END_HUE),
-			store.getDefaultFloat(CHROME_TOOLBAR_END_SATURATION), 
+			store.getDefaultFloat(CHROME_TOOLBAR_END_SATURATION),
 			store.getDefaultFloat(CHROME_TOOLBAR_END_BRIGHTNESS)
 		)
 		perspectiveStartColorWell.selection = new HSB(
 			store.getDefaultFloat(CHROME_PERSPECTIVE_START_HUE),
-			store.getDefaultFloat(CHROME_PERSPECTIVE_START_SATURATION), 
+			store.getDefaultFloat(CHROME_PERSPECTIVE_START_SATURATION),
 			store.getDefaultFloat(CHROME_PERSPECTIVE_START_BRIGHTNESS)
 		)
 		perspectiveEndColorWell.selection = new HSB(
 			store.getDefaultFloat(CHROME_PERSPECTIVE_END_HUE),
-			store.getDefaultFloat(CHROME_PERSPECTIVE_END_SATURATION), 
+			store.getDefaultFloat(CHROME_PERSPECTIVE_END_SATURATION),
 			store.getDefaultFloat(CHROME_PERSPECTIVE_END_BRIGHTNESS)
 		)
 		perspectiveOutlineColorWell.selection = new HSB(
 			store.getDefaultFloat(CHROME_PERSPECTIVE_OUTLINE_HUE),
-			store.getDefaultFloat(CHROME_PERSPECTIVE_OUTLINE_SATURATION), 
+			store.getDefaultFloat(CHROME_PERSPECTIVE_OUTLINE_SATURATION),
 			store.getDefaultFloat(CHROME_PERSPECTIVE_OUTLINE_BRIGHTNESS)
 		)
 		useWBColorAsPerspectiveColorButton.selection = store.getDefaultBoolean(CHROME_USE_WINDOW_BACKGROUND_COLOR_AS_PERSPECTIVE_END_COLOR)
-		
-		
+
 		embossedButton.selection = store.getDefaultBoolean(CHROME_USE_EMBOSSED_DRAG_HANDLE)
 		engravedButton.selection = !store.getDefaultBoolean(CHROME_USE_EMBOSSED_DRAG_HANDLE)
 		useTrimStackBorderButton.selection = store.getDefaultBoolean(CHROME_USE_TRIMSTACK_IMAGE_BORDER)
-		
+
 		showPerspectiveNameButton.selection = store.getDefaultBoolean(CHROME_SHOW_TEXT_ON_PERSPECTIVE_SWITCHER)
-	
+
 		updateAutoColors()
 		updateEnablement()
 		updatePreview()
@@ -501,5 +478,11 @@ class ToolbarPage extends ChromePage {
 		} else {
 			well.selection = original
 		}
+	}
+
+	def private newColorWell(Composite parent, (ColorWell)=>void initializer) {
+		var result = new ColorWell(parent, SWT::NORMAL)
+		initializer.apply(result)
+		return result;
 	}
 }

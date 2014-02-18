@@ -1,18 +1,18 @@
 package net.jeeeyul.eclipse.themes.preference.action
 
+import net.jeeeyul.eclipse.themes.Messages
+import net.jeeeyul.eclipse.themes.SharedImages
 import net.jeeeyul.eclipse.themes.preference.ChromeConstants
 import net.jeeeyul.eclipse.themes.preference.ChromePreferenceExtensions
 import net.jeeeyul.eclipse.themes.preference.ChromePreferenceInitializer
 import net.jeeeyul.eclipse.themes.preference.ChromeThemePrefererncePage
 import net.jeeeyul.eclipse.themes.preference.annotations.ValueType
 import net.jeeeyul.eclipse.themes.ui.HSB
-import net.jeeeyul.eclipse.themes.ui.SWTExtensions
+import net.jeeeyul.swtend.SWTExtensions
 import org.eclipse.jface.dialogs.Dialog
 import org.eclipse.jface.preference.PreferenceStore
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Scale
-import net.jeeeyul.eclipse.themes.SharedImages
-import net.jeeeyul.eclipse.themes.Messages
 
 class GlobalAdjustmentDialog extends Dialog {
 	extension SWTExtensions = SWTExtensions::INSTANCE

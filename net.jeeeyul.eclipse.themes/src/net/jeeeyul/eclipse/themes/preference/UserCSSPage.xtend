@@ -1,16 +1,15 @@
 package net.jeeeyul.eclipse.themes.preference
 
-import net.jeeeyul.eclipse.themes.preference.ChromePage
+import net.jeeeyul.eclipse.themes.Messages
+import net.jeeeyul.eclipse.themes.SharedImages
+import net.jeeeyul.swtend.SWTExtensions
 import org.eclipse.jface.preference.IPreferenceStore
-import org.eclipse.swt.widgets.Composite
-import net.jeeeyul.eclipse.themes.ui.SWTExtensions
+import org.eclipse.jface.text.Document
+import org.eclipse.jface.text.TextViewerUndoManager
+import org.eclipse.jface.text.source.ISourceViewer
 import org.eclipse.jface.text.source.SourceViewer
 import org.eclipse.swt.SWT
-import org.eclipse.jface.text.source.ISourceViewer
-import org.eclipse.jface.text.Document
-import net.jeeeyul.eclipse.themes.SharedImages
-import org.eclipse.jface.text.TextViewerUndoManager
-import net.jeeeyul.eclipse.themes.Messages
+import org.eclipse.swt.widgets.Composite
 
 /**
  * 58: User Custom CSS

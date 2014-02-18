@@ -22,7 +22,8 @@ Require-Bundle: javax.annotation;bundle-version="1.0.0",
  org.eclipse.jface.text,
  org.eclipse.e4.ui.widgets,
  org.eclipse.emf.ecore,
- org.eclipse.e4.ui.model.workbench
+ org.eclipse.e4.ui.model.workbench,
+ net.jeeeyul.swtend;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,

@@ -6,7 +6,7 @@ import net.jeeeyul.eclipse.themes.rendering.ChromeTabRendering
 import net.jeeeyul.eclipse.themes.ui.ColorPicker
 import net.jeeeyul.eclipse.themes.ui.ColorWell
 import net.jeeeyul.eclipse.themes.ui.HSB
-import net.jeeeyul.eclipse.themes.ui.SWTExtensions
+import net.jeeeyul.swtend.SWTExtensions
 import org.eclipse.jface.dialogs.IDialogConstants
 import org.eclipse.jface.preference.IPreferenceStore
 import org.eclipse.swt.widgets.Button
@@ -14,6 +14,7 @@ import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Scale
 
 import static net.jeeeyul.eclipse.themes.preference.ChromeConstants.*
+import org.eclipse.swt.SWT
 
 class GeneralPage extends ChromePage {
 	extension SWTExtensions = new SWTExtensions
@@ -346,4 +347,9 @@ class GeneralPage extends ChromePage {
 		return windowBackgroundColorWell
 	}
 	
+	def private newColorWell(Composite parent, (ColorWell)=>void initializer) {
+		var result = new ColorWell(parent, SWT::NORMAL)
+		initializer.apply(result)
+		return result;
+	}
 }

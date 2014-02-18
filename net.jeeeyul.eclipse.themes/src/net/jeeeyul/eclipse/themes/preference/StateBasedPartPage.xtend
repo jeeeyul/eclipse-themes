@@ -1,17 +1,19 @@
 package net.jeeeyul.eclipse.themes.preference
 
+import net.jeeeyul.eclipse.themes.Messages
 import net.jeeeyul.eclipse.themes.SharedImages
 import net.jeeeyul.eclipse.themes.ui.ColorPicker
 import net.jeeeyul.eclipse.themes.ui.ColorWell
 import net.jeeeyul.eclipse.themes.ui.HSB
-import net.jeeeyul.eclipse.themes.ui.SWTExtensions
+import net.jeeeyul.swtend.SWTExtensions
 import org.eclipse.jface.dialogs.IDialogConstants
 import org.eclipse.jface.preference.IPreferenceStore
 import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Control
+
 import static net.jeeeyul.eclipse.themes.preference.ChromeConstants.*
-import net.jeeeyul.eclipse.themes.Messages
+import org.eclipse.swt.SWT
 
 class StateBasedPartPage extends ChromePage {
 	extension SWTExtensions = new SWTExtensions
@@ -491,5 +493,13 @@ class StateBasedPartPage extends ChromePage {
 			activePage.updatePreview()
 		}
 	}
+	
+	def private newColorWell(Composite parent, (ColorWell)=>void initializer) {
+		var result = new ColorWell(parent, SWT::NORMAL)
+		initializer.apply(result)
+		return result;
+	}
+	
+	
 	
 }

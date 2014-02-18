@@ -1,17 +1,17 @@
 package net.jeeeyul.eclipse.themes.userpreset
 
 import java.util.List
-import net.jeeeyul.eclipse.themes.ui.SWTExtensions
+import net.jeeeyul.eclipse.themes.Messages
+import net.jeeeyul.eclipse.themes.ui.CollectionContentProvider
+import net.jeeeyul.swtend.SWTExtensions
+import org.eclipse.jface.dialogs.IDialogConstants
+import org.eclipse.jface.dialogs.InputDialog
 import org.eclipse.jface.viewers.IStructuredSelection
 import org.eclipse.jface.viewers.SelectionChangedEvent
 import org.eclipse.jface.viewers.TableViewer
 import org.eclipse.swt.SWT
 import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Composite
-import org.eclipse.jface.dialogs.InputDialog
-import org.eclipse.jface.dialogs.IDialogConstants
-import net.jeeeyul.eclipse.themes.Messages
-import net.jeeeyul.eclipse.themes.ui.CollectionContentProvider
 
 class UserPresetEditor {
 	extension SWTExtensions = SWTExtensions::INSTANCE

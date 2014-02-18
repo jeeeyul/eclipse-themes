@@ -1,9 +1,10 @@
 package net.jeeeyul.eclipse.themes.preference
 
+import net.jeeeyul.eclipse.themes.Messages
 import net.jeeeyul.eclipse.themes.SharedImages
 import net.jeeeyul.eclipse.themes.preference.internal.FontNameProvider
 import net.jeeeyul.eclipse.themes.rendering.ChromeTabRendering
-import net.jeeeyul.eclipse.themes.ui.SWTExtensions
+import net.jeeeyul.swtend.SWTExtensions
 import org.eclipse.jface.preference.IPreferenceStore
 import org.eclipse.jface.viewers.ComboViewer
 import org.eclipse.jface.viewers.IStructuredSelection
@@ -18,7 +19,6 @@ import org.eclipse.swt.widgets.Scale
 import org.eclipse.swt.widgets.Text
 
 import static net.jeeeyul.eclipse.themes.preference.ChromeConstants.*
-import net.jeeeyul.eclipse.themes.Messages
 
 class CommonPartPage extends ChromePage {
 	extension SWTExtensions = new SWTExtensions

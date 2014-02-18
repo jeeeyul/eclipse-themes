@@ -6,17 +6,17 @@ import net.jeeeyul.eclipse.themes.ui.ColorPicker
 import net.jeeeyul.eclipse.themes.ui.ColorWell
 import net.jeeeyul.eclipse.themes.ui.DelegateLabelProvider
 import net.jeeeyul.eclipse.themes.ui.LineStyle
-import net.jeeeyul.eclipse.themes.ui.SWTExtensions
+import net.jeeeyul.swtend.SWTExtensions
 import org.eclipse.jface.dialogs.IDialogConstants
 import org.eclipse.jface.preference.IPreferenceStore
 import org.eclipse.jface.viewers.ComboViewer
+import org.eclipse.jface.viewers.StructuredSelection
 import org.eclipse.swt.SWT
 import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Control
 
 import static net.jeeeyul.eclipse.themes.preference.ChromeConstants.*
-import org.eclipse.jface.viewers.StructuredSelection
 
 class OtherPage extends ChromePage {
 	extension SWTExtensions = SWTExtensions::INSTANCE
@@ -210,6 +210,12 @@ class OtherPage extends ChromePage {
 		} else {
 			well.selection = original
 		}
+	}
+	
+	def private newColorWell(Composite parent, (ColorWell)=>void initializer) {
+		var result = new ColorWell(parent, SWT::NORMAL)
+		initializer.apply(result)
+		return result;
 	}
 	
 }
