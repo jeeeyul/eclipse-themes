@@ -50,7 +50,6 @@ import org.eclipse.xtext.xbase.lib.IntegerExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure0;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
-
 public class SWTExtensions {
 	private static Integer MENU_BAR_HEIGHT = null;
 	public static final SWTExtensions INSTANCE = new SWTExtensions();
@@ -61,6 +60,10 @@ public class SWTExtensions {
 
 	public boolean contains(Rectangle rect, Point point) {
 		return rect.x <= point.x && rect.y <= point.y && point.x <= rect.x + rect.width && point.y <= rect.y + rect.height;
+	}
+	
+	public Color darkGrayColor() {
+		return display().getSystemColor(SWT.COLOR_DARK_GRAY);
 	}
 
 	public Display display() {
@@ -98,24 +101,6 @@ public class SWTExtensions {
 		GridData gd = _gridData;
 		initializer.apply(gd);
 		return gd;
-	}
-
-	public void setOnPaint(Control control, final Procedure1<Event> renderer) {
-		control.addListener(SWT.Paint, new Listener() {
-			@Override
-			public void handleEvent(Event event) {
-				renderer.apply(event);
-			}
-		});
-	}
-
-	public void setOnResize(Control control, final Procedure1<Event> resizer) {
-		control.addListener(SWT.Resize, new Listener() {
-			@Override
-			public void handleEvent(Event event) {
-				resizer.apply(event);
-			}
-		});
 	}
 
 	public GridData FILL_HORIZONTAL() {
@@ -225,6 +210,10 @@ public class SWTExtensions {
 		return translate(getCopy(source), delta);
 	}
 
+	public Color grayColor() {
+		return display().getSystemColor(SWT.COLOR_GRAY);
+	}
+
 	public String htmlCode(RGB rgb) {
 		return String.format("#%02x%02x%02x", rgb.red, rgb.green, rgb.blue);
 	}
@@ -274,6 +263,24 @@ public class SWTExtensions {
 		return comp;
 	}
 
+	public CTabFolder newCTabFolder(Composite parent, int style, final Procedure1<? super CTabFolder> initializer) {
+		CTabFolder tabFolder = new CTabFolder(parent, style);
+		initializer.apply(tabFolder);
+		return tabFolder;
+	}
+
+	public CTabFolder newCTabFolder(Composite parent, final Procedure1<? super CTabFolder> initializer) {
+		CTabFolder tabFolder = new CTabFolder(parent, SWT.NORMAL);
+		initializer.apply(tabFolder);
+		return tabFolder;
+	}
+
+	public CTabItem newCTabItem(CTabFolder tabFolder, Procedure1<? super CTabItem> initializer) {
+		CTabItem item = new CTabItem(tabFolder, SWT.NORMAL);
+		initializer.apply(item);
+		return item;
+	}
+
 	public GridData newGridData(final Procedure1<? super GridData> initializer) {
 		GridData _gridData = new GridData();
 		GridData gd = _gridData;
@@ -318,17 +325,17 @@ public class SWTExtensions {
 		return _link;
 	}
 
+	public PageBook newPageBook(final Composite parent, final Procedure1<? super PageBook> initializer) {
+		PageBook pageBook = new PageBook(parent, SWT.NORMAL);
+		initializer.apply(pageBook);
+		return pageBook;
+	}
+
 	public Text newPasswordField(final Composite parent, final Procedure1<? super Text> initializer) {
 		Text _text = new Text(parent, SWT.BORDER | SWT.PASSWORD);
 		Text label = _text;
 		initializer.apply(label);
 		return label;
-	}
-
-	public PageBook newPageBook(final Composite parent, final Procedure1<? super PageBook> initializer) {
-		PageBook pageBook = new PageBook(parent, SWT.NORMAL);
-		initializer.apply(pageBook);
-		return pageBook;
 	}
 
 	public Button newPushButton(final Composite parent, final Procedure1<? super Button> initializer) {
@@ -388,6 +395,30 @@ public class SWTExtensions {
 		return item;
 	}
 
+	public TabFolder newTabFolder(Composite parent, final Procedure1<? super TabFolder> initializer) {
+		TabFolder tabFolder = new TabFolder(parent, SWT.NORMAL);
+		initializer.apply(tabFolder);
+		return tabFolder;
+	}
+
+	public TabItem newTabItem(TabFolder tabFolder, Procedure1<? super TabItem> initializer) {
+		TabItem item = new TabItem(tabFolder, SWT.NORMAL);
+		initializer.apply(item);
+		return item;
+	}
+
+	public Table newTable(Composite parent, final Procedure1<Table> initializer) {
+		Table table = new Table(parent, SWT.BORDER);
+		initializer.apply(table);
+		return table;
+	}
+
+	public TableItem newTableItem(Table parent, final Procedure1<TableItem> initializer) {
+		TableItem tableItem = new TableItem(parent, SWT.NORMAL);
+		initializer.apply(tableItem);
+		return tableItem;
+	}
+
 	public Text newTextArea(final Composite parent, final Procedure1<? super Text> initializer) {
 		int _bitwiseOr = IntegerExtensions.bitwiseOr(SWT.MULTI, SWT.BORDER);
 		Text _text = new Text(parent, _bitwiseOr);
@@ -410,22 +441,16 @@ public class SWTExtensions {
 		return label;
 	}
 
-	public ToolBar newToolBar(final Composite parent, final Procedure1<? super ToolBar> initializer) {
-		ToolBar toolBar = new ToolBar(parent, SWT.FLAT);
-		initializer.apply(toolBar);
-		return toolBar;
-	}
-
 	public ToolBar newToolBar(final Composite parent, int style, final Procedure1<? super ToolBar> initializer) {
 		ToolBar toolBar = new ToolBar(parent, style);
 		initializer.apply(toolBar);
 		return toolBar;
 	}
 
-	public ToolItem newToolItem(final ToolBar parent, final Procedure1<? super ToolItem> initializer) {
-		ToolItem item = new ToolItem(parent, SWT.FLAT);
-		initializer.apply(item);
-		return item;
+	public ToolBar newToolBar(final Composite parent, final Procedure1<? super ToolBar> initializer) {
+		ToolBar toolBar = new ToolBar(parent, SWT.FLAT);
+		initializer.apply(toolBar);
+		return toolBar;
 	}
 
 	public ToolItem newToolItem(final ToolBar parent, int style, final Procedure1<? super ToolItem> initializer) {
@@ -434,53 +459,16 @@ public class SWTExtensions {
 		return item;
 	}
 
+	public ToolItem newToolItem(final ToolBar parent, final Procedure1<? super ToolItem> initializer) {
+		ToolItem item = new ToolItem(parent, SWT.FLAT);
+		initializer.apply(item);
+		return item;
+	}
+
 	public Tree newTree(Composite parent, final Procedure1<Tree> initializer) {
 		Tree tree = new Tree(parent, SWT.BORDER);
 		initializer.apply(tree);
 		return tree;
-	}
-
-	public Table newTable(Composite parent, final Procedure1<Table> initializer) {
-		Table table = new Table(parent, SWT.BORDER);
-		initializer.apply(table);
-		return table;
-	}
-	
-	public TabFolder newTabFolder(Composite parent, final Procedure1<? super TabFolder> initializer){
-		TabFolder tabFolder = new TabFolder(parent, SWT.NORMAL);
-		initializer.apply(tabFolder);
-		return tabFolder;
-	}
-	
-	public TabItem newTabItem(TabFolder tabFolder, Procedure1<? super TabItem> initializer){
-		TabItem item = new TabItem(tabFolder, SWT.NORMAL);
-		initializer.apply(item);
-		return item;
-	}
-	
-	
-	public CTabFolder newCTabFolder(Composite parent, final Procedure1<? super CTabFolder> initializer){
-		CTabFolder tabFolder = new CTabFolder(parent, SWT.NORMAL);
-		initializer.apply(tabFolder);
-		return tabFolder;
-	}
-	
-	public CTabFolder newCTabFolder(Composite parent, int style, final Procedure1<? super CTabFolder> initializer){
-		CTabFolder tabFolder = new CTabFolder(parent, style);
-		initializer.apply(tabFolder);
-		return tabFolder;
-	}
-	
-	public CTabItem newCTabItem(CTabFolder tabFolder, Procedure1<? super CTabItem> initializer){
-		CTabItem item = new CTabItem(tabFolder, SWT.NORMAL);
-		initializer.apply(item);
-		return item;
-	}
-
-	public TableItem newTableItem(Table parent, final Procedure1<TableItem> initializer) {
-		TableItem tableItem = new TableItem(parent, SWT.NORMAL);
-		initializer.apply(tableItem);
-		return tableItem;
 	}
 
 	public UIJob newUIJob(final Procedure0 work) {
@@ -511,14 +499,6 @@ public class SWTExtensions {
 		return e1 | e2;
 	}
 
-	/**
-	 * 주어진 {@link Shell}을 기준으로 UI 루프를 운영합니다. 해당 {@link Shell}
-	 * 이 디스포즈 되기 전까지 운영됩니다.
-	 * 
-	 * @param UI
-	 *            루프를 실행할 {@link Shell}.
-	 * @since 2.0.0
-	 */
 	public void runLoop(final Shell s) {
 		boolean _isDisposed = s.isDisposed();
 		boolean _operator_not = BooleanExtensions.operator_not(_isDisposed);
@@ -572,38 +552,38 @@ public class SWTExtensions {
 		return rectangle;
 	}
 
-	public void setOnClick(final Control button, final Procedure1<Control> function) {
+	public void setOnClick(final Control button, final Procedure1<Event> function) {
 		button.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
-				function.apply(button);
+				function.apply(event);
 			}
 		});
 	}
 
-	public <T extends Widget> void setOnEvent(final T w, int eventType, final Procedure1<T> handler) {
+	public <T extends Widget> void setOnEvent(final T w, int eventType, final Procedure1<Event> handler) {
 		w.addListener(eventType, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
-				handler.apply(w);
+				handler.apply(event);
 			}
 		});
 	}
 
-	public void setOnFocus(final Control control, final Procedure1<? super Control> handler) {
+	public void setOnFocus(final Control control, final Procedure1<Event> handler) {
 		control.addListener(SWT.FocusIn, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
-				handler.apply(control);
+				handler.apply(event);
 			}
 		});
 	}
 
-	public void setOnFocusOut(final Control control, final Procedure1<? super Control> handler) {
+	public void setOnFocusOut(final Control control, final Procedure1<Event> handler) {
 		control.addListener(SWT.FocusOut, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
-				handler.apply(control);
+				handler.apply(event);
 			}
 		});
 	}
@@ -617,11 +597,29 @@ public class SWTExtensions {
 		});
 	}
 
-	public <T extends Widget> void setOnSelection(final T w, final Procedure1<T> handler) {
+	public void setOnPaint(Control control, final Procedure1<Event> renderer) {
+		control.addListener(SWT.Paint, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				renderer.apply(event);
+			}
+		});
+	}
+
+	public void setOnResize(Control control, final Procedure1<Event> resizer) {
+		control.addListener(SWT.Resize, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				resizer.apply(event);
+			}
+		});
+	}
+
+	public <T extends Widget> void setOnSelection(final T w, final Procedure1<Event> handler) {
 		w.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
-				handler.apply(w);
+				handler.apply(event);
 			}
 		});
 	}
@@ -657,13 +655,5 @@ public class SWTExtensions {
 
 	public Rectangle translate(Rectangle rectangle, Point delta) {
 		return translate(rectangle, delta.x, delta.y);
-	}
-
-	public Color grayColor() {
-		return display().getSystemColor(SWT.COLOR_GRAY);
-	}
-
-	public Color darkGrayColor() {
-		return display().getSystemColor(SWT.COLOR_DARK_GRAY);
 	}
 }
