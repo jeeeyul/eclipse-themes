@@ -6,7 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
-import net.jeeeyul.eclipse.themes.ui.HSB;
+import net.jeeeyul.swtend.ui.HSB;
 
 import org.eclipse.e4.ui.css.core.util.resources.IResourceLocator;
 import org.eclipse.swt.SWT;

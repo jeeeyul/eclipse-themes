@@ -1,10 +1,10 @@
 package net.jeeeyul.eclipse.themes.css
 
-import net.jeeeyul.eclipse.themes.preference.ChromeThemeConfig
-import org.eclipse.swt.graphics.RGB
-import net.jeeeyul.eclipse.themes.preference.IChromeThemeConfig
 import net.jeeeyul.eclipse.themes.Nature
-import net.jeeeyul.eclipse.themes.ui.HSB
+import net.jeeeyul.eclipse.themes.preference.ChromeThemeConfig
+import net.jeeeyul.eclipse.themes.preference.IChromeThemeConfig
+import net.jeeeyul.swtend.ui.HSB
+import org.eclipse.swt.graphics.RGB
 
 class ChromeCSSGenerator {
 	extension Nature = Nature::INSTANCE

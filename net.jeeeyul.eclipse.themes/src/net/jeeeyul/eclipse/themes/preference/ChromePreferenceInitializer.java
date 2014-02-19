@@ -1,7 +1,7 @@
 package net.jeeeyul.eclipse.themes.preference;
 
 import net.jeeeyul.eclipse.themes.ChromeThemeCore;
-import net.jeeeyul.eclipse.themes.ui.HSB;
+import net.jeeeyul.swtend.ui.HSB;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;

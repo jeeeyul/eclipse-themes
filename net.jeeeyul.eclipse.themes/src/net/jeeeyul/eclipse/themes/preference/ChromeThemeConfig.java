@@ -7,7 +7,7 @@ import java.lang.reflect.Modifier;
 import net.jeeeyul.eclipse.themes.ChromeThemeCore;
 import net.jeeeyul.eclipse.themes.css.RewriteChormeCSS;
 import net.jeeeyul.eclipse.themes.e4.ActiveThemeTracker;
-import net.jeeeyul.eclipse.themes.ui.HSB;
+import net.jeeeyul.swtend.ui.HSB;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;

@@ -3,10 +3,10 @@ package net.jeeeyul.eclipse.themes.preference
 import net.jeeeyul.eclipse.themes.Messages
 import net.jeeeyul.eclipse.themes.SharedImages
 import net.jeeeyul.eclipse.themes.css.DragHandleFactory
-import net.jeeeyul.eclipse.themes.ui.ColorPicker
-import net.jeeeyul.eclipse.themes.ui.ColorWell
-import net.jeeeyul.eclipse.themes.ui.HSB
+import net.jeeeyul.swtend.ui.HSB
 import net.jeeeyul.swtend.SWTExtensions
+import net.jeeeyul.swtend.ui.ColorPicker
+import net.jeeeyul.swtend.ui.ColorWell
 import org.eclipse.jface.dialogs.IDialogConstants
 import org.eclipse.jface.preference.IPreferenceStore
 import org.eclipse.swt.SWT

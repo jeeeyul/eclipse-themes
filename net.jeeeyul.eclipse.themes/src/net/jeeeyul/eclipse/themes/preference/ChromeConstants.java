@@ -1,7 +1,7 @@
 package net.jeeeyul.eclipse.themes.preference;
 
 import net.jeeeyul.eclipse.themes.preference.annotations.ValueType;
-import net.jeeeyul.eclipse.themes.ui.HSB;
+import net.jeeeyul.swtend.ui.HSB;
 
 public interface ChromeConstants {
 	public static final String CHROME_THEME_ID = "net.jeeeyul.eclipse.themes.chrome";

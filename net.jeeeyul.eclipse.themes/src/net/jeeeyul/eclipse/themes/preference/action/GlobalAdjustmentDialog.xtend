@@ -7,7 +7,7 @@ import net.jeeeyul.eclipse.themes.preference.ChromePreferenceExtensions
 import net.jeeeyul.eclipse.themes.preference.ChromePreferenceInitializer
 import net.jeeeyul.eclipse.themes.preference.ChromeThemePrefererncePage
 import net.jeeeyul.eclipse.themes.preference.annotations.ValueType
-import net.jeeeyul.eclipse.themes.ui.HSB
+import net.jeeeyul.swtend.ui.HSB
 import net.jeeeyul.swtend.SWTExtensions
 import org.eclipse.jface.dialogs.Dialog
 import org.eclipse.jface.preference.PreferenceStore

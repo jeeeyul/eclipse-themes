@@ -1,6 +1,6 @@
 package net.jeeeyul.eclipse.themes.css;
 
-import net.jeeeyul.eclipse.themes.ui.HSB;
+import net.jeeeyul.swtend.ui.HSB;
 
 import org.eclipse.e4.ui.css.core.dom.properties.ICSSPropertyHandler;
 import org.eclipse.e4.ui.css.core.engine.CSSEngine;

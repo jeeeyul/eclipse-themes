@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.jeeeyul.eclipse.themes.SharedImages;
-import net.jeeeyul.eclipse.themes.ui.HSB;
+import net.jeeeyul.swtend.ui.HSB;
 
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.RGB;

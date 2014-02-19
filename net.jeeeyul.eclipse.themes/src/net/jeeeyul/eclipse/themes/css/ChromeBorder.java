@@ -2,11 +2,10 @@ package net.jeeeyul.eclipse.themes.css;
 
 import java.util.HashSet;
 
-import net.jeeeyul.eclipse.themes.ui.KRectangle;
-
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
@@ -118,7 +117,7 @@ public class ChromeBorder {
 	}
 
 	private void onPaint(Event event) {
-		KRectangle bounds = new KRectangle(parent.getClientArea());
+		Rectangle bounds = parent.getClientArea();
 		if (topVisible && topColor != null) {
 			event.gc.setForeground(topColor);
 			event.gc.drawLine(bounds.x, bounds.y, bounds.x + bounds.width, bounds.y);
