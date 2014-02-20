@@ -16,22 +16,27 @@ public class KTabRendererTest {
 		Shell shell = new Shell(display);
 
 		FillLayout layout = new FillLayout();
-		layout.marginWidth = layout.marginHeight = 20;
+		layout.marginWidth = layout.marginHeight = 0;
 		shell.setLayout(layout);
 		CTabFolder tabFolder = new CTabFolder(shell, SWT.NORMAL);
 		tabFolder.setRenderer(new KTabRenderer(tabFolder));
 		tabFolder.setMaximizeVisible(true);
 		tabFolder.setMinimizeVisible(true);
+		tabFolder.setMRUVisible(true);
 		tabFolder.setBorderVisible(true);
+
 		for (int i = 0; i < 20; i++) {
 			CTabItem item = new CTabItem(tabFolder, SWT.CLOSE);
 			item.setText("item" + i);
 			item.setImage(SharedImages.getImage(SharedImages.PALETTE));
-			Label label = new Label(tabFolder, SWT.NORMAL);
-			label.setText("Content " + i);
-			label.setSize(200, 200);
-			item.setControl(label);
+			SizeBox content = new SizeBox(tabFolder, SWT.NORMAL);
+			content.setSize(200, 200);
+			content.setBackground(display.getSystemColor(SWT.COLOR_CYAN));
+			item.setControl(content);
 		}
+
+		tabFolder.setInsertMark(tabFolder.getItem(0), true);
+
 		shell.setSize(400, 300);
 		shell.open();
 

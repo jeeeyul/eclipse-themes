@@ -1,15 +1,15 @@
 package net.jeeeyul.eclipse.themes.rendering;
 
+import org.eclipse.swt.custom.CTabItem;
+
 public class KTabRendererHelper {
-	public int operator_and(int e1, int e2) {
-		return e1 & e2;
+	static interface hack {
+		static interface CTabItem {
+			static final HackedField<CTabItem, Boolean> showing = new HackedField<CTabItem, Boolean>(CTabItem.class, "showing");
+		}
 	}
 
-	public int operator_or(int e1, int e2) {
-		return e1 | e2;
-	}
-	
-	public int removeFlag(int value, int flag){
-		return value & ~flag;
+	public boolean isShowing(CTabItem me) {
+		return hack.CTabItem.showing.get(me);
 	}
 }
