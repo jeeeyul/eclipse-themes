@@ -565,7 +565,7 @@ public class ChromeThemeConfig implements IPropertyChangeListener, IChromeThemeC
 	}
 
 	private String replace(String css) {
-		Method[] methods = getClass().getSuperclass().getDeclaredMethods();
+		Method[] methods = getClass().getDeclaredMethods();
 		for (int i = 0; i < methods.length; i++) {
 			Method method = methods[i];
 			String name = method.getName();
