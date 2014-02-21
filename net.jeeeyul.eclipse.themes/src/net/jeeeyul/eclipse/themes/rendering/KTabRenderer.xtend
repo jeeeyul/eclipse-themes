@@ -24,7 +24,7 @@ class KTabRenderer extends CTabFolderRenderer {
 		parent.setSelectionBackground(#[COLOR_RED, COLOR_WHITE, COLOR_RED], #[ 10, 100], true)
 		parent.selectionForeground = COLOR_WHITE
 		parent.borderVisible = true;
-		parent.tabHeight = 50
+//		parent.tabHeight = 50
 	}
 
 	override protected dispose() {
@@ -113,7 +113,7 @@ class KTabRenderer extends CTabFolderRenderer {
 			case part >= 0 && state.hasFlags(SWT.SELECTED): {
 				var item = parent.getItem(part)
 				gc.clipping = item.bounds
-				parent.drawBackground(gc, item.bounds.getResized(-1, -1), parent.selectionGradientColor, parent.selectionGradientPercents, true)
+				parent.drawBackground(gc, item.bounds, parent.selectionGradientColor, parent.selectionGradientPercents, true)
 				
 				var iconArea = item.image.bounds.relocateLeftWith(item.bounds).translate(4, 0);
 				gc.drawImage(item.image, iconArea.topLeft)				
