@@ -1,4 +1,4 @@
-package net.jeeeyul.eclipse.themes.rendering;
+package net.jeeeyul.eclipse.themes.rendering.internal;
 
 import java.lang.reflect.Field;
 
@@ -33,9 +33,10 @@ public class HackedField<T, FT> {
 		}
 	}
 
-	public void set(Object obj, FT value) {
+	public FT set(Object obj, FT value) {
 		try {
 			getField().set(obj, value);
+			return value;
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

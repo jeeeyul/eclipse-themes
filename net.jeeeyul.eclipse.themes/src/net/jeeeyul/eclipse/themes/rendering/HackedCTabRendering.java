@@ -1149,7 +1149,10 @@ public class HackedCTabRendering extends CTabFolderRenderer {
 	public void setOuterKeyline(Color color) {
 		this.outerKeyline = color;
 		// TODO: HACK! Should be set based on pseudo-state.
-		setActive(!(color.getRed() == 255 && color.getGreen() == 255 && color.getBlue() == 255));
+		if (color != null) {
+			setActive(!(color.getRed() == 255 && color.getGreen() == 255 && color
+					.getBlue() == 255));
+		}
 		parent.redraw();
 	}
 

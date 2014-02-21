@@ -1,0 +1,4 @@
+.MPartStack {
+	swt-tab-renderer:
+		url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.KTabRenderer');
+}

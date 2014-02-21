@@ -17,6 +17,11 @@
                uri="platform:/plugin/net.jeeeyul.eclipse.themes/css/">
          </osgiresourcelocator>
       </stylesheet>
+      <theme
+            basestylesheeturi="css/k.css"
+            id="net.jeeeyul.eclipse.themes.k"
+            label="K">
+      </theme>
    </extension>
    <extension
          point="org.eclipse.core.runtime.preferences">

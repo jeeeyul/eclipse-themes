@@ -1,13 +1,13 @@
 package net.jeeeyul.eclipse.themes.rendering;
 
 import net.jeeeyul.eclipse.themes.SharedImages;
+import net.jeeeyul.swtend.SWTExtensions;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
 public class KTabRendererTest {
@@ -16,28 +16,15 @@ public class KTabRendererTest {
 		Shell shell = new Shell(display);
 
 		FillLayout layout = new FillLayout();
-		layout.marginWidth = layout.marginHeight = 0;
+		layout.marginWidth = layout.marginHeight = 10;
+		layout.spacing = 10;
 		shell.setLayout(layout);
-		CTabFolder tabFolder = new CTabFolder(shell, SWT.NORMAL);
-		tabFolder.setRenderer(new KTabRenderer(tabFolder));
-		tabFolder.setMaximizeVisible(true);
-		tabFolder.setMinimizeVisible(true);
-		tabFolder.setMRUVisible(true);
-		tabFolder.setBorderVisible(true);
 
-		for (int i = 0; i < 20; i++) {
-			CTabItem item = new CTabItem(tabFolder, SWT.CLOSE);
-			item.setText("item" + i);
-			item.setImage(SharedImages.getImage(SharedImages.PALETTE));
-			SizeBox content = new SizeBox(tabFolder, SWT.NORMAL);
-			content.setSize(200, 200);
-			content.setBackground(display.getSystemColor(SWT.COLOR_CYAN));
-			item.setControl(content);
-		}
+		SWTExtensions.INSTANCE.showTestGrid(shell);
 
-		tabFolder.setInsertMark(tabFolder.getItem(0), true);
+		createExampleTab(shell, SWT.TOP);
+		createExampleTab(shell, SWT.BOTTOM);
 
-		shell.setSize(400, 300);
 		shell.open();
 
 		while (!shell.isDisposed()) {
@@ -47,5 +34,26 @@ public class KTabRendererTest {
 		}
 
 		display.dispose();
+	}
+
+	private static void createExampleTab(Shell shell, int tabPosition) {
+		CTabFolder tabFolder = new CTabFolder(shell, SWT.NONE);
+		tabFolder.setMaximizeVisible(true);
+		tabFolder.setMinimizeVisible(true);
+		tabFolder.setMRUVisible(true);
+		tabFolder.setTabPosition(tabPosition);
+		tabFolder.setRenderer(new KTabRenderer(tabFolder));
+
+		for (int i = 0; i < 20; i++) {
+			CTabItem item = new CTabItem(tabFolder, SWT.CLOSE);
+			item.setText("item" + i);
+			item.setImage(SharedImages.getImage(SharedImages.PALETTE));
+			SizeBox content = new SizeBox(tabFolder, SWT.NORMAL);
+			content.setSize(200, 200);
+			content.setBackground(shell.getDisplay().getSystemColor(SWT.COLOR_CYAN));
+			item.setControl(content);
+		}
+
+		tabFolder.setSelection(tabFolder.getItems()[0]);
 	}
 }

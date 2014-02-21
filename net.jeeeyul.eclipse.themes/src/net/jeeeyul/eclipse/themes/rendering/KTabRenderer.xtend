@@ -12,87 +12,126 @@ class KTabRenderer extends CTabFolderRenderer {
 	extension KTabRendererHelper = new KTabRendererHelper
 	extension SWTExtensions = SWTExtensions.INSTANCE
 
-	var tabHeight = 40
+	@Property KTabSettings settings = new KTabSettings()
 
 	CTabFolder parent
 
 	new(CTabFolder parent) {
 		super(parent)
 		this.parent = parent
+		parent.simple = true
+		parent.setBackground(#[COLOR_WHITE, COLOR_GRAY], #[100], true)
+		parent.setSelectionBackground(#[COLOR_RED, COLOR_WHITE, COLOR_RED], #[ 10, 100], true)
+		parent.selectionForeground = COLOR_WHITE
+		parent.borderVisible = true;
+		parent.tabHeight = 50
+	}
+
+	override protected dispose() {
+		super.dispose()
 	}
 
 	override protected computeSize(int part, int state, GC gc, int wHint, int hHint) {
 		switch (part) {
 			case 99:
 				new Point(10, 10)
-			case PART_BORDER:
-				new Point(5, 5)
 			default:
 				super.computeSize(part, state, gc, wHint, hHint)
 		}
 	}
 
 	override protected computeTrim(int part, int state, int x, int y, int width, int height) {
-		var result = switch (part) {
-			case PART_BODY: {
-				super.computeTrim(part, state, x, y, width, height)
-				new Rectangle(-10, -tabHeight, 20, tabHeight * 2)
+		var result = new Rectangle(x, y, width, height)
+		switch (part) {
+			case PART_BORDER: {
+				result.x = result.x - settings.margins.x
+				result.width = result.width + settings.margins.x + settings.margins.width
+				result.height = result.height + settings.margins.height
 			}
-			case PART_HEADER :{
-				// x를 음수로 주면 들여 써진다.
-				// h로 보정 델타 값.
-				new Rectangle(0, 0, 0, 0)
+			case PART_HEADER: {
+				result.x = result.x - settings.margins.x
+				result.width = result.width + settings.margins.x + settings.margins.width
+			}
+			case PART_BODY: {
+				result.x = result.x - settings.margins.x - settings.paddings.x - settings.border
+				result.width = result.width + settings.margins.width + settings.paddings.width + settings.margins.x + settings.paddings.x + settings.border * 2
+				if(parent.onBottom) {
+					result.y = result.y - settings.paddings.y - settings.border
+					result.height = result.height + parent.tabHeight + settings.paddings.y + settings.margins.height + settings.paddings.height + settings.border *2
+				} else {
+					result.y = result.y - parent.tabHeight - settings.paddings.y - settings.border
+					result.height = result.height + parent.tabHeight + settings.paddings.y + settings.margins.height + settings.paddings.height + settings.border * 2
+				}
 			}
 			default: {
-				super.computeTrim(part, state, x, y, width, height)
+				result = super.computeTrim(part, state, x, y, width, height)
 			}
 		}
-		if(part < 0)
-			println('''«part» -> «result»''')
 		return result
 
 	}
 
 	override protected draw(int part, int state, Rectangle bounds, GC gc) {
 		switch (part) {
-			case PART_CHEVRON_BUTTON: {
-				var invisibleItemCount = parent.itemCount - parent.items.filter[it.showing].size;
-				if(invisibleItemCount > 99) {
-					invisibleItemCount = 99
+			case PART_HEADER: {
+				var headerArea = if(!parent.onBottom) {
+						new Rectangle(settings.margins.x, 0, parent.size.x - settings.margins.x - settings.margins.height, parent.tabHeight)
+					} else {
+						new Rectangle(0, parent.size.y, parent.size.x, parent.size.y) => [
+							shrink(settings.margins.x, 0, settings.margins.width, 0)
+							height = parent.tabHeight
+							translate(0, -parent.tabHeight - settings.margins.height)
+						]
+					}
+				parent.drawBackground(gc, headerArea, parent.gradientColor, parent.gradientPercents, true)
+
+				draw(PART_BODY, SWT.FOREGROUND, bounds, gc)
+			}
+			case PART_CLOSE_BUTTON :{
+				gc.background = COLOR_YELLOW
+				gc.fill(bounds)
+			}
+			
+			case PART_BORDER: {
+			}
+			case PART_BODY: {
+				if(state.hasFlags(SWT.BACKGROUND)) {
+					gc.background = parent.parent.background
+					gc.fill(bounds)
+
+					gc.background = settings.shadowColor
+					gc.fill(tabArea.getTranslated(2, 2))
+
+					gc.background = parent.selectionGradientColor.last
+					gc.fill(tabArea)
 				}
-				val numExp = invisibleItemCount.toString()
-				val font = newFont("Arial", 10, SWT::BOLD).autoRelease
-				val textBox = newRectangle(new Point(0, 0), numExp.computeTextExtent(font))
-				textBox.relocateCenterWith(bounds)
-
-				var path = newPath[
-					autoRelease()
-					addRoundRectangle(bounds, 8)
-					addString(numExp, textBox.topLeft, font)
-				]
-
-				gc.background = COLOR_DARK_GRAY
-				gc.fillPath(path)
+				if(state.hasFlags(SWT.FOREGROUND)) {
+					gc.foreground = settings.borderColor;
+					gc.draw(tabArea.getResized(-1, -1))
+				}
 			}
-			
-			case PART_MIN_BUTTON: {
-				var bar = bounds.copy
-				bar.height = 4
-				bar.relocateBottomWith(bounds)
-				bar.shrink(4, 0)
-				gc.background = COLOR_DARK_GRAY
-				gc.fillRectangle(bar)
-			}
-			
-			case PART_MAX_BUTTON:{
-				gc.setAntialias(SWT::OFF)
-				gc.foreground = COLOR_DARK_GRAY
-				gc.lineWidth = 2
-				gc.drawRoundRectangle(bounds.shrink(4, 3), 8)
+			case part >= 0 && state.hasFlags(SWT.SELECTED): {
+				var item = parent.getItem(part)
+				gc.clipping = item.bounds
+				parent.drawBackground(gc, item.bounds.getResized(-1, -1), parent.selectionGradientColor, parent.selectionGradientPercents, true)
+				
+				var iconArea = item.image.bounds.relocateLeftWith(item.bounds).translate(4, 0);
+				gc.drawImage(item.image, iconArea.topLeft)				
+				
+				var textArea = newRectangleWithSize(gc.stringExtent(item.text)).relocateLeftWith(iconArea.right).translate(4, 0)
+				gc.foreground = parent.selectionForeground
+				gc.drawString(item.text, textArea.topLeft)
+				
+				draw(PART_CLOSE_BUTTON, state, item.closeRect, gc)
+				
+				draw(PART_BODY, SWT.FOREGROUND, item.bounds, gc)
 			}
 			default:
 				super.draw(part, state, bounds, gc)
 		}
 	}
 
+	def tabArea() {
+		newRectangle.setSize(parent.size).shrink(settings.margins.x, 0, settings.margins.width, settings.margins.height)
+	}
 }
