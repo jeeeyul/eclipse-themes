@@ -123,7 +123,6 @@ class KTabRenderer extends CTabFolderRenderer {
 				gc.drawString(item.text, textArea.topLeft)
 				
 				draw(PART_CLOSE_BUTTON, state, item.closeRect, gc)
-				
 				draw(PART_BODY, SWT.FOREGROUND, item.bounds, gc)
 			}
 			default:
