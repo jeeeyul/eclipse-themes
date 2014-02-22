@@ -10,7 +10,7 @@ class KTabTest {
 		val extension SWTExtensions = SWTExtensions.INSTANCE
 		
 		newShell[
-			newCTabFolder[
+			newCTabFolder(SWT.CLOSE)[
 				renderer = new KTabRenderer(it)
 				
 				newCTabItem[

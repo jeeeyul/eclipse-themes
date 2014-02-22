@@ -6,6 +6,7 @@ import org.eclipse.swt.custom.CTabFolder
 import org.eclipse.swt.custom.CTabFolderRenderer
 import org.eclipse.swt.graphics.GC
 import org.eclipse.swt.graphics.Rectangle
+import org.eclipse.swt.graphics.Point
 
 class KTabRenderer extends CTabFolderRenderer {
 	extension KTabRendererHelper = new KTabRendererHelper
@@ -19,9 +20,10 @@ class KTabRenderer extends CTabFolderRenderer {
 		super(parent)
 		this.parent = parent
 		parent.simple = true
-		parent.setBackground(#[COLOR_WHITE, COLOR_GRAY, COLOR_BLUE], #[50, 100], true)
-		parent.setSelectionBackground(#[COLOR_RED, COLOR_WHITE, COLOR_RED], #[ 10, 100], true)
-		parent.selectionForeground = COLOR_WHITE
+		parent.setBackground(#[COLOR_WHITE, COLOR_GRAY], #[100], true)
+		parent.setSelectionBackground(#[COLOR_INFO_BACKGROUND, COLOR_WHITE], #[100], true)
+		
+		parent.selectionForeground = COLOR_BLACK
 		parent.borderVisible = true;
 	}
 
@@ -46,14 +48,13 @@ class KTabRenderer extends CTabFolderRenderer {
 				result.width = result.width + settings.margins.width + settings.paddings.width + settings.margins.x + settings.paddings.x + settings.border * 2
 				if(parent.onBottom) {
 					result.y = result.y - settings.paddings.y - settings.border
-					result.height = result.height + parent.tabHeight + settings.paddings.y + settings.margins.height + settings.paddings.height + settings.border *2 + 2
+					result.height = result.height + parent.tabHeight + settings.paddings.y + settings.margins.height + settings.paddings.height + settings.border * 2 + 2
 				} else {
 					result.y = result.y - parent.tabHeight - settings.paddings.y - settings.border - 1
 					result.height = result.height + parent.tabHeight + settings.paddings.y + settings.margins.height + settings.paddings.height + settings.border * 2 + 1
 				}
 			}
-			case PART_MAX_BUTTON : {
-				
+			case PART_MAX_BUTTON: {
 			}
 			default: {
 				result = super.computeTrim(part, state, x, y, width, height)
@@ -73,18 +74,17 @@ class KTabRenderer extends CTabFolderRenderer {
 							shrink(settings.margins.x, 0, settings.margins.width, 0)
 							height = parent.tabHeight
 							translate(0, -parent.tabHeight - settings.margins.height - 2)
-							resize(0, 4)
+							resize(0, 2)
 						]
 					}
 				parent.drawBackground(gc, headerArea, parent.gradientColor, parent.gradientPercents, true)
 
 				draw(PART_BODY, SWT.FOREGROUND, bounds, gc)
 			}
-			case PART_CLOSE_BUTTON :{
+			case PART_CLOSE_BUTTON: {
 				gc.background = COLOR_YELLOW
 				gc.fill(bounds)
 			}
-			
 			case PART_BORDER: {
 			}
 			case PART_BODY: {
@@ -105,18 +105,41 @@ class KTabRenderer extends CTabFolderRenderer {
 			}
 			case part >= 0 && state.hasFlags(SWT.SELECTED): {
 				var item = parent.getItem(part)
-				gc.clipping = item.bounds
-				parent.drawBackground(gc, item.bounds, parent.selectionGradientColor, parent.selectionGradientPercents, true)
-				
+				var itemBounds = item.bounds
+
+				parent.drawBackground(gc, itemBounds, parent.selectionGradientColor, parent.selectionGradientPercents, true)
+
 				var iconArea = item.image.bounds.relocateLeftWith(item.bounds).translate(4, 0);
-				gc.drawImage(item.image, iconArea.topLeft)				
-				
+				gc.drawImage(item.image, iconArea.topLeft)
+
 				var textArea = newRectangleWithSize(gc.stringExtent(item.text)).relocateLeftWith(iconArea.right).translate(4, 0)
 				gc.foreground = parent.selectionForeground
 				gc.drawString(item.text, textArea.topLeft)
-				
+
 				draw(PART_CLOSE_BUTTON, state, item.closeRect, gc)
+				
+				gc.foreground =  settings.innerBorderColor
+				gc.draw(itemBounds.getResized(-1, 0))
+				
+				var keyLine = 
+				if(parent.onBottom){
+					#[
+						new Point(settings.margins.x + settings.border, itemBounds.top.y -1),
+						new Point(parent.size.x - settings.margins.width - settings.border - 1, itemBounds.top.y -1)
+					]
+				}else{
+					#[
+						new Point(settings.margins.x + settings.border, itemBounds.bottom.y),
+						new Point(parent.size.x - settings.margins.width - settings.border - 1, itemBounds.bottom.y)
+					]
+				}
+				gc.antialias = SWT.OFF
+				gc.drawLine(keyLine)
+				gc.foreground = parent.selectionGradientColor.last
+				gc.drawLine(itemBounds.bottomLeft.translate(1,0), itemBounds.bottomRight.translate(-2, 0))
+				
 				draw(PART_BODY, SWT.FOREGROUND, item.bounds, gc)
+				
 			}
 			default:
 				super.draw(part, state, bounds, gc)
