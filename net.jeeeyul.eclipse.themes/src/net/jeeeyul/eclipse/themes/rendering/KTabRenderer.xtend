@@ -5,7 +5,6 @@ import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.CTabFolder
 import org.eclipse.swt.custom.CTabFolderRenderer
 import org.eclipse.swt.graphics.GC
-import org.eclipse.swt.graphics.Point
 import org.eclipse.swt.graphics.Rectangle
 
 class KTabRenderer extends CTabFolderRenderer {
@@ -20,24 +19,14 @@ class KTabRenderer extends CTabFolderRenderer {
 		super(parent)
 		this.parent = parent
 		parent.simple = true
-		parent.setBackground(#[COLOR_WHITE, COLOR_GRAY], #[100], true)
+		parent.setBackground(#[COLOR_WHITE, COLOR_GRAY, COLOR_BLUE], #[50, 100], true)
 		parent.setSelectionBackground(#[COLOR_RED, COLOR_WHITE, COLOR_RED], #[ 10, 100], true)
 		parent.selectionForeground = COLOR_WHITE
 		parent.borderVisible = true;
-//		parent.tabHeight = 50
 	}
 
 	override protected dispose() {
 		super.dispose()
-	}
-
-	override protected computeSize(int part, int state, GC gc, int wHint, int hHint) {
-		switch (part) {
-			case 99:
-				new Point(10, 10)
-			default:
-				super.computeSize(part, state, gc, wHint, hHint)
-		}
 	}
 
 	override protected computeTrim(int part, int state, int x, int y, int width, int height) {
@@ -57,11 +46,14 @@ class KTabRenderer extends CTabFolderRenderer {
 				result.width = result.width + settings.margins.width + settings.paddings.width + settings.margins.x + settings.paddings.x + settings.border * 2
 				if(parent.onBottom) {
 					result.y = result.y - settings.paddings.y - settings.border
-					result.height = result.height + parent.tabHeight + settings.paddings.y + settings.margins.height + settings.paddings.height + settings.border *2
+					result.height = result.height + parent.tabHeight + settings.paddings.y + settings.margins.height + settings.paddings.height + settings.border *2 + 2
 				} else {
-					result.y = result.y - parent.tabHeight - settings.paddings.y - settings.border
-					result.height = result.height + parent.tabHeight + settings.paddings.y + settings.margins.height + settings.paddings.height + settings.border * 2
+					result.y = result.y - parent.tabHeight - settings.paddings.y - settings.border - 1
+					result.height = result.height + parent.tabHeight + settings.paddings.y + settings.margins.height + settings.paddings.height + settings.border * 2 + 1
 				}
+			}
+			case PART_MAX_BUTTON : {
+				
 			}
 			default: {
 				result = super.computeTrim(part, state, x, y, width, height)
@@ -75,12 +67,13 @@ class KTabRenderer extends CTabFolderRenderer {
 		switch (part) {
 			case PART_HEADER: {
 				var headerArea = if(!parent.onBottom) {
-						new Rectangle(settings.margins.x, 0, parent.size.x - settings.margins.x - settings.margins.height, parent.tabHeight)
+						new Rectangle(settings.margins.x, 0, parent.size.x - settings.margins.x - settings.margins.height, parent.tabHeight + 2)
 					} else {
 						new Rectangle(0, parent.size.y, parent.size.x, parent.size.y) => [
 							shrink(settings.margins.x, 0, settings.margins.width, 0)
 							height = parent.tabHeight
-							translate(0, -parent.tabHeight - settings.margins.height)
+							translate(0, -parent.tabHeight - settings.margins.height - 2)
+							resize(0, 4)
 						]
 					}
 				parent.drawBackground(gc, headerArea, parent.gradientColor, parent.gradientPercents, true)
