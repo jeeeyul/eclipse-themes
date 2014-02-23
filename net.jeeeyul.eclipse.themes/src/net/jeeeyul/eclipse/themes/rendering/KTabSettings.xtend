@@ -25,5 +25,6 @@ class KTabSettings {
 	
 	@Property int border = 1
 	
+	@Property int tabSpacing = 2
 	@Property int tabItemHorizontalSpacing = 4
 }

@@ -11,9 +11,10 @@ class KTabTest {
 		
 		newShell[
 			newCTabFolder(SWT.CLOSE)[
+				tabHeight = 25
 				renderer = new KTabRenderer(it) => [
 					settings.margins = newInsets(5)
-					settings.borderRadius = 20
+					settings.borderRadius = 8
 					settings.paddings = newInsets(2)
 					settings.borderColor = COLOR_BLACK.toHSB
 				]

@@ -30,6 +30,9 @@ class KTabRenderer extends CTabFolderRenderer {
 			case PART_CLOSE_BUTTON: {
 				return new Point(8, 8)
 			}
+			case (part >= 0):{
+				super.computeSize(part, state, gc, wHint, hHint)
+			}
 			default: {
 				super.computeSize(part, state, gc, wHint, hHint)
 			}
@@ -63,7 +66,7 @@ class KTabRenderer extends CTabFolderRenderer {
 			case PART_MAX_BUTTON: {
 			}
 			case (part >= 0): {
-				result = super.computeTrim(part, state, x, y, width, height)
+				result = super.computeTrim(part, state, x, y, width, height).getResized(settings.tabSpacing, 0)
 			}
 			default: {
 				result = super.computeTrim(part, state, x, y, width, height)
@@ -167,9 +170,9 @@ class KTabRenderer extends CTabFolderRenderer {
 		val item = parent.getItem(part)
 
 		val itemBounds = if(parent.onBottom)
-				item.bounds.getTranslated(0, -2)
+				item.bounds.getTranslated(0, -2).getResized(settings.tabSpacing, 0)
 			else
-				item.bounds
+				item.bounds.getResized(-settings.tabSpacing, 0)
 
 		val fill = newPath[
 			autoRelease()
