@@ -1,0 +1,41 @@
+.MTrimmedWindow.topLevel {
+	margin-top: 2px;
+	margin-left: 2px;
+	margin-right: 2px;
+	background-color: rgb(227, 227, 228);
+}
+
+.MTrimBar#org-eclipse-ui-main-toolbar {
+	background-color: #ededed #dbdbdb;
+}
+
+.MPartStack {
+	swt-tab-renderer:
+		url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.KTabRenderer');
+	swt-unselected-tabs-color: #ededed #dbdbdb #ffffff 100% 100%;
+	swt-selected-tabs-background: white white 100%;
+}
+
+.MPartStack.active {
+	swt-tab-renderer:
+		url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.KTabRenderer');
+	swt-unselected-tabs-color: #ededed #dbdbdb #ffffff 100% 100%;
+	swt-selected-tabs-background: rgb(246, 126, 44) rgb(246, 126, 44) white white 17%  17% 100%;
+}
+
+MTrimBar#org-eclipse-ui-main-toolbar {
+	background-color: #ededed #dbdbdb;
+}
+
+#org-eclipse-ui-main-toolbar #PerspectiveSwitcher {
+	eclipse-perspective-keyline-color: #aaafbd;
+}
+
+.MPartSashContainer {
+	jeeeyul-sash-width: 2px;
+}
+
+#org-eclipse-ui-main-toolbar #PerspectiveSwitcher {
+	background-color: rgb(227, 227, 228);
+	handle-image: none;
+}

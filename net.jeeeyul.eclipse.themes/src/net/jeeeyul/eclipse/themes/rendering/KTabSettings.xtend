@@ -12,6 +12,7 @@ class KTabSettings {
 	@Property Rectangle margins = newInsets(0)
 	@Property Rectangle paddings = newInsets(2)
 	@Property Point buttonSize = new Point(16, 16)
+	@Property int tabHeight = 22
 
 	@Property Color tabHeaderStartColor = COLOR_WHITE
 	@Property Color tabHeaderEndColor = COLOR_GRAY
@@ -25,4 +26,6 @@ class KTabSettings {
 	@Property Color activeCloseButtonColor = COLOR_RED
 	
 	@Property int border = 1
+	
+	@Property int tabItemHorizontalSpacing = 4
 }

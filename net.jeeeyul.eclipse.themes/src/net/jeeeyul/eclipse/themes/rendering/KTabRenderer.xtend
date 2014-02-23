@@ -19,29 +19,23 @@ class KTabRenderer extends CTabFolderRenderer {
 	new(CTabFolder parent) {
 		super(parent)
 		this.parent = parent
-		parent.simple = true
-		parent.setBackground(#[COLOR_WHITE, COLOR_GRAY, COLOR_WHITE], #[100, 100], true)
-		parent.setSelectionBackground(#[COLOR_INFO_BACKGROUND, COLOR_WHITE], #[100], true)
-
-		parent.selectionForeground = COLOR_BLACK
-		parent.borderVisible = true;
+		parent.tabHeight = settings.tabHeight
 	}
 
 	override protected dispose() {
 		super.dispose()
 	}
-	
+
 	override protected computeSize(int part, int state, GC gc, int wHint, int hHint) {
-		switch(part){
-			case PART_CLOSE_BUTTON:
-			{
-				return new Point(6, 6)
+		switch (part) {
+			case PART_CLOSE_BUTTON: {
+				return new Point(8, 8)
 			}
-			default:{
+			default: {
 				super.computeSize(part, state, gc, wHint, hHint)
 			}
 		}
-		
+
 	}
 
 	override protected computeTrim(int part, int state, int x, int y, int width, int height) {
@@ -69,6 +63,9 @@ class KTabRenderer extends CTabFolderRenderer {
 			}
 			case PART_MAX_BUTTON: {
 			}
+			case (part >= 0): {
+				result = super.computeTrim(part, state, x, y, width, height)
+			}
 			default: {
 				result = super.computeTrim(part, state, x, y, width, height)
 			}
@@ -90,29 +87,31 @@ class KTabRenderer extends CTabFolderRenderer {
 							resize(0, 2)
 						]
 					}
-				parent.drawBackground(gc, headerArea, parent.gradientColor, parent.gradientPercents, true)
+				if(parent.gradientColor != null) {
+					parent.drawBackground(gc, headerArea, parent.gradientColor, parent.gradientPercents, true)
+				} else {
+					gc.background = parent.background
+					gc.fill(headerArea)
+				}
 
 				draw(PART_BODY, SWT.FOREGROUND, bounds, gc)
 			}
-			
 			case PART_CLOSE_BUTTON: {
 				drawCloseButton(part, bounds, state, gc)
 			}
-			
 			case PART_BORDER: {
 			}
-			
 			case PART_BODY: {
 				if(state.hasFlags(SWT.BACKGROUND)) {
 					gc.background = parent.parent.background
 					gc.fill(bounds)
 
-					if(settings.shadowRadius > 0){
+					if(settings.shadowRadius > 0) {
 						gc.background = settings.shadowColor
 						gc.fill(tabArea.getTranslated(settings.shadowRadius, settings.shadowRadius))
 					}
 
-					gc.background = parent.selectionGradientColor.last
+					gc.background = #[parent.selectionGradientColor?.last, parent.selectionBackground].findFirst[it != null]
 					gc.fill(tabArea)
 				}
 				if(state.hasFlags(SWT.FOREGROUND)) {
@@ -120,20 +119,17 @@ class KTabRenderer extends CTabFolderRenderer {
 					gc.draw(tabArea.getResized(-1, -1))
 				}
 			}
-			
 			case part >= 0 && state.hasFlags(SWT.SELECTED): {
 				drawSelectedTabItem(part, state, bounds, gc)
 			}
-			
 			case part >= 0 && !state.hasFlags(SWT.SELECTED): {
 				drawUnselectedTabItem(part, state, bounds, gc)
 			}
-			
 			default:
 				super.draw(part, state, bounds, gc)
 		}
 	}
-	
+
 	protected def drawCloseButton(int part, Rectangle bounds, int state, GC gc) {
 		val box = bounds.getShrinked(1, 1)
 		var path = newPath[
@@ -143,44 +139,63 @@ class KTabRenderer extends CTabFolderRenderer {
 			moveTo(box.topRight)
 			lineTo(box.bottomLeft)
 		]
-		
-		var color = switch(state){
+
+		var color = switch (state) {
 			case state.hasFlags(SWT.HOT): settings.hotCloseButtonColor
 			case state.hasFlags(SWT.SELECTED): settings.activeCloseButtonColor
-			default : settings.closeButtonColor
-			
+			default: settings.closeButtonColor
 		}
 		gc.foreground = color
 		gc.draw(path)
 	}
-	
+
 	protected def drawSelectedTabItem(int part, int state, Rectangle bounds, GC gc) {
-		var item = parent.getItem(part)
-		var itemBounds = if(parent.onBottom)
+		val item = parent.getItem(part)
+
+		val itemBounds = if(parent.onBottom)
 				item.bounds.getTranslated(0, -2)
 			else
 				item.bounds
-		
-		if(parent.selectionGradientColor != null)
-			parent.drawBackground(gc, itemBounds, parent.selectionGradientColor, parent.selectionGradientPercents, true)
-		else{
-			gc.background = parent.selectionBackground
-			gc.fill(itemBounds)			
+
+		if(parent.selectionGradientColor != null) {
+			gc.withClip(itemBounds) [
+				parent.drawBackground(gc, itemBounds.getExpanded(0, 1), parent.selectionGradientColor, parent.selectionGradientPercents, true)
+			]
+		} else {
+			gc.withClip(itemBounds) [
+				gc.background = parent.selectionBackground
+				gc.fill(itemBounds)
+			]
 		}
-		
+
 		var iconArea = item.image.bounds.relocateLeftWith(item.bounds).translate(4, 0);
 		gc.drawImage(item.image, iconArea.topLeft)
-		
-		var textArea = newRectangleWithSize(gc.stringExtent(item.text)).relocateLeftWith(iconArea.right).translate(4, 0)
+
+		val textArea = newRectangleWithSize(gc.stringExtent(item.text)).relocateLeftWith(iconArea.right).translate(4, 0)
+		if(item.showClose && parent.showClose) {
+			textArea.setRight(item.closeRect.x - settings.tabItemHorizontalSpacing);
+		} else {
+			textArea.setRight(itemBounds.right.x - settings.tabItemHorizontalSpacing)
+		}
 		gc.foreground = parent.selectionForeground
-		gc.drawString(item.text, textArea.topLeft)
-		
-		draw(PART_CLOSE_BUTTON, item.closeImageState, item.closeRect, gc)
-		
+
+		gc.withClip(textArea) [
+			if(item.text.computeTextExtent(gc.font).x > textArea.width) {
+				var stext = gc.shortenText(item.text, textArea.width, "...")
+				gc.drawString(stext, textArea.topLeft)
+			} else {
+				gc.drawString(item.text, textArea.topLeft)
+			}
+		]
+
+		gc.withClip(item.closeRect) [
+			draw(PART_CLOSE_BUTTON, item.closeImageState, item.closeRect, gc)
+		]
+
 		gc.foreground = settings.innerBorderColor
 		gc.draw(itemBounds.topLeft, itemBounds.bottomLeft)
 		gc.draw(itemBounds.topRight, itemBounds.bottomRight)
-		
+
 		var keyLine = if(parent.onBottom) {
 				#[
 					new Point(settings.margins.x + settings.border, itemBounds.top.y),
@@ -194,43 +209,63 @@ class KTabRenderer extends CTabFolderRenderer {
 			}
 		gc.antialias = SWT.OFF
 		gc.drawLine(keyLine)
-		
-		gc.foreground = parent.selectionGradientColor.last
+
+		gc.foreground = #[parent.selectionGradientColor?.last, parent.selectionBackground].findFirst[it != null]
 		if(!parent.onBottom)
 			gc.drawLine(itemBounds.bottomLeft.translate(1, 0), itemBounds.bottomRight.translate(-1, 0))
 		else
 			gc.drawLine(itemBounds.topLeft.translate(1, 0), itemBounds.topRight.translate(-1, 0))
-		
+
 		draw(PART_BODY, SWT.FOREGROUND, item.bounds, gc)
 	}
-	
+
 	protected def drawUnselectedTabItem(int part, int state, Rectangle bounds, GC gc) {
-		var item = parent.getItem(part)
-		var itemBounds = if(parent.onBottom)
+		val item = parent.getItem(part)
+
+		val itemBounds = if(parent.onBottom)
 				item.bounds.getTranslated(0, -2)
 			else
 				item.bounds
-		
-		if(parent.gradientColor != null)
-			parent.drawBackground(gc, itemBounds, parent.gradientColor, parent.gradientPercents, true)
-		else{
-			gc.background = parent.background
-			gc.fill(itemBounds)			
+
+		if(parent.gradientColor != null) {
+			gc.withClip(itemBounds) [
+				parent.drawBackground(gc, itemBounds.getExpanded(0, 1), parent.gradientColor, parent.gradientPercents, true)
+			]
+		} else {
+			gc.withClip(itemBounds) [
+				gc.background = parent.selectionBackground
+				gc.fill(itemBounds)
+			]
 		}
-		
+
 		var iconArea = item.image.bounds.relocateLeftWith(item.bounds).translate(4, 0);
 		gc.drawImage(item.image, iconArea.topLeft)
-		
-		var textArea = newRectangleWithSize(gc.stringExtent(item.text)).relocateLeftWith(iconArea.right).translate(4, 0)
+
+		val textArea = newRectangleWithSize(gc.stringExtent(item.text)).relocateLeftWith(iconArea.right).translate(4, 0)
+		if(item.showClose && parent.showClose) {
+			textArea.setRight(item.closeRect.x - settings.tabItemHorizontalSpacing);
+		} else {
+			textArea.setRight(itemBounds.right.x - settings.tabItemHorizontalSpacing)
+		}
 		gc.foreground = parent.selectionForeground
-		gc.drawString(item.text, textArea.topLeft)
 		
-		draw(PART_CLOSE_BUTTON, item.closeImageState, item.closeRect, gc)
-		
+		gc.withClip(textArea) [
+			if(item.text.computeTextExtent(gc.font).x > textArea.width) {
+				var stext = gc.shortenText(item.text, textArea.width, "...")
+				gc.drawString(stext, textArea.topLeft)
+			} else {
+				gc.drawString(item.text, textArea.topLeft)
+			}
+		]
+
+		gc.withClip(item.closeRect) [
+			draw(PART_CLOSE_BUTTON, item.closeImageState, item.closeRect, gc)
+		]
+
 		gc.foreground = settings.innerBorderColor
 		gc.draw(itemBounds.topLeft, itemBounds.bottomLeft)
 		gc.draw(itemBounds.topRight, itemBounds.bottomRight)
-		
+
 		var keyLine = if(parent.onBottom) {
 				#[
 					new Point(settings.margins.x + settings.border, itemBounds.top.y),
@@ -244,13 +279,13 @@ class KTabRenderer extends CTabFolderRenderer {
 			}
 		gc.antialias = SWT.OFF
 		gc.drawLine(keyLine)
-		
-		gc.foreground = parent.selectionGradientColor.last
+
+		gc.foreground = #[parent.selectionGradientColor?.last, parent.selectionBackground].findFirst[it != null]
 		if(!parent.onBottom)
 			gc.drawLine(itemBounds.bottomLeft.translate(1, 0), itemBounds.bottomRight.translate(-1, 0))
 		else
 			gc.drawLine(itemBounds.topLeft.translate(1, 0), itemBounds.topRight.translate(-1, 0))
-		
+
 		draw(PART_BODY, SWT.FOREGROUND, item.bounds, gc)
 	}
 

@@ -18,9 +18,9 @@
          </osgiresourcelocator>
       </stylesheet>
       <theme
-            basestylesheeturi="css/k.css"
-            id="net.jeeeyul.eclipse.themes.k"
-            label="K">
+            basestylesheeturi="css/minimalist.css"
+            id="net.jeeeyul.eclipse.themes.minimalist"
+            label="Jeeeyul&apos;s themes - Minimalist">
       </theme>
    </extension>
    <extension
@@ -145,6 +145,16 @@
          </property-name>
          <property-name
                name="chrome-line-color">
+         </property-name>
+      </handler>
+      <handler
+            adapter="org.eclipse.e4.ui.css.swt.dom.CompositeElement"
+            handler="net.jeeeyul.eclipse.themes.css.SashWidthHandler">
+         <property-name
+               name="net.jeeeyul.eclipse.themes.property-name1">
+         </property-name>
+         <property-name
+               name="jeeeyul-sash-width">
          </property-name>
       </handler>
    </extension>

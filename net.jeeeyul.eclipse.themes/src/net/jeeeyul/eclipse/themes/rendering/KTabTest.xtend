@@ -12,7 +12,7 @@ class KTabTest {
 		newShell[
 			newCTabFolder(SWT.CLOSE)[
 				renderer = new KTabRenderer(it)
-				
+				setSelectionBackground(#[COLOR_BLUE, COLOR_BLUE, COLOR_WHITE, COLOR_WHITE], #[20,20, 100])
 				newCTabItem[
 					text = "First"
 					image = SharedImages.getImage(SharedImages.ADD)
@@ -36,10 +36,20 @@ class KTabTest {
 				]
 				
 				topRight = newComposite[
-					layout = new RowLayout
+					layout = new RowLayout=>[
+						marginTop = 0
+						marginBottom = 0
+						marginLeft = 0
+						marginRight = 0
+						marginWidth = 0
+						marginHeight = 0
+						spacing = 0
+					]
+					showTestGrid()
 					
 					newToolBar[
-						newToolItem[
+						newToolItem(SWT.CHECK)[
+							selection = true
 							image = SharedImages.getImage(SharedImages.GITHUB)
 						]
 						newToolItem[
@@ -51,9 +61,9 @@ class KTabTest {
 			]
 			
 			
-			newCTabFolder[
+			newCTabFolder(SWT.BOTTOM)[
+				setSelectionBackground(#[COLOR_BLUE, COLOR_BLUE, COLOR_WHITE, COLOR_GREEN], #[20,20, 100])
 				renderer = new KTabRenderer(it)
-				tabPosition = SWT.BOTTOM
 				
 				newCTabItem[
 					text = "First"
@@ -77,15 +87,53 @@ class KTabTest {
 					]
 				]
 				
-				topRight = newComposite[
-					layout = new RowLayout
+				newCTabItem[
+					text = "First"
+					image = SharedImages.getImage(SharedImages.ADD)
 					
-					newToolBar[
-						newToolItem[
-							image = SharedImages.getImage(SharedImages.GITHUB)
+					newComposite[
+						newCanvas[
+							showTestGrid()
 						]
-						newToolItem[
-							image = SharedImages.getImage(SharedImages.GITHUB)
+					]
+				]
+				newCTabItem[
+					text = "First"
+					image = SharedImages.getImage(SharedImages.ADD)
+					
+					newComposite[
+						newCanvas[
+							showTestGrid()
+						]
+					]
+				]
+				newCTabItem[
+					text = "First"
+					image = SharedImages.getImage(SharedImages.ADD)
+					
+					newComposite[
+						newCanvas[
+							showTestGrid()
+						]
+					]
+				]
+				newCTabItem[
+					text = "First"
+					image = SharedImages.getImage(SharedImages.ADD)
+					
+					newComposite[
+						newCanvas[
+							showTestGrid()
+						]
+					]
+				]
+				newCTabItem[
+					text = "First"
+					image = SharedImages.getImage(SharedImages.ADD)
+					
+					newComposite[
+						newCanvas[
+							showTestGrid()
 						]
 					]
 				]
