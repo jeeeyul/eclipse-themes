@@ -1,10 +1,9 @@
 package net.jeeeyul.eclipse.themes.rendering
 
-import org.eclipse.swt.graphics.Color
 import net.jeeeyul.swtend.SWTExtensions
-import org.eclipse.swt.graphics.Rectangle
-import org.eclipse.swt.graphics.Point
 import net.jeeeyul.swtend.ui.HSB
+import org.eclipse.swt.graphics.Point
+import org.eclipse.swt.graphics.Rectangle
 
 class KTabSettings {
 	extension SWTExtensions = SWTExtensions.INSTANCE
