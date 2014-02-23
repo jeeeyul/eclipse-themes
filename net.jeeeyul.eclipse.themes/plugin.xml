@@ -22,6 +22,11 @@
             id="net.jeeeyul.eclipse.themes.minimalist"
             label="Jeeeyul&apos;s themes - Minimalist">
       </theme>
+      <theme
+            basestylesheeturi="css/minimalist-dark.css"
+            id="net.jeeeyul.eclipse.themes.minimalist.dark"
+            label="Jeeeyul&apos;s themes - Minimalist(Dark)">
+      </theme>
    </extension>
    <extension
          point="org.eclipse.core.runtime.preferences">
@@ -151,10 +156,20 @@
             adapter="org.eclipse.e4.ui.css.swt.dom.CompositeElement"
             handler="net.jeeeyul.eclipse.themes.css.SashWidthHandler">
          <property-name
-               name="net.jeeeyul.eclipse.themes.property-name1">
+               name="jeeeyul-sash-width">
+         </property-name>
+      </handler>
+      <handler
+            adapter="org.eclipse.e4.ui.css.swt.dom.CTabFolderElement"
+            handler="net.jeeeyul.eclipse.themes.css.KTabRendererCSSPropertyHandler">
+         <property-name
+               name="jeeeyul-tab-border-color">
          </property-name>
          <property-name
-               name="jeeeyul-sash-width">
+               name="jeeeyul-tab-inner-border-color">
+         </property-name>
+         <property-name
+               name="jeeeyul-tab-border-radius">
          </property-name>
       </handler>
    </extension>

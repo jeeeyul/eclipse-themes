@@ -11,8 +11,14 @@ class KTabTest {
 		
 		newShell[
 			newCTabFolder(SWT.CLOSE)[
-				renderer = new KTabRenderer(it)
-				setSelectionBackground(#[COLOR_BLUE, COLOR_BLUE, COLOR_WHITE, COLOR_WHITE], #[20,20, 100])
+				renderer = new KTabRenderer(it) => [
+					settings.margins = newInsets(5)
+					settings.borderRadius = 20
+					settings.paddings = newInsets(2)
+					settings.borderColor = COLOR_BLACK.toHSB
+				]
+				setSelectionBackground(#[COLOR_YELLOW, COLOR_WHITE], #[100])
+				setBackground(#[COLOR_GRAY, COLOR_WHITE], #[100], true)
 				newCTabItem[
 					text = "First"
 					image = SharedImages.getImage(SharedImages.ADD)
@@ -61,9 +67,15 @@ class KTabTest {
 			]
 			
 			
-			newCTabFolder(SWT.BOTTOM)[
-				setSelectionBackground(#[COLOR_BLUE, COLOR_BLUE, COLOR_WHITE, COLOR_GREEN], #[20,20, 100])
-				renderer = new KTabRenderer(it)
+			newCTabFolder[
+				foreground = COLOR_WHITE
+				selectionForeground = COLOR_WHITE
+				setSelectionBackground(#[COLOR_GRAY, COLOR_GRAY, COLOR_BLACK, COLOR_BLACK], #[ 17, 22, 100])
+				setBackground(#[COLOR_DARK_GRAY, COLOR_BLACK], #[100])
+				renderer = new KTabRenderer(it)=>[
+					settings.borderColor = COLOR_BLACK.toHSB
+					settings.innerBorderColor = COLOR_BLACK.toHSB
+				]
 				
 				newCTabItem[
 					text = "First"

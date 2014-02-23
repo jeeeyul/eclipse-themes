@@ -25,6 +25,7 @@ public class KTabRendererHelper {
 				"selectionGradientColors");
 		static final HackedField<CTabFolder, int[]> selectionGradientPercents = new HackedField<CTabFolder, int[]>(CTabFolder.class,
 				"selectionGradientPercents");
+		static final HackedField<CTabFolder, Integer> firstIndex = new HackedField<CTabFolder, Integer>(CTabFolder.class, "firstIndex");
 	}
 
 	static interface _CTabItem {
@@ -38,6 +39,10 @@ public class KTabRendererHelper {
 	static interface _CTabFolderRender {
 		static final HackedField<CTabFolderRenderer, Color> selectedOuterColor = new HackedField<CTabFolderRenderer, Color>(CTabFolderRenderer.class,
 				"selectedOuterColor");
+	}
+
+	public int getFirstVisibleIndex(CTabFolder me) {
+		return _CTabFolder.firstIndex.get(me);
 	}
 
 	public Color getSelectedOuterColor(CTabFolderRenderer me) {

@@ -1,0 +1,59 @@
+.MTrimmedWindow.topLevel {
+	margin-top: 2px;
+	margin-left: 2px;
+	margin-right: 2px;
+	background-color: #222;
+	color: white;
+}
+
+.MTrimBar#org-eclipse-ui-main-toolbar {
+	background-color: #444 #333;
+}
+
+.MPartStack {
+	swt-tab-renderer:
+		url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.KTabRenderer');
+	swt-unselected-tabs-color: #333 black 100%;
+	swt-selected-tabs-background: #222 #222 black black 17% 22% 100%;
+	jeeeyul-tab-border-color: #333;
+	jeeeyul-tab-inner-border-color: #333;
+	swt-tab-height: 22px;
+}
+
+.MPartStack.active {
+	swt-tab-renderer:
+		url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.KTabRenderer');
+	swt-unselected-tabs-color: #333 black 100%;
+	swt-selected-tabs-background: rgb(246, 126, 44) rgb(246, 126, 44) black
+		black 17% 22% 100%;
+}
+
+.MPart Tree, .MPart Table, .MPart CTabFolder {
+	background-color: black;
+	color: white;
+}
+
+.MPartStack>CTabItem {
+	color: gray;
+}
+
+.MPartStack>CTabItem:selected {
+	color: white;
+}
+
+#org-eclipse-ui-main-toolbar #PerspectiveSwitcher {
+	eclipse-perspective-keyline-color: #222;
+}
+
+#org-eclipse-ui-trim-status {
+	background-color: #222;
+}
+
+.MPartSashContainer {
+	jeeeyul-sash-width: 2px;
+}
+
+#org-eclipse-ui-main-toolbar #PerspectiveSwitcher {
+	background-color: #222;
+	handle-image: none;
+}
