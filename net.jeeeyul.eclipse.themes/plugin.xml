@@ -171,6 +171,24 @@
          <property-name
                name="jeeeyul-tab-border-radius">
          </property-name>
+         <property-name
+               name="jeeeyul-tab-border-width">
+         </property-name>
+         <property-name
+               name="jeeeyul-tab-spacing">
+         </property-name>
+         <property-name
+               name="jeeeyul-tab-close-button-color">
+         </property-name>
+         <property-name
+               name="jeeeyul-tab-close-button-hot-color">
+         </property-name>
+         <property-name
+               name="jeeeyul-tab-close-button-active-color">
+         </property-name>
+         <property-name
+               name="jeeeyul-tab-close-button-line-width">
+         </property-name>
       </handler>
    </extension>
 

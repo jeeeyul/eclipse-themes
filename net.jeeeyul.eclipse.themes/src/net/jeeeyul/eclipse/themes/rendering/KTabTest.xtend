@@ -4,29 +4,40 @@ import net.jeeeyul.swtend.SWTExtensions
 import net.jeeeyul.eclipse.themes.SharedImages
 import org.eclipse.swt.layout.RowLayout
 import org.eclipse.swt.SWT
+import org.eclipse.swt.layout.FillLayout
 
 class KTabTest {
 	def static void main(String[] args) {
 		val extension SWTExtensions = SWTExtensions.INSTANCE
 		
 		newShell[
-			newCTabFolder(SWT.CLOSE)[
-				tabHeight = 25
+			layout = new FillLayout()=>[
+				marginWidth = 10
+				marginHeight = 10
+			]
+			background = COLOR_WHITE
+			
+			newCTabFolder[
+				tabHeight = 22
 				renderer = new KTabRenderer(it) => [
-					settings.margins = newInsets(5)
-					settings.borderRadius = 8
-					settings.paddings = newInsets(2)
+					settings.margins = newInsets(10)
+					settings.paddings = newInsets(1)
+					settings.borderRadius = 3
+					settings.innerBorderColor = COLOR_BLACK.toHSB
 					settings.borderColor = COLOR_BLACK.toHSB
+					settings.borderAlpha = 255
+					settings.borderWidth = 1
 				]
-				setSelectionBackground(#[COLOR_YELLOW, COLOR_WHITE], #[100])
-				setBackground(#[COLOR_GRAY, COLOR_WHITE], #[100], true)
+				setSelectionBackground(#[COLOR_YELLOW, COLOR_RED], #[100])
+				setBackground(#[COLOR_WHITE, COLOR_WHITE], #[100], true)
 				newCTabItem[
 					text = "First"
+					showClose = true
 					image = SharedImages.getImage(SharedImages.ADD)
 					
 					newComposite[
 						newCanvas[
-							showTestGrid()
+//							showTestGrid()
 						]
 					]
 				]
@@ -64,93 +75,6 @@ class KTabTest {
 						]
 					]
 				]
-				
-			]
-			
-			
-			newCTabFolder[
-				foreground = COLOR_WHITE
-				selectionForeground = COLOR_WHITE
-				setSelectionBackground(#[COLOR_GRAY, COLOR_GRAY, COLOR_BLACK, COLOR_BLACK], #[ 17, 22, 100])
-				setBackground(#[COLOR_DARK_GRAY, COLOR_BLACK], #[100])
-				renderer = new KTabRenderer(it)=>[
-					settings.borderColor = COLOR_BLACK.toHSB
-					settings.innerBorderColor = COLOR_BLACK.toHSB
-				]
-				
-				newCTabItem[
-					text = "First"
-					image = SharedImages.getImage(SharedImages.ADD)
-					
-					newComposite[
-						newCanvas[
-							showTestGrid()
-						]
-					]
-				]
-				
-				newCTabItem[
-					text = "First"
-					image = SharedImages.getImage(SharedImages.ADD)
-					
-					newComposite[
-						newCanvas[
-							showTestGrid()
-						]
-					]
-				]
-				
-				newCTabItem[
-					text = "First"
-					image = SharedImages.getImage(SharedImages.ADD)
-					
-					newComposite[
-						newCanvas[
-							showTestGrid()
-						]
-					]
-				]
-				newCTabItem[
-					text = "First"
-					image = SharedImages.getImage(SharedImages.ADD)
-					
-					newComposite[
-						newCanvas[
-							showTestGrid()
-						]
-					]
-				]
-				newCTabItem[
-					text = "First"
-					image = SharedImages.getImage(SharedImages.ADD)
-					
-					newComposite[
-						newCanvas[
-							showTestGrid()
-						]
-					]
-				]
-				newCTabItem[
-					text = "First"
-					image = SharedImages.getImage(SharedImages.ADD)
-					
-					newComposite[
-						newCanvas[
-							showTestGrid()
-						]
-					]
-				]
-				newCTabItem[
-					text = "First"
-					image = SharedImages.getImage(SharedImages.ADD)
-					
-					newComposite[
-						newCanvas[
-							showTestGrid()
-						]
-					]
-				]
-				
 			]
 		].openAndRunLoop()
 	}

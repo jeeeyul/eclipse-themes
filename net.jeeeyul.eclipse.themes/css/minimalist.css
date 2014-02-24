@@ -2,37 +2,37 @@
 	margin-top: 2px;
 	margin-left: 2px;
 	margin-right: 2px;
-	background-color: rgb(227, 227, 228);
+	background-color: #ddd;
 }
 
 .MTrimBar#org-eclipse-ui-main-toolbar {
-	background-color: #ededed #dbdbdb;
+	background-color: #ccc #aaa;
 }
 
 .MPartStack {
 	swt-tab-renderer:
 		url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.KTabRenderer');
-	swt-unselected-tabs-color: #ededed #dbdbdb #ffffff 100% 100%;
+	swt-unselected-tabs-color: #eee #ddd white 100% 100%;
 	swt-selected-tabs-background: white white 100%;
-	jeeeyul-tab-border-color: rgb(179, 179, 179);
-	jeeeyul-tab-inner-border-color: rgb(179, 179, 179);
+	jeeeyul-tab-inner-border-color: #ccc;
+	jeeeyul-tab-border-color: #aaa;
+	jeeeyul-tab-border-radius: 0px;
+	jeeeyul-tab-spacing: 2px;
+	jeeeyul-tab-close-button-line-width: 2px;
+	jeeeyul-tab-close-button-color: gray;
+	jeeeyul-tab-close-button-hot-color : darkRed;
+	jeeeyul-tab-close-button-active-color: darkRed;
 	swt-tab-height: 22px;
+	jeeeyul-tab-close-button-hot-color: darkRed;
 }
 
 .MPartStack.active {
 	swt-tab-renderer:
 		url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.KTabRenderer');
-	swt-unselected-tabs-color: #ededed #dbdbdb #ffffff 100% 100%;
-	swt-selected-tabs-background: rgb(246, 126, 44) rgb(246, 126, 44) white white 17%  17% 100%;
-}
-
-
-MTrimBar#org-eclipse-ui-main-toolbar {
-	background-color: #ededed #dbdbdb;
-}
-
-#org-eclipse-ui-main-toolbar #PerspectiveSwitcher {
-	eclipse-perspective-keyline-color: #aaafbd;
+	swt-selected-tabs-background: rgb(246, 126, 44) rgb(246, 126, 44) white
+		white 17% 17% 100%;
+	swt-unselected-tabs-color: #eee #ddd white 100% 100%;
+	jeeeyul-tab-border-color: #888;
 }
 
 .MPartSashContainer {
@@ -40,6 +40,7 @@ MTrimBar#org-eclipse-ui-main-toolbar {
 }
 
 #org-eclipse-ui-main-toolbar #PerspectiveSwitcher {
-	background-color: rgb(227, 227, 228);
+	background-color: white #ddd;
 	handle-image: none;
+	eclipse-perspective-keyline-color: #888;
 }
