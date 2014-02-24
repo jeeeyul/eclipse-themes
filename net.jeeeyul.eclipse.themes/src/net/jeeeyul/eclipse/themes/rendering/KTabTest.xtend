@@ -17,19 +17,20 @@ class KTabTest {
 			]
 			background = COLOR_WHITE
 			
-			newCTabFolder[
+			newCTabFolder(SWT.BOTTOM)[
 				tabHeight = 22
 				renderer = new KTabRenderer(it) => [
 					settings.margins = newInsets(10)
-					settings.paddings = newInsets(1)
-					settings.borderRadius = 3
-					settings.innerBorderColor = COLOR_BLACK.toHSB
+					settings.paddings = newInsets(2)
+					settings.borderRadius = 15
+					settings.selectedBorderColor = COLOR_BLACK.toHSB
+					settings.unselectedBorderColor = COLOR_BLACK.toHSB
 					settings.borderColor = COLOR_BLACK.toHSB
-					settings.borderAlpha = 255
 					settings.borderWidth = 1
+					settings.closeButtonLineWidth = 2
 				]
-				setSelectionBackground(#[COLOR_YELLOW, COLOR_RED], #[100])
-				setBackground(#[COLOR_WHITE, COLOR_WHITE], #[100], true)
+				setSelectionBackground(#[COLOR_YELLOW, COLOR_WHITE, COLOR_RED], #[50, 95])
+				setBackground(#[COLOR_GRAY, COLOR_WHITE], #[100], true)
 				newCTabItem[
 					text = "First"
 					showClose = true
@@ -63,7 +64,7 @@ class KTabTest {
 						marginHeight = 0
 						spacing = 0
 					]
-					showTestGrid()
+//					showTestGrid()
 					
 					newToolBar[
 						newToolItem(SWT.CHECK)[

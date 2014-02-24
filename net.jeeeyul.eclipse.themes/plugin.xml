@@ -166,7 +166,10 @@
                name="jeeeyul-tab-border-color">
          </property-name>
          <property-name
-               name="jeeeyul-tab-inner-border-color">
+               name="jeeeyul-tab-selected-border-color">
+         </property-name>
+         <property-name
+               name="jeeeyul-tab-unselected-border-color">
          </property-name>
          <property-name
                name="jeeeyul-tab-border-radius">
@@ -188,6 +191,9 @@
          </property-name>
          <property-name
                name="jeeeyul-tab-close-button-line-width">
+         </property-name>
+         <property-name
+               name="jeeeyul-tab-unselected-tabs-background">
          </property-name>
       </handler>
    </extension>

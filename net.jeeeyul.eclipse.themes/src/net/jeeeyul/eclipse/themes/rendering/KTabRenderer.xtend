@@ -7,6 +7,7 @@ import org.eclipse.swt.custom.CTabFolderRenderer
 import org.eclipse.swt.graphics.GC
 import org.eclipse.swt.graphics.Point
 import org.eclipse.swt.graphics.Rectangle
+import org.eclipse.swt.graphics.Path
 
 class KTabRenderer extends CTabFolderRenderer {
 	extension KTabRendererHelper = new KTabRendererHelper
@@ -55,8 +56,8 @@ class KTabRenderer extends CTabFolderRenderer {
 			}
 			case PART_BODY: {
 				result.x = result.x - settings.margins.x - settings.paddings.x - settings.borderWidth
-				result.width = result.width + settings.margins.x +  settings.paddings.x + settings.borderWidth * 2 +  settings.paddings.width  + settings.margins.width
-				
+				result.width = result.width + settings.margins.x + settings.paddings.x + settings.borderWidth * 2 + settings.paddings.width + settings.margins.width
+
 				if(parent.onBottom) {
 					result.y = result.y - settings.paddings.y - settings.borderWidth
 					result.height = result.height + parent.tabHeight + settings.paddings.y + settings.margins.height + settings.paddings.height + settings.borderWidth * 2 + 2
@@ -68,7 +69,7 @@ class KTabRenderer extends CTabFolderRenderer {
 			case PART_MAX_BUTTON: {
 			}
 			case (part >= 0): {
-				result = super.computeTrim(part, state, x, y, width, height).getResized(settings.tabSpacing, 0).translate(-settings.borderWidth, 0).resize(settings.borderWidth*2, 0)
+				result = super.computeTrim(part, state, x, y, width, height).getResized(settings.tabSpacing, 0).translate(-settings.borderWidth, 0).resize(settings.borderWidth * 2, 0)
 			}
 			default: {
 				result = super.computeTrim(part, state, x, y, width, height)
@@ -88,24 +89,7 @@ class KTabRenderer extends CTabFolderRenderer {
 
 		switch (part) {
 			case PART_HEADER: {
-				var headerArea = if(!parent.onBottom) {
-						new Rectangle(settings.margins.x, 0, parent.size.x - settings.margins.x - settings.margins.height, parent.tabHeight + 2)
-					} else {
-						new Rectangle(0, parent.size.y, parent.size.x, parent.size.y) => [
-							shrink(settings.margins.x, 0, settings.margins.width, 0)
-							height = parent.tabHeight
-							translate(0, -parent.tabHeight - settings.margins.height - 2)
-							resize(0, 2)
-						]
-					}
-				if(parent.gradientColor != null) {
-					parent.drawBackground(gc, headerArea, parent.gradientColor, parent.gradientPercents, true)
-				} else {
-					gc.background = parent.background
-					gc.fill(headerArea)
-				}
-
-				draw(PART_BODY, SWT.FOREGROUND, bounds, gc)
+				drawTabHeader(part, bounds, state, gc)
 			}
 			case PART_CLOSE_BUTTON: {
 				drawCloseButton(part, bounds, state, gc)
@@ -113,52 +97,122 @@ class KTabRenderer extends CTabFolderRenderer {
 			case PART_BORDER: {
 			}
 			case PART_BODY: {
-				if(state.hasFlags(SWT.BACKGROUND)) {
-					gc.background = parent.parent.background
-					gc.fill(bounds)
-
-					if(settings.shadowRadius > 0) {
-						gc.background = settings.shadowColor.toColor
-						gc.fill(tabArea.getTranslated(settings.shadowRadius, settings.shadowRadius))
-					}
-
-					val path = newPath[
-						autoRelease()
-						if(settings.borderRadius > 0) {
-							addRoundRectangle(tabArea, settings.borderRadius)
-						} else {
-							addRectangle(tabArea)
-						}
-					]
-
-					gc.background = #[parent.selectionGradientColor?.last, parent.selectionBackground].findFirst[it != null]
-					gc.fill(path)
-				}
-
-				if(state.hasFlags(SWT.FOREGROUND) && settings.borderWidth > 0 && settings.borderAlpha > 0) {
-					gc.foreground = settings.borderColor.toColor;
-					gc.alpha = settings.borderAlpha
-					gc.lineWidth = settings.borderWidth
-
-					val offset = tabArea.getResized(-1, -1).shrink(settings.borderWidth / 2)
-
-					val path = newPath[
-						autoRelease()
-						if(settings.borderRadius > 0) {
-							addRoundRectangle(offset, settings.borderRadius)
-						} else {
-							addRectangle(offset)
-						}
-					]
-					gc.draw(path)
-				}
+				drawTabBody(part, state, bounds, gc)
 			}
 			case part >= 0: {
-				drawSelectedTabItem(part, state, bounds, gc)
+				drawTabItem(part, state, bounds, gc)
 			}
 			default:
 				super.draw(part, state, bounds, gc)
 		}
+	}
+
+	protected def drawTabHeader(int part, Rectangle bounds, int state, GC gc) {
+		val headerArea = if(!parent.onBottom) {
+				new Rectangle(settings.margins.x, 0, parent.size.x - settings.margins.x - settings.margins.height, parent.tabHeight + 2)
+			} else {
+				new Rectangle(0, parent.size.y, parent.size.x, parent.size.y) => [
+					shrink(settings.margins.x, 0, settings.margins.width, 0)
+					height = parent.tabHeight
+					translate(0, -parent.tabHeight - settings.margins.height - 2)
+					resize(0, 2)
+				]
+			}
+
+		val corner = new Rectangle(0, 0, settings.borderRadius * 2, settings.borderRadius * 2)
+		gc.withClip(
+			newPath[
+				autoRelease()
+				if(parent.onBottom == false) {
+					if(settings.borderRadius > 0) {
+						moveTo(headerArea.bottomRight)
+						corner.relocateTopRightWith(headerArea)
+						lineTo(corner.right)
+						addArc(corner, 0, 90)
+
+						corner.relocateTopLeftWith(headerArea)
+						lineTo(corner.top)
+						addArc(corner, 90, 90)
+						lineTo(headerArea.bottomLeft)
+						close()
+					} else {
+						addRectangle(headerArea)
+					}
+				} else {
+					if(settings.borderRadius > 0) {
+						moveTo(headerArea.topLeft)
+						corner.relocateBottomLeftWith(headerArea)
+						lineTo(corner.left)
+						addArc(corner, 180, 90)
+
+						corner.relocateBottomRightWith(headerArea)
+						lineTo(corner.bottom)
+						addArc(corner, 270, 90)
+						lineTo(headerArea.topRight)
+
+						close()
+					} else {
+						addRectangle(headerArea)
+					}
+				}
+			]) [
+			if(parent.gradientColor != null) {
+				if(parent.onTop) {
+					gc.fillGradientRectangle(headerArea, parent.gradientColor, parent.gradientPercents, true)
+				} else {
+					var reverseRect = newRectangle(headerArea.bottomLeft, new Point(headerArea.width, -headerArea.height))
+					gc.fillGradientRectangle(reverseRect, parent.gradientColor, parent.gradientPercents, true)
+				}
+			} else {
+				gc.background = parent.background
+				gc.fill(headerArea)
+			}
+		]
+
+		draw(PART_BODY, SWT.FOREGROUND, bounds, gc)
+	}
+
+	protected def drawTabBody(int part, int state, Rectangle bounds, GC gc) {
+		gc.withClip(bounds) [
+			// Fill Background
+			if(state.hasFlags(SWT.BACKGROUND)) {
+				gc.background = parent.parent.background
+				gc.fill(bounds)
+
+				if(settings.shadowRadius > 0) {
+					drawShadow(part, state, bounds, gc)
+				}
+
+				val path = newPath[
+					autoRelease()
+					if(settings.borderRadius > 0) {
+						addRoundRectangle(tabArea, settings.borderRadius)
+					} else {
+						addRectangle(tabArea)
+					}
+				]
+
+				gc.background = #[parent.selectionGradientColor?.last, parent.selectionBackground].findFirst[it != null]
+				gc.fill(path)
+			}
+			// Draw Border
+			if(state.hasFlags(SWT.FOREGROUND) && settings.borderWidth > 0) {
+				gc.foreground = settings.borderColor.toAutoReleaseColor;
+				gc.lineWidth = settings.borderWidth
+
+				val offset = tabArea.getResized(-1, -1).shrink(settings.borderWidth / 2)
+
+				val path = newPath[
+					autoRelease()
+					if(settings.borderRadius > 0) {
+						addRoundRectangle(offset, settings.borderRadius)
+					} else {
+						addRectangle(offset)
+					}
+				]
+				gc.draw(path)
+			}
+		]
 	}
 
 	protected def drawCloseButton(int part, Rectangle bounds, int state, GC gc) {
@@ -177,57 +231,97 @@ class KTabRenderer extends CTabFolderRenderer {
 			default: settings.closeButtonColor
 		}
 		gc.lineWidth = Math.max(settings.closeButtonLineWidth, 1)
-		gc.foreground = color.toColor
+		gc.foreground = color.toAutoReleaseColor
 		gc.draw(path)
 	}
 
-	protected def drawSelectedTabItem(int part, int state, Rectangle bounds, GC gc) {
+	protected def drawTabItem(int part, int state, Rectangle bounds, GC gc) {
 		val item = parent.getItem(part)
 
 		val itemBounds = if(parent.onBottom)
-				item.bounds.getTranslated(0, -2).getResized(settings.tabSpacing, 0)
+				item.bounds.getTranslated(0, -1).getResized(-settings.tabSpacing, 0)
 			else
 				item.bounds.getResized(-settings.tabSpacing, 1)
 
-		val fill = newPath[
-			autoRelease()
-			if(settings.borderRadius > 0) {
-				var corner = newRectangle(itemBounds.topLeft, new Point(settings.borderRadius * 2, settings.borderRadius * 2))
-				corner.relocateTopRightWith(itemBounds)
-				moveTo(corner.right)
-				addArc(corner, 0, 90)
-				corner.relocateTopLeftWith(itemBounds)
-				lineTo(corner.top)
-				addArc(corner, 90, 90)
-				lineTo(itemBounds.bottomLeft)
-				lineTo(itemBounds.bottomRight)
-				close()
-			} else {
-				addRectangle(itemBounds)
-			}
-		]
+		// Fill tab item bounds
+		var Path tabItemFillArea = null
+		if(parent.onTop) {
+			tabItemFillArea = newPath[
+				autoRelease()
+				if(settings.borderRadius > 0) {
+					var corner = newRectangle(itemBounds.topLeft, new Point(settings.borderRadius * 2, settings.borderRadius * 2))
+					corner.relocateTopRightWith(itemBounds)
+					moveTo(corner.right)
+					addArc(corner, 0, 90)
+					corner.relocateTopLeftWith(itemBounds)
+					lineTo(corner.top)
+					addArc(corner, 90, 90)
+					lineTo(itemBounds.bottomLeft)
+					lineTo(itemBounds.bottomRight)
+					close()
+				} else {
+					addRectangle(itemBounds)
+				}
+			]
+		} else {
+			tabItemFillArea = newPath[
+				autoRelease()
+				if(settings.borderRadius > 0) {
+					var corner = newRectangle(itemBounds.topLeft, new Point(settings.borderRadius * 2, settings.borderRadius * 2))
+					corner.relocateBottomLeftWith(itemBounds)
+					moveTo(itemBounds.topLeft)
+					lineTo(corner.left)
+					addArc(corner, 180, 90)
+
+					corner.relocateBottomRightWith(itemBounds)
+					lineTo(corner.bottom)
+					addArc(corner, 270, 90)
+					lineTo(itemBounds.topRight)
+					close()
+				} else {
+					addRectangle(itemBounds)
+				}
+			]
+		}
+
 		if(state.hasFlags(SWT.SELECTED)) {
 			if(parent.selectionGradientColor != null)
-				gc.withClip(fill) [
-					parent.drawBackground(gc, itemBounds.getExpanded(0, 1), parent.selectionGradientColor, parent.selectionGradientPercents, true)
+				gc.withClip(tabItemFillArea) [
+					if(parent.onTop)
+						gc.fillGradientRectangle(itemBounds.getExpanded(0, 1), parent.selectionGradientColor, parent.selectionGradientPercents, true)
+					else {
+						var reverseRect = newRectangle(itemBounds.bottomLeft, new Point(itemBounds.width, -itemBounds.height));
+						gc.fillGradientRectangle(reverseRect, parent.selectionGradientColor, parent.selectionGradientPercents, true)
+					}
 				]
 			else {
 				gc.background = parent.selectionBackground
-				gc.fill(fill)
+				gc.fill(tabItemFillArea)
 			}
 		} else {
-			if(parent.gradientColor != null)
-				gc.withClip(fill) [
-					parent.drawBackground(gc, itemBounds.getExpanded(0, 1), parent.gradientColor, parent.gradientPercents, true)
+			if(settings.unselectedBackgroundColors != null) {
+				gc.withClip(tabItemFillArea) [
+					if(parent.onTop) {
+						gc.fillGradientRectangle(itemBounds.getExpanded(0, 1), settings.unselectedBackgroundColors, settings.unselectedBackgroundPercents, true)
+					} else {
+						var reverseRect = newRectangle(itemBounds.bottomLeft, new Point(itemBounds.width, -itemBounds.height));
+						gc.fillGradientRectangle(reverseRect, settings.unselectedBackgroundColors, settings.unselectedBackgroundPercents, true)
+					}
 				]
-			else {
-				gc.background = parent.background
-				gc.fill(fill)
 			}
 		}
 
+		// Draw Icon
+		// fixme: ICON may not exists.
 		var iconArea = item.image.bounds.relocateLeftWith(item.bounds).translate(settings.borderWidth + settings.tabItemHorizontalSpacing, 0);
 		gc.drawImage(item.image, iconArea.topLeft)
+
+		// Draw Text
+		gc.font = if(item.font != null) {
+			item.font
+		} else {
+			parent.font
+		}
 
 		val textArea = newRectangleWithSize(gc.stringExtent(item.text)).relocateLeftWith(iconArea.right).translate(4, 0)
 		if((item.showClose || parent.showClose) && item.closeRect.width > 0) {
@@ -250,59 +344,115 @@ class KTabRenderer extends CTabFolderRenderer {
 			}
 		]
 
+		// Draw Close Button
 		if((parent.showClose || item.showClose) && item.closeRect.width > 0) {
 			gc.withClip(item.closeRect) [
 				draw(PART_CLOSE_BUTTON, item.closeImageState, item.closeRect, gc)
 			]
 		}
 
-		val outlineOffset = itemBounds.shrink(settings.borderWidth / 2)
-		val outline = newPath[
-			autoRelease()
-			var keyLineY = item.bounds.bottom.y
-			if(settings.borderRadius > 0) {
-				var corner = newRectangle(outlineOffset.topLeft, new Point(settings.borderRadius * 2, settings.borderRadius * 2))
-				corner.relocateTopRightWith(outlineOffset)
-			
-				if(state.hasFlags(SWT.SELECTED)){
-					moveTo(parent.size.x - settings.margins.width - settings.borderWidth, keyLineY)
-					lineTo(itemBounds.bottomRight.x, keyLineY)
-				}else{
-					moveTo(outlineOffset.bottomRight.x, keyLineY)
-				}
-				lineTo(corner.right)
-				addArc(corner, 0, 90)
-				corner.relocateTopLeftWith(outlineOffset)
-				lineTo(corner.top)
-				addArc(corner, 90, 90)
-				lineTo(outlineOffset.x, keyLineY)
-				if(state.hasFlags(SWT.SELECTED)){
-					lineTo(settings.margins.x, keyLineY)
-				}
-			}
-			else{
-				if(state.hasFlags(SWT.SELECTED)){
-					moveTo(parent.size.x - settings.margins.width - settings.borderWidth, keyLineY)
-					lineTo(itemBounds.bottomRight.x, keyLineY)
-				}else{
-					moveTo(outlineOffset.bottomRight.x, keyLineY)
-				}
-				lineTo(itemBounds.topRight)
-				lineTo(itemBounds.topLeft)
-				lineTo(itemBounds.bottomLeft.x , keyLineY)
-				if(state.hasFlags(SWT.SELECTED)){
-					lineTo(settings.margins.x, keyLineY)
-				}
-			}
-		]
-		gc.foreground = settings.innerBorderColor.toColor
-		gc.lineWidth = settings.borderWidth
-		gc.draw(outline)
+		// Draw Border and Keyline
+		if((settings.showSelectedBorder && state.hasFlags(SWT.SELECTED)) || (settings.showUnselectedBorder && !state.hasFlags(SWT.SELECTED))) {
+			val outlineOffset = itemBounds.shrink(settings.borderWidth / 2)
+			var Path outline = null;
+			if(parent.onTop) {
+				outline = newPath[
+					autoRelease()
+					var keyLineY = item.bounds.bottom.y
+					if(settings.borderRadius > 0) {
+						var corner = newRectangle(outlineOffset.topLeft, new Point(settings.borderRadius * 2, settings.borderRadius * 2))
+						corner.relocateTopRightWith(outlineOffset)
 
-		draw(PART_BODY, SWT.FOREGROUND, item.bounds, gc)
+						if(state.hasFlags(SWT.SELECTED)) {
+							moveTo(parent.size.x - settings.margins.width - settings.borderWidth, keyLineY)
+							lineTo(itemBounds.bottomRight.x, keyLineY)
+						} else {
+							moveTo(outlineOffset.bottomRight.x, keyLineY)
+						}
+						lineTo(corner.right)
+						addArc(corner, 0, 90)
+						corner.relocateTopLeftWith(outlineOffset)
+						lineTo(corner.top)
+						addArc(corner, 90, 90)
+						lineTo(outlineOffset.x, keyLineY)
+						if(state.hasFlags(SWT.SELECTED)) {
+							lineTo(settings.margins.x, keyLineY)
+						}
+					} else {
+						if(state.hasFlags(SWT.SELECTED)) {
+							moveTo(parent.size.x - settings.margins.width - settings.borderWidth, keyLineY)
+							lineTo(itemBounds.bottomRight.x, keyLineY)
+						} else {
+							moveTo(outlineOffset.bottomRight.x, keyLineY)
+						}
+						lineTo(itemBounds.topRight)
+						lineTo(itemBounds.topLeft)
+						lineTo(itemBounds.bottomLeft.x, keyLineY)
+						if(state.hasFlags(SWT.SELECTED)) {
+							lineTo(settings.margins.x, keyLineY)
+						}
+					}
+				]
+			} else {
+				outline = newPath[
+					autoRelease()
+					var keyLineY = item.bounds.y - 1
+					if(settings.borderRadius > 0) {
+						var corner = newRectangle(outlineOffset.topLeft, new Point(settings.borderRadius * 2, settings.borderRadius * 2))
+						corner.relocateBottomRightWith(outlineOffset)
+						if(state.hasFlags(SWT.SELECTED)) {
+							moveTo(parent.size.x - settings.margins.width - settings.borderWidth, keyLineY)
+							lineTo(itemBounds.topRight.x, keyLineY)
+						} else {
+							moveTo(outlineOffset.topRight.x, keyLineY)
+						}
+						lineTo(corner.right)
+						addArc(corner, 0, -90)
+
+						corner.relocateBottomLeftWith(itemBounds)
+						lineTo(corner.bottom)
+						addArc(corner, 270, -90)
+
+						lineTo(itemBounds.x, keyLineY)
+						if(state.hasFlags(SWT.SELECTED)) {
+							lineTo(settings.margins.x, keyLineY)
+						}
+
+					} else {
+						if(state.hasFlags(SWT.SELECTED)) {
+							moveTo(parent.size.x - settings.margins.width - settings.borderWidth, keyLineY)
+							lineTo(itemBounds.bottomRight.x, keyLineY)
+						} else {
+							moveTo(outlineOffset.bottomRight.x, keyLineY)
+						}
+						lineTo(itemBounds.topRight)
+						lineTo(itemBounds.topLeft)
+						lineTo(itemBounds.bottomLeft.x, keyLineY)
+						if(state.hasFlags(SWT.SELECTED)) {
+							lineTo(settings.margins.x, keyLineY)
+						}
+					}
+				]
+			}
+
+			gc.foreground = if(state.hasFlags(SWT.SELECTED))
+				settings.selectedBorderColor.toAutoReleaseColor
+			else
+				settings.unselectedBorderColor.toAutoReleaseColor
+
+			gc.lineWidth = settings.borderWidth
+			gc.draw(outline)
+		}
+
+		// draw tab border
+		draw(PART_BODY, SWT.FOREGROUND, new Rectangle(0, 0, parent.size.x, itemBounds.bottom.y), gc)
 	}
 
-	def tabArea() {
+	def protected drawShadow(int part, int state, Rectangle bounds, GC gc) {
+		gc.withClip(bounds)[]
+	}
+
+	def protected tabArea() {
 		newRectangle.setSize(parent.size).shrink(settings.margins.x, 0, settings.margins.width, settings.margins.height)
 	}
 }

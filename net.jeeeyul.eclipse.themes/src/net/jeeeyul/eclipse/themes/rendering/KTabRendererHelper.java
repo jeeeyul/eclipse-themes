@@ -2,6 +2,8 @@ package net.jeeeyul.eclipse.themes.rendering;
 
 import net.jeeeyul.eclipse.themes.rendering.internal.HackedField;
 import net.jeeeyul.eclipse.themes.rendering.internal.HackedMethod0;
+import net.jeeeyul.swtend.SWTExtensions;
+import net.jeeeyul.swtend.ui.HSB;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
@@ -43,6 +45,10 @@ public class KTabRendererHelper {
 
 	public int getFirstVisibleIndex(CTabFolder me) {
 		return _CTabFolder.firstIndex.get(me);
+	}
+
+	public boolean getOnTop(CTabFolder folder) {
+		return !getOnBottom(folder);
 	}
 
 	public Color getSelectedOuterColor(CTabFolderRenderer me) {
@@ -223,5 +229,15 @@ public class KTabRendererHelper {
 			clipping.dispose();
 			region.dispose();
 		}
+	}
+
+	public GC fillGradientRectangle(GC gc, Rectangle bounds, HSB[] hsbs, int[] percents, boolean vertical) {
+		Color[] colors = new Color[hsbs.length];
+		for (int i = 0; i < hsbs.length; i++) {
+			colors[i] = SWTExtensions.INSTANCE.toAutoReleaseColor(hsbs[i]);
+		}
+
+		SWTExtensions.INSTANCE.fillGradientRectangle(gc, bounds, colors, percents, vertical);
+		return gc;
 	}
 }
