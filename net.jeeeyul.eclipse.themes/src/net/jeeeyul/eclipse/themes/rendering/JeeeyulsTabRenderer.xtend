@@ -95,9 +95,6 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				}
 			}
 			case (part >= 0): {
-
-				//				result = super.computeTrim(part, state, x, y, width, height);
-				//				result.width = result.width + settings.borderWidth * 2
 				var item = parent.getItem(part)
 				if(item == parent.lastVisibleItem) {
 					result.width = result.width + 3 - settings.tabSpacing

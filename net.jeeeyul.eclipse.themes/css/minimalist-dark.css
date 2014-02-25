@@ -63,3 +63,26 @@
 	background-color: #222;
 	handle-image: none;
 }
+
+.MToolControl.TrimStack {
+	frame-image: url(chrome://frame?background-color=#222);
+	frame-cuts: 5px 1px 5px 16px;
+	handle-image:
+		url(chrome://drag-handle?height=22&background-color=#222&embossed=false);
+}
+
+.MTrimBar .Draggable {
+	handle-image:
+		url(chrome://drag-handle?height=22&background-color=#222&embossed=false);
+}
+
+#org-eclipse-ui-main-toolbar .Draggable {
+	handle-image:
+		url(chrome://drag-handle?height=22&background-color=#333&embossed=false);
+}
+
+#org-eclipse-ui-main-toolbar .TrimStack {
+	frame-image: url(chrome://frame?background-color=#ddd);
+	handle-image:
+		url(chrome://drag-handle?height=22&background-color=333&embossed=false);
+}
