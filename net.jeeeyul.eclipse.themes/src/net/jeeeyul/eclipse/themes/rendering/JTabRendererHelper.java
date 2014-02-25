@@ -18,6 +18,7 @@ import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.graphics.Region;
 import org.eclipse.swt.widgets.ToolBar;
@@ -277,5 +278,60 @@ public class JTabRendererHelper {
 
 		SWTExtensions.INSTANCE.fillGradientRectangle(gc, bounds, colors, percents, vertical);
 		return gc;
+	}
+
+	public HSB getTextShadowColorFor(JTabSettings me, int state) {
+		if ((state & SWT.SELECTED) != 0) {
+			return me.getSelectedTextShadowColor();
+		} else if ((state & SWT.HOT) != 0) {
+			return me.getHoverTextShadowColor();
+		} else {
+			return me.getUnselectedTextShadowColor();
+		}
+	}
+
+	public Point getTextShadowPositionFor(JTabSettings me, int state) {
+		if ((state & SWT.SELECTED) != 0) {
+			return me.getSelectedTextShadowPosition();
+		} else if ((state & SWT.HOT) != 0) {
+			return me.getHoverTextShadowPosition();
+		} else {
+			return me.getUnselectedTextShadowPosition();
+		}
+	}
+
+	public HSB getTextColorFor(JTabSettings me, int state) {
+		if ((state & SWT.SELECTED) != 0) {
+			return new HSB(me.getRenderer().getTabFolder().getSelectionForeground().getRGB());
+		} else if ((state & SWT.HOT) != 0) {
+			HSB hoverForgroundColor = me.getHoverForgroundColor();
+			if (hoverForgroundColor == null) {
+				return getTextColorFor(me, SWT.NONE);
+			} else {
+				return hoverForgroundColor;
+			}
+		} else {
+			return new HSB(me.getRenderer().getTabFolder().getForeground().getRGB());
+		}
+	}
+
+	public HSB[] getBorderColorsFor(JTabSettings me, int state) {
+		if ((state & SWT.SELECTED) != 0) {
+			return me.getSelectedBorderColors();
+		} else if ((state & SWT.HOT) != 0) {
+			return me.getHoverBorderColors();
+		} else {
+			return me.getUnselectedBorderColors();
+		}
+	}
+
+	public int[] getBorderPercentsFor(JTabSettings me, int state) {
+		if ((state & SWT.SELECTED) != 0) {
+			return me.getSelectedBorderPercents();
+		} else if ((state & SWT.HOT) != 0) {
+			return me.getHoverBorderPercents();
+		} else {
+			return me.getUnselectedBorderPercents();
+		}
 	}
 }

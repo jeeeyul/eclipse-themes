@@ -6,6 +6,7 @@ import org.eclipse.swt.layout.RowLayout
 import org.eclipse.swt.SWT
 import org.eclipse.swt.layout.FillLayout
 import org.eclipse.swt.graphics.Point
+import net.jeeeyul.swtend.ui.HSB
 
 class JTabTest {
 	def static void main(String[] args) {
@@ -28,16 +29,19 @@ class JTabTest {
 					settings.shadowRadius = 5
 					settings.shadowPosition = new Point(2, 2)
 					settings.shadowColor = COLOR_GRAY.toHSB
-					settings.selectedBorderColor = COLOR_BLACK.toHSB
-					settings.unselectedBorderColor = COLOR_RED.toHSB
-					settings.borderColor = COLOR_BLACK.toHSB
 					settings.borderWidth = 1
 					settings.closeButtonLineWidth = 2
 					settings.tabSpacing = 10
 					
-					settings.hoverBackgroundColors = #[COLOR_RED.toHSB, COLOR_GREEN.toHSB]
-					settings.hoverBackgroundPercents = #[100]
-					settings.hoverBorderColor = COLOR_MARGENTA.toHSB
+					settings.hoverBackgroundColors = null
+					settings.hoverBackgroundPercents = null
+					settings.hoverBorderColors = #[HSB.RED, HSB.BLUE]
+					settings.hoverBorderPercents = #[100]
+					
+					settings.unselectedTextShadowColor = COLOR_WHITE.toHSB
+					
+					settings.borderColors = #[HSB.RED, HSB.BLUE]
+					settings.borderPercents = #[100]
 				]
 				setSelectionBackground(#[COLOR_YELLOW, COLOR_WHITE, COLOR_RED], #[50, 95])
 				setBackground(#[COLOR_GRAY, COLOR_WHITE], #[100], true)
@@ -49,6 +53,28 @@ class JTabTest {
 					newComposite[
 						newCanvas[
 //							showTestGrid()
+						]
+					]
+				]
+				
+				newCTabItem[
+					text = "First"
+					image = SharedImages.getImage(SharedImages.ADD)
+					
+					newComposite[
+						newCanvas[
+							showTestGrid()
+						]
+					]
+				]
+				
+				newCTabItem[
+					text = "First"
+					image = SharedImages.getImage(SharedImages.ADD)
+					
+					newComposite[
+						newCanvas[
+							showTestGrid()
 						]
 					]
 				]

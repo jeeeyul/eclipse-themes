@@ -40,7 +40,7 @@ public class ShadowGenerator {
 	}
 
 	public static NinePatch createNinePatch(RGB background, RGB foreground, int radius, int shadowRadius) {
-		radius = Math.max(radius, 2);
+		radius = Math.max(radius, 5);
 		shadowRadius = Math.max(shadowRadius, 2);
 
 		Rectangle shadow = new Rectangle(0, 0, radius * 3 + shadowRadius * 2, radius * 3 + shadowRadius * 2);

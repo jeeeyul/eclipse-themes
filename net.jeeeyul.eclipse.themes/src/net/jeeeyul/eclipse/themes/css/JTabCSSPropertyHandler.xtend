@@ -30,34 +30,73 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 
 		var applied = switch (property) {
 			case "jtab-border-color": {
-				var rgb = CSSSWTColorHelper.getRGB(value as CSSValue)
-				if(rgb != null) {
-					var hsb = new HSB(rgb.red, rgb.green, rgb.blue)
-					settings.borderColor = hsb
+				if(value instanceof CSSValueList) {
+					var grad = CSSCompabilityHelper.getGradient(value as CSSValueList)
+					settings.borderColors = grad.toHSBArray()
+					settings.borderPercents = CSSSWTColorHelper.getPercents(grad)
+					true
+				} else if(value instanceof CSSPrimitiveValue) {
+					var rgb = CSSSWTColorHelper.getRGB(value)
+					if(rgb != null) {
+						var hsb = new HSB(rgb)
+						settings.borderColors = #[hsb, hsb]
+						settings.borderPercents = #[100]
+						true
+					} else if(value.cssText == "none") {
+						settings.borderColors = null
+						true
+					} else {
+						false
+					}
 				} else {
-					settings.borderColor = null
+					false
 				}
-				true
 			}
 			case "jtab-selected-border-color": {
-				var rgb = CSSSWTColorHelper.getRGB(value as CSSValue)
-				if(rgb != null) {
-					var hsb = new HSB(rgb.red, rgb.green, rgb.blue)
-					settings.selectedBorderColor = hsb
+				if(value instanceof CSSValueList) {
+					var grad = CSSCompabilityHelper.getGradient(value as CSSValueList)
+					settings.selectedBorderColors = grad.toHSBArray()
+					settings.selectedBorderPercents = CSSSWTColorHelper.getPercents(grad)
+					true
+				} else if(value instanceof CSSPrimitiveValue) {
+					var rgb = CSSSWTColorHelper.getRGB(value)
+					if(rgb != null) {
+						var hsb = new HSB(rgb)
+						settings.selectedBorderColors = #[hsb, hsb]
+						settings.selectedBorderPercents = #[100]
+						true
+					} else if(value.cssText == "none") {
+						settings.selectedBorderColors = null
+						true
+					} else {
+						false
+					}
 				} else {
-					settings.selectedBorderColor = null
+					false
 				}
-				true
 			}
 			case "jtab-unselected-border-color": {
-				var rgb = CSSSWTColorHelper.getRGB(value as CSSValue)
-				if(rgb != null) {
-					var hsb = new HSB(rgb.red, rgb.green, rgb.blue)
-					settings.unselectedBorderColor = hsb
+				if(value instanceof CSSValueList) {
+					var grad = CSSCompabilityHelper.getGradient(value as CSSValueList)
+					settings.unselectedBorderColors = grad.toHSBArray()
+					settings.unselectedBorderPercents = CSSSWTColorHelper.getPercents(grad)
+					true
+				} else if(value instanceof CSSPrimitiveValue) {
+					var rgb = CSSSWTColorHelper.getRGB(value)
+					if(rgb != null) {
+						var hsb = new HSB(rgb)
+						settings.unselectedBorderColors = #[hsb, hsb]
+						settings.unselectedBorderPercents = #[100]
+						true
+					} else if(value.cssText == "none") {
+						settings.unselectedBorderColors = null
+						true
+					} else {
+						false
+					}
 				} else {
-					settings.unselectedBorderColor = null
+					false
 				}
-				true
 			}
 			case "jtab-border-radius": {
 				if(value instanceof CSSPrimitiveValue) {
@@ -87,7 +126,6 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 				}
 				true
 			}
-			
 			case "jtab-close-button-line-width": {
 				if(value instanceof CSSPrimitiveValue) {
 					var lineWidth = (value as CSSPrimitiveValue).getFloatValue(CSSPrimitiveValue.CSS_PX) as int
@@ -97,7 +135,6 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 					false
 				}
 			}
-			
 			case "jtab-hover-color": {
 				var rgb = CSSSWTColorHelper.getRGB(value as CSSValue)
 				if(rgb != null) {
@@ -108,18 +145,29 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 				}
 				true
 			}
-			
 			case "jtab-hover-border-color": {
-				var rgb = CSSSWTColorHelper.getRGB(value as CSSValue)
-				if(rgb != null) {
-					var hsb = new HSB(rgb.red, rgb.green, rgb.blue)
-					settings.hoverBorderColor = hsb
+				if(value instanceof CSSValueList) {
+					var grad = CSSCompabilityHelper.getGradient(value as CSSValueList)
+					settings.hoverBorderColors = grad.toHSBArray()
+					settings.hoverBorderPercents = CSSSWTColorHelper.getPercents(grad)
+					true
+				} else if(value instanceof CSSPrimitiveValue) {
+					var rgb = CSSSWTColorHelper.getRGB(value)
+					if(rgb != null) {
+						var hsb = new HSB(rgb)
+						settings.hoverBorderColors = #[hsb, hsb]
+						settings.hoverBorderPercents = #[100]
+						true
+					} else if(value.cssText == "none") {
+						settings.hoverBorderColors = null
+						true
+					} else {
+						false
+					}
 				} else {
-					settings.hoverBorderColor = null
+					false
 				}
-				true
 			}
-			
 			case "jtab-close-button-hot-color": {
 				var rgb = CSSSWTColorHelper.getRGB(value as CSSValue)
 				if(rgb != null) {
@@ -147,7 +195,13 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 					settings.unselectedBackgroundPercents = CSSSWTColorHelper.getPercents(grad)
 					true
 				} else if(value instanceof CSSPrimitiveValue) {
-					if(value.cssText == "none") {
+					var rgb = CSSSWTColorHelper.getRGB(value)
+					if(rgb != null) {
+						var hsb = new HSB(rgb)
+						settings.unselectedBackgroundColors = #[hsb, hsb]
+						settings.unselectedBackgroundPercents = #[100]
+						true
+					} else if(value.cssText == "none") {
 						settings.unselectedBackgroundColors = null
 						true
 					} else {
@@ -164,7 +218,13 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 					settings.hoverBackgroundPercents = CSSSWTColorHelper.getPercents(grad)
 					true
 				} else if(value instanceof CSSPrimitiveValue) {
-					if(value.cssText == "none") {
+					var rgb = CSSSWTColorHelper.getRGB(value)
+					if(rgb != null) {
+						var hsb = new HSB(rgb)
+						settings.hoverBackgroundColors = #[hsb, hsb]
+						settings.hoverBackgroundPercents = #[100]
+						true
+					} else if(value.cssText == "none") {
 						settings.hoverBackgroundColors = null
 						true
 					} else {
@@ -210,7 +270,6 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 				}
 				true
 			}
-			
 			case "jtab-shadow-color": {
 				var rgb = CSSSWTColorHelper.getRGB(value as CSSValue)
 				if(rgb != null) {
@@ -234,7 +293,7 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 					false
 				}
 			}
-				case "jtab-shadow-radius": {
+			case "jtab-shadow-radius": {
 				if(value instanceof CSSPrimitiveValue) {
 					var v = (value as CSSPrimitiveValue).getFloatValue(CSSPrimitiveValue.CSS_PX) as int
 					settings.shadowRadius = v;
@@ -243,7 +302,76 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 					false
 				}
 			}
-			
+			case "jtab-selected-text-shadow-color": {
+				var rgb = CSSSWTColorHelper.getRGB(value as CSSValue)
+				if(rgb != null) {
+					var hsb = new HSB(rgb.red, rgb.green, rgb.blue)
+					settings.selectedTextShadowColor = hsb
+				} else {
+					settings.selectedTextShadowColor = null
+				}
+				true
+			}
+			case "jtab-selected-text-shadow-position": {
+				if(value instanceof CSSValueList) {
+					var position = (value as CSSValueList).toPoint()
+					settings.selectedTextShadowPosition = position
+					true
+				} else if(value instanceof CSSPrimitiveValue) {
+					var int v = (value as CSSPrimitiveValue).getFloatValue(CSSPrimitiveValue.CSS_PX) as int
+					settings.selectedTextShadowPosition = new Point(v, v)
+					true
+				} else {
+					false
+				}
+			}
+			case "jtab-unselected-text-shadow-color": {
+				var rgb = CSSSWTColorHelper.getRGB(value as CSSValue)
+				if(rgb != null) {
+					var hsb = new HSB(rgb.red, rgb.green, rgb.blue)
+					settings.unselectedTextShadowColor = hsb
+				} else {
+					settings.unselectedTextShadowColor = null
+				}
+				true
+			}
+			case "jtab-unselected-text-shadow-position": {
+				if(value instanceof CSSValueList) {
+					var position = (value as CSSValueList).toPoint()
+					settings.unselectedTextShadowPosition = position
+					true
+				} else if(value instanceof CSSPrimitiveValue) {
+					var int v = (value as CSSPrimitiveValue).getFloatValue(CSSPrimitiveValue.CSS_PX) as int
+					settings.unselectedTextShadowPosition = new Point(v, v)
+					true
+				} else {
+					false
+				}
+			}
+			case "jtab-hover-text-shadow-color": {
+				var rgb = CSSSWTColorHelper.getRGB(value as CSSValue)
+				if(rgb != null) {
+					var hsb = new HSB(rgb.red, rgb.green, rgb.blue)
+					settings.hoverTextShadowColor = hsb
+				} else {
+					settings.hoverTextShadowColor = null
+				}
+				true
+			}
+			case "jtab-hover-text-shadow-position": {
+				if(value instanceof CSSValueList) {
+					var position = (value as CSSValueList).toPoint()
+					settings.hoverTextShadowPosition = position
+					true
+				} else if(value instanceof CSSPrimitiveValue) {
+					var int v = (value as CSSPrimitiveValue).getFloatValue(CSSPrimitiveValue.CSS_PX) as int
+					settings.hoverTextShadowPosition = new Point(v, v)
+					true
+				} else {
+					false
+				}
+			}
+			//FIXME: text shadow!!
 			default: {
 				false
 			}

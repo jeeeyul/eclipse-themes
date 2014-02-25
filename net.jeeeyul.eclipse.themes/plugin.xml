@@ -27,6 +27,11 @@
             id="net.jeeeyul.eclipse.themes.minimalist.dark"
             label="Jeeeyul&apos;s themes - Minimalist(Dark)">
       </theme>
+      <theme
+            basestylesheeturi="css/new-chrome.css"
+            id="net.jeeeyul.eclipse.themes.chrome.new"
+            label="Jeeeyul&apos;s themes - New Chrome">
+      </theme>
    </extension>
    <extension
          point="org.eclipse.core.runtime.preferences">
@@ -223,6 +228,26 @@
          
          <property-name
                name="jtab-background-color">
+         </property-name>
+         
+         <property-name
+               name="jtab-selected-text-shadow-color">
+         </property-name>
+         <property-name
+               name="jtab-unselected-text-shadow-color">
+         </property-name>
+         <property-name
+               name="jtab-hover-text-shadow-color">
+         </property-name>
+         
+         <property-name
+               name="jtab-selected-text-shadow-position">
+         </property-name>
+         <property-name
+               name="jtab-unselected-text-shadow-position">
+         </property-name>
+         <property-name
+               name="jtab-hover-text-shadow-position">
          </property-name>
       </handler>
    </extension>

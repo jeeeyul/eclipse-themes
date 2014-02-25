@@ -1,12 +1,12 @@
 .MTrimmedWindow.topLevel {
-	margin-top: 4px;
-	margin-left: 2px;
-	margin-right: 2px;
-	background-color: #ddd;
+	margin-top: 6px;
+	margin-left: 3px;
+	margin-right: 3px;
+	background-color: #ededed;
 }
 
 .MTrimBar#org-eclipse-ui-main-toolbar {
-	background-color: #ccc #aaa;
+	background-color:  #ededed #dbdbdb 100%;
 }
 
 .MPartStack {
@@ -14,15 +14,15 @@
 		url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer');
 	swt-tab-height: 22px;
 	color: black;
-	jtab-background-color: #ddd;
+	jtab-background-color: #ededed;
 	jtab-hover-color: black;
-	swt-unselected-tabs-color: #eee #ddd white 100% 100%;
+	swt-unselected-tabs-color: #ededed #e1e1e1 white 100% 100%;
 	swt-selected-tabs-background: white white 100%;
 	jtab-unselected-tabs-background: none;
 	jtab-hover-tabs-background: #bbb #ccc 100%;
-	jtab-margin: 0px 2px 2px 1px;
-	jtab-shadow-color: gray;
-	jtab-shadow-radius: 2px;
+	jtab-margin: 0px 3px 3px 2px;
+	jtab-shadow-color: #bbb;
+	jtab-shadow-radius: 3px;
 	jtab-shadow-position: 1px 1px;
 	jtab-close-button-line-width: 1px;
 	jtab-close-button-color: gray;
@@ -31,8 +31,8 @@
 	jtab-close-button-hot-color: darkRed;
 	jtab-border-radius: 3px;
 	jtab-spacing: 2px;
-	jtab-border-color: none;
-	jtab-selected-border-color: none;
+	jtab-border-color: #a6a6a6;
+	jtab-selected-border-color: #a6a6a6;
 	jtab-unselected-border-color: none;
 	jtab-hover-border-color: gray #ddd 100%;
 	jtab-unselected-text-shadow-color: white;
@@ -50,8 +50,21 @@
 .MPartStack.active {
 	swt-tab-renderer:
 		url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer');
-	swt-selected-tabs-background: rgb(246, 126, 44) rgb(246, 126, 44) white
-		white 17% 17% 100%;
+	swt-selected-tabs-background: white white 100%;
+	swt-unselected-tabs-color: #dfe6f7 #d0d9eb white 100% 100%;
+	
+	jtab-border-color : #798aad;
+	jtab-selected-border-color:#798aad;
+	jtab-unselected-border-color:none;
+	
+	jtab-hover-tabs-background: #edf1f9 #e6ebf4 100%;
+	jtab-hover-border-color: #cfd5e2 #cfd4e0 100%;
+	jtab-hover-text-color: black;
+	
+	jtab-unselected-text-color:black;
+	jtab-unselected-text-shadow-color: white;
+	
+	
 }
 
 .MPartSashContainer {
@@ -59,9 +72,9 @@
 }
 
 #org-eclipse-ui-main-toolbar #PerspectiveSwitcher {
-	background-color: white #ddd;
+	background-color: white #ededed;
 	handle-image: none;
-	eclipse-perspective-keyline-color: #888;
+	eclipse-perspective-keyline-color: #aaafbd;
 }
 
 .MToolControl.TrimStack {
@@ -77,11 +90,11 @@
 
 #org-eclipse-ui-main-toolbar .Draggable {
 	handle-image:
-		url(chrome://drag-handle?height=22&background-color=#bbb&embossed=false);
+		url(chrome://drag-handle?height=22&background-color=#ededed&embossed=false);
 }
 
 #org-eclipse-ui-main-toolbar .TrimStack {
 	frame-image: url(chrome://frame?background-color=#ddd);
 	handle-image:
-		url(chrome://drag-handle?height=22&background-color=#bbb&embossed=false);
+		url(chrome://drag-handle?height=22&background-color=#ededed&embossed=false);
 }

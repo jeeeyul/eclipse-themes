@@ -23,20 +23,31 @@ public class JTabSettings {
 	private int borderWidth = 1;
 	private int tabSpacing = 2;
 	private int tabItemHorizontalSpacing = 1;
-	private HSB borderColor = HSB.GRAY;
-	private HSB selectedBorderColor = HSB.GRAY;
-	private HSB unselectedBorderColor = HSB.GRAY;
 	private HSB[] unselectedBackgroundColors = null;
 	private int[] unselectedBackgroundPercents = null;
 	private HSB[] hoverBackgroundColors = null;
 	private int[] hoverBackgroundPercents = null;
-	private HSB hoverBorderColor = null;
 	private HSB hoverForgroundColor = null;
 	private HSB backgroundColor = HSB.WIDGET_BACKGROUND;
-
+	private HSB unselectedTextShadowColor = null;
+	private HSB selectedTextShadowColor = null;
+	private HSB hoverTextShadowColor = null;
+	private HSB[] borderColors = new HSB[] { HSB.GRAY, HSB.GRAY };
+	private int[] borderPercents = new int[] { 100 };
+	private HSB[] selectedBorderColors = new HSB[] { HSB.GRAY, HSB.GRAY };
+	private int[] selectedBorderPercents = new int[] { 100 };
+	private HSB[] unselectedBorderColors = new HSB[] { HSB.GRAY, HSB.GRAY };
+	private int[] unselectedBorderPercents = new int[] { 100 };
+	private HSB[] hoverBorderColors = new HSB[] { HSB.GRAY, HSB.GRAY };
+	private int[] hoverBorderPercents = new int[] { 100 };
+	private Point selectedTextShadowPosition = new Point(0, 1);
+	private Point unselectedTextShadowPosition = new Point(0, 1);
+	private Point hoverTextShadowPosition = new Point(0, 1);
 	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+	private JeeeyulsTabRenderer renderer;
 
-	public JTabSettings() {
+	public JTabSettings(JeeeyulsTabRenderer renderer) {
+		this.renderer = renderer;
 	}
 
 	public void addPropertyChangeListener(PropertyChangeListener arg0) {
@@ -61,8 +72,12 @@ public class JTabSettings {
 		return backgroundColor;
 	}
 
-	public HSB getBorderColor() {
-		return borderColor;
+	public HSB[] getBorderColors() {
+		return borderColors;
+	}
+
+	public int[] getBorderPercents() {
+		return borderPercents;
 	}
 
 	public int getBorderRadius() {
@@ -97,12 +112,24 @@ public class JTabSettings {
 		return hoverBackgroundPercents;
 	}
 
-	public HSB getHoverBorderColor() {
-		return hoverBorderColor;
+	public HSB[] getHoverBorderColors() {
+		return hoverBorderColors;
+	}
+
+	public int[] getHoverBorderPercents() {
+		return hoverBorderPercents;
 	}
 
 	public HSB getHoverForgroundColor() {
 		return hoverForgroundColor;
+	}
+
+	public HSB getHoverTextShadowColor() {
+		return hoverTextShadowColor;
+	}
+
+	public Point getHoverTextShadowPosition() {
+		return hoverTextShadowPosition;
 	}
 
 	public Rectangle getMargins() {
@@ -113,8 +140,24 @@ public class JTabSettings {
 		return paddings;
 	}
 
-	public HSB getSelectedBorderColor() {
-		return selectedBorderColor;
+	public JeeeyulsTabRenderer getRenderer() {
+		return renderer;
+	}
+
+	public HSB[] getSelectedBorderColors() {
+		return selectedBorderColors;
+	}
+
+	public int[] getSelectedBorderPercents() {
+		return selectedBorderPercents;
+	}
+
+	public HSB getSelectedTextShadowColor() {
+		return selectedTextShadowColor;
+	}
+
+	public Point getSelectedTextShadowPosition() {
+		return selectedTextShadowPosition;
 	}
 
 	public HSB getShadowColor() {
@@ -145,8 +188,20 @@ public class JTabSettings {
 		return unselectedBackgroundPercents;
 	}
 
-	public HSB getUnselectedBorderColor() {
-		return unselectedBorderColor;
+	public HSB[] getUnselectedBorderColors() {
+		return unselectedBorderColors;
+	}
+
+	public int[] getUnselectedBorderPercents() {
+		return unselectedBorderPercents;
+	}
+
+	public HSB getUnselectedTextShadowColor() {
+		return unselectedTextShadowColor;
+	}
+
+	public Point getUnselectedTextShadowPosition() {
+		return unselectedTextShadowPosition;
 	}
 
 	public void removePropertyChangeListener(PropertyChangeListener arg0) {
@@ -166,13 +221,22 @@ public class JTabSettings {
 		pcs.firePropertyChange("background-color", old, backgroundColor);
 	}
 
-	public void setBorderColor(HSB borderColor) {
-		if (areSame(this.borderColor, borderColor)) {
+	public void setBorderColors(HSB[] borderColors) {
+		if (areSame(this.borderColors, borderColors)) {
 			return;
 		}
-		HSB old = this.borderColor;
-		this.borderColor = borderColor;
-		pcs.firePropertyChange("border-color", old, borderColor);
+		HSB[] old = borderColors;
+		this.borderColors = borderColors;
+		pcs.firePropertyChange("border-colors", old, borderColors);
+	}
+
+	public void setBorderPercents(int[] borderPercents) {
+		if (areSame(this.borderPercents, borderPercents)) {
+			return;
+		}
+		int[] old = this.borderPercents;
+		this.borderPercents = borderPercents;
+		pcs.firePropertyChange("border-percents", old, borderPercents);
 	}
 
 	public void setBorderRadius(int borderRadius) {
@@ -247,13 +311,22 @@ public class JTabSettings {
 		pcs.firePropertyChange("hover-background-percents", old, hoverBackgroundPercents);
 	}
 
-	public void setHoverBorderColor(HSB hoverBorderColor) {
-		if (areSame(this.hoverBorderColor, hoverBorderColor)) {
+	public void setHoverBorderColors(HSB[] hoverBorderColors) {
+		if (areSame(this.hoverBorderColors, hoverBorderColors)) {
 			return;
 		}
-		HSB old = this.hoverBorderColor;
-		this.hoverBorderColor = hoverBorderColor;
-		pcs.firePropertyChange("hover-border-color", old, hoverBorderColor);
+		HSB[] old = hoverBorderColors;
+		this.hoverBorderColors = hoverBorderColors;
+		pcs.firePropertyChange("hover-border-colors", old, hoverBorderColors);
+	}
+
+	public void setHoverBorderPercents(int[] hoverBorderPercents) {
+		if (areSame(this.hoverBorderPercents, hoverBorderPercents)) {
+			return;
+		}
+		int[] old = this.hoverBorderPercents;
+		this.hoverBorderPercents = hoverBorderPercents;
+		pcs.firePropertyChange("hover-border-percents", old, hoverBorderPercents);
 	}
 
 	public void setHoverForgroundColor(HSB hoverForgroundColor) {
@@ -263,6 +336,24 @@ public class JTabSettings {
 		HSB old = this.hoverForgroundColor;
 		this.hoverForgroundColor = hoverForgroundColor;
 		pcs.firePropertyChange("hover-forground-color", old, hoverForgroundColor);
+	}
+
+	public void setHoverTextShadowColor(HSB hoverTextShadowColor) {
+		if (areSame(this.hoverTextShadowColor, hoverTextShadowColor)) {
+			return;
+		}
+		HSB old = this.hoverTextShadowColor;
+		this.hoverTextShadowColor = hoverTextShadowColor;
+		pcs.firePropertyChange("hover-text-shadow-color", old, hoverTextShadowColor);
+	}
+
+	public void setHoverTextShadowPosition(Point hoverTextShadowPosition) {
+		if (areSame(this.hoverTextShadowPosition, hoverTextShadowPosition)) {
+			return;
+		}
+		Point old = this.hoverTextShadowPosition;
+		this.hoverTextShadowPosition = hoverTextShadowPosition;
+		pcs.firePropertyChange("hover-text-shadow-position", old, hoverTextShadowPosition);
 	}
 
 	public void setMargins(Rectangle margins) {
@@ -283,13 +374,41 @@ public class JTabSettings {
 		pcs.firePropertyChange("paddings", old, paddings);
 	}
 
-	public void setSelectedBorderColor(HSB selectedBorderColor) {
-		if (areSame(this.selectedBorderColor, selectedBorderColor)) {
+	public void setSelectedBorderColors(HSB[] selectedBorderColors) {
+		if (areSame(this.selectedBorderColors, selectedBorderColors)) {
 			return;
 		}
-		HSB old = this.selectedBorderColor;
-		this.selectedBorderColor = selectedBorderColor;
-		pcs.firePropertyChange("selected-border-color", old, selectedBorderColor);
+
+		HSB[] old = selectedBorderColors;
+		this.selectedBorderColors = selectedBorderColors;
+		pcs.firePropertyChange("selected-border-colors", old, selectedBorderColors);
+	}
+
+	public void setSelectedBorderPercents(int[] selectedBorderPercents) {
+		if (areSame(this.selectedBorderPercents, selectedBorderPercents)) {
+			return;
+		}
+		int[] old = this.selectedBorderPercents;
+		this.selectedBorderPercents = selectedBorderPercents;
+		pcs.firePropertyChange("selected-border-percents", old, selectedBorderPercents);
+	}
+
+	public void setSelectedTextShadowColor(HSB selectedTextShadowColor) {
+		if (areSame(this.selectedTextShadowColor, selectedTextShadowColor)) {
+			return;
+		}
+		HSB old = selectedTextShadowColor;
+		this.selectedTextShadowColor = selectedTextShadowColor;
+		pcs.firePropertyChange("selected-text-shadow-color", old, selectedTextShadowColor);
+	}
+
+	public void setSelectedTextShadowPosition(Point selectedTextShadowPosition) {
+		if (areSame(this.selectedTextShadowPosition, selectedTextShadowPosition)) {
+			return;
+		}
+		Point old = this.selectedTextShadowPosition;
+		this.selectedTextShadowPosition = selectedTextShadowPosition;
+		pcs.firePropertyChange("selected-text-shadow-position", old, selectedTextShadowPosition);
 	}
 
 	public void setShadowColor(HSB shadowColor) {
@@ -359,13 +478,40 @@ public class JTabSettings {
 		this.pcs.firePropertyChange("unselected-background-percents", old, unselectedBackgroundPercents);
 	}
 
-	public void setUnselectedBorderColor(HSB unselectedBorderColor) {
-		if (areSame(this.unselectedBorderColor, unselectedBorderColor)) {
+	public void setUnselectedBorderColors(HSB[] unselectedBorderColors) {
+		if (areSame(this.unselectedBorderColors, unselectedBorderColors)) {
 			return;
 		}
-		HSB old = this.unselectedBorderColor;
-		this.unselectedBorderColor = unselectedBorderColor;
-		pcs.firePropertyChange("unselected-border-color", old, unselectedBorderColor);
+		HSB[] old = this.unselectedBorderColors;
+		this.unselectedBorderColors = unselectedBorderColors;
+		pcs.firePropertyChange("unselected-border-colors", old, unselectedBorderColors);
+	}
+
+	public void setUnselectedBorderPercents(int[] unselectedBorderPercents) {
+		if (areSame(this.unselectedBorderPercents, unselectedBorderPercents)) {
+			return;
+		}
+		int[] old = this.unselectedBorderPercents;
+		this.unselectedBorderPercents = unselectedBorderPercents;
+		pcs.firePropertyChange("unselected-border-percents", old, unselectedBorderPercents);
+	}
+
+	public void setUnselectedTextShadowColor(HSB unselectedTextShadowColor) {
+		if (areSame(this.unselectedTextShadowColor, unselectedTextShadowColor)) {
+			return;
+		}
+		HSB old = this.unselectedTextShadowColor;
+		this.unselectedTextShadowColor = unselectedTextShadowColor;
+		pcs.firePropertyChange("unselected-text-shadow-color", old, unselectedTextShadowColor);
+	}
+
+	public void setUnselectedTextShadowPosition(Point unselectedTextShadowPosition) {
+		if (areSame(this.unselectedTextShadowPosition, unselectedTextShadowPosition)) {
+			return;
+		}
+		Point old = this.unselectedTextShadowPosition;
+		this.unselectedTextShadowPosition = unselectedTextShadowPosition;
+		pcs.firePropertyChange("unselected-text-shadow-position", old, unselectedTextShadowPosition);
 	}
 
 }
