@@ -15,6 +15,7 @@ import net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer
 import org.eclipse.swt.graphics.Rectangle
 import org.eclipse.swt.graphics.Point
 import java.util.ArrayList
+import net.jeeeyul.eclipse.themes.css.internal.CSSCompabilityHelper
 
 class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 
@@ -141,7 +142,7 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 			}
 			case "jtab-unselected-tabs-background": {
 				if(value instanceof CSSValueList) {
-					var grad = CSSSWTColorHelper.getGradient(value as CSSValueList, tabFolder.display)
+					var grad = CSSCompabilityHelper.getGradient(value as CSSValueList)
 					settings.unselectedBackgroundColors = grad.toHSBArray()
 					settings.unselectedBackgroundPercents = CSSSWTColorHelper.getPercents(grad)
 					true
@@ -158,7 +159,7 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 			}
 			case "jtab-hover-tabs-background": {
 				if(value instanceof CSSValueList) {
-					var grad = CSSSWTColorHelper.getGradient(value as CSSValueList, tabFolder.display)
+					var grad = CSSCompabilityHelper.getGradient(value as CSSValueList)
 					settings.hoverBackgroundColors = grad.toHSBArray()
 					settings.hoverBackgroundPercents = CSSSWTColorHelper.getPercents(grad)
 					true
