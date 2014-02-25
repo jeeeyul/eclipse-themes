@@ -46,6 +46,8 @@ public class JTabSettings {
 	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 	private JeeeyulsTabRenderer renderer;
 
+	private Rectangle tabItemPaddings = new Rectangle(2, 0, 2, 0);
+
 	public JTabSettings(JeeeyulsTabRenderer renderer) {
 		this.renderer = renderer;
 	}
@@ -174,6 +176,10 @@ public class JTabSettings {
 
 	public int getTabItemHorizontalSpacing() {
 		return tabItemHorizontalSpacing;
+	}
+
+	public Rectangle getTabItemPaddings() {
+		return tabItemPaddings;
 	}
 
 	public int getTabSpacing() {
@@ -446,6 +452,15 @@ public class JTabSettings {
 		int old = this.tabItemHorizontalSpacing;
 		this.tabItemHorizontalSpacing = tabItemHorizontalSpacing;
 		pcs.firePropertyChange("tab-item-horizontal-spacing", old, tabItemHorizontalSpacing);
+	}
+
+	public void setTabItemPaddings(Rectangle tabItemPaddings) {
+		if (areSame(this.tabItemPaddings, tabItemPaddings)) {
+			return;
+		}
+		Rectangle old = this.tabItemPaddings;
+		this.tabItemPaddings = tabItemPaddings;
+		pcs.firePropertyChange("tab-item-paddings", old, tabItemPaddings);
 	}
 
 	public void setTabSpacing(int tabSpacing) {

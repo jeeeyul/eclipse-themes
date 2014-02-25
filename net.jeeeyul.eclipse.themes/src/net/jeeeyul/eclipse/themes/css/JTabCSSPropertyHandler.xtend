@@ -371,7 +371,28 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 					false
 				}
 			}
-			//FIXME: text shadow!!
+			case "jtab-item-padding": {
+				if(value instanceof CSSValueList) {
+					var insets = (value as CSSValueList).toInset()
+					settings.tabItemPaddings = insets
+					true
+				} else if(value instanceof CSSPrimitiveValue) {
+					var int margin = (value as CSSPrimitiveValue).getFloatValue(CSSPrimitiveValue.CSS_PX) as int
+					settings.tabItemPaddings = new Rectangle(margin, margin, margin, margin);
+					true
+				} else {
+					false
+				}
+			}
+			case "jtab-item-horizontal-spacing": {
+				if(value instanceof CSSPrimitiveValue) {
+					var radius = (value as CSSPrimitiveValue).getFloatValue(CSSPrimitiveValue.CSS_PX) as int
+					settings.tabItemHorizontalSpacing = radius
+					true
+				} else {
+					false
+				}
+			}
 			default: {
 				false
 			}

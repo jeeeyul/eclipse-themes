@@ -7,6 +7,7 @@ import org.eclipse.swt.SWT
 import org.eclipse.swt.layout.FillLayout
 import org.eclipse.swt.graphics.Point
 import net.jeeeyul.swtend.ui.HSB
+import org.eclipse.swt.graphics.Rectangle
 
 class JTabTest {
 	def static void main(String[] args) {
@@ -31,7 +32,9 @@ class JTabTest {
 					settings.shadowColor = COLOR_GRAY.toHSB
 					settings.borderWidth = 1
 					settings.closeButtonLineWidth = 2
-					settings.tabSpacing = 10
+					settings.tabSpacing = 2
+					settings.tabItemHorizontalSpacing = 20
+					settings.tabItemPaddings = new Rectangle(0, 0, 0, 0)
 					
 					settings.hoverBackgroundColors = null
 					settings.hoverBackgroundPercents = null

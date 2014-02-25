@@ -249,6 +249,12 @@
          <property-name
                name="jtab-hover-text-shadow-position">
          </property-name>
+         <property-name
+               name="jtab-item-padding">
+         </property-name>
+         <property-name
+               name="jtab-item-horizontal-spacing">
+         </property-name>
       </handler>
    </extension>
 

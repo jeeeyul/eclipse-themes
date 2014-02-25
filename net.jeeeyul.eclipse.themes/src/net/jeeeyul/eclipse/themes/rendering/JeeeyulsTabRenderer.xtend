@@ -58,7 +58,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		switch (part) {
 			case (part >= 0): {
 				var result = super.computeSize(part, state, gc, wHint, hHint)
-				result.x = result.x + Math.max(settings.tabSpacing, 0)
+				result.x = result.x + Math.max(settings.tabSpacing , 0) + settings.tabItemHorizontalSpacing * 2 + settings.tabItemPaddings.x + settings.tabItemPaddings.width
 				return result
 			}
 			case PART_CLOSE_BUTTON: {
@@ -306,7 +306,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 		// Draw Icon
 		// fixme: ICON may not exists.
-		var iconArea = item.image.bounds.relocateLeftWith(item.bounds).translate(settings.tabItemHorizontalSpacing, 0);
+		var iconArea = item.image.bounds.relocateLeftWith(item.bounds).translate(settings.tabItemPaddings.x, 0);
 		gc.drawImage(item.image, iconArea.topLeft)
 
 		// Draw Text
@@ -340,7 +340,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 		// Draw Close Button
 		if((tabFolder.showClose || item.showClose) && item.closeRect.width > 0) {
-			item.closeRect.x = item.bounds.right.x - item.closeRect.width - 6
+			item.closeRect.x = item.bounds.right.x - item.closeRect.width - 4 - settings.tabItemPaddings.width
 			if(item != tabFolder.lastVisibleItem) {
 				item.closeRect.translate(-Math.max(settings.tabSpacing, 0) + 3, 0)
 			}
@@ -357,10 +357,10 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	}
 
 	protected def drawTabItemBorder(int part, int state, Rectangle bounds, GC gc) {
-		if(settings.getBorderColorsFor(state) == null || settings.getBorderPercentsFor(state) == null){
+		if(settings.getBorderColorsFor(state) == null || settings.getBorderPercentsFor(state) == null) {
 			return;
 		}
-		
+
 		val itemOutlineBounds = bounds.getResized(-1, 0)
 		val CTabItem item = tabFolder.getItem(part)
 		val outlineOffset = itemOutlineBounds.shrink(settings.borderWidth / 2)
@@ -444,7 +444,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				}
 			]
 		}
-		
+
 		gc.lineWidth = settings.borderWidth
 		gc.drawGradientPath(outline, settings.getBorderColorsFor(state).toAutoReleaseColor, settings.getBorderPercentsFor(state), true)
 	}
