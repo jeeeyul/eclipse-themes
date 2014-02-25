@@ -1,28 +1,55 @@
 package net.jeeeyul.eclipse.themes.rendering
 
+import net.jeeeyul.eclipse.themes.rendering.internal.ShadowGenerator
 import net.jeeeyul.swtend.SWTExtensions
+import net.jeeeyul.swtend.ui.HSB
+import net.jeeeyul.swtend.ui.NinePatch
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.CTabFolder
 import org.eclipse.swt.custom.CTabFolderRenderer
 import org.eclipse.swt.graphics.GC
+import org.eclipse.swt.graphics.Path
 import org.eclipse.swt.graphics.Point
 import org.eclipse.swt.graphics.Rectangle
-import org.eclipse.swt.graphics.Path
+import java.beans.PropertyChangeListener
+import java.beans.PropertyChangeEvent
 
-class KTabRenderer extends CTabFolderRenderer {
-	extension KTabRendererHelper = new KTabRendererHelper
+class JeeeyulsTabRenderer extends CTabFolderRenderer {
+	extension JTabRendererHelper = new JTabRendererHelper
 	extension SWTExtensions = SWTExtensions.INSTANCE
 
-	@Property KTabSettings settings = new KTabSettings()
-
+	JTabSettings settings = new JTabSettings()
 	CTabFolder parent
+	NinePatch shadowNinePatch;
+	PropertyChangeListener settingsListener = [
+		handleSettingChange(it)
+	]
+
+	def handleSettingChange(PropertyChangeEvent event) {
+		switch (event.propertyName) {
+			case "shadow-color": {
+				shadowNinePatch.safeDispose()
+			}
+			case "shadow-radius": {
+				shadowNinePatch.safeDispose()
+			}
+			case "border-radius": {
+				shadowNinePatch.safeDispose()
+			}
+		}
+
+		parent.redraw();
+	}
 
 	new(CTabFolder parent) {
 		super(parent)
 		this.parent = parent
+		settings.addPropertyChangeListener(settingsListener)
 	}
 
 	override protected dispose() {
+		shadowNinePatch.safeDispose()
+		settings.removePropertyChangeListener(settingsListener)
 		super.dispose()
 	}
 
@@ -196,7 +223,7 @@ class KTabRenderer extends CTabFolderRenderer {
 				gc.fill(path)
 			}
 			// Draw Border
-			if(state.hasFlags(SWT.FOREGROUND) && settings.borderWidth > 0) {
+			if(state.hasFlags(SWT.FOREGROUND) && settings.borderWidth > 0 && settings.borderColor != null) {
 				gc.foreground = settings.borderColor.toAutoReleaseColor;
 				gc.lineWidth = settings.borderWidth
 
@@ -226,9 +253,9 @@ class KTabRenderer extends CTabFolderRenderer {
 		]
 
 		var color = switch (state) {
-			case state.hasFlags(SWT.HOT): settings.closeButtonHotColor
-			case state.hasFlags(SWT.SELECTED): settings.closeButtonActiveColor
-			default: settings.closeButtonColor
+			case state.hasFlags(SWT.HOT): #[settings.closeButtonHotColor, settings.closeButtonColor, HSB.BLACK].firstNotNull
+			case state.hasFlags(SWT.SELECTED): #[settings.closeButtonActiveColor, settings.closeButtonColor, HSB.BLACK].firstNotNull
+			default: #[settings.closeButtonColor, HSB.BLACK].firstNotNull
 		}
 		gc.lineWidth = Math.max(settings.closeButtonLineWidth, 1)
 		gc.foreground = color.toAutoReleaseColor
@@ -299,13 +326,22 @@ class KTabRenderer extends CTabFolderRenderer {
 				gc.fill(tabItemFillArea)
 			}
 		} else {
-			if(settings.unselectedBackgroundColors != null) {
+			if(settings.unselectedBackgroundColors != null && settings.unselectedBackgroundPercents != null && !state.hasFlags(SWT.HOT)) {
 				gc.withClip(tabItemFillArea) [
 					if(parent.onTop) {
 						gc.fillGradientRectangle(itemBounds.getExpanded(0, 1), settings.unselectedBackgroundColors, settings.unselectedBackgroundPercents, true)
 					} else {
 						var reverseRect = newRectangle(itemBounds.bottomLeft, new Point(itemBounds.width, -itemBounds.height));
 						gc.fillGradientRectangle(reverseRect, settings.unselectedBackgroundColors, settings.unselectedBackgroundPercents, true)
+					}
+				]
+			} else if(settings.hoverBackgroundColors != null && settings.hoverBackgroundPercents != null && state.hasFlags(SWT.HOT)) {
+				gc.withClip(tabItemFillArea) [
+					if(parent.onTop) {
+						gc.fillGradientRectangle(itemBounds.getExpanded(0, 1), settings.hoverBackgroundColors, settings.hoverBackgroundPercents, true)
+					} else {
+						var reverseRect = newRectangle(itemBounds.bottomLeft, new Point(itemBounds.width, -itemBounds.height));
+						gc.fillGradientRectangle(reverseRect, settings.hoverBackgroundColors, settings.hoverBackgroundPercents, true)
 					}
 				]
 			}
@@ -332,6 +368,11 @@ class KTabRenderer extends CTabFolderRenderer {
 
 		gc.foreground = if(state.hasFlags(SWT.SELECTED))
 			parent.selectionForeground
+		else if(state.hasFlags(SWT.HOT))
+			if(settings.hoverForgroundColor != null)
+				settings.hoverForgroundColor.toAutoReleaseColor
+			else
+				parent.foreground
 		else
 			parent.foreground
 
@@ -351,9 +392,11 @@ class KTabRenderer extends CTabFolderRenderer {
 			]
 		}
 
+		val itemOutlineBounds = itemBounds.getResized(-1, 0)
+
 		// Draw Border and Keyline
-		if((settings.showSelectedBorder && state.hasFlags(SWT.SELECTED)) || (settings.showUnselectedBorder && !state.hasFlags(SWT.SELECTED))) {
-			val outlineOffset = itemBounds.shrink(settings.borderWidth / 2)
+		if((settings.selectedBorderColor != null && state.hasFlags(SWT.SELECTED)) || (settings.unselectedBorderColor != null && !state.hasFlags(SWT.SELECTED))) {
+			val outlineOffset = itemOutlineBounds.shrink(settings.borderWidth / 2)
 			var Path outline = null;
 			if(parent.onTop) {
 				outline = newPath[
@@ -365,7 +408,7 @@ class KTabRenderer extends CTabFolderRenderer {
 
 						if(state.hasFlags(SWT.SELECTED)) {
 							moveTo(parent.size.x - settings.margins.width - settings.borderWidth, keyLineY)
-							lineTo(itemBounds.bottomRight.x, keyLineY)
+							lineTo(itemOutlineBounds.bottomRight.x, keyLineY)
 						} else {
 							moveTo(outlineOffset.bottomRight.x, keyLineY)
 						}
@@ -381,13 +424,13 @@ class KTabRenderer extends CTabFolderRenderer {
 					} else {
 						if(state.hasFlags(SWT.SELECTED)) {
 							moveTo(parent.size.x - settings.margins.width - settings.borderWidth, keyLineY)
-							lineTo(itemBounds.bottomRight.x, keyLineY)
+							lineTo(itemOutlineBounds.bottomRight.x, keyLineY)
 						} else {
 							moveTo(outlineOffset.bottomRight.x, keyLineY)
 						}
-						lineTo(itemBounds.topRight)
-						lineTo(itemBounds.topLeft)
-						lineTo(itemBounds.bottomLeft.x, keyLineY)
+						lineTo(itemOutlineBounds.topRight)
+						lineTo(itemOutlineBounds.topLeft)
+						lineTo(itemOutlineBounds.bottomLeft.x, keyLineY)
 						if(state.hasFlags(SWT.SELECTED)) {
 							lineTo(settings.margins.x, keyLineY)
 						}
@@ -402,18 +445,18 @@ class KTabRenderer extends CTabFolderRenderer {
 						corner.relocateBottomRightWith(outlineOffset)
 						if(state.hasFlags(SWT.SELECTED)) {
 							moveTo(parent.size.x - settings.margins.width - settings.borderWidth, keyLineY)
-							lineTo(itemBounds.topRight.x, keyLineY)
+							lineTo(itemOutlineBounds.topRight.x, keyLineY)
 						} else {
 							moveTo(outlineOffset.topRight.x, keyLineY)
 						}
 						lineTo(corner.right)
 						addArc(corner, 0, -90)
 
-						corner.relocateBottomLeftWith(itemBounds)
+						corner.relocateBottomLeftWith(itemOutlineBounds)
 						lineTo(corner.bottom)
 						addArc(corner, 270, -90)
 
-						lineTo(itemBounds.x, keyLineY)
+						lineTo(itemOutlineBounds.x, keyLineY)
 						if(state.hasFlags(SWT.SELECTED)) {
 							lineTo(settings.margins.x, keyLineY)
 						}
@@ -421,13 +464,13 @@ class KTabRenderer extends CTabFolderRenderer {
 					} else {
 						if(state.hasFlags(SWT.SELECTED)) {
 							moveTo(parent.size.x - settings.margins.width - settings.borderWidth, keyLineY)
-							lineTo(itemBounds.bottomRight.x, keyLineY)
+							lineTo(itemOutlineBounds.bottomRight.x, keyLineY)
 						} else {
 							moveTo(outlineOffset.bottomRight.x, keyLineY)
 						}
-						lineTo(itemBounds.topRight)
-						lineTo(itemBounds.topLeft)
-						lineTo(itemBounds.bottomLeft.x, keyLineY)
+						lineTo(itemOutlineBounds.topRight)
+						lineTo(itemOutlineBounds.topLeft)
+						lineTo(itemOutlineBounds.bottomLeft.x, keyLineY)
 						if(state.hasFlags(SWT.SELECTED)) {
 							lineTo(settings.margins.x, keyLineY)
 						}
@@ -435,13 +478,22 @@ class KTabRenderer extends CTabFolderRenderer {
 				]
 			}
 
-			gc.foreground = if(state.hasFlags(SWT.SELECTED))
-				settings.selectedBorderColor.toAutoReleaseColor
-			else
-				settings.unselectedBorderColor.toAutoReleaseColor
+			if(state.hasFlags(SWT.SELECTED) && settings.selectedBorderColor != null) {
+				gc.foreground = settings.selectedBorderColor.toAutoReleaseColor
+				gc.lineWidth = settings.borderWidth
+				gc.draw(outline)
+			} else if(!state.hasFlags(SWT.SELECTED)) {
+				if(state.hasFlags(SWT.HOT) && settings.hoverBorderColor != null) {
+					gc.foreground = settings.hoverBorderColor.toAutoReleaseColor
+					gc.lineWidth = settings.borderWidth
+					gc.draw(outline)
+				} else if(!state.hasFlags(SWT.HOT) && settings.unselectedBorderColor != null) {
+					gc.foreground = settings.unselectedBorderColor.toAutoReleaseColor
+					gc.lineWidth = settings.borderWidth
+					gc.draw(outline)
+				}
 
-			gc.lineWidth = settings.borderWidth
-			gc.draw(outline)
+			}
 		}
 
 		// draw tab border
@@ -449,10 +501,23 @@ class KTabRenderer extends CTabFolderRenderer {
 	}
 
 	def protected drawShadow(int part, int state, Rectangle bounds, GC gc) {
-		gc.withClip(bounds)[]
+		gc.withClip(bounds) [
+			getShadow().fill(gc, tabArea.getExpanded(settings.shadowRadius).translate(settings.shadowPosition))
+		]
 	}
 
 	def protected tabArea() {
 		newRectangle.setSize(parent.size).shrink(settings.margins.x, 0, settings.margins.width, settings.margins.height)
+	}
+
+	def getShadow() {
+		if(shadowNinePatch == null || shadowNinePatch.disposed) {
+			shadowNinePatch = ShadowGenerator.createNinePatch(parent.background.RGB, settings.shadowColor.toRGB, settings.borderRadius, settings.shadowRadius);
+		}
+		return shadowNinePatch;
+	}
+
+	def getSettings() {
+		return this.settings;
 	}
 }

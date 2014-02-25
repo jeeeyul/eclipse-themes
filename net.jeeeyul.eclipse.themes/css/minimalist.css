@@ -11,29 +11,32 @@
 
 .MPartStack {
 	swt-tab-renderer:
-		url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.KTabRenderer');
+		url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer');
 	swt-unselected-tabs-color: #eee #ddd white 100% 100%;
-	jeeeyul-tab-unselected-tabs-background : #ddd #ccc 100%;
 	swt-selected-tabs-background: white white 100%;
-	jeeeyul-tab-inner-border-color: #ccc;
-	jeeeyul-tab-border-color: #aaa;
-	jeeeyul-tab-border-radius: 3px;
-	jeeeyul-tab-spacing: 2px;
-	jeeeyul-tab-close-button-line-width: 2px;
-	jeeeyul-tab-close-button-color: gray;
-	jeeeyul-tab-close-button-hot-color : darkRed;
-	jeeeyul-tab-close-button-active-color: darkRed;
 	swt-tab-height: 22px;
-	jeeeyul-tab-close-button-hot-color: darkRed;
+	
+	jtab-unselected-tabs-background : none;
+	jtab-selected-border-color: red;
+	jtab-unselected-border-color: none;
+	jtab-border-color: none;
+	jtab-border-radius: 3px;
+	jtab-spacing: 2px;
+	jtab-close-button-line-width: 2px;
+	jtab-close-button-color: gray;
+	jtab-close-button-hot-color : darkRed;
+	jtab-close-button-active-color: darkRed;
+	jtab-close-button-hot-color: darkRed;
+	jtab-hover-color : green;
 }
 
 .MPartStack.active {
 	swt-tab-renderer:
-		url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.KTabRenderer');
+		url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer');
 	swt-selected-tabs-background: rgb(246, 126, 44) rgb(246, 126, 44) white
 		white 17% 17% 100%;
 	swt-unselected-tabs-color: #eee #ddd white 100% 100%;
-	jeeeyul-tab-border-color: #888;
+	jtab-border-color: #888;
 }
 
 .MPartSashContainer {

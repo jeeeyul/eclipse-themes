@@ -1,5 +1,7 @@
 package net.jeeeyul.eclipse.themes.rendering;
 
+import java.util.Iterator;
+
 import net.jeeeyul.eclipse.themes.rendering.internal.HackedField;
 import net.jeeeyul.eclipse.themes.rendering.internal.HackedMethod0;
 import net.jeeeyul.swtend.SWTExtensions;
@@ -16,7 +18,7 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.graphics.Region;
 import org.eclipse.swt.widgets.ToolBar;
 
-public class KTabRendererHelper {
+public class JTabRendererHelper {
 	static interface _CTabFolder {
 		static final HackedMethod0<CTabFolder, ToolBar> getChevron = new HackedMethod0<CTabFolder, ToolBar>(CTabFolder.class, "getChevron");
 		static final HackedField<CTabFolder, Boolean> chevronVisible = new HackedField<CTabFolder, Boolean>(CTabFolder.class, "chevronVisible");
@@ -229,6 +231,17 @@ public class KTabRendererHelper {
 			clipping.dispose();
 			region.dispose();
 		}
+	}
+
+	public <T> T getFirstNotNull(Iterable<T> items) {
+		Iterator<T> iter = items.iterator();
+		while (iter.hasNext()) {
+			T next = iter.next();
+			if (next != null) {
+				return next;
+			}
+		}
+		return null;
 	}
 
 	public GC fillGradientRectangle(GC gc, Rectangle bounds, HSB[] hsbs, int[] percents, boolean vertical) {

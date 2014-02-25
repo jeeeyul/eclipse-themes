@@ -23,6 +23,7 @@ newline.after.field.annotations=false
 newline.after.method.annotations=false
 newline.after.parameter.annotations=false
 org.eclipse.xtend.ide.default.eclipse_profile=_chrome
+org.eclipse.xtext.xbase.validation.IssueCodes.discouraged_reference=ignore
 outlet.DEFAULT_OUTPUT.cleanDirectory=false
 outlet.DEFAULT_OUTPUT.cleanupDerived=true
 outlet.DEFAULT_OUTPUT.createDirectory=true

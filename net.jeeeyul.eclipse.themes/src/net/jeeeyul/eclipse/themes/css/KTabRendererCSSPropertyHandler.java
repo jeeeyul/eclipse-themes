@@ -1,6 +1,6 @@
 package net.jeeeyul.eclipse.themes.css;
 
-import net.jeeeyul.eclipse.themes.rendering.KTabRenderer;
+import net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer;
 import net.jeeeyul.swtend.ui.HSB;
 
 import org.eclipse.e4.ui.css.core.dom.properties.Gradient;
@@ -27,11 +27,12 @@ public class KTabRendererCSSPropertyHandler implements ICSSPropertyHandler {
 		CTabFolderElement tabFolderElement = (CTabFolderElement) element;
 		CTabFolder folder = (CTabFolder) tabFolderElement.getNativeWidget();
 		CTabFolderRenderer renderer = folder.getRenderer();
-		if (!(renderer instanceof KTabRenderer)) {
+		if (!(renderer instanceof JeeeyulsTabRenderer)) {
 			return false;
 		}
-		KTabRenderer kTabRenderer = (KTabRenderer) renderer;
+		JeeeyulsTabRenderer kTabRenderer = (JeeeyulsTabRenderer) renderer;
 		if (property.equals("jeeeyul-tab-border-color")) {
+			System.out.println(CSSSWTColorHelper.getRGB(value));
 			Color color = (Color) engine.convert(value, Color.class, folder.getDisplay());
 			if (color == null) {
 				color = folder.getDisplay().getSystemColor(SWT.COLOR_BLACK);
@@ -50,7 +51,7 @@ public class KTabRendererCSSPropertyHandler implements ICSSPropertyHandler {
 			folder.redraw();
 			return true;
 		}
-		
+
 		else if (property.equals("jeeeyul-tab-unselected-border-color")) {
 			Color color = (Color) engine.convert(value, Color.class, folder.getDisplay());
 			if (color == null) {
@@ -60,7 +61,6 @@ public class KTabRendererCSSPropertyHandler implements ICSSPropertyHandler {
 			folder.redraw();
 			return true;
 		}
-
 
 		else if (property.equals("jeeeyul-tab-border-radius")) {
 			if (value instanceof CSSPrimitiveValue) {
@@ -135,6 +135,7 @@ public class KTabRendererCSSPropertyHandler implements ICSSPropertyHandler {
 		else if (property.equals("jeeeyul-tab-unselected-tabs-background")) {
 			if (value.getCssValueType() == CSSValue.CSS_VALUE_LIST) {
 				Gradient grad = (Gradient) engine.convert(value, Gradient.class, folder.getDisplay());
+
 				HSB[] hsb = new HSB[grad.getRGBs().size()];
 
 				for (int i = 0; i < hsb.length; i++) {
@@ -144,9 +145,17 @@ public class KTabRendererCSSPropertyHandler implements ICSSPropertyHandler {
 				int[] percents = CSSSWTColorHelper.getPercents(grad);
 				kTabRenderer.getSettings().setUnselectedBackgroundColors(hsb);
 				kTabRenderer.getSettings().setUnselectedBackgroundPercents(percents);
+
 				folder.redraw();
 				return true;
-			} else {
+			} else if (value.getCssValueType() == CSSValue.CSS_PRIMITIVE_VALUE) {
+				if (value.getCssText().equals("none")) {
+					kTabRenderer.getSettings().setUnselectedBackgroundColors(null);
+				}
+				return true;
+			}
+
+			else {
 				return false;
 			}
 		}

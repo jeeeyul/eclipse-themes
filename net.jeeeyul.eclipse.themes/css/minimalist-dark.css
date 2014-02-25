@@ -12,17 +12,20 @@
 
 .MPartStack {
 	swt-tab-renderer:
-		url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.KTabRenderer');
+		url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer');
 	swt-unselected-tabs-color: #333 black 100%;
 	swt-selected-tabs-background: #222 #222 black black 17% 22% 100%;
-	jeeeyul-tab-border-color: #333;
-	jeeeyul-tab-inner-border-color: #333;
+	jtab-unselected-tabs-color: #333 black 100%;
+	jtab-border-color: #333;
+	jtab-selected-border-color: #333;
+	jtab-unselected-border-color: none;
+	jtab-hover-border-color: #333;
 	swt-tab-height: 22px;
 }
 
 .MPartStack.active {
 	swt-tab-renderer:
-		url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.KTabRenderer');
+		url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer');
 	swt-unselected-tabs-color: #333 black 100%;
 	swt-selected-tabs-background: rgb(246, 126, 44) rgb(246, 126, 44) black
 		black 17% 22% 100%;

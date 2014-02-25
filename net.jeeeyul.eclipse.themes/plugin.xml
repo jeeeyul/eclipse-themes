@@ -161,39 +161,46 @@
       </handler>
       <handler
             adapter="org.eclipse.e4.ui.css.swt.dom.CTabFolderElement"
-            handler="net.jeeeyul.eclipse.themes.css.KTabRendererCSSPropertyHandler">
+            handler="net.jeeeyul.eclipse.themes.css.JTabCSSPropertyHandler">
          <property-name
-               name="jeeeyul-tab-border-color">
+               name="jtab-border-color">
          </property-name>
          <property-name
-               name="jeeeyul-tab-selected-border-color">
+               name="jtab-selected-border-color">
          </property-name>
          <property-name
-               name="jeeeyul-tab-unselected-border-color">
+               name="jtab-unselected-border-color">
          </property-name>
          <property-name
-               name="jeeeyul-tab-border-radius">
+               name="jtab-border-radius">
          </property-name>
          <property-name
-               name="jeeeyul-tab-border-width">
+               name="jtab-spacing">
          </property-name>
          <property-name
-               name="jeeeyul-tab-spacing">
+               name="jtab-close-button-color">
          </property-name>
          <property-name
-               name="jeeeyul-tab-close-button-color">
+               name="jtab-close-button-hot-color">
          </property-name>
          <property-name
-               name="jeeeyul-tab-close-button-hot-color">
+               name="jtab-close-button-active-color">
          </property-name>
          <property-name
-               name="jeeeyul-tab-close-button-active-color">
+               name="jtab-close-button-line-width">
          </property-name>
          <property-name
-               name="jeeeyul-tab-close-button-line-width">
+               name="jtab-unselected-tabs-background">
+         </property-name>
+         
+         <property-name
+               name="jtab-hover-tabs-background">
          </property-name>
          <property-name
-               name="jeeeyul-tab-unselected-tabs-background">
+               name="jtab-hover-border-color">
+         </property-name>
+         <property-name
+               name="jtab-hover-color">
          </property-name>
       </handler>
    </extension>
