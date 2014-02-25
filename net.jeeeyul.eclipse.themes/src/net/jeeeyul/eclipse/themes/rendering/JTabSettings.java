@@ -22,7 +22,7 @@ public class JTabSettings {
 	private int closeButtonLineWidth = 3;
 	private int borderWidth = 1;
 	private int tabSpacing = 2;
-	private int tabItemHorizontalSpacing = 4;
+	private int tabItemHorizontalSpacing = 1;
 	private HSB borderColor = HSB.GRAY;
 	private HSB selectedBorderColor = HSB.GRAY;
 	private HSB unselectedBorderColor = HSB.GRAY;
@@ -32,6 +32,8 @@ public class JTabSettings {
 	private int[] hoverBackgroundPercents = null;
 	private HSB hoverBorderColor = null;
 	private HSB hoverForgroundColor = null;
+	private HSB backgroundColor = HSB.WIDGET_BACKGROUND;
+
 	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
 	public JTabSettings() {
@@ -53,6 +55,10 @@ public class JTabSettings {
 		} else {
 			return a.equals(b);
 		}
+	}
+
+	public HSB getBackgroundColor() {
+		return backgroundColor;
 	}
 
 	public HSB getBorderColor() {
@@ -149,6 +155,15 @@ public class JTabSettings {
 
 	public void removePropertyChangeListener(String arg0, PropertyChangeListener arg1) {
 		pcs.removePropertyChangeListener(arg0, arg1);
+	}
+
+	public void setBackgroundColor(HSB backgroundColor) {
+		if (areSame(this.backgroundColor, backgroundColor)) {
+			return;
+		}
+		HSB old = this.backgroundColor;
+		this.backgroundColor = backgroundColor;
+		pcs.firePropertyChange("background-color", old, backgroundColor);
 	}
 
 	public void setBorderColor(HSB borderColor) {

@@ -12,6 +12,9 @@ import org.w3c.dom.css.CSSValueList
 import org.eclipse.e4.ui.css.core.dom.properties.Gradient
 import org.eclipse.swt.graphics.RGB
 import net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer
+import org.eclipse.swt.graphics.Rectangle
+import org.eclipse.swt.graphics.Point
+import java.util.ArrayList
 
 class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 
@@ -55,16 +58,6 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 				}
 				true
 			}
-			case "jtab-hover-border-color": {
-				var rgb = CSSSWTColorHelper.getRGB(value as CSSValue)
-				if(rgb != null) {
-					var hsb = new HSB(rgb.red, rgb.green, rgb.blue)
-					settings.hoverBorderColor = hsb
-				} else {
-					settings.hoverBorderColor = null
-				}
-				true
-			}
 			case "jtab-border-radius": {
 				if(value instanceof CSSPrimitiveValue) {
 					var radius = (value as CSSPrimitiveValue).getFloatValue(CSSPrimitiveValue.CSS_PX) as int
@@ -94,6 +87,16 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 				true
 			}
 			
+			case "jtab-close-button-line-width": {
+				if(value instanceof CSSPrimitiveValue) {
+					var lineWidth = (value as CSSPrimitiveValue).getFloatValue(CSSPrimitiveValue.CSS_PX) as int
+					settings.closeButtonLineWidth = lineWidth
+					true
+				} else {
+					false
+				}
+			}
+			
 			case "jtab-hover-color": {
 				var rgb = CSSSWTColorHelper.getRGB(value as CSSValue)
 				if(rgb != null) {
@@ -101,6 +104,17 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 					settings.hoverForgroundColor = hsb
 				} else {
 					settings.hoverForgroundColor = null
+				}
+				true
+			}
+			
+			case "jtab-hover-border-color": {
+				var rgb = CSSSWTColorHelper.getRGB(value as CSSValue)
+				if(rgb != null) {
+					var hsb = new HSB(rgb.red, rgb.green, rgb.blue)
+					settings.hoverBorderColor = hsb
+				} else {
+					settings.hoverBorderColor = null
 				}
 				true
 			}
@@ -159,13 +173,79 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 					false
 				}
 			}
+			case "jtab-margin": {
+				if(value instanceof CSSValueList) {
+					var insets = (value as CSSValueList).toInset()
+					settings.margins = insets
+					true
+				} else if(value instanceof CSSPrimitiveValue) {
+					var int margin = (value as CSSPrimitiveValue).getFloatValue(CSSPrimitiveValue.CSS_PX) as int
+					settings.margins = new Rectangle(margin, margin, margin, margin);
+					true
+				} else {
+					false
+				}
+			}
+			case "jtab-padding": {
+				if(value instanceof CSSValueList) {
+					var insets = (value as CSSValueList).toInset()
+					settings.paddings = insets
+					true
+				} else if(value instanceof CSSPrimitiveValue) {
+					var int margin = (value as CSSPrimitiveValue).getFloatValue(CSSPrimitiveValue.CSS_PX) as int
+					settings.paddings = new Rectangle(margin, margin, margin, margin);
+					true
+				} else {
+					false
+				}
+			}
+			case "jtab-background-color": {
+				var rgb = CSSSWTColorHelper.getRGB(value as CSSValue)
+				if(rgb != null) {
+					var hsb = new HSB(rgb.red, rgb.green, rgb.blue)
+					settings.backgroundColor = hsb
+				} else {
+					settings.backgroundColor = null
+				}
+				true
+			}
+			
+			case "jtab-shadow-color": {
+				var rgb = CSSSWTColorHelper.getRGB(value as CSSValue)
+				if(rgb != null) {
+					var hsb = new HSB(rgb.red, rgb.green, rgb.blue)
+					settings.shadowColor = hsb
+				} else {
+					settings.shadowColor = null
+				}
+				true
+			}
+			case "jtab-shadow-position": {
+				if(value instanceof CSSValueList) {
+					var position = (value as CSSValueList).toPoint()
+					settings.shadowPosition = position
+					true
+				} else if(value instanceof CSSPrimitiveValue) {
+					var int v = (value as CSSPrimitiveValue).getFloatValue(CSSPrimitiveValue.CSS_PX) as int
+					settings.shadowPosition = new Point(v, v)
+					true
+				} else {
+					false
+				}
+			}
+				case "jtab-shadow-radius": {
+				if(value instanceof CSSPrimitiveValue) {
+					var v = (value as CSSPrimitiveValue).getFloatValue(CSSPrimitiveValue.CSS_PX) as int
+					settings.shadowRadius = v;
+					true
+				} else {
+					false
+				}
+			}
+			
 			default: {
 				false
 			}
-		}
-
-		if(applied) {
-			tabFolder.redraw()
 		}
 
 		return applied
@@ -175,8 +255,50 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 		return null
 	}
 
+	def Rectangle toInset(CSSValueList list) {
+		var int top = 0;
+		var int right = 0;
+		var int bottom = 0;
+		var int left = 0;
+		switch (list.length) {
+			case 4: {
+				top = list.item(0).asPX
+				right = list.item(1).asPX
+				bottom = list.item(2).asPX
+				left = list.item(3).asPX
+			}
+			case 2: {
+				top = list.item(0).asPX
+				right = list.item(1).asPX
+				bottom = list.item(0).asPX
+				left = list.item(1).asPX
+			}
+		}
+		return new Rectangle(left, top, right, bottom)
+	}
+
+	def Point toPoint(CSSValueList list) {
+		var int x = 0;
+		var int y = 0;
+		switch (list.length) {
+			case 2: {
+				x = list.item(0).asPX
+				y = list.item(1).asPX
+			}
+		}
+		return new Point(x, y)
+	}
+
+	def int asPX(CSSValue value) {
+		if(value instanceof CSSPrimitiveValue) {
+			return (value as CSSPrimitiveValue).getFloatValue(CSSPrimitiveValue.CSS_PX) as int
+		}
+
+		return 0
+	}
+
 	private def HSB[] toHSBArray(Gradient grad) {
-		val HSB[] hsb = newArrayList()
+		val ArrayList<HSB> hsb = newArrayList()
 
 		grad.RGBs.forEach [
 			hsb.add(new HSB(it as RGB))

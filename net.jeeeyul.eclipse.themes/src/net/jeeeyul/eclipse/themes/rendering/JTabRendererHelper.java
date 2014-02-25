@@ -1,6 +1,10 @@
 package net.jeeeyul.eclipse.themes.rendering;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
+import java.util.List;
 
 import net.jeeeyul.eclipse.themes.rendering.internal.HackedField;
 import net.jeeeyul.eclipse.themes.rendering.internal.HackedMethod0;
@@ -115,6 +119,27 @@ public class JTabRendererHelper {
 
 	public Rectangle setCloseRect(CTabItem me, Rectangle rect) {
 		return _CTabItem.closeRect.set(me, rect);
+	}
+
+	public CTabItem getLastVisibleItem(CTabFolder me) {
+		List<CTabItem> visibles = new ArrayList<CTabItem>();
+		for (CTabItem each : me.getItems()) {
+			if (each.isShowing()) {
+				visibles.add(each);
+			}
+		}
+
+		if (visibles.size() == 0) {
+			return null;
+		}
+		Collections.sort(visibles, new Comparator<CTabItem>() {
+			@Override
+			public int compare(CTabItem o1, CTabItem o2) {
+				return o1.getBounds().x - o2.getBounds().x;
+			}
+		});
+
+		return visibles.get(visibles.size() - 1);
 	}
 
 	public String setShortenText(CTabItem me, String shortenText) {

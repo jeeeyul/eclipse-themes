@@ -15,11 +15,14 @@
 		url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer');
 	swt-unselected-tabs-color: #333 black 100%;
 	swt-selected-tabs-background: #222 #222 black black 17% 22% 100%;
+	jtab-margin: 0px;
 	jtab-unselected-tabs-color: #333 black 100%;
+	jtab-shadow-color: none;
 	jtab-border-color: #333;
 	jtab-selected-border-color: #333;
 	jtab-unselected-border-color: none;
 	jtab-hover-border-color: #333;
+	jtab-hover-color: white;
 	swt-tab-height: 22px;
 }
 

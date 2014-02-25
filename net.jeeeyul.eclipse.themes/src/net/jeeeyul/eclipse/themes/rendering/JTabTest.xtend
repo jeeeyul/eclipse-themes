@@ -18,12 +18,13 @@ class JTabTest {
 			]
 			background = COLOR_WHITE
 			
-			newCTabFolder(SWT.BOTTOM)[
+			newCTabFolder(SWT.CLOSE)[
 				tabHeight = 22
+				unselectedCloseVisible = false
 				renderer = new JeeeyulsTabRenderer(it) => [
 					settings.margins = newInsets(10)
-					settings.paddings = newInsets(50)
-					settings.borderRadius = 15
+					settings.paddings = newInsets(2)
+					settings.borderRadius = 5
 					settings.shadowRadius = 5
 					settings.shadowPosition = new Point(2, 2)
 					settings.shadowColor = COLOR_GRAY.toHSB
@@ -32,7 +33,7 @@ class JTabTest {
 					settings.borderColor = COLOR_BLACK.toHSB
 					settings.borderWidth = 1
 					settings.closeButtonLineWidth = 2
-					settings.tabSpacing = -1
+					settings.tabSpacing = 10
 					
 					settings.hoverBackgroundColors = #[COLOR_RED.toHSB, COLOR_GREEN.toHSB]
 					settings.hoverBackgroundPercents = #[100]

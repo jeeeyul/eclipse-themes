@@ -12,22 +12,46 @@
 .MPartStack {
 	swt-tab-renderer:
 		url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer');
+
+	swt-tab-height: 22px;
+
+	color: black;
+	jtab-background-color: #ddd;
+	jtab-hover-color : black;
+	
 	swt-unselected-tabs-color: #eee #ddd white 100% 100%;
 	swt-selected-tabs-background: white white 100%;
-	swt-tab-height: 22px;
-	
 	jtab-unselected-tabs-background : none;
-	jtab-selected-border-color: red;
-	jtab-unselected-border-color: none;
-	jtab-border-color: none;
-	jtab-border-radius: 3px;
-	jtab-spacing: 2px;
-	jtab-close-button-line-width: 2px;
+	jtab-hover-tabs-background: #ccc #bbb 100%;
+	
+	jtab-margin:0px 2px 2px 1px;
+	
+	jtab-shadow-color: gray;
+	jtab-shadow-radius: 2px;
+	jtab-shadow-position: 1px 1px;
+	
+	
+	jtab-close-button-line-width: 1px;
 	jtab-close-button-color: gray;
 	jtab-close-button-hot-color : darkRed;
 	jtab-close-button-active-color: darkRed;
 	jtab-close-button-hot-color: darkRed;
-	jtab-hover-color : green;
+
+	jtab-border-radius: 3px;
+	jtab-spacing: 2px;
+	
+	jtab-border-color: none;
+	jtab-selected-border-color: none;
+	jtab-unselected-border-color: none;
+	jtab-hover-border-color: none;
+}
+
+.MPartStack > CTabItem {
+	color : black;
+}
+
+.MPartStack > CTabItem:selected {
+	color : #333;
 }
 
 .MPartStack.active {
@@ -35,8 +59,6 @@
 		url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer');
 	swt-selected-tabs-background: rgb(246, 126, 44) rgb(246, 126, 44) white
 		white 17% 17% 100%;
-	swt-unselected-tabs-color: #eee #ddd white 100% 100%;
-	jtab-border-color: #888;
 }
 
 .MPartSashContainer {

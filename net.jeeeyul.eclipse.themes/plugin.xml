@@ -202,6 +202,28 @@
          <property-name
                name="jtab-hover-color">
          </property-name>
+         <property-name
+               name="jtab-margin">
+         </property-name>
+         <property-name
+               name="jtab-padding">
+         </property-name>
+         
+          <property-name
+               name="jtab-shadow-color">
+         </property-name>
+         
+          <property-name
+               name="jtab-shadow-radius">
+         </property-name>
+         
+          <property-name
+               name="jtab-shadow-position">
+         </property-name>
+         
+         <property-name
+               name="jtab-background-color">
+         </property-name>
       </handler>
    </extension>
 
