@@ -150,6 +150,11 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			case PART_BODY: {
 				drawTabBody(part, state, bounds, gc)
 			}
+			case PART_CHEVRON_BUTTON : {
+				gc.antialias = SWT.OFF
+				super.draw(part, state, bounds, gc)
+			}
+			
 			case part >= 0: {
 				drawTabItem(part, state, bounds, gc)
 			}

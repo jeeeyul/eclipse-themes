@@ -22,6 +22,7 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.graphics.Region;
 import org.eclipse.swt.widgets.ToolBar;
+import org.eclipse.swt.widgets.ToolItem;
 
 public class JTabRendererHelper {
 	static interface _CTabFolder {
@@ -36,7 +37,10 @@ public class JTabRendererHelper {
 		static final HackedField<CTabFolder, int[]> selectionGradientPercents = new HackedField<CTabFolder, int[]>(CTabFolder.class,
 				"selectionGradientPercents");
 		static final HackedField<CTabFolder, Integer> firstIndex = new HackedField<CTabFolder, Integer>(CTabFolder.class, "firstIndex");
-		
+
+		static final HackedField<CTabFolder, Image> chevronImage = new HackedField<CTabFolder, Image>(CTabFolder.class, "chevronImage");
+		static final HackedField<CTabFolder, ToolItem> chevronItem = new HackedField<CTabFolder, ToolItem>(CTabFolder.class, "chevronItem");
+
 	}
 
 	static interface _CTabItem {
@@ -52,10 +56,10 @@ public class JTabRendererHelper {
 				"selectedOuterColor");
 	}
 
-	public boolean getShowUnselectedClose(CTabFolder me){
+	public boolean getShowUnselectedClose(CTabFolder me) {
 		return _CTabFolder.showUnselectedClose.get(me);
 	}
-	
+
 	public int getFirstVisibleIndex(CTabFolder me) {
 		return _CTabFolder.firstIndex.get(me);
 	}

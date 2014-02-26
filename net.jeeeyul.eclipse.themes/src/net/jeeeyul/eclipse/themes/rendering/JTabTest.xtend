@@ -23,6 +23,8 @@ class JTabTest {
 			newCTabFolder(SWT.CLOSE)[
 				tabHeight = 22
 				unselectedCloseVisible = false
+				setMinimizeVisible(true)
+				setMaximizeVisible(true)
 				renderer = new JeeeyulsTabRenderer(it) => [
 					settings.margins = newInsets(10)
 					settings.paddings = newInsets(2)
