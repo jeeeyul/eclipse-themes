@@ -40,7 +40,7 @@ public class DragHandleFactory {
 			try {
 				HSB hsb = backgroundColor.getCopy();
 				hsb.brightness = new HSB(each).brightness;
-				hsb = hsb.mixWith(backgroundColor, 0.5f);
+				hsb = hsb.mixWith(backgroundColor, 0.7f);
 				newRGBs.add(hsb.toRGB());
 			} catch (Exception e) {
 				e.printStackTrace();

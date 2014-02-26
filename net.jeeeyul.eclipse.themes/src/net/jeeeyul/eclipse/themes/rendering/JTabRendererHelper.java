@@ -27,6 +27,7 @@ public class JTabRendererHelper {
 	static interface _CTabFolder {
 		static final HackedMethod0<CTabFolder, ToolBar> getChevron = new HackedMethod0<CTabFolder, ToolBar>(CTabFolder.class, "getChevron");
 		static final HackedField<CTabFolder, Boolean> chevronVisible = new HackedField<CTabFolder, Boolean>(CTabFolder.class, "chevronVisible");
+		static final HackedField<CTabFolder, Boolean> showUnselectedClose = new HackedField<CTabFolder, Boolean>(CTabFolder.class, "showUnselectedClose");
 		static final HackedField<CTabFolder, ToolBar> minMaxTb = new HackedField<CTabFolder, ToolBar>(CTabFolder.class, "minMaxTb");
 		static final HackedField<CTabFolder, Color[]> gradientColors = new HackedField<CTabFolder, Color[]>(CTabFolder.class, "gradientColors");
 		static final HackedField<CTabFolder, int[]> gradientPercents = new HackedField<CTabFolder, int[]>(CTabFolder.class, "gradientPercents");
@@ -35,6 +36,7 @@ public class JTabRendererHelper {
 		static final HackedField<CTabFolder, int[]> selectionGradientPercents = new HackedField<CTabFolder, int[]>(CTabFolder.class,
 				"selectionGradientPercents");
 		static final HackedField<CTabFolder, Integer> firstIndex = new HackedField<CTabFolder, Integer>(CTabFolder.class, "firstIndex");
+		
 	}
 
 	static interface _CTabItem {
@@ -50,6 +52,10 @@ public class JTabRendererHelper {
 				"selectedOuterColor");
 	}
 
+	public boolean getShowUnselectedClose(CTabFolder me){
+		return _CTabFolder.showUnselectedClose.get(me);
+	}
+	
 	public int getFirstVisibleIndex(CTabFolder me) {
 		return _CTabFolder.firstIndex.get(me);
 	}

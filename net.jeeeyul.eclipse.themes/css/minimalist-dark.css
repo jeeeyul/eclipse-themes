@@ -73,7 +73,7 @@
 
 .MTrimBar .Draggable {
 	handle-image:
-		url(chrome://drag-handle?height=22&background-color=#222&embossed=false);
+		url(chrome://drag-handle?height=33&background-color=#222&embossed=false);
 }
 
 #org-eclipse-ui-main-toolbar .Draggable {
@@ -85,4 +85,9 @@
 	frame-image: url(chrome://frame?background-color=#ddd);
 	handle-image:
 		url(chrome://drag-handle?height=22&background-color=333&embossed=false);
+}
+
+#org-eclipse-ui-trim-status .Draggable {
+	handle-image:
+		url(chrome://drag-handle?height=22&background-color=#333&embossed=false);
 }

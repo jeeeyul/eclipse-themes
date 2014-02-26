@@ -260,16 +260,6 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 					false
 				}
 			}
-			case "jtab-background-color": {
-				var rgb = CSSSWTColorHelper.getRGB(value as CSSValue)
-				if(rgb != null) {
-					var hsb = new HSB(rgb.red, rgb.green, rgb.blue)
-					settings.backgroundColor = hsb
-				} else {
-					settings.backgroundColor = null
-				}
-				true
-			}
 			case "jtab-shadow-color": {
 				var rgb = CSSSWTColorHelper.getRGB(value as CSSValue)
 				if(rgb != null) {
@@ -402,7 +392,79 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 	}
 
 	override retrieveCSSProperty(Object element, String property, String pseudo, CSSEngine engine) throws Exception {
-		return null
+		var tabFolderElement = element as CTabFolderElement
+		var tabFolder = tabFolderElement.nativeWidget as CTabFolder
+		if(!(tabFolder.renderer instanceof JeeeyulsTabRenderer)) {
+			return null;
+		}
+		var renderer = tabFolder.renderer as JeeeyulsTabRenderer
+		var settings = renderer.settings
+		
+		
+		return 
+			switch(property){
+				case "jtab-border-color" : toHTML(settings.borderColors, settings.borderPercents)
+				case "jtab-selected-border-color" : toHTML(settings.selectedBorderColors, settings.selectedBorderPercents)
+				case "jtab-unselected-border-color" : toHTML(settings.unselectedBorderColors, settings.unselectedBorderPercents)
+				case "jtab-hover-border-color" : toHTML(settings.hoverBorderColors, settings.hoverBorderPercents)
+				
+				case "jtab-border-radius" : '''«settings.borderRadius»px'''
+				case "jtab-spacing" : '''«settings.tabSpacing»px'''
+				
+				case "jtab-close-button-color" : settings.closeButtonColor.safeHTML
+				case "jtab-close-button-hot-color" : settings.closeButtonHotColor.safeHTML
+				case "jtab-close-button-active-color" : settings.closeButtonActiveColor.safeHTML
+				case "jtab-close-button-line-width" : '''«settings.closeButtonLineWidth»px'''
+				
+				
+				case "jtab-unselected-tabs-background" : toHTML(settings.unselectedBackgroundColors, settings.unselectedBackgroundPercents)
+				case "jtab-hover-tabs-background" : toHTML(settings.hoverBackgroundColors, settings.hoverBackgroundPercents)
+				
+				case "jtab-hover-color" : settings.hoverForgroundColor.safeHTML
+				
+				case "jtab-margin" : '''«settings.margins.y»px «settings.margins.width»px «settings.margins.height»px «settings.margins.x»px'''
+				case "jtab-padding" : '''«settings.paddings.y»px «settings.paddings.width»px «settings.paddings.height»px «settings.paddings.x»px'''
+				
+				case "jtab-shadow-color" : settings.shadowColor.safeHTML
+				case "jtab-shadow-radius" : '''«settings.shadowRadius»px'''
+				case "jtab-shadow-position" : settings.shadowPosition.safeHTML
+				case "jtab-selected-text-shadow-color" : settings.selectedTextShadowColor.safeHTML
+				case "jtab-unselected-text-shadow-color" : settings.unselectedTextShadowColor.safeHTML
+				case "jtab-hover-text-shadow-color" : settings.hoverTextShadowColor.safeHTML
+				
+				case "jtab-selected-text-shadow-position" : settings.selectedTextShadowPosition.safeHTML
+				case "jtab-unselected-text-shadow-position" : settings.unselectedTextShadowPosition.safeHTML
+				case "jtab-hover-text-shadow-position" : settings.hoverTextShadowPosition.safeHTML
+				
+				case "jtab-item-padding" : '''0px «settings.tabItemPaddings.width»px 0px «settings.tabItemPaddings.x»px'''
+				case "jtab-item-horizontal-spacing" : '''«settings.tabItemHorizontalSpacing»px'''
+				default : null
+			}
+	}
+	
+	
+	def String safeHTML(HSB hsb){
+		if(hsb == null){
+			"none"
+		}else{
+			hsb.toHTMLCode
+		}
+	}
+	
+	def String safeHTML(Point point){
+		if(point == null){
+			"none"
+		}else{
+			'''«point.x»px «point.y»px'''
+		}
+	}
+	
+	def private toHTML(HSB[] colors, int[] percents){
+		if(colors == null || percents == null){
+			return "none";
+		}else{
+			return '''«colors.join(' ')[it.toHTMLCode]» «percents.join(" ")[it + "%"]»'''
+		}
 	}
 
 	def Rectangle toInset(CSSValueList list) {

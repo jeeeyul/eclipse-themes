@@ -227,10 +227,6 @@
          </property-name>
          
          <property-name
-               name="jtab-background-color">
-         </property-name>
-         
-         <property-name
                name="jtab-selected-text-shadow-color">
          </property-name>
          <property-name

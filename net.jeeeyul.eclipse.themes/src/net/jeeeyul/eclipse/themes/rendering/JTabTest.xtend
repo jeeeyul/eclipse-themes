@@ -33,7 +33,7 @@ class JTabTest {
 					settings.borderWidth = 1
 					settings.closeButtonLineWidth = 2
 					settings.tabSpacing = 2
-					settings.tabItemHorizontalSpacing = 20
+					settings.tabItemHorizontalSpacing = 0
 					settings.tabItemPaddings = new Rectangle(0, 0, 0, 0)
 					
 					settings.hoverBackgroundColors = null
@@ -51,7 +51,7 @@ class JTabTest {
 				newCTabItem[
 					text = "First"
 					showClose = true
-					image = SharedImages.getImage(SharedImages.ADD)
+					image = SharedImages.getImage(SharedImages.BLOCK)
 					
 					newComposite[
 						newCanvas[
@@ -61,8 +61,8 @@ class JTabTest {
 				]
 				
 				newCTabItem[
-					text = "First"
-					image = SharedImages.getImage(SharedImages.ADD)
+					text = "Sec"
+					image = SharedImages.getImage(SharedImages.BLOCK)
 					
 					newComposite[
 						newCanvas[
@@ -72,8 +72,8 @@ class JTabTest {
 				]
 				
 				newCTabItem[
-					text = "First"
-					image = SharedImages.getImage(SharedImages.ADD)
+					text = "Third"
+					image = SharedImages.getImage(SharedImages.BLOCK)
 					
 					newComposite[
 						newCanvas[
@@ -83,7 +83,7 @@ class JTabTest {
 				]
 				
 				newCTabItem[
-					text = "First"
+					text = "Four"
 					image = SharedImages.getImage(SharedImages.ADD)
 					
 					newComposite[

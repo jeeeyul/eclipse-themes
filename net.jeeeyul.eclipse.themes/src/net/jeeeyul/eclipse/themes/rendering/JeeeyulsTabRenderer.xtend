@@ -2,7 +2,6 @@ package net.jeeeyul.eclipse.themes.rendering
 
 import java.beans.PropertyChangeEvent
 import java.beans.PropertyChangeListener
-import net.jeeeyul.eclipse.themes.rendering.internal.ShadowGenerator
 import net.jeeeyul.swtend.SWTExtensions
 import net.jeeeyul.swtend.ui.HSB
 import net.jeeeyul.swtend.ui.NinePatch
@@ -14,6 +13,7 @@ import org.eclipse.swt.graphics.GC
 import org.eclipse.swt.graphics.Path
 import org.eclipse.swt.graphics.Point
 import org.eclipse.swt.graphics.Rectangle
+import net.jeeeyul.eclipse.themes.rendering.internal.Shadow9PatchFactory
 
 class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	extension JTabRendererHelper = new JTabRendererHelper
@@ -57,9 +57,30 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	override protected computeSize(int part, int state, GC gc, int wHint, int hHint) {
 		switch (part) {
 			case (part >= 0): {
-				var result = super.computeSize(part, state, gc, wHint, hHint)
-				result.x = result.x + Math.max(settings.tabSpacing , 0) + settings.tabItemHorizontalSpacing * 2 + settings.tabItemPaddings.x + settings.tabItemPaddings.width
-				return result
+				var item = parent.getItem(part)
+				var width = 0
+				var height = 0
+				width = width + settings.tabItemPaddings.x
+				if(item.image != null) {
+					width = width + item.image.bounds.width
+					width = width + settings.tabItemHorizontalSpacing
+					height = item.image.bounds.height
+				}
+				var textSize = item.text.computeTextExtent(#[item.font, parent.font].firstNotNull)
+				width = width + textSize.x + 4
+				height = Math.max(height, textSize.y)
+
+				if(parent.showClose || item.showClose) {
+					if(state.hasFlags(SWT.SELECTED) || parent.showUnselectedClose) {
+						var closeButtonSize = computeSize(PART_CLOSE_BUTTON, SWT.NONE, gc, SWT.DEFAULT, SWT.DEFAULT)
+						width = width + settings.tabItemHorizontalSpacing
+						width = width + closeButtonSize.x
+						height = Math.max(height, closeButtonSize.y)
+					}
+				}
+
+				width = width + settings.tabItemPaddings.width
+				return new Point(width, height)
 			}
 			case PART_CLOSE_BUTTON: {
 				return new Point(10, 10)
@@ -309,6 +330,17 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		var iconArea = item.image.bounds.relocateLeftWith(item.bounds).translate(settings.tabItemPaddings.x, 0);
 		gc.drawImage(item.image, iconArea.topLeft)
 
+		// Draw Close Button
+		if((tabFolder.showClose || item.showClose) && item.closeRect.width > 0) {
+			item.closeRect.x = item.bounds.right.x - item.closeRect.width - 4 - settings.tabItemPaddings.width
+			if(item != tabFolder.lastVisibleItem) {
+				item.closeRect.translate(-Math.max(settings.tabSpacing, 0) + 3, 0)
+			}
+			gc.withClip(item.closeRect) [
+				draw(PART_CLOSE_BUTTON, item.closeImageState, item.closeRect, gc)
+			]
+		}
+
 		// Draw Text
 		gc.font = if(item.font != null) {
 			item.font
@@ -318,6 +350,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 		val textSize = item.text.computeTextExtent(gc.font);
 		val textArea = newRectangleWithSize(textSize).relocateLeftWith(iconArea.right).translate(settings.tabItemHorizontalSpacing, 0)
+
 		if((item.showClose || tabFolder.showClose) && item.closeRect.width > 0) {
 			textArea.setRight(item.closeRect.x - settings.tabItemHorizontalSpacing);
 		} else {
@@ -337,17 +370,6 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			gc.foreground = settings.getTextColorFor(state).toAutoReleaseColor
 			gc.drawString(text, textArea.topLeft)
 		]
-
-		// Draw Close Button
-		if((tabFolder.showClose || item.showClose) && item.closeRect.width > 0) {
-			item.closeRect.x = item.bounds.right.x - item.closeRect.width - 4 - settings.tabItemPaddings.width
-			if(item != tabFolder.lastVisibleItem) {
-				item.closeRect.translate(-Math.max(settings.tabSpacing, 0) + 3, 0)
-			}
-			gc.withClip(item.closeRect) [
-				draw(PART_CLOSE_BUTTON, item.closeImageState, item.closeRect, gc)
-			]
-		}
 
 		// Draw Border and Keyline
 		drawTabItemBorder(part, state, itemBounds, gc)
@@ -539,8 +561,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 	def getShadow() {
 		if(shadowNinePatch == null || shadowNinePatch.disposed) {
-			var background = #[settings.backgroundColor?.toRGB, tabFolder.background.RGB].firstNotNull
-			shadowNinePatch = ShadowGenerator.createNinePatch(background, settings.shadowColor.toRGB, settings.borderRadius, settings.shadowRadius);
+			shadowNinePatch = Shadow9PatchFactory.createShadowPatch(settings.shadowColor.toRGB, settings.borderRadius, settings.shadowRadius);
 		}
 		return shadowNinePatch;
 	}

@@ -19,7 +19,7 @@ public class FrameFactory {
 				HSB copy = backgroundColor.getCopy();
 				HSB hsb = new HSB(each);
 				copy.brightness = hsb.brightness;
-				copy = copy.mixWith(backgroundColor, 0.5f);
+				copy = copy.mixWith(backgroundColor, 0.7f);
 				newRGBs.add(copy.toRGB());
 			} catch (Exception e) {
 				e.printStackTrace();

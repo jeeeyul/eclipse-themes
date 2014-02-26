@@ -19,7 +19,7 @@
 	swt-unselected-tabs-color: #ededed #e1e1e1 white 100% 100%;
 	swt-selected-tabs-background: white white 100%;
 	jtab-unselected-tabs-background: none;
-	jtab-hover-tabs-background: #bbb #ccc 100%;
+	jtab-hover-tabs-background: #f4f4f4 #ececec 100%;
 	jtab-margin: 0px 3px 3px 2px;
 	jtab-shadow-color: #bbb;
 	jtab-shadow-radius: 3px;
@@ -34,7 +34,7 @@
 	jtab-border-color: #a6a6a6;
 	jtab-selected-border-color: #a6a6a6;
 	jtab-unselected-border-color: none;
-	jtab-hover-border-color: gray #ddd 100%;
+	jtab-hover-border-color: #d1d4dc #c9ccd4 100%;
 	jtab-unselected-text-shadow-color: white;
 	jtab-hover-text-shadow-color: white;
 }
@@ -85,7 +85,7 @@
 
 .MTrimBar .Draggable {
 	handle-image:
-		url(chrome://drag-handle?height=22&background-color=#ddd&embossed=false);
+		url(chrome://drag-handle?height=33&background-color=#ddd&embossed=false);
 }
 
 #org-eclipse-ui-main-toolbar .Draggable {
@@ -97,4 +97,9 @@
 	frame-image: url(chrome://frame?background-color=#ddd);
 	handle-image:
 		url(chrome://drag-handle?height=22&background-color=#ededed&embossed=false);
+}
+
+#org-eclipse-ui-trim-status .Draggable {
+	handle-image:
+		url(chrome://drag-handle?height=22&background-color=#ddd&embossed=false);
 }

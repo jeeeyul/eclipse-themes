@@ -28,7 +28,6 @@ public class JTabSettings {
 	private HSB[] hoverBackgroundColors = null;
 	private int[] hoverBackgroundPercents = null;
 	private HSB hoverForgroundColor = null;
-	private HSB backgroundColor = HSB.WIDGET_BACKGROUND;
 	private HSB unselectedTextShadowColor = null;
 	private HSB selectedTextShadowColor = null;
 	private HSB hoverTextShadowColor = null;
@@ -68,10 +67,6 @@ public class JTabSettings {
 		} else {
 			return a.equals(b);
 		}
-	}
-
-	public HSB getBackgroundColor() {
-		return backgroundColor;
 	}
 
 	public HSB[] getBorderColors() {
@@ -216,15 +211,6 @@ public class JTabSettings {
 
 	public void removePropertyChangeListener(String arg0, PropertyChangeListener arg1) {
 		pcs.removePropertyChangeListener(arg0, arg1);
-	}
-
-	public void setBackgroundColor(HSB backgroundColor) {
-		if (areSame(this.backgroundColor, backgroundColor)) {
-			return;
-		}
-		HSB old = this.backgroundColor;
-		this.backgroundColor = backgroundColor;
-		pcs.firePropertyChange("background-color", old, backgroundColor);
 	}
 
 	public void setBorderColors(HSB[] borderColors) {
