@@ -73,7 +73,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				if(parent.showClose || item.showClose) {
 					if(state.hasFlags(SWT.SELECTED) || parent.showUnselectedClose) {
 						var closeButtonSize = computeSize(PART_CLOSE_BUTTON, SWT.NONE, gc, SWT.DEFAULT, SWT.DEFAULT)
-						width = width + settings.tabItemHorizontalSpacing
+						width = width + settings.tabItemHorizontalSpacing + 1
 						width = width + closeButtonSize.x
 						height = Math.max(height, closeButtonSize.y)
 					}
@@ -332,8 +332,14 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 		// Draw Icon
 		// fixme: ICON may not exists.
-		var iconArea = item.image.bounds.relocateLeftWith(item.bounds).translate(settings.tabItemPaddings.x, 0);
-		gc.drawImage(item.image, iconArea.topLeft)
+		var iconArea = if(item.image != null)
+			item.image.bounds.relocateLeftWith(item.bounds).translate(settings.tabItemPaddings.x, 0)
+		else
+			new Rectangle(itemBounds.x + settings.tabItemPaddings.x, 0, 0, itemBounds.height)
+		
+		if(item.image != null){
+			gc.drawImage(item.image, iconArea.topLeft)
+		}	
 
 		// Draw Close Button
 		if((tabFolder.showClose || item.showClose) && item.closeRect.width > 0) {

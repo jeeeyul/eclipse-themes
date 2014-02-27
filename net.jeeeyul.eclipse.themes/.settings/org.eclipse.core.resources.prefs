@@ -1,6 +1,2 @@
 eclipse.preferences.version=1
-encoding//src/net/jeeeyul/eclipse/themes/css/ChromeCSSGenerator.xtend=UTF-8
-encoding//src/net/jeeeyul/eclipse/themes/messages.properties=ISO-8859-1
-encoding//src/net/jeeeyul/eclipse/themes/preference/CommonPartPage.xtend=UTF-8
-encoding//src/net/jeeeyul/eclipse/themes/userpreset/UserPresetRepository.xtend=UTF-8
 encoding/<project>=UTF-8

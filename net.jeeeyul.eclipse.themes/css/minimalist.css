@@ -17,6 +17,7 @@
 	jtab-hover-color: black;
 	swt-unselected-tabs-color: #eee #ddd white 100% 100%;
 	swt-selected-tabs-background: white white 100%;
+	swt-mru-visible: true;
 	jtab-unselected-tabs-background: none;
 	jtab-hover-tabs-background: #bbb #ccc 100%;
 	jtab-margin: 0px 3px 3px 2px;
