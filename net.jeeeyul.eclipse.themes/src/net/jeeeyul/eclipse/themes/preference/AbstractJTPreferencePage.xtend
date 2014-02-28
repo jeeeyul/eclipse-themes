@@ -1,21 +1,23 @@
 package net.jeeeyul.eclipse.themes.preference
 
-import org.eclipse.jface.preference.PreferencePage
-import org.eclipse.ui.IWorkbenchPreferencePage
-import org.eclipse.swt.widgets.Composite
-import org.eclipse.ui.IWorkbench
-import org.eclipse.swt.widgets.Control
+import net.jeeeyul.eclipse.themes.rendering.JTabSettings
 import net.jeeeyul.swtend.SWTExtensions
+import org.eclipse.swt.custom.CTabFolder
+import org.eclipse.swt.widgets.Composite
+import org.eclipse.swt.widgets.Control
 
-abstract class AbstractJTPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
+abstract class AbstractJTPreferencePage {
+	@Property String name
 
-	override protected createContents(Composite parent) {
-		return createContents(parent, SWTExtensions.INSTANCE, new PreperencePageHelper)
+	new(String name) {
+		this.name = name
 	}
 
-	override init(IWorkbench workbench) {
-	}
+	public abstract def Control createContents(Composite parent, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper);
 
-	protected abstract def Control createContents(Composite parent, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper);
+	public abstract def void updatePreview(CTabFolder folder, JTabSettings renderSettings, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper)
 
+	public abstract def void load(JThemePreferenceStore store, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper)
+
+	public abstract def void save(JThemePreferenceStore store, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper)
 }

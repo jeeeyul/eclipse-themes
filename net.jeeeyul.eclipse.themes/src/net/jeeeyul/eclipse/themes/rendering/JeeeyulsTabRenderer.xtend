@@ -85,6 +85,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			case PART_CLOSE_BUTTON: {
 				return new Point(10, 10)
 			}
+			
 			default: {
 				super.computeSize(part, state, gc, wHint, hHint)
 			}
@@ -113,8 +114,12 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 					result.height = result.height + tabFolder.tabHeight + settings.paddings.y + settings.margins.height + settings.paddings.height + settings.borderWidth * 2 + 2
 				} else {
 					result.y = result.y - tabFolder.tabHeight - settings.paddings.y - settings.borderWidth - 1
-					result.height = result.height + tabFolder.tabHeight + settings.paddings.y + settings.margins.height + settings.paddings.height + settings.borderWidth * 2 + 1
+					result.height = result.height + tabFolder.tabHeight + settings.paddings.y + settings.margins.height + settings.paddings.height + settings.borderWidth * 2 + 1 
 				}
+			}
+			
+			case PART_BACKGROUND:{
+				result.height = result.height + 10
 			}
 			case (part >= 0): {
 				var item = tabFolder.getItem(part)
@@ -164,8 +169,8 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	}
 
 	private def getHeaderArea() {
-		var headerArea = if(!tabFolder.onBottom) {
-				new Rectangle(settings.margins.x, 0, tabFolder.size.x - settings.margins.x - settings.margins.height, tabFolder.tabHeight + 2)
+		var headerArea = if(tabFolder.onTop) {
+				new Rectangle(settings.margins.x, 0, tabFolder.size.x - settings.margins.x - settings.margins.width, tabFolder.tabHeight + 2)
 			} else {
 				new Rectangle(0, tabFolder.size.y, tabFolder.size.x, tabFolder.size.y) => [
 					shrink(settings.margins.x, 0, settings.margins.width, 0)
@@ -260,20 +265,21 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		// Draw Border
 		if(state.hasFlags(SWT.FOREGROUND) && settings.borderWidth > 0 && settings.borderColors != null && settings.borderPercents != null) {
 			val offset = tabArea.getResized(-1, -1).shrink(settings.borderWidth / 2)
+			val headerOffset = headerArea.getResized(-1, 0)
 			gc.lineWidth = settings.borderWidth
 
 			val headerPath = newPath[
 				autoRelease()
 				if(settings.borderRadius > 0) {
-					moveTo(headerArea.bottomRight)
+					moveTo(headerOffset.bottomRight)
 					var corner = newRectangleWithSize(settings.borderRadius * 2)
-					corner.relocateTopRightWith(headerArea)
+					corner.relocateTopRightWith(headerOffset)
 					lineTo(corner.right)
 					addArc(corner, 0, 90)
-					corner.relocateTopLeftWith(headerArea)
+					corner.relocateTopLeftWith(headerOffset)
 					lineTo(corner.top)
 					addArc(corner, 90, 90)
-					lineTo(headerArea.bottomLeft)
+					lineTo(headerOffset.bottomLeft)
 
 				} else {
 					addRectangle(offset)
@@ -283,13 +289,13 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			val bodyPath = newPath[
 				var corner = newRectangleWithSize(settings.borderRadius * 2)
 				moveTo(headerArea.bottomLeft)
-				corner.relocateBottomLeftWith(tabArea)
+				corner.relocateBottomLeftWith(offset)
 				lineTo(corner.left)
 				addArc(corner, 180, 90)
-				corner.relocateBottomRightWith(tabArea)
+				corner.relocateBottomRightWith(offset)
 				lineTo(corner.bottom)
 				addArc(corner, 270, 90)
-				lineTo(headerArea.bottomRight)
+				lineTo(headerArea.bottomRight.getTranslated(-1, 0))
 			]
 			gc.foreground = settings.borderColors.last.toAutoReleaseColor
 			gc.draw(bodyPath)

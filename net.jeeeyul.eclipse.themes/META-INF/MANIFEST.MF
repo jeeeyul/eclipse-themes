@@ -19,7 +19,8 @@ Require-Bundle: org.eclipse.ui,
  org.w3c.css.sac,
  org.eclipse.jface.text,
  org.eclipse.e4.ui.model.workbench,
- net.jeeeyul.swtend;bundle-version="1.2.2"
+ net.jeeeyul.swtend;bundle-version="1.2.2",
+ org.eclipse.ui.forms
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,

@@ -157,5 +157,13 @@
          </property-name>
       </handler>
    </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="net.jeeeyul.eclipse.themes.preference.ThemeEditor"
+            id="net.jeeeyul.eclipse.themes.preference.ThemeEditor"
+            name="New EditorPart">
+      </editor>
+   </extension>
 
 </plugin>
