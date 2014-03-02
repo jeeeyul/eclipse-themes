@@ -326,7 +326,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			else
 				item.bounds.getResized(-Math.max(settings.tabSpacing, 0), 1)
 
-		if(settings.tabSpacing == -1){
+		if(settings.tabSpacing == -1) {
 			itemBounds.resize(1, 0)
 		}
 
@@ -363,12 +363,12 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		val textSize = item.text.computeTextExtent(gc.font);
 		val textArea = newRectangleWithSize(textSize).relocateLeftWith(iconArea.right).translate(settings.tabItemHorizontalSpacing, 0)
 
-		if((item.showClose || tabFolder.showClose) && item.closeRect.width > 0) {
+		if((item.showClose || tabFolder.showClose) && item.closeRect != null && item.closeRect.width > 0) {
 			textArea.setRight(item.closeRect.x - settings.tabItemHorizontalSpacing);
 		} else {
 			textArea.setRight(itemBounds.right.x - settings.tabItemHorizontalSpacing)
 		}
-		
+
 		gc.foreground = COLOR_MARGENTA
 		gc.lineWidth = 1
 		gc.draw(textArea)
