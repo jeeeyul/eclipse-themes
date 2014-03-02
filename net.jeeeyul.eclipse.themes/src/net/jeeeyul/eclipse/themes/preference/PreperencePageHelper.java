@@ -13,10 +13,13 @@ import net.jeeeyul.swtend.ui.HSB;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Scale;
 
 public class PreperencePageHelper {
 
@@ -68,6 +71,7 @@ public class PreperencePageHelper {
 			public void handleEvent(Event event) {
 				HSB original = result.getSelection();
 				ColorPicker picker = new ColorPicker(result.getShell());
+				picker.setSelection(original);
 				picker.setContinuosSelectionHandler(new Procedure1<HSB>() {
 					@Override
 					public void apply(HSB t) {
@@ -104,6 +108,20 @@ public class PreperencePageHelper {
 		}
 
 		return button;
+	}
+
+	public Label appendMonitor(final Scale scale, final String unit, final int delta) {
+		final Label label = new Label(scale.getParent(), SWT.NORMAL);
+		scale.addListener(SWT.Selection, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				label.setText((scale.getSelection() + delta) + unit);
+			}
+		});
+
+		label.setLayoutData(new GridData(40, -1));
+
+		return label;
 	}
 
 	public List<Integer> asSWTSafePercentArray(Gradient gradient) {

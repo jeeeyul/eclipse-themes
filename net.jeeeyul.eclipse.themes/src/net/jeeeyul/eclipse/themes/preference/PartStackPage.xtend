@@ -2,24 +2,21 @@ package net.jeeeyul.eclipse.themes.preference
 
 import net.jeeeyul.eclipse.themes.rendering.JTabSettings
 import net.jeeeyul.swtend.SWTExtensions
-import net.jeeeyul.swtend.ui.ColorWell
 import net.jeeeyul.swtend.ui.GradientEdit
-import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.CTabFolder
 import org.eclipse.swt.graphics.Color
-import org.eclipse.swt.graphics.Point
 import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Composite
-import org.eclipse.swt.widgets.Event
-import org.eclipse.swt.graphics.Rectangle
 
-class PartPage extends AbstractJTPreferencePage {
+class PartStackPage extends AbstractJTPreferencePage {
 	Color[] backgroundColors = #[]
 	GradientEdit backgroundEdit
 	GradientEdit borderEdit
 	Button hideBorderButton
-	Button castShadowButton
-	ColorWell shadowColorWell
+
+	GradientEdit unselectedBackgroundEdit
+	GradientEdit unselectedBorderEdit
+	Button hideUnselectedBorderButton
 
 	new() {
 		super("Part")
@@ -57,20 +54,37 @@ class PartPage extends AbstractJTPreferencePage {
 					onSelection = [requestUpdatePreview(false)]
 				]
 			]
+			
+			newRadioButton[
+				text = "A"
+			]
 			newGroup[
-				text = "Shadow"
+				text = "Unselected"
 				layoutData = FILL_HORIZONTAL
 				layout = newGridLayout[
-					numColumns = 2
+					numColumns = 4
 				]
-				castShadowButton = newCheckbox[
-					text = "Cast Shadow"
-					onSelection = [requestUpdatePreview(false)]
-				]
-				shadowColorWell = newColorWell[
+				newLabel[text = "Background"]
+				unselectedBackgroundEdit = newGradientEdit[
+					layoutData = FILL_HORIZONTAL
 					onModified = [
 						requestUpdatePreview(false)
 					]
+				]
+				unselectedBackgroundEdit.appendOrderLockButton [
+					layoutData = newGridData[horizontalSpan = 2]
+				]
+				newLabel[text = "Border"]
+				unselectedBorderEdit = newGradientEdit[
+					layoutData = FILL_HORIZONTAL
+					onModified = [
+						requestUpdatePreview(false)
+					]
+				]
+				unselectedBorderEdit.appendOrderLockButton[]
+				hideUnselectedBorderButton = newCheckbox[
+					text = "Hide"
+					onSelection = [requestUpdatePreview(false)]
 				]
 			]
 		]
@@ -80,7 +94,6 @@ class PartPage extends AbstractJTPreferencePage {
 		backgroundColors.safeDispose()
 		backgroundColors = backgroundEdit.selection.asSWTSafeHSBArray.createColors
 		folder.setBackground(backgroundColors, backgroundEdit.selection.asSWTSafePercentArray, true)
-		folder.tabHeight = 22
 
 		if(hideBorderButton.selection == false) {
 			renderSettings.borderColors = borderEdit.selection.asSWTSafeHSBArray
@@ -90,25 +103,27 @@ class PartPage extends AbstractJTPreferencePage {
 			renderSettings.borderPercents = null
 		}
 
-		if(castShadowButton.selection) {
-			renderSettings.margins = new Rectangle(1, 0, 4, 4)
-			renderSettings.shadowColor = shadowColorWell.selection
-			renderSettings.shadowPosition = new Point(1, 1)
-			renderSettings.shadowRadius = 3
+		renderSettings.unselectedBackgroundColors = this.unselectedBackgroundEdit.selection.asSWTSafeHSBArray
+		renderSettings.unselectedBackgroundPercents = this.unselectedBackgroundEdit.selection.asSWTSafePercentArray
+		renderSettings.tabItemHorizontalSpacing = 0
+
+		if(this.hideUnselectedBorderButton.selection == false) {
+			renderSettings.unselectedBorderColors = this.unselectedBorderEdit.selection.asSWTSafeHSBArray
+			renderSettings.unselectedBorderPercents = this.unselectedBorderEdit.selection.asSWTSafePercentArray
 		} else {
-			renderSettings.margins = new Rectangle(0, 0, 0, 0)
-			renderSettings.shadowColor = null
-			renderSettings.shadowRadius = 0
+			renderSettings.unselectedBorderColors = null
+			renderSettings.unselectedBorderPercents = null
 		}
 
-		folder.notifyListeners(SWT.Resize, new Event())
-		folder.layout(true, true)
 	}
 
 	override load(JThemePreferenceStore store, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
 	}
 
 	override save(JThemePreferenceStore store, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
+	}
+
+	override dispose(extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
 	}
 
 }

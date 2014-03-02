@@ -20,4 +20,6 @@ abstract class AbstractJTPreferencePage {
 	public abstract def void load(JThemePreferenceStore store, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper)
 
 	public abstract def void save(JThemePreferenceStore store, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper)
+	
+	public abstract def void dispose(extension SWTExtensions swtExtensions, extension PreperencePageHelper helper)
 }

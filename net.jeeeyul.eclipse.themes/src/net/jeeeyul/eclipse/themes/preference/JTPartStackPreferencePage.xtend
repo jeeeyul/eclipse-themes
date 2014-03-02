@@ -7,10 +7,11 @@ import net.jeeeyul.swtend.ui.GradientEdit
 import org.eclipse.jface.preference.PreferencePage
 import org.eclipse.swt.custom.CTabFolder
 import org.eclipse.swt.graphics.Color
+import org.eclipse.swt.layout.FillLayout
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.ui.IWorkbench
 import org.eclipse.ui.IWorkbenchPreferencePage
-import org.eclipse.swt.layout.FillLayout
+import org.eclipse.swt.SWT
 
 class JTPartStackPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 	extension SWTExtensions swtExt = SWTExtensions.INSTANCE
@@ -22,14 +23,15 @@ class JTPartStackPreferencePage extends PreferencePage implements IWorkbenchPref
 	Color[] tabBackground
 	CTabFolder folder
 
-	List<AbstractJTPreferencePage> pages = newArrayList(new PartPage)
+	List<AbstractJTPreferencePage> pages = newArrayList(new PartStackPage, new LayoutPage)
 
 	override init(IWorkbench workbench) {
 	}
 
 	override protected createContents(Composite parent) {
-		folder = parent.newCTabFolder[]
+		folder = parent.newCTabFolder(SWT.CLOSE)[]
 		folder => [
+			setUnselectedCloseVisible(false)
 			it.renderer = renderer = new JeeeyulsTabRenderer(it)
 			for (each : pages) {
 				newCTabItem[
@@ -66,13 +68,18 @@ class JTPartStackPreferencePage extends PreferencePage implements IWorkbenchPref
 			]
 			new JTPartStackPreferencePage().createContents(it)
 		]
-		
+
 		asyncExec[
 			shell.pack()
 			shell.open()
 		]
 
 		shell.runLoop()
+	}
+
+	override dispose() {
+		pages.forEach[it.dispose(swtExt, helper)]
+		super.dispose()
 	}
 
 }
