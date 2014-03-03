@@ -1,19 +1,25 @@
 package net.jeeeyul.eclipse.themes.preference;
 
+import java.io.IOException;
+
 import net.jeeeyul.eclipse.themes.internal.SerializeUtil;
 import net.jeeeyul.swtend.ui.Gradient;
 import net.jeeeyul.swtend.ui.HSB;
 
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.preference.PreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
 public class JThemePreferenceStore implements IPreferenceStore {
-	private IPreferenceStore originalStore;
+	private PreferenceStore originalStore;
 	private SerializeUtil serializeUtil = new SerializeUtil();
 
-	public JThemePreferenceStore(IPreferenceStore originalStore) {
+	public JThemePreferenceStore() {
+	}
+
+	public JThemePreferenceStore(PreferenceStore originalStore) {
 		super();
 		this.originalStore = originalStore;
 	}
@@ -122,6 +128,10 @@ public class JThemePreferenceStore implements IPreferenceStore {
 		return originalStore.getLong(name);
 	}
 
+	public PreferenceStore getOriginalStore() {
+		return originalStore;
+	}
+
 	public Point getPoint(String name) {
 		String exp = originalStore.getString(name);
 		if (exp == null) {
@@ -198,6 +208,10 @@ public class JThemePreferenceStore implements IPreferenceStore {
 		originalStore.setDefault(name, serializeUtil.serialize(point));
 	}
 
+	public void setOriginalStore(PreferenceStore originalStore) {
+		this.originalStore = originalStore;
+	}
+
 	public void setToDefault(String name) {
 		originalStore.setToDefault(name);
 	}
@@ -240,5 +254,13 @@ public class JThemePreferenceStore implements IPreferenceStore {
 
 	public void setValue(String name, String value) {
 		originalStore.setValue(name, value);
+	}
+
+	public void save() {
+		try {
+			originalStore.save();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

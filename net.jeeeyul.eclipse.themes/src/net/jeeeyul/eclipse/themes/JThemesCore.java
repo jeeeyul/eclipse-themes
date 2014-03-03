@@ -8,6 +8,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.e4.ui.css.swt.theme.IThemeEngine;
 import org.eclipse.e4.ui.css.swt.theme.IThemeManager;
+import org.eclipse.jface.preference.PreferenceStore;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
@@ -22,7 +23,7 @@ public class JThemesCore extends AbstractUIPlugin {
 
 	// The plug-in ID
 	public static final String PLUGIN_ID = "net.jeeeyul.eclipse.themes"; //$NON-NLS-1$
-	
+
 	public static final String CUSTOM_THEME_ID = "net.jeeeyul.eclipse.themes.custom";
 
 	// The shared instance
@@ -75,7 +76,7 @@ public class JThemesCore extends AbstractUIPlugin {
 	@Override
 	public JThemePreferenceStore getPreferenceStore() {
 		if (preferenceStore == null) {
-			preferenceStore = new JThemePreferenceStore(super.getPreferenceStore());
+			preferenceStore = new JThemePreferenceStore((PreferenceStore) super.getPreferenceStore());
 		}
 		return preferenceStore;
 	}

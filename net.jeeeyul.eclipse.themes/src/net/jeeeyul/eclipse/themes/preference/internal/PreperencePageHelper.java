@@ -1,8 +1,10 @@
-package net.jeeeyul.eclipse.themes.preference;
+package net.jeeeyul.eclipse.themes.preference.internal;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import net.jeeeyul.eclipse.themes.preference.JTActivePartStackPreferencePage;
+import net.jeeeyul.swtend.SWTExtensions;
 import net.jeeeyul.swtend.sam.Procedure1;
 import net.jeeeyul.swtend.ui.ColorPicker;
 import net.jeeeyul.swtend.ui.ColorStop;
@@ -13,6 +15,7 @@ import net.jeeeyul.swtend.ui.HSB;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -23,9 +26,9 @@ import org.eclipse.swt.widgets.Scale;
 
 public class PreperencePageHelper {
 
-	private JTPartStackPreferencePage root;
+	private JTActivePartStackPreferencePage root;
 
-	public PreperencePageHelper(JTPartStackPreferencePage root) {
+	public PreperencePageHelper(JTActivePartStackPreferencePage root) {
 		this.root = root;
 	}
 
@@ -49,8 +52,8 @@ public class PreperencePageHelper {
 		return result;
 	}
 
-	public void requestUpdatePreview(boolean all) {
-		root.updatePreview(root.getActivePage());
+	public void requestUpdatePreview() {
+		root.updatePreview();
 	}
 
 	public GradientEdit newGradientEdit(Composite parent, Procedure1<GradientEdit> initializer) {
@@ -120,6 +123,19 @@ public class PreperencePageHelper {
 		});
 
 		label.setLayoutData(new GridData(40, -1));
+		label.setText((scale.getSelection() + delta) + unit);
+
+		SWTExtensions.INSTANCE.asyncExec(new Procedure1<Void>() {
+			@Override
+			public void apply(Void t) {
+				if (scale.isDisposed()) {
+					return;
+				}
+
+				label.setText((scale.getSelection() + delta) + unit);
+			}
+
+		});
 
 		return label;
 	}
@@ -143,5 +159,27 @@ public class PreperencePageHelper {
 		}
 
 		return result;
+	}
+
+	public boolean matches(Color[] colors, HSB[] hsbArray) {
+		if (colors == null) {
+			return false;
+		}
+
+		if (colors.length != hsbArray.length) {
+			return false;
+		}
+
+		for (int i = 0; i < colors.length; i++) {
+			if (colors[i].isDisposed()) {
+				return false;
+			}
+
+			if (!colors[i].getRGB().equals(hsbArray[i].toRGB())) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 }

@@ -26,6 +26,8 @@ class JTabTest {
 				setMinimizeVisible(true)
 				setMaximizeVisible(true)
 				renderer = new JeeeyulsTabRenderer(it) => [
+					debug = true 
+					
 					settings.margins = newInsets(10)
 					settings.paddings = newInsets(2)
 					settings.borderRadius = 5

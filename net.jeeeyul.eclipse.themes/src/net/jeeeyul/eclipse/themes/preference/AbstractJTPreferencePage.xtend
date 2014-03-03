@@ -1,14 +1,17 @@
 package net.jeeeyul.eclipse.themes.preference
 
+import net.jeeeyul.eclipse.themes.preference.internal.PreperencePageHelper
 import net.jeeeyul.eclipse.themes.rendering.JTabSettings
 import net.jeeeyul.swtend.SWTExtensions
 import org.eclipse.swt.custom.CTabFolder
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Control
+import org.eclipse.swt.graphics.Image
 
 abstract class AbstractJTPreferencePage {
 	@Property String name
-
+	@Property Image image
+	
 	new(String name) {
 		this.name = name
 	}

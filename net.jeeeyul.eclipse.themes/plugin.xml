@@ -54,7 +54,7 @@
       </page>
       <page
             category="net.jeeeyul.eclipse.themes.preference.JTPreperencePage"
-            class="net.jeeeyul.eclipse.themes.preference.JTPartStackPreferencePage"
+            class="net.jeeeyul.eclipse.themes.preference.JTActivePartStackPreferencePage"
             id="net.jeeeyul.eclipse.themes.preference.JTPartStackPreferencePage"
             name="Part Stack">
       </page>
@@ -157,13 +157,4 @@
          </property-name>
       </handler>
    </extension>
-   <extension
-         point="org.eclipse.ui.editors">
-      <editor
-            class="net.jeeeyul.eclipse.themes.preference.ThemeEditor"
-            id="net.jeeeyul.eclipse.themes.preference.ThemeEditor"
-            name="New EditorPart">
-      </editor>
-   </extension>
-
 </plugin>

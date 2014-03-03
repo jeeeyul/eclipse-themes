@@ -344,4 +344,55 @@ public class JTabRendererHelper {
 			return me.getUnselectedBorderPercents();
 		}
 	}
+
+	public HSB[] getItemFillFor(JTabSettings me, int state) {
+		CTabFolder tabFolder = me.getRenderer().getTabFolder();
+		if ((state & SWT.SELECTED) != 0) {
+			Color[] gradient = _CTabFolder.selectionGradientColors.get(tabFolder);
+			if (gradient != null) {
+				return SWTExtensions.INSTANCE.toHSBArray(gradient);
+			} else {
+				HSB hsb = new HSB(tabFolder.getSelectionBackground().getRGB());
+				return new HSB[] { hsb, hsb };
+			}
+		}
+
+		else if ((state & SWT.HOT) != 0) {
+			HSB[] gradient = me.getHoverBackgroundColors();
+			if (gradient != null) {
+				return gradient;
+			} else {
+				return getItemFillFor(me, SWT.NONE);
+			}
+		}
+
+		else {
+			return me.getUnselectedBackgroundColors();
+		}
+	}
+
+	public int[] getItemFillPercentsFor(JTabSettings me, int state) {
+		CTabFolder tabFolder = me.getRenderer().getTabFolder();
+		if ((state & SWT.SELECTED) != 0) {
+			int[] percents = _CTabFolder.selectionGradientPercents.get(tabFolder);
+			if (percents != null) {
+				return percents;
+			} else {
+				return new int[] { 100 };
+			}
+		}
+
+		else if ((state & SWT.HOT) != 0) {
+			int[] percents = me.getHoverBackgroundPercents();
+			if (percents != null) {
+				return percents;
+			} else {
+				return getItemFillPercentsFor(me, SWT.NONE);
+			}
+		}
+
+		else {
+			return me.getUnselectedBackgroundPercents();
+		}
+	}
 }

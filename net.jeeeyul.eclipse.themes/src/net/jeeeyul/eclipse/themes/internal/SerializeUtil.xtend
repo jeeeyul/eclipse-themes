@@ -27,29 +27,46 @@ class SerializeUtil {
 	}
 
 	def Gradient deserializeGradient(String exp) {
-		val grad = new Gradient()
-		var segments = exp.split("\\s*\\|\\s*")
-		segments.forEach [
-			var components = it.split("\\s*,\\s*").map[Float.parseFloat(it)]
-			var color = new HSB(components.get(0), components.get(1), components.get(2))
-			grad += new ColorStop(color, components.get(3).intValue)
-		]
-		return grad
+		try {
+			val grad = new Gradient()
+			var segments = exp.split("\\s*\\|\\s*")
+			segments.forEach [
+				var components = it.split("\\s*,\\s*").map[Float.parseFloat(it)]
+				var color = new HSB(components.get(0), components.get(1), components.get(2))
+				grad += new ColorStop(color, components.get(3).intValue)
+			]
+			return grad
+		} catch(Exception e) {
+			return null
+		}
 	}
 
 	def HSB desrializeHSB(String exp) {
-		var components = exp.split("\\s*,\\s*").map[Float.parseFloat(it)]
-		return new HSB(components.get(0), components.get(1), components.get(2))
+		try {
+			var components = exp.split("\\s*,\\s*").map[Float.parseFloat(it)]
+			return new HSB(components.get(0), components.get(1), components.get(2))
+
+		} catch(Exception e) {
+			return null
+		}
 	}
 
 	def Rectangle desrializeRectangle(String exp) {
-		var components = exp.split("\\s*,\\s*").map[Integer.parseInt(it)]
-		new Rectangle(components.get(0), components.get(1), components.get(2), components.get(3))
+		try {
+			var components = exp.split("\\s*,\\s*").map[Integer.parseInt(it)]
+			new Rectangle(components.get(0), components.get(1), components.get(2), components.get(3))
+		} catch(Exception e) {
+			return null
+		}
 	}
 
 	def Point desrializePoint(String exp) {
-		var components = exp.split("\\s*,\\s*").map[Integer.parseInt(it)]
-		new Point(components.get(0), components.get(1))
+		try {
+			var components = exp.split("\\s*,\\s*").map[Integer.parseInt(it)]
+			new Point(components.get(0), components.get(1))
+		} catch(Exception e) {
+			return null
+		}
 	}
 
 }
