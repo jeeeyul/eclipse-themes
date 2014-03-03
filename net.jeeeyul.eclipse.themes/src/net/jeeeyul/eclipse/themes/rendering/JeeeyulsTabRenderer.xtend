@@ -113,29 +113,34 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	override protected computeTrim(int part, int state, int x, int y, int width, int height) {
 		var result = new Rectangle(x, y, width, height)
 		switch (part) {
-			case PART_BORDER: {
-				result.x = result.x - settings.margins.x
-				result.width = result.width + settings.margins.x + settings.margins.width + settings.borderRadius / 2
-				result.height = result.height + settings.margins.height
-			}
 			case PART_BODY: {
-				result.x = result.x - settings.margins.x - settings.paddings.x - settings.borderWidth
-				result.width = result.width + settings.margins.x + settings.paddings.x + settings.borderWidth * 2 + settings.paddings.width + settings.margins.width
+				result.x = result.x - settings.margins.x - settings.paddings.x
+				result.width = result.width + settings.margins.x + settings.paddings.x + settings.paddings.width + settings.margins.width
 
 				if(tabFolder.onBottom) {
-					result.y = result.y - settings.paddings.y - settings.borderWidth
-					result.height = result.height + tabFolder.tabHeight + settings.paddings.y + settings.margins.height + settings.paddings.height + settings.borderWidth * 2 + 2
+					result.y = result.y - settings.paddings.y 
+					result.height = result.height + tabFolder.tabHeight + settings.paddings.y + settings.margins.height + settings.paddings.height
 				} else {
-					result.y = result.y - tabFolder.tabHeight - settings.paddings.y - settings.borderWidth - 1
-					result.height = result.height + tabFolder.tabHeight + settings.paddings.y + settings.margins.height + settings.paddings.height + settings.borderWidth * 2 + 1
+					result.y = result.y - tabFolder.tabHeight - settings.paddings.y - 2
+					result.height = result.height + tabFolder.tabHeight + settings.paddings.y + settings.margins.height + settings.paddings.height + 2
+				}
+				
+				if(settings.borderColors != null){
+					result.x = result.x - 1
+					result.width = result.width + 2
+					result.height = result.height + 1
 				}
 			}
 			case PART_BACKGROUND: {
 				result.height = result.height + 10
 			}
 			
+			case PART_HEADER:{
+				result.x = result.x - settings.margins.x
+				result.width = result.width + settings.margins.x + settings.margins.width
+			}
+			
 			case part >= 0:{
-				
 			}
 			
 			default: {
@@ -284,7 +289,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		// Draw Border
 		if(state.hasFlags(SWT.FOREGROUND) && settings.borderWidth > 0 && settings.borderColors != null && settings.borderPercents != null) {
 			val offset = tabArea.getResized(-1, -1).shrink(settings.borderWidth / 2)
-			val headerOffset = headerArea.getResized(-1, 0)
+			val headerOffset = headerArea.getResized(-1, 1)
 			gc.lineWidth = settings.borderWidth
 
 			val headerPath = newPath[

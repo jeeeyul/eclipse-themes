@@ -77,7 +77,11 @@ public class JTPConstants {
 
 		@TypeHint(Point.class)
 		public static final String HOVER_TEXT_SHADOW_POSITION = PREFIX + CATEGORY_SEPARATOR + "HOVER_TEXT_SHADOW_POSITION";
+	}
 
+	public static class Layout{
+		public static final String PREFIX = "LAYOUT";
+		
 		@TypeHint(int.class)
 		public static final String BORDER_RADIUS = PREFIX + CATEGORY_SEPARATOR + "BORDER_RADIUS";
 
@@ -86,8 +90,23 @@ public class JTPConstants {
 		
 		@TypeHint(int.class)
 		public static final String TAB_HEIGHT = PREFIX + CATEGORY_SEPARATOR + "TAB_HEIGHT";
+		
+		@TypeHint(int.class)
+		public static final String TAB_ITEM_SPACING = PREFIX + CATEGORY_SEPARATOR + "TAB_ITEM_SPACING";
+		
+		@TypeHint(int.class)
+		public static final String TAB_ITEM_PADDING = PREFIX + CATEGORY_SEPARATOR + "TAB_ITEM_PADDING";
+		
+		@TypeHint(int.class)
+		public static final String TAB_SPACING = PREFIX + CATEGORY_SEPARATOR + "TAB_SPACING";
+		
+		@TypeHint(Boolean.class)
+		public static final String SHOW_SHADOW = PREFIX + CATEGORY_SEPARATOR + "SHOW_SHADOW";
+		
+		@TypeHint(HSB.class)
+		public static final String SHADOW_COLOR = PREFIX + CATEGORY_SEPARATOR + "SHADOW_COLOR";
 	}
-
+	
 	public static final String CATEGORY_SEPARATOR = "__";
 
 }

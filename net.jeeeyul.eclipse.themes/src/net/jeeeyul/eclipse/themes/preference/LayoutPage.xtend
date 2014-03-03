@@ -124,15 +124,30 @@ class LayoutPage extends AbstractJTPreferencePage {
 	}
 
 	override load(JThemePreferenceStore store, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
-		this.borderRadiusScale.selection = store.getInt(JTPConstants.ActivePartStack.BORDER_RADIUS)
-		this.paddingsScale.selection = store.getInt(JTPConstants.ActivePartStack.CONTENT_PADDING)
-		this.tabHeightScale.selection = store.getInt(JTPConstants.ActivePartStack.TAB_HEIGHT)
+		this.borderRadiusScale.selection = store.getInt(JTPConstants.Layout.BORDER_RADIUS)
+		this.paddingsScale.selection = store.getInt(JTPConstants.Layout.CONTENT_PADDING)
+		this.tabHeightScale.selection = store.getInt(JTPConstants.Layout.TAB_HEIGHT)
+		this.castShadowButton.selection = store.getBoolean(JTPConstants.Layout.SHOW_SHADOW)
+
+		val shadowColor = store.getHSB(JTPConstants.Layout.SHADOW_COLOR)
+		if(shadowColor != null)
+			this.shadowColorWell.selection = shadowColor
+
+		this.tabSpacingScale.selection = store.getInt(JTPConstants.Layout.TAB_SPACING) + 1
+
+		this.tabItemPaddingsScale.selection = store.getInt(JTPConstants.Layout.TAB_ITEM_PADDING)
+		this.tabItemSpacingScale.selection = store.getInt(JTPConstants.Layout.TAB_ITEM_SPACING)
 	}
 
 	override save(JThemePreferenceStore store, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
-		store.setValue(JTPConstants.ActivePartStack.BORDER_RADIUS, this.borderRadiusScale.selection)
-		store.setValue(JTPConstants.ActivePartStack.CONTENT_PADDING, this.paddingsScale.selection)
-		store.setValue(JTPConstants.ActivePartStack.TAB_HEIGHT, this.tabHeightScale.selection)
+		store.setValue(JTPConstants.Layout.BORDER_RADIUS, this.borderRadiusScale.selection)
+		store.setValue(JTPConstants.Layout.CONTENT_PADDING, this.paddingsScale.selection)
+		store.setValue(JTPConstants.Layout.TAB_HEIGHT, this.tabHeightScale.selection)
+		store.setValue(JTPConstants.Layout.SHOW_SHADOW, this.castShadowButton.selection)
+		store.setValue(JTPConstants.Layout.SHADOW_COLOR, this.shadowColorWell.selection)
+		store.setValue(JTPConstants.Layout.TAB_SPACING, this.tabSpacingScale.selection - 1)
+		store.setValue(JTPConstants.Layout.TAB_ITEM_PADDING, this.tabItemPaddingsScale.selection)
+		store.setValue(JTPConstants.Layout.TAB_ITEM_SPACING, this.tabItemSpacingScale.selection)
 	}
 
 	override dispose(extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
