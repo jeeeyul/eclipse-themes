@@ -1,7 +1,8 @@
 ## Jeeeyul's Eclipse Themes - Chrome
 Do you want more beautiful Eclipse 4? Change it!
 
-Chrome theme is not only just an altanative theme also full featured e4 theme customzier.
+Chrome theme is not only 1 of 10 altanative themes,
+but there is also full featured e4 theme customzier to make your own theme.
 
 <table style="border: none;">
   <tbody>
