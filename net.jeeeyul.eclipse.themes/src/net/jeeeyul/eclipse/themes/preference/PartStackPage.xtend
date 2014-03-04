@@ -264,7 +264,6 @@ class PartStackPage extends AbstractJTPreferencePage {
 	}
 
 	override updatePreview(CTabFolder folder, JTabSettings renderSettings, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
-
 		// SWT CTabFolder ignores same color arrays.
 		if(!this.backgroundColors.matches(backgroundEdit.selection.asSWTSafeHSBArray)) {
 			var newBackgroundColors = backgroundEdit.selection.asSWTSafeHSBArray.createColors
@@ -368,7 +367,6 @@ class PartStackPage extends AbstractJTPreferencePage {
 			renderSettings.closeButtonActiveColor = this.closeButtonActiveColorWell.selection
 			renderSettings.closeButtonHotColor = this.closeButtonHoverColorWell.selection
 		}
-		
 	}
 
 	override load(JThemePreferenceStore store, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {

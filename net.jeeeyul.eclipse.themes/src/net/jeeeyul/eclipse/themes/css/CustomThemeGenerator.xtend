@@ -26,14 +26,14 @@ class CustomThemeGenerator {
 		
 		«comment("Trim Stack")»
 		.MToolControl.TrimStack {
-			frame-image: url(chrome://frame?background-color=#ddd);
+			frame-image: url(chrome://frame?background-color=«store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»);
 			frame-cuts: 5px 1px 5px 16px;
 			handle-image: url(images/handle.png);
 		}
 		
 		.MTrimBar .Draggable {
 			handle-image:
-				url(chrome://drag-handle?height=33&background-color=#ddd&embossed=false);
+				url(chrome://drag-handle?height=33&background-color=«store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»&embossed=false);
 		}
 		
 		«comment("Main Toolbar")»

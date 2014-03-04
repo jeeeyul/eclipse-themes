@@ -61,6 +61,8 @@ class JTPreperencePage extends PreferencePage implements IWorkbenchPreferencePag
 					it.text = each.name
 					it.image = each.image
 					it.control = each.createContents(folder, swtExt, helper)
+					it.control.background = COLOR_WHITE;
+					(it.control as Composite).backgroundMode = SWT.INHERIT_FORCE
 					it.data = each
 				]
 			}

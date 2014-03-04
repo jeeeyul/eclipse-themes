@@ -13,6 +13,7 @@ import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Event
 import org.eclipse.swt.widgets.Scale
+import org.eclipse.swt.layout.GridData
 
 class LayoutPage extends AbstractJTPreferencePage {
 	Button castShadowButton
@@ -95,6 +96,13 @@ class LayoutPage extends AbstractJTPreferencePage {
 			shadowColorWell = newColorWell[
 				onModified = [
 					requestUpdatePreview()
+				]
+			]
+			
+			/* Preferred size of scale in OSX is too small */
+			allContent.filter(typeof(Scale)).forEach[
+				(layoutData as GridData) => [
+					heightHint = 20
 				]
 			]
 		]
