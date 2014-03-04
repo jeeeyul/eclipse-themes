@@ -3,23 +3,26 @@ package net.jeeeyul.eclipse.themes.preference;
 import java.io.IOException;
 
 import net.jeeeyul.eclipse.themes.internal.SerializeUtil;
+import net.jeeeyul.swtend.sam.Procedure1;
 import net.jeeeyul.swtend.ui.Gradient;
 import net.jeeeyul.swtend.ui.HSB;
 
+import org.eclipse.jface.preference.IPersistentPreferenceStore;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
-public class JThemePreferenceStore implements IPreferenceStore {
-	private PreferenceStore originalStore;
+public class JThemePreferenceStore implements IPreferenceStore, IPersistentPreferenceStore {
+	private IPersistentPreferenceStore originalStore;
 	private SerializeUtil serializeUtil = new SerializeUtil();
+	private String context = null;
 
 	public JThemePreferenceStore() {
 	}
 
-	public JThemePreferenceStore(PreferenceStore originalStore) {
+	public JThemePreferenceStore(IPersistentPreferenceStore originalStore) {
 		super();
 		this.originalStore = originalStore;
 	}
@@ -29,31 +32,35 @@ public class JThemePreferenceStore implements IPreferenceStore {
 	}
 
 	public boolean contains(String name) {
-		return originalStore.contains(name);
+		return originalStore.contains(resolveName(name));
 	}
 
 	public void firePropertyChangeEvent(String name, Object oldValue, Object newValue) {
-		originalStore.firePropertyChangeEvent(name, oldValue, newValue);
+		originalStore.firePropertyChangeEvent(resolveName(name), oldValue, newValue);
 	}
 
 	public boolean getBoolean(String name) {
-		return originalStore.getBoolean(name);
+		return originalStore.getBoolean(resolveName(name));
+	}
+
+	public String getContext() {
+		return context;
 	}
 
 	public boolean getDefaultBoolean(String name) {
-		return originalStore.getDefaultBoolean(name);
+		return originalStore.getDefaultBoolean(resolveName(name));
 	}
 
 	public double getDefaultDouble(String name) {
-		return originalStore.getDefaultDouble(name);
+		return originalStore.getDefaultDouble(resolveName(name));
 	}
 
 	public float getDefaultFloat(String name) {
-		return originalStore.getDefaultFloat(name);
+		return originalStore.getDefaultFloat(resolveName(name));
 	}
 
 	public Gradient getDefaultGradient(String name) {
-		String exp = originalStore.getDefaultString(name);
+		String exp = originalStore.getDefaultString(resolveName(name));
 		if (exp == null) {
 			return null;
 		}
@@ -61,7 +68,7 @@ public class JThemePreferenceStore implements IPreferenceStore {
 	}
 
 	public HSB getDefaultHSB(String name) {
-		String exp = originalStore.getDefaultString(name);
+		String exp = originalStore.getDefaultString(resolveName(name));
 		if (exp == null) {
 			return null;
 		}
@@ -69,15 +76,15 @@ public class JThemePreferenceStore implements IPreferenceStore {
 	}
 
 	public int getDefaultInt(String name) {
-		return originalStore.getDefaultInt(name);
+		return originalStore.getDefaultInt(resolveName(name));
 	}
 
 	public long getDefaultLong(String name) {
-		return originalStore.getDefaultLong(name);
+		return originalStore.getDefaultLong(resolveName(name));
 	}
 
 	public Point getDefaultPoint(String name) {
-		String exp = originalStore.getDefaultString(name);
+		String exp = originalStore.getDefaultString(resolveName(name));
 		if (exp == null) {
 			return null;
 		}
@@ -85,7 +92,7 @@ public class JThemePreferenceStore implements IPreferenceStore {
 	}
 
 	public Rectangle getDefaultRectangle(String name) {
-		String exp = originalStore.getDefaultString(name);
+		String exp = originalStore.getDefaultString(resolveName(name));
 		if (exp == null) {
 			return null;
 		}
@@ -93,19 +100,19 @@ public class JThemePreferenceStore implements IPreferenceStore {
 	}
 
 	public String getDefaultString(String name) {
-		return originalStore.getDefaultString(name);
+		return originalStore.getDefaultString(resolveName(name));
 	}
 
 	public double getDouble(String name) {
-		return originalStore.getDouble(name);
+		return originalStore.getDouble(resolveName(name));
 	}
 
 	public float getFloat(String name) {
-		return originalStore.getFloat(name);
+		return originalStore.getFloat(resolveName(name));
 	}
 
 	public Gradient getGradient(String name) {
-		String exp = originalStore.getString(name);
+		String exp = originalStore.getString(resolveName(name));
 		if (exp == null) {
 			return null;
 		}
@@ -113,7 +120,7 @@ public class JThemePreferenceStore implements IPreferenceStore {
 	}
 
 	public HSB getHSB(String name) {
-		String exp = originalStore.getString(name);
+		String exp = originalStore.getString(resolveName(name));
 		if (exp == null) {
 			return null;
 		}
@@ -121,19 +128,19 @@ public class JThemePreferenceStore implements IPreferenceStore {
 	}
 
 	public int getInt(String name) {
-		return originalStore.getInt(name);
+		return originalStore.getInt(resolveName(name));
 	}
 
 	public long getLong(String name) {
-		return originalStore.getLong(name);
+		return originalStore.getLong(resolveName(name));
 	}
 
-	public PreferenceStore getOriginalStore() {
+	public IPersistentPreferenceStore getOriginalStore() {
 		return originalStore;
 	}
 
 	public Point getPoint(String name) {
-		String exp = originalStore.getString(name);
+		String exp = originalStore.getString(resolveName(name));
 		if (exp == null) {
 			return null;
 		}
@@ -141,7 +148,7 @@ public class JThemePreferenceStore implements IPreferenceStore {
 	}
 
 	public Rectangle getRectangle(String name) {
-		String exp = originalStore.getString(name);
+		String exp = originalStore.getString(resolveName(name));
 		if (exp == null) {
 			return null;
 		}
@@ -149,11 +156,11 @@ public class JThemePreferenceStore implements IPreferenceStore {
 	}
 
 	public String getString(String name) {
-		return originalStore.getString(name);
+		return originalStore.getString(resolveName(name));
 	}
 
 	public boolean isDefault(String name) {
-		return originalStore.isDefault(name);
+		return originalStore.isDefault(resolveName(name));
 	}
 
 	public boolean needsSaving() {
@@ -161,99 +168,19 @@ public class JThemePreferenceStore implements IPreferenceStore {
 	}
 
 	public void putValue(String name, String value) {
-		originalStore.putValue(name, value);
+		originalStore.putValue(resolveName(name), value);
 	}
 
 	public void removePropertyChangeListener(IPropertyChangeListener listener) {
 		originalStore.removePropertyChangeListener(listener);
 	}
 
-	public void setDefault(String name, boolean value) {
-		originalStore.setDefault(name, value);
-	}
-
-	public void setDefault(String name, double value) {
-		originalStore.setDefault(name, value);
-	}
-
-	public void setDefault(String name, float value) {
-		originalStore.setDefault(name, value);
-	}
-
-	public void setDefault(String name, Gradient gradient) {
-		originalStore.setDefault(name, serializeUtil.serialize(gradient));
-	}
-
-	public void setDefault(String name, HSB defaultValue) {
-		originalStore.setDefault(name, serializeUtil.serialize(defaultValue));
-	}
-
-	public void setDefault(String name, int value) {
-		originalStore.setDefault(name, value);
-	}
-
-	public void setDefault(String name, long value) {
-		originalStore.setDefault(name, value);
-	}
-
-	public void setDefault(String name, Rectangle rect) {
-		originalStore.setDefault(name, serializeUtil.serialize(rect));
-	}
-
-	public void setDefault(String name, String defaultObject) {
-		originalStore.setDefault(name, defaultObject);
-	}
-
-	public void setDefaultValue(String name, Point point) {
-		originalStore.setDefault(name, serializeUtil.serialize(point));
-	}
-
-	public void setOriginalStore(PreferenceStore originalStore) {
-		this.originalStore = originalStore;
-	}
-
-	public void setToDefault(String name) {
-		originalStore.setToDefault(name);
-	}
-
-	public void setValue(String name, boolean value) {
-		originalStore.setValue(name, value);
-	}
-
-	public void setValue(String name, double value) {
-		originalStore.setValue(name, value);
-	}
-
-	public void setValue(String name, float value) {
-		originalStore.setValue(name, value);
-	}
-
-	public void setValue(String name, Gradient gradient) {
-		originalStore.setValue(name, serializeUtil.serialize(gradient));
-	}
-
-	public void setValue(String name, HSB value) {
-		originalStore.setValue(name, serializeUtil.serialize(value));
-	}
-
-	public void setValue(String name, int value) {
-		originalStore.setValue(name, value);
-	}
-
-	public void setValue(String name, long value) {
-		originalStore.setValue(name, value);
-	}
-
-	public void setValue(String name, Point point) {
-		originalStore.setValue(name, serializeUtil.serialize(point));
-	}
-
-	public void setValue(String name, Rectangle rect) {
-		originalStore.setValue(name, serializeUtil.serialize(rect));
-	}
-
-	public void setValue(String name, String value) {
-		originalStore.setValue(name, value);
+	private String resolveName(String name) {
+		if (this.context != null) {
+			return context + JTPConstants.CATEGORY_SEPARATOR + name;
+		} else {
+			return name;
+		}
 	}
 
 	public void save() {
@@ -262,5 +189,104 @@ public class JThemePreferenceStore implements IPreferenceStore {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void setContext(String context) {
+		this.context = context;
+	}
+
+	public void withContext(String context, Procedure1<JThemePreferenceStore> work) {
+		String oldContext = getContext();
+		setContext(context);
+		work.apply(this);
+		setContext(oldContext);
+	}
+
+	public void setDefault(String name, boolean value) {
+		originalStore.setDefault(resolveName(name), value);
+	}
+
+	public void setDefault(String name, double value) {
+		originalStore.setDefault(resolveName(name), value);
+	}
+
+	public void setDefault(String name, float value) {
+		originalStore.setDefault(resolveName(name), value);
+	}
+
+	public void setDefault(String name, Gradient gradient) {
+		originalStore.setDefault(resolveName(name), serializeUtil.serialize(gradient));
+	}
+
+	public void setDefault(String name, HSB defaultValue) {
+		originalStore.setDefault(resolveName(name), serializeUtil.serialize(defaultValue));
+	}
+
+	public void setDefault(String name, int value) {
+		originalStore.setDefault(resolveName(name), value);
+	}
+
+	public void setDefault(String name, long value) {
+		originalStore.setDefault(resolveName(name), value);
+	}
+
+	public void setDefault(String name, Rectangle rect) {
+		originalStore.setDefault(resolveName(name), serializeUtil.serialize(rect));
+	}
+
+	public void setDefault(String name, String defaultObject) {
+		originalStore.setDefault(resolveName(name), defaultObject);
+	}
+
+	public void setDefaultValue(String name, Point point) {
+		originalStore.setDefault(resolveName(name), serializeUtil.serialize(point));
+	}
+
+	public void setOriginalStore(PreferenceStore originalStore) {
+		this.originalStore = originalStore;
+	}
+
+	public void setToDefault(String name) {
+		originalStore.setToDefault(resolveName(name));
+	}
+
+	public void setValue(String name, boolean value) {
+		originalStore.setValue(resolveName(name), value);
+	}
+
+	public void setValue(String name, double value) {
+		originalStore.setValue(resolveName(name), value);
+	}
+
+	public void setValue(String name, float value) {
+		originalStore.setValue(resolveName(name), value);
+	}
+
+	public void setValue(String name, Gradient gradient) {
+		originalStore.setValue(resolveName(name), serializeUtil.serialize(gradient));
+	}
+
+	public void setValue(String name, HSB value) {
+		originalStore.setValue(resolveName(name), serializeUtil.serialize(value));
+	}
+
+	public void setValue(String name, int value) {
+		originalStore.setValue(resolveName(name), value);
+	}
+
+	public void setValue(String name, long value) {
+		originalStore.setValue(resolveName(name), value);
+	}
+
+	public void setValue(String name, Point point) {
+		originalStore.setValue(resolveName(name), serializeUtil.serialize(point));
+	}
+
+	public void setValue(String name, Rectangle rect) {
+		originalStore.setValue(resolveName(name), serializeUtil.serialize(rect));
+	}
+
+	public void setValue(String name, String value) {
+		originalStore.setValue(resolveName(name), value);
 	}
 }

@@ -43,6 +43,9 @@
    </extension>
    <extension
          point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="net.jeeeyul.eclipse.themes.preference.JTPreferenceInitializer">
+      </initializer>
    </extension>
    <extension
          point="org.eclipse.ui.preferencePages">
@@ -51,12 +54,6 @@
             class="net.jeeeyul.eclipse.themes.preference.JTPreperencePage"
             id="net.jeeeyul.eclipse.themes.preference.JTPreperencePage"
             name="Jeeeyul&apos;s Themes">
-      </page>
-      <page
-            category="net.jeeeyul.eclipse.themes.preference.JTPreperencePage"
-            class="net.jeeeyul.eclipse.themes.preference.JTActivePartStackPreferencePage"
-            id="net.jeeeyul.eclipse.themes.preference.JTPartStackPreferencePage"
-            name="Part Stack">
       </page>
    </extension>
    <extension
@@ -156,5 +153,38 @@
                name="jtab-item-horizontal-spacing">
          </property-name>
       </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferenceTransfer">
+      <transfer
+            icon="icons/jtheme.png"
+            id="net.jeeeyul.eclipse.themes.transfer"
+            name="Jeeeyul&apos;s Theme Settings Tranfer">
+         <mapping
+               scope="instance">
+            <entry
+                  node="net.jeeeyul.eclipse.themes">
+            </entry>
+         </mapping>
+      </transfer>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:org.eclipse.ui.main.toolbar">
+         <toolbar
+               id="net.jeeeyul.eclipse.themes.toolbar">
+            <command
+                  commandId="org.eclipse.ui.window.preferences"
+                  icon="icons/jtheme.png"
+                  style="pulldown">
+               <parameter
+                     name="preferencePageId"
+                     value="net.jeeeyul.eclipse.themes.preference.JTPreperencePage">
+               </parameter>
+            </command>
+         </toolbar>
+      </menuContribution>
    </extension>
 </plugin>

@@ -3,7 +3,9 @@ package net.jeeeyul.eclipse.themes.preference.internal;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.jeeeyul.eclipse.themes.preference.JTActivePartStackPreferencePage;
+import net.jeeeyul.eclipse.themes.preference.AbstractJTPreferencePage;
+import net.jeeeyul.eclipse.themes.preference.JTPreperencePage;
+import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore;
 import net.jeeeyul.swtend.SWTExtensions;
 import net.jeeeyul.swtend.sam.Procedure1;
 import net.jeeeyul.swtend.ui.ColorPicker;
@@ -26,10 +28,14 @@ import org.eclipse.swt.widgets.Scale;
 
 public class PreperencePageHelper {
 
-	private JTActivePartStackPreferencePage root;
+	private JTPreperencePage root;
 
-	public PreperencePageHelper(JTActivePartStackPreferencePage root) {
+	public PreperencePageHelper(JTPreperencePage root) {
 		this.root = root;
+	}
+
+	public JThemePreferenceStore getPreferenceStore() {
+		return root.getPreferenceStore();
 	}
 
 	public List<HSB> asSWTSafeHSBArray(Gradient gradient) {
@@ -50,6 +56,10 @@ public class PreperencePageHelper {
 		}
 
 		return result;
+	}
+
+	public AbstractJTPreferencePage getActivePage() {
+		return root.getActivePage();
 	}
 
 	public void requestUpdatePreview() {

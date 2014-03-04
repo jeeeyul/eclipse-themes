@@ -42,8 +42,15 @@ class PartStackPage extends AbstractJTPreferencePage {
 	ColorWell hoverTextColorWell
 	TextShadowEdit hoverShadowEdit
 
-	new() {
-		super("Part")
+	ColorWell closeButtonColorWell
+	ColorWell closeButtonHoverColorWell
+	ColorWell closeButtonActiveColorWell
+
+	@Property String context
+
+	new(String title, String context) {
+		super(title)
+		this.context = context
 		image = SharedImages.getImage(SharedImages.ACTIVE_PART)
 	}
 
@@ -231,6 +238,27 @@ class PartStackPage extends AbstractJTPreferencePage {
 						]
 					]
 				] // Hover
+			] // Tabs
+			newComposite[
+				layoutData = FILL_HORIZONTAL
+				layout = newGridLayout[
+					numColumns = 4
+					marginWidth = 0
+					marginHeight = 0
+				]
+				newLabel[
+					text = "Close Button Color (Normal, Hover, Active)"
+					layoutData = FILL_HORIZONTAL
+				]
+				closeButtonColorWell = newColorWell[
+					onModified = [requestUpdatePreview]
+				]
+				closeButtonHoverColorWell = newColorWell[
+					onModified = [requestUpdatePreview]
+				]
+				closeButtonActiveColorWell = newColorWell[
+					onModified = [requestUpdatePreview]
+				]
 			]
 		]
 	}
@@ -333,129 +361,155 @@ class PartStackPage extends AbstractJTPreferencePage {
 			renderSettings.hoverTextShadowColor = this.hoverShadowEdit.color
 			renderSettings.hoverTextShadowPosition = this.hoverShadowEdit.shadowPosition
 		}
+		
+		// close button
+		{
+			renderSettings.closeButtonColor = this.closeButtonColorWell.selection
+			renderSettings.closeButtonActiveColor = this.closeButtonActiveColorWell.selection
+			renderSettings.closeButtonHotColor = this.closeButtonHoverColorWell.selection
+		}
+		
 	}
 
 	override load(JThemePreferenceStore store, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
-		var borderColor = store.getGradient(JTPConstants.ActivePartStack.BORDER_COLOR)
-		if(borderColor != null) {
-			this.borderEdit.selection = borderColor
-		}
-
-		var background = store.getGradient(JTPConstants.ActivePartStack.BACKGROUND_COLOR)
-		if(background != null) {
-			this.backgroundEdit.selection = background
-		}
-
-		this.hideBorderButton.selection = !store.getBoolean(JTPConstants.ActivePartStack.BORDER_SHOW)
-
-		// selected
-		{
-			var selectedBackground = store.getGradient(JTPConstants.ActivePartStack.SELECTED_FILL_COLOR)
-			if(selectedBackground != null) {
-				this.selectedBackgroundEdit.selection = selectedBackground
+		store.withContext(this.context) [
+			var borderColor = getGradient(JTPConstants.PartStack.BORDER_COLOR)
+			if(borderColor != null) {
+				this.borderEdit.selection = borderColor
 			}
-
-			var selectedBorder = store.getGradient(JTPConstants.ActivePartStack.SELECTED_BORDER_COLOR)
-			if(selectedBorder != null) {
-				this.selectedBorderEdit.selection = selectedBorder
+			var background = getGradient(JTPConstants.PartStack.BACKGROUND_COLOR)
+			if(background != null) {
+				this.backgroundEdit.selection = background
 			}
-			this.hideSelectedBorderButton.selection = !store.getBoolean(JTPConstants.ActivePartStack.SELECTED_BORDER_SHOW)
-			var selectionForeground = store.getHSB(JTPConstants.ActivePartStack.SELECTED_TEXT_COLOR)
-			if(selectionForeground != null) {
-				this.selectedTextColorWell.selection = selectionForeground
+			this.hideBorderButton.selection = !getBoolean(JTPConstants.PartStack.BORDER_SHOW)
+			// selected
+			{
+				var selectedBackground = getGradient(JTPConstants.PartStack.SELECTED_FILL_COLOR)
+				if(selectedBackground != null) {
+					this.selectedBackgroundEdit.selection = selectedBackground
+				}
+
+				var selectedBorder = getGradient(JTPConstants.PartStack.SELECTED_BORDER_COLOR)
+				if(selectedBorder != null) {
+					this.selectedBorderEdit.selection = selectedBorder
+				}
+				this.hideSelectedBorderButton.selection = !getBoolean(JTPConstants.PartStack.SELECTED_BORDER_SHOW)
+				var selectionForeground = getHSB(JTPConstants.PartStack.SELECTED_TEXT_COLOR)
+				if(selectionForeground != null) {
+					this.selectedTextColorWell.selection = selectionForeground
+				}
+
+				var selectedShadowColor = getHSB(JTPConstants.PartStack.SELECTED_TEXT_SHADOW_COLOR)
+				if(selectedShadowColor != null)
+					this.selectedShadowEdit.color = selectedShadowColor
+
+				var selectedShadowPosition = getPoint(JTPConstants.PartStack.SELECTED_TEXT_SHADOW_POSITION)
+				if(selectedShadowPosition != null)
+					this.selectedShadowEdit.shadowPosition = selectedShadowPosition
 			}
+			// unselected
+			{
+				var unselectedBackground = getGradient(JTPConstants.PartStack.UNSELECTED_FILL_COLOR)
+				if(unselectedBackground != null) {
+					this.unselectedBackgroundEdit.selection = unselectedBackground
+				}
 
-			var selectedShadowColor = store.getHSB(JTPConstants.ActivePartStack.SELECTED_TEXT_SHADOW_COLOR)
-			if(selectedShadowColor != null)
-				this.selectedShadowEdit.color = selectedShadowColor
+				this.hideUnselectedBackgroundButton.selection = !getBoolean(JTPConstants.PartStack.UNSELECTED_FILL)
+				var unselectedBorder = getGradient(JTPConstants.PartStack.UNSELECTED_BORDER_COLOR)
+				if(unselectedBorder != null) {
+					this.unselectedBorderEdit.selection = unselectedBorder
+				}
+				this.hideUnselectedBorderButton.selection = !getBoolean(JTPConstants.PartStack.UNSELECTED_BORDER_SHOW)
+				var foreground = getHSB(JTPConstants.PartStack.UNSELECTED_TEXT_COLOR)
+				if(foreground != null) {
+					this.unselectedTextColorWell.selection = foreground
+				}
 
-			var selectedShadowPosition = store.getPoint(JTPConstants.ActivePartStack.SELECTED_TEXT_SHADOW_POSITION)
-			if(selectedShadowPosition != null)
-				this.selectedShadowEdit.shadowPosition = selectedShadowPosition
-		}
+				var unselectedShadowColor = getHSB(JTPConstants.PartStack.UNSELECTED_TEXT_SHADOW_COLOR)
+				if(unselectedShadowColor != null)
+					this.unselectedShadowEdit.color = unselectedShadowColor
 
-		// unselected
-		{
-			var unselectedBackground = store.getGradient(JTPConstants.ActivePartStack.UNSELECTED_FILL_COLOR)
-			if(unselectedBackground != null) {
-				this.unselectedBackgroundEdit.selection = unselectedBackground
+				var unselectedShadowPosition = getPoint(JTPConstants.PartStack.UNSELECTED_TEXT_SHADOW_POSITION)
+				if(unselectedShadowPosition != null)
+					this.unselectedShadowEdit.shadowPosition = unselectedShadowPosition
 			}
+			// hover
+			{
+				var hoverBackground = getGradient(JTPConstants.PartStack.HOVER_FILL_COLOR)
+				if(hoverBackground != null) {
+					this.hoverBackgroundEdit.selection = hoverBackground
+				}
 
-			this.hideUnselectedBackgroundButton.selection = !store.getBoolean(JTPConstants.ActivePartStack.UNSELECTED_FILL)
-			var unselectedBorder = store.getGradient(JTPConstants.ActivePartStack.UNSELECTED_BORDER_COLOR)
-			if(unselectedBorder != null) {
-				this.unselectedBorderEdit.selection = unselectedBorder
+				this.hideHoverBackgroundButton.selection = !getBoolean(JTPConstants.PartStack.HOVER_FILL)
+				var hoverBorder = getGradient(JTPConstants.PartStack.HOVER_BORDER_COLOR)
+				if(hoverBorder != null) {
+					this.hoverBorderEdit.selection = hoverBorder
+				}
+				this.hideHoverBorderButton.selection = !getBoolean(JTPConstants.PartStack.HOVER_BORDER_SHOW)
+				var foreground = getHSB(JTPConstants.PartStack.HOVER_TEXT_COLOR)
+				if(foreground != null) {
+					this.hoverTextColorWell.selection = foreground
+				}
+
+				var hoverShadowColor = getHSB(JTPConstants.PartStack.HOVER_TEXT_SHADOW_COLOR)
+				if(hoverShadowColor != null)
+					this.hoverShadowEdit.color = hoverShadowColor
+
+				var hoverShadowPosition = getPoint(JTPConstants.PartStack.HOVER_TEXT_SHADOW_POSITION)
+				if(hoverShadowPosition != null)
+					this.hoverShadowEdit.shadowPosition = hoverShadowPosition
 			}
-			this.hideUnselectedBorderButton.selection = !store.getBoolean(JTPConstants.ActivePartStack.UNSELECTED_BORDER_SHOW)
-			var foreground = store.getHSB(JTPConstants.ActivePartStack.UNSELECTED_TEXT_COLOR)
-			if(foreground != null) {
-				this.unselectedTextColorWell.selection = foreground
+			
+			// close button
+			{
+				var normal = getHSB(JTPConstants.PartStack.CLOSE_BUTTON_COLOR)
+				if(normal != null){
+					this.closeButtonColorWell.selection = normal
+				}
+				
+				var hot = getHSB(JTPConstants.PartStack.CLOSE_BUTTON_HOVER_COLOR)
+				if(hot != null){
+					this.closeButtonHoverColorWell.selection = hot
+				}
+				
+				var active = getHSB(JTPConstants.PartStack.CLOSE_BUTTON_ACTIVE_COLOR)
+				if(active != null){
+					this.closeButtonActiveColorWell.selection = active
+				}
 			}
+		]
 
-			var unselectedShadowColor = store.getHSB(JTPConstants.ActivePartStack.UNSELECTED_TEXT_SHADOW_COLOR)
-			if(unselectedShadowColor != null)
-				this.unselectedShadowEdit.color = unselectedShadowColor
-
-			var unselectedShadowPosition = store.getPoint(JTPConstants.ActivePartStack.UNSELECTED_TEXT_SHADOW_POSITION)
-			if(unselectedShadowPosition != null)
-				this.unselectedShadowEdit.shadowPosition = unselectedShadowPosition
-		}
-
-		// hover
-		{
-			var hoverBackground = store.getGradient(JTPConstants.ActivePartStack.HOVER_FILL_COLOR)
-			if(hoverBackground != null) {
-				this.hoverBackgroundEdit.selection = hoverBackground
-			}
-
-			this.hideHoverBackgroundButton.selection = !store.getBoolean(JTPConstants.ActivePartStack.HOVER_FILL)
-			var hoverBorder = store.getGradient(JTPConstants.ActivePartStack.HOVER_BORDER_COLOR)
-			if(hoverBorder != null) {
-				this.hoverBorderEdit.selection = hoverBorder
-			}
-			this.hideHoverBorderButton.selection = !store.getBoolean(JTPConstants.ActivePartStack.HOVER_BORDER_SHOW)
-			var foreground = store.getHSB(JTPConstants.ActivePartStack.HOVER_TEXT_COLOR)
-			if(foreground != null) {
-				this.hoverTextColorWell.selection = foreground
-			}
-
-			var hoverShadowColor = store.getHSB(JTPConstants.ActivePartStack.HOVER_TEXT_SHADOW_COLOR)
-			if(hoverShadowColor != null)
-				this.hoverShadowEdit.color = hoverShadowColor
-
-			var hoverShadowPosition = store.getPoint(JTPConstants.ActivePartStack.HOVER_TEXT_SHADOW_POSITION)
-			if(hoverShadowPosition != null)
-				this.hoverShadowEdit.shadowPosition = hoverShadowPosition
-		}
 	}
 
 	override save(JThemePreferenceStore store, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
-		store.setValue(JTPConstants.ActivePartStack.BORDER_COLOR, borderEdit.selection)
-		store.setValue(JTPConstants.ActivePartStack.BACKGROUND_COLOR, backgroundEdit.selection)
-		store.setValue(JTPConstants.ActivePartStack.BORDER_SHOW, !this.hideBorderButton.selection)
-
-		store.setValue(JTPConstants.ActivePartStack.SELECTED_FILL_COLOR, this.selectedBackgroundEdit.selection)
-		store.setValue(JTPConstants.ActivePartStack.SELECTED_BORDER_COLOR, this.selectedBorderEdit.selection)
-		store.setValue(JTPConstants.ActivePartStack.SELECTED_BORDER_SHOW, !this.hideSelectedBorderButton.selection)
-		store.setValue(JTPConstants.ActivePartStack.SELECTED_TEXT_COLOR, this.selectedTextColorWell.selection)
-		store.setValue(JTPConstants.ActivePartStack.SELECTED_TEXT_SHADOW_COLOR, this.selectedShadowEdit.color)
-		store.setValue(JTPConstants.ActivePartStack.SELECTED_TEXT_SHADOW_POSITION, this.selectedShadowEdit.shadowPosition)
-
-		store.setValue(JTPConstants.ActivePartStack.UNSELECTED_FILL_COLOR, this.unselectedBackgroundEdit.selection)
-		store.setValue(JTPConstants.ActivePartStack.UNSELECTED_BORDER_COLOR, this.unselectedBorderEdit.selection)
-		store.setValue(JTPConstants.ActivePartStack.UNSELECTED_BORDER_SHOW, !this.hideUnselectedBorderButton.selection)
-		store.setValue(JTPConstants.ActivePartStack.UNSELECTED_FILL, !this.hideUnselectedBackgroundButton.selection)
-		store.setValue(JTPConstants.ActivePartStack.UNSELECTED_TEXT_COLOR, this.unselectedTextColorWell.selection)
-		store.setValue(JTPConstants.ActivePartStack.UNSELECTED_TEXT_SHADOW_COLOR, this.unselectedShadowEdit.color)
-		store.setValue(JTPConstants.ActivePartStack.UNSELECTED_TEXT_SHADOW_POSITION, this.unselectedShadowEdit.shadowPosition)
-
-		store.setValue(JTPConstants.ActivePartStack.HOVER_FILL_COLOR, this.hoverBackgroundEdit.selection)
-		store.setValue(JTPConstants.ActivePartStack.HOVER_BORDER_COLOR, this.hoverBorderEdit.selection)
-		store.setValue(JTPConstants.ActivePartStack.HOVER_BORDER_SHOW, !this.hideHoverBorderButton.selection)
-		store.setValue(JTPConstants.ActivePartStack.HOVER_FILL, !this.hideHoverBackgroundButton.selection)
-		store.setValue(JTPConstants.ActivePartStack.HOVER_TEXT_COLOR, this.hoverTextColorWell.selection)
-		store.setValue(JTPConstants.ActivePartStack.HOVER_TEXT_SHADOW_COLOR, this.hoverShadowEdit.color)
-		store.setValue(JTPConstants.ActivePartStack.HOVER_TEXT_SHADOW_POSITION, this.hoverShadowEdit.shadowPosition)
+		store.withContext(this.context) [
+			setValue(JTPConstants.PartStack.BORDER_COLOR, borderEdit.selection)
+			setValue(JTPConstants.PartStack.BACKGROUND_COLOR, backgroundEdit.selection)
+			setValue(JTPConstants.PartStack.BORDER_SHOW, !this.hideBorderButton.selection)
+			setValue(JTPConstants.PartStack.SELECTED_FILL_COLOR, this.selectedBackgroundEdit.selection)
+			setValue(JTPConstants.PartStack.SELECTED_BORDER_COLOR, this.selectedBorderEdit.selection)
+			setValue(JTPConstants.PartStack.SELECTED_BORDER_SHOW, !this.hideSelectedBorderButton.selection)
+			setValue(JTPConstants.PartStack.SELECTED_TEXT_COLOR, this.selectedTextColorWell.selection)
+			setValue(JTPConstants.PartStack.SELECTED_TEXT_SHADOW_COLOR, this.selectedShadowEdit.color)
+			setValue(JTPConstants.PartStack.SELECTED_TEXT_SHADOW_POSITION, this.selectedShadowEdit.shadowPosition)
+			setValue(JTPConstants.PartStack.UNSELECTED_FILL_COLOR, this.unselectedBackgroundEdit.selection)
+			setValue(JTPConstants.PartStack.UNSELECTED_BORDER_COLOR, this.unselectedBorderEdit.selection)
+			setValue(JTPConstants.PartStack.UNSELECTED_BORDER_SHOW, !this.hideUnselectedBorderButton.selection)
+			setValue(JTPConstants.PartStack.UNSELECTED_FILL, !this.hideUnselectedBackgroundButton.selection)
+			setValue(JTPConstants.PartStack.UNSELECTED_TEXT_COLOR, this.unselectedTextColorWell.selection)
+			setValue(JTPConstants.PartStack.UNSELECTED_TEXT_SHADOW_COLOR, this.unselectedShadowEdit.color)
+			setValue(JTPConstants.PartStack.UNSELECTED_TEXT_SHADOW_POSITION, this.unselectedShadowEdit.shadowPosition)
+			setValue(JTPConstants.PartStack.HOVER_FILL_COLOR, this.hoverBackgroundEdit.selection)
+			setValue(JTPConstants.PartStack.HOVER_BORDER_COLOR, this.hoverBorderEdit.selection)
+			setValue(JTPConstants.PartStack.HOVER_BORDER_SHOW, !this.hideHoverBorderButton.selection)
+			setValue(JTPConstants.PartStack.HOVER_FILL, !this.hideHoverBackgroundButton.selection)
+			setValue(JTPConstants.PartStack.HOVER_TEXT_COLOR, this.hoverTextColorWell.selection)
+			setValue(JTPConstants.PartStack.HOVER_TEXT_SHADOW_COLOR, this.hoverShadowEdit.color)
+			setValue(JTPConstants.PartStack.HOVER_TEXT_SHADOW_POSITION, this.hoverShadowEdit.shadowPosition)
+			setValue(JTPConstants.PartStack.CLOSE_BUTTON_COLOR, this.closeButtonColorWell.selection)
+			setValue(JTPConstants.PartStack.CLOSE_BUTTON_ACTIVE_COLOR, this.closeButtonActiveColorWell.selection)
+			setValue(JTPConstants.PartStack.CLOSE_BUTTON_HOVER_COLOR, this.closeButtonHoverColorWell.selection)
+		]
 	}
 
 	override dispose(extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {

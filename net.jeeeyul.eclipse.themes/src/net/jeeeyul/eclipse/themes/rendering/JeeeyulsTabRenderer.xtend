@@ -14,6 +14,7 @@ import org.eclipse.swt.graphics.GC
 import org.eclipse.swt.graphics.Path
 import org.eclipse.swt.graphics.Point
 import org.eclipse.swt.graphics.Rectangle
+import net.jeeeyul.eclipse.themes.rendering.internal.EmptyClassHook
 
 class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	extension JTabRendererHelper = new JTabRendererHelper
@@ -24,6 +25,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	JTabSettings settings = new JTabSettings(this)
 	CTabFolder tabFolder
 	NinePatch shadowNinePatch;
+	EmptyClassHook emptyClassHook
 	PropertyChangeListener settingsListener = [
 		handleSettingChange(it)
 	]
@@ -47,11 +49,13 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	new(CTabFolder parent) {
 		super(parent)
 		this.tabFolder = parent
+		this.emptyClassHook = new EmptyClassHook(parent)
 		settings.addPropertyChangeListener(settingsListener)
 	}
 
 	override protected dispose() {
 		shadowNinePatch.safeDispose()
+		emptyClassHook.dispose()
 		settings.removePropertyChangeListener(settingsListener)
 		super.dispose()
 	}
@@ -154,7 +158,6 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	override protected draw(int part, int state, Rectangle bounds, GC gc) {
 		try {
 			doDraw(part, state, bounds, gc)
-
 		} catch(Exception e) {
 			e.printStackTrace
 		}
@@ -281,8 +284,11 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 					addRectangle(tabArea)
 				}
 			]
-
-			gc.background = #[tabFolder.selectionGradientColor?.last, tabFolder.selectionBackground].findFirst[it != null]
+			
+			if(parent.itemCount > 0)
+				gc.background = #[tabFolder.selectionGradientColor?.last, tabFolder.selectionBackground].findFirst[it != null]
+			else
+				gc.background = #[tabFolder.gradientColor?.last, tabFolder.background].findFirst[it != null]
 			gc.fill(path)
 		}
 

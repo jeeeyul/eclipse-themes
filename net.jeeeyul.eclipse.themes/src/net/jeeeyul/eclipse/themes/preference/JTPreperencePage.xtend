@@ -17,31 +17,44 @@ import org.eclipse.swt.custom.CTabFolder
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.ui.IWorkbench
 import org.eclipse.ui.IWorkbenchPreferencePage
-import org.eclipse.ui.progress.UIJob
+import net.jeeeyul.eclipse.themes.JThemesCore
+import net.jeeeyul.eclipse.themes.css.RewriteCustomTheme
+import org.eclipse.core.runtime.Platform
 
-class JTActivePartStackPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
+class JTPreperencePage extends PreferencePage implements IWorkbenchPreferencePage {
 	extension SWTExtensions swtExt = SWTExtensions.INSTANCE
 	extension PreperencePageHelper helper = new PreperencePageHelper(this);
 
 	JeeeyulsTabRenderer renderer
 	CTabFolder folder
 
-	List<AbstractJTPreferencePage> pages = newArrayList(new PartStackPage, new LayoutPage)
+	List<AbstractJTPreferencePage> pages = newArrayList(
+		new WindowPage,
+		new PartStackPage("Active Stack", JTPConstants.ActivePartStack.PREFIX),
+		new PartStackPage("Inactive Stack", JTPConstants.InactivePartStack.PREFIX),
+		new EmptyPartStackPage,
+		new LayoutPage
+	)
 
-	UIJob updatePreview = newDeferredJob("Update Preview") [
-		doUpdatePreview()
-	]
+	new() {
+		title = "Jeeeyul's Theme"
+	}
 
 	override init(IWorkbench workbench) {
+		this.preferenceStore = JThemesCore.^default.preferenceStore
 	}
 
 	override public createContents(Composite parent) {
 		folder = parent.newCTabFolder(SWT.CLOSE)[]
 		folder => [
+			
 			setUnselectedCloseVisible(false)
 			addCTabFolder2Listener(new ClosePrevent)
 			it.renderer = renderer = new JeeeyulsTabRenderer(it) => [
 				debug = false
+			]
+			onSelection = [
+				updatePreview()
 			]
 			for (each : pages) {
 				newCTabItem[
@@ -65,11 +78,14 @@ class JTActivePartStackPreferencePage extends PreferencePage implements IWorkben
 	override performOk() {
 		pages.forEach[it.save(preferenceStore, swtExt, helper)]
 		preferenceStore.save()
+		if(Platform.running)
+			new RewriteCustomTheme().rewrite()
+			
 		return true
 	}
 
 	override JThemePreferenceStore getPreferenceStore() {
-		new JThemePreferenceStore(super.preferenceStore as PreferenceStore)
+		super.preferenceStore as JThemePreferenceStore
 	}
 
 	def AbstractJTPreferencePage getActivePage() {
@@ -82,34 +98,38 @@ class JTActivePartStackPreferencePage extends PreferencePage implements IWorkben
 
 	def static void main(String[] args) {
 		var manager = new PreferenceManager()
-		var activePage = new JTActivePartStackPreferencePage
-		manager.addToRoot(new PreferenceNode("Active", activePage))
+		var prefPage = new JTPreperencePage
+		manager.addToRoot(new PreferenceNode("Active", prefPage))
 		var userDir = System.getProperty("user.home");
 		var file = new File(userDir, ".jet-dummy-pref");
 		var store = new PreferenceStore(file.getAbsolutePath());
 		var defaults = new Properties
-		defaults.load(typeof(JTActivePartStackPreferencePage).getResourceAsStream("default.epf"))
-		for(each : defaults.keySet){
+		defaults.load(typeof(JTPreperencePage).getResourceAsStream("default.epf"))
+		for (each : defaults.keySet) {
 			store.setDefault(each as String, defaults.getProperty(each as String))
-		}		
+		}
 		try {
 			store.load()
 		} catch(Exception e) {
 		}
-		activePage.setPreferenceStore(store)
+		prefPage.setPreferenceStore(new JThemePreferenceStore(store))
 		new PreferenceDialog(null, manager).open
 
 	}
 
 	def void updatePreview() {
-
-		//		updatePreview.schedule()
 		doUpdatePreview()
 	}
 
 	def void doUpdatePreview() {
 		for (p : pages) {
-			p.updatePreview()
+			if(p instanceof PartStackPage) {
+				if(activePage == p || p.context == JTPConstants.ActivePartStack.PREFIX) {
+					p.updatePreview()
+				}
+			} else {
+				p.updatePreview()
+			}
 		}
 	}
 

@@ -1,76 +1,30 @@
 package net.jeeeyul.eclipse.themes.css
 
+import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore
+import net.jeeeyul.eclipse.themes.JThemesCore
+import net.jeeeyul.eclipse.themes.preference.JTPConstants
+import org.eclipse.swt.graphics.Point
+import org.eclipse.swt.graphics.Rectangle
+
 class CustomThemeGenerator {
 	def String generate() '''
 		.jeeeyul-custom-theme{
 			/* This class must be exists on first. */
 		}
 		
+		«comment("Window")»
 		.MTrimmedWindow.topLevel {
 			margin-top: 4px;
 			margin-left: 2px;
 			margin-right: 2px;
-			background-color: #ddd;
-		}
-		
-		.MTrimBar#org-eclipse-ui-main-toolbar {
-			background-color: #ccc #aaa;
-		}
-		
-		.MPartStack {
-			swt-tab-renderer:
-				url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer');
-			swt-tab-height: 22px;
-			color: black;
-			jtab-hover-color: black;
-			swt-unselected-tabs-color: #eee #ddd white 100% 100%;
-			swt-selected-tabs-background: white white 100%;
-			jtab-unselected-tabs-background: none;
-			jtab-hover-tabs-background: #bbb #ccc 100%;
-			jtab-margin: 0px 3px 3px 2px;
-			jtab-shadow-color: gray;
-			jtab-shadow-radius: 4px;
-			jtab-shadow-position: 1px 1px;
-			jtab-close-button-line-width: 1px;
-			jtab-close-button-color: gray;
-			jtab-close-button-hot-color: darkRed;
-			jtab-close-button-active-color: darkRed;
-			jtab-close-button-hot-color: darkRed;
-			jtab-border-radius: 3px;
-			jtab-spacing: 2px;
-			jtab-border-color: none;
-			jtab-selected-border-color: none;
-			jtab-unselected-border-color: none;
-			jtab-hover-border-color: gray #ddd 100%;
-			jtab-unselected-text-shadow-color: white;
-			jtab-hover-text-shadow-color: white;
-		}
-		
-		.MPartStack>CTabItem {
-			color: black;
-		}
-		
-		.MPartStack>CTabItem:selected {
-			color: #333;
-		}
-		
-		.MPartStack.active {
-			swt-tab-renderer:
-				url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer');
-			swt-selected-tabs-background: rgb(246, 126, 44) rgb(246, 126, 44) white
-				white 17% 17% 100%;
+			background-color: «store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»;
 		}
 		
 		.MPartSashContainer {
 			jeeeyul-sash-width: 2px;
 		}
 		
-		#org-eclipse-ui-main-toolbar #PerspectiveSwitcher {
-			background-color: white #ddd;
-			handle-image: none;
-			eclipse-perspective-keyline-color: #888;
-		}
-		
+		«comment("Trim Stack")»
 		.MToolControl.TrimStack {
 			frame-image: url(chrome://frame?background-color=#ddd);
 			frame-cuts: 5px 1px 5px 16px;
@@ -82,9 +36,20 @@ class CustomThemeGenerator {
 				url(chrome://drag-handle?height=33&background-color=#ddd&embossed=false);
 		}
 		
+		«comment("Main Toolbar")»
+		#org-eclipse-ui-main-toolbar {
+			background-color:«store.getGradient(JTPConstants.Window.TOOLBAR_FILL_COLOR).toSWTCSSString»;
+		}
+		
 		#org-eclipse-ui-main-toolbar .Draggable {
 			handle-image:
-				url(chrome://drag-handle?height=22&background-color=#bbb&embossed=false);
+				url(chrome://drag-handle?height=22&background-color=«store.getGradient(JTPConstants.Window.TOOLBAR_FILL_COLOR).averageColor.toHTMLCode»&embossed=false);
+		}
+		
+		#org-eclipse-ui-main-toolbar #PerspectiveSwitcher {
+			background-color: «store.getGradient(JTPConstants.Window.PERSPECTIVE_SWITCHER_FILL_COLOR).toSWTCSSString»;
+			handle-image: none;
+			eclipse-perspective-keyline-color: «store.getHSB(JTPConstants.Window.PERSPECTIVE_SWITCHER_KEY_LINE_COLOR).toHTMLCode»;
 		}
 		
 		#org-eclipse-ui-main-toolbar .TrimStack {
@@ -93,9 +58,225 @@ class CustomThemeGenerator {
 				url(chrome://drag-handle?height=22&background-color=#bbb&embossed=false);
 		}
 		
+		«comment("Status Bar")»
+		#org-eclipse-ui-trim-status{
+			background-color:«store.getGradient(JTPConstants.Window.STATUS_BAR_FILL_COLOR).toSWTCSSString»;
+		}
+		
 		#org-eclipse-ui-trim-status .Draggable {
 			handle-image:
-				url(chrome://drag-handle?height=22&background-color=#ddd&embossed=false);
+				url(chrome://drag-handle?height=22&background-color=«store.getGradient(JTPConstants.Window.STATUS_BAR_FILL_COLOR).averageColor.toHTMLCode»&embossed=false);
+		}
+		
+		
+		«comment("Inactive Part Stack")»
+		.MPartStack {
+			swt-tab-renderer:
+				url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer');
+			swt-mru-visible: true;
+			
+			/* layout */
+			swt-tab-height: «store.getInt(JTPConstants.Layout.TAB_HEIGHT)»px;
+			jtab-border-radius: «store.getInt(JTPConstants.Layout.BORDER_RADIUS)»px;
+			jtab-spacing: «store.getInt(JTPConstants.Layout.TAB_SPACING)»px;
+			jtab-item-padding: 0px «store.getInt(JTPConstants.Layout.TAB_ITEM_PADDING)»px;
+			jtab-padding : «store.getInt(JTPConstants.Layout.CONTENT_PADDING)»px;
+			
+			«IF store.getBoolean(JTPConstants.Layout.SHOW_SHADOW)»
+				jtab-margin : 0px 4px 4px 1px; /* top right bottom left */
+				jtab-shadow-color: «store.getHSB(JTPConstants.Layout.SHADOW_COLOR).toHTMLCode»;
+				jtab-shadow-position: 1px 1px;
+				jtab-shadow-radius: 3px;
+			«ELSE»
+				jtab-margin : 0px;
+				jtab-shadow-color: none;
+				jtab-shadow-position: 0px 0px;
+				jtab-shadow-radius: 0px;
+			«ENDIF»
+			
+			/* tab background */
+			swt-unselected-tabs-color : «store.getGradient(JTPConstants.InactivePartStack.BACKGROUND_COLOR).toSWTCSSString»;
+			«IF store.getBoolean(JTPConstants.InactivePartStack.BORDER_SHOW)»
+				jtab-border-color : «store.getGradient(JTPConstants.InactivePartStack.BORDER_COLOR).toSWTCSSString»;
+			«ELSE»
+				jtab-border-color : none;
+			«ENDIF»
+			background : «store.getGradient(JTPConstants.InactivePartStack.SELECTED_FILL_COLOR).last.color.toHTMLCode»;
+			
+			/* selected tabs */
+			swt-selected-tabs-background: «store.getGradient(JTPConstants.InactivePartStack.SELECTED_FILL_COLOR).toSWTCSSString»;
+			«IF store.getBoolean(JTPConstants.InactivePartStack.SELECTED_BORDER_SHOW)»
+				jtab-selected-border-color: «store.getGradient(JTPConstants.InactivePartStack.SELECTED_BORDER_COLOR).toSWTCSSString»;
+			«ELSE»
+				jtab-selected-border-color: none;
+			«ENDIF»
+			«IF !store.getPoint(JTPConstants.InactivePartStack.SELECTED_TEXT_SHADOW_POSITION).empty»
+				jtab-selected-text-shadow-position: «store.getPoint(JTPConstants.InactivePartStack.SELECTED_TEXT_SHADOW_POSITION).toCSS»;
+				jtab-selected-text-shadow-color: «store.getHSB(JTPConstants.InactivePartStack.SELECTED_TEXT_SHADOW_COLOR).toHTMLCode»;
+			«ELSE»
+				jtab-selected-text-shadow-color: none;
+			«ENDIF»
+		
+			/* unselected tabs */
+			«IF store.getBoolean(JTPConstants.InactivePartStack.UNSELECTED_FILL)»
+				jtab-unselected-tabs-background: «store.getGradient(JTPConstants.InactivePartStack.UNSELECTED_FILL_COLOR).toSWTCSSString»;
+			«ELSE»
+				jtab-unselected-tabs-background: none;
+			«ENDIF»
+			
+			«IF store.getBoolean(JTPConstants.InactivePartStack.UNSELECTED_BORDER_SHOW)»
+				jtab-unselected-border-color: «store.getGradient(JTPConstants.InactivePartStack.UNSELECTED_FILL_COLOR).toSWTCSSString»;
+			«ELSE»
+				jtab-unselected-border-color: none;
+			«ENDIF»
+			«IF !store.getPoint(JTPConstants.InactivePartStack.UNSELECTED_TEXT_SHADOW_POSITION).empty»
+				jtab-unselected-text-shadow-position: «store.getPoint(JTPConstants.InactivePartStack.UNSELECTED_TEXT_SHADOW_POSITION).toCSS»;
+				jtab-unselected-text-shadow-color: «store.getHSB(JTPConstants.InactivePartStack.UNSELECTED_TEXT_SHADOW_COLOR).toHTMLCode»;
+			«ELSE»
+				jtab-unselected-text-shadow-color: none;
+			«ENDIF»
+			
+			/* hover tabs */
+			«IF store.getBoolean(JTPConstants.InactivePartStack.HOVER_FILL)»
+				jtab-hover-tabs-background: «store.getGradient(JTPConstants.InactivePartStack.HOVER_FILL_COLOR).toSWTCSSString»;
+			«ELSE»
+				jtab-hover-tabs-background: none;
+			«ENDIF»
+			
+			«IF store.getBoolean(JTPConstants.InactivePartStack.HOVER_BORDER_SHOW)»
+				jtab-hover-border-color: «store.getGradient(JTPConstants.InactivePartStack.HOVER_FILL_COLOR).toSWTCSSString»;
+			«ELSE»
+				jtab-hover-border-color: none;
+			«ENDIF»
+			«IF !store.getPoint(JTPConstants.InactivePartStack.HOVER_TEXT_SHADOW_POSITION).empty»
+				jtab-hover-text-shadow-position: «store.getPoint(JTPConstants.InactivePartStack.HOVER_TEXT_SHADOW_POSITION).toCSS»;
+				jtab-hover-text-shadow-color: «store.getHSB(JTPConstants.InactivePartStack.HOVER_TEXT_SHADOW_COLOR).toHTMLCode»;
+			«ELSE»
+				jtab-hover-text-shadow-color: none;
+			«ENDIF»
+			
+			jtab-close-button-color: «store.getHSB(JTPConstants.InactivePartStack.CLOSE_BUTTON_COLOR).toHTMLCode»;
+			jtab-close-button-hot-color: «store.getHSB(JTPConstants.InactivePartStack.CLOSE_BUTTON_HOVER_COLOR).toHTMLCode»;
+			jtab-close-button-active-color: «store.getHSB(JTPConstants.InactivePartStack.CLOSE_BUTTON_ACTIVE_COLOR).toHTMLCode»;
+		}
+		
+		.MPartStack>CTabItem {
+			/* unselected tab text */
+			color: «store.getHSB(JTPConstants.InactivePartStack.UNSELECTED_TEXT_COLOR).toHTMLCode»;
+		}
+		
+		.MPartStack>CTabItem:selected {
+			/* selected tab text */
+			color: «store.getHSB(JTPConstants.InactivePartStack.SELECTED_TEXT_COLOR).toHTMLCode»;
+		}
+		
+		.MPartStack.empty{
+			swt-unselected-tabs-color : «store.getGradient(JTPConstants.EmptyPartStack.FILL_COLOR).toSWTCSSString»;
+			«IF store.getBoolean(JTPConstants.EmptyPartStack.BORDER_SHOW)»
+				jtab-border-color : «store.getGradient(JTPConstants.EmptyPartStack.BORDER_COLOR).toSWTCSSString»;
+			«ELSE»
+				jtab-border-color : none;
+			«ENDIF»
+			
+		}
+		
+		«comment("Active Part Stack")»
+		.MPartStack.active {
+			swt-tab-renderer:
+				url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer');
+			
+			/* tab background */
+			swt-unselected-tabs-color : «store.getGradient(JTPConstants.ActivePartStack.BACKGROUND_COLOR).toSWTCSSString»;
+			«IF store.getBoolean(JTPConstants.ActivePartStack.BORDER_SHOW)»
+				jtab-border-color : «store.getGradient(JTPConstants.ActivePartStack.BORDER_COLOR).toSWTCSSString»;
+			«ELSE»
+				jtab-border-color : none;
+			«ENDIF»
+			background : «store.getGradient(JTPConstants.ActivePartStack.SELECTED_FILL_COLOR).last.color.toHTMLCode»;
+			
+			/* selected tabs */
+			swt-selected-tabs-background: «store.getGradient(JTPConstants.ActivePartStack.SELECTED_FILL_COLOR).toSWTCSSString»;
+			«IF store.getBoolean(JTPConstants.ActivePartStack.SELECTED_BORDER_SHOW)»
+				jtab-selected-border-color: «store.getGradient(JTPConstants.ActivePartStack.SELECTED_BORDER_COLOR).toSWTCSSString»;
+			«ELSE»
+				jtab-selected-border-color: none;
+			«ENDIF»
+			«IF !store.getPoint(JTPConstants.ActivePartStack.SELECTED_TEXT_SHADOW_POSITION).empty»
+				jtab-selected-text-shadow-position: «store.getPoint(JTPConstants.ActivePartStack.SELECTED_TEXT_SHADOW_POSITION).toCSS»;
+				jtab-selected-text-shadow-color: «store.getHSB(JTPConstants.ActivePartStack.SELECTED_TEXT_SHADOW_COLOR).toHTMLCode»;
+			«ELSE»
+				jtab-selected-text-shadow-color: none;
+			«ENDIF»
+		
+			/* unselected tabs */
+			«IF store.getBoolean(JTPConstants.ActivePartStack.UNSELECTED_FILL)»
+				jtab-unselected-tabs-background: «store.getGradient(JTPConstants.ActivePartStack.UNSELECTED_FILL_COLOR).toSWTCSSString»;
+			«ELSE»
+				jtab-unselected-tabs-background: none;
+			«ENDIF»
+			
+			«IF store.getBoolean(JTPConstants.ActivePartStack.UNSELECTED_BORDER_SHOW)»
+				jtab-unselected-border-color: «store.getGradient(JTPConstants.ActivePartStack.UNSELECTED_FILL_COLOR).toSWTCSSString»;
+			«ELSE»
+				jtab-unselected-border-color: none;
+			«ENDIF»
+			«IF !store.getPoint(JTPConstants.ActivePartStack.UNSELECTED_TEXT_SHADOW_POSITION).empty»
+				jtab-unselected-text-shadow-position: «store.getPoint(JTPConstants.ActivePartStack.UNSELECTED_TEXT_SHADOW_POSITION).toCSS»;
+				jtab-unselected-text-shadow-color: «store.getHSB(JTPConstants.ActivePartStack.UNSELECTED_TEXT_SHADOW_COLOR).toHTMLCode»;
+			«ELSE»
+				jtab-unselected-text-shadow-color: none;
+			«ENDIF»
+			
+			/* hover tabs */
+			«IF store.getBoolean(JTPConstants.ActivePartStack.HOVER_FILL)»
+				jtab-hover-tabs-background: «store.getGradient(JTPConstants.ActivePartStack.HOVER_FILL_COLOR).toSWTCSSString»;
+			«ELSE»
+				jtab-hover-tabs-background: none;
+			«ENDIF»
+			
+			«IF store.getBoolean(JTPConstants.ActivePartStack.HOVER_BORDER_SHOW)»
+				jtab-hover-border-color: «store.getGradient(JTPConstants.ActivePartStack.HOVER_FILL_COLOR).toSWTCSSString»;
+			«ELSE»
+				jtab-hover-border-color: none;
+			«ENDIF»
+			«IF !store.getPoint(JTPConstants.ActivePartStack.HOVER_TEXT_SHADOW_POSITION).empty»
+				jtab-hover-text-shadow-position: «store.getPoint(JTPConstants.ActivePartStack.HOVER_TEXT_SHADOW_POSITION).toCSS»;
+				jtab-hover-text-shadow-color: «store.getHSB(JTPConstants.ActivePartStack.HOVER_TEXT_SHADOW_COLOR).toHTMLCode»;
+			«ELSE»
+				jtab-hover-text-shadow-color: none;
+			«ENDIF»
+			
+			jtab-close-button-color: «store.getHSB(JTPConstants.ActivePartStack.CLOSE_BUTTON_COLOR).toHTMLCode»;
+			jtab-close-button-hot-color: «store.getHSB(JTPConstants.ActivePartStack.CLOSE_BUTTON_HOVER_COLOR).toHTMLCode»;
+			jtab-close-button-active-color: «store.getHSB(JTPConstants.ActivePartStack.CLOSE_BUTTON_ACTIVE_COLOR).toHTMLCode»;
+		}
+		
+		.MPartStack.active>CTabItem {
+			/* unselected tab text */
+			color: «store.getHSB(JTPConstants.ActivePartStack.UNSELECTED_TEXT_COLOR).toHTMLCode»;
+		}
+		
+		.MPartStack.active>CTabItem:selected {
+			/* selected tab text */
+			color: «store.getHSB(JTPConstants.ActivePartStack.SELECTED_TEXT_COLOR).toHTMLCode»;
 		}
 	'''
+
+	def comment(String comment) '''
+		/**************************************************
+		 * «comment»
+		 **************************************************/
+	'''
+
+	def toInsetCSS(Rectangle r) '''«r.y»px «r.width»px «r.height»px «r.x»px'''
+
+	def JThemePreferenceStore store() {
+		JThemesCore.^default.preferenceStore
+	}
+
+	def toCSS(Point point) '''«point.x»px «point.y»px'''
+
+	def boolean isEmpty(Point point) {
+		return point.x == 0 && point.y == 0
+	}
 }
