@@ -20,6 +20,7 @@ import org.eclipse.ui.IWorkbenchPreferencePage
 import net.jeeeyul.eclipse.themes.JThemesCore
 import net.jeeeyul.eclipse.themes.css.RewriteCustomTheme
 import org.eclipse.core.runtime.Platform
+import net.jeeeyul.eclipse.themes.preference.internal.JTPreferenceKeyCollector
 
 class JTPreperencePage extends PreferencePage implements IWorkbenchPreferencePage {
 	extension SWTExtensions swtExt = SWTExtensions.INSTANCE
@@ -47,7 +48,6 @@ class JTPreperencePage extends PreferencePage implements IWorkbenchPreferencePag
 	override public createContents(Composite parent) {
 		folder = parent.newCTabFolder(SWT.CLOSE)[]
 		folder => [
-			
 			setUnselectedCloseVisible(false)
 			addCTabFolder2Listener(new ClosePrevent)
 			it.renderer = renderer = new JeeeyulsTabRenderer(it) => [
@@ -80,8 +80,19 @@ class JTPreperencePage extends PreferencePage implements IWorkbenchPreferencePag
 		preferenceStore.save()
 		if(Platform.running)
 			new RewriteCustomTheme().rewrite()
-			
+
 		return true
+	}
+
+	override protected performDefaults() {
+		var dummy = new JThemePreferenceStore(new PreferenceStore())
+		for (e : new JTPreferenceKeyCollector().collect) {
+			dummy.setValue(e, preferenceStore.getDefaultString(e))
+		}
+
+		for (e : pages) {
+			e.load(dummy, swtExt, helper)
+		}
 	}
 
 	override JThemePreferenceStore getPreferenceStore() {

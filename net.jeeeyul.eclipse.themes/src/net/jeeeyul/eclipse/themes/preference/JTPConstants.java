@@ -1,11 +1,14 @@
 package net.jeeeyul.eclipse.themes.preference;
 
+import net.jeeeyul.eclipse.themes.preference.internal.Ignore;
+import net.jeeeyul.eclipse.themes.preference.internal.TypeHint;
 import net.jeeeyul.swtend.ui.Gradient;
 import net.jeeeyul.swtend.ui.HSB;
 
 import org.eclipse.swt.graphics.Point;
 
 public interface JTPConstants {
+	@Ignore
 	public static interface PartStack {
 		@TypeHint(Gradient.class)
 		public static final String BACKGROUND_COLOR = "BACKGROUND_COLOR";
@@ -87,6 +90,7 @@ public interface JTPConstants {
 	}
 
 	public static interface ActivePartStack {
+		@Ignore
 		public static final String PREFIX = "ACTIVE_PART_STACK";
 
 		@TypeHint(HSB.class)
@@ -169,6 +173,7 @@ public interface JTPConstants {
 	}
 
 	public static interface InactivePartStack {
+		@Ignore
 		public static final String PREFIX = "INACTIVE_PART_STACK";
 
 		@TypeHint(Gradient.class)
@@ -251,6 +256,7 @@ public interface JTPConstants {
 	}
 
 	public static interface Layout {
+		@Ignore
 		public static final String PREFIX = "LAYOUT";
 
 		@TypeHint(int.class)
@@ -279,6 +285,7 @@ public interface JTPConstants {
 	}
 
 	public static interface Window {
+		@Ignore
 		public static final String PREFIX = "WINDOW";
 
 		@TypeHint(Gradient.class)
@@ -286,10 +293,10 @@ public interface JTPConstants {
 
 		@TypeHint(Gradient.class)
 		public static final String STATUS_BAR_FILL_COLOR = PREFIX + CATEGORY_SEPARATOR + "STATUS_BAR_FILL_COLOR";
-		
+
 		@TypeHint(Gradient.class)
 		public static final String PERSPECTIVE_SWITCHER_FILL_COLOR = PREFIX + CATEGORY_SEPARATOR + "PERSPECTIVE_SWITCHER_FILL_COLOR";
-		
+
 		@TypeHint(HSB.class)
 		public static final String PERSPECTIVE_SWITCHER_KEY_LINE_COLOR = PREFIX + CATEGORY_SEPARATOR + "PERSPECTIVE_SWITCHER_KEY_LINE_COLOR";
 
@@ -298,6 +305,7 @@ public interface JTPConstants {
 	}
 
 	public static interface EmptyPartStack {
+		@Ignore
 		public static final String PREFIX = "EMPTY_PART_STACK";
 
 		@TypeHint(Gradient.class)

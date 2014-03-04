@@ -17,21 +17,6 @@
             id="net.jeeeyul.eclipse.themes.custom"
             label="Jeeeyul&apos;s themes - Custom Theme">
       </theme>
-      <theme
-            basestylesheeturi="css/minimalist.css"
-            id="net.jeeeyul.eclipse.themes.minimalist"
-            label="Jeeeyul&apos;s themes - Minimalist">
-      </theme>
-      <theme
-            basestylesheeturi="css/minimalist-dark.css"
-            id="net.jeeeyul.eclipse.themes.minimalist.dark"
-            label="Jeeeyul&apos;s themes - Minimalist(Dark)">
-      </theme>
-      <theme
-            basestylesheeturi="css/new-chrome.css"
-            id="net.jeeeyul.eclipse.themes.chrome.new"
-            label="Jeeeyul&apos;s themes - New Chrome">
-      </theme>
    </extension>
    <extension
          id="id1"
