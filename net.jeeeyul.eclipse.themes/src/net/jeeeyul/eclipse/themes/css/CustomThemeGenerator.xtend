@@ -76,7 +76,6 @@ class CustomThemeGenerator {
 				url(jeeeyul://drag-handle?height=22&background-color=«store.getGradient(JTPConstants.Window.STATUS_BAR_FILL_COLOR).averageColor.toHTMLCode»&embossed=false);
 		}
 		
-		
 		«comment("Inactive Part Stack")»
 		.MPartStack {
 			swt-tab-renderer:
