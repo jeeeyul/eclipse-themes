@@ -1,12 +1,15 @@
 package net.jeeeyul.eclipse.themes.preference
 
 import java.io.File
-import java.util.List
 import java.util.Properties
+import net.jeeeyul.eclipse.themes.JThemesCore
+import net.jeeeyul.eclipse.themes.css.RewriteCustomTheme
 import net.jeeeyul.eclipse.themes.preference.internal.ClosePrevent
+import net.jeeeyul.eclipse.themes.preference.internal.JTPreferenceKeyCollector
 import net.jeeeyul.eclipse.themes.preference.internal.PreperencePageHelper
 import net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer
 import net.jeeeyul.swtend.SWTExtensions
+import org.eclipse.core.runtime.Platform
 import org.eclipse.jface.preference.PreferenceDialog
 import org.eclipse.jface.preference.PreferenceManager
 import org.eclipse.jface.preference.PreferenceNode
@@ -17,10 +20,6 @@ import org.eclipse.swt.custom.CTabFolder
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.ui.IWorkbench
 import org.eclipse.ui.IWorkbenchPreferencePage
-import net.jeeeyul.eclipse.themes.JThemesCore
-import net.jeeeyul.eclipse.themes.css.RewriteCustomTheme
-import org.eclipse.core.runtime.Platform
-import net.jeeeyul.eclipse.themes.preference.internal.JTPreferenceKeyCollector
 
 class JTPreperencePage extends PreferencePage implements IWorkbenchPreferencePage {
 	extension SWTExtensions swtExt = SWTExtensions.INSTANCE
@@ -29,13 +28,10 @@ class JTPreperencePage extends PreferencePage implements IWorkbenchPreferencePag
 	JeeeyulsTabRenderer renderer
 	CTabFolder folder
 
-	List<AbstractJTPreferencePage> pages = newArrayList(
-		new WindowPage,
-		new PartStackPage("Active Stack", JTPConstants.ActivePartStack.PREFIX),
-		new PartStackPage("Inactive Stack", JTPConstants.InactivePartStack.PREFIX),
-		new EmptyPartStackPage,
-		new LayoutPage
-	)
+	AbstractJTPreferencePage[] pages = #[
+		new GeneralPage,
+		new PartStacksPage
+	]
 
 	new() {
 		title = "Jeeeyul's Theme"
@@ -73,7 +69,7 @@ class JTPreperencePage extends PreferencePage implements IWorkbenchPreferencePag
 			each.load(preferenceStore, swtExt, helper)
 			each.updatePreview()
 		}
-
+		
 		return folder
 	}
 
@@ -136,13 +132,7 @@ class JTPreperencePage extends PreferencePage implements IWorkbenchPreferencePag
 
 	def void doUpdatePreview() {
 		for (p : pages) {
-			if(p instanceof PartStackPage) {
-				if(activePage == p || p.context == JTPConstants.ActivePartStack.PREFIX) {
-					p.updatePreview()
-				}
-			} else {
-				p.updatePreview()
-			}
+			p.updatePreview()
 		}
 	}
 

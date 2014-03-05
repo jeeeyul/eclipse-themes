@@ -9,7 +9,7 @@ import org.eclipse.swt.widgets.Composite
 import net.jeeeyul.swtend.ui.ColorWell
 import org.eclipse.swt.SWT
 
-class WindowPage extends AbstractJTPreferencePage {
+class GeneralPage extends AbstractJTPreferencePage {
 	GradientEdit toolbarEdit
 	GradientEdit statusEdit
 	GradientEdit perspectiveSwitcherEdit
@@ -17,57 +17,67 @@ class WindowPage extends AbstractJTPreferencePage {
 	ColorWell backgroundEdit
 
 	new() {
-		super("Window")
+		super("General")
 	}
 
 	override createContents(Composite parent, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
 		parent.newComposite [
-			layout = newGridLayout[
-				numColumns = 3
-			]
-			newLabel[
-				text = "Background"
-				layoutData = newGridData[
-					horizontalSpan = 2
-				]
-			]
-			backgroundEdit = newColorWell[
-				layoutData = newGridData[
-					horizontalAlignment = SWT.RIGHT
-				]
-			]
-			newLabel[
-				text = "Tool Bar"
-			]
-			toolbarEdit = newGradientEdit[
+			layout = newGridLayout[]
+			newGroup[
+				text = "Window"
 				layoutData = FILL_HORIZONTAL
+				layout = newGridLayout[
+					numColumns = 3
+				]
+				newLabel[
+					text = "Background"
+					layoutData = newGridData[
+						horizontalSpan = 2
+					]
+				]
+				backgroundEdit = newColorWell[
+					layoutData = newGridData[
+						horizontalAlignment = SWT.RIGHT
+					]
+				]
+				newLabel[
+					text = "Tool Bar"
+				]
+				toolbarEdit = newGradientEdit[
+					layoutData = FILL_HORIZONTAL
+				]
+				toolbarEdit.appendOrderLockButton[]
+				newLabel[
+					text = "Status Bar"
+				]
+				statusEdit = newGradientEdit[
+					layoutData = FILL_HORIZONTAL
+				]
+				statusEdit.appendOrderLockButton[]
 			]
-			toolbarEdit.appendOrderLockButton[]
-			newLabel[
+			newGroup[
 				text = "Perspective Switcher"
-			]
-			perspectiveSwitcherEdit = newGradientEdit[
 				layoutData = FILL_HORIZONTAL
-			]
-			perspectiveSwitcherEdit.appendOrderLockButton[]
-			newLabel[
-				text = "Perspective Switcher Key Line"
-				layoutData = newGridData[
-					horizontalSpan = 2
+				layout = newGridLayout[
+					numColumns = 3
+				]
+				newLabel[text = "Fill"]
+				perspectiveSwitcherEdit = newGradientEdit[
+					layoutData = FILL_HORIZONTAL
+				]
+				perspectiveSwitcherEdit.appendOrderLockButton[]
+				newLabel[
+					text = "Key Line"
+					layoutData = newGridData[
+						horizontalSpan = 2
+					]
+				]
+				perspectiveSwitcherKeyLineColorWell = newColorWell[
+					layoutData = newGridData[
+						horizontalAlignment = SWT.RIGHT
+					]
 				]
 			]
-			perspectiveSwitcherKeyLineColorWell = newColorWell[
-				layoutData = newGridData[
-					horizontalAlignment = SWT.RIGHT
-				]
-			]
-			newLabel[
-				text = "Status Bar"
-			]
-			statusEdit = newGradientEdit[
-				layoutData = FILL_HORIZONTAL
-			]
-			statusEdit.appendOrderLockButton[]
 		]
 	}
 
