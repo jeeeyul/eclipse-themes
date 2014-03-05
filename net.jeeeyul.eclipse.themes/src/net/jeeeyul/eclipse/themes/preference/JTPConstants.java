@@ -34,7 +34,7 @@ public interface JTPConstants {
 		@TypeHint(Gradient.class)
 		public static final String BORDER_COLOR = "BORDER_COLOR";
 
-		@TypeHint(Boolean.class)
+		@TypeHint(boolean.class)
 		public static final String BORDER_SHOW = "BORDER_SHOW";
 
 		@TypeHint(Gradient.class)
@@ -43,7 +43,7 @@ public interface JTPConstants {
 		@TypeHint(Gradient.class)
 		public static final String SELECTED_BORDER_COLOR = "SELECTED_BORDER_COLOR";
 
-		@TypeHint(Boolean.class)
+		@TypeHint(boolean.class)
 		public static final String SELECTED_BORDER_SHOW = "SELECTED_BORDER_SHOW";
 
 		@TypeHint(HSB.class)
@@ -58,13 +58,13 @@ public interface JTPConstants {
 		@TypeHint(Gradient.class)
 		public static final String UNSELECTED_BORDER_COLOR = "UNSELECTED_BORDER_COLOR";
 
-		@TypeHint(Boolean.class)
+		@TypeHint(boolean.class)
 		public static final String UNSELECTED_BORDER_SHOW = "UNSELECTED_BORDER_SHOW";
 
 		@TypeHint(Gradient.class)
 		public static final String UNSELECTED_FILL_COLOR = "UNSELECTED_FILL_COLOR";
 
-		@TypeHint(Boolean.class)
+		@TypeHint(boolean.class)
 		public static final String UNSELECTED_FILL = "UNSELECTED_FILL";
 
 		@TypeHint(HSB.class)
@@ -79,13 +79,13 @@ public interface JTPConstants {
 		@TypeHint(Gradient.class)
 		public static final String HOVER_BORDER_COLOR = "HOVER_BORDER_COLOR";
 
-		@TypeHint(Boolean.class)
+		@TypeHint(boolean.class)
 		public static final String HOVER_BORDER_SHOW = "HOVER_BORDER_SHOW";
 
 		@TypeHint(Gradient.class)
 		public static final String HOVER_FILL_COLOR = "HOVER_FILL_COLOR";
 
-		@TypeHint(Boolean.class)
+		@TypeHint(boolean.class)
 		public static final String HOVER_FILL = "HOVER_FILL";
 
 		@TypeHint(HSB.class)
@@ -106,6 +106,9 @@ public interface JTPConstants {
 		@TypeHint(HSB.class)
 		public static final String CLOSE_BUTTON_ACTIVE_COLOR = "CLOSE_BUTTON_ACTIVE_COLOR";
 
+		@TypeHint(int.class)
+		public static final String CLOSE_BUTTON_LINE_WIDTH = "CLOSE_BUTTON_LINE_WIDTH";
+
 		@TypeHint(HSB.class)
 		public static final String CHEVRON_COLOR = "CHEVRON_COLOR";
 	}
@@ -120,7 +123,7 @@ public interface JTPConstants {
 		@TypeHint(Gradient.class)
 		public static final String BORDER_COLOR = PREFIX + CATEGORY_SEPARATOR + "BORDER_COLOR";
 
-		@TypeHint(Boolean.class)
+		@TypeHint(boolean.class)
 		public static final String BORDER_SHOW = PREFIX + CATEGORY_SEPARATOR + "BORDER_SHOW";
 
 		@TypeHint(Gradient.class)
@@ -129,7 +132,7 @@ public interface JTPConstants {
 		@TypeHint(Gradient.class)
 		public static final String SELECTED_BORDER_COLOR = PREFIX + CATEGORY_SEPARATOR + "SELECTED_BORDER_COLOR";
 
-		@TypeHint(Boolean.class)
+		@TypeHint(boolean.class)
 		public static final String SELECTED_BORDER_SHOW = PREFIX + CATEGORY_SEPARATOR + "SELECTED_BORDER_SHOW";
 
 		@TypeHint(HSB.class)
@@ -144,13 +147,13 @@ public interface JTPConstants {
 		@TypeHint(Gradient.class)
 		public static final String UNSELECTED_BORDER_COLOR = PREFIX + CATEGORY_SEPARATOR + "UNSELECTED_BORDER_COLOR";
 
-		@TypeHint(Boolean.class)
+		@TypeHint(boolean.class)
 		public static final String UNSELECTED_BORDER_SHOW = PREFIX + CATEGORY_SEPARATOR + "UNSELECTED_BORDER_SHOW";
 
 		@TypeHint(Gradient.class)
 		public static final String UNSELECTED_FILL_COLOR = PREFIX + CATEGORY_SEPARATOR + "UNSELECTED_FILL_COLOR";
 
-		@TypeHint(Boolean.class)
+		@TypeHint(boolean.class)
 		public static final String UNSELECTED_FILL = PREFIX + CATEGORY_SEPARATOR + "UNSELECTED_FILL";
 
 		@TypeHint(HSB.class)
@@ -165,13 +168,13 @@ public interface JTPConstants {
 		@TypeHint(Gradient.class)
 		public static final String HOVER_BORDER_COLOR = PREFIX + CATEGORY_SEPARATOR + "HOVER_BORDER_COLOR";
 
-		@TypeHint(Boolean.class)
+		@TypeHint(boolean.class)
 		public static final String HOVER_BORDER_SHOW = PREFIX + CATEGORY_SEPARATOR + "HOVER_BORDER_SHOW";
 
 		@TypeHint(Gradient.class)
 		public static final String HOVER_FILL_COLOR = PREFIX + CATEGORY_SEPARATOR + "HOVER_FILL_COLOR";
 
-		@TypeHint(Boolean.class)
+		@TypeHint(boolean.class)
 		public static final String HOVER_FILL = PREFIX + CATEGORY_SEPARATOR + "HOVER_FILL";
 
 		@TypeHint(HSB.class)
@@ -191,6 +194,9 @@ public interface JTPConstants {
 
 		@TypeHint(HSB.class)
 		public static final String CLOSE_BUTTON_ACTIVE_COLOR = PREFIX + CATEGORY_SEPARATOR + "CLOSE_BUTTON_ACTIVE_COLOR";
+
+		@TypeHint(int.class)
+		public static final String CLOSE_BUTTON_LINE_WIDTH = PREFIX + CATEGORY_SEPARATOR + "CLOSE_BUTTON_LINE_WIDTH";
 
 		@TypeHint(HSB.class)
 		public static final String CHEVRON_COLOR = PREFIX + CATEGORY_SEPARATOR + "CHEVRON_COLOR";
@@ -206,7 +212,7 @@ public interface JTPConstants {
 		@TypeHint(Gradient.class)
 		public static final String BORDER_COLOR = PREFIX + CATEGORY_SEPARATOR + "BORDER_COLOR";
 
-		@TypeHint(Boolean.class)
+		@TypeHint(boolean.class)
 		public static final String BORDER_SHOW = PREFIX + CATEGORY_SEPARATOR + "BORDER_SHOW";
 
 		@TypeHint(Gradient.class)
@@ -215,7 +221,7 @@ public interface JTPConstants {
 		@TypeHint(Gradient.class)
 		public static final String SELECTED_BORDER_COLOR = PREFIX + CATEGORY_SEPARATOR + "SELECTED_BORDER_COLOR";
 
-		@TypeHint(Boolean.class)
+		@TypeHint(boolean.class)
 		public static final String SELECTED_BORDER_SHOW = PREFIX + CATEGORY_SEPARATOR + "SELECTED_BORDER_SHOW";
 
 		@TypeHint(HSB.class)
@@ -230,13 +236,13 @@ public interface JTPConstants {
 		@TypeHint(Gradient.class)
 		public static final String UNSELECTED_BORDER_COLOR = PREFIX + CATEGORY_SEPARATOR + "UNSELECTED_BORDER_COLOR";
 
-		@TypeHint(Boolean.class)
+		@TypeHint(boolean.class)
 		public static final String UNSELECTED_BORDER_SHOW = PREFIX + CATEGORY_SEPARATOR + "UNSELECTED_BORDER_SHOW";
 
 		@TypeHint(Gradient.class)
 		public static final String UNSELECTED_FILL_COLOR = PREFIX + CATEGORY_SEPARATOR + "UNSELECTED_FILL_COLOR";
 
-		@TypeHint(Boolean.class)
+		@TypeHint(boolean.class)
 		public static final String UNSELECTED_FILL = PREFIX + CATEGORY_SEPARATOR + "UNSELECTED_FILL";
 
 		@TypeHint(HSB.class)
@@ -251,13 +257,13 @@ public interface JTPConstants {
 		@TypeHint(Gradient.class)
 		public static final String HOVER_BORDER_COLOR = PREFIX + CATEGORY_SEPARATOR + "HOVER_BORDER_COLOR";
 
-		@TypeHint(Boolean.class)
+		@TypeHint(boolean.class)
 		public static final String HOVER_BORDER_SHOW = PREFIX + CATEGORY_SEPARATOR + "HOVER_BORDER_SHOW";
 
 		@TypeHint(Gradient.class)
 		public static final String HOVER_FILL_COLOR = PREFIX + CATEGORY_SEPARATOR + "HOVER_FILL_COLOR";
 
-		@TypeHint(Boolean.class)
+		@TypeHint(boolean.class)
 		public static final String HOVER_FILL = PREFIX + CATEGORY_SEPARATOR + "HOVER_FILL";
 
 		@TypeHint(HSB.class)
@@ -277,6 +283,9 @@ public interface JTPConstants {
 
 		@TypeHint(HSB.class)
 		public static final String CLOSE_BUTTON_ACTIVE_COLOR = PREFIX + CATEGORY_SEPARATOR + "CLOSE_BUTTON_ACTIVE_COLOR";
+
+		@TypeHint(int.class)
+		public static final String CLOSE_BUTTON_LINE_WIDTH = PREFIX + CATEGORY_SEPARATOR + "CLOSE_BUTTON_LINE_WIDTH";
 
 		@TypeHint(HSB.class)
 		public static final String CHEVRON_COLOR = PREFIX + CATEGORY_SEPARATOR + "CHEVRON_COLOR";
@@ -304,7 +313,7 @@ public interface JTPConstants {
 		@TypeHint(int.class)
 		public static final String TAB_SPACING = PREFIX + CATEGORY_SEPARATOR + "TAB_SPACING";
 
-		@TypeHint(Boolean.class)
+		@TypeHint(boolean.class)
 		public static final String SHOW_SHADOW = PREFIX + CATEGORY_SEPARATOR + "SHOW_SHADOW";
 
 		@TypeHint(HSB.class)
@@ -341,7 +350,7 @@ public interface JTPConstants {
 		@TypeHint(Gradient.class)
 		public static final String BORDER_COLOR = PREFIX + CATEGORY_SEPARATOR + "BORDER_COLOR";
 
-		@TypeHint(Boolean.class)
+		@TypeHint(boolean.class)
 		public static final String BORDER_SHOW = PREFIX + CATEGORY_SEPARATOR + "BORDER_SHOW";
 	}
 

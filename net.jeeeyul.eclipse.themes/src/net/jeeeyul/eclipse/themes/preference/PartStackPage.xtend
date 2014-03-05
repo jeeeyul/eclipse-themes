@@ -12,6 +12,7 @@ import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Composite
 import net.jeeeyul.eclipse.themes.SharedImages
 import org.eclipse.swt.SWT
+import net.jeeeyul.eclipse.themes.preference.internal.LineWidthEditor
 
 class PartStackPage extends AbstractJTPreferencePage {
 	Color[] backgroundColors = #[]
@@ -46,6 +47,7 @@ class PartStackPage extends AbstractJTPreferencePage {
 	ColorWell closeButtonColorWell
 	ColorWell closeButtonHoverColorWell
 	ColorWell closeButtonActiveColorWell
+	LineWidthEditor closeButtonLineEdit
 	
 	ColorWell chevronColorWell
 
@@ -263,6 +265,27 @@ class PartStackPage extends AbstractJTPreferencePage {
 					onModified = [requestUpdatePreview]
 				]
 			]
+			newComposite[
+				layoutData = FILL_HORIZONTAL
+				layout = newGridLayout[
+					marginWidth = 0
+					marginHeight = 0
+					numColumns = 2
+				]
+				newLabel[
+					text = "Close Button Line Width"
+				]
+				closeButtonLineEdit = new LineWidthEditor(it)=>[
+					it.control.layoutData = newGridData[
+						grabExcessHorizontalSpace = true
+						horizontalAlignment = SWT.RIGHT
+					]
+					
+					selectionHandler = [
+						requestUpdatePreview()
+					]
+				]
+			]
 			
 			newComposite[
 				layoutData = FILL_HORIZONTAL
@@ -385,6 +408,7 @@ class PartStackPage extends AbstractJTPreferencePage {
 			renderSettings.closeButtonColor = this.closeButtonColorWell.selection
 			renderSettings.closeButtonActiveColor = this.closeButtonActiveColorWell.selection
 			renderSettings.closeButtonHotColor = this.closeButtonHoverColorWell.selection
+			renderSettings.closeButtonLineWidth = this.closeButtonLineEdit.selection
 		}
 		
 		renderSettings.chevronColor = this.chevronColorWell.selection
@@ -495,6 +519,8 @@ class PartStackPage extends AbstractJTPreferencePage {
 				if(active != null){
 					this.closeButtonActiveColorWell.selection = active
 				}
+				
+				this.closeButtonLineEdit.selection = getInt(JTPConstants.PartStack.CLOSE_BUTTON_LINE_WIDTH)
 			}
 			
 			var chevronColor = getHSB(JTPConstants.PartStack.CHEVRON_COLOR)
@@ -533,6 +559,7 @@ class PartStackPage extends AbstractJTPreferencePage {
 			setValue(JTPConstants.PartStack.CLOSE_BUTTON_COLOR, this.closeButtonColorWell.selection)
 			setValue(JTPConstants.PartStack.CLOSE_BUTTON_ACTIVE_COLOR, this.closeButtonActiveColorWell.selection)
 			setValue(JTPConstants.PartStack.CLOSE_BUTTON_HOVER_COLOR, this.closeButtonHoverColorWell.selection)
+			setValue(JTPConstants.PartStack.CLOSE_BUTTON_LINE_WIDTH, this.closeButtonLineEdit.selection)
 			setValue(JTPConstants.PartStack.CHEVRON_COLOR, this.chevronColorWell.selection)
 		]
 	}

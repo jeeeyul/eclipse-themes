@@ -336,9 +336,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				drawShadow(part, state, bounds, gc)
 			}
 
-			//FIXME: 헤더 영역을 제외하고 채워야 할 듯.
-			val path = newPath[
-				autoRelease()
+			val path = newTemporaryPath[
 				if(settings.borderRadius > 0) {
 					if(parent.onTop) {
 						var box = newRectangleWithSize(settings.borderRadius * 2)
