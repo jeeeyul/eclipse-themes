@@ -45,12 +45,12 @@ public class JTabSettings {
 	private int[] unselectedBorderPercents = new int[] { 100 };
 	private HSB[] hoverBorderColors = new HSB[] { HSB.GRAY, HSB.GRAY };
 	private int[] hoverBorderPercents = new int[] { 100 };
+	private HSB chevronColor = new HSB(0, 0, 0);
 	private Point selectedTextShadowPosition = new Point(0, 1);
 	private Point unselectedTextShadowPosition = new Point(0, 1);
 	private Point hoverTextShadowPosition = new Point(0, 1);
 	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 	private JeeeyulsTabRenderer renderer;
-
 	private Rectangle tabItemPaddings = new Rectangle(2, 0, 2, 0);
 
 	public JTabSettings(JeeeyulsTabRenderer renderer) {
@@ -89,6 +89,10 @@ public class JTabSettings {
 
 	public int getBorderWidth() {
 		return borderWidth;
+	}
+
+	public HSB getChevronColor() {
+		return chevronColor;
 	}
 
 	public HSB getCloseButtonActiveColor() {
@@ -253,6 +257,16 @@ public class JTabSettings {
 		int old = this.borderWidth;
 		this.borderWidth = borderWidth;
 		pcs.firePropertyChange("border-width", old, borderWidth);
+	}
+
+	public void setChevronColor(HSB chrveronColor) {
+		if (areSame(this.chevronColor, chrveronColor)) {
+			return;
+		}
+
+		HSB old = this.chevronColor;
+		this.chevronColor = chrveronColor;
+		pcs.firePropertyChange("chevron-color", old, chrveronColor);
 	}
 
 	public void setCloseButtonActiveColor(HSB closeButtonActiveColor) {

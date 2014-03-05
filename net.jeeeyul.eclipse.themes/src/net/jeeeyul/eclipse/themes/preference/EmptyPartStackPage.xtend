@@ -23,7 +23,7 @@ class EmptyPartStackPage extends AbstractJTPreferencePage {
 				numColumns = 4
 			]
 			newLabel[
-				text = "Tool Bar"
+				text = "Fill"
 			]
 			fillEdit = newGradientEdit[
 				layoutData = FILL_HORIZONTAL
@@ -34,7 +34,7 @@ class EmptyPartStackPage extends AbstractJTPreferencePage {
 				]
 			]
 			newLabel[
-				text = "Status Bar"
+				text = "Border"
 			]
 			borderEdit = newGradientEdit[
 				layoutData = FILL_HORIZONTAL

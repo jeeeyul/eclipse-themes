@@ -383,6 +383,16 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 					false
 				}
 			}
+			case "jtab-chevron-color": {
+				var rgb = CSSSWTColorHelper.getRGB(value as CSSValue)
+				if(rgb != null) {
+					var hsb = new HSB(rgb.red, rgb.green, rgb.blue)
+					settings.chevronColor = hsb
+				} else {
+					settings.chevronColor = null
+				}
+				true
+			}
 			default: {
 				false
 			}
@@ -438,6 +448,8 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 				
 				case "jtab-item-padding" : '''0px «settings.tabItemPaddings.width»px 0px «settings.tabItemPaddings.x»px'''
 				case "jtab-item-horizontal-spacing" : '''«settings.tabItemHorizontalSpacing»px'''
+				
+				case "jtab-chevron-color" : '''«settings.chevronColor.toHTMLCode»'''
 				default : null
 			}
 	}

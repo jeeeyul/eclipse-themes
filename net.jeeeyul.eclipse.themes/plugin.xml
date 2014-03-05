@@ -137,6 +137,9 @@
          <property-name
                name="jtab-item-horizontal-spacing">
          </property-name>
+         <property-name
+               name="jtab-chevron-color">
+         </property-name>
       </handler>
    </extension>
    <extension

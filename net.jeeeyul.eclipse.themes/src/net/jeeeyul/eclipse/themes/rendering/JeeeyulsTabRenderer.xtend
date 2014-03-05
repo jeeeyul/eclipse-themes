@@ -12,9 +12,12 @@ import org.eclipse.swt.custom.CTabFolder
 import org.eclipse.swt.custom.CTabFolderRenderer
 import org.eclipse.swt.custom.CTabItem
 import org.eclipse.swt.graphics.GC
+import org.eclipse.swt.graphics.Image
 import org.eclipse.swt.graphics.Path
 import org.eclipse.swt.graphics.Point
 import org.eclipse.swt.graphics.Rectangle
+import net.jeeeyul.eclipse.themes.rendering.internal.ImageDataUtil
+import org.eclipse.swt.graphics.Font
 
 /**
  * A new CTabFolder Renderer for Jeeeyul's eclipse themes 2.0
@@ -110,6 +113,10 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			case PART_CLOSE_BUTTON: {
 				return new Point(11, 11)
 			}
+			
+			case PART_CHEVRON_BUTTON : {
+				return new Point(20, 16)
+			}
 			default: {
 				super.computeSize(part, state, gc, wHint, hHint)
 			}
@@ -145,6 +152,9 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				result.x = result.x - settings.margins.x
 				result.width = result.width + settings.margins.x + settings.margins.width
 			}
+			case (part == PART_CHEVRON_BUTTON || part == PART_MIN_BUTTON || part == PART_MAX_BUTTON): {
+				// Don't trim
+			}
 			case part >= 0: {
 			}
 			default: {
@@ -174,19 +184,18 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		switch (part) {
 			case PART_HEADER: {
 				updateControlBKImages()
-				drawTabHeader(part, bounds, state, gc)
+				drawTabHeader(part, state, bounds, gc)
 			}
 			case PART_CLOSE_BUTTON: {
-				drawCloseButton(part, bounds, state, gc)
+				drawCloseButton(part, state, bounds, gc)
 			}
 			case PART_BORDER: {
 			}
 			case PART_BODY: {
+				updateChrveronImage()
 				drawTabBody(part, state, bounds, gc)
 			}
 			case PART_CHEVRON_BUTTON: {
-				gc.antialias = SWT.OFF
-				super.draw(part, state, bounds, gc)
 			}
 			case part >= 0: {
 				drawTabItem(part, state, bounds, gc)
@@ -195,11 +204,51 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				super.draw(part, state, bounds, gc)
 		}
 	}
-	
+
+	private def updateChrveronImage() {
+		var size = computeSize(PART_CHEVRON_BUTTON, SWT.NONE, null, SWT.DEFAULT, SWT.DEFAULT)
+		parent.chevron.backgroundMode = SWT.INHERIT_DEFAULT
+		parent.chevron.backgroundImage = null
+
+		val count = Math.min(parent.items.filter[it.showing == false].size, 99)
+
+		val img = new Image(display, size.x, size.y)
+		val gc = new GC(img)
+
+		var path = newTemporaryPath[
+			moveTo(0, 0)
+			lineTo(3, 3)
+			lineTo(0, 6)
+			moveTo(3, 0)
+			lineTo(6, 3)
+			lineTo(3, 6)
+		]
+		gc.background = COLOR_BLACK
+		gc.fill(img.bounds)
+
+		gc.foreground = COLOR_WHITE
+		gc.draw(path)
+
+		var fd = parent.font.fontData.head
+		fd.setHeight(72 * 10 / display.DPI.y)
+		gc.font = new Font(display, fd).autoDispose
+		gc.drawString(count.toString, 6, 5, true)
+		gc.dispose()
+
+		var data = ImageDataUtil.convertBrightnessToAlpha(img.imageData, settings.getChevronColor)
+		var itemImage = new Image(display, data).shouldDisposeWith(parent)
+
+		parent.chevronItem.image.safeDispose()
+		parent.chevronItem.image = null
+		parent.chevronItem.image = itemImage
+
+		img.dispose
+	}
+
 	private def updateControlBKImages() {
-		for(c : parent.controls){
+		for (c : parent.controls) {
 			var img = c.backgroundImage
-			if(c.bounds.y < parent.tabHeight && img != null && !img.disposed){
+			if(c.bounds.y < parent.tabHeight && img != null && !img.disposed) {
 				var gc = new GC(img)
 				gc.fillGradientRectangle(new Rectangle(0, 0, img.bounds.width, parent.tabHeight + 1), parent.gradientColor, parent.gradientPercents, true)
 				gc.dispose();
@@ -221,7 +270,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		return headerArea;
 	}
 
-	protected def drawTabHeader(int part, Rectangle bounds, int state, GC gc) {
+	protected def drawTabHeader(int part, int state, Rectangle bounds, GC gc) {
 		val headerArea = getHeaderArea()
 
 		val corner = new Rectangle(0, 0, settings.borderRadius * 2, settings.borderRadius * 2)
@@ -349,7 +398,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		}
 	}
 
-	protected def drawCloseButton(int part, Rectangle bounds, int state, GC gc) {
+	protected def drawCloseButton(int part, int state, Rectangle bounds, GC gc) {
 		if(debug) {
 			gc.background = COLOR_MARGENTA
 			gc.fill(bounds)

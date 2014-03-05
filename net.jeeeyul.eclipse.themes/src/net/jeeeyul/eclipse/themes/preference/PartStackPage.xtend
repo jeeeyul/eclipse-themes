@@ -11,6 +11,7 @@ import org.eclipse.swt.graphics.Color
 import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Composite
 import net.jeeeyul.eclipse.themes.SharedImages
+import org.eclipse.swt.SWT
 
 class PartStackPage extends AbstractJTPreferencePage {
 	Color[] backgroundColors = #[]
@@ -45,6 +46,8 @@ class PartStackPage extends AbstractJTPreferencePage {
 	ColorWell closeButtonColorWell
 	ColorWell closeButtonHoverColorWell
 	ColorWell closeButtonActiveColorWell
+	
+	ColorWell chevronColorWell
 
 	@Property String context
 
@@ -260,6 +263,22 @@ class PartStackPage extends AbstractJTPreferencePage {
 					onModified = [requestUpdatePreview]
 				]
 			]
+			
+			newComposite[
+				layoutData = FILL_HORIZONTAL
+				layout = newGridLayout[
+					marginWidth = 0
+					marginHeight = 0
+					numColumns = 2
+				]
+				newLabel[text="Chevron Color"]
+				chevronColorWell = newColorWell[
+					layoutData = newGridData[
+						grabExcessHorizontalSpace = true
+						horizontalAlignment = SWT.RIGHT
+					]
+				]
+			]
 		]
 	}
 
@@ -367,6 +386,8 @@ class PartStackPage extends AbstractJTPreferencePage {
 			renderSettings.closeButtonActiveColor = this.closeButtonActiveColorWell.selection
 			renderSettings.closeButtonHotColor = this.closeButtonHoverColorWell.selection
 		}
+		
+		renderSettings.chevronColor = this.chevronColorWell.selection
 	}
 
 	override load(JThemePreferenceStore store, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
@@ -475,6 +496,11 @@ class PartStackPage extends AbstractJTPreferencePage {
 					this.closeButtonActiveColorWell.selection = active
 				}
 			}
+			
+			var chevronColor = getHSB(JTPConstants.PartStack.CHEVRON_COLOR)
+			if(chevronColor != null){
+				this.chevronColorWell.selection = chevronColor
+			}
 		]
 
 	}
@@ -507,6 +533,7 @@ class PartStackPage extends AbstractJTPreferencePage {
 			setValue(JTPConstants.PartStack.CLOSE_BUTTON_COLOR, this.closeButtonColorWell.selection)
 			setValue(JTPConstants.PartStack.CLOSE_BUTTON_ACTIVE_COLOR, this.closeButtonActiveColorWell.selection)
 			setValue(JTPConstants.PartStack.CLOSE_BUTTON_HOVER_COLOR, this.closeButtonHoverColorWell.selection)
+			setValue(JTPConstants.PartStack.CHEVRON_COLOR, this.chevronColorWell.selection)
 		]
 	}
 

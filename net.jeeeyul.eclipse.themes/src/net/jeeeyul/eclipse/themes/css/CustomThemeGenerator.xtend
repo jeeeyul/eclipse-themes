@@ -166,6 +166,8 @@ class CustomThemeGenerator {
 			jtab-close-button-color: «store.getHSB(JTPConstants.InactivePartStack.CLOSE_BUTTON_COLOR).toHTMLCode»;
 			jtab-close-button-hot-color: «store.getHSB(JTPConstants.InactivePartStack.CLOSE_BUTTON_HOVER_COLOR).toHTMLCode»;
 			jtab-close-button-active-color: «store.getHSB(JTPConstants.InactivePartStack.CLOSE_BUTTON_ACTIVE_COLOR).toHTMLCode»;
+			
+			jtab-chevron-color: «store.getHSB(JTPConstants.InactivePartStack.CHEVRON_COLOR).toHTMLCode»;
 		}
 		
 		.MPartStack>CTabItem {
@@ -257,6 +259,7 @@ class CustomThemeGenerator {
 			jtab-close-button-color: «store.getHSB(JTPConstants.ActivePartStack.CLOSE_BUTTON_COLOR).toHTMLCode»;
 			jtab-close-button-hot-color: «store.getHSB(JTPConstants.ActivePartStack.CLOSE_BUTTON_HOVER_COLOR).toHTMLCode»;
 			jtab-close-button-active-color: «store.getHSB(JTPConstants.ActivePartStack.CLOSE_BUTTON_ACTIVE_COLOR).toHTMLCode»;
+			jtab-chevron-color: «store.getHSB(JTPConstants.ActivePartStack.CHEVRON_COLOR).toHTMLCode»;
 		}
 		
 		.MPartStack.active>CTabItem {

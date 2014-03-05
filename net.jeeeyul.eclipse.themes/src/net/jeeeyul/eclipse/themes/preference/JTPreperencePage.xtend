@@ -56,8 +56,12 @@ class JTPreperencePage extends PreferencePage implements IWorkbenchPreferencePag
 			layout = newGridLayout[]
 			folder = newCTabFolder(SWT.CLOSE)[]
 			folder => [
-				layoutData = FILL_HORIZONTAL
+				layoutData = FILL_HORIZONTAL[
+					widthHint = 300
+				]
 				setUnselectedCloseVisible(false)
+				maximizeVisible = true
+				minimizeVisible = true
 				addCTabFolder2Listener(new ClosePrevent)
 				it.renderer = renderer = new JeeeyulsTabRenderer(it) => [
 					debug = false
@@ -72,6 +76,7 @@ class JTPreperencePage extends PreferencePage implements IWorkbenchPreferencePag
 						it.data = each
 					]
 				}
+				
 				folder.selection = folder.items.head
 				onSelection = [
 					updatePreview()

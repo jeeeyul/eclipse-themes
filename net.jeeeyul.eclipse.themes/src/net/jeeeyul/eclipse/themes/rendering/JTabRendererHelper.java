@@ -48,7 +48,6 @@ public class JTabRendererHelper {
 
 		static final HackedField<CTabFolder, Image> chevronImage = new HackedField<CTabFolder, Image>(CTabFolder.class, "chevronImage");
 		static final HackedField<CTabFolder, ToolItem> chevronItem = new HackedField<CTabFolder, ToolItem>(CTabFolder.class, "chevronItem");
-
 		static final HackedField<CTabFolder, Control[]> controls = new HackedField<CTabFolder, Control[]>(CTabFolder.class, "controls");
 		static final HackedField<CTabFolder, Image[]> controlBkImages = new HackedField<CTabFolder, Image[]>(CTabFolder.class, "controlBkImages");
 	}
@@ -108,6 +107,14 @@ public class JTabRendererHelper {
 
 	public ToolBar getChevron(CTabFolder me) {
 		return _CTabFolder.getChevron.invoke(me);
+	}
+
+	public ToolItem getChevronItem(CTabFolder me) {
+		return _CTabFolder.chevronItem.get(me);
+	}
+
+	public Image getChevronImage(CTabFolder me) {
+		return _CTabFolder.chevronImage.get(me);
 	}
 
 	public int getCloseImageState(CTabItem me) {
@@ -301,8 +308,8 @@ public class JTabRendererHelper {
 	public Control[] getControls(CTabFolder me) {
 		return _CTabFolder.controls.get(me);
 	}
-	
-	public Image[] getControlBkImages(CTabFolder me){
+
+	public Image[] getControlBkImages(CTabFolder me) {
 		return _CTabFolder.controlBkImages.get(me);
 	}
 }

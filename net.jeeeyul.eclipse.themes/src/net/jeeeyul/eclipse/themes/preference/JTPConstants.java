@@ -105,6 +105,9 @@ public interface JTPConstants {
 
 		@TypeHint(HSB.class)
 		public static final String CLOSE_BUTTON_ACTIVE_COLOR = "CLOSE_BUTTON_ACTIVE_COLOR";
+
+		@TypeHint(HSB.class)
+		public static final String CHEVRON_COLOR = "CHEVRON_COLOR";
 	}
 
 	public static interface ActivePartStack {
@@ -188,6 +191,9 @@ public interface JTPConstants {
 
 		@TypeHint(HSB.class)
 		public static final String CLOSE_BUTTON_ACTIVE_COLOR = PREFIX + CATEGORY_SEPARATOR + "CLOSE_BUTTON_ACTIVE_COLOR";
+
+		@TypeHint(HSB.class)
+		public static final String CHEVRON_COLOR = PREFIX + CATEGORY_SEPARATOR + "CHEVRON_COLOR";
 	}
 
 	public static interface InactivePartStack {
@@ -271,6 +277,9 @@ public interface JTPConstants {
 
 		@TypeHint(HSB.class)
 		public static final String CLOSE_BUTTON_ACTIVE_COLOR = PREFIX + CATEGORY_SEPARATOR + "CLOSE_BUTTON_ACTIVE_COLOR";
+
+		@TypeHint(HSB.class)
+		public static final String CHEVRON_COLOR = PREFIX + CATEGORY_SEPARATOR + "CHEVRON_COLOR";
 	}
 
 	public static interface Layout {
