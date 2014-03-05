@@ -614,7 +614,10 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		gc.drawGradientPath(outline, settings.getBorderColorsFor(state).toAutoReleaseColor, settings.getBorderPercentsFor(state), true)
 	}
 
-	protected def drawTabItemBackground(int part, int state, Rectangle itemBounds, GC gc) {
+	protected def drawTabItemBackground(int part, int state, Rectangle bounds, GC gc) {
+		val itemBounds = bounds.copy
+		itemBounds.resize(-1, 0)
+		
 		var Path tabItemFillArea = null
 		if(tabFolder.onTop) {
 			tabItemFillArea = newPath[
@@ -658,8 +661,13 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		gc.withClip(tabItemFillArea) [
 			var fill = settings.getItemFillFor(state)
 			var fillPercents = settings.getItemFillPercentsFor(state)
-			if(fill != null && fillPercents != null)
-				gc.fillGradientRectangle(itemBounds.getResized(0, 0), fill, fillPercents, true)
+			if(fill != null && fillPercents != null){
+				var fix = 0
+				if(settings.tabSpacing == -1){
+					fix = 0
+				}
+				gc.fillGradientRectangle(itemBounds.getResized(fix, 0), fill, fillPercents, true)
+			}
 		]
 	}
 
