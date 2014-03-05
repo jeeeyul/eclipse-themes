@@ -1,6 +1,8 @@
 package net.jeeeyul.eclipse.themes.preference
 
 import java.io.File
+import java.util.ArrayList
+import java.util.List
 import java.util.Properties
 import net.jeeeyul.eclipse.themes.JThemesCore
 import net.jeeeyul.eclipse.themes.css.RewriteCustomTheme
@@ -20,21 +22,29 @@ import org.eclipse.swt.custom.CTabFolder
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.ui.IWorkbench
 import org.eclipse.ui.IWorkbenchPreferencePage
+import org.eclipse.ui.progress.UIJob
 
 class JTPreperencePage extends PreferencePage implements IWorkbenchPreferencePage {
 	extension SWTExtensions swtExt = SWTExtensions.INSTANCE
 	extension PreperencePageHelper helper = new PreperencePageHelper(this);
-
+	
+	Composite rootView
 	JeeeyulsTabRenderer renderer
 	CTabFolder folder
+	List<AbstractJTPreferencePage> pages = new ArrayList()
 
-	AbstractJTPreferencePage[] pages = #[
-		new GeneralPage,
-		new PartStacksPage
+	UIJob updatePreviewJob = newUIJob[
+		doUpdatePreview()
 	]
 
 	new() {
 		title = "Jeeeyul's Theme"
+		pages += new GeneralPage
+		pages += new PartStacksPage
+
+		if(!Platform.running || Platform.inDebugMode || Platform.inDevelopmentMode) {
+			pages += new DebugPage
+		}
 	}
 
 	override init(IWorkbench workbench) {
@@ -42,35 +52,38 @@ class JTPreperencePage extends PreferencePage implements IWorkbenchPreferencePag
 	}
 
 	override public createContents(Composite parent) {
-		folder = parent.newCTabFolder(SWT.CLOSE)[]
-		folder => [
-			setUnselectedCloseVisible(false)
-			addCTabFolder2Listener(new ClosePrevent)
-			it.renderer = renderer = new JeeeyulsTabRenderer(it) => [
-				debug = false
-			]
-			onSelection = [
-				updatePreview()
+		rootView = parent.newComposite [
+			layout = newGridLayout[]
+			folder = newCTabFolder(SWT.CLOSE)[]
+			folder => [
+				layoutData = FILL_HORIZONTAL
+				setUnselectedCloseVisible(false)
+				addCTabFolder2Listener(new ClosePrevent)
+				it.renderer = renderer = new JeeeyulsTabRenderer(it) => [
+					debug = false
+				]
+				for (each : pages) {
+					newCTabItem[
+						it.text = each.name
+						it.image = each.image
+						it.control = each.createContents(folder, swtExt, helper)
+						it.control.background = COLOR_WHITE;
+						(it.control as Composite).backgroundMode = SWT.INHERIT_FORCE
+						it.data = each
+					]
+				}
+				folder.selection = folder.items.head
+				onSelection = [
+					updatePreview()
+				]
 			]
 			for (each : pages) {
-				newCTabItem[
-					it.text = each.name
-					it.image = each.image
-					it.control = each.createContents(folder, swtExt, helper)
-					it.control.background = COLOR_WHITE;
-					(it.control as Composite).backgroundMode = SWT.INHERIT_FORCE
-					it.data = each
-				]
+				each.load(preferenceStore, swtExt, helper)
 			}
-			folder.selection = folder.items.head
+			for (each : pages) {
+				each.updatePreview()
+			}
 		]
-
-		for (each : pages) {
-			each.load(preferenceStore, swtExt, helper)
-			each.updatePreview()
-		}
-		
-		return folder
 	}
 
 	override performOk() {
@@ -91,6 +104,8 @@ class JTPreperencePage extends PreferencePage implements IWorkbenchPreferencePag
 		for (e : pages) {
 			e.load(dummy, swtExt, helper)
 		}
+		
+		updatePreview()
 	}
 
 	override JThemePreferenceStore getPreferenceStore() {
@@ -127,13 +142,14 @@ class JTPreperencePage extends PreferencePage implements IWorkbenchPreferencePag
 	}
 
 	def void updatePreview() {
-		doUpdatePreview()
+		updatePreviewJob.schedule()
 	}
 
 	def void doUpdatePreview() {
 		for (p : pages) {
 			p.updatePreview()
 		}
+		rootView.layout(true, true)
 	}
 
 	override dispose() {

@@ -7,10 +7,15 @@ import net.jeeeyul.eclipse.themes.JThemesCore;
 
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 
+/**
+ * loads default.epf file and sets its content to default settings for theme
+ * plugin.
+ * 
+ * @author Jeeeyul
+ * @since 2.0.0
+ */
 public class JTPreferenceInitializer extends AbstractPreferenceInitializer {
-
 	public JTPreferenceInitializer() {
-
 	}
 
 	@Override

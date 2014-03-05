@@ -13,9 +13,19 @@ import org.eclipse.e4.ui.model.application.MAddon;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.MApplicationFactory;
 
+/**
+ * This processor is contributed by "org.eclipse.e4.workbench.model" extension
+ * point.
+ * 
+ * It installs {@link ActiveThemeTracker}. And it uninstall deprecated or
+ * removed addons.
+ * 
+ * @author Jeeeyul
+ * @since 2.0.0
+ */
 public class JThemeProcessor {
 	@Execute
-	void addAddon(MApplication application) {
+	public void addAddon(MApplication application) {
 		validateAddons(application);
 
 		Set<String> contributionIds = getContributionURIs(application);

@@ -4,6 +4,8 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.jeeeyul.eclipse.themes.JThemesCore;
+
 import org.eclipse.e4.ui.css.core.dom.ExtendedCSSRule;
 import org.eclipse.e4.ui.css.core.dom.ExtendedDocumentCSS;
 import org.eclipse.e4.ui.css.core.engine.CSSEngine;
@@ -35,7 +37,7 @@ public class RewriteCustomTheme {
 
 			StyleSheet chromeSheet = findChromeSheet(documentCSS);
 
-			CustomThemeGenerator generator = new CustomThemeGenerator();
+			CustomThemeGenerator generator = new CustomThemeGenerator(JThemesCore.getDefault().getPreferenceStore());
 
 			String newCSSContent = generator.generate().toString();
 			System.out.println(newCSSContent);

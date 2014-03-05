@@ -1,12 +1,20 @@
 package net.jeeeyul.eclipse.themes.css
 
-import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore
-import net.jeeeyul.eclipse.themes.JThemesCore
 import net.jeeeyul.eclipse.themes.preference.JTPConstants
+import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore
 import org.eclipse.swt.graphics.Point
 import org.eclipse.swt.graphics.Rectangle
 
 class CustomThemeGenerator {
+	@Property JThemePreferenceStore store
+
+	new(JThemePreferenceStore store) {
+		if(store == null) {
+			throw new IllegalArgumentException
+		}
+		this.store = store
+	}
+
 	def String generate() '''
 		.jeeeyul-custom-theme{
 			/* This class must be exists on first. */
@@ -26,14 +34,14 @@ class CustomThemeGenerator {
 		
 		«comment("Trim Stack")»
 		.MToolControl.TrimStack {
-			frame-image: url(chrome://frame?background-color=«store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»);
+			frame-image: url(jeeeyul://frame?background-color=«store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»);
 			frame-cuts: 5px 1px 5px 16px;
 			handle-image: url(images/handle.png);
 		}
 		
 		.MTrimBar .Draggable {
 			handle-image:
-				url(chrome://drag-handle?height=33&background-color=«store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»&embossed=false);
+				url(jeeeyul://drag-handle?height=33&background-color=«store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»&embossed=false);
 		}
 		
 		«comment("Main Toolbar")»
@@ -43,7 +51,7 @@ class CustomThemeGenerator {
 		
 		#org-eclipse-ui-main-toolbar .Draggable {
 			handle-image:
-				url(chrome://drag-handle?height=22&background-color=«store.getGradient(JTPConstants.Window.TOOLBAR_FILL_COLOR).averageColor.toHTMLCode»&embossed=false);
+				url(jeeeyul://drag-handle?height=22&background-color=«store.getGradient(JTPConstants.Window.TOOLBAR_FILL_COLOR).averageColor.toHTMLCode»&embossed=false);
 		}
 		
 		#org-eclipse-ui-main-toolbar #PerspectiveSwitcher {
@@ -53,9 +61,9 @@ class CustomThemeGenerator {
 		}
 		
 		#org-eclipse-ui-main-toolbar .TrimStack {
-			frame-image: url(chrome://frame?background-color=#ddd);
+			frame-image: url(jeeeyul://frame?background-color=#ddd);
 			handle-image:
-				url(chrome://drag-handle?height=22&background-color=#bbb&embossed=false);
+				url(jeeeyul://drag-handle?height=22&background-color=#bbb&embossed=false);
 		}
 		
 		«comment("Status Bar")»
@@ -65,7 +73,7 @@ class CustomThemeGenerator {
 		
 		#org-eclipse-ui-trim-status .Draggable {
 			handle-image:
-				url(chrome://drag-handle?height=22&background-color=«store.getGradient(JTPConstants.Window.STATUS_BAR_FILL_COLOR).averageColor.toHTMLCode»&embossed=false);
+				url(jeeeyul://drag-handle?height=22&background-color=«store.getGradient(JTPConstants.Window.STATUS_BAR_FILL_COLOR).averageColor.toHTMLCode»&embossed=false);
 		}
 		
 		
@@ -269,10 +277,6 @@ class CustomThemeGenerator {
 	'''
 
 	def toInsetCSS(Rectangle r) '''«r.y»px «r.width»px «r.height»px «r.x»px'''
-
-	def JThemePreferenceStore store() {
-		JThemesCore.^default.preferenceStore
-	}
 
 	def toCSS(Point point) '''«point.x»px «point.y»px'''
 

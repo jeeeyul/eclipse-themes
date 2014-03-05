@@ -7,6 +7,12 @@ import java.util.List;
 import org.eclipse.e4.ui.css.swt.CSSSWTConstants;
 import org.eclipse.swt.widgets.Widget;
 
+/**
+ * It allows adding class or removing class easily.
+ * 
+ * @author Jeeeyul
+ * @since 2.0.0
+ */
 @SuppressWarnings("restriction")
 public class CSSClasses {
 

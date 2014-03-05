@@ -20,10 +20,18 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.graphics.Region;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
+/**
+ * Xtend extensions for {@link JeeeyulsTabRenderer}. It helps renderer with high
+ * level abstraction for hack {@link CTabFolder}. It also provides method to
+ * access {@link JTabSettings} easily.
+ * 
+ * @author Jeeeyul
+ * @since 2.0.0
+ */
 public class JTabRendererHelper {
 	static interface _CTabFolder {
 		static final HackedMethod0<CTabFolder, ToolBar> getChevron = new HackedMethod0<CTabFolder, ToolBar>(CTabFolder.class, "getChevron");
@@ -41,6 +49,8 @@ public class JTabRendererHelper {
 		static final HackedField<CTabFolder, Image> chevronImage = new HackedField<CTabFolder, Image>(CTabFolder.class, "chevronImage");
 		static final HackedField<CTabFolder, ToolItem> chevronItem = new HackedField<CTabFolder, ToolItem>(CTabFolder.class, "chevronItem");
 
+		static final HackedField<CTabFolder, Control[]> controls = new HackedField<CTabFolder, Control[]>(CTabFolder.class, "controls");
+		static final HackedField<CTabFolder, Image[]> controlBkImages = new HackedField<CTabFolder, Image[]>(CTabFolder.class, "controlBkImages");
 	}
 
 	static interface _CTabItem {
@@ -159,114 +169,6 @@ public class JTabRendererHelper {
 
 	public int setShortenTextWidth(CTabItem me, Integer width) {
 		return _CTabItem.shortenedTextWidth.set(me, width);
-	}
-
-	public void drawBackground(CTabFolder me, GC gc, Rectangle bounds, Color[] colors, int[] percents, boolean vertical) {
-		drawBackground(me, gc, null, bounds.x, bounds.y, bounds.width, bounds.height, colors[0], null, colors, percents, vertical);
-	}
-
-	public void drawBackground(CTabFolder parent, GC gc, int[] shape, int x, int y, int width, int height, Color defaultBackground, Image image,
-			Color[] colors, int[] percents, boolean vertical) {
-		Region clipping = null, region = null;
-		if (shape != null) {
-			clipping = new Region();
-			gc.getClipping(clipping);
-			region = new Region();
-			region.add(shape);
-			region.intersect(clipping);
-			gc.setClipping(region);
-		}
-		if (image != null) {
-			// draw the background image in shape
-			gc.setBackground(defaultBackground);
-			gc.fillRectangle(x, y, width, height);
-			Rectangle imageRect = image.getBounds();
-			gc.drawImage(image, imageRect.x, imageRect.y, imageRect.width, imageRect.height, x, y, width, height);
-		} else if (colors != null) {
-			// draw gradient
-			if (colors.length == 1) {
-				Color background = colors[0] != null ? colors[0] : defaultBackground;
-				gc.setBackground(background);
-				gc.fillRectangle(x, y, width, height);
-			} else {
-				if (vertical) {
-					if (getOnBottom(parent)) {
-						int pos = 0;
-						if (percents[percents.length - 1] < 100) {
-							pos = (100 - percents[percents.length - 1]) * height / 100;
-							gc.setBackground(defaultBackground);
-							gc.fillRectangle(x, y, width, pos);
-						}
-						Color lastColor = colors[colors.length - 1];
-						if (lastColor == null)
-							lastColor = defaultBackground;
-						for (int i = percents.length - 1; i >= 0; i--) {
-							gc.setForeground(lastColor);
-							lastColor = colors[i];
-							if (lastColor == null)
-								lastColor = defaultBackground;
-							gc.setBackground(lastColor);
-							int percentage = i > 0 ? percents[i] - percents[i - 1] : percents[i];
-							int gradientHeight = percentage * height / 100;
-							gc.fillGradientRectangle(x, y + pos, width, gradientHeight, true);
-							pos += gradientHeight;
-						}
-					} else {
-						Color lastColor = colors[0];
-						if (lastColor == null)
-							lastColor = defaultBackground;
-						int pos = 0;
-						for (int i = 0; i < percents.length; i++) {
-							gc.setForeground(lastColor);
-							lastColor = colors[i + 1];
-							if (lastColor == null)
-								lastColor = defaultBackground;
-							gc.setBackground(lastColor);
-							int percentage = i > 0 ? percents[i] - percents[i - 1] : percents[i];
-							int gradientHeight = percentage * height / 100;
-							gc.fillGradientRectangle(x, y + pos, width, gradientHeight, true);
-							pos += gradientHeight;
-						}
-						if (pos < height) {
-							gc.setBackground(defaultBackground);
-							gc.fillRectangle(x, pos, width, height - pos + 1);
-						}
-					}
-				} else { // horizontal gradient
-					y = 0;
-					height = parent.getSize().y;
-					Color lastColor = colors[0];
-					if (lastColor == null)
-						lastColor = defaultBackground;
-					int pos = 0;
-					for (int i = 0; i < percents.length; ++i) {
-						gc.setForeground(lastColor);
-						lastColor = colors[i + 1];
-						if (lastColor == null)
-							lastColor = defaultBackground;
-						gc.setBackground(lastColor);
-						int gradientWidth = (percents[i] * width / 100) - pos;
-						gc.fillGradientRectangle(x + pos, y, gradientWidth, height, false);
-						pos += gradientWidth;
-					}
-					if (pos < width) {
-						gc.setBackground(defaultBackground);
-						gc.fillRectangle(x + pos, y, width - pos, height);
-					}
-				}
-			}
-		} else {
-			// draw a solid background using default background in shape
-			if ((parent.getStyle() & SWT.NO_BACKGROUND) != 0 || !defaultBackground.equals(parent.getBackground())) {
-				gc.setBackground(defaultBackground);
-				gc.fillRectangle(x, y, width, height);
-			}
-		}
-		if (shape != null) {
-			gc.setClipping(clipping);
-			clipping.dispose();
-			region.dispose();
-		}
 	}
 
 	public <T> T getFirstNotNull(Iterable<T> items) {
@@ -394,5 +296,13 @@ public class JTabRendererHelper {
 		else {
 			return me.getUnselectedBackgroundPercents();
 		}
+	}
+
+	public Control[] getControls(CTabFolder me) {
+		return _CTabFolder.controls.get(me);
+	}
+	
+	public Image[] getControlBkImages(CTabFolder me){
+		return _CTabFolder.controlBkImages.get(me);
 	}
 }

@@ -8,10 +8,23 @@ import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Control
 import org.eclipse.swt.graphics.Image
 
+/**
+ * Abstract Preference Page for Theme plugin
+ * 
+ * @since 2.0.0
+ */
 abstract class AbstractJTPreferencePage {
+
+	/**
+	 * namse of page
+	 */
 	@Property String name
+
+	/**
+	 * image of page
+	 */
 	@Property Image image
-	
+
 	new(String name) {
 		this.name = name
 	}
@@ -23,6 +36,6 @@ abstract class AbstractJTPreferencePage {
 	public abstract def void load(JThemePreferenceStore store, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper)
 
 	public abstract def void save(JThemePreferenceStore store, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper)
-	
+
 	public abstract def void dispose(extension SWTExtensions swtExtensions, extension PreperencePageHelper helper)
 }

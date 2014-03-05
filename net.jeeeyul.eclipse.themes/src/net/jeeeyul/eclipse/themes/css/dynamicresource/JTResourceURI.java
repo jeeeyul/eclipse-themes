@@ -3,17 +3,17 @@ package net.jeeeyul.eclipse.themes.css.dynamicresource;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ChromeResourceURI {
-	private static final String PREFIX = "chrome://";
+public class JTResourceURI {
+	private static final String PREFIX = "jeeeyul://";
 
 	private String command;
 	private Map<String, String> arguments;
 
-	public ChromeResourceURI() {
+	public JTResourceURI() {
 		arguments = new HashMap<String, String>();
 	}
 
-	public ChromeResourceURI(String uri) {
+	public JTResourceURI(String uri) {
 		this();
 
 		String substring = uri.substring(PREFIX.length());

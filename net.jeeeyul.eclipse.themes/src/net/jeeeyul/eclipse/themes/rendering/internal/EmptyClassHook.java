@@ -16,6 +16,12 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.ui.progress.UIJob;
 
+/**
+ * Tracks CTabFolder to add "empty" class when it has no items.
+ *
+ * @author Jeeeyul
+ * @since 2.0.0
+ */
 @SuppressWarnings("restriction")
 public class EmptyClassHook {
 
@@ -24,32 +30,42 @@ public class EmptyClassHook {
 
 	private CTabFolder2Listener adapter = new CTabFolder2Adapter() {
 		public void close(CTabFolderEvent event) {
-			compute.schedule();
+			computeJob.schedule();
 		};
 	};
 
 	private Listener selectionHook = new Listener() {
 		@Override
 		public void handleEvent(Event event) {
-			compute.schedule();
+			computeJob.schedule();
 		}
 	};
 
+	private UIJob computeJob;
+
 	public EmptyClassHook(CTabFolder folder) {
 		this.folder = folder;
+
+		computeJob = new UIJob(Display.getDefault(), "Update Empty Class") {
+			public IStatus runInUIThread(IProgressMonitor monitor) {
+				computeEmptyClass();
+				return Status.OK_STATUS;
+			};
+		};
+		computeJob.setUser(false);
+		computeJob.setSystem(true);
+
 		folder.addCTabFolder2Listener(adapter);
 		folder.addListener(SWT.Selection, selectionHook);
-		compute.schedule();
+
+		computeJob.schedule();
 	}
 
-	private UIJob compute = new UIJob(Display.getDefault(), "Update Empty Class") {
-		public IStatus runInUIThread(IProgressMonitor monitor) {
-			computeEmptyClass();
-			return Status.OK_STATUS;
-		};
-	};
-
 	private void computeEmptyClass() {
+		if (folder == null || folder.isDisposed()) {
+			return;
+		}
+
 		IThemeEngine engine = getThemeEngine();
 		if (engine == null) {
 			return;
@@ -70,11 +86,6 @@ public class EmptyClassHook {
 				engine.applyStyles(folder, true);
 			}
 		}
-
-	}
-
-	private IThemeEngine getThemeEngine() {
-		return (IThemeEngine) folder.getDisplay().getData("org.eclipse.e4.ui.css.swt.theme");
 	}
 
 	public void dispose() {
@@ -87,6 +98,10 @@ public class EmptyClassHook {
 		}
 
 		isDisposed = true;
+	}
+
+	private IThemeEngine getThemeEngine() {
+		return (IThemeEngine) folder.getDisplay().getData("org.eclipse.e4.ui.css.swt.theme");
 	}
 
 }

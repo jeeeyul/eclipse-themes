@@ -14,13 +14,13 @@ import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.ImageLoader;
 
 @SuppressWarnings("restriction")
-public class ChromeDynamicResourceLocator implements IResourceLocator {
+public class JTDynamicResourceLocator implements IResourceLocator {
 	DragHandleFactory dragHandleFactory = new DragHandleFactory();
 	FrameFactory frameFactory = new FrameFactory();
 
 	@Override
 	public String resolve(String uri) {
-		if (uri.startsWith("chrome://")) {
+		if (uri.startsWith("jeeeyul://")) {
 			String[] segments = uri.substring(9).split("/");
 			if (segments.length > 0) {
 				return uri;
@@ -32,7 +32,7 @@ public class ChromeDynamicResourceLocator implements IResourceLocator {
 
 	@Override
 	public InputStream getInputStream(String uri) throws Exception {
-		ChromeResourceURI curi = new ChromeResourceURI(uri);
+		JTResourceURI curi = new JTResourceURI(uri);
 
 		String command = curi.getCommand();
 

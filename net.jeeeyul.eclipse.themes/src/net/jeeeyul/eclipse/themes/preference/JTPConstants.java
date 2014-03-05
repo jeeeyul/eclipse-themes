@@ -1,13 +1,31 @@
 package net.jeeeyul.eclipse.themes.preference;
 
-import net.jeeeyul.eclipse.themes.preference.internal.Ignore;
-import net.jeeeyul.eclipse.themes.preference.internal.TypeHint;
+import net.jeeeyul.eclipse.themes.preference.annotations.Ignore;
+import net.jeeeyul.eclipse.themes.preference.annotations.TypeHint;
 import net.jeeeyul.swtend.ui.Gradient;
 import net.jeeeyul.swtend.ui.HSB;
 
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.graphics.Point;
 
+/**
+ * provides keys for {@link IPreferenceStore} that are used in Jeeeyul's eclipse
+ * themes. {@link Ignore} annotations means it is not a key. {@link TypeHint}
+ * provides types of each key.
+ * 
+ * @author Jeeeyul
+ * @since 2.0.0
+ */
 public interface JTPConstants {
+	/**
+	 * Used by {@link PartStackPage}. Keys in this interfaces are not used by
+	 * theme plugin, actual keys are contained by {@link ActivePartStack} and
+	 * {@link InactivePartStack}.
+	 * 
+	 * @see JThemePreferenceStore
+	 * @author Jeeeyul
+	 * @since 2.0.0
+	 */
 	@Ignore
 	public static interface PartStack {
 		@TypeHint(Gradient.class)

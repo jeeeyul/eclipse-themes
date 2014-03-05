@@ -9,6 +9,12 @@ import net.jeeeyul.swtend.ui.HSB;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
+/**
+ * settings for {@link JeeeyulsTabRenderer}
+ * 
+ * @author Jeeeyul
+ * @since 2.0.0
+ */
 public class JTabSettings {
 	private int borderRadius = 2;
 	private Rectangle margins = SWTExtensions.INSTANCE.newInsets(2);
@@ -514,5 +520,4 @@ public class JTabSettings {
 		this.unselectedTextShadowPosition = unselectedTextShadowPosition;
 		pcs.firePropertyChange("unselected-text-shadow-position", old, unselectedTextShadowPosition);
 	}
-
 }

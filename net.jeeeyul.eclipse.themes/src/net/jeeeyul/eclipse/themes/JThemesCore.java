@@ -1,7 +1,6 @@
 package net.jeeeyul.eclipse.themes;
 
-import net.jeeeyul.eclipse.themes.css.dynamicresource.ChromeDynamicResourceLocator;
-import net.jeeeyul.eclipse.themes.internal.Nature;
+import net.jeeeyul.eclipse.themes.css.dynamicresource.JTDynamicResourceLocator;
 import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore;
 
 import org.eclipse.core.runtime.IStatus;
@@ -13,7 +12,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
-import org.osgi.framework.Version;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -58,14 +56,11 @@ public class JThemesCore extends AbstractUIPlugin {
 		super.start(context);
 		plugin = this;
 
-		Version version = Nature.INSTANCE.getVersion();
-		if (Nature.INSTANCE.isAfter(version, Nature.INSTANCE.JUNO_SR1_RANGE)) {
-			ServiceReference<IThemeManager> serviceReference = context.getServiceReference(IThemeManager.class);
-			IThemeManager manager = context.getService(serviceReference);
+		ServiceReference<IThemeManager> serviceReference = context.getServiceReference(IThemeManager.class);
+		IThemeManager manager = context.getService(serviceReference);
 
-			IThemeEngine engine = manager.getEngineForDisplay(Display.getDefault());
-			engine.registerResourceLocator(new ChromeDynamicResourceLocator());
-		}
+		IThemeEngine engine = manager.getEngineForDisplay(Display.getDefault());
+		engine.registerResourceLocator(new JTDynamicResourceLocator());
 	}
 
 	public void stop(BundleContext context) throws Exception {

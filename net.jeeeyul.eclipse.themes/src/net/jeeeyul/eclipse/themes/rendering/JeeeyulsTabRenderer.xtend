@@ -2,6 +2,7 @@ package net.jeeeyul.eclipse.themes.rendering
 
 import java.beans.PropertyChangeEvent
 import java.beans.PropertyChangeListener
+import net.jeeeyul.eclipse.themes.rendering.internal.EmptyClassHook
 import net.jeeeyul.eclipse.themes.rendering.internal.Shadow9PatchFactory
 import net.jeeeyul.swtend.SWTExtensions
 import net.jeeeyul.swtend.ui.HSB
@@ -14,8 +15,12 @@ import org.eclipse.swt.graphics.GC
 import org.eclipse.swt.graphics.Path
 import org.eclipse.swt.graphics.Point
 import org.eclipse.swt.graphics.Rectangle
-import net.jeeeyul.eclipse.themes.rendering.internal.EmptyClassHook
 
+/**
+ * A new CTabFolder Renderer for Jeeeyul's eclipse themes 2.0
+ * 
+ * @since 2.0.0
+ */
 class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	extension JTabRendererHelper = new JTabRendererHelper
 	extension SWTExtensions = SWTExtensions.INSTANCE
@@ -30,7 +35,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		handleSettingChange(it)
 	]
 
-	def handleSettingChange(PropertyChangeEvent event) {
+	private def handleSettingChange(PropertyChangeEvent event) {
 		switch (event.propertyName) {
 			case "shadow-color": {
 				shadowNinePatch.safeDispose()
@@ -89,13 +94,12 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				width = width + settings.tabSpacing
 				return new Point(width, height)
 			}
-			
-			case PART_HEADER:{
+			case PART_HEADER: {
 				var size = new Point(0, parent.tabHeight)
-				if(parent.itemCount == 0){
+				if(parent.itemCount == 0) {
 					size.y = Math.max(gc.textExtent("Default").y, size.y)
-				}else{
-					for(i : 0..<parent.itemCount){
+				} else {
+					for (i : 0 ..< parent.itemCount) {
 						var eachSize = computeSize(i, SWT.NONE, gc, wHint, hHint)
 						size.y = Math.max(size.y, eachSize.y)
 					}
@@ -103,7 +107,6 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				size.y = size.y + 2
 				return size
 			}
-			
 			case PART_CLOSE_BUTTON: {
 				return new Point(11, 11)
 			}
@@ -122,14 +125,14 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				result.width = result.width + settings.margins.x + settings.paddings.x + settings.paddings.width + settings.margins.width
 
 				if(tabFolder.onBottom) {
-					result.y = result.y - settings.paddings.y 
+					result.y = result.y - settings.paddings.y
 					result.height = result.height + tabFolder.tabHeight + settings.paddings.y + settings.margins.height + settings.paddings.height
 				} else {
 					result.y = result.y - tabFolder.tabHeight - settings.paddings.y - 2
 					result.height = result.height + tabFolder.tabHeight + settings.paddings.y + settings.margins.height + settings.paddings.height + 2
 				}
-				
-				if(settings.borderColors != null){
+
+				if(settings.borderColors != null) {
 					result.x = result.x - 1
 					result.width = result.width + 2
 					result.height = result.height + 1
@@ -138,15 +141,12 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			case PART_BACKGROUND: {
 				result.height = result.height + 10
 			}
-			
-			case PART_HEADER:{
+			case PART_HEADER: {
 				result.x = result.x - settings.margins.x
 				result.width = result.width + settings.margins.x + settings.margins.width
 			}
-			
-			case part >= 0:{
+			case part >= 0: {
 			}
-			
 			default: {
 				result = super.computeTrim(part, state, x, y, width, height)
 			}
@@ -173,6 +173,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 		switch (part) {
 			case PART_HEADER: {
+				updateControlBKImages()
 				drawTabHeader(part, bounds, state, gc)
 			}
 			case PART_CLOSE_BUTTON: {
@@ -192,6 +193,17 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			}
 			default:
 				super.draw(part, state, bounds, gc)
+		}
+	}
+	
+	private def updateControlBKImages() {
+		for(c : parent.controls){
+			var img = c.backgroundImage
+			if(c.bounds.y < parent.tabHeight && img != null && !img.disposed){
+				var gc = new GC(img)
+				gc.fillGradientRectangle(new Rectangle(0, 0, img.bounds.width, parent.tabHeight + 1), parent.gradientColor, parent.gradientPercents, true)
+				gc.dispose();
+			}
 		}
 	}
 
@@ -251,7 +263,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		gc.withClip(clip) [
 			if(tabFolder.gradientColor != null) {
 				if(tabFolder.onTop) {
-					gc.fillGradientRectangle(headerArea, tabFolder.gradientColor, tabFolder.gradientPercents, true)
+					gc.fillGradientRectangle(headerArea.getResized(0, 1), tabFolder.gradientColor, tabFolder.gradientPercents, true)
 				} else {
 					var reverseRect = newRectangle(headerArea.bottomLeft, new Point(headerArea.width, -headerArea.height))
 					gc.fillGradientRectangle(reverseRect, tabFolder.gradientColor, tabFolder.gradientPercents, true)
@@ -266,6 +278,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	}
 
 	protected def drawTabBody(int part, int state, Rectangle bounds, GC gc) {
+
 		// Fill Background
 		if(state.hasFlags(SWT.BACKGROUND)) {
 			gc.background = tabFolder.parent.background
@@ -284,7 +297,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 					addRectangle(tabArea)
 				}
 			]
-			
+
 			if(parent.itemCount > 0)
 				gc.background = #[tabFolder.selectionGradientColor?.last, tabFolder.selectionBackground].findFirst[it != null]
 			else
@@ -372,8 +385,8 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		if(settings.tabSpacing == -1) {
 			itemBounds.resize(1, 0)
 		}
-		
-		if(!state.hasFlags(SWT.SELECTED)){
+
+		if(!state.hasFlags(SWT.SELECTED)) {
 			itemBounds.resize(0, -1)
 		}
 
@@ -599,7 +612,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		newRectangle.setSize(tabFolder.size).shrink(settings.margins.x, 0, settings.margins.width, settings.margins.height)
 	}
 
-	def getShadow() {
+	def protected getShadow() {
 		if(shadowNinePatch == null || shadowNinePatch.disposed) {
 			shadowNinePatch = Shadow9PatchFactory.createShadowPatch(settings.shadowColor.toRGB, settings.borderRadius, settings.shadowRadius);
 		}

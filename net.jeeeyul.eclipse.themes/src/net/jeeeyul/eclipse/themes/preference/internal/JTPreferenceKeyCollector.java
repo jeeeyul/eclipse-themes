@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.jeeeyul.eclipse.themes.preference.JTPConstants;
+import net.jeeeyul.eclipse.themes.preference.annotations.Ignore;
 
 public class JTPreferenceKeyCollector {
 

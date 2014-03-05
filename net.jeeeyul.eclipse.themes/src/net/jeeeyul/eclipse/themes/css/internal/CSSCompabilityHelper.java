@@ -11,7 +11,6 @@ import org.w3c.dom.css.CSSValueList;
 public class CSSCompabilityHelper {
 
 	public CSSCompabilityHelper() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public static Gradient getGradient(CSSValueList list) {
@@ -23,7 +22,6 @@ public class CSSCompabilityHelper {
 
 				if (primType == CSSPrimitiveValue.CSS_IDENT) {
 					if (value.getCssText().equals("gradient")) {
-						// Skip the keyword "gradient"
 						continue;
 					} else if (value.getCssText().equals("linear")) {
 						gradient.setLinear(true);

@@ -2,6 +2,20 @@ package net.jeeeyul.eclipse.themes.rendering.internal;
 
 import java.lang.reflect.Field;
 
+import net.jeeeyul.eclipse.themes.rendering.JTabRendererHelper;
+
+/**
+ * It provides abstraction for accessing field with Java Reflection. Used by
+ * {@link JTabRendererHelper}.
+ * 
+ * @param <T>
+ *            Type
+ * @param <FT>
+ *            Field Type
+ *
+ * @author Jeeeyul
+ * @since 2.0.0
+ */
 public class HackedField<T, FT> {
 	private Class<T> type;
 	private String name;
@@ -19,11 +33,25 @@ public class HackedField<T, FT> {
 		return field;
 	}
 
+	/**
+	 * 
+	 * @param type
+	 *            Type.
+	 * @param name
+	 *            Field name.
+	 */
 	public HackedField(Class<T> type, String name) {
 		this.type = type;
 		this.name = name;
 	}
 
+	/**
+	 * 
+	 * @param obj
+	 *            field owner.
+	 * @return field value.
+	 * @since 2.0.0
+	 */
 	@SuppressWarnings("unchecked")
 	public FT get(Object obj) {
 		try {
@@ -33,6 +61,15 @@ public class HackedField<T, FT> {
 		}
 	}
 
+	/**
+	 * sets a new field value.
+	 * 
+	 * @param obj
+	 *            owner to set field.
+	 * @param value
+	 *            new value for field.
+	 * @return new field value.
+	 */
 	public FT set(Object obj, FT value) {
 		try {
 			getField().set(obj, value);

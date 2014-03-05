@@ -14,14 +14,30 @@ import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 
+/**
+ * Enhanced {@link IPreferenceStore}. It supports {@link HSB}, {@link Gradient},
+ * {@link Rectangle}, {@link Point} as value.
+ * 
+ * When it has a {@link #context}, it will be used as prefix for key.
+ * 
+ * @author Jeeeyul
+ * @since 2.0.0
+ */
 public class JThemePreferenceStore implements IPreferenceStore, IPersistentPreferenceStore {
 	private IPersistentPreferenceStore originalStore;
 	private SerializeUtil serializeUtil = new SerializeUtil();
 	private String context = null;
 
-	public JThemePreferenceStore() {
+	JThemePreferenceStore() {
 	}
 
+	/**
+	 * create a {@link JThemePreferenceStore} with original
+	 * {@link IPersistentPreferenceStore}.
+	 * 
+	 * @param originalStore
+	 *            store to be wrapped.
+	 */
 	public JThemePreferenceStore(IPersistentPreferenceStore originalStore) {
 		super();
 		this.originalStore = originalStore;
@@ -191,6 +207,13 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 		}
 	}
 
+	/**
+	 * sets a context. context will be used as prefix for each key accesing.
+	 * 
+	 * @param context
+	 *            context to set.
+	 * @since 2.0.0
+	 */
 	public void setContext(String context) {
 		this.context = context;
 	}
