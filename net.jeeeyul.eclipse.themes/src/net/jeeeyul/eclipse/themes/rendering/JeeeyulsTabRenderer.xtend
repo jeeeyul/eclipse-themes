@@ -113,8 +113,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			case PART_CLOSE_BUTTON: {
 				return new Point(11, 11)
 			}
-			
-			case PART_CHEVRON_BUTTON : {
+			case PART_CHEVRON_BUTTON: {
 				return new Point(20, 16)
 			}
 			default: {
@@ -341,7 +340,20 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			val path = newPath[
 				autoRelease()
 				if(settings.borderRadius > 0) {
-					addRoundRectangle(tabArea, settings.borderRadius)
+					if(parent.onTop) {
+						var box = newRectangleWithSize(settings.borderRadius * 2)
+						moveTo(tabArea.x, parent.tabHeight)
+						lineTo(tabArea.x + tabArea.width, parent.tabHeight)
+						box.relocateBottomRightWith(tabArea)
+						lineTo(box.right)
+						addArc(box, 0, -90)
+						box.relocateBottomLeftWith(tabArea)
+						lineTo(box.bottom)
+						addArc(box, 270, -90)
+						close()
+					} else {
+						addRoundRectangle(tabArea, settings.borderRadius)
+					}
 				} else {
 					addRectangle(tabArea)
 				}
