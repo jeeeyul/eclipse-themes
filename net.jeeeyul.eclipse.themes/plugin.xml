@@ -158,6 +158,25 @@
       </transfer>
    </extension>
    <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="net.jeeeyul.eclipse.themes.command.open.url"
+            name="Open URL">
+         <commandParameter
+               id="url"
+               name="URL"
+               optional="false">
+         </commandParameter>
+         <defaultHandler
+               class="net.jeeeyul.eclipse.themes.ui.OpenURLHandler">
+            <parameter
+                  name="net.jeeeyul.eclipse.themes.parameter1"
+                  value="net.jeeeyul.eclipse.themes.parameter1">
+            </parameter>
+         </defaultHandler>
+      </command>
+   </extension>
+   <extension
          point="org.eclipse.ui.menus">
       <menuContribution
             allPopups="false"
@@ -196,6 +215,33 @@
                   value="net.jeeeyul.eclipse.themes.preference.JTPreperencePage">
             </parameter>
          </command>
+         <separator
+               name="support"
+               visible="true">
+         </separator>
+         <menu
+               label="Contact">
+            <command
+                  commandId="net.jeeeyul.eclipse.themes.command.open.url"
+                  icon="icons/github.png"
+                  label="Issues"
+                  style="push">
+               <parameter
+                     name="url"
+                     value="https://github.com/jeeeyul/eclipse-themes/issues">
+               </parameter>
+            </command>
+            <command
+                  commandId="net.jeeeyul.eclipse.themes.command.open.url"
+                  icon="icons/pledgie.png"
+                  label="Donate"
+                  style="push">
+               <parameter
+                     name="url"
+                     value="https://pledgie.com/campaigns/18377">
+               </parameter>
+            </command>
+         </menu>
       </menuContribution>
    </extension>
    <extension
@@ -214,6 +260,14 @@
             name="Chrome (Classic)">
          <description>
             Default Preset
+         </description>
+      </preset>
+      <preset
+            epf="presets/black.epf"
+            id="net.jeeeyul.eclipse.themes.preset.black"
+            name="Black">
+         <description>
+            Experimental Black Theme
          </description>
       </preset>
    </extension>
