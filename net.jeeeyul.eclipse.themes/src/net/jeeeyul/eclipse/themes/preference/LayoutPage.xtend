@@ -1,6 +1,5 @@
 package net.jeeeyul.eclipse.themes.preference
 
-import net.jeeeyul.eclipse.themes.SharedImages
 import net.jeeeyul.eclipse.themes.preference.internal.PreperencePageHelper
 import net.jeeeyul.eclipse.themes.rendering.JTabSettings
 import net.jeeeyul.swtend.SWTExtensions
@@ -9,11 +8,11 @@ import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.CTabFolder
 import org.eclipse.swt.graphics.Point
 import org.eclipse.swt.graphics.Rectangle
+import org.eclipse.swt.layout.GridData
 import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Event
 import org.eclipse.swt.widgets.Scale
-import org.eclipse.swt.layout.GridData
 
 class LayoutPage extends AbstractJTPreferencePage {
 	Button castShadowButton
@@ -27,7 +26,6 @@ class LayoutPage extends AbstractJTPreferencePage {
 
 	new() {
 		super("Layout")
-		this.image = SharedImages.getImage(SharedImages.LAYOUT)
 	}
 
 	override createContents(Composite parent, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {

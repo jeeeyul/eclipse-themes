@@ -8,6 +8,7 @@ import org.eclipse.swt.custom.CTabFolder
 import org.eclipse.swt.widgets.Composite
 import net.jeeeyul.swtend.ui.ColorWell
 import org.eclipse.swt.SWT
+import net.jeeeyul.eclipse.themes.SharedImages
 
 class GeneralPage extends AbstractJTPreferencePage {
 	GradientEdit toolbarEdit
@@ -18,6 +19,7 @@ class GeneralPage extends AbstractJTPreferencePage {
 
 	new() {
 		super("General")
+		image = SharedImages.getImage(SharedImages.LAYOUT)
 	}
 
 	override createContents(Composite parent, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {

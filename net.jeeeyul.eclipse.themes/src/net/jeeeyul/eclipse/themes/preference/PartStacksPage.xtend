@@ -1,5 +1,6 @@
 package net.jeeeyul.eclipse.themes.preference
 
+import net.jeeeyul.eclipse.themes.SharedImages
 import net.jeeeyul.eclipse.themes.preference.internal.PreperencePageHelper
 import net.jeeeyul.eclipse.themes.rendering.JTabSettings
 import net.jeeeyul.swtend.SWTExtensions
@@ -11,13 +12,15 @@ class PartStacksPage extends AbstractJTPreferencePage {
 	AbstractJTPreferencePage[] pages = #[
 		new PartStackPage("Active", JTPConstants.ActivePartStack.PREFIX), 
 		new PartStackPage("Inactive", JTPConstants.InactivePartStack.PREFIX), 
-		new EmptyPartStackPage,
-		new LayoutPage
+		new SpecialPartStackPage,
+		new LayoutPage,
+		new PartStackBatchTaskPage
 	]
 	CTabFolder folder
 
 	new() {
 		super("Part Stacks")
+		image = SharedImages.getImage(SharedImages.ACTIVE_PART)
 	}
 
 	override createContents(Composite parent, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
@@ -87,4 +90,7 @@ class PartStacksPage extends AbstractJTPreferencePage {
 		}
 	}
 
+	def AbstractJTPreferencePage[] getPartStackPage() {
+		return this.pages
+	}
 }

@@ -3,6 +3,7 @@ package net.jeeeyul.eclipse.themes.preference;
 import java.io.IOException;
 
 import net.jeeeyul.eclipse.themes.internal.SerializeUtil;
+import net.jeeeyul.swtend.sam.Function1;
 import net.jeeeyul.swtend.sam.Procedure1;
 import net.jeeeyul.swtend.ui.Gradient;
 import net.jeeeyul.swtend.ui.HSB;
@@ -27,6 +28,8 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 	private IPersistentPreferenceStore originalStore;
 	private SerializeUtil serializeUtil = new SerializeUtil();
 	private String context = null;
+
+	private Function1<String, String> customKeyResolver;
 
 	JThemePreferenceStore() {
 	}
@@ -61,6 +64,21 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 
 	public String getContext() {
 		return context;
+	}
+
+	public JThemePreferenceStore getCopyWithContext(String contenxt) {
+		JThemePreferenceStore result = new JThemePreferenceStore(originalStore);
+
+		if (this.context == null) {
+			result.setContext(contenxt);
+		} else {
+			result.setContext(this.context + JTPConstants.CATEGORY_SEPARATOR + contenxt);
+		}
+		return result;
+	}
+
+	public Function1<String, String> getCustomKeyResolver() {
+		return customKeyResolver;
 	}
 
 	public boolean getDefaultBoolean(String name) {
@@ -192,6 +210,10 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 	}
 
 	private String resolveName(String name) {
+		if (customKeyResolver != null) {
+			return customKeyResolver.apply(name);
+		}
+
 		if (this.context != null) {
 			return context + JTPConstants.CATEGORY_SEPARATOR + name;
 		} else {
@@ -218,11 +240,8 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 		this.context = context;
 	}
 
-	public void withContext(String context, Procedure1<JThemePreferenceStore> work) {
-		String oldContext = getContext();
-		setContext(context);
-		work.apply(this);
-		setContext(oldContext);
+	public void setCustomKeyResolver(Function1<String, String> customKeyResolver) {
+		this.customKeyResolver = customKeyResolver;
 	}
 
 	public void setDefault(String name, boolean value) {
@@ -311,5 +330,12 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 
 	public void setValue(String name, String value) {
 		originalStore.setValue(resolveName(name), value);
+	}
+
+	public void withContext(String context, Procedure1<JThemePreferenceStore> work) {
+		String oldContext = getContext();
+		setContext(context);
+		work.apply(this);
+		setContext(oldContext);
 	}
 }

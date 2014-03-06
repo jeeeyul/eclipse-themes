@@ -353,7 +353,7 @@ public interface JTPConstants {
 		@TypeHint(boolean.class)
 		public static final String BORDER_SHOW = PREFIX + CATEGORY_SEPARATOR + "BORDER_SHOW";
 	}
-	
+
 	public static interface EditorsPartStack {
 		@Ignore
 		public static final String PREFIX = "EDITORS_PART_STACK";
@@ -366,6 +366,14 @@ public interface JTPConstants {
 
 		@TypeHint(boolean.class)
 		public static final String BORDER_SHOW = PREFIX + CATEGORY_SEPARATOR + "BORDER_SHOW";
+	}
+
+	public static interface Others {
+		@Ignore
+		public static final String PREFIX = "OTHERS";
+
+		@TypeHint(String.class)
+		public static final String USER_CSS = PREFIX + CATEGORY_SEPARATOR + "USER_CSS";
 	}
 
 	public static final String CATEGORY_SEPARATOR = "__";

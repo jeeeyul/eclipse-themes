@@ -7,7 +7,8 @@ import java.util.Properties
 import net.jeeeyul.eclipse.themes.JThemesCore
 import net.jeeeyul.eclipse.themes.css.RewriteCustomTheme
 import net.jeeeyul.eclipse.themes.preference.internal.ClosePrevent
-import net.jeeeyul.eclipse.themes.preference.internal.JTPreferenceKeyCollector
+import net.jeeeyul.eclipse.themes.preference.internal.DonationPanel
+import net.jeeeyul.eclipse.themes.preference.internal.JTPUtil
 import net.jeeeyul.eclipse.themes.preference.internal.PreperencePageHelper
 import net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer
 import net.jeeeyul.swtend.SWTExtensions
@@ -41,6 +42,7 @@ class JTPreperencePage extends PreferencePage implements IWorkbenchPreferencePag
 		title = "Jeeeyul's Theme"
 		pages += new GeneralPage
 		pages += new PartStacksPage
+		pages += new UserCSSPage
 
 		if(!Platform.running || Platform.inDebugMode || Platform.inDevelopmentMode) {
 			pages += new DebugPage
@@ -81,13 +83,26 @@ class JTPreperencePage extends PreferencePage implements IWorkbenchPreferencePag
 					updatePreview()
 				]
 			]
-			for (each : pages) {
-				each.load(preferenceStore, swtExt, helper)
-			}
-			for (each : pages) {
-				each.updatePreview()
-			}
+			new DonationPanel(it) => [
+				control.layoutData = FILL_HORIZONTAL
+			]
 		]
+
+		doLoad()
+		doUpdatePreview()
+
+		return rootView
+	}
+
+	private def doLoad() {
+		for (each : pages) {
+			each.load(preferenceStore, swtExt, helper)
+		}
+	}
+
+	public def reload() {
+		doLoad();
+		doUpdatePreview();
 	}
 
 	override performOk() {
@@ -101,7 +116,7 @@ class JTPreperencePage extends PreferencePage implements IWorkbenchPreferencePag
 
 	override protected performDefaults() {
 		var dummy = new JThemePreferenceStore(new PreferenceStore())
-		for (e : new JTPreferenceKeyCollector().collect) {
+		for (e : JTPUtil.listPreferenceKeys) {
 			dummy.setValue(e, preferenceStore.getDefaultString(e))
 		}
 

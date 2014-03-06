@@ -30,6 +30,7 @@ public class LineWidthEditor {
 		thinButton = new Button(control, SWT.RADIO);
 		thinButton.setText("Thin");
 		normalButton = new Button(control, SWT.RADIO);
+		normalButton.setSelection(true);
 		normalButton.setText("Normal");
 		boldButton = new Button(control, SWT.RADIO);
 		boldButton.setText("Bold");

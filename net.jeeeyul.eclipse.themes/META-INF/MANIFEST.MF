@@ -13,13 +13,11 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.e4.core.di,
  org.eclipse.e4.ui.css.swt,
  org.eclipse.e4.core.services,
- org.eclipse.e4.ui.workbench,
  org.eclipse.osgi.services,
  org.w3c.css.sac,
  org.eclipse.jface.text,
  org.eclipse.e4.ui.model.workbench,
  net.jeeeyul.swtend;bundle-version="1.2.2",
- org.eclipse.ui.forms,
  org.eclipse.e4.core.contexts
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy

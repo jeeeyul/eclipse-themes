@@ -58,6 +58,10 @@ public class PreperencePageHelper {
 		return result;
 	}
 
+	public void requestReload() {
+		root.reload();
+	}
+
 	public AbstractJTPreferencePage getActivePage() {
 		return root.getActivePage();
 	}

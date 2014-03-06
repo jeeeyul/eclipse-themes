@@ -144,6 +144,7 @@ class CustomThemeGenerator {
 			«ENDIF»
 			
 			/* hover tabs */
+			jtab-hover-color : «store.getHSB(JTPConstants.InactivePartStack.HOVER_TEXT_COLOR).toHTMLCode»;
 			«IF store.getBoolean(JTPConstants.InactivePartStack.HOVER_FILL)»
 				jtab-hover-tabs-background: «store.getGradient(JTPConstants.InactivePartStack.HOVER_FILL_COLOR).toSWTCSSString»;
 			«ELSE»
@@ -239,6 +240,7 @@ class CustomThemeGenerator {
 			«ENDIF»
 			
 			/* hover tabs */
+			jtab-hover-color : «store.getHSB(JTPConstants.ActivePartStack.HOVER_TEXT_COLOR).toHTMLCode»;
 			«IF store.getBoolean(JTPConstants.ActivePartStack.HOVER_FILL)»
 				jtab-hover-tabs-background: «store.getGradient(JTPConstants.ActivePartStack.HOVER_FILL_COLOR).toSWTCSSString»;
 			«ELSE»
@@ -304,6 +306,9 @@ class CustomThemeGenerator {
 				jtab-padding : «store.getInt(JTPConstants.Layout.CONTENT_PADDING)»px;
 			«ENDIF»
 		}
+		
+		«comment("User Custom CSS")»
+		«store.getString(JTPConstants.Others.USER_CSS)»
 	'''
 
 	def comment(String comment) '''

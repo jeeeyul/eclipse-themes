@@ -1,18 +1,17 @@
 package net.jeeeyul.eclipse.themes.preference
 
+import net.jeeeyul.eclipse.themes.preference.internal.LineWidthEditor
 import net.jeeeyul.eclipse.themes.preference.internal.PreperencePageHelper
 import net.jeeeyul.eclipse.themes.preference.internal.TextShadowEdit
 import net.jeeeyul.eclipse.themes.rendering.JTabSettings
 import net.jeeeyul.swtend.SWTExtensions
 import net.jeeeyul.swtend.ui.ColorWell
 import net.jeeeyul.swtend.ui.GradientEdit
+import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.CTabFolder
 import org.eclipse.swt.graphics.Color
 import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Composite
-import net.jeeeyul.eclipse.themes.SharedImages
-import org.eclipse.swt.SWT
-import net.jeeeyul.eclipse.themes.preference.internal.LineWidthEditor
 
 class PartStackPage extends AbstractJTPreferencePage {
 	Color[] backgroundColors = #[]
@@ -56,7 +55,6 @@ class PartStackPage extends AbstractJTPreferencePage {
 	new(String title, String context) {
 		super(title)
 		this.context = context
-		image = SharedImages.getImage(SharedImages.ACTIVE_PART)
 	}
 
 	override createContents(Composite parent, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
@@ -68,7 +66,7 @@ class PartStackPage extends AbstractJTPreferencePage {
 				layout = newGridLayout[
 					numColumns = 4
 				]
-				newLabel[text = "Background"]
+				newLabel[text = "Fill"]
 				backgroundEdit = newGradientEdit[
 					layoutData = FILL_HORIZONTAL
 					onModified = [
@@ -99,7 +97,7 @@ class PartStackPage extends AbstractJTPreferencePage {
 						layout = newGridLayout[
 							numColumns = 4
 						]
-						newLabel[text = "Background"]
+						newLabel[text = "Fill"]
 						selectedBackgroundEdit = newGradientEdit[
 							layoutData = FILL_HORIZONTAL
 							onModified = [
@@ -149,7 +147,7 @@ class PartStackPage extends AbstractJTPreferencePage {
 						layout = newGridLayout[
 							numColumns = 4
 						]
-						newLabel[text = "Background"]
+						newLabel[text = "Fill"]
 						unselectedBackgroundEdit = newGradientEdit[
 							layoutData = FILL_HORIZONTAL
 							onModified = [
@@ -199,7 +197,7 @@ class PartStackPage extends AbstractJTPreferencePage {
 						layout = newGridLayout[
 							numColumns = 4
 						]
-						newLabel[text = "Background"]
+						newLabel[text = "Fill"]
 						hoverBackgroundEdit = newGradientEdit[
 							layoutData = FILL_HORIZONTAL
 							onModified = [

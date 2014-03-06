@@ -1,9 +1,10 @@
 package net.jeeeyul.eclipse.themes.preference
 
-import net.jeeeyul.eclipse.themes.preference.internal.JTPreferenceKeyCollector
+import net.jeeeyul.eclipse.themes.preference.internal.JTPUtil
 import net.jeeeyul.eclipse.themes.preference.internal.PreperencePageHelper
 import net.jeeeyul.eclipse.themes.rendering.JTabSettings
 import net.jeeeyul.swtend.SWTExtensions
+import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.CTabFolder
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Text
@@ -18,8 +19,7 @@ class DebugPage extends AbstractJTPreferencePage {
 	override createContents(Composite parent, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
 		parent.newComposite [
 			layout = newGridLayout
-			
-			epfView = newTextArea [
+			epfView = newText(SWT.MULTI || SWT.V_SCROLL || SWT.H_SCROLL) [
 				it.text = "Empty"
 				layoutData = FILL_BOTH[
 					widthHint = 200
@@ -31,8 +31,8 @@ class DebugPage extends AbstractJTPreferencePage {
 
 	override updatePreview(CTabFolder folder, JTabSettings renderSettings, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
 		epfView.text = '''
-			«FOR key : new JTPreferenceKeyCollector().collect»
-				«key»=«preferenceStore.getString(key)»
+			«FOR key : JTPUtil.listPreferenceKeys»
+				«key»=«JTPUtil.saveConvert(preferenceStore.getString(key), false, true)»
 			«ENDFOR»
 		'''
 	}

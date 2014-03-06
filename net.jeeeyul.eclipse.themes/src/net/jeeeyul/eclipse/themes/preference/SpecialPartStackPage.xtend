@@ -8,7 +8,7 @@ import org.eclipse.swt.custom.CTabFolder
 import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Composite
 
-class EmptyPartStackPage extends AbstractJTPreferencePage {
+class SpecialPartStackPage extends AbstractJTPreferencePage {
 	GradientEdit emptyFillEdit
 	GradientEdit emptyBorderEdit
 	Button emptyBorderHideEdit
@@ -18,7 +18,7 @@ class EmptyPartStackPage extends AbstractJTPreferencePage {
 	Button editorsBorderHideEdit
 
 	new() {
-		super("Empty Stack")
+		super("Special")
 	}
 
 	override createContents(Composite parent, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
@@ -53,7 +53,7 @@ class EmptyPartStackPage extends AbstractJTPreferencePage {
 				]
 			]
 			newGroup[
-				text = "editors Part Stack"
+				text = "Editors Part Stack"
 				layoutData = FILL_HORIZONTAL
 				layout = newGridLayout[
 					numColumns = 4
