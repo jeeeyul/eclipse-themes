@@ -23,11 +23,21 @@ What if you don't have **Market Place Client** on your eclipse, please refer [Al
 See [Release Note](https://github.com/jeeeyul/eclipse-themes/wiki/Release-Note).
 
 ## Update Site
-<pre>http://jeeeyul.github.io/update/</pre>
+```
+http://jeeeyul.github.io/update/
+```
+
 * [Developer Guide](https://github.com/jeeeyul/eclipse-themes/wiki/Developer-Guide)
 * [Meet me at Eclipse Market Place](http://marketplace.eclipse.org/content/eclipse-4-chrome-theme)
 
 Update site is not for web browser, don't try.
+
+If you want to try *Jeeeyu's themes 2.0 beta*, use below update site:
+```
+http://jeeeyul.github.io/beta-update/
+```
+
+
 ## How to install
 You need eclipse 4.2 or above version to install this theme.
 
