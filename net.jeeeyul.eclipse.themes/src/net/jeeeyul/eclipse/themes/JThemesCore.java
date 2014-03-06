@@ -2,6 +2,7 @@ package net.jeeeyul.eclipse.themes;
 
 import net.jeeeyul.eclipse.themes.css.dynamicresource.JTDynamicResourceLocator;
 import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore;
+import net.jeeeyul.eclipse.themes.preference.preset.JTPresetManager;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -22,12 +23,10 @@ public class JThemesCore extends AbstractUIPlugin {
 	// The plug-in ID
 	public static final String PLUGIN_ID = "net.jeeeyul.eclipse.themes"; //$NON-NLS-1$
 
-	public static final String CUSTOM_THEME_ID = "net.jeeeyul.eclipse.themes.custom";
+	public static final String CUSTOM_THEME_ID = "net.jeeeyul.eclipse.themes.custom"; //$NON-NLS-1$
 
 	// The shared instance
 	private static JThemesCore plugin;
-
-	private JThemePreferenceStore preferenceStore;
 
 	/**
 	 * Returns the shared instance
@@ -38,10 +37,34 @@ public class JThemesCore extends AbstractUIPlugin {
 		return plugin;
 	}
 
+	private JThemePreferenceStore preferenceStore;
+	private JTPresetManager presetManager;
+
 	/**
 	 * The constructor
 	 */
 	public JThemesCore() {
+	}
+
+	@Override
+	public JThemePreferenceStore getPreferenceStore() {
+		if (preferenceStore == null) {
+			preferenceStore = new JThemePreferenceStore((IPersistentPreferenceStore) super.getPreferenceStore());
+		}
+		return preferenceStore;
+	}
+
+	/**
+	 * 
+	 * @return A shared {@link JTPresetManager} instance.
+	 * 
+	 * @since 2.0.0
+	 */
+	public JTPresetManager getPresetManager() {
+		if (presetManager == null) {
+			presetManager = new JTPresetManager();
+		}
+		return presetManager;
 	}
 
 	public void log(Exception e) {
@@ -66,14 +89,6 @@ public class JThemesCore extends AbstractUIPlugin {
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;
 		super.stop(context);
-	}
-
-	@Override
-	public JThemePreferenceStore getPreferenceStore() {
-		if (preferenceStore == null) {
-			preferenceStore = new JThemePreferenceStore((IPersistentPreferenceStore) super.getPreferenceStore());
-		}
-		return preferenceStore;
 	}
 
 }

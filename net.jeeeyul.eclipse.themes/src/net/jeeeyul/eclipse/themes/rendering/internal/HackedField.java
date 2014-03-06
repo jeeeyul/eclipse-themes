@@ -2,8 +2,6 @@ package net.jeeeyul.eclipse.themes.rendering.internal;
 
 import java.lang.reflect.Field;
 
-import net.jeeeyul.eclipse.themes.rendering.JTabRendererHelper;
-
 /**
  * It provides abstraction for accessing field with Java Reflection. Used by
  * {@link JTabRendererHelper}.

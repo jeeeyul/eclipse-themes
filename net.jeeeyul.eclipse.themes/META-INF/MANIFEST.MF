@@ -19,10 +19,13 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jface.text,
  org.eclipse.e4.ui.model.workbench,
  net.jeeeyul.swtend;bundle-version="1.2.2",
- org.eclipse.ui.forms
+ org.eclipse.ui.forms,
+ org.eclipse.e4.core.contexts
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,
  lib/com.google.guava_10.0.1.v201203051515.jar,
  lib/org.eclipse.xtend.lib_2.5.1.v201401280830.jar,
  lib/org.eclipse.xtext.xbase.lib_2.5.1.v201401280830.jar
+Export-Package: net.jeeeyul.eclipse.themes,
+ net.jeeeyul.eclipse.themes.rendering

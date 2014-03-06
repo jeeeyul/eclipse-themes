@@ -3,6 +3,8 @@ package net.jeeeyul.eclipse.themes.rendering
 import java.beans.PropertyChangeEvent
 import java.beans.PropertyChangeListener
 import net.jeeeyul.eclipse.themes.rendering.internal.EmptyClassHook
+import net.jeeeyul.eclipse.themes.rendering.internal.ImageDataUtil
+import net.jeeeyul.eclipse.themes.rendering.internal.JTabRendererHelper
 import net.jeeeyul.eclipse.themes.rendering.internal.Shadow9PatchFactory
 import net.jeeeyul.swtend.SWTExtensions
 import net.jeeeyul.swtend.ui.HSB
@@ -11,13 +13,12 @@ import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.CTabFolder
 import org.eclipse.swt.custom.CTabFolderRenderer
 import org.eclipse.swt.custom.CTabItem
+import org.eclipse.swt.graphics.Font
 import org.eclipse.swt.graphics.GC
 import org.eclipse.swt.graphics.Image
 import org.eclipse.swt.graphics.Path
 import org.eclipse.swt.graphics.Point
 import org.eclipse.swt.graphics.Rectangle
-import net.jeeeyul.eclipse.themes.rendering.internal.ImageDataUtil
-import org.eclipse.swt.graphics.Font
 
 /**
  * A new CTabFolder Renderer for Jeeeyul's eclipse themes 2.0
@@ -75,14 +76,18 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				var width = 0
 				var height = 0
 				width = width + settings.tabItemPaddings.x
+				
 				if(item.image != null) {
 					width = width + item.image.bounds.width
 					width = width + settings.tabItemHorizontalSpacing
 					height = item.image.bounds.height
 				}
-				var textSize = item.text.computeTextExtent(#[item.font, parent.font].firstNotNull)
-				width = width + textSize.x + 1
-				height = Math.max(height, textSize.y)
+				
+				if(item.text.trim.length > 0){
+					var textSize = item.text.computeTextExtent(#[item.font, parent.font].firstNotNull)
+					width = width + textSize.x + 1
+					height = Math.max(height, textSize.y)
+				}
 
 				if(parent.showClose || item.showClose) {
 					if(state.hasFlags(SWT.SELECTED) || parent.showUnselectedClose) {
@@ -95,6 +100,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 				width = width + Math.max(settings.tabItemPaddings.width, 0)
 				width = width + settings.tabSpacing
+				
 				return new Point(width, height)
 			}
 			case PART_HEADER: {
@@ -146,6 +152,11 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			}
 			case PART_BACKGROUND: {
 				result.height = result.height + 10
+			}
+			
+			case PART_BORDER : {
+				result.x = result.x - settings.margins.x
+				result.width = result.width + settings.margins.x + settings.margins.width
 			}
 			case PART_HEADER: {
 				result.x = result.x - settings.margins.x
@@ -466,9 +477,12 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		if((tabFolder.showClose || item.showClose) && item.closeRect.width > 0) {
 			item.closeRect.x = item.bounds.right.x - item.closeRect.width - 4 - settings.tabItemPaddings.width
 			item.closeRect.translate(-Math.max(settings.tabSpacing, 0) + 3, 0)
-			gc.withClip(item.closeRect) [
-				draw(PART_CLOSE_BUTTON, item.closeImageState, item.closeRect, gc)
-			]
+			
+			if(state.hasFlags(SWT.SELECTED) || state.hasFlags(SWT.HOT)){
+				gc.withClip(item.closeRect) [
+					draw(PART_CLOSE_BUTTON, item.closeImageState, item.closeRect, gc)
+				]
+			}
 		}
 
 		// Draw Text

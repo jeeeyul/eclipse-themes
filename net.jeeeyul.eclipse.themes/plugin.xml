@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
+   <extension-point id="net.jeeeyul.eclipse.themes.preset" name="Jeeeyul&apos;s Themes Preset" schema="schema/net.jeeeyul.eclipse.themes.preset.exsd"/>
    <extension
          point="org.eclipse.e4.ui.css.swt.theme">
       <stylesheet
@@ -166,6 +167,7 @@
             <command
                   commandId="org.eclipse.ui.window.preferences"
                   icon="icons/jtheme.png"
+                  id="org.eclipse.ui.window.preferences"
                   style="pulldown">
                <parameter
                      name="preferencePageId"
@@ -174,5 +176,37 @@
             </command>
          </toolbar>
       </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:org.eclipse.ui.window.preferences">
+         <dynamic
+               class="net.jeeeyul.eclipse.themes.ui.ContributedPresetItem"
+               id="net.jeeeyul.eclipse.themes.preset.contributed">
+         </dynamic>
+         <separator
+               name="others"
+               visible="true">
+         </separator>
+         <command
+               commandId="org.eclipse.ui.window.preferences"
+               label="Settings..."
+               style="push">
+            <parameter
+                  name="preferencePageId"
+                  value="net.jeeeyul.eclipse.themes.preference.JTPreperencePage">
+            </parameter>
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="net.jeeeyul.eclipse.themes.preset">
+      <preset
+            epf="presets/default.epf"
+            id="net.jeeeyul.eclipse.themes.preset.default"
+            name="Default">
+         <description>
+            Default Preset
+         </description>
+      </preset>
    </extension>
 </plugin>

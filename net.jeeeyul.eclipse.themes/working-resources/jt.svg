@@ -21,7 +21,7 @@
     <linearGradient
        id="linearGradient3762">
       <stop
-         style="stop-color:#844390;stop-opacity:1;"
+         style="stop-color:#5b2e63;stop-opacity:1;"
          offset="0"
          id="stop3764" />
       <stop
@@ -32,11 +32,11 @@
     <linearGradient
        id="linearGradient3795">
       <stop
-         style="stop-color:#d9cfe3;stop-opacity:1;"
+         style="stop-color:#f9f5eb;stop-opacity:1;"
          offset="0"
          id="stop3797" />
       <stop
-         style="stop-color:#ffffff;stop-opacity:1;"
+         style="stop-color:#f0e5cc;stop-opacity:1;"
          offset="1"
          id="stop3799" />
     </linearGradient>
@@ -78,15 +78,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="3.6203867"
-     inkscape:cx="34.460294"
+     inkscape:cx="-11.943589"
      inkscape:cy="79.641462"
      inkscape:document-units="px"
      inkscape:current-layer="layer2"
      showgrid="false"
      inkscape:window-width="1569"
      inkscape:window-height="919"
-     inkscape:window-x="99"
-     inkscape:window-y="38"
+     inkscape:window-x="140"
+     inkscape:window-y="102"
      inkscape:window-maximized="0" />
   <metadata
      id="metadata7">
@@ -107,20 +107,11 @@
      style="display:inline"
      transform="translate(0,-902.36218)">
     <path
-       style="fill:#cfcfda;fill-opacity:1;stroke:#49064a;stroke-opacity:1;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none"
-       d="m 53.190548,929.13611 c 0,0 14.41409,4.58394 21.67969,4.6875 8.34976,0.11901 24.218755,-4.6875 24.218755,-4.6875 l 0,27.53906 -45.898445,0 z"
-       id="rect3784"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cscccc"
-       inkscape:export-filename="/Users/Jeeeyul/Workspaces/personal/eclipse-themes/net.jeeeyul.eclipse.themes/icons/jtheme.png"
-       inkscape:export-xdpi="14.270672"
-       inkscape:export-ydpi="14.270672" />
-    <path
-       style="fill:url(#linearGradient3945);fill-opacity:1;stroke:url(#linearGradient3768);stroke-opacity:1;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none"
-       d="m 43.280908,928.45397 c -9.2576,0 -17.38282,2.92969 -17.38282,2.92969 l 1.66017,30.1211 14.55077,-1.3672 0,68.20704 67.437502,0 -0.0977,-68.01172 13.1836,0.48828 3.22265,-29.04687 c -6.38874,-2.12148 -10.14169,-3.3206 -17.28515,-3.17969 l -16.458351,0 c 0,0 2.57678,20.70813 -17.425131,20.70813 -20.0019,0 -16.16244,-20.70813 -16.16244,-20.70813 -6.28537,-0.0317 -8.95846,-0.0323 -15.24315,-0.14063 z"
+       style="fill:url(#linearGradient3945);fill-opacity:1;stroke:url(#linearGradient3768);stroke-width:3;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 43.280908,928.45397 c -9.2576,0 -17.38282,2.92969 -17.38282,2.92969 l 1.66017,30.1211 14.55077,-1.3672 0,68.20704 67.437502,0 -0.0977,-68.01172 13.1836,0.48828 3.22265,-29.04687 c -6.38874,-2.12148 -10.14169,-3.3206 -17.28515,-3.17969 l -16.458351,0 c 0,0 3.129207,14.63143 -16.872704,14.63143 -20.0019,0 -16.714867,-14.63143 -16.714867,-14.63143 -6.28537,-0.0317 -8.95846,-0.0323 -15.24315,-0.14063 z"
        id="rect2993"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccccccccccczcc"
+       sodipodi:nodetypes="ccccccccccczccc"
        inkscape:export-filename="/Users/Jeeeyul/Workspaces/personal/eclipse-themes/net.jeeeyul.eclipse.themes/icons/jtheme.png"
        inkscape:export-xdpi="14.270672"
        inkscape:export-ydpi="14.270672" />

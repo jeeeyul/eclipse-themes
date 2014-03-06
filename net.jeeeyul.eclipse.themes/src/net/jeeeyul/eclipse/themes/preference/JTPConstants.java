@@ -353,6 +353,20 @@ public interface JTPConstants {
 		@TypeHint(boolean.class)
 		public static final String BORDER_SHOW = PREFIX + CATEGORY_SEPARATOR + "BORDER_SHOW";
 	}
+	
+	public static interface EditorsPartStack {
+		@Ignore
+		public static final String PREFIX = "EDITORS_PART_STACK";
+
+		@TypeHint(Gradient.class)
+		public static final String FILL_COLOR = PREFIX + CATEGORY_SEPARATOR + "FILL_COLOR";
+
+		@TypeHint(Gradient.class)
+		public static final String BORDER_COLOR = PREFIX + CATEGORY_SEPARATOR + "BORDER_COLOR";
+
+		@TypeHint(boolean.class)
+		public static final String BORDER_SHOW = PREFIX + CATEGORY_SEPARATOR + "BORDER_SHOW";
+	}
 
 	public static final String CATEGORY_SEPARATOR = "__";
 

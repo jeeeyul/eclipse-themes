@@ -180,6 +180,7 @@ class CustomThemeGenerator {
 			color: «store.getHSB(JTPConstants.InactivePartStack.SELECTED_TEXT_COLOR).toHTMLCode»;
 		}
 		
+		«comment("Empty Part Stack")»
 		.MPartStack.empty{
 			swt-unselected-tabs-color : «store.getGradient(JTPConstants.EmptyPartStack.FILL_COLOR).toSWTCSSString»;
 			«IF store.getBoolean(JTPConstants.EmptyPartStack.BORDER_SHOW)»
@@ -272,6 +273,36 @@ class CustomThemeGenerator {
 		.MPartStack.active>CTabItem:selected {
 			/* selected tab text */
 			color: «store.getHSB(JTPConstants.ActivePartStack.SELECTED_TEXT_COLOR).toHTMLCode»;
+		}
+		
+		«comment("editors")»
+		CTabFolder#org-eclipse-ui-editorss.MArea{
+			swt-tab-renderer:
+				url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer');
+			swt-tab-height: 10px;
+			swt-unselected-tabs-color : «store.getGradient(JTPConstants.EditorsPartStack.FILL_COLOR).toSWTCSSString»;
+			«IF store.getBoolean(JTPConstants.EditorsPartStack.BORDER_SHOW)»
+				jtab-border-color : «store.getGradient(JTPConstants.EditorsPartStack.BORDER_COLOR).toSWTCSSString»;
+			«ELSE»
+				jtab-border-color : none;
+			«ENDIF»
+			swt-selected-tabs-background: «store.getGradient(JTPConstants.EditorsPartStack.FILL_COLOR).toSWTCSSString»;
+			jtab-selected-border-color: none;
+			swt-single : true;
+			
+			«IF store.getBoolean(JTPConstants.Layout.SHOW_SHADOW)»
+				jtab-margin : 0px 4px 4px 1px; /* top right bottom left */
+				jtab-shadow-color: «store.getHSB(JTPConstants.Layout.SHADOW_COLOR).toHTMLCode»;
+				jtab-shadow-position: 1px 1px;
+				jtab-shadow-radius: 3px;
+				jtab-padding : «store.getInt(JTPConstants.Layout.CONTENT_PADDING)»px «store.getInt(JTPConstants.Layout.CONTENT_PADDING)»px «store.getInt(JTPConstants.Layout.CONTENT_PADDING)»px «store.getInt(JTPConstants.Layout.CONTENT_PADDING) + 4»px;
+			«ELSE»
+				jtab-margin : 0px;
+				jtab-shadow-color: none;
+				jtab-shadow-position: 0px 0px;
+				jtab-shadow-radius: 0px;
+				jtab-padding : «store.getInt(JTPConstants.Layout.CONTENT_PADDING)»px;
+			«ENDIF»
 		}
 	'''
 

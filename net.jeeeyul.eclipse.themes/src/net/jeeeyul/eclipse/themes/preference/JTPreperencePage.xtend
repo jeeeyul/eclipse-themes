@@ -27,7 +27,7 @@ import org.eclipse.ui.progress.UIJob
 class JTPreperencePage extends PreferencePage implements IWorkbenchPreferencePage {
 	extension SWTExtensions swtExt = SWTExtensions.INSTANCE
 	extension PreperencePageHelper helper = new PreperencePageHelper(this);
-	
+
 	Composite rootView
 	JeeeyulsTabRenderer renderer
 	CTabFolder folder
@@ -76,7 +76,6 @@ class JTPreperencePage extends PreferencePage implements IWorkbenchPreferencePag
 						it.data = each
 					]
 				}
-				
 				folder.selection = folder.items.head
 				onSelection = [
 					updatePreview()
@@ -109,7 +108,7 @@ class JTPreperencePage extends PreferencePage implements IWorkbenchPreferencePag
 		for (e : pages) {
 			e.load(dummy, swtExt, helper)
 		}
-		
+
 		updatePreview()
 	}
 
@@ -161,5 +160,4 @@ class JTPreperencePage extends PreferencePage implements IWorkbenchPreferencePag
 		pages.forEach[it.dispose(swtExt, helper)]
 		super.dispose()
 	}
-
 }
