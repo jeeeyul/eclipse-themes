@@ -208,5 +208,13 @@
             Default Preset
          </description>
       </preset>
+      <preset
+            epf="presets/chrome.epf"
+            id="net.jeeeyul.eclipse.themes.preset.chrome"
+            name="Chrome (Classic)">
+         <description>
+            Default Preset
+         </description>
+      </preset>
    </extension>
 </plugin>

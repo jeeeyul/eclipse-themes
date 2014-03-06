@@ -14,8 +14,6 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.themes.ITheme;
-import org.eclipse.ui.themes.IThemeManager;
 
 @SuppressWarnings("restriction")
 public class LoadPresetAction extends Action {
@@ -37,14 +35,11 @@ public class LoadPresetAction extends Action {
 		}
 		new RewriteCustomTheme().rewrite();
 
-		IThemeManager themeManager = PlatformUI.getWorkbench().getThemeManager();
-		ITheme currentTheme = themeManager.getCurrentTheme();
-		if (currentTheme == null || !currentTheme.getId().equals(JThemesCore.CUSTOM_THEME_ID)) {
-			MApplication application = (MApplication) PlatformUI.getWorkbench().getService(MApplication.class);
-			IEclipseContext context = application.getContext();
-			IThemeEngine engine = context.get(IThemeEngine.class);
+		MApplication application = (MApplication) PlatformUI.getWorkbench().getService(MApplication.class);
+		IEclipseContext context = application.getContext();
+		IThemeEngine engine = context.get(IThemeEngine.class);
+		if (engine.getActiveTheme() == null || !engine.getActiveTheme().getId().equals(JThemesCore.CUSTOM_THEME_ID)) {
 			engine.setTheme(JThemesCore.CUSTOM_THEME_ID, true);
-			themeManager.setCurrentTheme(JThemesCore.CUSTOM_THEME_ID);
 			MessageDialog.openWarning(Display.getDefault().getActiveShell(), "Jeeeyul's Themes",
 					"A restart or opening new window is required for the theme change to full effect.");
 		}
