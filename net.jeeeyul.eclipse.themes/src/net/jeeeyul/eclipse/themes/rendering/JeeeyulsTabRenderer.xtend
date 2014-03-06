@@ -260,7 +260,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			var img = c.backgroundImage
 			if(c.bounds.y < parent.tabHeight && img != null && !img.disposed) {
 				var gc = new GC(img)
-				gc.fillGradientRectangle(new Rectangle(0, 0, img.bounds.width, parent.tabHeight + 1), parent.gradientColor, parent.gradientPercents, true)
+				gc.fillGradientRectangle(new Rectangle(0, -1, img.bounds.width, parent.tabHeight + 3), parent.gradientColor, parent.gradientPercents, true)
 				gc.dispose();
 			}
 		}
