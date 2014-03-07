@@ -312,4 +312,8 @@ public class JTabRendererHelper {
 	public Image[] getControlBkImages(CTabFolder me) {
 		return _CTabFolder.controlBkImages.get(me);
 	}
+
+	public boolean isWindow() {
+		return System.getProperty("os.name").startsWith("Windows");
+	}
 }
