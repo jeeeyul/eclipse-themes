@@ -54,7 +54,7 @@
             adapter="org.eclipse.e4.ui.css.swt.dom.CompositeElement"
             handler="net.jeeeyul.eclipse.themes.css.SashWidthHandler">
          <property-name
-               name="jeeeyul-sash-width">
+               name="jsash-width">
          </property-name>
       </handler>
       <handler

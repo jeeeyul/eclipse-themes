@@ -31,9 +31,9 @@ class CustomThemeGenerator {
 		
 		.MPartSashContainer {
 			«IF store.getBoolean(JTPConstants.Layout.SHOW_SHADOW)»
-				jeeeyul-sash-width: 2px;
+				jsash-width: 2px;
 			«ELSE»
-				jeeeyul-sash-width: 4px;
+				jsash-width: 4px;
 			«ENDIF»
 		}
 		

@@ -629,6 +629,9 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	protected def drawTabItemBackground(int part, int state, Rectangle bounds, GC gc) {
 		val itemBounds = bounds.copy
 		itemBounds.resize(-1, 0)
+		if(!state.hasFlags(SWT.SELECTED)){
+			itemBounds.resize(0, 1)
+		}
 		
 		var Path tabItemFillArea = null
 		if(tabFolder.onTop) {
