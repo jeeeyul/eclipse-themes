@@ -56,7 +56,7 @@ class PartStacksPage extends AbstractJTPreferencePage {
 			]
 			folder.setSelection(0)
 			folder.onSelection = [
-				requestUpdatePreview()
+				activePartStackPage.helper.requestFastUpdatePreview()
 			]
 		]
 	}

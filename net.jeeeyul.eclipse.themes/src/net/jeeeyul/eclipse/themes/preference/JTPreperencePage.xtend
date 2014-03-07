@@ -96,7 +96,7 @@ class JTPreperencePage extends PreferencePage implements IWorkbenchPreferencePag
 				}
 				folder.selection = folder.items.head
 				onSelection = [
-					updatePreview()
+					activePage.updatePreview()
 				]
 			]
 			new DonationPanel(it) => [
@@ -222,7 +222,7 @@ class JTPreperencePage extends PreferencePage implements IWorkbenchPreferencePag
 		for (p : pages) {
 			p.updatePreview()
 		}
-		rootView.layout(true, true)
+		rootView.layout(#[folder])
 	}
 
 	override dispose() {

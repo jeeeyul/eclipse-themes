@@ -216,14 +216,18 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	}
 
 	private def updateChrveronImage() {
+		val chevronSize = parent.chevron.size
+		if(chevronSize.x == 0 || chevronSize.y == 0){
+			return
+		}
+		
 		var size = computeSize(PART_CHEVRON_BUTTON, SWT.NONE, null, SWT.DEFAULT, SWT.DEFAULT)
-		parent.chevron.backgroundMode = SWT.INHERIT_DEFAULT
 		parent.chevron.backgroundImage = null
 
 		val count = Math.min(parent.items.filter[it.showing == false].size, 99)
 
-		val img = new Image(display, size.x, size.y)
-		val gc = new GC(img)
+		val mask = new Image(display, size.x, size.y)
+		val mgc = new GC(mask)
 
 		var path = newTemporaryPath[
 			moveTo(0, 0)
@@ -233,26 +237,35 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			lineTo(6, 3)
 			lineTo(3, 6)
 		]
-		gc.background = COLOR_BLACK
-		gc.fill(img.bounds)
+		mgc.background = COLOR_BLACK
+		mgc.fill(mask.bounds)
 
-		gc.foreground = COLOR_WHITE
-		gc.draw(path)
+		mgc.foreground = COLOR_WHITE
+		mgc.draw(path)
 
 		var fd = parent.font.fontData.head
 		fd.setHeight(72 * 10 / display.DPI.y)
-		gc.font = new Font(display, fd).autoDispose
-		gc.drawString(count.toString, 6, 5, true)
-		gc.dispose()
+		mgc.font = new Font(display, fd).autoDispose
+		mgc.drawString(count.toString, 6, 5, true)
+		mgc.dispose()
 
-		var data = ImageDataUtil.convertBrightnessToAlpha(img.imageData, settings.getChevronColor)
+		var data = ImageDataUtil.convertBrightnessToAlpha(mask.imageData, settings.getChevronColor)
+		mask.dispose();
+		
 		var itemImage = new Image(display, data).shouldDisposeWith(parent)
+		var toolbarImg = new Image(display, chevronSize.x, chevronSize.y).shouldDisposeWith(parent)
+		var tgc = new GC(toolbarImg)
+		
+		tgc.fillGradientRectangle(new Rectangle(0, -1, chevronSize.x, parent.tabHeight + 3), parent.gradientColor, parent.gradientPercents, true)
+		tgc.dispose();
 
+		parent.chevron.backgroundImage.safeDispose()
+		parent.chevron.backgroundImage = null
+		parent.chevron.backgroundImage = toolbarImg
+		
 		parent.chevronItem.image.safeDispose()
 		parent.chevronItem.image = null
 		parent.chevronItem.image = itemImage
-
-		img.dispose
 	}
 
 	private def updateControlBKImages() {
@@ -263,6 +276,8 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				gc.fillGradientRectangle(new Rectangle(0, -1, img.bounds.width, parent.tabHeight + 3), parent.gradientColor, parent.gradientPercents, true)
 				gc.dispose();
 			}
+			c.backgroundImage = null
+			c.backgroundImage = img
 		}
 	}
 
@@ -537,11 +552,13 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		if(settings.getBorderColorsFor(state) == null || settings.getBorderPercentsFor(state) == null) {
 			return;
 		}
-
+		
 		val itemOutlineBounds = bounds.getResized(-1, 0)
 		val CTabItem item = tabFolder.getItem(part)
 		val outlineOffset = itemOutlineBounds.shrink(settings.borderWidth / 2)
 		var Path outline = null;
+		
+		
 		if(tabFolder.onTop) {
 			outline = newPath[
 				autoRelease()
@@ -624,6 +641,8 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 		gc.lineWidth = settings.borderWidth
 		gc.drawGradientPath(outline, settings.getBorderColorsFor(state).toAutoReleaseColor, settings.getBorderPercentsFor(state), true)
+//		gc.foreground = COLOR_MARGENTA
+//		gc.drawPath(outline)
 	}
 
 	protected def drawTabItemBackground(int part, int state, Rectangle bounds, GC gc) {
