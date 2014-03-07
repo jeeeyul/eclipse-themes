@@ -1,4 +1,4 @@
-## Jeeeyul's Eclipse Themes - Chrome
+## Jeeeyul's Eclipse Themes (former Eclipse Chrome Theme)
 Do you want more beautiful Eclipse 4? Change it!
 
 Chrome theme is not only 1 of 10 altanative themes,
