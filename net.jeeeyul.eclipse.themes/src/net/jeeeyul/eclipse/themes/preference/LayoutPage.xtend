@@ -38,7 +38,7 @@ class LayoutPage extends AbstractJTPreferencePage {
 				minimum = 0
 				maximum = 10
 				selection = 3
-				onSelection = [requestUpdatePreview()]
+				onSelection = [requestFastUpdatePreview()]
 				layoutData = FILL_HORIZONTAL
 			]
 			borderRadiusScale.appendMonitor("px", 0)
@@ -47,7 +47,7 @@ class LayoutPage extends AbstractJTPreferencePage {
 				minimum = 0
 				maximum = 10
 				selection = 2
-				onSelection = [requestUpdatePreview()]
+				onSelection = [requestFastUpdatePreview()]
 				layoutData = FILL_HORIZONTAL
 			]
 			tabItemPaddingsScale.appendMonitor("px", 0)
@@ -56,7 +56,7 @@ class LayoutPage extends AbstractJTPreferencePage {
 				minimum = 0
 				maximum = 10
 				selection = 2
-				onSelection = [requestUpdatePreview()]
+				onSelection = [requestFastUpdatePreview()]
 				layoutData = FILL_HORIZONTAL
 			]
 			paddingsScale.appendMonitor("px", 0)
@@ -65,7 +65,7 @@ class LayoutPage extends AbstractJTPreferencePage {
 				minimum = 0
 				maximum = 40
 				selection = 3
-				onSelection = [requestUpdatePreview()]
+				onSelection = [requestFastUpdatePreview()]
 				layoutData = FILL_HORIZONTAL
 			]
 			tabSpacingScale.appendMonitor("px", -1)
@@ -74,7 +74,7 @@ class LayoutPage extends AbstractJTPreferencePage {
 				minimum = 0
 				maximum = 10
 				selection = 2
-				onSelection = [requestUpdatePreview()]
+				onSelection = [requestFastUpdatePreview()]
 				layoutData = FILL_HORIZONTAL
 			]
 			tabItemSpacingScale.appendMonitor("px", 0)
@@ -93,7 +93,7 @@ class LayoutPage extends AbstractJTPreferencePage {
 			]
 			shadowColorWell = newColorWell[
 				onModified = [
-					requestUpdatePreview()
+					requestFastUpdatePreview()
 				]
 			]
 			

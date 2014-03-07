@@ -2,7 +2,8 @@ package net.jeeeyul.eclipse.themes;
 
 import net.jeeeyul.eclipse.themes.css.dynamicresource.JTDynamicResourceLocator;
 import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore;
-import net.jeeeyul.eclipse.themes.preference.preset.JTPresetManager;
+import net.jeeeyul.eclipse.themes.preference.preset.IJTPresetManager;
+import net.jeeeyul.eclipse.themes.preference.preset.internal.JTPresetManager;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -38,7 +39,7 @@ public class JThemesCore extends AbstractUIPlugin {
 	}
 
 	private JThemePreferenceStore preferenceStore;
-	private JTPresetManager presetManager;
+	private IJTPresetManager presetManager;
 
 	/**
 	 * The constructor
@@ -60,7 +61,7 @@ public class JThemesCore extends AbstractUIPlugin {
 	 * 
 	 * @since 2.0.0
 	 */
-	public JTPresetManager getPresetManager() {
+	public IJTPresetManager getPresetManager() {
 		if (presetManager == null) {
 			presetManager = new JTPresetManager();
 		}

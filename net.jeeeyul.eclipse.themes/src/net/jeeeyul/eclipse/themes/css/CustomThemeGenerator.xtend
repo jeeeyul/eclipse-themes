@@ -29,7 +29,11 @@ class CustomThemeGenerator {
 		}
 		
 		.MPartSashContainer {
-			jeeeyul-sash-width: 2px;
+			«IF store.getBoolean(JTPConstants.Layout.SHOW_SHADOW)»
+				jeeeyul-sash-width: 2px;
+			«ELSE»
+				jeeeyul-sash-width: 4px;
+			«ENDIF»
 		}
 		
 		«comment("Trim Stack")»

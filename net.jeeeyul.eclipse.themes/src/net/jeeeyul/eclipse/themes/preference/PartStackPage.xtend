@@ -70,7 +70,7 @@ class PartStackPage extends AbstractJTPreferencePage {
 				backgroundEdit = newGradientEdit[
 					layoutData = FILL_HORIZONTAL
 					onModified = [
-						requestUpdatePreview()
+						requestFastUpdatePreview()
 					]
 				]
 				backgroundEdit.appendOrderLockButton [
@@ -80,7 +80,7 @@ class PartStackPage extends AbstractJTPreferencePage {
 				borderEdit = newGradientEdit[
 					layoutData = FILL_HORIZONTAL
 					onModified = [
-						requestUpdatePreview()
+						requestFastUpdatePreview()
 					]
 				]
 				borderEdit.appendOrderLockButton[]
@@ -101,7 +101,7 @@ class PartStackPage extends AbstractJTPreferencePage {
 						selectedBackgroundEdit = newGradientEdit[
 							layoutData = FILL_HORIZONTAL
 							onModified = [
-								requestUpdatePreview()
+								requestFastUpdatePreview()
 							]
 						]
 						selectedBackgroundEdit.appendOrderLockButton [
@@ -113,18 +113,18 @@ class PartStackPage extends AbstractJTPreferencePage {
 						selectedBorderEdit = newGradientEdit[
 							layoutData = FILL_HORIZONTAL
 							onModified = [
-								requestUpdatePreview()
+								requestFastUpdatePreview()
 							]
 						]
 						selectedBorderEdit.appendOrderLockButton[]
 						hideSelectedBorderButton = newCheckbox[
 							text = "Hide"
-							onSelection = [requestUpdatePreview()]
+							onSelection = [requestFastUpdatePreview()]
 						]
 						newLabel[text = "Text"]
 						selectedTextColorWell = newColorWell[
 							onModified = [
-								requestUpdatePreview()
+								requestFastUpdatePreview()
 							]
 							layoutData = newGridData[
 								horizontalSpan = 3
@@ -136,7 +136,7 @@ class PartStackPage extends AbstractJTPreferencePage {
 								horizontalSpan = 3
 							]
 							modifyHandler = [
-								requestUpdatePreview()
+								requestFastUpdatePreview()
 							]
 						]
 					]
@@ -151,30 +151,30 @@ class PartStackPage extends AbstractJTPreferencePage {
 						unselectedBackgroundEdit = newGradientEdit[
 							layoutData = FILL_HORIZONTAL
 							onModified = [
-								requestUpdatePreview()
+								requestFastUpdatePreview()
 							]
 						]
 						unselectedBackgroundEdit.appendOrderLockButton[]
 						hideUnselectedBackgroundButton = newCheckbox[
 							text = "Hide"
-							onSelection = [requestUpdatePreview()]
+							onSelection = [requestFastUpdatePreview()]
 						]
 						newLabel[text = "Border"]
 						unselectedBorderEdit = newGradientEdit[
 							layoutData = FILL_HORIZONTAL
 							onModified = [
-								requestUpdatePreview()
+								requestFastUpdatePreview()
 							]
 						]
 						unselectedBorderEdit.appendOrderLockButton[]
 						hideUnselectedBorderButton = newCheckbox[
 							text = "Hide"
-							onSelection = [requestUpdatePreview()]
+							onSelection = [requestFastUpdatePreview()]
 						]
 						newLabel[text = "Text"]
 						unselectedTextColorWell = newColorWell[
 							onModified = [
-								requestUpdatePreview()
+								requestFastUpdatePreview()
 							]
 							layoutData = newGridData[
 								horizontalSpan = 3
@@ -186,7 +186,7 @@ class PartStackPage extends AbstractJTPreferencePage {
 								horizontalSpan = 3
 							]
 							modifyHandler = [
-								requestUpdatePreview()
+								requestFastUpdatePreview()
 							]
 						]
 					]
@@ -201,30 +201,30 @@ class PartStackPage extends AbstractJTPreferencePage {
 						hoverBackgroundEdit = newGradientEdit[
 							layoutData = FILL_HORIZONTAL
 							onModified = [
-								requestUpdatePreview()
+								requestFastUpdatePreview()
 							]
 						]
 						hoverBackgroundEdit.appendOrderLockButton[]
 						hideHoverBackgroundButton = newCheckbox[
 							text = "Hide"
-							onSelection = [requestUpdatePreview()]
+							onSelection = [requestFastUpdatePreview()]
 						]
 						newLabel[text = "Border"]
 						hoverBorderEdit = newGradientEdit[
 							layoutData = FILL_HORIZONTAL
 							onModified = [
-								requestUpdatePreview()
+								requestFastUpdatePreview()
 							]
 						]
 						hoverBorderEdit.appendOrderLockButton[]
 						hideHoverBorderButton = newCheckbox[
 							text = "Hide"
-							onSelection = [requestUpdatePreview()]
+							onSelection = [requestFastUpdatePreview()]
 						]
 						newLabel[text = "Text"]
 						hoverTextColorWell = newColorWell[
 							onModified = [
-								requestUpdatePreview()
+								requestFastUpdatePreview()
 							]
 							layoutData = newGridData[
 								horizontalSpan = 3
@@ -236,7 +236,7 @@ class PartStackPage extends AbstractJTPreferencePage {
 								horizontalSpan = 3
 							]
 							modifyHandler = [
-								requestUpdatePreview()
+								requestFastUpdatePreview()
 							]
 						]
 					]
@@ -280,7 +280,7 @@ class PartStackPage extends AbstractJTPreferencePage {
 					]
 					
 					selectionHandler = [
-						requestUpdatePreview()
+						requestFastUpdatePreview()
 					]
 				]
 			]
@@ -297,6 +297,9 @@ class PartStackPage extends AbstractJTPreferencePage {
 					layoutData = newGridData[
 						grabExcessHorizontalSpace = true
 						horizontalAlignment = SWT.RIGHT
+					]
+					onModified = [
+						requestFastUpdatePreview()
 					]
 				]
 			]

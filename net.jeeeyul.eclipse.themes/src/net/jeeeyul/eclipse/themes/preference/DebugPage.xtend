@@ -8,6 +8,7 @@ import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.CTabFolder
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Text
+import org.eclipse.jface.preference.PreferenceStore
 
 class DebugPage extends AbstractJTPreferencePage {
 	Text epfView
@@ -30,9 +31,12 @@ class DebugPage extends AbstractJTPreferencePage {
 	}
 
 	override updatePreview(CTabFolder folder, JTabSettings renderSettings, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
+		var fakeStore = new JThemePreferenceStore(new PreferenceStore)
+		rootPage.saveTo(fakeStore)
+
 		epfView.text = '''
 			«FOR key : JTPUtil.listPreferenceKeys»
-				«key»=«JTPUtil.saveConvert(preferenceStore.getString(key), false, true)»
+				«key»=«JTPUtil.saveConvert(fakeStore.getString(key), false, true)»
 			«ENDFOR»
 		'''
 	}

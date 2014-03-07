@@ -28,6 +28,10 @@ abstract class AbstractJTPreferencePage {
 	new(String name) {
 		this.name = name
 	}
+	
+	public def void init(extension PreperencePageHelper helper){
+		
+	}
 
 	public abstract def Control createContents(Composite parent, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper);
 

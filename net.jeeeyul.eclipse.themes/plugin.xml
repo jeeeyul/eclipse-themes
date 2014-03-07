@@ -41,6 +41,12 @@
             id="net.jeeeyul.eclipse.themes.preference.JTPreperencePage"
             name="Jeeeyul&apos;s Themes">
       </page>
+      <page
+            category="net.jeeeyul.eclipse.themes.preference.JTPreperencePage"
+            class="net.jeeeyul.eclipse.themes.preference.preset.JTPresetPreferencePage"
+            id="net.jeeeyul.eclipse.themes.preference.preset.JTPresetPreferencePage"
+            name="Presets">
+      </page>
    </extension>
    <extension
          point="org.eclipse.e4.ui.css.core.propertyHandler">
@@ -199,7 +205,7 @@
             allPopups="false"
             locationURI="menu:org.eclipse.ui.window.preferences">
          <dynamic
-               class="net.jeeeyul.eclipse.themes.ui.ContributedPresetItem"
+               class="net.jeeeyul.eclipse.themes.ui.ContributedPresetItems"
                id="net.jeeeyul.eclipse.themes.preset.contributed">
          </dynamic>
          <separator

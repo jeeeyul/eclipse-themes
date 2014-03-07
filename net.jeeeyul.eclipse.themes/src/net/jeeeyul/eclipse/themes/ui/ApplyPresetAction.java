@@ -16,10 +16,10 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 
 @SuppressWarnings("restriction")
-public class LoadPresetAction extends Action {
+public class ApplyPresetAction extends Action {
 	private IJTPreset preset;
 
-	public LoadPresetAction(IJTPreset preset) {
+	public ApplyPresetAction(IJTPreset preset) {
 		this.preset = preset;
 		this.setText(preset.getName());
 	}
