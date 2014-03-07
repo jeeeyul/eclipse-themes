@@ -53,6 +53,7 @@ class JTPreperencePage extends PreferencePage implements IWorkbenchPreferencePag
 		title = "Jeeeyul's Theme"
 		pages += new GeneralPage
 		pages += new PartStacksPage
+		pages += new OthersPage
 		pages += new UserCSSPage
 
 		if(!Platform.running || Platform.inDebugMode || Platform.inDevelopmentMode) {
@@ -74,7 +75,7 @@ class JTPreperencePage extends PreferencePage implements IWorkbenchPreferencePag
 			folder = newCTabFolder(SWT.CLOSE)[]
 			folder => [
 				layoutData = FILL_HORIZONTAL[
-					widthHint = 300
+					widthHint = 450
 				]
 				setUnselectedCloseVisible(false)
 				maximizeVisible = true
@@ -137,9 +138,7 @@ class JTPreperencePage extends PreferencePage implements IWorkbenchPreferencePag
 					new MenuManager("User Preset") => [
 						add(new AddUserPresetAction(this))
 						add(new ManagePresetAction(this))
-						if(presetManager.userPresets.size > 0) {
-							add(new UserPresetItems(this))
-						}
+						add(new UserPresetItems(this))
 					])
 			}
 		]

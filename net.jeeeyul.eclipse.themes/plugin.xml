@@ -148,6 +148,16 @@
                name="jtab-chevron-color">
          </property-name>
       </handler>
+      <handler
+            adapter="org.eclipse.e4.ui.css.swt.dom.CompositeElement"
+            handler="net.jeeeyul.eclipse.themes.css.JStyledTextPropertyHandler">
+         <property-name
+               name="jeditor-line-color">
+         </property-name>
+         <property-name
+               name="jeditor-line-style">
+         </property-name>
+      </handler>
    </extension>
    <extension
          point="org.eclipse.ui.preferenceTransfer">

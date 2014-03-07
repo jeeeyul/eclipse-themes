@@ -7,7 +7,6 @@ import net.jeeeyul.eclipse.themes.rendering.JTabSettings
 import net.jeeeyul.swtend.SWTExtensions
 import net.jeeeyul.swtend.ui.ColorWell
 import net.jeeeyul.swtend.ui.GradientEdit
-import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.CTabFolder
 import org.eclipse.swt.graphics.Color
 import org.eclipse.swt.widgets.Button
@@ -245,13 +244,12 @@ class PartStackPage extends AbstractJTPreferencePage {
 			newComposite[
 				layoutData = FILL_HORIZONTAL
 				layout = newGridLayout[
-					numColumns = 4
+					numColumns = 5
 					marginWidth = 0
 					marginHeight = 0
 				]
 				newLabel[
-					text = "Close Button Color (Normal, Hover, Active)"
-					layoutData = FILL_HORIZONTAL
+					text = "Close Button Color"
 				]
 				closeButtonColorWell = newColorWell[
 					onModified = [requestUpdatePreview]
@@ -262,47 +260,34 @@ class PartStackPage extends AbstractJTPreferencePage {
 				closeButtonActiveColorWell = newColorWell[
 					onModified = [requestUpdatePreview]
 				]
-			]
-			newComposite[
-				layoutData = FILL_HORIZONTAL
-				layout = newGridLayout[
-					marginWidth = 0
-					marginHeight = 0
-					numColumns = 2
-				]
+				
+				newLabel[text = "(Normal, Hover, Active)"]
+				
+				
 				newLabel[
 					text = "Close Button Line Width"
 				]
 				closeButtonLineEdit = new LineWidthEditor(it)=>[
 					it.control.layoutData = newGridData[
-						grabExcessHorizontalSpace = true
-						horizontalAlignment = SWT.RIGHT
+						horizontalSpan = 4
 					]
 					
 					selectionHandler = [
 						requestFastUpdatePreview()
 					]
 				]
-			]
-			
-			newComposite[
-				layoutData = FILL_HORIZONTAL
-				layout = newGridLayout[
-					marginWidth = 0
-					marginHeight = 0
-					numColumns = 2
-				]
+				
 				newLabel[text="Chevron Color"]
 				chevronColorWell = newColorWell[
 					layoutData = newGridData[
-						grabExcessHorizontalSpace = true
-						horizontalAlignment = SWT.RIGHT
+						horizontalSpan = 4
 					]
 					onModified = [
 						requestFastUpdatePreview()
 					]
 				]
 			]
+			
 		]
 	}
 

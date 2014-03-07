@@ -2,6 +2,7 @@ package net.jeeeyul.eclipse.themes.css
 
 import net.jeeeyul.eclipse.themes.preference.JTPConstants
 import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore
+import org.eclipse.swt.SWT
 import org.eclipse.swt.graphics.Point
 import org.eclipse.swt.graphics.Rectangle
 
@@ -311,6 +312,12 @@ class CustomThemeGenerator {
 			«ENDIF»
 		}
 		
+		«comment("Editor Line Support")»
+		.MPart.Editor StyledText {
+			jeditor-line-style : «store.getLineStyle(JTPConstants.TextEditor.UNDER_LINE_STYLE)»;
+			jeditor-line-color : «store.getHSB(JTPConstants.TextEditor.UNDER_LINE_COLOR).toHTMLCode»;
+		}
+		
 		«comment("User Custom CSS")»
 		«store.getString(JTPConstants.Others.USER_CSS)»
 	'''
@@ -327,5 +334,14 @@ class CustomThemeGenerator {
 
 	def boolean isEmpty(Point point) {
 		return point.x == 0 && point.y == 0
+	}
+
+	def getLineStyle(JThemePreferenceStore store, String key) {
+		switch (store.getInt(key)) {
+			case SWT.LINE_SOLID: "solid"
+			case SWT.LINE_DASH: "dashed"
+			case SWT.LINE_DOT: "dotted"
+			default: "none"
+		}
 	}
 }

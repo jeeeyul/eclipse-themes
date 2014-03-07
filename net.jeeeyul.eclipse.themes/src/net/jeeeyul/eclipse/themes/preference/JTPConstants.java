@@ -376,6 +376,17 @@ public interface JTPConstants {
 		public static final String USER_CSS = PREFIX + CATEGORY_SEPARATOR + "USER_CSS";
 	}
 
+	public static interface TextEditor {
+		@Ignore
+		public static final String PREFIX = "TEXT_EDITOR";
+
+		@TypeHint(int.class)
+		public static final String UNDER_LINE_STYLE = PREFIX + CATEGORY_SEPARATOR + "UNDER_LINE_STYLE";
+
+		@TypeHint(HSB.class)
+		public static final String UNDER_LINE_COLOR = PREFIX + CATEGORY_SEPARATOR + "UNDER_LINE_COLOR";
+	}
+
 	public static final String CATEGORY_SEPARATOR = "__";
 
 }

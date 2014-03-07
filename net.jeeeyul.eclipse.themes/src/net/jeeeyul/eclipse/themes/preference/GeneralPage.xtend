@@ -1,14 +1,13 @@
 package net.jeeeyul.eclipse.themes.preference
 
+import net.jeeeyul.eclipse.themes.SharedImages
 import net.jeeeyul.eclipse.themes.preference.internal.PreperencePageHelper
 import net.jeeeyul.eclipse.themes.rendering.JTabSettings
 import net.jeeeyul.swtend.SWTExtensions
+import net.jeeeyul.swtend.ui.ColorWell
 import net.jeeeyul.swtend.ui.GradientEdit
 import org.eclipse.swt.custom.CTabFolder
 import org.eclipse.swt.widgets.Composite
-import net.jeeeyul.swtend.ui.ColorWell
-import org.eclipse.swt.SWT
-import net.jeeeyul.eclipse.themes.SharedImages
 
 class GeneralPage extends AbstractJTPreferencePage {
 	GradientEdit toolbarEdit
@@ -33,13 +32,10 @@ class GeneralPage extends AbstractJTPreferencePage {
 				]
 				newLabel[
 					text = "Background"
-					layoutData = newGridData[
-						horizontalSpan = 2
-					]
 				]
 				backgroundEdit = newColorWell[
 					layoutData = newGridData[
-						horizontalAlignment = SWT.RIGHT
+						horizontalSpan = 2
 					]
 				]
 				newLabel[
@@ -70,13 +66,10 @@ class GeneralPage extends AbstractJTPreferencePage {
 				perspectiveSwitcherEdit.appendOrderLockButton[]
 				newLabel[
 					text = "Key Line"
-					layoutData = newGridData[
-						horizontalSpan = 2
-					]
 				]
 				perspectiveSwitcherKeyLineColorWell = newColorWell[
 					layoutData = newGridData[
-						horizontalAlignment = SWT.RIGHT
+						horizontalSpan = 2
 					]
 				]
 			]

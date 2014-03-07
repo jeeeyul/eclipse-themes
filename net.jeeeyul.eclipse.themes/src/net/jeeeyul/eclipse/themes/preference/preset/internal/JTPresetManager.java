@@ -51,7 +51,7 @@ public class JTPresetManager implements IJTPresetManager {
 		return new Comparator<IJTPreset>() {
 			@Override
 			public int compare(IJTPreset o1, IJTPreset o2) {
-				return o1.getName().compareTo(o2.getName());
+				return o1.getName().toLowerCase().compareTo(o2.getName().toLowerCase());
 			}
 		};
 	}

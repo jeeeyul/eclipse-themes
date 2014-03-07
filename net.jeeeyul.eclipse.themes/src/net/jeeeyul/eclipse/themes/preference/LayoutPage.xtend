@@ -100,7 +100,7 @@ class LayoutPage extends AbstractJTPreferencePage {
 			/* Preferred size of scale in OSX is too small */
 			allContent.filter(typeof(Scale)).forEach[
 				(layoutData as GridData) => [
-					heightHint = 20
+					heightHint = 25
 				]
 			]
 		]

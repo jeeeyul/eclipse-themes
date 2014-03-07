@@ -3,17 +3,15 @@ package net.jeeeyul.eclipse.themes.preference.actions;
 import java.io.IOException;
 import java.util.Properties;
 
-import org.eclipse.jface.dialogs.IDialogConstants;
-import org.eclipse.jface.dialogs.IInputValidator;
-import org.eclipse.jface.dialogs.InputDialog;
-import org.eclipse.jface.preference.PreferenceStore;
-import org.eclipse.swt.widgets.Display;
-
 import net.jeeeyul.eclipse.themes.preference.JTPreperencePage;
 import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore;
 import net.jeeeyul.eclipse.themes.preference.internal.JTPUtil;
 import net.jeeeyul.eclipse.themes.preference.internal.UserPreset;
-import net.jeeeyul.eclipse.themes.preference.preset.IJTPresetManager;
+
+import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.InputDialog;
+import org.eclipse.jface.preference.PreferenceStore;
+import org.eclipse.swt.widgets.Display;
 
 public class AddUserPresetAction extends AbstractPreferenceAction {
 
@@ -24,28 +22,9 @@ public class AddUserPresetAction extends AbstractPreferenceAction {
 
 	@Override
 	public void run() {
-		IInputValidator presetNameValidator = new IInputValidator() {
-			@Override
-			public String isValid(String newText) {
-				if (newText.trim().length() == 0) {
-					return "Not entered.";
-				}
 
-				IJTPresetManager presetManager = getPage().getPresetManager();
-				for (UserPreset each : presetManager.getUserPresets()) {
-					if (each.getName().equalsIgnoreCase(newText)) {
-						return "Already exist name";
-					}
-				}
-
-				if (!UserPreset.isSafeName(newText)) {
-					return "Unsafe characters are contained.";
-				}
-				return null;
-			}
-		};
-
-		InputDialog dialog = new InputDialog(Display.getDefault().getActiveShell(), "New Preset", "Enter a new preset name:", null, presetNameValidator);
+		InputDialog dialog = new InputDialog(Display.getDefault().getActiveShell(), "New Preset", "Enter a new preset name:", null,
+				JTPUtil.getPresetNameValidator());
 		if (dialog.open() != IDialogConstants.OK_ID) {
 			return;
 		}
@@ -64,7 +43,7 @@ public class AddUserPresetAction extends AbstractPreferenceAction {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		getPage().getPresetManager().invalidateUserPreset();
 	}
 }

@@ -4,8 +4,12 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jface.dialogs.IInputValidator;
+
+import net.jeeeyul.eclipse.themes.JThemesCore;
 import net.jeeeyul.eclipse.themes.preference.JTPConstants;
 import net.jeeeyul.eclipse.themes.preference.annotations.Ignore;
+import net.jeeeyul.eclipse.themes.preference.preset.IJTPresetManager;
 
 public class JTPUtil {
 
@@ -131,4 +135,28 @@ public class JTPUtil {
 		return outBuffer.toString();
 	}
 
+	public static IInputValidator getPresetNameValidator() {
+		IInputValidator presetNameValidator = new IInputValidator() {
+			@Override
+			public String isValid(String newText) {
+				if (newText.trim().length() == 0) {
+					return "Name must be specified.";
+				}
+
+				IJTPresetManager presetManager = JThemesCore.getDefault().getPresetManager();
+				for (UserPreset each : presetManager.getUserPresets()) {
+					if (each.getName().equalsIgnoreCase(newText)) {
+						return "Already exist name.";
+					}
+				}
+
+				if (!UserPreset.isSafeName(newText)) {
+					return "Unsafe characters are contained.";
+				}
+				return null;
+			}
+		};
+
+		return presetNameValidator;
+	}
 }
