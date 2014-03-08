@@ -256,7 +256,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		var toolbarImg = new Image(display, chevronSize.x, chevronSize.y).shouldDisposeWith(parent)
 		var tgc = new GC(toolbarImg)
 		
-		tgc.fillGradientRectangle(new Rectangle(0, -1, chevronSize.x, parent.tabHeight + 3), parent.gradientColor, parent.gradientPercents, true)
+		tgc.fillGradientRectangle(new Rectangle(0, -parent.chevron.bounds.y, chevronSize.x, parent.tabHeight+1), parent.gradientColor, parent.gradientPercents, true)
 		tgc.dispose();
 
 		parent.chevron.backgroundImage.safeDispose()
@@ -273,7 +273,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			var img = c.backgroundImage
 			if(c.bounds.y < parent.tabHeight && img != null && !img.disposed) {
 				var gc = new GC(img)
-				gc.fillGradientRectangle(new Rectangle(0, -1, img.bounds.width, parent.tabHeight + 3), parent.gradientColor, parent.gradientPercents, true)
+				gc.fillGradientRectangle(new Rectangle(0, -c.bounds.y, img.bounds.width, parent.tabHeight + 1), parent.gradientColor, parent.gradientPercents, true)
 				gc.dispose();
 			}
 			c.backgroundImage = null
