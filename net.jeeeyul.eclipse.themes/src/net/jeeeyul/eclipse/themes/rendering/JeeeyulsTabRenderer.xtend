@@ -156,7 +156,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			
 			case PART_BORDER : {
 				result.x = result.x - settings.margins.x
-				result.width = result.width + settings.margins.x + settings.margins.width
+				result.width = result.width + settings.margins.x + settings.margins.width + settings.borderRadius/2
 			}
 			case PART_HEADER: {
 				result.x = result.x - settings.margins.x

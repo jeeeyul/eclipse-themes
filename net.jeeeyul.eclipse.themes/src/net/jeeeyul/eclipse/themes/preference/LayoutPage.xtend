@@ -8,21 +8,20 @@ import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.CTabFolder
 import org.eclipse.swt.graphics.Point
 import org.eclipse.swt.graphics.Rectangle
-import org.eclipse.swt.layout.GridData
 import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Event
-import org.eclipse.swt.widgets.Scale
+import org.eclipse.swt.widgets.Spinner
 
 class LayoutPage extends AbstractJTPreferencePage {
 	Button castShadowButton
 	ColorWell shadowColorWell
-	Scale borderRadiusScale
-	Scale paddingsScale
-	Scale tabItemPaddingsScale
-	Scale tabSpacingScale
-	Scale tabItemSpacingScale
-	Scale tabHeightScale
+	Spinner borderRadiusScale
+	Spinner paddingsScale
+	Spinner tabItemPaddingsScale
+	Spinner tabSpacingScale
+	Spinner tabItemSpacingScale
+	Spinner tabHeightScale
 
 	new() {
 		super("Layout")
@@ -33,60 +32,79 @@ class LayoutPage extends AbstractJTPreferencePage {
 			layout = newGridLayout[
 				numColumns = 3
 			]
+			
 			newLabel[text = "Border Radius"]
-			borderRadiusScale = newScale[
-				minimum = 0
-				maximum = 10
-				selection = 3
-				onSelection = [requestFastUpdatePreview()]
-				layoutData = FILL_HORIZONTAL
-			]
-			borderRadiusScale.appendMonitor("px", 0)
-			newLabel[text = "Tab Item Paddings"]
-			tabItemPaddingsScale = newScale[
-				minimum = 0
-				maximum = 10
-				selection = 2
-				onSelection = [requestFastUpdatePreview()]
-				layoutData = FILL_HORIZONTAL
-			]
-			tabItemPaddingsScale.appendMonitor("px", 0)
-			newLabel[text = "Content Paddings"]
-			paddingsScale = newScale[
-				minimum = 0
-				maximum = 10
-				selection = 2
-				onSelection = [requestFastUpdatePreview()]
-				layoutData = FILL_HORIZONTAL
-			]
-			paddingsScale.appendMonitor("px", 0)
-			newLabel[text = "Tab Spacing"]
-			tabSpacingScale = newScale[
+			borderRadiusScale = newSpinner[
 				minimum = 0
 				maximum = 40
 				selection = 3
 				onSelection = [requestFastUpdatePreview()]
-				layoutData = FILL_HORIZONTAL
 			]
-			tabSpacingScale.appendMonitor("px", -1)
-			newLabel[text = "Tab Item Spacing"]
-			tabItemSpacingScale = newScale[
+			newLabel[
+				text="0 ~ 20px"
+				foreground = COLOR_DARK_GRAY
+			]
+			
+			newLabel[text = "Tab Item Paddings"]
+			tabItemPaddingsScale = newSpinner[
 				minimum = 0
 				maximum = 10
 				selection = 2
 				onSelection = [requestFastUpdatePreview()]
-				layoutData = FILL_HORIZONTAL
 			]
-			tabItemSpacingScale.appendMonitor("px", 0)
+			newLabel[
+				text = "0 ~ 10px"
+				foreground = COLOR_DARK_GRAY
+			]
+			
+			newLabel[text = "Content Paddings"]
+			paddingsScale = newSpinner[
+				minimum = 0
+				maximum = 10
+				selection = 2
+				onSelection = [requestFastUpdatePreview()]
+			]
+			newLabel[
+				text = "0 ~ 10px"
+				foreground = COLOR_DARK_GRAY
+			]
+			
+			newLabel[text = "Tab Spacing"]
+			tabSpacingScale = newSpinner[
+				minimum = -1
+				maximum = 20
+				selection = 2
+				onSelection = [requestFastUpdatePreview()]
+			]
+			newLabel[
+				text = "-1(overlap) ~ 10px"
+				foreground = COLOR_DARK_GRAY
+			]
+			
+			newLabel[text = "Tab Item Spacing"]
+			tabItemSpacingScale = newSpinner[
+				minimum = 0
+				maximum = 10
+				selection = 2
+				onSelection = [requestFastUpdatePreview()]
+			]
+			newLabel[
+				text = "0 ~ 10px"
+				foreground = COLOR_DARK_GRAY
+			]
+			
 			newLabel[text = "Tab Height"]
-			tabHeightScale = newScale[
+			tabHeightScale = newSpinner[
 				minimum = 22
 				maximum = 40
 				selection = 22
 				onSelection = [requestUpdatePreview()]
-				layoutData = FILL_HORIZONTAL
 			]
-			tabHeightScale.appendMonitor("px", 0)
+			newLabel[
+				text = "22 ~ 40px"
+				foreground = COLOR_DARK_GRAY
+			]
+			
 			castShadowButton = newCheckbox[
 				text = "Cast Shadow"
 				onSelection = [requestUpdatePreview()]
@@ -94,13 +112,6 @@ class LayoutPage extends AbstractJTPreferencePage {
 			shadowColorWell = newColorWell[
 				onModified = [
 					requestFastUpdatePreview()
-				]
-			]
-			
-			/* Preferred size of scale in OSX is too small */
-			allContent.filter(typeof(Scale)).forEach[
-				(layoutData as GridData) => [
-					heightHint = 25
 				]
 			]
 		]
@@ -121,7 +132,7 @@ class LayoutPage extends AbstractJTPreferencePage {
 		renderSettings.borderRadius = borderRadiusScale.selection
 		renderSettings.paddings = newInsets(paddingsScale.selection)
 		renderSettings.tabItemPaddings = newInsets(tabItemPaddingsScale.selection)
-		renderSettings.tabSpacing = tabSpacingScale.selection - 1
+		renderSettings.tabSpacing = tabSpacingScale.selection
 		renderSettings.tabItemHorizontalSpacing = this.tabItemSpacingScale.selection
 
 		folder.tabHeight = tabHeightScale.selection
@@ -139,7 +150,7 @@ class LayoutPage extends AbstractJTPreferencePage {
 		if(shadowColor != null)
 			this.shadowColorWell.selection = shadowColor
 
-		this.tabSpacingScale.selection = store.getInt(JTPConstants.Layout.TAB_SPACING) + 1
+		this.tabSpacingScale.selection = store.getInt(JTPConstants.Layout.TAB_SPACING)
 
 		this.tabItemPaddingsScale.selection = store.getInt(JTPConstants.Layout.TAB_ITEM_PADDING)
 		this.tabItemSpacingScale.selection = store.getInt(JTPConstants.Layout.TAB_ITEM_SPACING)
@@ -151,7 +162,7 @@ class LayoutPage extends AbstractJTPreferencePage {
 		store.setValue(JTPConstants.Layout.TAB_HEIGHT, this.tabHeightScale.selection)
 		store.setValue(JTPConstants.Layout.SHOW_SHADOW, this.castShadowButton.selection)
 		store.setValue(JTPConstants.Layout.SHADOW_COLOR, this.shadowColorWell.selection)
-		store.setValue(JTPConstants.Layout.TAB_SPACING, this.tabSpacingScale.selection - 1)
+		store.setValue(JTPConstants.Layout.TAB_SPACING, this.tabSpacingScale.selection)
 		store.setValue(JTPConstants.Layout.TAB_ITEM_PADDING, this.tabItemPaddingsScale.selection)
 		store.setValue(JTPConstants.Layout.TAB_ITEM_SPACING, this.tabItemSpacingScale.selection)
 	}
