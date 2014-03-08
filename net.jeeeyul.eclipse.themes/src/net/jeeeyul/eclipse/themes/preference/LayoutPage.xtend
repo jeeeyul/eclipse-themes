@@ -36,7 +36,7 @@ class LayoutPage extends AbstractJTPreferencePage {
 			newLabel[text = "Border Radius"]
 			borderRadiusScale = newSpinner[
 				minimum = 0
-				maximum = 40
+				maximum = 20
 				selection = 3
 				onSelection = [requestFastUpdatePreview()]
 			]
@@ -77,7 +77,7 @@ class LayoutPage extends AbstractJTPreferencePage {
 				onSelection = [requestFastUpdatePreview()]
 			]
 			newLabel[
-				text = "-1(overlap) ~ 10px"
+				text = "-1(overlap) ~ 20px"
 				foreground = COLOR_DARK_GRAY
 			]
 			
