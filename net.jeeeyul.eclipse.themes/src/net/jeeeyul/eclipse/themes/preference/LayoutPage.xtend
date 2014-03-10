@@ -41,6 +41,9 @@ class LayoutPage extends AbstractJTPreferencePage {
 				maximum = 20
 				selection = 3
 				onSelection = [requestFastUpdatePreview()]
+				layoutData = newGridData[
+					widthHint = 40
+				]
 			]
 			newLabel[
 				text="0 ~ 20px"
@@ -53,6 +56,9 @@ class LayoutPage extends AbstractJTPreferencePage {
 				maximum = 10
 				selection = 2
 				onSelection = [requestFastUpdatePreview()]
+				layoutData = newGridData[
+					widthHint = 40
+				]
 			]
 			newLabel[
 				text = "0 ~ 10px"
@@ -65,6 +71,9 @@ class LayoutPage extends AbstractJTPreferencePage {
 				maximum = 10
 				selection = 2
 				onSelection = [requestFastUpdatePreview()]
+				layoutData = newGridData[
+					widthHint = 40
+				]
 			]
 			newLabel[
 				text = "0 ~ 10px"
@@ -77,6 +86,9 @@ class LayoutPage extends AbstractJTPreferencePage {
 				maximum = 20
 				selection = 2
 				onSelection = [requestFastUpdatePreview()]
+				layoutData = newGridData[
+					widthHint = 40
+				]
 			]
 			newLabel[
 				text = "-1(overlap) ~ 20px"
@@ -89,6 +101,9 @@ class LayoutPage extends AbstractJTPreferencePage {
 				maximum = 10
 				selection = 2
 				onSelection = [requestFastUpdatePreview()]
+				layoutData = newGridData[
+					widthHint = 40
+				]
 			]
 			newLabel[
 				text = "0 ~ 10px"
@@ -101,6 +116,9 @@ class LayoutPage extends AbstractJTPreferencePage {
 				maximum = 40
 				selection = minimumTabHeight
 				onSelection = [requestUpdatePreview()]
+				layoutData = newGridData[
+					widthHint = 40
+				]
 			]
 			newLabel[
 				text = '''«minimumTabHeight» ~ 40px'''
