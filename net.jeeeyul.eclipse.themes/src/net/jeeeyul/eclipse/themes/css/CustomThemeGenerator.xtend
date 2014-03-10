@@ -51,7 +51,7 @@ class CustomThemeGenerator {
 		
 		.MTrimBar .Draggable {
 			handle-image:
-				url(jeeeyul://drag-handle?height=33&background-color=«store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»&embossed=false);
+				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»&embossed=false);
 		}
 		
 		«comment("Main Toolbar")»
@@ -61,7 +61,7 @@ class CustomThemeGenerator {
 		
 		#org-eclipse-ui-main-toolbar .Draggable {
 			handle-image:
-				url(jeeeyul://drag-handle?height=22&background-color=«store.getGradient(JTPConstants.Window.TOOLBAR_FILL_COLOR).averageColor.toHTMLCode»&embossed=false);
+				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getGradient(JTPConstants.Window.TOOLBAR_FILL_COLOR).averageColor.toHTMLCode»&embossed=false);
 		}
 		
 		#org-eclipse-ui-main-toolbar #PerspectiveSwitcher {
@@ -73,7 +73,7 @@ class CustomThemeGenerator {
 		#org-eclipse-ui-main-toolbar .TrimStack {
 			frame-image: url(jeeeyul://frame?background-color=#ddd);
 			handle-image:
-				url(jeeeyul://drag-handle?height=22&background-color=#bbb&embossed=false);
+				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=#bbb&embossed=false);
 		}
 		
 		«comment("Status Bar")»
@@ -83,7 +83,7 @@ class CustomThemeGenerator {
 		
 		#org-eclipse-ui-trim-status .Draggable {
 			handle-image:
-				url(jeeeyul://drag-handle?height=22&background-color=«store.getGradient(JTPConstants.Window.STATUS_BAR_FILL_COLOR).averageColor.toHTMLCode»&embossed=false);
+				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getGradient(JTPConstants.Window.STATUS_BAR_FILL_COLOR).averageColor.toHTMLCode»&embossed=false);
 		}
 		
 		«comment("Inactive Part Stack")»
@@ -347,6 +347,14 @@ class CustomThemeGenerator {
 			case SWT.LINE_DASH: "dashed"
 			case SWT.LINE_DOT: "dotted"
 			default: "none"
+		}
+	}
+	
+	def toolbarHeight(){
+		if(System.getProperty("os.name").startsWith("Linux")){
+			return 33
+		}else{
+			return 22
 		}
 	}
 }
