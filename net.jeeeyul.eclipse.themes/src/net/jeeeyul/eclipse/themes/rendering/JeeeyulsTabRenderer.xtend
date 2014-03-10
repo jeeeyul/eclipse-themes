@@ -393,6 +393,10 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 		// Draw Border
 		if(state.hasFlags(SWT.FOREGROUND) && settings.borderWidth > 0 && settings.borderColors != null && settings.borderPercents != null) {
+			if(isLinux){
+				gc.antialias = SWT.OFF
+			}
+			
 			val offset = tabArea.getResized(-1, -1).shrink(settings.borderWidth / 2)
 			val headerOffset = headerArea.getResized(-1, 1)
 			gc.lineWidth = settings.borderWidth
@@ -409,7 +413,6 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 					lineTo(corner.top)
 					addArc(corner, 90, 90)
 					lineTo(headerOffset.bottomLeft)
-
 				} else {
 					moveTo(headerOffset.bottomRight)
 					lineTo(headerOffset.topRight)

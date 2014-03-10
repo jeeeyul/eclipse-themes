@@ -314,6 +314,14 @@ public class JTabRendererHelper {
 	}
 
 	public boolean isWindow() {
-		return System.getProperty("os.name").startsWith("Windows");
+		return getOSName().startsWith("Windows");
+	}
+
+	private String getOSName() {
+		return System.getProperty("os.name");
+	}
+
+	public boolean isLinux() {
+		return getOSName().startsWith("Linux");
 	}
 }
