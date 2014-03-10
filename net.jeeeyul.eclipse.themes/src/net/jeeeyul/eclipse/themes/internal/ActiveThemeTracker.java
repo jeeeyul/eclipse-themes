@@ -10,6 +10,7 @@ import net.jeeeyul.eclipse.themes.css.RewriteCustomTheme;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.css.swt.theme.ITheme;
 import org.eclipse.e4.ui.css.swt.theme.IThemeEngine;
+import org.eclipse.swt.widgets.Display;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 
@@ -54,10 +55,21 @@ public class ActiveThemeTracker {
 			onCustomThemeDeactivation();
 		}
 	}
+	
+	public IThemeEngine getThemeEngine() {
+		IThemeEngine engine = (IThemeEngine) Display.getDefault().getData("org.eclipse.e4.ui.css.swt.theme");
+		return engine;
+	}
 
 	@PostConstruct
 	public void init() {
 		eventBroker.subscribe(IThemeEngine.Events.THEME_CHANGED, themeChangeHandler);
+		IThemeEngine themeEngine = getThemeEngine();
+		if(themeEngine != null && themeEngine.getActiveTheme() != null){
+			if(themeEngine.getActiveTheme().getId().equals(JThemesCore.CUSTOM_THEME_ID)){
+				onCustomThemeActivativation();
+			}
+		}
 	}
 
 	private void onCustomThemeActivativation() {

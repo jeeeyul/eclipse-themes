@@ -40,6 +40,7 @@ public class RewriteCustomTheme {
 			CustomThemeGenerator generator = new CustomThemeGenerator(JThemesCore.getDefault().getPreferenceStore());
 
 			String newCSSContent = generator.generate().toString();
+			System.out.println(newCSSContent);
 			StyleSheet newSheet = cssEngine.parseStyleSheet(new StringReader(newCSSContent));
 
 			StyleSheetList oldSheetList = documentCSS.getStyleSheets();

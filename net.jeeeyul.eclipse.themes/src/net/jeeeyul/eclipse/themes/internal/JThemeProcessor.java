@@ -80,10 +80,10 @@ public class JThemeProcessor {
 	}
 
 	private void installAddon(MApplication application, Class<?> addOn) {
-		MAddon chromeAddon = MApplicationFactory.INSTANCE.createAddon();
-		chromeAddon.setContributionURI(getContributionURI(addOn));
-		chromeAddon.setContributorURI(getContributorURI());
-		application.getAddons().add(chromeAddon);
+		MAddon addonInstance = MApplicationFactory.INSTANCE.createAddon();
+		addonInstance.setContributionURI(getContributionURI(addOn));
+		addonInstance.setContributorURI(getContributorURI());
+		application.getAddons().add(addonInstance);
 	}
 
 	/**
