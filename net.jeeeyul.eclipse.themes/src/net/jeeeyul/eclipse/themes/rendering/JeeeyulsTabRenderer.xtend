@@ -547,7 +547,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		draw(PART_BODY, SWT.FOREGROUND, new Rectangle(0, 0, tabFolder.size.x, itemBounds.bottom.y), gc)
 	}
 
-	protected def drawTabItemBorder(int part, int state, Rectangle bounds, GC gc) {
+	protected def void drawTabItemBorder(int part, int state, Rectangle bounds, GC gc) {
 		if(settings.getBorderColorsFor(state) == null || settings.getBorderPercentsFor(state) == null) {
 			return;
 		}

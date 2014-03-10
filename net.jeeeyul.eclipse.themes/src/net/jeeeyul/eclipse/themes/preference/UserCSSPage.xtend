@@ -23,7 +23,7 @@ class UserCSSPage extends AbstractJTPreferencePage {
 	KeyStroke selectAllKey
 
 	new() {
-		super("Custom CSS")
+		this.name  = "Custom CSS"
 		image = SharedImages.getImage(SharedImages.CSS)
 
 		undoKey = KeyStroke.getInstance("M1+z")

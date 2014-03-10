@@ -69,7 +69,8 @@ class PartStacksPage extends AbstractJTPreferencePage {
 		for (e : pages) {
 			var update = false
 			if(e instanceof PartStackPage) {
-				if(e.context == JTPConstants.InactivePartStack.PREFIX) {
+				var page = e as PartStackPage
+				if(page.context == JTPConstants.InactivePartStack.PREFIX) {
 					update = activePage == this && activePartStackPage == e
 				} else {
 					update = true

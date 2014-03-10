@@ -24,6 +24,10 @@ abstract class AbstractJTPreferencePage {
 	 * image of page
 	 */
 	@Property Image image
+	
+	new(){
+		
+	}
 
 	new(String name) {
 		this.name = name
