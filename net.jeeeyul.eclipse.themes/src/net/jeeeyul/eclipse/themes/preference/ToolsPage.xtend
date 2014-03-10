@@ -7,7 +7,7 @@ import org.eclipse.swt.custom.CTabFolder
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.jface.preference.PreferenceStore
 
-class PartStackBatchTaskPage extends AbstractJTPreferencePage {
+class ToolsPage extends AbstractJTPreferencePage {
 	new() {
 		super("Tools")
 	}
@@ -15,16 +15,21 @@ class PartStackBatchTaskPage extends AbstractJTPreferencePage {
 	override createContents(Composite parent, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
 		parent.newComposite [
 			layout = newGridLayout[]
-			newPushButton[
-				text = "Copy settings from Active to Inactive"
-				onSelection = [
-					copy(JTPConstants.ActivePartStack.PREFIX, JTPConstants.InactivePartStack.PREFIX, swtExtensions, helper)
+			newGroup[
+				text = "Part Stack Batch Task"
+				layout = newGridLayout
+				layoutData = FILL_HORIZONTAL
+				newPushButton[
+					text = "Copy settings from Active to Inactive"
+					onSelection = [
+						copy(JTPConstants.ActivePartStack.PREFIX, JTPConstants.InactivePartStack.PREFIX, swtExtensions, helper)
+					]
 				]
-			]
-			newPushButton[
-				text = "Copy settings from Inactive to Active"
-				onSelection = [
-					copy(JTPConstants.InactivePartStack.PREFIX, JTPConstants.ActivePartStack.PREFIX, swtExtensions, helper)
+				newPushButton[
+					text = "Copy settings from Inactive to Active"
+					onSelection = [
+						copy(JTPConstants.InactivePartStack.PREFIX, JTPConstants.ActivePartStack.PREFIX, swtExtensions, helper)
+					]
 				]
 			]
 		]
@@ -43,16 +48,17 @@ class PartStackBatchTaskPage extends AbstractJTPreferencePage {
 	}
 
 	private def void copy(String from, String to, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
-		var sibilings = (activePage as PartStacksPage).partStackPage
+		var stacksPage = allPages.filter(typeof(PartStacksPage)).head
+		var sibilings =stacksPage.children
 		var fromPage = sibilings.filter(typeof(PartStackPage)).findFirst[it.context == from]
 		var toPage = sibilings.filter(typeof(PartStackPage)).findFirst[it.context == to]
-		
+
 		var fakeStore = new JThemePreferenceStore(new PreferenceStore())
 		fakeStore.customKeyResolver = [it]
-		
+
 		fromPage.save(fakeStore, swtExtensions, helper)
 		toPage.load(fakeStore, swtExtensions, helper)
-		
+
 		requestUpdatePreview()
 	}
 

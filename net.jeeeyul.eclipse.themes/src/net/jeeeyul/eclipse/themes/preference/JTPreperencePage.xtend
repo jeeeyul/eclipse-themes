@@ -54,6 +54,7 @@ class JTPreperencePage extends PreferencePage implements IWorkbenchPreferencePag
 		pages += new GeneralPage
 		pages += new PartStacksPage
 		pages += new OthersPage
+		pages += new ToolsPage
 		pages += new UserCSSPage
 
 		if(!Platform.running || Platform.inDebugMode || Platform.inDevelopmentMode) {
@@ -248,5 +249,15 @@ class JTPreperencePage extends PreferencePage implements IWorkbenchPreferencePag
 			return JThemesCore.^default.presetManager
 		else
 			null
+	}
+	
+		
+	def AbstractJTPreferencePage[] getAllPages(){
+		var List<AbstractJTPreferencePage> result = new ArrayList<AbstractJTPreferencePage>()
+		for(each : pages){
+			result += each
+			result.addAll(each.children)
+		}
+		return result
 	}
 }

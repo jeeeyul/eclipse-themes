@@ -231,4 +231,8 @@ public class PreperencePageHelper {
 	public void requestUpdatePreview() {
 		root.updatePreview();
 	}
+
+	public AbstractJTPreferencePage[] getAllPages() {
+		return root.getAllPages();
+	}
 }

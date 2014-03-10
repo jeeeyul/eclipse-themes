@@ -23,6 +23,7 @@ public class LoadPresetAction extends AbstractPreferenceAction {
 	public void run() {
 		PreferenceStore store = new PreferenceStore();
 		Properties props = preset.getProperties();
+		
 		for (Object kObj : props.keySet()) {
 			String key = (String) kObj;
 			String value = props.getProperty(key);
@@ -33,11 +34,9 @@ public class LoadPresetAction extends AbstractPreferenceAction {
 			} else {
 				store.setValue(key, value);
 			}
-
 		}
 
 		JThemePreferenceStore jtStore = new JThemePreferenceStore(store);
 		getPage().loadFrom(jtStore);
-
 	}
 }

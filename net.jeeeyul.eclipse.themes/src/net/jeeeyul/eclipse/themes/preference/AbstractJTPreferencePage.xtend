@@ -14,7 +14,6 @@ import org.eclipse.swt.graphics.Image
  * @since 2.0.0
  */
 abstract class AbstractJTPreferencePage {
-
 	/**
 	 * namse of page
 	 */
@@ -35,6 +34,10 @@ abstract class AbstractJTPreferencePage {
 	
 	public def void init(extension PreperencePageHelper helper){
 		
+	}
+	
+	public def AbstractJTPreferencePage[] getChildren(){
+		return #[]
 	}
 
 	public abstract def Control createContents(Composite parent, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper);

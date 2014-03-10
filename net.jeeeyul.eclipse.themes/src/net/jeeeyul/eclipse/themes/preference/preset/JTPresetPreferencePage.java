@@ -155,5 +155,4 @@ public class JTPresetPreferencePage extends PreferencePage implements IWorkbench
 			viewer.refresh();
 		}
 	}
-
 }

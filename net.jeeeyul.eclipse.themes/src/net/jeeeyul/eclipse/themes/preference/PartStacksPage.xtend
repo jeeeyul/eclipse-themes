@@ -15,8 +15,7 @@ class PartStacksPage extends AbstractJTPreferencePage {
 		new PartStackPage("Active", JTPConstants.ActivePartStack.PREFIX),
 		new PartStackPage("Inactive", JTPConstants.InactivePartStack.PREFIX),
 		new SpecialPartStackPage,
-		new LayoutPage,
-		new PartStackBatchTaskPage
+		new LayoutPage
 	]
 	CTabFolder folder
 	Map<AbstractJTPreferencePage, PreperencePageHelper> helperMap = new HashMap
@@ -103,10 +102,6 @@ class PartStacksPage extends AbstractJTPreferencePage {
 		}
 	}
 
-	def AbstractJTPreferencePage[] getPartStackPage() {
-		return this.pages
-	}
-
 	private def getHelper(AbstractJTPreferencePage page) {
 		var result = helperMap.get(page)
 		if(result == null) {
@@ -115,4 +110,9 @@ class PartStacksPage extends AbstractJTPreferencePage {
 		}
 		return result
 	}
+	
+	override getChildren() {
+		return pages
+	}
+	
 }
