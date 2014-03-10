@@ -38,6 +38,9 @@ public class ActiveThemeTracker {
 	public void dispose() {
 		eventBroker.unsubscribe(themeChangeHandler);
 	}
+	
+	public ActiveThemeTracker() {
+	}
 
 	private void handleThemeChange(Event event) {
 		ITheme theme = (ITheme) event.getProperty(IThemeEngine.Events.THEME);

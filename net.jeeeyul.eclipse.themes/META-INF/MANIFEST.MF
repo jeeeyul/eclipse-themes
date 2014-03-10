@@ -18,7 +18,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jface.text,
  org.eclipse.e4.ui.model.workbench,
  net.jeeeyul.swtend;bundle-version="1.2.2",
- org.eclipse.e4.core.contexts
+ org.eclipse.e4.core.contexts,
+ javax.inject;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,
@@ -27,3 +28,4 @@ Bundle-ClassPath: .,
  lib/org.eclipse.xtext.xbase.lib_2.5.1.v201401280830.jar
 Export-Package: net.jeeeyul.eclipse.themes,
  net.jeeeyul.eclipse.themes.rendering
+Import-Package: javax.annotation;version="1.1.0"
