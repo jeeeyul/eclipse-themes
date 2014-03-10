@@ -12,8 +12,10 @@ import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Event
 import org.eclipse.swt.widgets.Spinner
+import net.jeeeyul.eclipse.themes.internal.OSHelper
 
 class LayoutPage extends AbstractJTPreferencePage {
+	extension OSHelper = OSHelper.INSTANCE
 	Button castShadowButton
 	ColorWell shadowColorWell
 	Spinner borderRadiusScale
@@ -95,13 +97,13 @@ class LayoutPage extends AbstractJTPreferencePage {
 			
 			newLabel[text = "Tab Height"]
 			tabHeightScale = newSpinner[
-				minimum = 22
+				minimum = minimumTabHeight
 				maximum = 40
-				selection = 22
+				selection = minimumTabHeight
 				onSelection = [requestUpdatePreview()]
 			]
 			newLabel[
-				text = "22 ~ 40px"
+				text = '''«minimumTabHeight» ~ 40px'''
 				foreground = COLOR_DARK_GRAY
 			]
 			
@@ -143,7 +145,7 @@ class LayoutPage extends AbstractJTPreferencePage {
 	override load(JThemePreferenceStore store, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
 		this.borderRadiusScale.selection = store.getInt(JTPConstants.Layout.BORDER_RADIUS)
 		this.paddingsScale.selection = store.getInt(JTPConstants.Layout.CONTENT_PADDING)
-		this.tabHeightScale.selection = store.getInt(JTPConstants.Layout.TAB_HEIGHT)
+		this.tabHeightScale.selection = Math.max(store.getInt(JTPConstants.Layout.TAB_HEIGHT), minimumTabHeight)
 		this.castShadowButton.selection = store.getBoolean(JTPConstants.Layout.SHOW_SHADOW)
 
 		val shadowColor = store.getHSB(JTPConstants.Layout.SHADOW_COLOR)
