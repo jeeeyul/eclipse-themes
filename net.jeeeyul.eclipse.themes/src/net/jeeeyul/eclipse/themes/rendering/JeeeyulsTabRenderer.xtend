@@ -184,7 +184,9 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 	def private doDraw(int part, int state, Rectangle bounds, GC gc) {
 		gc.antialias = SWT.ON
+		gc.lineJoin = SWT.JOIN_ROUND
 		gc.alpha = 255
+		gc.fillRule = SWT.FILL_WINDING
 		gc.background = tabFolder.background
 		gc.foreground = tabFolder.foreground
 		gc.lineWidth = 1

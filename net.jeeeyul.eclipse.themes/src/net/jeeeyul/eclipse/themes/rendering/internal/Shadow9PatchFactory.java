@@ -4,7 +4,6 @@ import net.jeeeyul.swtend.SWTExtensions;
 import net.jeeeyul.swtend.ui.NinePatch;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.PaletteData;
 import org.eclipse.swt.graphics.RGB;
@@ -45,9 +44,7 @@ public class Shadow9PatchFactory {
 		Rectangle shadowShape = SWTExtensions.INSTANCE.getShrinked(shadow, shadowRadius);
 
 		ImageData shadowData = generateShadowImageData(shadow.width, shadow.height, shadowShape, radius, foreground, shadowRadius);
-
-		Image image = new Image(Display.getDefault(), shadowData);
-		NinePatch patch = new NinePatch(image, SWTExtensions.INSTANCE.getShrinked(shadowShape, radius));
+		NinePatch patch = new NinePatch(shadowData, SWTExtensions.INSTANCE.getShrinked(shadowShape, radius));
 		return patch;
 	}
 
@@ -134,9 +131,7 @@ public class Shadow9PatchFactory {
 		shell.addListener(SWT.Paint, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
-				event.gc.drawImage(patch.getImage(), 0, 0);
 				patch.fill(event.gc, new Rectangle(200, 0, 300, 300));
-
 				event.gc.drawRectangle(new Rectangle(200, 0, 300, 300));
 			}
 		});
