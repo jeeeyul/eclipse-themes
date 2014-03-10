@@ -639,9 +639,6 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 		gc.lineWidth = settings.borderWidth
 		gc.drawGradientPath(outline, settings.getBorderColorsFor(state).toAutoReleaseColor, settings.getBorderPercentsFor(state), true)
-
-	//		gc.foreground = COLOR_MARGENTA
-	//		gc.drawPath(outline)
 	}
 
 	protected def drawTabItemBackground(int part, int state, Rectangle bounds, GC gc) {

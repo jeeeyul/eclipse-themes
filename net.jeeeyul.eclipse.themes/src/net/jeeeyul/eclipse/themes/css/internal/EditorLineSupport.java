@@ -158,6 +158,8 @@ public class EditorLineSupport {
 					return Status.OK_STATUS;
 				}
 			};
+			refreshJob.setUser(false);
+			refreshJob.setSystem(true);
 		}
 		return refreshJob;
 	}
