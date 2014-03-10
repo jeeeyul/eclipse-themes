@@ -18,8 +18,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jface.text,
  org.eclipse.e4.ui.model.workbench,
  net.jeeeyul.swtend;bundle-version="1.2.2",
- org.eclipse.e4.core.contexts,
- javax.inject
+ org.eclipse.e4.core.contexts
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,

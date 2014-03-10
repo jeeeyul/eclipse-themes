@@ -55,7 +55,7 @@ public class ActiveThemeTracker {
 			onCustomThemeDeactivation();
 		}
 	}
-	
+
 	public IThemeEngine getThemeEngine() {
 		IThemeEngine engine = (IThemeEngine) Display.getDefault().getData("org.eclipse.e4.ui.css.swt.theme");
 		return engine;
@@ -64,12 +64,6 @@ public class ActiveThemeTracker {
 	@PostConstruct
 	public void init() {
 		eventBroker.subscribe(IThemeEngine.Events.THEME_CHANGED, themeChangeHandler);
-		IThemeEngine themeEngine = getThemeEngine();
-		if(themeEngine != null && themeEngine.getActiveTheme() != null){
-			if(themeEngine.getActiveTheme().getId().equals(JThemesCore.CUSTOM_THEME_ID)){
-				onCustomThemeActivativation();
-			}
-		}
 	}
 
 	private void onCustomThemeActivativation() {
