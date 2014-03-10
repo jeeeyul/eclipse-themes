@@ -26,6 +26,11 @@ class CustomThemeGenerator {
 			margin-top: 4px;
 			margin-left: 2px;
 			margin-right: 2px;
+			«IF store.getBoolean(JTPConstants.Layout.SHOW_SHADOW)»
+				margin-bottom: 0px;
+			«ELSE»
+				margin-bottom: 3px;
+			«ENDIF»
 			background-color: «store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»;
 		}
 		

@@ -1,6 +1,8 @@
 package net.jeeeyul.eclipse.themes.preference.preset;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import net.jeeeyul.eclipse.themes.JThemesCore;
 import net.jeeeyul.eclipse.themes.preference.internal.JTPUtil;
@@ -8,6 +10,7 @@ import net.jeeeyul.eclipse.themes.preference.internal.UserPreset;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.InputDialog;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -41,7 +44,7 @@ public class JTPresetPreferencePage extends PreferencePage implements IWorkbench
 		Composite container = new Composite(parent, SWT.NORMAL);
 		container.setLayout(new GridLayout(2, false));
 
-		viewer = new TableViewer(container, SWT.FULL_SELECTION | SWT.BORDER);
+		viewer = new TableViewer(container, SWT.FULL_SELECTION | SWT.BORDER | SWT.MULTI);
 		viewer.setLabelProvider(new LabelProvider() {
 			@Override
 			public String getText(Object element) {
@@ -76,10 +79,7 @@ public class JTPresetPreferencePage extends PreferencePage implements IWorkbench
 		deleteButton.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
-				UserPreset preset = (UserPreset) ((IStructuredSelection) viewer.getSelection()).getFirstElement();
-				if (preset != null) {
-					preset.delete();
-				}
+				deleteSelection();
 			}
 		});
 
@@ -92,10 +92,8 @@ public class JTPresetPreferencePage extends PreferencePage implements IWorkbench
 				UserPreset preset = (UserPreset) ((IStructuredSelection) viewer.getSelection()).getFirstElement();
 				if (preset != null) {
 					rename(preset);
-
 				}
 			}
-
 		});
 
 		return container;
@@ -105,6 +103,30 @@ public class JTPresetPreferencePage extends PreferencePage implements IWorkbench
 	public void dispose() {
 		JThemesCore.getDefault().getPresetManager().removeListener(this);
 		super.dispose();
+	}
+
+	private void deleteSelection() {
+		List<UserPreset> selection = getSelection();
+		if (selection.isEmpty()) {
+			return;
+		}
+		boolean confirmed = MessageDialog.openQuestion(getShell(), "Jeeeyul's Eclipse Themes", "Are you sure to remove selected use presets?");
+		if (confirmed) {
+			for (UserPreset each : selection) {
+				each.delete();
+			}
+		}
+	}
+
+	private List<UserPreset> getSelection() {
+		ArrayList<UserPreset> selection = new ArrayList<UserPreset>();
+		Object[] array = ((IStructuredSelection) viewer.getSelection()).toArray();
+		for (Object each : array) {
+			if (each instanceof UserPreset) {
+				selection.add((UserPreset) each);
+			}
+		}
+		return selection;
 	}
 
 	@Override

@@ -215,6 +215,10 @@
             allPopups="false"
             locationURI="menu:org.eclipse.ui.window.preferences">
          <dynamic
+               class="net.jeeeyul.eclipse.themes.ui.UserPresetItems"
+               id="net.jeeeyul.eclipse.themes.preset.contributed">
+         </dynamic>
+         <dynamic
                class="net.jeeeyul.eclipse.themes.ui.ContributedPresetItems"
                id="net.jeeeyul.eclipse.themes.preset.contributed">
          </dynamic>
@@ -265,7 +269,7 @@
       <preset
             epf="presets/default.epf"
             id="net.jeeeyul.eclipse.themes.preset.default"
-            name="Default">
+            name="Minimalist (Default)">
          <description>
             Default Preset
          </description>
@@ -281,9 +285,17 @@
       <preset
             epf="presets/black.epf"
             id="net.jeeeyul.eclipse.themes.preset.black"
-            name="Black">
+            name="Black (Debug Purpose)">
          <description>
             Experimental Black Theme
+         </description>
+      </preset>
+      <preset
+            epf="presets/Coffee.epf"
+            id="net.jeeeyul.eclipse.themes.preset.coffee"
+            name="Coffee">
+         <description>
+            description body text
          </description>
       </preset>
    </extension>
