@@ -76,14 +76,14 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				var width = 0
 				var height = 0
 				width = width + settings.tabItemPaddings.x
-				
+
 				if(item.image != null) {
 					width = width + item.image.bounds.width
 					width = width + settings.tabItemHorizontalSpacing
 					height = item.image.bounds.height
 				}
-				
-				if(item.text.trim.length > 0){
+
+				if(item.text.trim.length > 0) {
 					var textSize = item.text.computeTextExtent(#[item.font, parent.font].firstNotNull)
 					width = width + textSize.x + 1
 					height = Math.max(height, textSize.y)
@@ -100,7 +100,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 				width = width + Math.max(settings.tabItemPaddings.width, 0)
 				width = width + settings.tabSpacing
-				
+
 				return new Point(width, height)
 			}
 			case PART_HEADER: {
@@ -153,10 +153,9 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			case PART_BACKGROUND: {
 				result.height = result.height + 10
 			}
-			
-			case PART_BORDER : {
+			case PART_BORDER: {
 				result.x = result.x - settings.margins.x
-				result.width = result.width + settings.margins.x + settings.margins.width + settings.borderRadius/2
+				result.width = result.width + settings.margins.x + settings.margins.width + settings.borderRadius / 2
 			}
 			case PART_HEADER: {
 				result.x = result.x - settings.margins.x
@@ -217,10 +216,10 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 	private def updateChrveronImage() {
 		val chevronSize = parent.chevron.size
-		if(chevronSize.x == 0 || chevronSize.y == 0){
+		if(chevronSize.x == 0 || chevronSize.y == 0) {
 			return
 		}
-		
+
 		var size = computeSize(PART_CHEVRON_BUTTON, SWT.NONE, null, SWT.DEFAULT, SWT.DEFAULT)
 		parent.chevron.backgroundImage = null
 
@@ -251,18 +250,18 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 		var data = ImageDataUtil.convertBrightnessToAlpha(mask.imageData, settings.getChevronColor)
 		mask.dispose();
-		
+
 		var itemImage = new Image(display, data).shouldDisposeWith(parent)
 		var toolbarImg = new Image(display, chevronSize.x, chevronSize.y).shouldDisposeWith(parent)
 		var tgc = new GC(toolbarImg)
-		
-		tgc.fillGradientRectangle(new Rectangle(0, -parent.chevron.bounds.y, chevronSize.x, parent.tabHeight+1), parent.gradientColor, parent.gradientPercents, true)
+
+		tgc.fillGradientRectangle(new Rectangle(0, -parent.chevron.bounds.y, chevronSize.x, parent.tabHeight + 3), parent.gradientColor, parent.gradientPercents, true)
 		tgc.dispose();
 
 		parent.chevron.backgroundImage.safeDispose()
 		parent.chevron.backgroundImage = null
 		parent.chevron.backgroundImage = toolbarImg
-		
+
 		parent.chevronItem.image.safeDispose()
 		parent.chevronItem.image = null
 		parent.chevronItem.image = itemImage
@@ -492,8 +491,8 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		if((tabFolder.showClose || item.showClose) && item.closeRect.width > 0) {
 			item.closeRect.x = item.bounds.right.x - item.closeRect.width - 4 - settings.tabItemPaddings.width
 			item.closeRect.translate(-Math.max(settings.tabSpacing, 0) + 3, 0)
-			
-			if(state.hasFlags(SWT.SELECTED) || state.hasFlags(SWT.HOT)){
+
+			if(state.hasFlags(SWT.SELECTED) || state.hasFlags(SWT.HOT)) {
 				gc.withClip(item.closeRect) [
 					draw(PART_CLOSE_BUTTON, item.closeImageState, item.closeRect, gc)
 				]
@@ -552,13 +551,12 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		if(settings.getBorderColorsFor(state) == null || settings.getBorderPercentsFor(state) == null) {
 			return;
 		}
-		
+
 		val itemOutlineBounds = bounds.getResized(-1, 0)
 		val CTabItem item = tabFolder.getItem(part)
 		val outlineOffset = itemOutlineBounds.shrink(settings.borderWidth / 2)
 		var Path outline = null;
-		
-		
+
 		if(tabFolder.onTop) {
 			outline = newPath[
 				autoRelease()
@@ -641,17 +639,18 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 		gc.lineWidth = settings.borderWidth
 		gc.drawGradientPath(outline, settings.getBorderColorsFor(state).toAutoReleaseColor, settings.getBorderPercentsFor(state), true)
-//		gc.foreground = COLOR_MARGENTA
-//		gc.drawPath(outline)
+
+	//		gc.foreground = COLOR_MARGENTA
+	//		gc.drawPath(outline)
 	}
 
 	protected def drawTabItemBackground(int part, int state, Rectangle bounds, GC gc) {
 		val itemBounds = bounds.copy
 		itemBounds.resize(-1, 0)
-		if(!state.hasFlags(SWT.SELECTED)){
+		if(!state.hasFlags(SWT.SELECTED)) {
 			itemBounds.resize(0, 1)
 		}
-		
+
 		var Path tabItemFillArea = null
 		if(tabFolder.onTop) {
 			tabItemFillArea = newPath[
@@ -695,9 +694,9 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		gc.withClip(tabItemFillArea) [
 			var fill = settings.getItemFillFor(state)
 			var fillPercents = settings.getItemFillPercentsFor(state)
-			if(fill != null && fillPercents != null){
+			if(fill != null && fillPercents != null) {
 				var fix = 0
-				if(settings.tabSpacing == -1){
+				if(settings.tabSpacing == -1) {
 					fix = 0
 				}
 				gc.fillGradientRectangle(itemBounds.getResized(fix, 0), fill, fillPercents, true)
