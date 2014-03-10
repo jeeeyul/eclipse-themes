@@ -440,7 +440,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 	protected def drawCloseButton(int part, int state, Rectangle bounds, GC gc) {
 		if(debug) {
-			gc.background = COLOR_MARGENTA
+			gc.background = COLOR_MAGENTA
 			gc.fill(bounds)
 		}
 		val box = bounds.getShrinked(2)
@@ -523,7 +523,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		}
 
 		if(debug) {
-			gc.foreground = COLOR_MARGENTA
+			gc.foreground = COLOR_MAGENTA
 			gc.lineWidth = 1
 			gc.draw(textArea.getResized(-1, -1))
 			gc.drawLine(textArea.left, textArea.left.getTranslated(textSize.x, 0))
