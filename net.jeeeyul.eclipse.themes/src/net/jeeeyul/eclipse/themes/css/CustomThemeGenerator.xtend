@@ -46,7 +46,8 @@ class CustomThemeGenerator {
 		.MToolControl.TrimStack {
 			frame-image: url(jeeeyul://frame?background-color=«store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»);
 			frame-cuts: 5px 1px 5px 16px;
-			handle-image: url(images/handle.png);
+			handle-image:
+				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»&embossed=false);
 		}
 		
 		.MTrimBar .Draggable {
@@ -71,9 +72,9 @@ class CustomThemeGenerator {
 		}
 		
 		#org-eclipse-ui-main-toolbar .TrimStack {
-			frame-image: url(jeeeyul://frame?background-color=#ddd);
+			frame-image: url(jeeeyul://frame?background-color=«store.getGradient(JTPConstants.Window.TOOLBAR_FILL_COLOR).averageColor.toHTMLCode»);
 			handle-image:
-				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=#bbb&embossed=false);
+				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getGradient(JTPConstants.Window.TOOLBAR_FILL_COLOR).averageColor.toHTMLCode»&embossed=false);
 		}
 		
 		«comment("Status Bar")»
