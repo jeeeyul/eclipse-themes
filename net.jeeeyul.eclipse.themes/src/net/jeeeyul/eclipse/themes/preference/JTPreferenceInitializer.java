@@ -1,6 +1,8 @@
 package net.jeeeyul.eclipse.themes.preference;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.Properties;
 
 import net.jeeeyul.eclipse.themes.JThemesCore;
@@ -23,7 +25,10 @@ public class JTPreferenceInitializer extends AbstractPreferenceInitializer {
 		Properties properties = new Properties();
 		JThemePreferenceStore store = JThemesCore.getDefault().getPreferenceStore();
 		try {
-			properties.load(getClass().getResourceAsStream("default.epf"));
+			URL resource = JThemesCore.getDefault().getBundle().getResource("presets/default.epf");
+			InputStream is = resource.openStream();
+			properties.load(is);
+			is.close();
 			for (Object kObj : properties.keySet()) {
 				String key = (String) kObj;
 				store.setDefault(key, properties.getProperty(key));
