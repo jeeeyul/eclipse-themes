@@ -43,9 +43,9 @@ class CustomThemeGenerator {
 		}
 		
 		«comment("Trim Stack")»
-		.MToolControl.TrimStack {
+		.TrimStack {
 			frame-image: url(jeeeyul://frame?background-color=«store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»);
-			frame-cuts: 5px 1px 5px 16px;
+			frame-cuts: 4px 2px 5px 16px;
 			handle-image:
 				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»&embossed=false);
 		}
@@ -72,7 +72,7 @@ class CustomThemeGenerator {
 		}
 		
 		#org-eclipse-ui-main-toolbar .TrimStack {
-			frame-image: url(jeeeyul://frame?background-color=«store.getGradient(JTPConstants.Window.TOOLBAR_FILL_COLOR).averageColor.toHTMLCode»);
+			frame-image: none;
 			handle-image:
 				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getGradient(JTPConstants.Window.TOOLBAR_FILL_COLOR).averageColor.toHTMLCode»&embossed=false);
 		}
@@ -85,6 +85,13 @@ class CustomThemeGenerator {
 		#org-eclipse-ui-trim-status .Draggable {
 			handle-image:
 				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getGradient(JTPConstants.Window.STATUS_BAR_FILL_COLOR).averageColor.toHTMLCode»&embossed=false);
+		}
+		
+		#org-eclipse-ui-trim-status .TrimStack {
+			handle-image:
+				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getGradient(JTPConstants.Window.STATUS_BAR_FILL_COLOR).averageColor.toHTMLCode»&embossed=false);
+			frame-image: url(jeeeyul://frame?background-color=«store.getGradient(JTPConstants.Window.STATUS_BAR_FILL_COLOR).averageColor.toHTMLCode»);
+			frame-cuts: 4px 2px 5px 16px;
 		}
 		
 		«comment("Inactive Part Stack")»
