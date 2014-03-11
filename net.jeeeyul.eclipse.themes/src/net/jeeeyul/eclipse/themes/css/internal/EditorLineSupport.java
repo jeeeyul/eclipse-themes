@@ -75,7 +75,7 @@ public class EditorLineSupport {
 		if (client.getVerticalBar() != null) {
 			offset = height - (client.getVerticalBar().getSelection() % height) - 1;
 		}
-		
+
 		Image image = new Image(client.getDisplay(), width, height);
 		GC gc = new GC(image);
 		gc.setBackground(client.getBackground());
@@ -132,6 +132,9 @@ public class EditorLineSupport {
 	}
 
 	private void doRefresh() {
+		if (client.isDisposed()) {
+			return;
+		}
 		swtToolkit.safeDispose(backgroundImage);
 		if (lineStyle == SWT.NONE) {
 			client.setBackgroundImage(null);
