@@ -35,6 +35,7 @@ You need eclipse 4.2 or above version to install this theme.
 ![screenshot: right](https://github.com/jeeeyul/eclipse-themes/wiki/images/change-theme.png)
 
 ## Customize
+Press ![Theme Icon](https://github.com/jeeeyul/eclipse-themes/wiki/images/jtheme-icon.png) Button to open customize preference dialog.
 
 ![screenshot](https://github.com/jeeeyul/eclipse-themes/wiki/images/customize.png)
 
