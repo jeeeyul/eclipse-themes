@@ -1,8 +1,8 @@
-## Jeeeyul's Eclipse Themes (former Eclipse Chrome Theme)
-Do you want more beautiful Eclipse 4? Change it!
+## Jeeeyul's Eclipse Themes 
+(former Eclipse Chrome Theme)
 
-Chrome theme is not only 1 of 10 altanative themes,
-but there is also full featured e4 theme customzier to make your own theme.
+**Jeeeyul's Eclipse Themes** allows you customize the every single details of Eclipse's appearance.
+It also contains beautiful built-in presets.
 
 <table style="border: none;">
   <tbody>
@@ -32,19 +32,12 @@ http://eclipse.jeeeyul.net/update
 
 Update site is not for web browser, don't try.
 
-If you want to try *Jeeeyu's themes 2.0 beta*, use below update site:
-```
-http://jeeeyul.github.io/beta-update/
-```
-
 
 ## How to install
 You need eclipse 4.2 or above version to install this theme.
 
 1. Drag <b>Install Button</b>(Shown above) on to your eclipse's main toolbar.
 2. Done.
-
-
 
 * [Alternative Installation Guide](https://github.com/jeeeyul/eclipse-themes/wiki/Alternative-Install)
 
