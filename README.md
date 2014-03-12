@@ -50,7 +50,7 @@ You need eclipse 4.2 or above version to install this theme.
 
 ## Choose Theme
 
-![screenshot: right](wiki/images/change-theme.png)
+![screenshot: right](https://github.com/jeeeyul/eclipse-themes/wiki/images/change-theme.png)
 
 ## Customize
 
