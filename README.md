@@ -22,22 +22,11 @@ What if you don't have **Market Place Client** on your eclipse, please refer [Al
 
 See [Release Note](https://github.com/jeeeyul/eclipse-themes/wiki/Release-Note).
 
-## Update Site
-```
-http://eclipse.jeeeyul.net/update
-```
-
-* [Developer Guide](https://github.com/jeeeyul/eclipse-themes/wiki/Developer-Guide)
-* [Meet me at Eclipse Market Place](https://marketplace.eclipse.org/content/jeeeyuls-eclipse-themes)
-
-Update site is not for web browser, don't try.
-
-
 ## How to install
 You need eclipse 4.2 or above version to install this theme.
 
 1. Drag <b>Install Button</b>(Shown above) on to your eclipse's main toolbar.
-2. Done.
+2. After installation, Choose `Jeeeyul's themes - Custom Theme` from `Preference > General > Appearance`.
 
 * [Alternative Installation Guide](https://github.com/jeeeyul/eclipse-themes/wiki/Alternative-Install)
 
