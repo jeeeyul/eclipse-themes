@@ -18,34 +18,23 @@ It also contains beautiful built-in presets.
     </tr>
   </tbody>
 </table>
-What if you don't have **Market Place Client** on your eclipse, please refer [Alternative Installation Guide](https://github.com/jeeeyul/eclipse-themes/wiki/Alternative-Install).
 
 See [Release Note](https://github.com/jeeeyul/eclipse-themes/wiki/Release-Note).
 
-## Update Site
-```
-http://eclipse.jeeeyul.net/update
-```
-
-* [Developer Guide](https://github.com/jeeeyul/eclipse-themes/wiki/Developer-Guide)
-* [Meet me at Eclipse Market Place](https://marketplace.eclipse.org/content/jeeeyuls-eclipse-themes)
-
-Update site is not for web browser, don't try.
-
-
 ## How to install
-You need eclipse 4.2 or above version to install this theme.
+You need **Eclipse 4.2** or above version to install this theme.
 
 1. Drag <b>Install Button</b>(Shown above) on to your eclipse's main toolbar.
-2. Done.
+2. After installation, Choose `Jeeeyul's themes - Custom Theme` from `Preference > General > Appearance`.
 
-* [Alternative Installation Guide](https://github.com/jeeeyul/eclipse-themes/wiki/Alternative-Install)
+What if you don't have **Market Place Client** on your eclipse, please refer [Alternative Installation Guide](https://github.com/jeeeyul/eclipse-themes/wiki/Alternative-Install).
 
 ## Choose Theme
 
 ![screenshot: right](https://github.com/jeeeyul/eclipse-themes/wiki/images/change-theme.png)
 
 ## Customize
+Press ![Theme Icon](https://github.com/jeeeyul/eclipse-themes/wiki/images/jtheme-icon.png) Button on main toolbar to open customize preference dialog. Or open preference dialog and select `General > Appearance > Jeeeyul's Themes`.
 
 ![screenshot](https://github.com/jeeeyul/eclipse-themes/wiki/images/customize.png)
 
