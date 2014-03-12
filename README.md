@@ -54,15 +54,14 @@ You need eclipse 4.2 or above version to install this theme.
 
 ## Customize
 
-![screenshot](https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.resource/customize-1.png)
+![screenshot](https://github.com/jeeeyul/eclipse-themes/wiki/images/customize.png)
 
 
 ## Screen Shots
-![screenshot](https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.resource/screen-shot-3.png)
+![screenshot](https://github.com/jeeeyul/eclipse-themes/wiki/images/screenshot-default.png)
 
-![screenshot](https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.resource/gtk-screenshot.png)
+![screenshot](https://github.com/jeeeyul/eclipse-themes/wiki/images/screenshot-chrome.png)
 
-![screenshot](https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.resource/screen-shot-2.png)
 
 ## License
 Jeeeyul's Eclipse Themes is distributed under the [EPL](http://www.eclipse.org/legal/epl-v10.html).
