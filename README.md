@@ -24,11 +24,11 @@ See [Release Note](https://github.com/jeeeyul/eclipse-themes/wiki/Release-Note).
 
 ## Update Site
 ```
-http://jeeeyul.github.io/update/
+http://eclipse.jeeeyul.net/update
 ```
 
 * [Developer Guide](https://github.com/jeeeyul/eclipse-themes/wiki/Developer-Guide)
-* [Meet me at Eclipse Market Place](http://marketplace.eclipse.org/content/eclipse-4-chrome-theme)
+* [Meet me at Eclipse Market Place](https://marketplace.eclipse.org/content/jeeeyuls-eclipse-themes)
 
 Update site is not for web browser, don't try.
 
@@ -50,7 +50,7 @@ You need eclipse 4.2 or above version to install this theme.
 
 ## Choose Theme
 
-![screenshot: right](https://raw.github.com/jeeeyul/eclipse-themes/master/net.jeeeyul.eclipse.themes.resource/choose-theme.png)
+![screenshot: right](wiki/images/change-theme.png)
 
 ## Customize
 
