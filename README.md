@@ -22,7 +22,7 @@ It also contains beautiful built-in presets.
 See [Release Note](https://github.com/jeeeyul/eclipse-themes/wiki/Release-Note).
 
 ## How to install
-You need eclipse 4.2 or above version to install this theme.
+You need **Eclipse 4.2** or above version to install this theme.
 
 1. Drag <b>Install Button</b>(Shown above) on to your eclipse's main toolbar.
 2. After installation, Choose `Jeeeyul's themes - Custom Theme` from `Preference > General > Appearance`.
