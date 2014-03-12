@@ -19,7 +19,7 @@ import org.w3c.dom.stylesheets.StyleSheet;
 import org.w3c.dom.stylesheets.StyleSheetList;
 
 /**
- * re-generate "chrome.css" and replace with existing style sheet.
+ * re-generate "jeeeyul-custom.css" and replace with existing style sheet.
  * 
  * @author Jeeeyul
  * @since 1.2
@@ -35,7 +35,7 @@ public class RewriteCustomTheme {
 			CSSEngine cssEngine = WidgetElement.getEngine(display);
 			ExtendedDocumentCSS documentCSS = (ExtendedDocumentCSS) cssEngine.getDocumentCSS();
 
-			StyleSheet chromeSheet = findChromeSheet(documentCSS);
+			StyleSheet customThemeSheet = findCustomThemeSheet(documentCSS);
 
 			CustomThemeGenerator generator = new CustomThemeGenerator(JThemesCore.getDefault().getPreferenceStore());
 
@@ -47,7 +47,7 @@ public class RewriteCustomTheme {
 
 			for (int i = 0; i < oldSheetList.getLength(); i++) {
 				StyleSheet oldSheet = oldSheetList.item(i);
-				if (oldSheet != chromeSheet) {
+				if (oldSheet != customThemeSheet) {
 					if (!newSheetList.contains(oldSheet))
 						newSheetList.add(oldSheet);
 				} else {
@@ -68,13 +68,13 @@ public class RewriteCustomTheme {
 	}
 
 	/**
-	 * find and returns a {@link StyleSheet} which represent "chrome.css".
+	 * find and returns a {@link StyleSheet} which represent "jeeeyul-custom.css".
 	 * 
 	 * @param documentCSS
 	 * @return
 	 * @since 1.2
 	 */
-	private StyleSheet findChromeSheet(DocumentCSS documentCSS) {
+	private StyleSheet findCustomThemeSheet(DocumentCSS documentCSS) {
 		StyleSheet chromeSheet = null;
 		StyleSheetList styleSheets = documentCSS.getStyleSheets();
 		SearchChromeSheet: for (int i = 0; i < styleSheets.getLength(); i++) {
