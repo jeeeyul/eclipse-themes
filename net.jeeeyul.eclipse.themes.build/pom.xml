@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>net.jeeeyul.eclipse.themes</groupId>
-	<artifactId>parent</artifactId>
+	<groupId>eclipse.jeeeyul.net</groupId>
 	<version>2.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<modules>
 		<module>../net.jeeeyul.eclipse.themes</module>
 		<module>../net.jeeeyul.eclipse.themes.feature</module>
+		<module>../net.jeeeyul.eclipse.themes.updatesite</module>
 	</modules>
 
 	<properties>
 		<tycho.version>0.19.0</tycho.version>
 		<kepler-repo.url>http://download.eclipse.org/releases/kepler</kepler-repo.url>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<repositories>
@@ -37,9 +39,11 @@
 				<version>${tycho.version}</version>
 				<extensions>true</extensions>
 			</plugin>
+			
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>target-platform-configuration</artifactId>
+				<version>${tycho.version}</version>
 				<configuration>
 					<environments>
 						<environment>
@@ -71,6 +75,6 @@
 				</configuration>
 			</plugin>
 		</plugins>
-
 	</build>
+	<artifactId>net.jeeeyul.eclipse.themes.build</artifactId>
 </project>
