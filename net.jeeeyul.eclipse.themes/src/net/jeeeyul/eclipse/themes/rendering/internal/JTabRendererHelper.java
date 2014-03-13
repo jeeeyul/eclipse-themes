@@ -169,6 +169,27 @@ public class JTabRendererHelper {
 
 		return visibles.get(visibles.size() - 1);
 	}
+	
+	public CTabItem getFirstVisibleItem(CTabFolder me) {
+		List<CTabItem> visibles = new ArrayList<CTabItem>();
+		for (CTabItem each : me.getItems()) {
+			if (each.isShowing()) {
+				visibles.add(each);
+			}
+		}
+
+		if (visibles.size() == 0) {
+			return null;
+		}
+		Collections.sort(visibles, new Comparator<CTabItem>() {
+			@Override
+			public int compare(CTabItem o1, CTabItem o2) {
+				return o1.getBounds().x - o2.getBounds().x;
+			}
+		});
+
+		return visibles.get(0);
+	}
 
 	public String setShortenText(CTabItem me, String shortenText) {
 		return _CTabItem.shortenedText.set(me, shortenText);

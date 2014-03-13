@@ -137,8 +137,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				result.width = result.width + settings.margins.x + settings.paddings.x + settings.paddings.width + settings.margins.width
 
 				if(tabFolder.onBottom) {
-					result.y = result.y - settings.paddings.y
-					result.height = result.height + tabFolder.tabHeight + settings.paddings.y + settings.margins.height + settings.paddings.height
+					throw new UnsupportedOperationException
 				} else {
 					result.y = result.y - tabFolder.tabHeight - settings.paddings.y - 2
 					result.height = result.height + tabFolder.tabHeight + settings.paddings.y + settings.margins.height + settings.paddings.height + 2
@@ -348,17 +347,16 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			}
 		]
 
-
 		var repair = newRectangle(settings.margins.x + settings.borderRadius, 0, 0, 0)
 		repair.union(parent.size.x, parent.tabHeight + 1)
-				
+
 		draw(PART_BODY, SWT.FOREGROUND, repair, gc)
 	}
 
 	protected def drawTabBody(int part, int state, Rectangle bounds, GC gc) {
 		var oldClipping = gc.clipping
 		gc.clipping = bounds
-		
+
 		// Fill Background
 		if(state.hasFlags(SWT.BACKGROUND)) {
 			gc.background = tabFolder.parent.background
@@ -371,13 +369,14 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			val path = newTemporaryPath[
 				if(settings.borderRadius > 0) {
 					if(parent.onTop) {
+						val offset = tabArea.getResized(0, -1)
 						var box = newRectangleWithSize(settings.borderRadius * 2)
-						moveTo(tabArea.x, parent.tabHeight)
-						lineTo(tabArea.x + tabArea.width, parent.tabHeight)
-						box.relocateBottomRightWith(tabArea)
+						moveTo(offset.x, parent.tabHeight)
+						lineTo(offset.x + offset.width, parent.tabHeight)
+						box.relocateBottomRightWith(offset)
 						lineTo(box.right)
 						addArc(box, 0, -90)
-						box.relocateBottomLeftWith(tabArea)
+						box.relocateBottomLeftWith(offset)
 						lineTo(box.bottom)
 						addArc(box, 270, -90)
 						close()
@@ -398,10 +397,10 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 		// Draw Border
 		if(state.hasFlags(SWT.FOREGROUND) && settings.borderWidth > 0 && settings.borderColors != null && settings.borderPercents != null) {
-			if(isLinux){
+			if(isLinux) {
 				gc.antialias = SWT.OFF
 			}
-			
+
 			val offset = tabArea.getResized(-1, -1).shrink(settings.borderWidth / 2)
 			val headerOffset = headerArea.getResized(-1, 1)
 			gc.lineWidth = settings.borderWidth
@@ -440,7 +439,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			gc.foreground = settings.borderColors.last.toAutoReleaseColor
 			gc.draw(bodyPath)
 		}
-		
+
 		gc.clipping = oldClipping
 	}
 
@@ -472,7 +471,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		val item = tabFolder.getItem(part)
 
 		val itemBounds = if(tabFolder.onBottom)
-				item.bounds.getTranslated(-Math.max(settings.tabSpacing, 0) - settings.borderWidth, -1).getResized(-settings.tabSpacing, 0)
+				throw new UnsupportedOperationException
 			else
 				item.bounds.getResized(-Math.max(settings.tabSpacing, 0), 1)
 
@@ -584,10 +583,13 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 					addArc(corner, 0, 90)
 					corner.relocateTopLeftWith(outlineOffset)
 					lineTo(corner.top)
-					addArc(corner, 90, 90)
-					lineTo(outlineOffset.x, keyLineY)
-					if(state.hasFlags(SWT.SELECTED)) {
-						lineTo(settings.margins.x, keyLineY)
+
+					if(settings.borderColors != null && item != parent.firstVisibleItem) {
+						addArc(corner, 90, 90)
+						lineTo(outlineOffset.x, keyLineY)
+						if(state.hasFlags(SWT.SELECTED)) {
+							lineTo(settings.margins.x, keyLineY)
+						}
 					}
 				} else {
 					if(state.hasFlags(SWT.SELECTED)) {
@@ -605,44 +607,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				}
 			]
 		} else {
-			outline = newTemporaryPath[
-				var keyLineY = item.bounds.y - 1
-				if(settings.borderRadius > 0) {
-					var corner = newRectangle(outlineOffset.topLeft, new Point(settings.borderRadius * 2, settings.borderRadius * 2))
-					corner.relocateBottomRightWith(outlineOffset)
-					if(state.hasFlags(SWT.SELECTED)) {
-						moveTo(tabFolder.size.x - settings.margins.width - settings.borderWidth, keyLineY)
-						lineTo(itemOutlineBounds.topRight.x, keyLineY)
-					} else {
-						moveTo(outlineOffset.topRight.x, keyLineY)
-					}
-					lineTo(corner.right)
-					addArc(corner, 0, -90)
-
-					corner.relocateBottomLeftWith(itemOutlineBounds)
-					lineTo(corner.bottom)
-					addArc(corner, 270, -90)
-
-					lineTo(itemOutlineBounds.x, keyLineY)
-					if(state.hasFlags(SWT.SELECTED)) {
-						lineTo(settings.margins.x, keyLineY)
-					}
-
-				} else {
-					if(state.hasFlags(SWT.SELECTED)) {
-						moveTo(tabFolder.size.x - settings.margins.width - settings.borderWidth, keyLineY)
-						lineTo(itemOutlineBounds.bottomRight.x, keyLineY)
-					} else {
-						moveTo(outlineOffset.bottomRight.x, keyLineY)
-					}
-					lineTo(itemOutlineBounds.topRight)
-					lineTo(itemOutlineBounds.topLeft)
-					lineTo(itemOutlineBounds.bottomLeft.x, keyLineY)
-					if(state.hasFlags(SWT.SELECTED)) {
-						lineTo(settings.margins.x, keyLineY)
-					}
-				}
-			]
+			throw new UnsupportedOperationException
 		}
 
 		gc.lineWidth = settings.borderWidth
@@ -719,7 +684,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 	def protected getShadow() {
 		if(shadowNinePatch == null || shadowNinePatch.disposed) {
-			shadowNinePatch = Shadow9PatchFactory.createShadowPatch(settings.shadowColor.toRGB, settings.borderRadius, settings.shadowRadius);
+			shadowNinePatch = Shadow9PatchFactory.createShadowPatch(settings.shadowColor.toRGB, settings.borderRadius + 3, settings.shadowRadius);
 		}
 		return shadowNinePatch;
 	}
