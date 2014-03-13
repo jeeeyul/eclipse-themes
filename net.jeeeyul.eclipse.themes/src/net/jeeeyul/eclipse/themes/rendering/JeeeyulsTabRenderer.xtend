@@ -348,11 +348,17 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			}
 		]
 
-		draw(PART_BODY, SWT.FOREGROUND, bounds, gc)
+
+		var repair = newRectangle(settings.margins.x + settings.borderRadius, 0, 0, 0)
+		repair.union(parent.size.x, parent.tabHeight + 1)
+				
+		draw(PART_BODY, SWT.FOREGROUND, repair, gc)
 	}
 
 	protected def drawTabBody(int part, int state, Rectangle bounds, GC gc) {
-
+		var oldClipping = gc.clipping
+		gc.clipping = bounds
+		
 		// Fill Background
 		if(state.hasFlags(SWT.BACKGROUND)) {
 			gc.background = tabFolder.parent.background
@@ -434,6 +440,8 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			gc.foreground = settings.borderColors.last.toAutoReleaseColor
 			gc.draw(bodyPath)
 		}
+		
+		gc.clipping = oldClipping
 	}
 
 	protected def drawCloseButton(int part, int state, Rectangle bounds, GC gc) {
@@ -546,7 +554,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		drawTabItemBorder(part, state, itemBounds, gc)
 
 		// draw tab border
-		draw(PART_BODY, SWT.FOREGROUND, new Rectangle(0, 0, tabFolder.size.x, itemBounds.bottom.y), gc)
+		draw(PART_BODY, SWT.FOREGROUND, itemBounds, gc)
 	}
 
 	protected def void drawTabItemBorder(int part, int state, Rectangle bounds, GC gc) {
