@@ -300,8 +300,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		val headerArea = getHeaderArea()
 
 		val corner = new Rectangle(0, 0, settings.borderRadius * 2, settings.borderRadius * 2)
-		var clip = newPath[
-			autoRelease()
+		var clip = newTemporaryPath[
 			if(tabFolder.onTop) {
 				if(settings.borderRadius > 0) {
 					moveTo(headerArea.bottomRight)
@@ -401,8 +400,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			val headerOffset = headerArea.getResized(-1, 1)
 			gc.lineWidth = settings.borderWidth
 
-			val headerPath = newPath[
-				autoRelease()
+			val headerPath = newTemporaryPath[
 				if(settings.borderRadius > 0) {
 					moveTo(headerOffset.bottomRight)
 					var corner = newRectangleWithSize(settings.borderRadius * 2)
@@ -422,7 +420,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			]
 			gc.drawGradientPath(headerPath, settings.borderColors.toAutoReleaseColor, settings.borderPercents, true)
 
-			val bodyPath = newPath[
+			val bodyPath = newTemporaryPath[
 				var corner = newRectangleWithSize(settings.borderRadius * 2)
 				moveTo(headerArea.bottomLeft)
 				corner.relocateBottomLeftWith(offset)
@@ -444,8 +442,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			gc.fill(bounds)
 		}
 		val box = bounds.getShrinked(2)
-		var path = newPath[
-			autoRelease()
+		var path = newTemporaryPath[
 			moveTo(box.topLeft)
 			lineTo(box.bottomRight)
 			moveTo(box.topRight)
@@ -563,8 +560,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		var Path outline = null;
 
 		if(tabFolder.onTop) {
-			outline = newPath[
-				autoRelease()
+			outline = newTemporaryPath[
 				var keyLineY = item.bounds.bottom.y - 1
 				if(settings.borderRadius > 0) {
 					var corner = newRectangle(outlineOffset.topLeft, new Point(settings.borderRadius * 2, settings.borderRadius * 2))
@@ -601,8 +597,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				}
 			]
 		} else {
-			outline = newPath[
-				autoRelease()
+			outline = newTemporaryPath[
 				var keyLineY = item.bounds.y - 1
 				if(settings.borderRadius > 0) {
 					var corner = newRectangle(outlineOffset.topLeft, new Point(settings.borderRadius * 2, settings.borderRadius * 2))
@@ -655,8 +650,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 		var Path tabItemFillArea = null
 		if(tabFolder.onTop) {
-			tabItemFillArea = newPath[
-				autoRelease()
+			tabItemFillArea = newTemporaryPath[
 				if(settings.borderRadius > 0) {
 					var corner = newRectangle(itemBounds.topLeft, new Point(settings.borderRadius * 2, settings.borderRadius * 2))
 					corner.relocateTopRightWith(itemBounds)
@@ -673,8 +667,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				}
 			]
 		} else {
-			tabItemFillArea = newPath[
-				autoRelease()
+			tabItemFillArea = newTemporaryPath[
 				if(settings.borderRadius > 0) {
 					var corner = newRectangle(itemBounds.topLeft, new Point(settings.borderRadius * 2, settings.borderRadius * 2))
 					corner.relocateBottomLeftWith(itemBounds)
