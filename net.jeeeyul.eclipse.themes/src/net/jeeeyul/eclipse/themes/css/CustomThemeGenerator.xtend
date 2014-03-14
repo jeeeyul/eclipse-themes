@@ -5,7 +5,6 @@ import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore
 import org.eclipse.swt.SWT
 import org.eclipse.swt.graphics.Point
 import org.eclipse.swt.graphics.Rectangle
-import net.jeeeyul.eclipse.themes.preference.internal.JTPUtil
 
 class CustomThemeGenerator {
 	@Property JThemePreferenceStore store
@@ -44,6 +43,13 @@ class CustomThemeGenerator {
 				jsash-width: 4px;
 			«ENDIF»
 		}
+		
+		«IF linux»
+			«comment("Fix GTK Search Field")»
+			#SearchField Text{
+				font-size: 9px;
+			}
+		«ENDIF»
 		
 		«comment("Trim Stack")»
 		.TrimStack {
@@ -99,9 +105,6 @@ class CustomThemeGenerator {
 		
 		«comment("Inactive Part Stack")»
 		.MPartStack {
-			«IF linux»
-				font-size: 8px;
-			«ENDIF»
 			swt-tab-renderer:
 				url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer');
 			swt-mru-visible: true;
