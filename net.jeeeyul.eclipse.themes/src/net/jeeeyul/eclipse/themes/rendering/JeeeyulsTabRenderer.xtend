@@ -349,6 +349,10 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 		var repair = newRectangle(settings.margins.x + settings.borderRadius, 0, 0, 0)
 		repair.union(parent.size.x, parent.tabHeight + 1)
+		
+		if(parent.simple){
+			repair = newRectangle(0, 0, parent.size.x, parent.tabHeight + 2)
+		}
 
 		draw(PART_BODY, SWT.FOREGROUND, repair, gc)
 	}

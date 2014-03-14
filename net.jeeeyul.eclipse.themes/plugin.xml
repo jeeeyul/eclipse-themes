@@ -304,5 +304,37 @@
             description body text
          </description>
       </preset>
+      <preset
+            epf="presets/Hello Kitty.epf"
+            id="net.jeeeyul.eclipse.themes.preset.kitty"
+            name="Hello Kitty">
+         <description>
+            Default Preset
+         </description>
+      </preset>
+      <preset
+            epf="presets/Lime.epf"
+            id="net.jeeeyul.eclipse.themes.preset.lime"
+            name="Lime">
+         <description>
+            Default Preset
+         </description>
+      </preset>
+      <preset
+            epf="presets/Ocean.epf"
+            id="net.jeeeyul.eclipse.themes.preset.ocean"
+            name="Ocean">
+         <description>
+            Default Preset
+         </description>
+      </preset>
+      <preset
+            epf="presets/Adwaita.epf"
+            id="net.jeeeyul.eclipse.themes.preset.adwaita"
+            name="Adwaita">
+         <description>
+            Default Preset
+         </description>
+      </preset>
    </extension>
 </plugin>

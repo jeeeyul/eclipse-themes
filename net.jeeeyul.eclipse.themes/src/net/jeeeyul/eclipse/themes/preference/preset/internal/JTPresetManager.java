@@ -51,6 +51,9 @@ public class JTPresetManager implements IJTPresetManager {
 		return new Comparator<IJTPreset>() {
 			@Override
 			public int compare(IJTPreset o1, IJTPreset o2) {
+				if (o1.getId().equals("net.jeeeyul.eclipse.themes.preset.default")) {
+					return -10000;
+				}
 				return o1.getName().toLowerCase().compareTo(o2.getName().toLowerCase());
 			}
 		};

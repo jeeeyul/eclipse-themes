@@ -150,7 +150,7 @@ class CustomThemeGenerator {
 			«ENDIF»
 			
 			«IF store.getBoolean(JTPConstants.InactivePartStack.UNSELECTED_BORDER_SHOW)»
-				jtab-unselected-border-color: «store.getGradient(JTPConstants.InactivePartStack.UNSELECTED_FILL_COLOR).toSWTCSSString»;
+				jtab-unselected-border-color: «store.getGradient(JTPConstants.InactivePartStack.UNSELECTED_BORDER_COLOR).toSWTCSSString»;
 			«ELSE»
 				jtab-unselected-border-color: none;
 			«ENDIF»
@@ -170,7 +170,7 @@ class CustomThemeGenerator {
 			«ENDIF»
 			
 			«IF store.getBoolean(JTPConstants.InactivePartStack.HOVER_BORDER_SHOW)»
-				jtab-hover-border-color: «store.getGradient(JTPConstants.InactivePartStack.HOVER_FILL_COLOR).toSWTCSSString»;
+				jtab-hover-border-color: «store.getGradient(JTPConstants.InactivePartStack.HOVER_BORDER_COLOR).toSWTCSSString»;
 			«ELSE»
 				jtab-hover-border-color: none;
 			«ENDIF»
@@ -246,7 +246,7 @@ class CustomThemeGenerator {
 			«ENDIF»
 			
 			«IF store.getBoolean(JTPConstants.ActivePartStack.UNSELECTED_BORDER_SHOW)»
-				jtab-unselected-border-color: «store.getGradient(JTPConstants.ActivePartStack.UNSELECTED_FILL_COLOR).toSWTCSSString»;
+				jtab-unselected-border-color: «store.getGradient(JTPConstants.ActivePartStack.UNSELECTED_BORDER_COLOR).toSWTCSSString»;
 			«ELSE»
 				jtab-unselected-border-color: none;
 			«ENDIF»
@@ -266,7 +266,7 @@ class CustomThemeGenerator {
 			«ENDIF»
 			
 			«IF store.getBoolean(JTPConstants.ActivePartStack.HOVER_BORDER_SHOW)»
-				jtab-hover-border-color: «store.getGradient(JTPConstants.ActivePartStack.HOVER_FILL_COLOR).toSWTCSSString»;
+				jtab-hover-border-color: «store.getGradient(JTPConstants.ActivePartStack.HOVER_BORDER_COLOR).toSWTCSSString»;
 			«ELSE»
 				jtab-hover-border-color: none;
 			«ENDIF»
@@ -315,7 +315,11 @@ class CustomThemeGenerator {
 				jtab-shadow-color: «store.getHSB(JTPConstants.Layout.SHADOW_COLOR).toHTMLCode»;
 				jtab-shadow-position: 1px 1px;
 				jtab-shadow-radius: 3px;
-				jtab-padding : «store.getInt(JTPConstants.Layout.CONTENT_PADDING)»px «store.getInt(JTPConstants.Layout.CONTENT_PADDING)»px «store.getInt(JTPConstants.Layout.CONTENT_PADDING)»px «store.getInt(JTPConstants.Layout.CONTENT_PADDING) + 4»px;
+				jtab-padding : 
+					«store.getInt(JTPConstants.Layout.CONTENT_PADDING)»px 
+					«store.getInt(JTPConstants.Layout.CONTENT_PADDING)»px 
+					«store.getInt(JTPConstants.Layout.CONTENT_PADDING) + 2»px 
+					«store.getInt(JTPConstants.Layout.CONTENT_PADDING) + 2»px;
 			«ELSE»
 				jtab-margin : 0px;
 				jtab-shadow-color: none;
