@@ -120,7 +120,7 @@ class CustomThemeGenerator {
 			«ENDIF»
 			
 			/* tab background */
-			swt-unselected-tabs-color : «store.getGradient(JTPConstants.InactivePartStack.BACKGROUND_COLOR).toSWTCSSString»;
+			jtab-header-background : «store.getGradient(JTPConstants.InactivePartStack.BACKGROUND_COLOR).toSWTCSSString»;
 			«IF store.getBoolean(JTPConstants.InactivePartStack.BORDER_SHOW)»
 				jtab-border-color : «store.getGradient(JTPConstants.InactivePartStack.BORDER_COLOR).toSWTCSSString»;
 			«ELSE»
@@ -129,7 +129,7 @@ class CustomThemeGenerator {
 			background : «store.getGradient(JTPConstants.InactivePartStack.SELECTED_FILL_COLOR).last.color.toHTMLCode»;
 			
 			/* selected tabs */
-			swt-selected-tabs-background: «store.getGradient(JTPConstants.InactivePartStack.SELECTED_FILL_COLOR).toSWTCSSString»;
+			jtab-selected-tab-background: «store.getGradient(JTPConstants.InactivePartStack.SELECTED_FILL_COLOR).toSWTCSSString»;
 			«IF store.getBoolean(JTPConstants.InactivePartStack.SELECTED_BORDER_SHOW)»
 				jtab-selected-border-color: «store.getGradient(JTPConstants.InactivePartStack.SELECTED_BORDER_COLOR).toSWTCSSString»;
 			«ELSE»
@@ -201,7 +201,7 @@ class CustomThemeGenerator {
 		
 		«comment("Empty Part Stack")»
 		.MPartStack.empty{
-			swt-unselected-tabs-color : «store.getGradient(JTPConstants.EmptyPartStack.FILL_COLOR).toSWTCSSString»;
+			jtab-header-background : «store.getGradient(JTPConstants.EmptyPartStack.FILL_COLOR).toSWTCSSString»;
 			«IF store.getBoolean(JTPConstants.EmptyPartStack.BORDER_SHOW)»
 				jtab-border-color : «store.getGradient(JTPConstants.EmptyPartStack.BORDER_COLOR).toSWTCSSString»;
 			«ELSE»
@@ -216,7 +216,7 @@ class CustomThemeGenerator {
 				url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer');
 			
 			/* tab background */
-			swt-unselected-tabs-color : «store.getGradient(JTPConstants.ActivePartStack.BACKGROUND_COLOR).toSWTCSSString»;
+			jtab-header-background : «store.getGradient(JTPConstants.ActivePartStack.BACKGROUND_COLOR).toSWTCSSString»;
 			«IF store.getBoolean(JTPConstants.ActivePartStack.BORDER_SHOW)»
 				jtab-border-color : «store.getGradient(JTPConstants.ActivePartStack.BORDER_COLOR).toSWTCSSString»;
 			«ELSE»
@@ -225,7 +225,7 @@ class CustomThemeGenerator {
 			background : «store.getGradient(JTPConstants.ActivePartStack.SELECTED_FILL_COLOR).last.color.toHTMLCode»;
 			
 			/* selected tabs */
-			swt-selected-tabs-background: «store.getGradient(JTPConstants.ActivePartStack.SELECTED_FILL_COLOR).toSWTCSSString»;
+			jtab-selected-tab-background: «store.getGradient(JTPConstants.ActivePartStack.SELECTED_FILL_COLOR).toSWTCSSString»;
 			«IF store.getBoolean(JTPConstants.ActivePartStack.SELECTED_BORDER_SHOW)»
 				jtab-selected-border-color: «store.getGradient(JTPConstants.ActivePartStack.SELECTED_BORDER_COLOR).toSWTCSSString»;
 			«ELSE»
@@ -300,13 +300,13 @@ class CustomThemeGenerator {
 			swt-tab-renderer:
 				url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer');
 			swt-tab-height: 10px;
-			swt-unselected-tabs-color : «store.getGradient(JTPConstants.EditorsPartStack.FILL_COLOR).toSWTCSSString»;
+			jtab-header-background : «store.getGradient(JTPConstants.EditorsPartStack.FILL_COLOR).toSWTCSSString»;
 			«IF store.getBoolean(JTPConstants.EditorsPartStack.BORDER_SHOW)»
 				jtab-border-color : «store.getGradient(JTPConstants.EditorsPartStack.BORDER_COLOR).toSWTCSSString»;
 			«ELSE»
 				jtab-border-color : none;
 			«ENDIF»
-			swt-selected-tabs-background: «store.getGradient(JTPConstants.EditorsPartStack.FILL_COLOR).toSWTCSSString»;
+			jtab-selected-tab-background: «store.getGradient(JTPConstants.EditorsPartStack.FILL_COLOR).toSWTCSSString»;
 			jtab-selected-border-color: none;
 			swt-single : true;
 			

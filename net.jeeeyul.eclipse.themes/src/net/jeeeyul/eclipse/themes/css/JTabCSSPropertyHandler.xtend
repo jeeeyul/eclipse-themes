@@ -16,6 +16,8 @@ import org.eclipse.swt.graphics.Rectangle
 import org.eclipse.swt.graphics.Point
 import java.util.ArrayList
 import net.jeeeyul.eclipse.themes.css.internal.CSSCompabilityHelper
+import org.eclipse.swt.graphics.Color
+import net.jeeeyul.eclipse.themes.rendering.internal.JTabRendererHelper
 
 class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 
@@ -27,8 +29,40 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 		}
 		var renderer = tabFolder.renderer as JeeeyulsTabRenderer
 		var settings = renderer.settings
+		
 
 		var applied = switch (property) {
+			case "jtab-selected-tab-background":{
+				if(value instanceof CSSValueList) {
+					var grad = CSSCompabilityHelper.getGradient(value as CSSValueList)
+					var colors = CSSCompabilityHelper.getSWTColors(grad, tabFolder.display, engine)
+					var percents = CSSCompabilityHelper.getPercents(grad)
+					tabFolder.setSelectionBackground(colors, percents, true)
+					true
+				} else if(value instanceof CSSPrimitiveValue) {
+					var newColor = engine.convert(value, typeof(Color), tabFolder.display) as Color
+					tabFolder.setSelectionBackground(#[newColor, newColor], #[100], true)
+					true						
+				} else {
+					false
+				}
+			}
+			
+			case "jtab-header-background":{
+				if(value instanceof CSSValueList) {
+					var grad = CSSCompabilityHelper.getGradient(value as CSSValueList)
+					var colors = CSSCompabilityHelper.getSWTColors(grad, tabFolder.display, engine)
+					var percents = CSSCompabilityHelper.getPercents(grad)
+					tabFolder.setBackground(colors, percents, true)
+					true
+				} else if(value instanceof CSSPrimitiveValue) {
+					var newColor = engine.convert(value, typeof(Color), tabFolder.display) as Color
+					tabFolder.setBackground(#[newColor, newColor], #[100], true)
+					true						
+				} else {
+					false
+				}
+			}
 			case "jtab-border-color": {
 				if(value instanceof CSSValueList) {
 					var grad = CSSCompabilityHelper.getGradient(value as CSSValueList)
@@ -402,6 +436,8 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 	}
 
 	override retrieveCSSProperty(Object element, String property, String pseudo, CSSEngine engine) throws Exception {
+		val extension JTabRendererHelper = new JTabRendererHelper()
+		
 		var tabFolderElement = element as CTabFolderElement
 		var tabFolder = tabFolderElement.nativeWidget as CTabFolder
 		if(!(tabFolder.renderer instanceof JeeeyulsTabRenderer)) {
@@ -426,7 +462,8 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 				case "jtab-close-button-active-color" : settings.closeButtonActiveColor.safeHTML
 				case "jtab-close-button-line-width" : '''«settings.closeButtonLineWidth»px'''
 				
-				
+				case "jtab-header-background" : toHTML(tabFolder.gradientColor, tabFolder.gradientPercents)
+				case "jtab-selected-tab-background" : toHTML(tabFolder.selectionGradientColor, tabFolder.selectionGradientPercents)
 				case "jtab-unselected-tabs-background" : toHTML(settings.unselectedBackgroundColors, settings.unselectedBackgroundPercents)
 				case "jtab-hover-tabs-background" : toHTML(settings.hoverBackgroundColors, settings.hoverBackgroundPercents)
 				
@@ -476,6 +513,14 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 			return "none";
 		}else{
 			return '''«colors.join(' ')[it.toHTMLCode]» «percents.join(" ")[it + "%"]»'''
+		}
+	}
+	
+	def private toHTML(Color[] colors, int[] percents){
+		if(colors == null || percents == null){
+			return "none";
+		}else{
+			return '''«colors.join(' ')[new HSB(it.RGB).toHTMLCode]» «percents.join(" ")[it + "%"]»'''
 		}
 	}
 

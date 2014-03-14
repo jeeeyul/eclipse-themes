@@ -147,6 +147,12 @@
          <property-name
                name="jtab-chevron-color">
          </property-name>
+         <property-name
+               name="jtab-header-background">
+         </property-name>
+         <property-name
+               name="jtab-selected-tab-background">
+         </property-name>
       </handler>
       <handler
             adapter="org.eclipse.e4.ui.css.swt.dom.CompositeElement"

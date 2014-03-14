@@ -1,8 +1,13 @@
 package net.jeeeyul.eclipse.themes.css.internal;
 
+import java.util.List;
+
 import org.eclipse.e4.ui.css.core.dom.properties.Gradient;
+import org.eclipse.e4.ui.css.core.engine.CSSEngine;
 import org.eclipse.e4.ui.css.swt.helpers.CSSSWTColorHelper;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.widgets.Display;
 import org.w3c.dom.css.CSSPrimitiveValue;
 import org.w3c.dom.css.CSSValue;
 import org.w3c.dom.css.CSSValueList;
@@ -10,7 +15,24 @@ import org.w3c.dom.css.CSSValueList;
 @SuppressWarnings("restriction")
 public class CSSCompabilityHelper {
 
-	public CSSCompabilityHelper() {
+	/*
+	 * Compute and return a default array of percentages based on number of
+	 * colors o If two colors, {100} o if three colors, {50, 100} o if four
+	 * colors, {33, 67, 100}
+	 */
+	private static int[] getDefaultPercents(Gradient grad) {
+		// Needed to avoid /0 in increment calc
+		if (grad.getRGBs().size() == 1) {
+			return new int[0];
+		}
+
+		int[] percents = new int[grad.getRGBs().size() - 1];
+		float increment = 100f / (grad.getRGBs().size() - 1);
+
+		for (int i = 0; i < percents.length; i++) {
+			percents[i] = Math.round((i + 1) * increment);
+		}
+		return percents;
 	}
 
 	public static Gradient getGradient(CSSValueList list) {
@@ -60,5 +82,50 @@ public class CSSCompabilityHelper {
 			percent = (int) value.getFloatValue(CSSPrimitiveValue.CSS_PERCENTAGE);
 		}
 		return new Integer(percent);
+	}
+	
+
+	public static int[] getPercents(Gradient grad) {
+		// There should be exactly one more RGBs. than percent,
+		// in which case just return the percents as array
+		if (grad.getRGBs().size() == grad.getPercents().size() + 1) {
+			int[] percents = new int[grad.getPercents().size()];
+			for (int i = 0; i < percents.length; i++) {
+				int value = ((Integer) grad.getPercents().get(i)).intValue();
+				if (value < 0 || value > 100) {
+					// TODO this should be an exception because bad source
+					// format
+					return getDefaultPercents(grad);
+				}
+				percents[i] = value;
+			}
+			return percents;
+		} else {
+			// We can get here if either:
+			// A: the percents are empty (legal) or
+			// B: size mismatches (error)
+			// TODO this should be an exception because bad source format
+
+			return getDefaultPercents(grad);
+		}
+	}
+
+	@SuppressWarnings("rawtypes")
+	public static Color[] getSWTColors(Gradient grad, Display display,
+			CSSEngine engine) throws Exception {
+		List values = grad.getValues();
+		Color[] colors = new Color[values.size()];
+
+		for (int i = 0; i < values.size(); i++) {
+			CSSPrimitiveValue value = (CSSPrimitiveValue) values.get(i);
+			//We rely on the fact that when a gradient is created, it's colors are converted and in the registry
+			//TODO see bug #278077
+			Color color = (Color) engine.convert(value, Color.class, display);
+			colors[i] = color;
+		}
+		return colors;
+	}
+	
+	public CSSCompabilityHelper() {
 	}
 }
