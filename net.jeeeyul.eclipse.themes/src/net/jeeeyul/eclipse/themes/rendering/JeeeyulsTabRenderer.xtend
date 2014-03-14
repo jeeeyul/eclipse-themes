@@ -23,7 +23,7 @@ import org.eclipse.swt.graphics.Rectangle
 /**
  * A new CTabFolder Renderer for Jeeeyul's eclipse themes 2.0
  * 
- * @since 2.0.0
+ * @since 2.0
  */
 class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	extension JTabRendererHelper = new JTabRendererHelper
