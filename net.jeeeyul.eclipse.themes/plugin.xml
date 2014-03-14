@@ -267,6 +267,16 @@
                      value="https://pledgie.com/campaigns/18377">
                </parameter>
             </command>
+            <command
+                  commandId="net.jeeeyul.eclipse.themes.command.open.url"
+                  icon="icons/eclipse.gif"
+                  label="Market Place"
+                  style="push">
+               <parameter
+                     name="url"
+                     value="http://marketplace.eclipse.org/content/jeeeyuls-eclipse-themes">
+               </parameter>
+            </command>
          </menu>
       </menuContribution>
    </extension>

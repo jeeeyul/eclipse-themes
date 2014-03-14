@@ -48,7 +48,7 @@ public class JTPresetManager implements IJTPresetManager {
 		return contributedPresets;
 	}
 
-	public IJTPreset getDefaultPreset() {
+	public ContributedPreset getDefaultPreset() {
 		if (contributedPresets == null) {
 			loadPresetExtensions();
 		}
@@ -64,11 +64,7 @@ public class JTPresetManager implements IJTPresetManager {
 		return new Comparator<IJTPreset>() {
 			@Override
 			public int compare(IJTPreset o1, IJTPreset o2) {
-				if (DEFAULT_PRESET_ID.equals(o1.getId())) {
-					return -Integer.MAX_VALUE;
-				} else {
-					return o1.getName().toLowerCase().compareTo(o2.getName().toLowerCase());
-				}
+				return o1.getName().toLowerCase().compareTo(o2.getName().toLowerCase());
 			}
 		};
 	}
@@ -132,7 +128,13 @@ public class JTPresetManager implements IJTPresetManager {
 				contributedPresets.add(new ContributedPreset(each));
 			}
 		}
+
 		Collections.sort(contributedPresets, getPresetComparator());
+		ContributedPreset defaultPreset = getDefaultPreset();
+		if (defaultPreset != null) {
+			contributedPresets.remove(defaultPreset);
+			contributedPresets.add(0, defaultPreset);
+		}
 	}
 
 	private void loadUserPresets() {
