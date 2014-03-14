@@ -5,7 +5,7 @@ import java.util.Properties;
 import net.jeeeyul.eclipse.themes.internal.OSHelper;
 import net.jeeeyul.eclipse.themes.preference.JTPConstants;
 import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore;
-import net.jeeeyul.eclipse.themes.preference.internal.JTPreperencePage;
+import net.jeeeyul.eclipse.themes.preference.internal.JTPreferencePage;
 import net.jeeeyul.eclipse.themes.preference.preset.IJTPreset;
 
 import org.eclipse.jface.preference.PreferenceStore;
@@ -13,7 +13,7 @@ import org.eclipse.jface.preference.PreferenceStore;
 public class LoadPresetAction extends AbstractPreferenceAction {
 	private IJTPreset preset;
 
-	public LoadPresetAction(JTPreperencePage root, IJTPreset preset) {
+	public LoadPresetAction(JTPreferencePage root, IJTPreset preset) {
 		super(root);
 		this.preset = preset;
 		this.setText(preset.getName());

@@ -32,7 +32,9 @@ import org.eclipse.ui.IWorkbench
 import org.eclipse.ui.IWorkbenchPreferencePage
 import org.eclipse.ui.progress.UIJob
 
-class JTPreperencePage extends PreferencePage implements IWorkbenchPreferencePage {
+class JTPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
+	public static val String ID = typeof(JTPreferencePage).canonicalName
+	
 	extension SWTExtensions swtExt = SWTExtensions.INSTANCE
 	Map<AbstractJTPreferencePage, PreperencePageHelper> helperMap = new HashMap
 	Composite rootView
@@ -129,7 +131,7 @@ class JTPreperencePage extends PreferencePage implements IWorkbenchPreferencePag
 		menuManager => [
 			add(
 				new MenuManager("Preset") => [
-					(new ContributedPresetItems(this))
+					add(new ContributedPresetItems(this))
 				])
 			if(presetManager != null) {
 				add(
@@ -193,13 +195,13 @@ class JTPreperencePage extends PreferencePage implements IWorkbenchPreferencePag
 
 	def static void main(String[] args) {
 		var manager = new PreferenceManager()
-		var prefPage = new JTPreperencePage
+		var prefPage = new JTPreferencePage
 		manager.addToRoot(new PreferenceNode("Active", prefPage))
 		var userDir = System.getProperty("user.home");
 		var file = new File(userDir, ".jet-dummy-pref");
 		var store = new PreferenceStore(file.getAbsolutePath());
 		var defaults = new Properties
-		defaults.load(typeof(JTPreperencePage).getResourceAsStream("default.epf"))
+		defaults.load(typeof(JTPreferencePage).getResourceAsStream("default.epf"))
 		for (each : defaults.keySet) {
 			store.setDefault(each as String, defaults.getProperty(each as String))
 		}

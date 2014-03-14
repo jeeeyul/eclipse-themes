@@ -5,7 +5,7 @@ import java.util.Properties;
 
 import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore;
 import net.jeeeyul.eclipse.themes.preference.internal.JTPUtil;
-import net.jeeeyul.eclipse.themes.preference.internal.JTPreperencePage;
+import net.jeeeyul.eclipse.themes.preference.internal.JTPreferencePage;
 import net.jeeeyul.eclipse.themes.preference.internal.UserPreset;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -15,7 +15,7 @@ import org.eclipse.swt.widgets.Display;
 
 public class AddUserPresetAction extends AbstractPreferenceAction {
 
-	public AddUserPresetAction(JTPreperencePage page) {
+	public AddUserPresetAction(JTPreferencePage page) {
 		super(page);
 		setText("Save as new preset");
 	}

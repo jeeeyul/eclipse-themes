@@ -2,7 +2,7 @@ package net.jeeeyul.eclipse.themes.preference.actions;
 
 import java.util.List;
 
-import net.jeeeyul.eclipse.themes.preference.internal.JTPreperencePage;
+import net.jeeeyul.eclipse.themes.preference.internal.JTPreferencePage;
 import net.jeeeyul.eclipse.themes.preference.preset.internal.ContributedPreset;
 
 import org.eclipse.core.runtime.Platform;
@@ -11,9 +11,9 @@ import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.ui.actions.CompoundContributionItem;
 
 public class ContributedPresetItems extends CompoundContributionItem {
-	private JTPreperencePage page;
+	private JTPreferencePage page;
 
-	public ContributedPresetItems(JTPreperencePage page) {
+	public ContributedPresetItems(JTPreferencePage page) {
 		this.page = page;
 	}
 

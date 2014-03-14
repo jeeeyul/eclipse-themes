@@ -37,12 +37,12 @@
          point="org.eclipse.ui.preferencePages">
       <page
             category="org.eclipse.ui.preferencePages.Views"
-            class="net.jeeeyul.eclipse.themes.preference.internal.JTPreperencePage"
-            id="net.jeeeyul.eclipse.themes.preference.internal.JTPreperencePage"
+            class="net.jeeeyul.eclipse.themes.preference.internal.JTPreferencePage"
+            id="net.jeeeyul.eclipse.themes.preference.internal.JTPreferencePage"
             name="Jeeeyul&apos;s Themes">
       </page>
       <page
-            category="net.jeeeyul.eclipse.themes.preference.internal.JTPreperencePage"
+            category="net.jeeeyul.eclipse.themes.preference.internal.JTPreferencePage"
             class="net.jeeeyul.eclipse.themes.preference.preset.internal.JTPresetPreferencePage"
             id="net.jeeeyul.eclipse.themes.preference.preset.internal.JTPresetPreferencePage"
             name="Presets">
@@ -212,7 +212,7 @@
                   style="pulldown">
                <parameter
                      name="preferencePageId"
-                     value="net.jeeeyul.eclipse.themes.preference.JTPreperencePage">
+                     value="net.jeeeyul.eclipse.themes.preference.internal.JTPreferencePage">
                </parameter>
             </command>
          </toolbar>
@@ -238,7 +238,7 @@
                style="push">
             <parameter
                   name="preferencePageId"
-                  value="net.jeeeyul.eclipse.themes.preference.JTPreperencePage">
+                  value="net.jeeeyul.eclipse.themes.preference.internal.JTPreferencePage">
             </parameter>
          </command>
          <separator

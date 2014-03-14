@@ -32,7 +32,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
 public class JTPresetPreferencePage extends PreferencePage implements IWorkbenchPreferencePage, IUserPresetChangeListener {
-	public static String ID = "net.jeeeyul.eclipse.themes.preference.preset.JTPresetPreferencePage";
+	public static final String ID = JTPresetPreferencePage.class.getCanonicalName();
 
 	private TableViewer viewer;
 	private Button deleteButton;

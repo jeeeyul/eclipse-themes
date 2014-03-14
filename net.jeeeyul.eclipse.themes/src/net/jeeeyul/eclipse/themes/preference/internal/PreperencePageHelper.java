@@ -29,10 +29,10 @@ import org.eclipse.swt.widgets.Scale;
 
 public class PreperencePageHelper {
 
-	private JTPreperencePage root;
+	private JTPreferencePage root;
 	private AbstractJTPreferencePage client;
 
-	public PreperencePageHelper(JTPreperencePage root, AbstractJTPreferencePage client) {
+	public PreperencePageHelper(JTPreferencePage root, AbstractJTPreferencePage client) {
 		this.root = root;
 		this.client = client;
 	}
@@ -129,7 +129,7 @@ public class PreperencePageHelper {
 		return root.getPreferenceStore();
 	}
 
-	public JTPreperencePage getRootPage() {
+	public JTPreferencePage getRootPage() {
 		return root;
 	}
 
