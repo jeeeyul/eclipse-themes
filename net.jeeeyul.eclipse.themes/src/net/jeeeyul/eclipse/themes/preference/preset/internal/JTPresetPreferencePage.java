@@ -1,4 +1,4 @@
-package net.jeeeyul.eclipse.themes.preference.preset;
+package net.jeeeyul.eclipse.themes.preference.preset.internal;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,6 +7,8 @@ import java.util.List;
 import net.jeeeyul.eclipse.themes.JThemesCore;
 import net.jeeeyul.eclipse.themes.preference.internal.JTPUtil;
 import net.jeeeyul.eclipse.themes.preference.internal.UserPreset;
+import net.jeeeyul.eclipse.themes.preference.preset.IJTPreset;
+import net.jeeeyul.eclipse.themes.preference.preset.IUserPresetChangeListener;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.InputDialog;

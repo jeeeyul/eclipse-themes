@@ -3,9 +3,9 @@ package net.jeeeyul.eclipse.themes.preference.actions;
 import java.io.IOException;
 import java.util.Properties;
 
-import net.jeeeyul.eclipse.themes.preference.JTPreperencePage;
 import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore;
 import net.jeeeyul.eclipse.themes.preference.internal.JTPUtil;
+import net.jeeeyul.eclipse.themes.preference.internal.JTPreperencePage;
 import net.jeeeyul.eclipse.themes.preference.internal.UserPreset;
 
 import org.eclipse.jface.dialogs.IDialogConstants;

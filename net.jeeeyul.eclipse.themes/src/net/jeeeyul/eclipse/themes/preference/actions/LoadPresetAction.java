@@ -4,8 +4,8 @@ import java.util.Properties;
 
 import net.jeeeyul.eclipse.themes.internal.OSHelper;
 import net.jeeeyul.eclipse.themes.preference.JTPConstants;
-import net.jeeeyul.eclipse.themes.preference.JTPreperencePage;
 import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore;
+import net.jeeeyul.eclipse.themes.preference.internal.JTPreperencePage;
 import net.jeeeyul.eclipse.themes.preference.preset.IJTPreset;
 
 import org.eclipse.jface.preference.PreferenceStore;

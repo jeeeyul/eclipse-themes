@@ -1,8 +1,10 @@
-package net.jeeeyul.eclipse.themes.preference.preset;
+package net.jeeeyul.eclipse.themes.preference.preset.internal;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.Properties;
+
+import net.jeeeyul.eclipse.themes.preference.preset.IJTPreset;
 
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.Platform;

@@ -11,7 +11,6 @@ import java.util.List;
 
 import net.jeeeyul.eclipse.themes.JThemesCore;
 import net.jeeeyul.eclipse.themes.preference.internal.UserPreset;
-import net.jeeeyul.eclipse.themes.preference.preset.ContributedPreset;
 import net.jeeeyul.eclipse.themes.preference.preset.IJTPreset;
 import net.jeeeyul.eclipse.themes.preference.preset.IJTPresetManager;
 import net.jeeeyul.eclipse.themes.preference.preset.IUserPresetChangeListener;
@@ -21,6 +20,8 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Platform;
 
 public class JTPresetManager implements IJTPresetManager {
+	private static final String DEFAULT_PRESET_ID = "net.jeeeyul.eclipse.themes.preset.default";
+
 	private HashSet<IUserPresetChangeListener> listeners = new HashSet<IUserPresetChangeListener>();
 
 	private List<ContributedPreset> contributedPresets;
@@ -47,14 +48,27 @@ public class JTPresetManager implements IJTPresetManager {
 		return contributedPresets;
 	}
 
+	public IJTPreset getDefaultPreset() {
+		if (contributedPresets == null) {
+			loadPresetExtensions();
+		}
+		for (ContributedPreset each : contributedPresets) {
+			if (DEFAULT_PRESET_ID.equals(each.getId())) {
+				return each;
+			}
+		}
+		return null;
+	}
+
 	private Comparator<IJTPreset> getPresetComparator() {
 		return new Comparator<IJTPreset>() {
 			@Override
 			public int compare(IJTPreset o1, IJTPreset o2) {
-				if (o1.getId().equals("net.jeeeyul.eclipse.themes.preset.default")) {
-					return -10000;
+				if (DEFAULT_PRESET_ID.equals(o1.getId())) {
+					return -Integer.MAX_VALUE;
+				} else {
+					return o1.getName().toLowerCase().compareTo(o2.getName().toLowerCase());
 				}
-				return o1.getName().toLowerCase().compareTo(o2.getName().toLowerCase());
 			}
 		};
 	}

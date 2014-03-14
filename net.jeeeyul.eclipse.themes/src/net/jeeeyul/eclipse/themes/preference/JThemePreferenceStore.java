@@ -22,7 +22,7 @@ import org.eclipse.swt.graphics.Rectangle;
  * When it has a {@link #context}, it will be used as prefix for key.
  * 
  * @author Jeeeyul
- * @since 2.0.0
+ * @since 2.1
  */
 public class JThemePreferenceStore implements IPreferenceStore, IPersistentPreferenceStore {
 	private IPersistentPreferenceStore originalStore;

@@ -1,6 +1,7 @@
-package net.jeeeyul.eclipse.themes.preference
+package net.jeeeyul.eclipse.themes.preference.internal
 
-import net.jeeeyul.eclipse.themes.preference.internal.PreperencePageHelper
+import net.jeeeyul.eclipse.themes.preference.JTPConstants
+import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore
 import net.jeeeyul.eclipse.themes.rendering.JTabSettings
 import net.jeeeyul.swtend.SWTExtensions
 import net.jeeeyul.swtend.ui.GradientEdit

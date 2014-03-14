@@ -1,6 +1,6 @@
 package net.jeeeyul.eclipse.themes.preference.actions;
 
-import net.jeeeyul.eclipse.themes.preference.JTPreperencePage;
+import net.jeeeyul.eclipse.themes.preference.internal.JTPreperencePage;
 
 import org.eclipse.jface.action.Action;
 

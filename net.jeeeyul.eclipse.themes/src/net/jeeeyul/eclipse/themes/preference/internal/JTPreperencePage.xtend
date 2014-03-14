@@ -1,4 +1,4 @@
-package net.jeeeyul.eclipse.themes.preference
+package net.jeeeyul.eclipse.themes.preference.internal
 
 import java.io.File
 import java.util.ArrayList
@@ -9,13 +9,11 @@ import java.util.Properties
 import net.jeeeyul.eclipse.themes.JThemesCore
 import net.jeeeyul.eclipse.themes.SharedImages
 import net.jeeeyul.eclipse.themes.css.RewriteCustomTheme
+import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore
 import net.jeeeyul.eclipse.themes.preference.actions.AddUserPresetAction
 import net.jeeeyul.eclipse.themes.preference.actions.ContributedPresetItems
+import net.jeeeyul.eclipse.themes.preference.actions.ManagePresetAction
 import net.jeeeyul.eclipse.themes.preference.actions.UserPresetItems
-import net.jeeeyul.eclipse.themes.preference.internal.ClosePrevent
-import net.jeeeyul.eclipse.themes.preference.internal.DonationPanel
-import net.jeeeyul.eclipse.themes.preference.internal.JTPUtil
-import net.jeeeyul.eclipse.themes.preference.internal.PreperencePageHelper
 import net.jeeeyul.eclipse.themes.preference.preset.IJTPresetManager
 import net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer
 import net.jeeeyul.swtend.SWTExtensions
@@ -33,7 +31,6 @@ import org.eclipse.swt.widgets.ToolItem
 import org.eclipse.ui.IWorkbench
 import org.eclipse.ui.IWorkbenchPreferencePage
 import org.eclipse.ui.progress.UIJob
-import net.jeeeyul.eclipse.themes.preference.actions.ManagePresetAction
 
 class JTPreperencePage extends PreferencePage implements IWorkbenchPreferencePage {
 	extension SWTExtensions swtExt = SWTExtensions.INSTANCE
@@ -132,7 +129,7 @@ class JTPreperencePage extends PreferencePage implements IWorkbenchPreferencePag
 		menuManager => [
 			add(
 				new MenuManager("Preset") => [
-					add(new ContributedPresetItems(this))
+					(new ContributedPresetItems(this))
 				])
 			if(presetManager != null) {
 				add(

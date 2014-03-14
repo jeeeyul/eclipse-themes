@@ -1,6 +1,8 @@
-package net.jeeeyul.eclipse.themes.preference
+package net.jeeeyul.eclipse.themes.preference.internal
 
-import net.jeeeyul.eclipse.themes.preference.internal.PreperencePageHelper
+import net.jeeeyul.eclipse.themes.internal.OSHelper
+import net.jeeeyul.eclipse.themes.preference.JTPConstants
+import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore
 import net.jeeeyul.eclipse.themes.rendering.JTabSettings
 import net.jeeeyul.swtend.SWTExtensions
 import net.jeeeyul.swtend.ui.ColorWell
@@ -12,7 +14,6 @@ import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Event
 import org.eclipse.swt.widgets.Spinner
-import net.jeeeyul.eclipse.themes.internal.OSHelper
 
 class LayoutPage extends AbstractJTPreferencePage {
 	extension OSHelper = OSHelper.INSTANCE

@@ -1,9 +1,9 @@
 package net.jeeeyul.eclipse.themes.preference.actions;
 
-import org.eclipse.ui.dialogs.PreferencesUtil;
+import net.jeeeyul.eclipse.themes.preference.internal.JTPreperencePage;
+import net.jeeeyul.eclipse.themes.preference.preset.internal.JTPresetPreferencePage;
 
-import net.jeeeyul.eclipse.themes.preference.JTPreperencePage;
-import net.jeeeyul.eclipse.themes.preference.preset.JTPresetPreferencePage;
+import org.eclipse.ui.dialogs.PreferencesUtil;
 
 public class ManagePresetAction extends AbstractPreferenceAction {
 

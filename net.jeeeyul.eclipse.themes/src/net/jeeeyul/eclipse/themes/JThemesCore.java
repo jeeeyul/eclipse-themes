@@ -59,7 +59,7 @@ public class JThemesCore extends AbstractUIPlugin {
 	 * 
 	 * @return A shared {@link JTPresetManager} instance.
 	 * 
-	 * @since 2.0.0
+	 * @since 2.0
 	 */
 	public IJTPresetManager getPresetManager() {
 		if (presetManager == null) {

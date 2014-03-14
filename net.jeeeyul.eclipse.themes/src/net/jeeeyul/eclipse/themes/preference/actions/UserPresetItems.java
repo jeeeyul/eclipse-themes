@@ -2,7 +2,7 @@ package net.jeeeyul.eclipse.themes.preference.actions;
 
 import java.util.List;
 
-import net.jeeeyul.eclipse.themes.preference.JTPreperencePage;
+import net.jeeeyul.eclipse.themes.preference.internal.JTPreperencePage;
 import net.jeeeyul.eclipse.themes.preference.internal.UserPreset;
 
 import org.eclipse.jface.action.ActionContributionItem;

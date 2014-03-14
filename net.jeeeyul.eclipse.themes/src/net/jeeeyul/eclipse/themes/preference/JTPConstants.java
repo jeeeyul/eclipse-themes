@@ -14,7 +14,7 @@ import org.eclipse.swt.graphics.Point;
  * provides types of each key.
  * 
  * @author Jeeeyul
- * @since 2.0.0
+ * @since 2.1
  */
 public interface JTPConstants {
 	/**

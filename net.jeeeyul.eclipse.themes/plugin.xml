@@ -30,21 +30,21 @@
    <extension
          point="org.eclipse.core.runtime.preferences">
       <initializer
-            class="net.jeeeyul.eclipse.themes.preference.JTPreferenceInitializer">
+            class="net.jeeeyul.eclipse.themes.preference.internal.JTPreferenceInitializer">
       </initializer>
    </extension>
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
             category="org.eclipse.ui.preferencePages.Views"
-            class="net.jeeeyul.eclipse.themes.preference.JTPreperencePage"
-            id="net.jeeeyul.eclipse.themes.preference.JTPreperencePage"
+            class="net.jeeeyul.eclipse.themes.preference.internal.JTPreperencePage"
+            id="net.jeeeyul.eclipse.themes.preference.internal.JTPreperencePage"
             name="Jeeeyul&apos;s Themes">
       </page>
       <page
-            category="net.jeeeyul.eclipse.themes.preference.JTPreperencePage"
-            class="net.jeeeyul.eclipse.themes.preference.preset.JTPresetPreferencePage"
-            id="net.jeeeyul.eclipse.themes.preference.preset.JTPresetPreferencePage"
+            category="net.jeeeyul.eclipse.themes.preference.internal.JTPreperencePage"
+            class="net.jeeeyul.eclipse.themes.preference.preset.internal.JTPresetPreferencePage"
+            id="net.jeeeyul.eclipse.themes.preference.preset.internal.JTPresetPreferencePage"
             name="Presets">
       </page>
    </extension>
@@ -286,14 +286,6 @@
             name="Chrome (Classic)">
          <description>
             Default Preset
-         </description>
-      </preset>
-      <preset
-            epf="presets/black.epf"
-            id="net.jeeeyul.eclipse.themes.preset.black"
-            name="Black (Debug Purpose)">
-         <description>
-            Experimental Black Theme
          </description>
       </preset>
       <preset

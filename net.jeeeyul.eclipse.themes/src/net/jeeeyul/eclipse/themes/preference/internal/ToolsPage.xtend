@@ -1,11 +1,12 @@
-package net.jeeeyul.eclipse.themes.preference
+package net.jeeeyul.eclipse.themes.preference.internal
 
-import net.jeeeyul.eclipse.themes.preference.internal.PreperencePageHelper
+import net.jeeeyul.eclipse.themes.preference.JTPConstants
+import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore
 import net.jeeeyul.eclipse.themes.rendering.JTabSettings
 import net.jeeeyul.swtend.SWTExtensions
+import org.eclipse.jface.preference.PreferenceStore
 import org.eclipse.swt.custom.CTabFolder
 import org.eclipse.swt.widgets.Composite
-import org.eclipse.jface.preference.PreferenceStore
 
 class ToolsPage extends AbstractJTPreferencePage {
 	new() {

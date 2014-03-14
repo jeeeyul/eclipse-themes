@@ -3,8 +3,6 @@ package net.jeeeyul.eclipse.themes.preference.internal;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.jeeeyul.eclipse.themes.preference.AbstractJTPreferencePage;
-import net.jeeeyul.eclipse.themes.preference.JTPreperencePage;
 import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore;
 import net.jeeeyul.eclipse.themes.rendering.JTabSettings;
 import net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer;

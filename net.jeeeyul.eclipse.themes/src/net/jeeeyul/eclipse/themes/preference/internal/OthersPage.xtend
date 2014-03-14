@@ -1,14 +1,13 @@
-package net.jeeeyul.eclipse.themes.preference
+package net.jeeeyul.eclipse.themes.preference.internal
 
-import net.jeeeyul.eclipse.themes.preference.AbstractJTPreferencePage
-import org.eclipse.swt.widgets.Composite
-import net.jeeeyul.swtend.SWTExtensions
-import net.jeeeyul.eclipse.themes.preference.internal.PreperencePageHelper
-import org.eclipse.swt.custom.CTabFolder
-import net.jeeeyul.eclipse.themes.rendering.JTabSettings
-import net.jeeeyul.eclipse.themes.preference.internal.LineStyleEditor
-import net.jeeeyul.swtend.ui.ColorWell
 import net.jeeeyul.eclipse.themes.SharedImages
+import net.jeeeyul.eclipse.themes.preference.JTPConstants
+import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore
+import net.jeeeyul.eclipse.themes.rendering.JTabSettings
+import net.jeeeyul.swtend.SWTExtensions
+import net.jeeeyul.swtend.ui.ColorWell
+import org.eclipse.swt.custom.CTabFolder
+import org.eclipse.swt.widgets.Composite
 
 class OthersPage extends AbstractJTPreferencePage {
 
