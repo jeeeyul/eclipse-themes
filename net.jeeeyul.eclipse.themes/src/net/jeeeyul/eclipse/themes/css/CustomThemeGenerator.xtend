@@ -5,6 +5,7 @@ import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore
 import org.eclipse.swt.SWT
 import org.eclipse.swt.graphics.Point
 import org.eclipse.swt.graphics.Rectangle
+import net.jeeeyul.eclipse.themes.preference.internal.JTPUtil
 
 class CustomThemeGenerator {
 	@Property JThemePreferenceStore store
@@ -23,12 +24,14 @@ class CustomThemeGenerator {
 		
 		«comment("Window")»
 		.MTrimmedWindow.topLevel {
-			margin-top: 4px;
 			margin-left: 2px;
-			margin-right: 2px;
 			«IF store.getBoolean(JTPConstants.Layout.SHOW_SHADOW)»
+				margin-top: 4px;
+				margin-right: 2px;
 				margin-bottom: 0px;
 			«ELSE»
+				margin-top: 3px;
+				margin-right: 0px;
 				margin-bottom: 3px;
 			«ENDIF»
 			background-color: «store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»;
@@ -96,6 +99,9 @@ class CustomThemeGenerator {
 		
 		«comment("Inactive Part Stack")»
 		.MPartStack {
+			«IF linux»
+				font-size: 8px;
+			«ENDIF»
 			swt-tab-renderer:
 				url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer');
 			swt-mru-visible: true;
@@ -360,6 +366,10 @@ class CustomThemeGenerator {
 			case SWT.LINE_DOT: "dotted"
 			default: "none"
 		}
+	}
+	
+	def boolean isLinux(){
+		System.getProperty("os.name").startsWith("Linux")
 	}
 	
 	def toolbarHeight(){
