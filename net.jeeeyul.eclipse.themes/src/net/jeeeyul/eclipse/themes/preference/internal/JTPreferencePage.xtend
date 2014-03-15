@@ -14,6 +14,7 @@ import net.jeeeyul.eclipse.themes.preference.actions.AddUserPresetAction
 import net.jeeeyul.eclipse.themes.preference.actions.ContributedPresetItems
 import net.jeeeyul.eclipse.themes.preference.actions.ManagePresetAction
 import net.jeeeyul.eclipse.themes.preference.actions.ShowCSSAction
+import net.jeeeyul.eclipse.themes.preference.actions.ShowEPFAction
 import net.jeeeyul.eclipse.themes.preference.actions.UserPresetItems
 import net.jeeeyul.eclipse.themes.preference.preset.IJTPresetManager
 import net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer
@@ -33,7 +34,6 @@ import org.eclipse.swt.widgets.ToolItem
 import org.eclipse.ui.IWorkbench
 import org.eclipse.ui.IWorkbenchPreferencePage
 import org.eclipse.ui.progress.UIJob
-import net.jeeeyul.eclipse.themes.preference.actions.ShowEPFAction
 
 class JTPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 	public static val String ID = typeof(JTPreferencePage).canonicalName
@@ -58,10 +58,6 @@ class JTPreferencePage extends PreferencePage implements IWorkbenchPreferencePag
 		pages += new OthersPage
 		pages += new ToolsPage
 		pages += new UserCSSPage
-
-		if(!Platform.running || Platform.inDebugMode || Platform.inDevelopmentMode) {
-			pages += new DebugPage
-		}
 	}
 
 	override init(IWorkbench workbench) {
