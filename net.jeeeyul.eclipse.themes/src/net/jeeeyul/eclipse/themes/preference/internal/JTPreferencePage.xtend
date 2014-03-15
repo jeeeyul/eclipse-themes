@@ -13,12 +13,14 @@ import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore
 import net.jeeeyul.eclipse.themes.preference.actions.AddUserPresetAction
 import net.jeeeyul.eclipse.themes.preference.actions.ContributedPresetItems
 import net.jeeeyul.eclipse.themes.preference.actions.ManagePresetAction
+import net.jeeeyul.eclipse.themes.preference.actions.ShowCSSAction
 import net.jeeeyul.eclipse.themes.preference.actions.UserPresetItems
 import net.jeeeyul.eclipse.themes.preference.preset.IJTPresetManager
 import net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer
 import net.jeeeyul.swtend.SWTExtensions
 import org.eclipse.core.runtime.Platform
 import org.eclipse.jface.action.MenuManager
+import org.eclipse.jface.action.Separator
 import org.eclipse.jface.preference.PreferenceDialog
 import org.eclipse.jface.preference.PreferenceManager
 import org.eclipse.jface.preference.PreferenceNode
@@ -31,6 +33,7 @@ import org.eclipse.swt.widgets.ToolItem
 import org.eclipse.ui.IWorkbench
 import org.eclipse.ui.IWorkbenchPreferencePage
 import org.eclipse.ui.progress.UIJob
+import net.jeeeyul.eclipse.themes.preference.actions.ShowEPFAction
 
 class JTPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 	public static val String ID = typeof(JTPreferencePage).canonicalName
@@ -141,6 +144,9 @@ class JTPreferencePage extends PreferencePage implements IWorkbenchPreferencePag
 						add(new UserPresetItems(this))
 					])
 			}
+			add(new Separator)
+			add(new ShowCSSAction(this))
+			add(new ShowEPFAction(this))
 		]
 	}
 

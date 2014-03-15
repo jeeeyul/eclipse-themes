@@ -1,14 +1,13 @@
 package net.jeeeyul.eclipse.themes.preference.internal
 
-import net.jeeeyul.eclipse.themes.preference.internal.JTPUtil
-import net.jeeeyul.eclipse.themes.preference.internal.PreperencePageHelper
+import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore
 import net.jeeeyul.eclipse.themes.rendering.JTabSettings
 import net.jeeeyul.swtend.SWTExtensions
+import org.eclipse.jface.preference.PreferenceStore
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.CTabFolder
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Text
-import org.eclipse.jface.preference.PreferenceStore
 
 class DebugPage extends AbstractJTPreferencePage {
 	Text epfView
@@ -31,7 +30,7 @@ class DebugPage extends AbstractJTPreferencePage {
 	}
 
 	override updatePreview(CTabFolder folder, JTabSettings renderSettings, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
-		var fakeStore = new net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore(new PreferenceStore ( ) )
+		var fakeStore = new JThemePreferenceStore(new PreferenceStore)
 		rootPage.saveTo(fakeStore)
 
 		epfView.text = '''
@@ -41,10 +40,10 @@ class DebugPage extends AbstractJTPreferencePage {
 		'''
 	}
 
-	override load(net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore store, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
+	override load(JThemePreferenceStore store, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
 	}
 
-	override save(net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore store, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
+	override save(JThemePreferenceStore store, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
 	}
 
 	override dispose(extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {

@@ -15,12 +15,35 @@ class CustomThemeGenerator {
 		}
 		this.store = store
 	}
-
-	def String generate() '''
+	
+	def String generate()'''
+		«header»
+		
+		«body»
+	'''
+	
+	def private String header() '''
 		.jeeeyul-custom-theme{
 			/* This class must be exists on first. */
 		}
-		
+	'''
+	
+	def private String body() {
+		try{
+			return doGenerateBody()
+		}catch(Exception e){
+			'''
+				/*
+				«e.class.name»: «e.message»
+					«FOR each : e.stackTrace»
+						at «each.className».«each.methodName» («each.fileName» : «each.lineNumber»)
+					«ENDFOR»
+				*/
+			'''
+		}
+	}
+
+	def private String doGenerateBody() '''
 		«comment("Window")»
 		.MTrimmedWindow.topLevel {
 			margin-left: 2px;
@@ -324,11 +347,7 @@ class CustomThemeGenerator {
 				jtab-shadow-color: «store.getHSB(JTPConstants.Layout.SHADOW_COLOR).toHTMLCode»;
 				jtab-shadow-position: 1px 1px;
 				jtab-shadow-radius: 3px;
-				jtab-padding : 
-					«store.getInt(JTPConstants.Layout.CONTENT_PADDING)»px 
-					«store.getInt(JTPConstants.Layout.CONTENT_PADDING)»px 
-					«store.getInt(JTPConstants.Layout.CONTENT_PADDING) + 2»px 
-					«store.getInt(JTPConstants.Layout.CONTENT_PADDING) + 2»px;
+				jtab-padding : «store.getInt(JTPConstants.Layout.CONTENT_PADDING)»px «store.getInt(JTPConstants.Layout.CONTENT_PADDING)»px «store.getInt(JTPConstants.Layout.CONTENT_PADDING) + 2»px «store.getInt(JTPConstants.Layout.CONTENT_PADDING) + 2»px;
 			«ELSE»
 				jtab-margin : 0px;
 				jtab-shadow-color: none;

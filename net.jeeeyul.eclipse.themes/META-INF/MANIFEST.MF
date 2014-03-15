@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Jeeeyul's Eclipse Themes
 Bundle-SymbolicName: net.jeeeyul.eclipse.themes;singleton:=true
-Bundle-Version: 2.1.0.qualifier
+Bundle-Version: 2.1.1.qualifier
 Bundle-Activator: net.jeeeyul.eclipse.themes.JThemesCore
 Bundle-Vendor: jeeeyul@gmail.com
 Require-Bundle: org.eclipse.ui,
@@ -26,8 +26,8 @@ Bundle-ClassPath: .,
  lib/com.google.guava_10.0.1.v201203051515.jar,
  lib/org.eclipse.xtend.lib_2.5.1.v201401280830.jar,
  lib/org.eclipse.xtext.xbase.lib_2.5.1.v201401280830.jar
+Import-Package: javax.annotation;version="1.1.0"
 Export-Package: net.jeeeyul.eclipse.themes,
  net.jeeeyul.eclipse.themes.preference,
  net.jeeeyul.eclipse.themes.preference.preset,
  net.jeeeyul.eclipse.themes.rendering
-Import-Package: javax.annotation;version="1.1.0"
