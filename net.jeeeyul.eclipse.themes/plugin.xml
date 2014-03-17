@@ -246,25 +246,26 @@
                visible="true">
          </separator>
          <menu
+               id="net.jeeeyul.eclipse.themes.contact"
                label="Contact">
             <command
                   commandId="net.jeeeyul.eclipse.themes.command.open.url"
                   icon="icons/github.png"
-                  label="Issues"
+                  label="Homepage"
                   style="push">
                <parameter
                      name="url"
-                     value="https://github.com/jeeeyul/eclipse-themes/issues">
+                     value="https://github.com/jeeeyul/eclipse-themes">
                </parameter>
             </command>
             <command
                   commandId="net.jeeeyul.eclipse.themes.command.open.url"
-                  icon="icons/pledgie.png"
-                  label="Donate"
+                  icon="icons/note.gif"
+                  label="Release Note"
                   style="push">
                <parameter
                      name="url"
-                     value="https://pledgie.com/campaigns/18377">
+                     value="https://github.com/jeeeyul/eclipse-themes/wiki/Release-Note">
                </parameter>
             </command>
             <command
@@ -275,6 +276,20 @@
                <parameter
                      name="url"
                      value="http://marketplace.eclipse.org/content/jeeeyuls-eclipse-themes">
+               </parameter>
+            </command>
+            <separator
+                  name="additions"
+                  visible="true">
+            </separator>
+            <command
+                  commandId="net.jeeeyul.eclipse.themes.command.open.url"
+                  icon="icons/pledgie.png"
+                  label="Donate"
+                  style="push">
+               <parameter
+                     name="url"
+                     value="https://pledgie.com/campaigns/18377">
                </parameter>
             </command>
          </menu>

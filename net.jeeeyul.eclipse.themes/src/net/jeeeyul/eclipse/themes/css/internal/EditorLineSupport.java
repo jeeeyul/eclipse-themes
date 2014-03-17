@@ -138,6 +138,7 @@ public class EditorLineSupport {
 		swtToolkit.safeDispose(backgroundImage);
 		if (lineStyle == SWT.NONE) {
 			client.setBackgroundImage(null);
+			dispose();
 		} else {
 			backgroundImage = createNewBackgroundImage();
 			client.setBackgroundImage(backgroundImage);
