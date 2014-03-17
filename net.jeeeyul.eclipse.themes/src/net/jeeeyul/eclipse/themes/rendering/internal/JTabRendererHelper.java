@@ -213,7 +213,7 @@ public class JTabRendererHelper {
 	public GC fillGradientRectangle(GC gc, Rectangle bounds, HSB[] hsbs, int[] percents, boolean vertical) {
 		Color[] colors = new Color[hsbs.length];
 		for (int i = 0; i < hsbs.length; i++) {
-			colors[i] = SWTExtensions.INSTANCE.toAutoReleaseColor(hsbs[i]);
+			colors[i] = SWTExtensions.INSTANCE.toAutoDisposeColor(hsbs[i]);
 		}
 
 		SWTExtensions.INSTANCE.fillGradientRectangle(gc, bounds, colors, percents, vertical);

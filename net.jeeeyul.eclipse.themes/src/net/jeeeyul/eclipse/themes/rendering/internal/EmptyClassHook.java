@@ -8,9 +8,6 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.e4.ui.css.swt.theme.IThemeEngine;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
-import org.eclipse.swt.custom.CTabFolder2Adapter;
-import org.eclipse.swt.custom.CTabFolder2Listener;
-import org.eclipse.swt.custom.CTabFolderEvent;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
@@ -24,20 +21,13 @@ import org.eclipse.ui.progress.UIJob;
  */
 @SuppressWarnings("restriction")
 public class EmptyClassHook {
-
 	private CTabFolder folder;
 	private boolean isDisposed = false;
-
-	private CTabFolder2Listener adapter = new CTabFolder2Adapter() {
-		public void close(CTabFolderEvent event) {
-			computeJob.schedule();
-		};
-	};
 
 	private Listener selectionHook = new Listener() {
 		@Override
 		public void handleEvent(Event event) {
-			computeJob.schedule();
+			getComputeJob().schedule();
 		}
 	};
 
@@ -46,19 +36,8 @@ public class EmptyClassHook {
 	public EmptyClassHook(CTabFolder folder) {
 		this.folder = folder;
 
-		computeJob = new UIJob(Display.getDefault(), "Update Empty Class") {
-			public IStatus runInUIThread(IProgressMonitor monitor) {
-				computeEmptyClass();
-				return Status.OK_STATUS;
-			};
-		};
-		computeJob.setUser(false);
-		computeJob.setSystem(true);
-
-		folder.addCTabFolder2Listener(adapter);
-		folder.addListener(SWT.Selection, selectionHook);
-
-		computeJob.schedule();
+		folder.addListener(SWT.Paint, selectionHook);
+		getComputeJob().schedule();
 	}
 
 	private void computeEmptyClass() {
@@ -93,11 +72,26 @@ public class EmptyClassHook {
 			return;
 		}
 		if (folder != null && !folder.isDisposed()) {
-			folder.removeCTabFolder2Listener(adapter);
-			folder.removeListener(SWT.Selection, selectionHook);
+			folder.removeListener(SWT.Paint, selectionHook);
 		}
 
 		isDisposed = true;
+	}
+
+	private UIJob getComputeJob() {
+		if (computeJob == null) {
+			computeJob = new UIJob(Display.getDefault(), "Update Empty Class") {
+				public IStatus runInUIThread(IProgressMonitor monitor) {
+					if (!isDisposed) {
+						computeEmptyClass();
+					}
+					return Status.OK_STATUS;
+				};
+			};
+			computeJob.setUser(false);
+			computeJob.setSystem(true);
+		}
+		return computeJob;
 	}
 
 	private IThemeEngine getThemeEngine() {

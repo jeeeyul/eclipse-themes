@@ -80,7 +80,7 @@ public class EditorLineSupport {
 		GC gc = new GC(image);
 		gc.setBackground(client.getBackground());
 		gc.fillRectangle(0, 0, width, height);
-		gc.setForeground(SWTExtensions.INSTANCE.toAutoReleaseColor(lineColor));
+		gc.setForeground(SWTExtensions.INSTANCE.toAutoDisposeColor(lineColor));
 		gc.setAntialias(SWT.OFF);
 		switch (lineStyle) {
 		case SWT.LINE_DASH:
