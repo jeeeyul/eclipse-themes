@@ -48,7 +48,8 @@ class JTPreferencePage extends PreferencePage implements IWorkbenchPreferencePag
 	MenuManager menuManager
 
 	UIJob updatePreviewJob = newUIJob[
-		doUpdatePreview()
+		if(control.alive)
+			doUpdatePreview()
 	]
 
 	new() {
@@ -221,9 +222,14 @@ class JTPreferencePage extends PreferencePage implements IWorkbenchPreferencePag
 	}
 
 	def void doUpdatePreview() {
+		if(!control.alive){
+			return
+		}
+		
 		for (p : pages) {
 			p.updatePreview()
 		}
+		
 		rootView.layout(#[folder])
 	}
 

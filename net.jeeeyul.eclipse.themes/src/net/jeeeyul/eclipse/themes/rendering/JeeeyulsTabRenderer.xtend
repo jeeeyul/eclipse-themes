@@ -584,7 +584,10 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 					corner.relocateTopLeftWith(outlineOffset)
 					lineTo(corner.top)
 
-					if(settings.borderColors != null && item != parent.firstVisibleItem) {
+					if(
+						settings.borderColors == null ||
+						settings.borderColors != null && item != parent.firstVisibleItem
+					) {
 						addArc(corner, 90, 90)
 						lineTo(outlineOffset.x, keyLineY)
 						if(state.hasFlags(SWT.SELECTED)) {

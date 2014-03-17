@@ -346,6 +346,14 @@
          </description>
       </preset>
       <preset
+            epf="presets/Glossy Ocean.epf"
+            id="net.jeeeyul.eclipse.themes.preset.glossy.ocean"
+            name="Glossy Ocean">
+         <description>
+            Default Preset
+         </description>
+      </preset>
+      <preset
             epf="presets/Adwaita.epf"
             id="net.jeeeyul.eclipse.themes.preset.adwaita"
             name="Adwaita">
