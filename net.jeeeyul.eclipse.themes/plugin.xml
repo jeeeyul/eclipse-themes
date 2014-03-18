@@ -204,7 +204,8 @@
             allPopups="false"
             locationURI="toolbar:org.eclipse.ui.main.toolbar">
          <toolbar
-               id="net.jeeeyul.eclipse.themes.toolbar">
+               id="net.jeeeyul.eclipse.themes.toolbar"
+               label="Jeeeyul&apos;s Eclipse Themes">
             <command
                   commandId="org.eclipse.ui.window.preferences"
                   icon="icons/jtheme.png"
