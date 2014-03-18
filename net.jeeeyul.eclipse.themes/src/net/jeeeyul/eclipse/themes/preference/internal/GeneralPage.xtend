@@ -14,6 +14,7 @@ import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Label
 import org.eclipse.swt.widgets.Spinner
+import org.eclipse.swt.program.Program
 
 /**
  * @since 2.0
@@ -106,13 +107,6 @@ class GeneralPage extends AbstractJTPreferencePage {
 					]
 					onModified = [requestFastUpdatePreview()]
 				]
-				newCLabel[
-					image = SharedImages.getImage(SharedImages.INFO_TSK)
-					text = "Casting shadow requires 6 or more spacing."
-					layoutData = newGridData[
-						horizontalSpan = 3
-					]
-				]
 				newLabel[text = "Part Stack Spacing"]
 				partStackSpacingEdit = newSpinner[
 					minimum = 0
@@ -126,6 +120,15 @@ class GeneralPage extends AbstractJTPreferencePage {
 				partStackSpacingRangeLabel = newLabel[
 					text = "2px ~ 10px"
 					foreground = COLOR_DARK_GRAY
+				]
+			]
+			newLink[
+				text = '''
+					Part Stack Spacing x 0.5 will be used as window margins.
+					Margins of window requires <a href="https://github.com/jeeeyul/eclipse-themes/wiki/Settings-that-require-opening-a-new-window">opening new window to take full effect</a>.
+				'''
+				onSelection = [
+					Program.launch(it.text)
 				]
 			]
 		]
@@ -142,7 +145,7 @@ class GeneralPage extends AbstractJTPreferencePage {
 				minimum = 2
 			]
 		}
-		
+
 		partStackSpacingRangeLabel.text = '''«partStackSpacingEdit.minimum» ~ «partStackSpacingEdit.maximum»px'''
 	}
 
