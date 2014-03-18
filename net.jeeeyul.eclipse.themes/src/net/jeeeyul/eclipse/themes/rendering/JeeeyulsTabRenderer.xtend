@@ -182,7 +182,9 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	}
 
 	def private doDraw(int part, int state, Rectangle bounds, GC gc) {
+		gc.advanced = true
 		gc.antialias = SWT.ON
+		gc.interpolation = SWT.HIGH
 		gc.lineJoin = SWT.JOIN_ROUND
 		gc.alpha = 255
 		gc.fillRule = SWT.FILL_WINDING
@@ -359,7 +361,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 	protected def drawTabBody(int part, int state, Rectangle bounds, GC gc) {
 		var oldClipping = gc.clipping
-		gc.clipping = bounds
+		gc.clipping = bounds.expand(settings.borderRadius * 2)
 
 		// Fill Background
 		if(state.hasFlags(SWT.BACKGROUND)) {
@@ -373,7 +375,10 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			val path = newTemporaryPath[
 				if(settings.borderRadius > 0) {
 					if(parent.onTop) {
-						val offset = tabArea.getResized(0, -1)
+						val offset = tabArea
+						if(settings.borderColors != null){
+							offset.resize(0, -1)
+						}
 						var box = newRectangleWithSize(settings.borderRadius * 2)
 						moveTo(offset.x, parent.tabHeight)
 						lineTo(offset.x + offset.width, parent.tabHeight)
@@ -396,6 +401,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				gc.background = #[tabFolder.selectionGradientColor?.last, tabFolder.selectionBackground].findFirst[it != null]
 			else
 				gc.background = #[tabFolder.gradientColor?.last, tabFolder.background].findFirst[it != null]
+			
 			gc.fill(path)
 		}
 
