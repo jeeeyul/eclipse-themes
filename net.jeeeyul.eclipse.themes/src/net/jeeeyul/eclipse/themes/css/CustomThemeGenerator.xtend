@@ -4,7 +4,6 @@ import net.jeeeyul.eclipse.themes.preference.JTPConstants
 import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore
 import org.eclipse.swt.SWT
 import org.eclipse.swt.graphics.Point
-import org.eclipse.swt.graphics.Rectangle
 
 class CustomThemeGenerator {
 	@Property JThemePreferenceStore store
@@ -15,23 +14,23 @@ class CustomThemeGenerator {
 		}
 		this.store = store
 	}
-	
-	def String generate()'''
+
+	def String generate() '''
 		«header»
 		
 		«body»
 	'''
-	
+
 	def private String header() '''
 		.jeeeyul-custom-theme{
 			/* This class must be exists on first. */
 		}
 	'''
-	
+
 	def private String body() {
-		try{
+		try {
 			return doGenerateBody()
-		}catch(Exception e){
+		} catch(Exception e) {
 			'''
 				/*
 				«e.class.name»: «e.message»
@@ -46,25 +45,15 @@ class CustomThemeGenerator {
 	def private String doGenerateBody() '''
 		«comment("Window")»
 		.MTrimmedWindow.topLevel {
-			margin-left: 2px;
-			«IF store.getBoolean(JTPConstants.Layout.SHOW_SHADOW)»
-				margin-top: 4px;
-				margin-right: 2px;
-				margin-bottom: 0px;
-			«ELSE»
-				margin-top: 3px;
-				margin-right: 0px;
-				margin-bottom: 3px;
-			«ENDIF»
+			margin-top: «windowTopLeftMargin»px;
+			margin-right: «windowBottomRightMargin»px;
+			margin-bottom: «windowBottomRightMargin»px;
+			margin-left: «windowTopLeftMargin»px;
 			background-color: «store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»;
 		}
 		
 		.MPartSashContainer {
-			«IF store.getBoolean(JTPConstants.Layout.SHOW_SHADOW)»
-				jsash-width: 2px;
-			«ELSE»
-				jsash-width: 4px;
-			«ENDIF»
+			jsash-width : «partSpacing»px;
 		}
 		
 		«IF linux»
@@ -367,21 +356,20 @@ class CustomThemeGenerator {
 		«store.getString(JTPConstants.Others.USER_CSS)»
 	'''
 
-	def comment(String comment) '''
+	def private comment(String comment) '''
 		/**************************************************
 		 * «comment»
 		 **************************************************/
 	'''
 
-	def toInsetCSS(Rectangle r) '''«r.y»px «r.width»px «r.height»px «r.x»px'''
 
-	def toCSS(Point point) '''«point.x»px «point.y»px'''
+	def private toCSS(Point point) '''«point.x»px «point.y»px'''
 
-	def boolean isEmpty(Point point) {
+	def private boolean isEmpty(Point point) {
 		return point.x == 0 && point.y == 0
 	}
 
-	def getLineStyle(JThemePreferenceStore store, String key) {
+	def private getLineStyle(JThemePreferenceStore store, String key) {
 		switch (store.getInt(key)) {
 			case SWT.LINE_SOLID: "solid"
 			case SWT.LINE_DASH: "dashed"
@@ -389,16 +377,37 @@ class CustomThemeGenerator {
 			default: "none"
 		}
 	}
-	
-	def boolean isLinux(){
+
+	def private boolean isLinux() {
 		System.getProperty("os.name").startsWith("Linux")
 	}
-	
-	def toolbarHeight(){
-		if(System.getProperty("os.name").startsWith("Linux")){
+
+	def private toolbarHeight() {
+		if(System.getProperty("os.name").startsWith("Linux")) {
 			return 33
-		}else{
+		} else {
 			return 22
 		}
+	}
+
+	def private windowTopLeftMargin() {
+		var offset = store.getInt(JTPConstants.Layout.PART_STACK_SPACING)
+		return offset / 2
+	}
+
+	def private windowBottomRightMargin() {
+		var offset = store.getInt(JTPConstants.Layout.PART_STACK_SPACING)
+		if(store.getBoolean(JTPConstants.Layout.SHOW_SHADOW)) {
+			offset = offset - 4
+		}
+		return Math.max(offset, 0) / 2
+	}
+	
+	def private partSpacing(){
+		var offset = store.getInt(JTPConstants.Layout.PART_STACK_SPACING)
+		if(store.getBoolean(JTPConstants.Layout.SHOW_SHADOW)) {
+			offset = offset - 4
+		}
+		return Math.max(offset, 0)
 	}
 }

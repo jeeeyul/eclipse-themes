@@ -8,7 +8,12 @@ import net.jeeeyul.swtend.SWTExtensions
 import net.jeeeyul.swtend.ui.ColorWell
 import net.jeeeyul.swtend.ui.GradientEdit
 import org.eclipse.swt.custom.CTabFolder
+import org.eclipse.swt.graphics.Point
+import org.eclipse.swt.graphics.Rectangle
+import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Composite
+import org.eclipse.swt.widgets.Label
+import org.eclipse.swt.widgets.Spinner
 
 /**
  * @since 2.0
@@ -19,6 +24,11 @@ class GeneralPage extends AbstractJTPreferencePage {
 	GradientEdit perspectiveSwitcherEdit
 	ColorWell perspectiveSwitcherKeyLineColorWell
 	ColorWell backgroundEdit
+
+	Button castShadowEdit
+	ColorWell shadowColorWell
+	Spinner partStackSpacingEdit
+	Label partStackSpacingRangeLabel
 
 	new() {
 		super("General")
@@ -77,10 +87,76 @@ class GeneralPage extends AbstractJTPreferencePage {
 					]
 				]
 			]
+			newGroup[
+				text = "Part Stack Spacing (Sash)"
+				layoutData = FILL_HORIZONTAL
+				layout = newGridLayout[
+					numColumns = 3
+				]
+				castShadowEdit = newCheckbox[
+					text = "Cast Shadow"
+					onSelection = [
+						updatePartStackSpacingRange()
+						requestUpdatePreview()
+					]
+				]
+				shadowColorWell = newColorWell[
+					layoutData = newGridData[
+						horizontalSpan = 2
+					]
+					onModified = [requestFastUpdatePreview()]
+				]
+				newCLabel[
+					image = SharedImages.getImage(SharedImages.INFO_TSK)
+					text = "Casting shadow requires 6 or more spacing."
+					layoutData = newGridData[
+						horizontalSpan = 3
+					]
+				]
+				newLabel[text = "Part Stack Spacing"]
+				partStackSpacingEdit = newSpinner[
+					minimum = 0
+					maximum = 10
+					selection = 2
+					onSelection = [requestFastUpdatePreview()]
+					layoutData = newGridData[
+						widthHint = 40
+					]
+				]
+				partStackSpacingRangeLabel = newLabel[
+					text = "2px ~ 10px"
+					foreground = COLOR_DARK_GRAY
+				]
+			]
 		]
 	}
 
+	private def void updatePartStackSpacingRange() {
+		if(castShadowEdit.selection) {
+			partStackSpacingEdit => [
+				minimum = 6
+				selection = Math.max(selection, 4)
+			]
+		} else {
+			partStackSpacingEdit => [
+				minimum = 2
+			]
+		}
+		
+		partStackSpacingRangeLabel.text = '''«partStackSpacingEdit.minimum» ~ «partStackSpacingEdit.maximum»px'''
+	}
+
 	override updatePreview(CTabFolder folder, JTabSettings renderSettings, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
+		if(castShadowEdit.selection) {
+			renderSettings.margins = new Rectangle(1, 0, 4, 4)
+			renderSettings.shadowColor = shadowColorWell.selection
+			renderSettings.shadowPosition = new Point(1, 1)
+			renderSettings.shadowRadius = 3
+		} else {
+			renderSettings.margins = new Rectangle(0, 0, 0, 0)
+			renderSettings.shadowColor = null
+			renderSettings.shadowRadius = 0
+		}
 	}
 
 	override load(JThemePreferenceStore store, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
@@ -108,6 +184,15 @@ class GeneralPage extends AbstractJTPreferencePage {
 		if(psKeyline != null) {
 			this.perspectiveSwitcherKeyLineColorWell.selection = psKeyline
 		}
+
+		this.castShadowEdit.selection = store.getBoolean(JTPConstants.Layout.SHOW_SHADOW)
+		val shadowColor = store.getHSB(JTPConstants.Layout.SHADOW_COLOR)
+		if(shadowColor != null)
+			this.shadowColorWell.selection = shadowColor
+
+		partStackSpacingEdit.selection = store.getInt(JTPConstants.Layout.PART_STACK_SPACING)
+		updatePartStackSpacingRange()
+
 	}
 
 	override save(JThemePreferenceStore store, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
@@ -116,6 +201,10 @@ class GeneralPage extends AbstractJTPreferencePage {
 		store.setValue(JTPConstants.Window.BACKGROUND_COLOR, this.backgroundEdit.selection)
 		store.setValue(JTPConstants.Window.PERSPECTIVE_SWITCHER_FILL_COLOR, this.perspectiveSwitcherEdit.selection)
 		store.setValue(JTPConstants.Window.PERSPECTIVE_SWITCHER_KEY_LINE_COLOR, this.perspectiveSwitcherKeyLineColorWell.selection)
+
+		store.setValue(JTPConstants.Layout.PART_STACK_SPACING, partStackSpacingEdit.selection)
+		store.setValue(JTPConstants.Layout.SHOW_SHADOW, castShadowEdit.selection)
+		store.setValue(JTPConstants.Layout.SHADOW_COLOR, shadowColorWell.selection)
 	}
 
 	override dispose(extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {

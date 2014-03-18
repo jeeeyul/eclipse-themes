@@ -5,20 +5,14 @@ import net.jeeeyul.eclipse.themes.preference.JTPConstants
 import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore
 import net.jeeeyul.eclipse.themes.rendering.JTabSettings
 import net.jeeeyul.swtend.SWTExtensions
-import net.jeeeyul.swtend.ui.ColorWell
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.CTabFolder
-import org.eclipse.swt.graphics.Point
-import org.eclipse.swt.graphics.Rectangle
-import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Event
 import org.eclipse.swt.widgets.Spinner
 
 class LayoutPage extends AbstractJTPreferencePage {
 	extension OSHelper = OSHelper.INSTANCE
-	Button castShadowButton
-	ColorWell shadowColorWell
 	Spinner borderRadiusScale
 	Spinner paddingsScale
 	Spinner tabItemPaddingsScale
@@ -125,31 +119,10 @@ class LayoutPage extends AbstractJTPreferencePage {
 				text = '''«minimumTabHeight» ~ 40px'''
 				foreground = COLOR_DARK_GRAY
 			]
-			
-			castShadowButton = newCheckbox[
-				text = "Cast Shadow"
-				onSelection = [requestUpdatePreview()]
-			]
-			shadowColorWell = newColorWell[
-				onModified = [
-					requestFastUpdatePreview()
-				]
-			]
 		]
 	}
 
 	override updatePreview(CTabFolder folder, JTabSettings renderSettings, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
-		if(castShadowButton.selection) {
-			renderSettings.margins = new Rectangle(1, 0, 4, 4)
-			renderSettings.shadowColor = shadowColorWell.selection
-			renderSettings.shadowPosition = new Point(1, 1)
-			renderSettings.shadowRadius = 3
-		} else {
-			renderSettings.margins = new Rectangle(0, 0, 0, 0)
-			renderSettings.shadowColor = null
-			renderSettings.shadowRadius = 0
-		}
-
 		renderSettings.borderRadius = borderRadiusScale.selection
 		renderSettings.paddings = newInsets(paddingsScale.selection)
 		renderSettings.tabItemPaddings = newInsets(tabItemPaddingsScale.selection)
@@ -165,11 +138,6 @@ class LayoutPage extends AbstractJTPreferencePage {
 		this.borderRadiusScale.selection = store.getInt(JTPConstants.Layout.BORDER_RADIUS)
 		this.paddingsScale.selection = store.getInt(JTPConstants.Layout.CONTENT_PADDING)
 		this.tabHeightScale.selection = Math.max(store.getInt(JTPConstants.Layout.TAB_HEIGHT), minimumTabHeight)
-		this.castShadowButton.selection = store.getBoolean(JTPConstants.Layout.SHOW_SHADOW)
-
-		val shadowColor = store.getHSB(JTPConstants.Layout.SHADOW_COLOR)
-		if(shadowColor != null)
-			this.shadowColorWell.selection = shadowColor
 
 		this.tabSpacingScale.selection = store.getInt(JTPConstants.Layout.TAB_SPACING)
 
@@ -181,8 +149,6 @@ class LayoutPage extends AbstractJTPreferencePage {
 		store.setValue(JTPConstants.Layout.BORDER_RADIUS, this.borderRadiusScale.selection)
 		store.setValue(JTPConstants.Layout.CONTENT_PADDING, this.paddingsScale.selection)
 		store.setValue(JTPConstants.Layout.TAB_HEIGHT, this.tabHeightScale.selection)
-		store.setValue(JTPConstants.Layout.SHOW_SHADOW, this.castShadowButton.selection)
-		store.setValue(JTPConstants.Layout.SHADOW_COLOR, this.shadowColorWell.selection)
 		store.setValue(JTPConstants.Layout.TAB_SPACING, this.tabSpacingScale.selection)
 		store.setValue(JTPConstants.Layout.TAB_ITEM_PADDING, this.tabItemPaddingsScale.selection)
 		store.setValue(JTPConstants.Layout.TAB_ITEM_SPACING, this.tabItemSpacingScale.selection)

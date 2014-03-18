@@ -318,6 +318,9 @@ public interface JTPConstants {
 
 		@TypeHint(HSB.class)
 		public static final String SHADOW_COLOR = PREFIX + CATEGORY_SEPARATOR + "SHADOW_COLOR";
+		
+		@TypeHint(int.class)
+		public static final String PART_STACK_SPACING = PREFIX + CATEGORY_SEPARATOR + "PART_STACK_SPACING";
 	}
 
 	public static interface Window {
