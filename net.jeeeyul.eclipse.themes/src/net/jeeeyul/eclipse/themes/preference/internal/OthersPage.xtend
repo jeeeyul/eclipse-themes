@@ -13,7 +13,7 @@ class OthersPage extends AbstractJTPreferencePage {
 
 	new() {
 		super("Others")
-		this.image = SharedImages.getImage(SharedImages.EDITOR_AREA)
+		this.image = SharedImages.getImage(SharedImages.FILE)
 	}
 
 	LineStyleEditor underLineStyleEdit

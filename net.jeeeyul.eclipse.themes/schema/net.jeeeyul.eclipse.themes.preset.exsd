@@ -79,6 +79,16 @@
                </appinfo>
             </annotation>
          </attribute>
+         <attribute name="icon" type="string">
+            <annotation>
+               <documentation>
+                  Specifies unique icon for this preset. The size of icon should be 16x16. If not specified, an icon will be automatically generated based on it&apos;s preset content.
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="resource"/>
+               </appinfo>
+            </annotation>
+         </attribute>
       </complexType>
    </element>
 

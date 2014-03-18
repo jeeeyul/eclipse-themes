@@ -1,5 +1,6 @@
 package net.jeeeyul.eclipse.themes.preference.actions;
 
+import net.jeeeyul.eclipse.themes.SharedImages;
 import net.jeeeyul.eclipse.themes.preference.internal.JTPreferencePage;
 import net.jeeeyul.eclipse.themes.preference.preset.internal.JTPresetPreferencePage;
 
@@ -10,6 +11,7 @@ public class ManagePresetAction extends AbstractPreferenceAction {
 	public ManagePresetAction(JTPreferencePage page) {
 		super(page);
 		setText("Mange Presets...");
+		setImageDescriptor(SharedImages.getImageDescriptor(SharedImages.CONFIGS));
 	}
 	
 	@Override

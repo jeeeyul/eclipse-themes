@@ -3,6 +3,7 @@ package net.jeeeyul.eclipse.themes.preference.actions;
 import java.io.IOException;
 import java.util.Properties;
 
+import net.jeeeyul.eclipse.themes.SharedImages;
 import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore;
 import net.jeeeyul.eclipse.themes.preference.internal.JTPUtil;
 import net.jeeeyul.eclipse.themes.preference.internal.JTPreferencePage;
@@ -18,6 +19,7 @@ public class AddUserPresetAction extends AbstractPreferenceAction {
 	public AddUserPresetAction(JTPreferencePage page) {
 		super(page);
 		setText("Save as new preset");
+		setImageDescriptor(SharedImages.getImageDescriptor(SharedImages.ADD));
 	}
 
 	@Override

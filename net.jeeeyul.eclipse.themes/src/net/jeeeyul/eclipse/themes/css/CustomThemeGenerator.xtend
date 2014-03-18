@@ -16,7 +16,7 @@ class CustomThemeGenerator {
 	}
 
 	def String generate() '''
-		«header»
+		«header» 
 		
 		«body»
 	'''
@@ -45,10 +45,10 @@ class CustomThemeGenerator {
 	def private String doGenerateBody() '''
 		«comment("Window")»
 		.MTrimmedWindow.topLevel {
-			margin-top: «windowTopLeftMargin»px;
-			margin-right: «windowBottomRightMargin»px;
-			margin-bottom: «windowBottomRightMargin»px;
-			margin-left: «windowTopLeftMargin»px;
+			margin-top: «windowMargins.y»px;
+			margin-right: «windowMargins.width»px;
+			margin-bottom: «windowMargins.height»px;
+			margin-left: «windowMargins.x»px;
 			background-color: «store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»;
 		}
 		
@@ -362,7 +362,6 @@ class CustomThemeGenerator {
 		 **************************************************/
 	'''
 
-
 	def private toCSS(Point point) '''«point.x»px «point.y»px'''
 
 	def private boolean isEmpty(Point point) {
@@ -390,21 +389,18 @@ class CustomThemeGenerator {
 		}
 	}
 
-	def private windowTopLeftMargin() {
-		var offset = store.getInt(JTPConstants.Layout.PART_STACK_SPACING)
-		return offset / 2
+	def windowMargins() {
+		var margins = store.getRectangle(JTPConstants.Window.MARGINS)
+		if(store.getBoolean(JTPConstants.Layout.SHOW_SHADOW)) {
+			margins.x = Math.max(margins.x - 1, 0)
+			margins.width = Math.max(margins.width - 4, 0)
+			margins.height = Math.max(margins.height - 4, 0)
+		}
+		return margins
 	}
 
-	def private windowBottomRightMargin() {
-		var offset = store.getInt(JTPConstants.Layout.PART_STACK_SPACING)
-		if(store.getBoolean(JTPConstants.Layout.SHOW_SHADOW)) {
-			offset = offset - 4
-		}
-		return Math.max(offset, 0) / 2
-	}
-	
-	def private partSpacing(){
-		var offset = store.getInt(JTPConstants.Layout.PART_STACK_SPACING)
+	def private partSpacing() {
+		var offset = store.getInt(JTPConstants.Window.SASH_WIDTH)
 		if(store.getBoolean(JTPConstants.Layout.SHOW_SHADOW)) {
 			offset = offset - 4
 		}

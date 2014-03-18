@@ -7,6 +7,7 @@ import net.jeeeyul.swtend.ui.HSB;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 
 /**
  * provides keys for {@link IPreferenceStore} that are used in Jeeeyul's eclipse
@@ -318,9 +319,6 @@ public interface JTPConstants {
 
 		@TypeHint(HSB.class)
 		public static final String SHADOW_COLOR = PREFIX + CATEGORY_SEPARATOR + "SHADOW_COLOR";
-		
-		@TypeHint(int.class)
-		public static final String PART_STACK_SPACING = PREFIX + CATEGORY_SEPARATOR + "PART_STACK_SPACING";
 	}
 
 	public static interface Window {
@@ -341,6 +339,12 @@ public interface JTPConstants {
 
 		@TypeHint(HSB.class)
 		public static final String BACKGROUND_COLOR = PREFIX + CATEGORY_SEPARATOR + "BACKGROUND_COLOR";
+		
+		@TypeHint(int.class)
+		public static final String SASH_WIDTH = PREFIX + CATEGORY_SEPARATOR + "SASH_WIDTH";
+		
+		@TypeHint(Rectangle.class)
+		public static final String MARGINS = PREFIX + CATEGORY_SEPARATOR + "MARGINS";
 	}
 
 	public static interface EmptyPartStack {

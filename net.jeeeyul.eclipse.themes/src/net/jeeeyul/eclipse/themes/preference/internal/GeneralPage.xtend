@@ -30,6 +30,9 @@ class GeneralPage extends AbstractJTPreferencePage {
 	ColorWell shadowColorWell
 	Spinner partStackSpacingEdit
 	Label partStackSpacingRangeLabel
+	
+	Spinner windowMarginsEdit
+	Label windowMarginsRangeLabel
 
 	new() {
 		super("General")
@@ -89,7 +92,7 @@ class GeneralPage extends AbstractJTPreferencePage {
 				]
 			]
 			newGroup[
-				text = "Part Stack Spacing (Sash)"
+				text = "Window Spacing"
 				layoutData = FILL_HORIZONTAL
 				layout = newGridLayout[
 					numColumns = 3
@@ -97,7 +100,7 @@ class GeneralPage extends AbstractJTPreferencePage {
 				castShadowEdit = newCheckbox[
 					text = "Cast Shadow"
 					onSelection = [
-						updatePartStackSpacingRange()
+						updateRangeLabels()
 						requestUpdatePreview()
 					]
 				]
@@ -112,7 +115,6 @@ class GeneralPage extends AbstractJTPreferencePage {
 					minimum = 0
 					maximum = 10
 					selection = 2
-					onSelection = [requestFastUpdatePreview()]
 					layoutData = newGridData[
 						widthHint = 40
 					]
@@ -121,11 +123,25 @@ class GeneralPage extends AbstractJTPreferencePage {
 					text = "2px ~ 10px"
 					foreground = COLOR_DARK_GRAY
 				]
+				
+				newLabel[text = "Margins"]
+				windowMarginsEdit = newSpinner[
+					minimum = 0
+					maximum = 10
+					selection = 4
+					layoutData = newGridData[
+						widthHint = 40
+					]
+				]
+				
+				windowMarginsRangeLabel = newLabel[
+					text = "2px ~ 10px"
+					foreground = COLOR_DARK_GRAY
+				]
 			]
 			newLink[
 				text = '''
-					Part Stack Spacing x 0.5 will be used as window margins.
-					Margins of window requires <a href="https://github.com/jeeeyul/eclipse-themes/wiki/Settings-that-require-opening-a-new-window">opening new window to take full effect</a>.
+					Margins of window requires <a href="https://github.com/jeeeyul/eclipse-themes/wiki/Settings-that-require-opening-a-new-window">opening new window</a> to take full effect.
 				'''
 				onSelection = [
 					Program.launch(it.text)
@@ -134,19 +150,27 @@ class GeneralPage extends AbstractJTPreferencePage {
 		]
 	}
 
-	private def void updatePartStackSpacingRange() {
+	private def void updateRangeLabels() {
 		if(castShadowEdit.selection) {
 			partStackSpacingEdit => [
 				minimum = 6
+				selection = Math.max(selection, 4)
+			]
+			windowMarginsEdit => [
+				minimum = 4
 				selection = Math.max(selection, 4)
 			]
 		} else {
 			partStackSpacingEdit => [
 				minimum = 2
 			]
+			windowMarginsEdit => [
+				minimum = 0
+			]
 		}
 
 		partStackSpacingRangeLabel.text = '''«partStackSpacingEdit.minimum» ~ «partStackSpacingEdit.maximum»px'''
+		windowMarginsRangeLabel.text = '''«windowMarginsEdit.minimum» ~ «windowMarginsEdit.maximum»px'''
 	}
 
 	override updatePreview(CTabFolder folder, JTabSettings renderSettings, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
@@ -193,8 +217,10 @@ class GeneralPage extends AbstractJTPreferencePage {
 		if(shadowColor != null)
 			this.shadowColorWell.selection = shadowColor
 
-		partStackSpacingEdit.selection = store.getInt(JTPConstants.Layout.PART_STACK_SPACING)
-		updatePartStackSpacingRange()
+		partStackSpacingEdit.selection = store.getInt(JTPConstants.Window.SASH_WIDTH)
+		updateRangeLabels()
+		
+		windowMarginsEdit.selection = store.getRectangle(JTPConstants.Window.MARGINS).x
 
 	}
 
@@ -205,9 +231,12 @@ class GeneralPage extends AbstractJTPreferencePage {
 		store.setValue(JTPConstants.Window.PERSPECTIVE_SWITCHER_FILL_COLOR, this.perspectiveSwitcherEdit.selection)
 		store.setValue(JTPConstants.Window.PERSPECTIVE_SWITCHER_KEY_LINE_COLOR, this.perspectiveSwitcherKeyLineColorWell.selection)
 
-		store.setValue(JTPConstants.Layout.PART_STACK_SPACING, partStackSpacingEdit.selection)
+		store.setValue(JTPConstants.Window.SASH_WIDTH, partStackSpacingEdit.selection)
 		store.setValue(JTPConstants.Layout.SHOW_SHADOW, castShadowEdit.selection)
 		store.setValue(JTPConstants.Layout.SHADOW_COLOR, shadowColorWell.selection)
+		
+		var windowMargin = windowMarginsEdit.selection
+		store.setValue(JTPConstants.Window.MARGINS, new Rectangle(windowMargin, windowMargin, windowMargin, windowMargin))
 	}
 
 	override dispose(extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {

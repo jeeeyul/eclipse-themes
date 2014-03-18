@@ -1,5 +1,6 @@
 package net.jeeeyul.eclipse.themes.preference.internal
 
+import net.jeeeyul.eclipse.themes.SharedImages
 import net.jeeeyul.eclipse.themes.preference.JTPConstants
 import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore
 import net.jeeeyul.eclipse.themes.rendering.JTabSettings
@@ -20,6 +21,7 @@ class SpecialPartStackPage extends AbstractJTPreferencePage {
 
 	new() {
 		super("Special")
+		this.image = SharedImages.getImage(SharedImages.MAXMIZE)
 	}
 
 	override createContents(Composite parent, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {

@@ -95,16 +95,16 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 
 	public Gradient getDefaultGradient(String name) {
 		String exp = originalStore.getDefaultString(resolveName(name));
-		if (exp == null) {
-			return null;
+		if (exp == null || exp.isEmpty()) {
+			return new Gradient(HSB.WHITE, HSB.WHITE);
 		}
 		return serializeUtil.deserializeGradient(exp);
 	}
 
 	public HSB getDefaultHSB(String name) {
 		String exp = originalStore.getDefaultString(resolveName(name));
-		if (exp == null) {
-			return null;
+		if (exp == null || exp.isEmpty()) {
+			return HSB.WHITE;
 		}
 		return serializeUtil.desrializeHSB(exp);
 	}
@@ -119,8 +119,8 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 
 	public Point getDefaultPoint(String name) {
 		String exp = originalStore.getDefaultString(resolveName(name));
-		if (exp == null) {
-			return null;
+		if (exp == null || exp.isEmpty()) {
+			return new Point(0, 0);
 		}
 		return serializeUtil.desrializePoint(exp);
 	}
@@ -147,16 +147,16 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 
 	public Gradient getGradient(String name) {
 		String exp = originalStore.getString(resolveName(name));
-		if (exp == null) {
-			return null;
+		if (exp == null || exp.isEmpty()) {
+			return new Gradient(HSB.WHITE, HSB.WHITE);
 		}
 		return serializeUtil.deserializeGradient(exp);
 	}
 
 	public HSB getHSB(String name) {
 		String exp = originalStore.getString(resolveName(name));
-		if (exp == null) {
-			return null;
+		if (exp == null || exp.isEmpty()) {
+			return HSB.RED;
 		}
 		return serializeUtil.desrializeHSB(exp);
 	}
@@ -175,16 +175,16 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 
 	public Point getPoint(String name) {
 		String exp = originalStore.getString(resolveName(name));
-		if (exp == null) {
-			return null;
+		if (exp == null || exp.isEmpty()) {
+			return new Point(0, 0);
 		}
 		return serializeUtil.desrializePoint(exp);
 	}
 
 	public Rectangle getRectangle(String name) {
 		String exp = originalStore.getString(resolveName(name));
-		if (exp == null) {
-			return null;
+		if (exp == null || exp.isEmpty()) {
+			return new Rectangle(0, 0, 0, 0);
 		}
 		return serializeUtil.desrializeRectangle(exp);
 	}

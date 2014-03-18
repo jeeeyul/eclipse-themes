@@ -17,6 +17,7 @@ public class LoadPresetAction extends AbstractPreferenceAction {
 		super(root);
 		this.preset = preset;
 		this.setText(preset.getName());
+		this.setImageDescriptor(preset.getImageDescriptor());
 	}
 
 	@Override

@@ -13,6 +13,7 @@ class ShowCSSAction extends AbstractPreferenceAction {
 	new(JTPreferencePage page) {
 		super(page)
 		this.text = "Show CSS"
+		this.imageDescriptor = SharedImages.getImageDescriptor(SharedImages.CSS)
 	}
 
 	override run() {

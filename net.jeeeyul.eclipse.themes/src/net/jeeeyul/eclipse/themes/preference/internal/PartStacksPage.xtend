@@ -23,8 +23,8 @@ class PartStacksPage extends AbstractJTPreferencePage {
 	PreperencePageHelper helper
 
 	new() {
-		super("Part Stacks")
-		image = SharedImages.getImage(SharedImages.ACTIVE_PART)
+		super("Parts")
+		image = SharedImages.getImage(SharedImages.PART)
 	}
 
 	override init(extension PreperencePageHelper helper) {

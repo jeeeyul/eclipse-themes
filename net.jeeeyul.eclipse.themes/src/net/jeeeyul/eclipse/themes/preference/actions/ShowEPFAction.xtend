@@ -13,6 +13,7 @@ class ShowEPFAction extends AbstractPreferenceAction {
 	new(JTPreferencePage page) {
 		super(page)
 		this.text = "Show EPF"
+		this.imageDescriptor = SharedImages.getImageDescriptor(SharedImages.PROPS)
 	}
 
 	override run() {

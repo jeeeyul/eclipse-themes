@@ -1,5 +1,6 @@
 package net.jeeeyul.eclipse.themes.preference.internal
 
+import net.jeeeyul.eclipse.themes.SharedImages
 import net.jeeeyul.eclipse.themes.internal.OSHelper
 import net.jeeeyul.eclipse.themes.preference.JTPConstants
 import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore
@@ -22,6 +23,7 @@ class LayoutPage extends AbstractJTPreferencePage {
 
 	new() {
 		super("Layout")
+		this.image = SharedImages.getImage(SharedImages.LAYOUT)
 	}
 
 	override createContents(Composite parent, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {

@@ -10,6 +10,7 @@ import org.eclipse.swt.custom.CTabFolder
 import org.eclipse.swt.graphics.Color
 import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Composite
+import net.jeeeyul.eclipse.themes.SharedImages
 
 class PartStackPage extends AbstractJTPreferencePage {
 	Color[] backgroundColors = #[]
@@ -53,6 +54,7 @@ class PartStackPage extends AbstractJTPreferencePage {
 	new(String title, String context) {
 		super(title)
 		this.context = context
+		this.image = SharedImages.getImage(SharedImages.ACTIVE_PART)
 	}
 
 	override createContents(Composite parent, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {

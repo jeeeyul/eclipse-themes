@@ -24,6 +24,7 @@ public class ApplyPresetAction extends Action {
 	public ApplyPresetAction(IJTPreset preset) {
 		this.preset = preset;
 		this.setText(preset.getName());
+		this.setImageDescriptor(preset.getImageDescriptor());
 	}
 
 	@Override
@@ -51,7 +52,5 @@ public class ApplyPresetAction extends Action {
 			MessageDialog.openWarning(Display.getDefault().getActiveShell(), "Jeeeyul's Themes",
 					"A restart or opening new window is required for the theme change to full effect.");
 		}
-
 	}
-
 }

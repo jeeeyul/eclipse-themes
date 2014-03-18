@@ -5,9 +5,11 @@ import java.net.URL;
 import java.util.Properties;
 
 import net.jeeeyul.eclipse.themes.preference.preset.IJTPreset;
+import net.jeeeyul.eclipse.themes.shared.PresetIconGenerator;
 
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.osgi.framework.Bundle;
 
 public class ContributedPreset implements IJTPreset {
@@ -16,12 +18,29 @@ public class ContributedPreset implements IJTPreset {
 	public static final String ATTR_ID = "id";
 	public static final String ATTR_NAME = "name";
 	public static final String ATTR_EPF = "epf";
+	public static final String ATTR_ICON = "icon";
 
 	private IConfigurationElement element;
 	private Properties properties;
+	private ImageDescriptor descriptor;
 
 	public ContributedPreset(IConfigurationElement element) {
 		this.element = element;
+	}
+
+	public ImageDescriptor getImageDescriptor() {
+		if (descriptor == null) {
+			String iconAttr = element.getAttribute(ATTR_ICON);
+			if (iconAttr != null && !iconAttr.isEmpty()) {
+				String contributor = element.getContributor().getName();
+				Bundle bundle = Platform.getBundle(contributor);
+				descriptor = ImageDescriptor.createFromURL(bundle.getResource(iconAttr));
+			} else {
+				descriptor = new PresetIconGenerator().generatedDescriptor(this);
+			}
+		}
+		return descriptor;
+
 	}
 
 	@Override
