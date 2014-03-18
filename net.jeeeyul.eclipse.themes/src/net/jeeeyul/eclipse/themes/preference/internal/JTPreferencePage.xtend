@@ -130,14 +130,12 @@ class JTPreferencePage extends PreferencePage implements IWorkbenchPreferencePag
 	private def createActions() {
 		menuManager => [
 			add(
-				new MenuManager("Preset") => [
-					imageDescriptor = SharedImages.getImageDescriptor(SharedImages.PRESET)
+				new MenuManager("Preset", SharedImages.getImageDescriptor(SharedImages.PRESET), "contributed.preset") => [
 					add(new ContributedPresetItems(this))
 				])
 			if(presetManager != null) {
 				add(
-					new MenuManager("User Preset") => [
-						imageDescriptor = SharedImages.getImageDescriptor(SharedImages.PRESET)
+					new MenuManager("User Preset", SharedImages.getImageDescriptor(SharedImages.PRESET), "user.preset") => [
 						add(new AddUserPresetAction(this))
 						add(new ManagePresetAction(this))
 						add(new UserPresetItems(this))
