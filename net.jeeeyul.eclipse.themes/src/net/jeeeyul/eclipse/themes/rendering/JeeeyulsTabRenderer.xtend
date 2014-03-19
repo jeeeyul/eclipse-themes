@@ -327,7 +327,13 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		if(settings.borderColors != null) {
 			gc.foreground = settings.borderColors.head.toAutoDisposeColor
 			var path = newTemporaryPath[
-				moveTo(headerArea.topLeft.getTranslated(settings.borderRadius, 0))
+				if(parent.simple){
+					moveTo(headerArea.bottomLeft)
+					lineTo(headerArea.topLeft.getTranslated(0, settings.borderRadius))
+					addArc(newRectangleWithSize(settings.borderRadius * 2).relocateTopLeftWith(headerArea), 180, -90)				
+				}else{
+					moveTo(headerArea.topLeft.getTranslated(settings.borderRadius, 0))
+				}
 				lineTo(headerArea.topRight.getTranslated(-settings.borderRadius, 0))
 				addArc(newRectangleWithSize(settings.borderRadius * 2).relocateTopRightWith(headerArea), 90, -90)
 				lineTo(headerArea.bottomRight)
@@ -439,7 +445,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 		// Fill tab item bounds
 		drawTabItemBackground(part, state, itemBounds, gc)
-
+		
 		// Draw Icon
 		var iconArea = if(item.image != null)
 				item.image.bounds.relocateLeftWith(item.bounds).translate(settings.tabItemPaddings.x, 0)
@@ -521,6 +527,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				gc.drawLine(itemBounds.topLeft.getTranslated(-1, 0), itemBounds.topRight.getTranslated(Math.max(settings.tabSpacing, 0) + 1, 0))
 			}
 		}
+
 	}
 
 	protected def void drawTabItemBorder(int part, int state, Rectangle bounds, GC gc) {
