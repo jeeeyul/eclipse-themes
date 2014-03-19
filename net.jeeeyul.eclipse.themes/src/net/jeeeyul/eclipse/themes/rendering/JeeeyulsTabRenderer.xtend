@@ -192,7 +192,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		gc.foreground = tabFolder.foreground
 		gc.lineWidth = 1
 		gc.lineStyle = SWT.LINE_SOLID
-		
+
 		switch (part) {
 			case PART_HEADER: {
 				updateControlBKImages()
@@ -298,27 +298,29 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	}
 
 	protected def drawTabHeader(int part, int state, Rectangle bounds, GC gc) {
-		if(parent.onBottom){
+		if(parent.onBottom) {
 			throw new UnsupportedOperationException
 		}
-		
+
 		val headerArea = getHeaderArea()
-		
+
 		if(tabFolder.gradientColor != null) {
 			gc.fillGradientRoundRectangle(headerArea, settings.borderRadius, CORNER_TOP, tabFolder.gradientColor, tabFolder.gradientPercents, true)
-		}else{
+		} else {
 			gc.background = tabFolder.background
 			gc.fillRoundRectangle(headerArea, settings.borderRadius, CORNER_TOP)
 		}
-		
-		var repair = newRectangle(settings.margins.x + settings.borderRadius, 0, 0, 0)
-		repair.union(parent.size.x, parent.tabHeight + 1)
-		
-		if(parent.simple){
-			repair = newRectangle(0, 0, parent.size.x, parent.tabHeight + 2)
-		}
 
-		draw(PART_BODY, SWT.FOREGROUND, repair, gc)
+		if(settings.borderColors != null) {
+			gc.foreground = settings.borderColors.head.toAutoDisposeColor
+			var path = newTemporaryPath[
+				moveTo(headerArea.topLeft.getTranslated(settings.borderRadius, 0))
+				lineTo(headerArea.topRight.getTranslated(-settings.borderRadius, 0))
+				addArc(newRectangleWithSize(settings.borderRadius * 2).relocateTopRightWith(headerArea), 90, -90)
+				lineTo(headerArea.bottomRight)
+			]
+			gc.drawGradientPath(path, settings.borderColors.toAutoDisposeColors, settings.borderPercents, true)
+		}
 	}
 
 	protected def drawTabBody(int part, int state, Rectangle bounds, GC gc) {
@@ -338,7 +340,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				if(settings.borderRadius > 0) {
 					if(parent.onTop) {
 						val offset = tabArea
-						if(settings.borderColors != null){
+						if(settings.borderColors != null) {
 							offset.resize(0, -1)
 						}
 						var box = newRectangleWithSize(settings.borderRadius * 2)
@@ -363,7 +365,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				gc.background = #[tabFolder.selectionGradientColor?.last, tabFolder.selectionBackground].findFirst[it != null]
 			else
 				gc.background = #[tabFolder.gradientColor?.last, tabFolder.background].findFirst[it != null]
-			
+
 			gc.fill(path)
 		}
 
@@ -475,6 +477,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				]
 			}
 		}
+		gc.lineWidth = 1
 
 		// Draw Text
 		gc.font = if(item.font != null) {
@@ -520,8 +523,20 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		// Draw Border and Keyline
 		drawTabItemBorder(part, state, itemBounds, gc)
 
-		// draw tab border
-		draw(PART_BODY, SWT.FOREGROUND, itemBounds, gc)
+		if(settings.borderColors != null) {
+			if(parent.firstVisibleItem == item) {
+				var path = newTemporaryPath[
+					moveTo(itemBounds.topRight.getTranslated(Math.max(settings.tabSpacing, 0) + 1, 0))
+					lineTo(itemBounds.topLeft.getTranslated(settings.borderRadius, 0))
+					addArc(newRectangle(itemBounds.x, itemBounds.y, settings.borderRadius * 2, settings.borderRadius * 2), 90, 90)
+					lineTo(itemBounds.bottomLeft.getTranslated(0, 1))
+				]
+				gc.drawGradientPath(path, settings.borderColors.toAutoDisposeColors, settings.borderPercents, true)
+			} else {
+				gc.foreground = settings.borderColors.head.toAutoDisposeColor
+				gc.drawLine(itemBounds.topLeft.getTranslated(-1, 0), itemBounds.topRight.getTranslated(Math.max(settings.tabSpacing, 0) + 1, 0))
+			}
+		}
 	}
 
 	protected def void drawTabItemBorder(int part, int state, Rectangle bounds, GC gc) {
@@ -534,52 +549,60 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		val outlineOffset = itemOutlineBounds.shrink(settings.borderWidth / 2)
 		var Path outline = null;
 
-		if(tabFolder.onTop) {
-			outline = newTemporaryPath[
-				var keyLineY = item.bounds.bottom.y - 1
-				if(settings.borderRadius > 0) {
-					var corner = newRectangle(outlineOffset.topLeft, new Point(settings.borderRadius * 2, settings.borderRadius * 2))
-					corner.relocateTopRightWith(outlineOffset)
-
-					if(state.hasFlags(SWT.SELECTED)) {
-						moveTo(tabFolder.size.x - settings.margins.width - settings.borderWidth, keyLineY)
-						lineTo(itemOutlineBounds.bottomRight.x, keyLineY)
-					} else {
-						moveTo(outlineOffset.bottomRight.x, keyLineY)
-					}
-					lineTo(corner.right)
-					addArc(corner, 0, 90)
-					corner.relocateTopLeftWith(outlineOffset)
-					lineTo(corner.top)
-
-					if(
-						settings.borderColors == null ||
-						settings.borderColors != null && item != parent.firstVisibleItem
-					) {
-						addArc(corner, 90, 90)
-						lineTo(outlineOffset.x, keyLineY)
-						if(state.hasFlags(SWT.SELECTED)) {
-							lineTo(settings.margins.x, keyLineY)
-						}
-					}
-				} else {
-					if(state.hasFlags(SWT.SELECTED)) {
-						moveTo(tabFolder.size.x - settings.margins.width - settings.borderWidth, keyLineY)
-						lineTo(itemOutlineBounds.bottomRight.x, keyLineY)
-					} else {
-						moveTo(outlineOffset.bottomRight.x, keyLineY)
-					}
-					lineTo(itemOutlineBounds.topRight)
-					lineTo(itemOutlineBounds.topLeft)
-					lineTo(itemOutlineBounds.bottomLeft.x, keyLineY)
-					if(state.hasFlags(SWT.SELECTED)) {
-						lineTo(settings.margins.x, keyLineY)
-					}
-				}
-			]
-		} else {
+		if(tabFolder.onBottom) {
 			throw new UnsupportedOperationException
 		}
+		outline = newTemporaryPath[
+			var keyLineY = item.bounds.bottom.y - 1
+			if(settings.borderRadius > 0) {
+				var corner = newRectangle(outlineOffset.topLeft, new Point(settings.borderRadius * 2, settings.borderRadius * 2))
+				corner.relocateTopRightWith(outlineOffset)
+
+				if(state.hasFlags(SWT.SELECTED)) {
+					moveTo(tabFolder.size.x - settings.margins.width - settings.borderWidth, keyLineY)
+					lineTo(itemOutlineBounds.bottomRight.x, keyLineY)
+				} else {
+					moveTo(outlineOffset.bottomRight.x, keyLineY)
+				}
+				lineTo(corner.right)
+				addArc(corner, 0, 90)
+				corner.relocateTopLeftWith(outlineOffset)
+				lineTo(corner.top)
+
+				if(settings.borderColors == null || settings.borderColors != null && item != parent.firstVisibleItem) {
+					addArc(corner, 90, 90)
+					lineTo(outlineOffset.x, keyLineY)
+					if(state.hasFlags(SWT.SELECTED)) {
+						var left = new Point(settings.margins.x, keyLineY)
+						if(settings.borderColors != null) {
+							left.translate(1, 0)
+						}
+						lineTo(left)
+					}
+				}
+			} else {
+				if(state.hasFlags(SWT.SELECTED)) {
+					moveTo(tabFolder.size.x - settings.margins.width - settings.borderWidth, keyLineY)
+					lineTo(itemOutlineBounds.bottomRight.x, keyLineY)
+				} else {
+					moveTo(outlineOffset.bottomRight.x, keyLineY)
+				}
+				lineTo(itemOutlineBounds.topRight)
+				lineTo(itemOutlineBounds.topLeft)
+
+				if(settings.borderColors == null || settings.borderColors != null && item != parent.firstVisibleItem) {
+					lineTo(itemOutlineBounds.bottomLeft.x, keyLineY)
+
+					if(state.hasFlags(SWT.SELECTED)) {
+						var left = new Point(settings.margins.x, keyLineY)
+						if(settings.borderColors != null) {
+							left.translate(settings.borderWidth, 0)
+						}
+						lineTo(left)
+					}
+				}
+			}
+		]
 
 		gc.lineWidth = settings.borderWidth
 		gc.drawGradientPath(outline, settings.getBorderColorsFor(state).toAutoReleaseColor, settings.getBorderPercentsFor(state), true)
