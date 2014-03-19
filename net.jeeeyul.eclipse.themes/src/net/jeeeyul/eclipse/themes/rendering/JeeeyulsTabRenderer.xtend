@@ -192,7 +192,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		gc.foreground = tabFolder.foreground
 		gc.lineWidth = 1
 		gc.lineStyle = SWT.LINE_SOLID
-
+		
 		switch (part) {
 			case PART_HEADER: {
 				updateControlBKImages()
