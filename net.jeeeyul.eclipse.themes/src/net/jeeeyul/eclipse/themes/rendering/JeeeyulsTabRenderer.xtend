@@ -19,6 +19,7 @@ import org.eclipse.swt.graphics.Image
 import org.eclipse.swt.graphics.Path
 import org.eclipse.swt.graphics.Point
 import org.eclipse.swt.graphics.Rectangle
+import org.eclipse.swt.widgets.Listener
 
 /**
  * A new CTabFolder Renderer for Jeeeyul's eclipse themes 2.0
@@ -37,6 +38,10 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	EmptyClassHook emptyClassHook
 	PropertyChangeListener settingsListener = [
 		handleSettingChange(it)
+	]
+	
+	Listener windowsRedrawHook = [
+		parent.redraw	
 	]
 
 	private def handleSettingChange(PropertyChangeEvent event) {
@@ -60,12 +65,20 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		this.tabFolder = parent
 		this.emptyClassHook = new EmptyClassHook(parent)
 		settings.addPropertyChangeListener(settingsListener)
+		
+		if(isWindow){
+			tabFolder.addListener(SWT.Resize, windowsRedrawHook)
+		}
 	}
 
 	override protected dispose() {
 		shadowNinePatch.safeDispose()
 		emptyClassHook.dispose()
 		settings.removePropertyChangeListener(settingsListener)
+		
+		if(window && parent.alive){
+			parent.removeListener(SWT.Resize, windowsRedrawHook)
+		}
 		super.dispose()
 	}
 
@@ -324,11 +337,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	}
 
 	protected def drawTabBody(int part, int state, Rectangle bounds, GC gc) {
-		var oldClipping = gc.clipping
-		gc.clipping = bounds
-
 		// Fill Background
-		if(state.hasFlags(SWT.BACKGROUND)) {
 			gc.background = tabFolder.parent.background
 			gc.fill(bounds)
 
@@ -367,34 +376,11 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				gc.background = #[tabFolder.gradientColor?.last, tabFolder.background].findFirst[it != null]
 
 			gc.fill(path)
-		}
 
 		// Draw Border
-		if(state.hasFlags(SWT.FOREGROUND) && settings.borderWidth > 0 && settings.borderColors != null && settings.borderPercents != null) {
+		if(settings.borderWidth > 0 && settings.borderColors != null && settings.borderPercents != null) {
 			val offset = tabArea.getResized(0, -1).shrink(settings.borderWidth / 2)
-			val headerOffset = headerArea.getResized(0, 1)
 			gc.lineWidth = settings.borderWidth
-
-			val headerPath = newTemporaryPath[
-				if(settings.borderRadius > 0) {
-					moveTo(headerOffset.bottomRight)
-					var corner = newRectangleWithSize(settings.borderRadius * 2)
-					corner.relocateTopRightWith(headerOffset)
-					lineTo(corner.right)
-					addArc(corner, 0, 90)
-					corner.relocateTopLeftWith(headerOffset)
-					lineTo(corner.top)
-					addArc(corner, 90, 90)
-					lineTo(headerOffset.bottomLeft)
-				} else {
-					moveTo(headerOffset.bottomRight)
-					lineTo(headerOffset.topRight)
-					lineTo(headerOffset.topLeft)
-					lineTo(headerOffset.bottomLeft)
-				}
-			]
-			gc.drawGradientPath(headerPath, settings.borderColors.toAutoReleaseColor, settings.borderPercents, true)
-
 			val bodyPath = newTemporaryPath[
 				var corner = newRectangleWithSize(settings.borderRadius * 2)
 				moveTo(headerArea.bottomLeft)
@@ -409,8 +395,6 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			gc.foreground = settings.borderColors.last.toAutoReleaseColor
 			gc.draw(bodyPath)
 		}
-
-		gc.clipping = oldClipping
 	}
 
 	protected def drawCloseButton(int part, int state, Rectangle bounds, GC gc) {
