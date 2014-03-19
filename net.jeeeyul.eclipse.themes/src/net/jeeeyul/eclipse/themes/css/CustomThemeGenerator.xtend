@@ -346,7 +346,11 @@ class CustomThemeGenerator {
 			«ENDIF»
 		}
 		
-		«comment("Editor Line Support")»
+		«comment("Text Editor")»
+		.MPart.Editor Canvas {
+			background-color: #F0F0F0;
+		}
+		
 		.MPart.Editor StyledText {
 			jeditor-line-style : «store.getLineStyle(JTPConstants.TextEditor.UNDER_LINE_STYLE)»;
 			jeditor-line-color : «store.getHSB(JTPConstants.TextEditor.UNDER_LINE_COLOR).toHTMLCode»;
