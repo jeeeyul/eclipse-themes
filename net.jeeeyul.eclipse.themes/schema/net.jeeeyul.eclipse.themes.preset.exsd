@@ -3,7 +3,7 @@
 <schema targetNamespace="net.jeeeyul.eclipse.themes" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="net.jeeeyul.eclipse.themes" id="net.jeeeyul.eclipse.themes.preset" name="Jeeeyul's Themes Preset"/>
+         <meta.schema plugin="net.jeeeyul.eclipse.themes" id="preset" name="Jeeeyul's Themes Preset"/>
       </appinfo>
       <documentation>
          This extension point allows that providing additional presets for &quot;Jeeeyul&apos;s Eclipse Themes&quot;.
