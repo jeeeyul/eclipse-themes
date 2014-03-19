@@ -54,5 +54,7 @@ This license basically provide unlimited freedom except very specific case.
 <img alt="with-Eclipse logo" src="http://with-eclipse.github.io/with-eclipse-0.jpg" /></a>
 
 ## Donation
+As far as I experienced, donation is most easy way to contribute.
+
 <a href='http://www.pledgie.com/campaigns/18377'><img alt='Click here to lend your support to: Eclipse 4 Chrome Theme and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/18377.png?skin_name=chrome' border='0' /></a>
 
