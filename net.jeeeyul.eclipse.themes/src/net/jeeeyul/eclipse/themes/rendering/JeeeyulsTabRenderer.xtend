@@ -298,57 +298,19 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	}
 
 	protected def drawTabHeader(int part, int state, Rectangle bounds, GC gc) {
+		if(parent.onBottom){
+			throw new UnsupportedOperationException
+		}
+		
 		val headerArea = getHeaderArea()
-
-		val corner = new Rectangle(0, 0, settings.borderRadius * 2, settings.borderRadius * 2)
-		var clip = newTemporaryPath[
-			if(tabFolder.onTop) {
-				if(settings.borderRadius > 0) {
-					moveTo(headerArea.bottomRight)
-					corner.relocateTopRightWith(headerArea)
-					lineTo(corner.right)
-					addArc(corner, 0, 90)
-
-					corner.relocateTopLeftWith(headerArea)
-					lineTo(corner.top)
-					addArc(corner, 90, 90)
-					lineTo(headerArea.bottomLeft)
-					close()
-				} else {
-					addRectangle(headerArea)
-				}
-			} else {
-				if(settings.borderRadius > 0) {
-					moveTo(headerArea.topLeft)
-					corner.relocateBottomLeftWith(headerArea)
-					lineTo(corner.left)
-					addArc(corner, 180, 90)
-
-					corner.relocateBottomRightWith(headerArea)
-					lineTo(corner.bottom)
-					addArc(corner, 270, 90)
-					lineTo(headerArea.topRight)
-
-					close()
-				} else {
-					addRectangle(headerArea)
-				}
-			}
-		]
-		gc.withClip(clip) [
-			if(tabFolder.gradientColor != null) {
-				if(tabFolder.onTop) {
-					gc.fillGradientRectangle(headerArea.getResized(0, 1), tabFolder.gradientColor, tabFolder.gradientPercents, true)
-				} else {
-					var reverseRect = newRectangle(headerArea.bottomLeft, new Point(headerArea.width, -headerArea.height))
-					gc.fillGradientRectangle(reverseRect, tabFolder.gradientColor, tabFolder.gradientPercents, true)
-				}
-			} else {
-				gc.background = tabFolder.background
-				gc.fill(headerArea)
-			}
-		]
-
+		
+		if(tabFolder.gradientColor != null) {
+			gc.fillGradientRoundRectangle(headerArea, settings.borderRadius, CORNER_TOP, tabFolder.gradientColor, tabFolder.gradientPercents, true)
+		}else{
+			gc.background = tabFolder.background
+			gc.fillRoundRectangle(headerArea, settings.borderRadius, CORNER_TOP)
+		}
+		
 		var repair = newRectangle(settings.margins.x + settings.borderRadius, 0, 0, 0)
 		repair.union(parent.size.x, parent.tabHeight + 1)
 		
@@ -625,60 +587,10 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 	protected def drawTabItemBackground(int part, int state, Rectangle bounds, GC gc) {
 		val itemBounds = bounds.copy
-		itemBounds.resize(-1, 0)
-		if(!state.hasFlags(SWT.SELECTED)) {
-			itemBounds.resize(0, 1)
-		}
 
-		var Path tabItemFillArea = null
-		if(tabFolder.onTop) {
-			tabItemFillArea = newTemporaryPath[
-				if(settings.borderRadius > 0) {
-					var corner = newRectangle(itemBounds.topLeft, new Point(settings.borderRadius * 2, settings.borderRadius * 2))
-					corner.relocateTopRightWith(itemBounds)
-					moveTo(corner.right)
-					addArc(corner, 0, 90)
-					corner.relocateTopLeftWith(itemBounds)
-					lineTo(corner.top)
-					addArc(corner, 90, 90)
-					lineTo(itemBounds.bottomLeft.getTranslated(0, 1))
-					lineTo(itemBounds.bottomRight.getTranslated(0, 1))
-					close()
-				} else {
-					addRectangle(itemBounds)
-				}
-			]
-		} else {
-			tabItemFillArea = newTemporaryPath[
-				if(settings.borderRadius > 0) {
-					var corner = newRectangle(itemBounds.topLeft, new Point(settings.borderRadius * 2, settings.borderRadius * 2))
-					corner.relocateBottomLeftWith(itemBounds)
-					moveTo(itemBounds.topLeft)
-					lineTo(corner.left)
-					addArc(corner, 180, 90)
-
-					corner.relocateBottomRightWith(itemBounds)
-					lineTo(corner.bottom)
-					addArc(corner, 270, 90)
-					lineTo(itemBounds.topRight)
-					close()
-				} else {
-					addRectangle(itemBounds)
-				}
-			]
-		}
-
-		gc.withClip(tabItemFillArea) [
-			var fill = settings.getItemFillFor(state)
-			var fillPercents = settings.getItemFillPercentsFor(state)
-			if(fill != null && fillPercents != null) {
-				var fix = 0
-				if(settings.tabSpacing == -1) {
-					fix = 0
-				}
-				gc.fillGradientRectangle(itemBounds.getResized(fix, 0), fill, fillPercents, true)
-			}
-		]
+		var colors = settings.getItemFillFor(state)
+		if(colors != null)
+			gc.fillGradientRoundRectangle(itemBounds, settings.borderRadius, CORNER_TOP, colors, settings.getItemFillPercentsFor(state), true)
 	}
 
 	def protected drawShadow(int part, int state, Rectangle bounds, GC gc) {

@@ -35,7 +35,7 @@ class LayoutPage extends AbstractJTPreferencePage {
 			newLabel[text = "Border Radius"]
 			borderRadiusScale = newSpinner[
 				minimum = 0
-				maximum = 20
+				maximum = 10
 				selection = 3
 				onSelection = [requestFastUpdatePreview()]
 				layoutData = newGridData[
@@ -43,7 +43,7 @@ class LayoutPage extends AbstractJTPreferencePage {
 				]
 			]
 			newLabel[
-				text="0 ~ 20px"
+				text="0 ~ 10px"
 				foreground = COLOR_DARK_GRAY
 			]
 			
