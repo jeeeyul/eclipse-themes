@@ -145,7 +145,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 				if(settings.borderColors != null) {
 					result.x = result.x - 1
-					result.width = result.width + 2
+					result.width = result.width + 1
 					result.height = result.height + 1
 				}
 			}
@@ -323,7 +323,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 	protected def drawTabBody(int part, int state, Rectangle bounds, GC gc) {
 		var oldClipping = gc.clipping
-		gc.clipping = bounds.expand(settings.borderRadius * 2)
+		gc.clipping = bounds
 
 		// Fill Background
 		if(state.hasFlags(SWT.BACKGROUND)) {
@@ -369,8 +369,8 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 		// Draw Border
 		if(state.hasFlags(SWT.FOREGROUND) && settings.borderWidth > 0 && settings.borderColors != null && settings.borderPercents != null) {
-			val offset = tabArea.getResized(-1, -1).shrink(settings.borderWidth / 2)
-			val headerOffset = headerArea.getResized(-1, 1)
+			val offset = tabArea.getResized(0, -1).shrink(settings.borderWidth / 2)
+			val headerOffset = headerArea.getResized(0, 1)
 			gc.lineWidth = settings.borderWidth
 
 			val headerPath = newTemporaryPath[
@@ -402,7 +402,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				corner.relocateBottomRightWith(offset)
 				lineTo(corner.bottom)
 				addArc(corner, 270, 90)
-				lineTo(headerArea.bottomRight.getTranslated(-1, 0))
+				lineTo(headerArea.bottomRight)
 			]
 			gc.foreground = settings.borderColors.last.toAutoReleaseColor
 			gc.draw(bodyPath)
