@@ -12,7 +12,7 @@ import net.jeeeyul.eclipse.themes.SharedImages
 class ToolsPage extends AbstractJTPreferencePage {
 	new() {
 		super("Tools")
-		image = SharedImages.getImage(SharedImages.CONFIGS)
+		image = SharedImages.getImage(SharedImages.CONFIG)
 	}
 
 	override createContents(Composite parent, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
