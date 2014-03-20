@@ -1,23 +1,10 @@
 ## Jeeeyul's Eclipse Themes 
+<img align="right" src="https://github.com/jeeeyul/eclipse-themes/wiki/images/jtheme-logo.png">
 (former Eclipse Chrome Theme)
 
 **Jeeeyul's Eclipse Themes** allows you customize the every single details of Eclipse's appearance.
 It also contains beautiful and elegant built-in presets.
 
-<table style="border: none;">
-  <tbody>
-    <tr style="border:none;">
-      <td style="vertical-align: middle; padding-top: 10px; border: none;">
-        <a href="http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=339851" title="Drag and drop into a running Eclipse Indigo workspace to install Eclipse 4 Chrome Theme">
-          <img src="http://marketplace.eclipse.org/misc/installbutton.png">
-        </a>
-      </td>
-      <td style="vertical-align: middle; text-align: left; border: none;">
-        ← Drag it to your eclipse workbench to install! (I recommand Main Toolbar as Drop Target)
-      </td>
-    </tr>
-  </tbody>
-</table>
 
 * [Release Note](https://github.com/jeeeyul/eclipse-themes/wiki/Release-Note)
 * [User Guide](https://github.com/jeeeyul/eclipse-themes/wiki/User-Guide)
@@ -27,7 +14,7 @@ It also contains beautiful and elegant built-in presets.
 ## How to install
 You need **Eclipse 4.2** or above version to install this theme.
 
-1. Drag <b>Install Button</b>(Shown above) on to your eclipse's main toolbar.
+1. Drag [<img src="http://marketplace.eclipse.org/misc/installbutton.png">](http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=339851) on to Toolbar of your eclipse 4 to install **Jeeeyul's Eclipse Thems**.
 2. After installation, Choose `Jeeeyul's themes - Custom Theme` from `Preference > General > Appearance`.
 
 What if you don't have **Market Place Client** on your eclipse, please refer [Alternative Installation Guide](https://github.com/jeeeyul/eclipse-themes/wiki/Alternative-Install).
