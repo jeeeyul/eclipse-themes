@@ -19,9 +19,9 @@ It also contains beautiful built-in presets.
   </tbody>
 </table>
 
-* [Release Note](https://github.com/jeeeyul/eclipse-themes/wiki/Release-Note).
-* [User Guide](https://github.com/jeeeyul/eclipse-themes/wiki/User-Guide).
-* [FAQ](https://github.com/jeeeyul/eclipse-themes/wiki/FAQ).
+* [Release Note](https://github.com/jeeeyul/eclipse-themes/wiki/Release-Note)
+* [User Guide](https://github.com/jeeeyul/eclipse-themes/wiki/User-Guide)
+* [FAQ](https://github.com/jeeeyul/eclipse-themes/wiki/FAQ)
 * [Developer Guide](https://github.com/jeeeyul/eclipse-themes/wiki/Developer-Guide)
 
 ## How to install
