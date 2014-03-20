@@ -106,8 +106,8 @@ This Agreement is governed by the laws of the State of New York and the intellec
       <import plugin="org.eclipse.e4.core.contexts"/>
       <import plugin="javax.inject" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="javax.annotation"/>
-      <import feature="net.jeeeyul.swtend.feature" version="2.1.0" match="greaterOrEqual"/>
-      <import plugin="net.jeeeyul.swtend" version="2.1.0" match="greaterOrEqual"/>
+      <import feature="net.jeeeyul.swtend.feature" version="2.1.1" match="greaterOrEqual"/>
+      <import plugin="net.jeeeyul.swtend" version="2.1.1" match="greaterOrEqual"/>
    </requires>
 
    <plugin
