@@ -324,6 +324,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			gc.fillRoundRectangle(headerArea, settings.borderRadius, CORNER_TOP)
 		}
 
+		headerArea.resize(-1, 0)
 		if(settings.borderColors != null) {
 			gc.foreground = settings.borderColors.head.toAutoDisposeColor
 			var path = newTemporaryPath[
@@ -368,7 +369,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 		// Draw Border
 		if(settings.borderWidth > 0 && settings.borderColors != null && settings.borderPercents != null) {
-			val offset = tabArea.getResized(0, -1).shrink(settings.borderWidth / 2)
+			val offset = tabArea.getResized(-1, -1)
 			gc.lineWidth = settings.borderWidth
 			val bodyPath = newTemporaryPath[
 				var corner = newRectangleWithSize(settings.borderRadius * 2)
@@ -379,7 +380,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				corner.relocateBottomRightWith(offset)
 				lineTo(corner.bottom)
 				addArc(corner, 270, 90)
-				lineTo(headerArea.bottomRight)
+				lineTo(headerArea.bottomRight.getTranslated(-1, 0))
 			]
 			gc.foreground = settings.borderColors.last.toAutoReleaseColor
 			
