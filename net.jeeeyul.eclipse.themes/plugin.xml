@@ -235,6 +235,7 @@
          </separator>
          <command
                commandId="org.eclipse.ui.window.preferences"
+               icon="icons/config.png"
                label="Settings..."
                style="push">
             <parameter
@@ -247,6 +248,7 @@
                visible="true">
          </separator>
          <menu
+               icon="icons/contact.png"
                id="net.jeeeyul.eclipse.themes.contact"
                label="Contact">
             <command
