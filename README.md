@@ -19,7 +19,9 @@ It also contains beautiful built-in presets.
   </tbody>
 </table>
 
-See [Release Note](https://github.com/jeeeyul/eclipse-themes/wiki/Release-Note).
+* [Release Note](https://github.com/jeeeyul/eclipse-themes/wiki/Release-Note).
+* [User Guide](https://github.com/jeeeyul/eclipse-themes/wiki/User-Guide).
+* [Developer Guide](https://github.com/jeeeyul/eclipse-themes/wiki/Developer-Guide)
 
 ## How to install
 You need **Eclipse 4.2** or above version to install this theme.
