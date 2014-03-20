@@ -261,6 +261,16 @@
             </command>
             <command
                   commandId="net.jeeeyul.eclipse.themes.command.open.url"
+                  icon="icons/help_contents.png"
+                  label="User Guide"
+                  style="push">
+               <parameter
+                     name="url"
+                     value="https://github.com/jeeeyul/eclipse-themes/wiki/User-Guide">
+               </parameter>
+            </command>
+            <command
+                  commandId="net.jeeeyul.eclipse.themes.command.open.url"
                   icon="icons/note.gif"
                   label="Release Note"
                   style="push">
