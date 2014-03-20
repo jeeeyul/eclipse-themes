@@ -37,26 +37,22 @@ class PresetIconGenerator {
 		var outline = newPath[
 			addRectangle(bounds.getResized(-1, -1))
 		]
-		gc.drawGradientPath(outline, store.getGradient(JTPConstants.ActivePartStack.BORDER_COLOR), true)
+		if(store.getBoolean(JTPConstants.ActivePartStack.BORDER_SHOW))
+			gc.drawGradientPath(outline, store.getGradient(JTPConstants.ActivePartStack.BORDER_COLOR), true)
 
 		var data = image.imageData
 		outline.safeDispose()
 		gc.safeDispose()
 		image.safeDispose
-		
 
-		var x = 0
-		while(x < 16) {
-			var y = 0
-			while(y < 16) {
-				if(!bounds.contains(x, y)){
+		for (x : 0 ..< 16) {
+			for (y : 0 ..< 16) {
+				if(!bounds.contains(x, y)) {
 					data.setAlpha(x, y, 0)
-				}else{
+				} else {
 					data.setAlpha(x, y, 255)
 				}
-				y = y + 1
 			}
-			x = x + 1
 		}
 
 		return data
