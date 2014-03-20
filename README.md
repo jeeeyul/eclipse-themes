@@ -2,7 +2,7 @@
 (former Eclipse Chrome Theme)
 
 **Jeeeyul's Eclipse Themes** allows you customize the every single details of Eclipse's appearance.
-It also contains beautiful built-in presets.
+It also contains beautiful and elegant built-in presets.
 
 <table style="border: none;">
   <tbody>
