@@ -39,9 +39,9 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	PropertyChangeListener settingsListener = [
 		handleSettingChange(it)
 	]
-	
+
 	Listener windowsRedrawHook = [
-		parent.redraw	
+		parent.redraw
 	]
 
 	private def handleSettingChange(PropertyChangeEvent event) {
@@ -65,8 +65,8 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		this.tabFolder = parent
 		this.emptyClassHook = new EmptyClassHook(parent)
 		settings.addPropertyChangeListener(settingsListener)
-		
-		if(isWindow){
+
+		if(isWindow) {
 			tabFolder.addListener(SWT.Resize, windowsRedrawHook)
 		}
 	}
@@ -75,8 +75,8 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		shadowNinePatch.safeDispose()
 		emptyClassHook.dispose()
 		settings.removePropertyChangeListener(settingsListener)
-		
-		if(window && parent.alive){
+
+		if(window && parent.alive) {
 			parent.removeListener(SWT.Resize, windowsRedrawHook)
 		}
 		super.dispose()
@@ -327,11 +327,11 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		if(settings.borderColors != null) {
 			gc.foreground = settings.borderColors.head.toAutoDisposeColor
 			var path = newTemporaryPath[
-				if(parent.simple){
+				if(parent.simple) {
 					moveTo(headerArea.bottomLeft)
 					lineTo(headerArea.topLeft.getTranslated(0, settings.borderRadius))
-					addArc(newRectangleWithSize(settings.borderRadius * 2).relocateTopLeftWith(headerArea), 180, -90)				
-				}else{
+					addArc(newRectangleWithSize(settings.borderRadius * 2).relocateTopLeftWith(headerArea), 180, -90)
+				} else {
 					moveTo(headerArea.topLeft.getTranslated(settings.borderRadius, 0))
 				}
 				lineTo(headerArea.topRight.getTranslated(-settings.borderRadius, 0))
@@ -343,45 +343,28 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	}
 
 	protected def drawTabBody(int part, int state, Rectangle bounds, GC gc) {
+		if(parent.onBottom){
+			throw new UnsupportedOperationException
+		}
+		
 		// Fill Background
-			gc.background = tabFolder.parent.background
-			gc.fill(bounds)
+		gc.background = tabFolder.parent.background
+		gc.fill(bounds)
 
-			if(settings.shadowColor != null) {
-				drawShadow(part, state, bounds, gc)
-			}
+		if(settings.shadowColor != null) {
+			drawShadow(part, state, bounds, gc)
+		}
 
-			val path = newTemporaryPath[
-				if(settings.borderRadius > 0) {
-					if(parent.onTop) {
-						val offset = tabArea
-						if(settings.borderColors != null) {
-							offset.resize(0, -1)
-						}
-						var box = newRectangleWithSize(settings.borderRadius * 2)
-						moveTo(offset.x, parent.tabHeight)
-						lineTo(offset.x + offset.width, parent.tabHeight)
-						box.relocateBottomRightWith(offset)
-						lineTo(box.right)
-						addArc(box, 0, -90)
-						box.relocateBottomLeftWith(offset)
-						lineTo(box.bottom)
-						addArc(box, 270, -90)
-						close()
-					} else {
-						addRoundRectangle(tabArea, settings.borderRadius)
-					}
-				} else {
-					addRectangle(tabArea)
-				}
-			]
-
+		gc.background = 
 			if(parent.itemCount > 0)
-				gc.background = #[tabFolder.selectionGradientColor?.last, tabFolder.selectionBackground].findFirst[it != null]
+				#[tabFolder.selectionGradientColor?.last, tabFolder.selectionBackground].findFirst[it != null]
 			else
-				gc.background = #[tabFolder.gradientColor?.last, tabFolder.background].findFirst[it != null]
-
-			gc.fill(path)
+				#[tabFolder.gradientColor?.last, tabFolder.background].findFirst[it != null]
+		
+		var fillArea = tabArea
+		fillArea.setTop(headerArea.bottom.y)
+		
+		gc.fillRoundRectangle(fillArea, settings.borderRadius, CORNER_BOTTOM)
 
 		// Draw Border
 		if(settings.borderWidth > 0 && settings.borderColors != null && settings.borderPercents != null) {
@@ -399,6 +382,9 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				lineTo(headerArea.bottomRight)
 			]
 			gc.foreground = settings.borderColors.last.toAutoReleaseColor
+			
+			// draw twice reduce mip-map problem
+			gc.draw(bodyPath)
 			gc.draw(bodyPath)
 		}
 	}
@@ -445,7 +431,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 		// Fill tab item bounds
 		drawTabItemBackground(part, state, itemBounds, gc)
-		
+
 		// Draw Icon
 		var iconArea = if(item.image != null)
 				item.image.bounds.relocateLeftWith(item.bounds).translate(settings.tabItemPaddings.x, 0)

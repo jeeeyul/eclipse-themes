@@ -15,8 +15,8 @@ class PresetIconGenerator {
 	extension SWTExtensions = SWTExtensions.INSTANCE
 
 	def ImageDescriptor generatedDescriptor(IJTPreset preset) {
-		if(Thread.currentThread != display.thread){
-			 throw new SWTException("Invalid Thread Exception")
+		if(Thread.currentThread != display.thread) {
+			throw new SWTException("Invalid Thread Exception")
 		}
 		return ImageDescriptor.createFromImageData(generateData(preset))
 	}
@@ -30,7 +30,7 @@ class PresetIconGenerator {
 		}
 
 		val image = newImage(16, 16)
-		val bounds = newRectangle(0, 0, 16, 16)
+		val bounds = newRectangle(0, 0, 16, 16).shrink(2)
 		var gc = new GC(image)
 
 		gc.fillGradientRectangle(bounds, store.getGradient(JTPConstants.ActivePartStack.BACKGROUND_COLOR), true)
@@ -38,12 +38,26 @@ class PresetIconGenerator {
 			addRectangle(bounds.getResized(-1, -1))
 		]
 		gc.drawGradientPath(outline, store.getGradient(JTPConstants.ActivePartStack.BORDER_COLOR), true)
-		
-		var data = image.imageData
 
+		var data = image.imageData
 		outline.safeDispose()
 		gc.safeDispose()
 		image.safeDispose
+		
+
+		var x = 0
+		while(x < 16) {
+			var y = 0
+			while(y < 16) {
+				if(!bounds.contains(x, y)){
+					data.setAlpha(x, y, 0)
+				}else{
+					data.setAlpha(x, y, 255)
+				}
+				y = y + 1
+			}
+			x = x + 1
+		}
 
 		return data
 	}
