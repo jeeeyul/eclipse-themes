@@ -17,12 +17,4 @@ public class OSHelper {
 	public boolean isLinux() {
 		return getOSName().startsWith("Linux");
 	}
-
-	public int getMinimumTabHeight() {
-		if (isLinux()) {
-			return 30;
-		} else {
-			return 22;
-		}
-	}
 }

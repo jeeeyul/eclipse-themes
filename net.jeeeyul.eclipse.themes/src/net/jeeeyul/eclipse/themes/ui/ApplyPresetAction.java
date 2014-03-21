@@ -4,10 +4,10 @@ import java.util.Properties;
 
 import net.jeeeyul.eclipse.themes.JThemesCore;
 import net.jeeeyul.eclipse.themes.css.RewriteCustomTheme;
-import net.jeeeyul.eclipse.themes.internal.OSHelper;
 import net.jeeeyul.eclipse.themes.preference.JTPConstants;
 import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore;
 import net.jeeeyul.eclipse.themes.preference.preset.IJTPreset;
+import net.jeeeyul.swtend.SWTExtensions;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.css.swt.theme.IThemeEngine;
@@ -37,7 +37,7 @@ public class ApplyPresetAction extends Action {
 			String value = properties.getProperty(key);
 			if (key.equals(JTPConstants.Layout.TAB_HEIGHT)) {
 				int intValue = Integer.parseInt(value);
-				store.setValue(key, Math.max(intValue, OSHelper.INSTANCE.getMinimumTabHeight()));
+				store.setValue(key, Math.max(intValue, SWTExtensions.INSTANCE.getMinimumToolBarHeight()));
 			} else {
 				store.setValue(key, value);
 			}

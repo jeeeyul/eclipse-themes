@@ -1,7 +1,6 @@
 package net.jeeeyul.eclipse.themes.preference.internal
 
 import net.jeeeyul.eclipse.themes.SharedImages
-import net.jeeeyul.eclipse.themes.internal.OSHelper
 import net.jeeeyul.eclipse.themes.preference.JTPConstants
 import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore
 import net.jeeeyul.eclipse.themes.rendering.JTabSettings
@@ -13,7 +12,6 @@ import org.eclipse.swt.widgets.Event
 import org.eclipse.swt.widgets.Spinner
 
 class LayoutPage extends AbstractJTPreferencePage {
-	extension OSHelper = OSHelper.INSTANCE
 	Spinner borderRadiusScale
 	Spinner paddingsScale
 	Spinner tabItemPaddingsScale
@@ -109,16 +107,16 @@ class LayoutPage extends AbstractJTPreferencePage {
 			
 			newLabel[text = "Tab Height"]
 			tabHeightScale = newSpinner[
-				minimum = minimumTabHeight
+				minimum = minimumToolBarHeight
 				maximum = 40
-				selection = minimumTabHeight
+				selection = minimumToolBarHeight
 				onSelection = [requestUpdatePreview()]
 				layoutData = newGridData[
 					widthHint = 40
 				]
 			]
 			newLabel[
-				text = '''«minimumTabHeight» ~ 40px'''
+				text = '''«minimumToolBarHeight» ~ 40px'''
 				foreground = COLOR_DARK_GRAY
 			]
 		]
@@ -139,7 +137,7 @@ class LayoutPage extends AbstractJTPreferencePage {
 	override load(JThemePreferenceStore store, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
 		this.borderRadiusScale.selection = store.getInt(JTPConstants.Layout.BORDER_RADIUS)
 		this.paddingsScale.selection = store.getInt(JTPConstants.Layout.CONTENT_PADDING)
-		this.tabHeightScale.selection = Math.max(store.getInt(JTPConstants.Layout.TAB_HEIGHT), minimumTabHeight)
+		this.tabHeightScale.selection = Math.max(store.getInt(JTPConstants.Layout.TAB_HEIGHT), minimumToolBarHeight)
 
 		this.tabSpacingScale.selection = store.getInt(JTPConstants.Layout.TAB_SPACING)
 

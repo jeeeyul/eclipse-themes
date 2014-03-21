@@ -336,7 +336,7 @@ public interface JTPConstants {
 
 		@TypeHint(HSB.class)
 		public static final String PERSPECTIVE_SWITCHER_KEY_LINE_COLOR = PREFIX + CATEGORY_SEPARATOR + "PERSPECTIVE_SWITCHER_KEY_LINE_COLOR";
-
+		
 		@TypeHint(HSB.class)
 		public static final String BACKGROUND_COLOR = PREFIX + CATEGORY_SEPARATOR + "BACKGROUND_COLOR";
 		

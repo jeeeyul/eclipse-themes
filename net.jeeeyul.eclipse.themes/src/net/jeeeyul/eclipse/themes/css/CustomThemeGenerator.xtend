@@ -4,6 +4,7 @@ import net.jeeeyul.eclipse.themes.preference.JTPConstants
 import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore
 import org.eclipse.swt.SWT
 import org.eclipse.swt.graphics.Point
+import net.jeeeyul.swtend.SWTExtensions
 
 class CustomThemeGenerator {
 	@Property JThemePreferenceStore store
@@ -386,11 +387,7 @@ class CustomThemeGenerator {
 	}
 
 	def private toolbarHeight() {
-		if(System.getProperty("os.name").startsWith("Linux")) {
-			return 33
-		} else {
-			return 22
-		}
+		return SWTExtensions.INSTANCE.minimumToolBarHeight
 	}
 
 	def windowMargins() {

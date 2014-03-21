@@ -211,7 +211,7 @@ class GeneralPage extends AbstractJTPreferencePage {
 		if(psKeyline != null) {
 			this.perspectiveSwitcherKeyLineColorWell.selection = psKeyline
 		}
-
+		
 		this.castShadowEdit.selection = store.getBoolean(JTPConstants.Layout.SHOW_SHADOW)
 		val shadowColor = store.getHSB(JTPConstants.Layout.SHADOW_COLOR)
 		if(shadowColor != null)
