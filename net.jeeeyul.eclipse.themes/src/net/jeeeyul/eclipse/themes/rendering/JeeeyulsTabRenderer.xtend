@@ -151,8 +151,8 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 				if(tabFolder.onBottom) {
 					throw new UnsupportedOperationException
-				} 
-				
+				}
+
 				result.y = result.y - tabFolder.tabHeight - settings.paddings.y - 2
 				result.height = result.height + tabFolder.tabHeight + settings.paddings.y + settings.margins.height + settings.paddings.height + 2
 
@@ -315,39 +315,40 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			throw new UnsupportedOperationException
 		}
 
-		val headerArea = getHeaderArea()
-
+		val fillArea = getHeaderArea()
+		if(settings.borderColors != null)
+			fillArea.resize(-1, 0)
 		if(tabFolder.gradientColor != null) {
-			gc.fillGradientRoundRectangle(headerArea, settings.borderRadius, CORNER_TOP, tabFolder.gradientColor, tabFolder.gradientPercents, true)
+			gc.fillGradientRoundRectangle(fillArea, settings.borderRadius, CORNER_TOP, tabFolder.gradientColor, tabFolder.gradientPercents, true)
 		} else {
 			gc.background = tabFolder.background
-			gc.fillRoundRectangle(headerArea, settings.borderRadius, CORNER_TOP)
+			gc.fillRoundRectangle(fillArea, settings.borderRadius, CORNER_TOP)
 		}
 
-		headerArea.resize(-1, 0)
+		val outlineArea = headerArea.getResized(-1, 0)
 		if(settings.borderColors != null) {
 			gc.foreground = settings.borderColors.head.toAutoDisposeColor
 			var path = newTemporaryPath[
 				if(parent.simple) {
-					moveTo(headerArea.bottomLeft)
-					lineTo(headerArea.topLeft.getTranslated(0, settings.borderRadius))
-					addArc(newRectangleWithSize(settings.borderRadius * 2).relocateTopLeftWith(headerArea), 180, -90)
+					moveTo(outlineArea.bottomLeft)
+					lineTo(outlineArea.topLeft.getTranslated(0, settings.borderRadius))
+					addArc(newRectangleWithSize(settings.borderRadius * 2).relocateTopLeftWith(outlineArea), 180, -90)
 				} else {
-					moveTo(headerArea.topLeft.getTranslated(settings.borderRadius, 0))
+					moveTo(outlineArea.topLeft.getTranslated(settings.borderRadius, 0))
 				}
-				lineTo(headerArea.topRight.getTranslated(-settings.borderRadius, 0))
-				addArc(newRectangleWithSize(settings.borderRadius * 2).relocateTopRightWith(headerArea), 90, -90)
-				lineTo(headerArea.bottomRight)
+				lineTo(outlineArea.topRight.getTranslated(-settings.borderRadius, 0))
+				addArc(newRectangleWithSize(settings.borderRadius * 2).relocateTopRightWith(outlineArea), 90, -90)
+				lineTo(outlineArea.bottomRight)
 			]
 			gc.drawGradientPath(path, settings.borderColors.toAutoDisposeColors, settings.borderPercents, true)
 		}
 	}
 
 	protected def drawTabBody(int part, int state, Rectangle bounds, GC gc) {
-		if(parent.onBottom){
+		if(parent.onBottom) {
 			throw new UnsupportedOperationException
 		}
-		
+
 		// Fill Background
 		gc.background = tabFolder.parent.background
 		gc.fill(bounds)
@@ -356,15 +357,14 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			drawShadow(part, state, bounds, gc)
 		}
 
-		gc.background = 
-			if(parent.itemCount > 0)
-				#[tabFolder.selectionGradientColor?.last, tabFolder.selectionBackground].findFirst[it != null]
-			else
-				#[tabFolder.gradientColor?.last, tabFolder.background].findFirst[it != null]
-		
+		gc.background = if(parent.itemCount > 0)
+			#[tabFolder.selectionGradientColor?.last, tabFolder.selectionBackground].findFirst[it != null]
+		else
+			#[tabFolder.gradientColor?.last, tabFolder.background].findFirst[it != null]
+
 		var fillArea = tabArea
 		fillArea.setTop(headerArea.bottom.y)
-		
+
 		gc.fillRoundRectangle(fillArea, settings.borderRadius, CORNER_BOTTOM)
 
 		// Draw Border
@@ -383,7 +383,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				lineTo(headerArea.bottomRight.getTranslated(-1, 0))
 			]
 			gc.foreground = settings.borderColors.last.toAutoReleaseColor
-			
+
 			// draw twice reduce mip-map problem
 			gc.draw(bodyPath)
 			gc.draw(bodyPath)
@@ -588,6 +588,8 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 	protected def drawTabItemBackground(int part, int state, Rectangle bounds, GC gc) {
 		val itemBounds = bounds.copy
+		if(settings.getBorderColorsFor(state) != null)
+			itemBounds.getResized(-1, 0)
 
 		var colors = settings.getItemFillFor(state)
 		if(colors != null)
