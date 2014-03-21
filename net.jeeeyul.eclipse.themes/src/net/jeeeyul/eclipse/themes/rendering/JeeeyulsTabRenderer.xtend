@@ -317,7 +317,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 		val fillArea = getHeaderArea()
 		if(settings.borderColors != null)
-			fillArea.resize(-1, 0)
+			fillArea.shrink(1, 0)
 		if(tabFolder.gradientColor != null) {
 			gc.fillGradientRoundRectangle(fillArea, settings.borderRadius, CORNER_TOP, tabFolder.gradientColor, tabFolder.gradientPercents, true)
 		} else {
@@ -589,7 +589,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	protected def drawTabItemBackground(int part, int state, Rectangle bounds, GC gc) {
 		val itemBounds = bounds.copy
 		if(settings.getBorderColorsFor(state) != null)
-			itemBounds.getResized(-1, 0)
+			itemBounds.shrink(1, 0)
 
 		var colors = settings.getItemFillFor(state)
 		if(colors != null)
