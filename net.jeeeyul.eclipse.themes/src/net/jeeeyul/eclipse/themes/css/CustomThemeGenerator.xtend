@@ -5,9 +5,11 @@ import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore
 import net.jeeeyul.swtend.SWTExtensions
 import org.eclipse.swt.SWT
 import org.eclipse.swt.graphics.Point
+import net.jeeeyul.eclipse.themes.internal.OSHelper
 
 class CustomThemeGenerator {
 	@Property JThemePreferenceStore store
+	extension OSHelper = OSHelper.INSTANCE
 
 	new(JThemePreferenceStore store) {
 		if(store == null) {
@@ -59,8 +61,17 @@ class CustomThemeGenerator {
 		
 		«comment("Trim Stack")»
 		.TrimStack {
-			frame-image: url(jeeeyul://frame?background-color=«store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»);
-			frame-cuts: 4px 2px 5px 16px;
+			«IF linux»
+				/* 
+				 * https://github.com/jeeeyul/eclipse-themes/issues/133 
+				 * due to https://bugs.eclipse.org/bugs/show_bug.cgi?id=430846
+				 * It can't be fixed. So just remove border for linux.
+				 */
+				frame-image: none;
+			«ELSE»
+				frame-image: url(jeeeyul://frame?background-color=«store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»);
+				frame-cuts: 4px 2px 5px 16px;
+			«ENDIF»
 			handle-image:
 				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»&embossed=false);
 		}
