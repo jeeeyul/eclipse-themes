@@ -10,6 +10,8 @@ import org.eclipse.swt.custom.CTabFolder
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Event
 import org.eclipse.swt.widgets.Spinner
+import org.eclipse.swt.program.Program
+import net.jeeeyul.eclipse.themes.internal.OSHelper
 
 class LayoutPage extends AbstractJTPreferencePage {
 	Spinner borderRadiusScale
@@ -29,7 +31,6 @@ class LayoutPage extends AbstractJTPreferencePage {
 			layout = newGridLayout[
 				numColumns = 3
 			]
-			
 			newLabel[text = "Border Radius"]
 			borderRadiusScale = newSpinner[
 				minimum = 0
@@ -41,10 +42,9 @@ class LayoutPage extends AbstractJTPreferencePage {
 				]
 			]
 			newLabel[
-				text="0 ~ 10px"
+				text = "0 ~ 10px"
 				foreground = COLOR_DARK_GRAY
 			]
-			
 			newLabel[text = "Tab Item Paddings"]
 			tabItemPaddingsScale = newSpinner[
 				minimum = 0
@@ -59,7 +59,6 @@ class LayoutPage extends AbstractJTPreferencePage {
 				text = "0 ~ 10px"
 				foreground = COLOR_DARK_GRAY
 			]
-			
 			newLabel[text = "Content Paddings"]
 			paddingsScale = newSpinner[
 				minimum = 0
@@ -74,7 +73,6 @@ class LayoutPage extends AbstractJTPreferencePage {
 				text = "0 ~ 10px"
 				foreground = COLOR_DARK_GRAY
 			]
-			
 			newLabel[text = "Tab Spacing"]
 			tabSpacingScale = newSpinner[
 				minimum = -1
@@ -89,7 +87,6 @@ class LayoutPage extends AbstractJTPreferencePage {
 				text = "-1(overlap) ~ 20px"
 				foreground = COLOR_DARK_GRAY
 			]
-			
 			newLabel[text = "Tab Item Spacing"]
 			tabItemSpacingScale = newSpinner[
 				minimum = 0
@@ -104,7 +101,6 @@ class LayoutPage extends AbstractJTPreferencePage {
 				text = "0 ~ 10px"
 				foreground = COLOR_DARK_GRAY
 			]
-			
 			newLabel[text = "Tab Height"]
 			tabHeightScale = newSpinner[
 				minimum = minimumToolBarHeight
@@ -119,6 +115,18 @@ class LayoutPage extends AbstractJTPreferencePage {
 				text = '''«minimumToolBarHeight» ~ 40px'''
 				foreground = COLOR_DARK_GRAY
 			]
+			if(OSHelper.INSTANCE.linux) {
+				newLink[
+					text = '''To reduce limit of minimum tab height, refer <a href="https://github.com/jeeeyul/eclipse-themes/wiki/Linux-User-Guide">Linux User Guide</a>.'''
+					layoutData = newGridData[
+						horizontalSpan = 3
+					]
+					onSelection = [
+						Program.launch(it.text)
+					]
+				]
+
+			}
 		]
 	}
 
