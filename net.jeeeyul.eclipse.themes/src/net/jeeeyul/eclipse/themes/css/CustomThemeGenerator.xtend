@@ -2,9 +2,9 @@ package net.jeeeyul.eclipse.themes.css
 
 import net.jeeeyul.eclipse.themes.preference.JTPConstants
 import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore
+import net.jeeeyul.swtend.SWTExtensions
 import org.eclipse.swt.SWT
 import org.eclipse.swt.graphics.Point
-import net.jeeeyul.swtend.SWTExtensions
 
 class CustomThemeGenerator {
 	@Property JThemePreferenceStore store
@@ -56,13 +56,6 @@ class CustomThemeGenerator {
 		.MPartSashContainer {
 			jsash-width : «partSpacing»px;
 		}
-		
-		«IF linux»
-			«comment("Fix GTK Search Field")»
-			#SearchField Text{
-				font-size: 9px;
-			}
-		«ENDIF»
 		
 		«comment("Trim Stack")»
 		.TrimStack {
@@ -380,10 +373,6 @@ class CustomThemeGenerator {
 			case SWT.LINE_DOT: "dotted"
 			default: "none"
 		}
-	}
-
-	def private boolean isLinux() {
-		System.getProperty("os.name").startsWith("Linux")
 	}
 
 	def private toolbarHeight() {
