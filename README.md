@@ -8,6 +8,7 @@ It also contains beautiful and elegant built-in presets.
 
 * [Release Note](https://github.com/jeeeyul/eclipse-themes/wiki/Release-Note)
 * [User Guide](https://github.com/jeeeyul/eclipse-themes/wiki/User-Guide)
+* [Linux User Guide](https://github.com/jeeeyul/eclipse-themes/wiki/Linux-User-Guide)
 * [FAQ](https://github.com/jeeeyul/eclipse-themes/wiki/FAQ)
 * [Developer Guide](https://github.com/jeeeyul/eclipse-themes/wiki/Developer-Guide)
 
