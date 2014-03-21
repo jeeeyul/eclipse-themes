@@ -151,14 +151,14 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 				if(tabFolder.onBottom) {
 					throw new UnsupportedOperationException
-				} else {
-					result.y = result.y - tabFolder.tabHeight - settings.paddings.y - 2
-					result.height = result.height + tabFolder.tabHeight + settings.paddings.y + settings.margins.height + settings.paddings.height + 2
-				}
+				} 
+				
+				result.y = result.y - tabFolder.tabHeight - settings.paddings.y - 2
+				result.height = result.height + tabFolder.tabHeight + settings.paddings.y + settings.margins.height + settings.paddings.height + 2
 
 				if(settings.borderColors != null) {
 					result.x = result.x - 1
-					result.width = result.width + 1
+					result.width = result.width + 2
 					result.height = result.height + 1
 				}
 			}
