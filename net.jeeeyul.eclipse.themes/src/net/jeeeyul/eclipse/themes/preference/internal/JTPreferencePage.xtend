@@ -56,7 +56,7 @@ class JTPreferencePage extends PreferencePage implements IWorkbenchPreferencePag
 		title = "Jeeeyul's Theme"
 		pages += new GeneralPage
 		pages += new PartStacksPage
-		pages += new OthersPage
+		pages += new TextEditorPage
 		pages += new ToolsPage
 		pages += new UserCSSPage
 	}

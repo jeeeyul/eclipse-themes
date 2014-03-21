@@ -348,7 +348,7 @@ class CustomThemeGenerator {
 		
 		«comment("Text Editor")»
 		.MPart.Editor Canvas {
-			background-color: #F0F0F0;
+			background-color: «store.getHSB(JTPConstants.TextEditor.RULER_COLOR).toHTMLCode»;
 		}
 		
 		.MPart.Editor StyledText {

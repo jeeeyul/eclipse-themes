@@ -26,6 +26,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Scale;
+import org.eclipse.ui.dialogs.PreferencesUtil;
 
 public class PreperencePageHelper {
 
@@ -232,5 +233,9 @@ public class PreperencePageHelper {
 
 	public AbstractJTPreferencePage[] getAllPages() {
 		return root.getAllPages();
+	}
+
+	public void navigateTo(String id) {
+		PreferencesUtil.createPreferenceDialogOn(root.getShell(), id, null, null);
 	}
 }

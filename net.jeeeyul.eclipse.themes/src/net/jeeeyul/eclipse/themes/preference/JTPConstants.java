@@ -392,6 +392,9 @@ public interface JTPConstants {
 
 		@TypeHint(HSB.class)
 		public static final String UNDER_LINE_COLOR = PREFIX + CATEGORY_SEPARATOR + "UNDER_LINE_COLOR";
+		
+		@TypeHint(HSB.class)
+		public static final String RULER_COLOR = PREFIX + CATEGORY_SEPARATOR + "RULER_COLOR";
 	}
 
 	public static final String CATEGORY_SEPARATOR = "__";
