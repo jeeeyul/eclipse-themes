@@ -62,6 +62,7 @@ class TextEditorPage extends AbstractJTPreferencePage {
 				lineNumberRulerColumn = new LineNumberRulerColumn
 				ruler.addDecorator(1, lineNumberRulerColumn)
 				preview = new SourceViewer(it, ruler, SWT.V_SCROLL)
+				
 				preview.document = new Document(
 					'''
 						Jeeeyul's Eclipse Themes Text Editor Preview
