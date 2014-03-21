@@ -374,5 +374,13 @@
             Default Preset
          </description>
       </preset>
+      <preset
+            epf="presets/Cloud Space.epf"
+            id="net.jeeeyul.eclipse.themes.preset.cloud.space"
+            name="Cloud Space">
+         <description>
+            description body text
+         </description>
+      </preset>
    </extension>
 </plugin>
