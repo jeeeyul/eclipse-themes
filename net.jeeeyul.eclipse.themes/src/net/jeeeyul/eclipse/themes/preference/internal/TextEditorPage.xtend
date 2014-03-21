@@ -64,8 +64,12 @@ class TextEditorPage extends AbstractJTPreferencePage {
 				preview = new SourceViewer(it, ruler, SWT.V_SCROLL)
 				preview.document = new Document(
 					'''
-						Preview
-						Jeeeyul's Eclipse Themes
+						Jeeeyul's Eclipse Themes Text Editor Preview
+						
+						까꿍아, 건강하게 태어나, 행복하게 살렴. 사랑한다.
+						개발자는 하지 말고.
+						
+						2014년 3월 21일 아빠가.
 					''')
 				preview.control.layoutData = FILL_HORIZONTAL[
 					widthHint = 200
