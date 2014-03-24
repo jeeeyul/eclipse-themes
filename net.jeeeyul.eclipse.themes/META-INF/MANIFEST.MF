@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Jeeeyul's Eclipse Themes
 Bundle-SymbolicName: net.jeeeyul.eclipse.themes;singleton:=true
-Bundle-Version: 2.1.4.qualifier
+Bundle-Version: 2.1.5.qualifier
 Bundle-Activator: net.jeeeyul.eclipse.themes.JThemesCore
 Bundle-Vendor: jeeeyul@gmail.com
 Require-Bundle: org.eclipse.ui,
