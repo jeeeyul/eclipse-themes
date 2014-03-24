@@ -43,7 +43,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	Listener windowsRedrawHook = [
 		parent.redraw
 	]
-	
+
 	private def handleSettingChange(PropertyChangeEvent event) {
 		switch (event.propertyName) {
 			case "shadow-color": {
@@ -188,13 +188,11 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 	override protected draw(int part, int state, Rectangle bounds, GC gc) {
 		try {
-			println(part)
 			doDraw(part, state, bounds, gc)
 		} catch(Exception e) {
 			e.printStackTrace
 		}
 	}
-	
 
 	def private doDraw(int part, int state, Rectangle bounds, GC gc) {
 		gc.advanced = true
@@ -232,26 +230,24 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		}
 	}
 
-	protected def drawChevronButton(int part, int state, Rectangle rectangle, GC gc) {	
+	protected def drawChevronButton(int part, int state, Rectangle rectangle, GC gc) {
 	}
-	
 
 	private def updateChevronImage() {
 		val chevronSize = parent.chevron.size
 		if(chevronSize.x == 0 || chevronSize.y == 0) {
 			return
 		}
-		
+
 		var HSB lastColor = parent.chevron.getData("last-render-color") as HSB
 		var Integer lastCount = parent.chevron.getData("last-render-count") as Integer
 		val count = Math.min(parent.items.filter[it.showing == false].size, 99)
-		if(lastColor == settings.getChevronColor && lastCount == count){
+		if(lastColor == settings.getChevronColor && lastCount == count) {
 			return;
 		}
 
 		var size = computeSize(PART_CHEVRON_BUTTON, SWT.NONE, null, SWT.DEFAULT, SWT.DEFAULT)
 		parent.chevron.backgroundImage = null
-
 
 		val mask = new Image(display, size.x, size.y)
 		val mgc = new GC(mask)
@@ -293,7 +289,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		parent.chevronItem.image.safeDispose()
 		parent.chevronItem.image = null
 		parent.chevronItem.image = itemImage
-		
+
 		parent.chevron.setData("last-render-color", settings.chevronColor)
 		parent.chevron.setData("last-render-count", count)
 	}
@@ -368,9 +364,9 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		fillArea.setTop(headerArea.bottom.y)
 
 		gc.fillRoundRectangle(fillArea, settings.borderRadius, CORNER_BOTTOM)
-		
+
 		fillArea.shrink(settings.paddings)
-		if(settings.borderColors != null){
+		if(settings.borderColors != null) {
 			fillArea.shrink(1, 0, 1, 1)
 		}
 		gc.background = parent.background
