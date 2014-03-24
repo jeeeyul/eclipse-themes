@@ -382,5 +382,13 @@
             description body text
          </description>
       </preset>
+      <preset
+            epf="presets/Retro.epf"
+            id="net.jeeeyul.eclipse.themes.retro"
+            name="Retro">
+         <description>
+            description body text
+         </description>
+      </preset>
    </extension>
 </plugin>
