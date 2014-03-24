@@ -13,14 +13,16 @@ import org.eclipse.swt.widgets.Composite
 import net.jeeeyul.eclipse.themes.SharedImages
 
 class PartStackPage extends AbstractJTPreferencePage {
-	Color[] backgroundColors = #[]
+	Color[] headerBackgroundColors = #[]
 	Color[] selectedBackgroundColors = #[]
+	Color bodyBackgroundColor
 	Color unselectedForeground
 	Color selectedForeground
 
-	GradientEdit backgroundEdit
+	GradientEdit headerBackgroundEdit
 	GradientEdit borderEdit
 	Button hideBorderButton
+	ColorWell bodyBackgroundEdit
 
 	GradientEdit selectedBackgroundEdit
 	GradientEdit selectedBorderEdit
@@ -45,6 +47,7 @@ class PartStackPage extends AbstractJTPreferencePage {
 	ColorWell closeButtonColorWell
 	ColorWell closeButtonHoverColorWell
 	ColorWell closeButtonActiveColorWell
+	
 	LineWidthEditor closeButtonLineEdit
 	
 	ColorWell chevronColorWell
@@ -61,19 +64,19 @@ class PartStackPage extends AbstractJTPreferencePage {
 		parent.newComposite [
 			layout = newGridLayout
 			newGroup[
-				text = "Header && Border"
+				text = "Tab Header && Body"
 				layoutData = FILL_HORIZONTAL[]
 				layout = newGridLayout[
 					numColumns = 4
 				]
-				newLabel[text = "Fill"]
-				backgroundEdit = newGradientEdit[
+				newLabel[text = "Header Fill"]
+				headerBackgroundEdit = newGradientEdit[
 					layoutData = FILL_HORIZONTAL
 					onModified = [
 						requestFastUpdatePreview()
 					]
 				]
-				backgroundEdit.appendOrderLockButton [
+				headerBackgroundEdit.appendOrderLockButton [
 					layoutData = newGridData[horizontalSpan = 2]
 				]
 				newLabel[text = "Border"]
@@ -87,6 +90,15 @@ class PartStackPage extends AbstractJTPreferencePage {
 				hideBorderButton = newCheckbox[
 					text = "Hide"
 					onSelection = [requestUpdatePreview()]
+				]
+				
+				newLabel[
+					text = "Background"
+				]
+				bodyBackgroundEdit = newColorWell[
+					onModified = [
+						requestFastUpdatePreview()
+					]
 				]
 			]
 			newTabFolder[
@@ -294,13 +306,20 @@ class PartStackPage extends AbstractJTPreferencePage {
 
 	override updatePreview(CTabFolder folder, JTabSettings renderSettings, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
 		// SWT CTabFolder ignores same color arrays.
-		if(!this.backgroundColors.matches(backgroundEdit.selection.asSWTSafeHSBArray)) {
-			var newBackgroundColors = backgroundEdit.selection.asSWTSafeHSBArray.createColors
-			folder.setBackground(newBackgroundColors, backgroundEdit.selection.asSWTSafePercentArray, true)
-			this.backgroundColors.safeDispose()
-			this.backgroundColors = newBackgroundColors
+		if(!this.headerBackgroundColors.matches(headerBackgroundEdit.selection.asSWTSafeHSBArray)) {
+			var newBackgroundColors = headerBackgroundEdit.selection.asSWTSafeHSBArray.createColors
+			folder.setBackground(newBackgroundColors, headerBackgroundEdit.selection.asSWTSafePercentArray, true)
+			this.headerBackgroundColors.safeDispose()
+			this.headerBackgroundColors = newBackgroundColors
 		} else {
-			folder.setBackground(this.backgroundColors, backgroundEdit.selection.asSWTSafePercentArray, true)
+			folder.setBackground(this.headerBackgroundColors, headerBackgroundEdit.selection.asSWTSafePercentArray, true)
+		}
+		
+		if(!this.bodyBackgroundColor.matches(this.bodyBackgroundEdit.selection)){
+			var newBodyBackground = this.bodyBackgroundEdit.selection.newColor
+			folder.setBackground(newBodyBackground)
+			this.bodyBackgroundColor.safeDispose
+			this.bodyBackgroundColor = newBodyBackground
 		}
 
 		if(hideBorderButton.selection == false) {
@@ -407,10 +426,16 @@ class PartStackPage extends AbstractJTPreferencePage {
 			if(borderColor != null) {
 				this.borderEdit.selection = borderColor
 			}
-			var background = getGradient(JTPConstants.PartStack.BACKGROUND_COLOR)
-			if(background != null) {
-				this.backgroundEdit.selection = background
+			var headerBackground = getGradient(JTPConstants.PartStack.HEADER_BACKGROUND_COLOR)
+			if(headerBackground != null) {
+				this.headerBackgroundEdit.selection = headerBackground
 			}
+			
+			var bodyBackground = getHSB(JTPConstants.PartStack.BODY_BACKGROUND_COLOR)
+			if(bodyBackground != null){
+				this.bodyBackgroundEdit.selection = bodyBackground
+			}
+			
 			this.hideBorderButton.selection = !getBoolean(JTPConstants.PartStack.BORDER_SHOW)
 			// selected
 			{
@@ -521,7 +546,8 @@ class PartStackPage extends AbstractJTPreferencePage {
 	override save(JThemePreferenceStore store, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
 		store.withContext(this.context) [
 			setValue(JTPConstants.PartStack.BORDER_COLOR, borderEdit.selection)
-			setValue(JTPConstants.PartStack.BACKGROUND_COLOR, backgroundEdit.selection)
+			setValue(JTPConstants.PartStack.HEADER_BACKGROUND_COLOR, headerBackgroundEdit.selection)
+			setValue(JTPConstants.PartStack.BODY_BACKGROUND_COLOR, bodyBackgroundEdit.selection)
 			setValue(JTPConstants.PartStack.BORDER_SHOW, !this.hideBorderButton.selection)
 			setValue(JTPConstants.PartStack.SELECTED_FILL_COLOR, this.selectedBackgroundEdit.selection)
 			setValue(JTPConstants.PartStack.SELECTED_BORDER_COLOR, this.selectedBorderEdit.selection)
@@ -554,7 +580,8 @@ class PartStackPage extends AbstractJTPreferencePage {
 	override dispose(extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
 		this.unselectedForeground.safeDispose
 		this.selectedForeground.safeDispose
-		this.backgroundColors.safeDispose
+		this.headerBackgroundColors.safeDispose
+		this.bodyBackgroundColor.safeDispose
 		this.selectedBackgroundColors.safeDispose
 	}
 }

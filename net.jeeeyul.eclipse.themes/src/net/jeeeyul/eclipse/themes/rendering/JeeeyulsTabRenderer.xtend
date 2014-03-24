@@ -43,7 +43,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	Listener windowsRedrawHook = [
 		parent.redraw
 	]
-
+	
 	private def handleSettingChange(PropertyChangeEvent event) {
 		switch (event.propertyName) {
 			case "shadow-color": {
@@ -188,11 +188,13 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 	override protected draw(int part, int state, Rectangle bounds, GC gc) {
 		try {
+			println(part)
 			doDraw(part, state, bounds, gc)
 		} catch(Exception e) {
 			e.printStackTrace
 		}
 	}
+	
 
 	def private doDraw(int part, int state, Rectangle bounds, GC gc) {
 		gc.advanced = true
@@ -208,8 +210,8 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 		switch (part) {
 			case PART_HEADER: {
-				updateControlBKImages()
 				drawTabHeader(part, state, bounds, gc)
+				updateChevronImage()
 			}
 			case PART_CLOSE_BUTTON: {
 				drawCloseButton(part, state, bounds, gc)
@@ -217,10 +219,10 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			case PART_BORDER: {
 			}
 			case PART_BODY: {
-				updateChrveronImage()
 				drawTabBody(part, state, bounds, gc)
 			}
 			case PART_CHEVRON_BUTTON: {
+				drawChevronButton(part, state, bounds, gc)
 			}
 			case part >= 0: {
 				drawTabItem(part, state, bounds, gc)
@@ -230,16 +232,26 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		}
 	}
 
-	private def updateChrveronImage() {
+	protected def drawChevronButton(int part, int state, Rectangle rectangle, GC gc) {	
+	}
+	
+
+	private def updateChevronImage() {
 		val chevronSize = parent.chevron.size
 		if(chevronSize.x == 0 || chevronSize.y == 0) {
 			return
+		}
+		
+		var HSB lastColor = parent.chevron.getData("last-render-color") as HSB
+		var Integer lastCount = parent.chevron.getData("last-render-count") as Integer
+		val count = Math.min(parent.items.filter[it.showing == false].size, 99)
+		if(lastColor == settings.getChevronColor && lastCount == count){
+			return;
 		}
 
 		var size = computeSize(PART_CHEVRON_BUTTON, SWT.NONE, null, SWT.DEFAULT, SWT.DEFAULT)
 		parent.chevron.backgroundImage = null
 
-		val count = Math.min(parent.items.filter[it.showing == false].size, 99)
 
 		val mask = new Image(display, size.x, size.y)
 		val mgc = new GC(mask)
@@ -281,19 +293,9 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		parent.chevronItem.image.safeDispose()
 		parent.chevronItem.image = null
 		parent.chevronItem.image = itemImage
-	}
-
-	private def updateControlBKImages() {
-		for (c : parent.controls) {
-			var img = c.backgroundImage
-			if(c.bounds.y < parent.tabHeight && img != null && !img.disposed) {
-				var gc = new GC(img)
-				gc.fillGradientRectangle(new Rectangle(0, -c.bounds.y, img.bounds.width, parent.tabHeight + 3), parent.gradientColor, parent.gradientPercents, true)
-				gc.dispose();
-			}
-			c.backgroundImage = null
-			c.backgroundImage = img
-		}
+		
+		parent.chevron.setData("last-render-color", settings.chevronColor)
+		parent.chevron.setData("last-render-count", count)
 	}
 
 	private def getHeaderArea() {
@@ -366,6 +368,13 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		fillArea.setTop(headerArea.bottom.y)
 
 		gc.fillRoundRectangle(fillArea, settings.borderRadius, CORNER_BOTTOM)
+		
+		fillArea.shrink(settings.paddings)
+		if(settings.borderColors != null){
+			fillArea.shrink(1, 0, 1, 1)
+		}
+		gc.background = parent.background
+		gc.fill(fillArea)
 
 		// Draw Border
 		if(settings.borderWidth > 0 && settings.borderColors != null && settings.borderPercents != null) {
@@ -420,14 +429,10 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		val itemBounds = if(tabFolder.onBottom)
 				throw new UnsupportedOperationException
 			else
-				item.bounds.getResized(-Math.max(settings.tabSpacing, 0), 1)
+				item.bounds.getResized(-Math.max(settings.tabSpacing, 0), 0)
 
 		if(settings.tabSpacing == -1) {
 			itemBounds.resize(1, 0)
-		}
-
-		if(!state.hasFlags(SWT.SELECTED)) {
-			itemBounds.resize(0, -1)
 		}
 
 		// Fill tab item bounds

@@ -116,6 +116,7 @@ class JTPreferencePage extends PreferencePage implements IWorkbenchPreferencePag
 				]
 			]
 		]
+		
 		menuManager = new MenuManager()
 		menuManager.createContextMenu(folder)
 

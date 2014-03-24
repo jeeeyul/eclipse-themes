@@ -146,13 +146,13 @@ class CustomThemeGenerator {
 			«ENDIF»
 			
 			/* tab background */
-			jtab-header-background : «store.getGradient(JTPConstants.InactivePartStack.BACKGROUND_COLOR).toSWTCSSString»;
+			jtab-header-background : «store.getGradient(JTPConstants.InactivePartStack.HEADER_BACKGROUND_COLOR).toSWTCSSString»;
 			«IF store.getBoolean(JTPConstants.InactivePartStack.BORDER_SHOW)»
 				jtab-border-color : «store.getGradient(JTPConstants.InactivePartStack.BORDER_COLOR).toSWTCSSString»;
 			«ELSE»
 				jtab-border-color : none;
 			«ENDIF»
-			background : «store.getGradient(JTPConstants.InactivePartStack.SELECTED_FILL_COLOR).last.color.toHTMLCode»;
+			background : «store.getHSB(JTPConstants.InactivePartStack.BODY_BACKGROUND_COLOR).toHTMLCode»;
 			
 			/* selected tabs */
 			jtab-selected-tab-background: «store.getGradient(JTPConstants.InactivePartStack.SELECTED_FILL_COLOR).toSWTCSSString»;
@@ -233,6 +233,7 @@ class CustomThemeGenerator {
 			«ELSE»
 				jtab-border-color : none;
 			«ENDIF»
+			background : «store.getGradient(JTPConstants.EmptyPartStack.FILL_COLOR).last.color.toHTMLCode»;
 			
 		}
 		
@@ -242,13 +243,13 @@ class CustomThemeGenerator {
 				url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer');
 			
 			/* tab background */
-			jtab-header-background : «store.getGradient(JTPConstants.ActivePartStack.BACKGROUND_COLOR).toSWTCSSString»;
+			jtab-header-background : «store.getGradient(JTPConstants.ActivePartStack.HEADER_BACKGROUND_COLOR).toSWTCSSString»;
 			«IF store.getBoolean(JTPConstants.ActivePartStack.BORDER_SHOW)»
 				jtab-border-color : «store.getGradient(JTPConstants.ActivePartStack.BORDER_COLOR).toSWTCSSString»;
 			«ELSE»
 				jtab-border-color : none;
 			«ENDIF»
-			background : «store.getGradient(JTPConstants.ActivePartStack.SELECTED_FILL_COLOR).last.color.toHTMLCode»;
+			background : «store.getHSB(JTPConstants.ActivePartStack.BODY_BACKGROUND_COLOR).toHTMLCode»;
 			
 			/* selected tabs */
 			jtab-selected-tab-background: «store.getGradient(JTPConstants.ActivePartStack.SELECTED_FILL_COLOR).toSWTCSSString»;

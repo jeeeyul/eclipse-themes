@@ -30,7 +30,10 @@ public interface JTPConstants {
 	@Ignore
 	public static interface PartStack {
 		@TypeHint(Gradient.class)
-		public static final String BACKGROUND_COLOR = "BACKGROUND_COLOR";
+		public static final String HEADER_BACKGROUND_COLOR = "HEADER_BACKGROUND_COLOR";
+
+		@TypeHint(HSB.class)
+		public static final String BODY_BACKGROUND_COLOR = "BODY_BACKGROUND_COLOR";
 
 		@TypeHint(Gradient.class)
 		public static final String BORDER_COLOR = "BORDER_COLOR";
@@ -118,8 +121,11 @@ public interface JTPConstants {
 		@Ignore
 		public static final String PREFIX = "ACTIVE_PART_STACK";
 
+		@TypeHint(Gradient.class)
+		public static final String HEADER_BACKGROUND_COLOR = PREFIX + CATEGORY_SEPARATOR + "HEADER_BACKGROUND_COLOR";
+
 		@TypeHint(HSB.class)
-		public static final String BACKGROUND_COLOR = PREFIX + CATEGORY_SEPARATOR + "BACKGROUND_COLOR";
+		public static final String BODY_BACKGROUND_COLOR = PREFIX + CATEGORY_SEPARATOR + "BODY_BACKGROUND_COLOR";
 
 		@TypeHint(Gradient.class)
 		public static final String BORDER_COLOR = PREFIX + CATEGORY_SEPARATOR + "BORDER_COLOR";
@@ -208,7 +214,10 @@ public interface JTPConstants {
 		public static final String PREFIX = "INACTIVE_PART_STACK";
 
 		@TypeHint(Gradient.class)
-		public static final String BACKGROUND_COLOR = PREFIX + CATEGORY_SEPARATOR + "BACKGROUND_COLOR";
+		public static final String HEADER_BACKGROUND_COLOR = PREFIX + CATEGORY_SEPARATOR + "HEADER_BACKGROUND_COLOR";
+
+		@TypeHint(HSB.class)
+		public static final String BODY_BACKGROUND_COLOR = PREFIX + CATEGORY_SEPARATOR + "BODY_BACKGROUND_COLOR";
 
 		@TypeHint(Gradient.class)
 		public static final String BORDER_COLOR = PREFIX + CATEGORY_SEPARATOR + "BORDER_COLOR";
@@ -336,13 +345,13 @@ public interface JTPConstants {
 
 		@TypeHint(HSB.class)
 		public static final String PERSPECTIVE_SWITCHER_KEY_LINE_COLOR = PREFIX + CATEGORY_SEPARATOR + "PERSPECTIVE_SWITCHER_KEY_LINE_COLOR";
-		
+
 		@TypeHint(HSB.class)
 		public static final String BACKGROUND_COLOR = PREFIX + CATEGORY_SEPARATOR + "BACKGROUND_COLOR";
-		
+
 		@TypeHint(int.class)
 		public static final String SASH_WIDTH = PREFIX + CATEGORY_SEPARATOR + "SASH_WIDTH";
-		
+
 		@TypeHint(Rectangle.class)
 		public static final String MARGINS = PREFIX + CATEGORY_SEPARATOR + "MARGINS";
 	}
@@ -392,7 +401,7 @@ public interface JTPConstants {
 
 		@TypeHint(HSB.class)
 		public static final String UNDER_LINE_COLOR = PREFIX + CATEGORY_SEPARATOR + "UNDER_LINE_COLOR";
-		
+
 		@TypeHint(HSB.class)
 		public static final String RULER_COLOR = PREFIX + CATEGORY_SEPARATOR + "RULER_COLOR";
 	}

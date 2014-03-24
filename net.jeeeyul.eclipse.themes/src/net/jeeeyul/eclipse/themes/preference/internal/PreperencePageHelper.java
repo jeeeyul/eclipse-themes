@@ -167,6 +167,14 @@ public class PreperencePageHelper {
 
 		return true;
 	}
+	
+	public boolean matches(Color color, HSB hsb){
+		if(color == null || color.isDisposed()){
+			return false;
+		}
+		
+		return new HSB(color.getRGB()).equals(hsb);
+	}
 
 	public ColorWell newColorWell(Composite parent, Procedure1<ColorWell> initializer) {
 		final ColorWell result = new ColorWell(parent, SWT.NORMAL);

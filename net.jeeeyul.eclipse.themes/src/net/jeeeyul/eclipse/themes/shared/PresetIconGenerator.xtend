@@ -33,7 +33,7 @@ class PresetIconGenerator {
 		val bounds = newRectangle(0, 0, 16, 16).shrink(2)
 		var gc = new GC(image)
 
-		gc.fillGradientRectangle(bounds, store.getGradient(JTPConstants.ActivePartStack.BACKGROUND_COLOR), true)
+		gc.fillGradientRectangle(bounds, store.getGradient(JTPConstants.ActivePartStack.HEADER_BACKGROUND_COLOR), true)
 		var outline = newPath[
 			addRectangle(bounds.getResized(-1, -1))
 		]
