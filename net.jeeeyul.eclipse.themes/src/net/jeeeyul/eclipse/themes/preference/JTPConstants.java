@@ -1,6 +1,7 @@
 package net.jeeeyul.eclipse.themes.preference;
 
 import net.jeeeyul.eclipse.themes.preference.annotations.Ignore;
+import net.jeeeyul.eclipse.themes.preference.annotations.PresetCategory;
 import net.jeeeyul.eclipse.themes.preference.annotations.TypeHint;
 import net.jeeeyul.swtend.ui.Gradient;
 import net.jeeeyul.swtend.ui.HSB;
@@ -117,6 +118,7 @@ public interface JTPConstants {
 		public static final String CHEVRON_COLOR = "CHEVRON_COLOR";
 	}
 
+	@PresetCategory
 	public static interface ActivePartStack {
 		@Ignore
 		public static final String PREFIX = "ACTIVE_PART_STACK";
@@ -209,6 +211,7 @@ public interface JTPConstants {
 		public static final String CHEVRON_COLOR = PREFIX + CATEGORY_SEPARATOR + "CHEVRON_COLOR";
 	}
 
+	@PresetCategory
 	public static interface InactivePartStack {
 		@Ignore
 		public static final String PREFIX = "INACTIVE_PART_STACK";
@@ -301,6 +304,7 @@ public interface JTPConstants {
 		public static final String CHEVRON_COLOR = PREFIX + CATEGORY_SEPARATOR + "CHEVRON_COLOR";
 	}
 
+	@PresetCategory
 	public static interface Layout {
 		@Ignore
 		public static final String PREFIX = "LAYOUT";
@@ -330,6 +334,7 @@ public interface JTPConstants {
 		public static final String SHADOW_COLOR = PREFIX + CATEGORY_SEPARATOR + "SHADOW_COLOR";
 	}
 
+	@PresetCategory
 	public static interface Window {
 		@Ignore
 		public static final String PREFIX = "WINDOW";
@@ -356,6 +361,7 @@ public interface JTPConstants {
 		public static final String MARGINS = PREFIX + CATEGORY_SEPARATOR + "MARGINS";
 	}
 
+	@PresetCategory
 	public static interface EmptyPartStack {
 		@Ignore
 		public static final String PREFIX = "EMPTY_PART_STACK";
@@ -370,6 +376,7 @@ public interface JTPConstants {
 		public static final String BORDER_SHOW = PREFIX + CATEGORY_SEPARATOR + "BORDER_SHOW";
 	}
 
+	@PresetCategory
 	public static interface EditorsPartStack {
 		@Ignore
 		public static final String PREFIX = "EDITORS_PART_STACK";
@@ -384,6 +391,7 @@ public interface JTPConstants {
 		public static final String BORDER_SHOW = PREFIX + CATEGORY_SEPARATOR + "BORDER_SHOW";
 	}
 
+	@PresetCategory
 	public static interface Others {
 		@Ignore
 		public static final String PREFIX = "OTHERS";
@@ -392,6 +400,7 @@ public interface JTPConstants {
 		public static final String USER_CSS = PREFIX + CATEGORY_SEPARATOR + "USER_CSS";
 	}
 
+	@PresetCategory
 	public static interface TextEditor {
 		@Ignore
 		public static final String PREFIX = "TEXT_EDITOR";

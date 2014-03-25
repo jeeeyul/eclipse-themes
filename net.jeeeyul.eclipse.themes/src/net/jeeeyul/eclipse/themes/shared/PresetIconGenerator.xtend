@@ -23,7 +23,7 @@ class PresetIconGenerator {
 
 	def private ImageData generateData(IJTPreset preset) {
 		var store = new JThemePreferenceStore(new PreferenceStore())
-		new JTPreferenceInitializer().initializeDefault(store)
+		new JTPreferenceInitializer().initializeDefaultPreset(store)
 		for (keyObj : preset.properties.keySet) {
 			var key = keyObj as String
 			store.setValue(key, preset.properties.getProperty(key))

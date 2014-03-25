@@ -37,7 +37,7 @@ import org.eclipse.ui.progress.UIJob
 
 class JTPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 	public static val String ID = typeof(JTPreferencePage).canonicalName
-	
+
 	extension SWTExtensions swtExt = SWTExtensions.INSTANCE
 	Map<AbstractJTPreferencePage, PreperencePageHelper> helperMap = new HashMap
 	Composite rootView
@@ -116,7 +116,7 @@ class JTPreferencePage extends PreferencePage implements IWorkbenchPreferencePag
 				]
 			]
 		]
-		
+
 		menuManager = new MenuManager()
 		menuManager.createContextMenu(folder)
 
@@ -174,7 +174,8 @@ class JTPreferencePage extends PreferencePage implements IWorkbenchPreferencePag
 
 	override protected performDefaults() {
 		var dummy = new JThemePreferenceStore(new PreferenceStore())
-		for (e : JTPUtil.listPreferenceKeys) {
+		val presetKeys = JTPUtil.listPreferenceKeys(JTPUtil.FILTER_PRESET)
+		for (e : presetKeys) {
 			dummy.setValue(e, preferenceStore.getDefaultString(e))
 		}
 
@@ -223,14 +224,14 @@ class JTPreferencePage extends PreferencePage implements IWorkbenchPreferencePag
 	}
 
 	def void doUpdatePreview() {
-		if(!control.alive){
+		if(!control.alive) {
 			return
 		}
-		
+
 		for (p : pages) {
 			p.updatePreview()
 		}
-		
+
 		rootView.layout(#[folder])
 	}
 
@@ -258,11 +259,10 @@ class JTPreferencePage extends PreferencePage implements IWorkbenchPreferencePag
 		else
 			null
 	}
-	
-		
-	def AbstractJTPreferencePage[] getAllPages(){
+
+	def AbstractJTPreferencePage[] getAllPages() {
 		var List<AbstractJTPreferencePage> result = new ArrayList<AbstractJTPreferencePage>()
-		for(each : pages){
+		for (each : pages) {
 			result += each
 			result.addAll(each.children)
 		}

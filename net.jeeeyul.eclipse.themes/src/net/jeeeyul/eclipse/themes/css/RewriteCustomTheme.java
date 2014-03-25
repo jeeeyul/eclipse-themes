@@ -68,7 +68,8 @@ public class RewriteCustomTheme {
 	}
 
 	/**
-	 * find and returns a {@link StyleSheet} which represent "jeeeyul-custom.css".
+	 * find and returns a {@link StyleSheet} which represent
+	 * "jeeeyul-custom.css".
 	 * 
 	 * @param documentCSS
 	 * @return

@@ -21,9 +21,9 @@ class ShowEPFAction extends AbstractPreferenceAction {
 
 		var tempStore = new JThemePreferenceStore(new PreferenceStore)
 		page.saveTo(tempStore)
-
+		val presetKeys = JTPUtil.listPreferenceKeys(JTPUtil.FILTER_PRESET)
 		val epf = '''
-			«FOR key : JTPUtil.listPreferenceKeys»
+			«FOR key : presetKeys»
 				«key»=«JTPUtil.saveConvert(tempStore.getString(key), false, true)»
 			«ENDFOR»
 		'''

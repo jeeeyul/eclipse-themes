@@ -233,6 +233,10 @@
                name="others"
                visible="true">
          </separator>
+         <dynamic
+               class="net.jeeeyul.eclipse.themes.internal.linux.LinuxContribution"
+               id="net.jeeeyul.eclipse.themes.internal.linux.LinuxContribution">
+         </dynamic>
          <command
                commandId="org.eclipse.ui.window.preferences"
                icon="icons/config.png"

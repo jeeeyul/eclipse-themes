@@ -7,14 +7,47 @@ import java.util.List;
 import net.jeeeyul.eclipse.themes.JThemesCore;
 import net.jeeeyul.eclipse.themes.preference.JTPConstants;
 import net.jeeeyul.eclipse.themes.preference.annotations.Ignore;
-import net.jeeeyul.eclipse.themes.preference.annotations.TypeHint;
+import net.jeeeyul.eclipse.themes.preference.annotations.PresetCategory;
 import net.jeeeyul.eclipse.themes.preference.preset.IJTPresetManager;
-import net.jeeeyul.swtend.ui.HSB;
 
 import org.eclipse.jface.dialogs.IInputValidator;
 
 public class JTPUtil {
 	private static final char[] hexDigit = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+
+	public static final IPreferenceFilter FILTER_PRESET = new IPreferenceFilter() {
+		@Override
+		public boolean acceptCategory(Class<?> category) {
+			return category.getAnnotation(PresetCategory.class) != null;
+		}
+
+		@Override
+		public boolean acceptKey(Field field) {
+			return true;
+		}
+	};
+
+	public static final IPreferenceFilter FILTER_ALL = new IPreferenceFilter() {
+		@Override
+		public boolean acceptCategory(Class<?> category) {
+			return true;
+		}
+
+		@Override
+		public boolean acceptKey(Field field) {
+			return true;
+		}
+	};
+
+	private static void collectClasses(Class<?> root, List<Class<?>> result) {
+		if (root == null || result == null) {
+			throw new IllegalArgumentException();
+		}
+		result.add(root);
+		for (Class<?> each : root.getDeclaredClasses()) {
+			collectClasses(each, result);
+		}
+	}
 
 	public static IInputValidator getPresetNameValidator() {
 		IInputValidator presetNameValidator = new IInputValidator() {
@@ -41,66 +74,37 @@ public class JTPUtil {
 		return presetNameValidator;
 	}
 
-	public static final List<Class<?>> listCategories() {
-		ArrayList<Class<?>> result = new ArrayList<Class<?>>();
+	public static final List<String> listPreferenceKeys(IPreferenceFilter filter) {
+		ArrayList<String> result = new ArrayList<String>();
 
-		for (Class<?> category : JTPConstants.class.getDeclaredClasses()) {
-			if (category.getAnnotation(Ignore.class) != null) {
+		List<Class<?>> allCategories = new ArrayList<Class<?>>();
+		collectClasses(JTPConstants.class, allCategories);
+
+		for (Class<?> eachCategory : allCategories) {
+			if (eachCategory.getAnnotation(Ignore.class) != null) {
 				continue;
 			}
 
-			result.add(category);
-		}
-
-		return result;
-	}
-
-	public static final List<String> listPreferenceKeys() {
-		return listPreferenceKeys(null, null);
-	}
-
-	public static final List<String> listPreferenceKeys(Class<?> category) {
-		return listPreferenceKeys(category, null);
-	}
-
-	public static final List<String> listPreferenceKeys(Class<?> category, Class<?> valueType) {
-		ArrayList<String> result = new ArrayList<String>();
-		if (category == null) {
-			for (Class<?> eachCategory : listCategories()) {
-				result.addAll(listPreferenceKeys(eachCategory, valueType));
-			}
-			return result;
-		}
-
-		else {
-			for (Field f : category.getDeclaredFields()) {
-				if (f.getAnnotation(Ignore.class) != null) {
-					continue;
-				}
-				try {
-					if (valueType != null) {
-						TypeHint thAnno = f.getAnnotation(TypeHint.class);
-						if (thAnno.value() == valueType) {
-							result.add((String) f.get(category));
-						}
-					} else {
-						result.add((String) f.get(category));
+			if (filter.acceptCategory(eachCategory)) {
+				for (Field eachField : eachCategory.getDeclaredFields()) {
+					if (eachField.getAnnotation(Ignore.class) != null) {
+						continue;
 					}
-				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					e.printStackTrace();
+
+					if (filter.acceptKey(eachField)) {
+						try {
+							result.add((String) eachField.get(eachCategory));
+						} catch (IllegalArgumentException e) {
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							e.printStackTrace();
+						}
+					}
 				}
 			}
 		}
 
 		return result;
-	}
-
-	public static void main(String[] args) {
-		for (String e : JTPUtil.listPreferenceKeys(JTPConstants.ActivePartStack.class, HSB.class)) {
-			System.out.println(e);
-		}
 	}
 
 	public static String saveConvert(String theString, boolean escapeSpace, boolean escapeUnicode) {

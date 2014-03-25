@@ -1,6 +1,7 @@
 package net.jeeeyul.eclipse.themes.preference.actions;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
 
 import net.jeeeyul.eclipse.themes.SharedImages;
@@ -36,7 +37,8 @@ public class AddUserPresetAction extends AbstractPreferenceAction {
 		JThemePreferenceStore store = new JThemePreferenceStore(new PreferenceStore());
 		getPage().saveTo(store);
 
-		for (String key : JTPUtil.listPreferenceKeys()) {
+		List<String> presetKeys = JTPUtil.listPreferenceKeys(JTPUtil.FILTER_PRESET);
+		for (String key : presetKeys) {
 			presetProps.setProperty(key, store.getString(key));
 		}
 

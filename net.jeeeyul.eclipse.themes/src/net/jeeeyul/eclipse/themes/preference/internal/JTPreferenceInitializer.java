@@ -22,11 +22,10 @@ public class JTPreferenceInitializer extends AbstractPreferenceInitializer {
 	@Override
 	public void initializeDefaultPreferences() {
 		JThemePreferenceStore store = JThemesCore.getDefault().getPreferenceStore();
-		initializeDefault(store);
-
+		initializeDefaultPreset(store);
 	}
 
-	public void initializeDefault(JThemePreferenceStore store) {
+	public void initializeDefaultPreset(JThemePreferenceStore store) {
 		IJTPreset defaultPreset = JThemesCore.getDefault().getPresetManager().getDefaultPreset();
 		if (defaultPreset == null) {
 			throw new IllegalStateException("Default Preset is not found!");
