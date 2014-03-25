@@ -47,7 +47,7 @@ class CustomThemeGenerator {
 
 	def private String doGenerateBody() '''
 		«comment("Window")»
-		.MTrimmedWindow.topLevel {
+		.MTrimmedWindow {
 			margin-top: «windowMargins.y»px;
 			margin-right: «windowMargins.width»px;
 			margin-bottom: «windowMargins.height»px;
@@ -139,7 +139,7 @@ class CustomThemeGenerator {
 				jtab-shadow-position: 1px 1px;
 				jtab-shadow-radius: 3px;
 			«ELSE»
-				jtab-margin : 0px;
+				jtab-margin : 0px 1px 1px 0px;
 				jtab-shadow-color: none;
 				jtab-shadow-position: 0px 0px;
 				jtab-shadow-radius: 0px;
@@ -397,6 +397,10 @@ class CustomThemeGenerator {
 			margins.x = Math.max(margins.x - 1, 0)
 			margins.width = Math.max(margins.width - 4, 0)
 			margins.height = Math.max(margins.height - 4, 0)
+		}
+		else{
+			margins.width = Math.max(margins.width - 1, 0)
+			margins.height = Math.max(margins.height - 1, 0)
 		}
 		return margins
 	}
