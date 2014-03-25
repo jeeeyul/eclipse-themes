@@ -5,6 +5,7 @@ import org.eclipse.e4.ui.css.swt.theme.IThemeEngine
 import org.eclipse.e4.ui.model.application.MApplication
 import org.eclipse.jface.action.Action
 import org.eclipse.ui.PlatformUI
+import net.jeeeyul.eclipse.themes.SharedImages
 
 class SwitchThemeAction extends Action {
 	ITheme theme
@@ -12,6 +13,7 @@ class SwitchThemeAction extends Action {
 	new(ITheme theme) {
 		this.theme = theme
 		text = theme.label
+		imageDescriptor = SharedImages.getImageDescriptor(SharedImages.CSS)
 	}
 
 	override run() {

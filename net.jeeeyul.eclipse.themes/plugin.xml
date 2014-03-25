@@ -234,6 +234,7 @@
                visible="true">
          </separator>
          <menu
+               icon="icons/css.gif"
                label="Other themes">
             <dynamic
                   class="net.jeeeyul.eclipse.themes.ui.OtherThemesContribution"
