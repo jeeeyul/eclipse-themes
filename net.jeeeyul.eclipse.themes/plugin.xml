@@ -230,6 +230,17 @@
                id="net.jeeeyul.eclipse.themes.preset.contributed">
          </dynamic>
          <separator
+               name="other-themes"
+               visible="true">
+         </separator>
+         <menu
+               label="Other themes">
+            <dynamic
+                  class="net.jeeeyul.eclipse.themes.ui.OtherThemesContribution"
+                  id="net.jeeeyul.eclipse.themes.ui.OtherThemesContribution">
+            </dynamic>
+         </menu>
+         <separator
                name="others"
                visible="true">
          </separator>
