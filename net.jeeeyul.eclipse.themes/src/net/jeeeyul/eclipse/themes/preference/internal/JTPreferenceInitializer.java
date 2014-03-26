@@ -3,8 +3,10 @@ package net.jeeeyul.eclipse.themes.preference.internal;
 import java.util.Properties;
 
 import net.jeeeyul.eclipse.themes.JThemesCore;
+import net.jeeeyul.eclipse.themes.preference.JTPConstants;
 import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore;
 import net.jeeeyul.eclipse.themes.preference.preset.IJTPreset;
+import net.jeeeyul.eclipse.themes.preference.preset.IJTPresetManager;
 
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 
@@ -23,6 +25,7 @@ public class JTPreferenceInitializer extends AbstractPreferenceInitializer {
 	public void initializeDefaultPreferences() {
 		JThemePreferenceStore store = JThemesCore.getDefault().getPreferenceStore();
 		initializeDefaultPreset(store);
+		store.setDefault(JTPConstants.Memento.LAST_CHOOSED_PRESET, IJTPresetManager.DEFAULT_PRESET_ID);
 	}
 
 	public void initializeDefaultPreset(JThemePreferenceStore store) {

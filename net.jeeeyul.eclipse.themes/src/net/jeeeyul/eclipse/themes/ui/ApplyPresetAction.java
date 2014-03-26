@@ -23,7 +23,7 @@ public class ApplyPresetAction extends Action {
 	private IJTPreset preset;
 
 	public ApplyPresetAction(IJTPreset preset) {
-		super(preset.getName(), SWT.RADIO);
+		super(preset.getName(), SWT.CHECK);
 		this.preset = preset;
 		this.setImageDescriptor(preset.getImageDescriptor());
 

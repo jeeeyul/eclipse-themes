@@ -12,7 +12,7 @@ class SwitchThemeAction extends Action {
 	ITheme theme
 
 	new(ITheme theme) {
-		super(theme.label, SWT.RADIO)
+		super(theme.label, SWT.CHECK)
 		this.theme = theme
 		imageDescriptor = SharedImages.getImageDescriptor(SharedImages.CSS)
 		

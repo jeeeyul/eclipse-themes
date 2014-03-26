@@ -15,7 +15,7 @@ public class LoadPresetAction extends AbstractPreferenceAction {
 	private IJTPreset preset;
 
 	public LoadPresetAction(JTPreferencePage root, IJTPreset preset) {
-		super(root, preset.getName(), SWT.RADIO);
+		super(root, preset.getName(), SWT.CHECK);
 		this.preset = preset;
 		this.setImageDescriptor(preset.getImageDescriptor());
 

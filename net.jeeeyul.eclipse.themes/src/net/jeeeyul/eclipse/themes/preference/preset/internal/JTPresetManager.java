@@ -20,8 +20,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Platform;
 
 public class JTPresetManager implements IJTPresetManager {
-	private static final String DEFAULT_PRESET_ID = "net.jeeeyul.eclipse.themes.preset.default";
-
 	private HashSet<IUserPresetChangeListener> listeners = new HashSet<IUserPresetChangeListener>();
 
 	private List<ContributedPreset> contributedPresets;

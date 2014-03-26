@@ -10,7 +10,8 @@ import net.jeeeyul.eclipse.themes.preference.preset.internal.ContributedPreset;
  * @since 2.1
  */
 public interface IJTPresetManager {
-
+	public static final String DEFAULT_PRESET_ID = "net.jeeeyul.eclipse.themes.preset.default";
+	
 	public abstract List<ContributedPreset> getContributedPresets();
 
 	public abstract File getUserPresetFolder();
