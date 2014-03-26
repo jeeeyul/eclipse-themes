@@ -23,6 +23,7 @@ public class UserPreset implements IJTPreset {
 			return true;
 		}
 	}
+
 	private Properties properties = new Properties();
 	private File file;
 
@@ -51,7 +52,7 @@ public class UserPreset implements IJTPreset {
 
 	@Override
 	public String getId() {
-		return this.getName();
+		return "net.jeeeyul.eclipse.themes.user.preset." + this.getName();
 	}
 
 	@Override

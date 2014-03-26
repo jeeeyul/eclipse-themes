@@ -9,15 +9,24 @@ import net.jeeeyul.eclipse.themes.preference.preset.IJTPreset;
 import net.jeeeyul.swtend.SWTExtensions;
 
 import org.eclipse.jface.preference.PreferenceStore;
+import org.eclipse.swt.SWT;
 
 public class LoadPresetAction extends AbstractPreferenceAction {
 	private IJTPreset preset;
 
 	public LoadPresetAction(JTPreferencePage root, IJTPreset preset) {
-		super(root);
+		super(root, preset.getName(), SWT.RADIO);
 		this.preset = preset;
-		this.setText(preset.getName());
 		this.setImageDescriptor(preset.getImageDescriptor());
+
+		/*
+		 * https://github.com/jeeeyul/eclipse-themes/issues/140
+		 */
+		String lastChoosedPresetId = root.getLastChoosedPresetId();
+		if (lastChoosedPresetId == null) {
+			lastChoosedPresetId = root.getPreferenceStore().getString(JTPConstants.Memento.LAST_CHOOSED_PRESET);
+		}
+		setChecked(preset.getId().equals(lastChoosedPresetId));
 	}
 
 	@Override
@@ -39,5 +48,10 @@ public class LoadPresetAction extends AbstractPreferenceAction {
 
 		JThemePreferenceStore jtStore = new JThemePreferenceStore(store);
 		getPage().loadFrom(jtStore);
+
+		/*
+		 * https://github.com/jeeeyul/eclipse-themes/issues/140
+		 */
+		getPage().setLastChoosedPresetId(preset.getId());
 	}
 }

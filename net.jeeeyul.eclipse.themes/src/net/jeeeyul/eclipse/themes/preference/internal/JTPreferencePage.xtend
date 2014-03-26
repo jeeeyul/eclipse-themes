@@ -34,6 +34,7 @@ import org.eclipse.swt.widgets.ToolItem
 import org.eclipse.ui.IWorkbench
 import org.eclipse.ui.IWorkbenchPreferencePage
 import org.eclipse.ui.progress.UIJob
+import net.jeeeyul.eclipse.themes.preference.JTPConstants
 
 class JTPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 	public static val String ID = typeof(JTPreferencePage).canonicalName
@@ -44,13 +45,16 @@ class JTPreferencePage extends PreferencePage implements IWorkbenchPreferencePag
 	JeeeyulsTabRenderer renderer
 	CTabFolder folder
 	List<AbstractJTPreferencePage> pages = new ArrayList()
-
 	MenuManager menuManager
-
 	UIJob updatePreviewJob = newUIJob[
 		if(control.alive)
 			doUpdatePreview()
 	]
+	
+	/*
+	 * https://github.com/jeeeyul/eclipse-themes/issues/140
+	 */
+	@Property String lastChoosedPresetId
 
 	new() {
 		title = "Jeeeyul's Theme"
@@ -163,6 +167,13 @@ class JTPreferencePage extends PreferencePage implements IWorkbenchPreferencePag
 
 	public def void saveTo(JThemePreferenceStore store) {
 		pages.forEach[it.save(store, swtExt, helper)]
+
+		/*
+		 * https://github.com/jeeeyul/eclipse-themes/issues/140
+		 */
+		if(lastChoosedPresetId != null){
+			store.setValue(JTPConstants.Memento.LAST_CHOOSED_PRESET, lastChoosedPresetId)
+		}
 	}
 
 	public def void loadFrom(JThemePreferenceStore store) {

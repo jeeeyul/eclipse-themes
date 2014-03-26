@@ -14,5 +14,10 @@ public class AbstractPreferenceAction extends Action {
 	public AbstractPreferenceAction(JTPreferencePage page) {
 		this.page = page;
 	}
+	
+	public AbstractPreferenceAction(JTPreferencePage page, String text, int style) {
+		super(text, style);
+		this.page = page;
+	}
 
 }

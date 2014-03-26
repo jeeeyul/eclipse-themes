@@ -14,6 +14,7 @@ import org.eclipse.e4.ui.css.swt.theme.IThemeEngine;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 
@@ -22,14 +23,25 @@ public class ApplyPresetAction extends Action {
 	private IJTPreset preset;
 
 	public ApplyPresetAction(IJTPreset preset) {
+		super(preset.getName(), SWT.RADIO);
 		this.preset = preset;
-		this.setText(preset.getName());
 		this.setImageDescriptor(preset.getImageDescriptor());
+
+		/*
+		 * https://github.com/jeeeyul/eclipse-themes/issues/140
+		 */
+		if (getThemeEngine().getActiveTheme().getId().equals(JThemesCore.CUSTOM_THEME_ID)) {
+			String lastChoosedPresetId = getStore().getString(JTPConstants.Memento.LAST_CHOOSED_PRESET);
+			if (preset.getId().equals(lastChoosedPresetId)) {
+				setChecked(true);
+			}
+		}
+
 	}
 
 	@Override
 	public void run() {
-		JThemePreferenceStore store = JThemesCore.getDefault().getPreferenceStore();
+		JThemePreferenceStore store = getStore();
 		Properties properties = preset.getProperties();
 
 		for (Object keyObj : properties.keySet()) {
@@ -44,13 +56,28 @@ public class ApplyPresetAction extends Action {
 		}
 		new RewriteCustomTheme().rewrite();
 
-		MApplication application = (MApplication) PlatformUI.getWorkbench().getService(MApplication.class);
-		IEclipseContext context = application.getContext();
-		IThemeEngine engine = context.get(IThemeEngine.class);
+		IThemeEngine engine = getThemeEngine();
 		if (engine.getActiveTheme() == null || !engine.getActiveTheme().getId().equals(JThemesCore.CUSTOM_THEME_ID)) {
 			engine.setTheme(JThemesCore.CUSTOM_THEME_ID, true);
 			MessageDialog.openWarning(Display.getDefault().getActiveShell(), "Jeeeyul's Themes",
 					"A restart or opening new window is required for the theme change to full effect.");
 		}
+
+		/*
+		 * https://github.com/jeeeyul/eclipse-themes/issues/140
+		 */
+		store.setValue(JTPConstants.Memento.LAST_CHOOSED_PRESET, preset.getId());
+	}
+
+	private IThemeEngine getThemeEngine() {
+		MApplication application = (MApplication) PlatformUI.getWorkbench().getService(MApplication.class);
+		IEclipseContext context = application.getContext();
+		IThemeEngine engine = context.get(IThemeEngine.class);
+		return engine;
+	}
+
+	private JThemePreferenceStore getStore() {
+		JThemePreferenceStore store = JThemesCore.getDefault().getPreferenceStore();
+		return store;
 	}
 }

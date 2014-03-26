@@ -415,6 +415,14 @@ public interface JTPConstants {
 		public static final String RULER_COLOR = PREFIX + CATEGORY_SEPARATOR + "RULER_COLOR";
 	}
 
+	public static interface Memento {
+		@Ignore
+		public static final String PREFIX = "MEMENTO";
+
+		@TypeHint(String.class)
+		public static final String LAST_CHOOSED_PRESET = PREFIX + CATEGORY_SEPARATOR + "LAST_CHOOSED_PRESET";
+	}
+
 	public static final String CATEGORY_SEPARATOR = "__";
 
 }

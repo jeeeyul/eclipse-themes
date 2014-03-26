@@ -1,19 +1,25 @@
 package net.jeeeyul.eclipse.themes.ui
 
+import net.jeeeyul.eclipse.themes.SharedImages
 import org.eclipse.e4.ui.css.swt.theme.ITheme
 import org.eclipse.e4.ui.css.swt.theme.IThemeEngine
 import org.eclipse.e4.ui.model.application.MApplication
 import org.eclipse.jface.action.Action
+import org.eclipse.swt.SWT
 import org.eclipse.ui.PlatformUI
-import net.jeeeyul.eclipse.themes.SharedImages
 
 class SwitchThemeAction extends Action {
 	ITheme theme
 
 	new(ITheme theme) {
+		super(theme.label, SWT.RADIO)
 		this.theme = theme
-		text = theme.label
 		imageDescriptor = SharedImages.getImageDescriptor(SharedImages.CSS)
+		
+		/*
+		 * https://github.com/jeeeyul/eclipse-themes/issues/140
+		 */
+		setChecked(themeEngine.activeTheme == theme)
 	}
 
 	override run() {
