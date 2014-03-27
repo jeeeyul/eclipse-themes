@@ -35,6 +35,12 @@ Press ![Theme Icon](https://github.com/jeeeyul/eclipse-themes/wiki/images/jtheme
 
 ![screenshot](https://github.com/jeeeyul/eclipse-themes/wiki/images/screenshot-chrome.png)
 
+![screenshot](https://github.com/jeeeyul/eclipse-themes/wiki/images/screenshot-retro.png)
+
+![screenshot](https://github.com/jeeeyul/eclipse-themes/wiki/images/screenshot-glossy.png)
+
+![screenshot](https://github.com/jeeeyul/eclipse-themes/wiki/images/screenshot-kitty.png)
+
 
 ## License
 Jeeeyul's Eclipse Themes is distributed under the [EPL](http://www.eclipse.org/legal/epl-v10.html).
