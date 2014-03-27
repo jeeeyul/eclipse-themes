@@ -1,4 +1,4 @@
-## Posting a bug
+## Creating an issue
 
 1. Please specify your OS.
 2. Please specify verstion of **Jeeeyul's Eclipse Themes**.
