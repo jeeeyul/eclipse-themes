@@ -250,15 +250,6 @@ public class JTabSettings {
 		pcs.firePropertyChange("border-radius", old, borderRadius);
 	}
 
-	public void setBorderWidth(int borderWidth) {
-		if (this.borderWidth == borderWidth) {
-			return;
-		}
-		int old = this.borderWidth;
-		this.borderWidth = borderWidth;
-		pcs.firePropertyChange("border-width", old, borderWidth);
-	}
-
 	public void setChevronColor(HSB chrveronColor) {
 		if (areSame(this.chevronColor, chrveronColor)) {
 			return;
