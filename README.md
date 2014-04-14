@@ -54,4 +54,4 @@ This license basically provide unlimited freedom except very specific case.
 As far as I experienced, donation is most easy way to contribute.
 
 <a href='http://www.pledgie.com/campaigns/18377'><img alt='Click here to lend your support to: Eclipse 4 Chrome Theme and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/18377.png?skin_name=chrome' border='0' /></a>
-
+<a href="http://flattr.com/thing/1686209/Jeeeyuls-Eclipse-Themes" target="_blank"><img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a>
