@@ -406,5 +406,13 @@
             description body text
          </description>
       </preset>
+      <preset
+            epf="presets/Spring Tool Suite.epf"
+            id="net.jeeeyul.eclipse.themes.preset.sts"
+            name="Spring Tool Suite">
+         <description>
+            description body text
+         </description>
+      </preset>
    </extension>
 </plugin>
