@@ -6,7 +6,7 @@ package net.jeeeyul.eclipse.themes.preference.preset;
  * 
  * @since 2.1
  */
-public interface IUserPresetChangeListener {
+public interface IJTPresetManagerListener {
 	/**
 	 * Called when user preset has changes.
 	 */

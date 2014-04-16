@@ -12,7 +12,7 @@ import java.util.List;
 import net.jeeeyul.eclipse.themes.JThemesCore;
 import net.jeeeyul.eclipse.themes.preference.preset.IJTPreset;
 import net.jeeeyul.eclipse.themes.preference.preset.IJTPresetManager;
-import net.jeeeyul.eclipse.themes.preference.preset.IUserPresetChangeListener;
+import net.jeeeyul.eclipse.themes.preference.preset.IJTPresetManagerListener;
 
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IPath;
@@ -20,7 +20,7 @@ import org.eclipse.core.runtime.Platform;
 
 @SuppressWarnings("javadoc")
 public class JTPresetManager implements IJTPresetManager {
-	private HashSet<IUserPresetChangeListener> listeners = new HashSet<IUserPresetChangeListener>();
+	private HashSet<IJTPresetManagerListener> listeners = new HashSet<IJTPresetManagerListener>();
 
 	private List<ContributedPreset> contributedPresets;
 	private List<UserPreset> userPresets;
@@ -28,7 +28,7 @@ public class JTPresetManager implements IJTPresetManager {
 	public JTPresetManager() {
 	}
 
-	public void addListener(IUserPresetChangeListener listener) {
+	public void addListener(IJTPresetManagerListener listener) {
 		listeners.add(listener);
 	}
 
@@ -109,7 +109,7 @@ public class JTPresetManager implements IJTPresetManager {
 			userPresets = null;
 		}
 
-		for (IUserPresetChangeListener each : listeners) {
+		for (IJTPresetManagerListener each : listeners) {
 			try {
 				each.userPresetModified();
 			} catch (Exception e) {
@@ -155,7 +155,7 @@ public class JTPresetManager implements IJTPresetManager {
 		Collections.sort(userPresets, getPresetComparator());
 	}
 
-	public void removeListener(IUserPresetChangeListener listener) {
+	public void removeListener(IJTPresetManagerListener listener) {
 		listeners.remove(listener);
 	}
 }

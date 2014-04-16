@@ -36,14 +36,26 @@ public interface IJTPresetManager {
 	/**
 	 * Fire a invalidate event that describe changes of user presets.
 	 * 
-	 * @see #addListener(IUserPresetChangeListener)
-	 * @see #removeListener(IUserPresetChangeListener)
+	 * @see #addListener(IJTPresetManagerListener)
+	 * @see #removeListener(IJTPresetManagerListener)
 	 */
 	public abstract void invalidateUserPreset();
 
-	public void addListener(IUserPresetChangeListener listener);
+	/**
+	 * Adds a preset manager listener.
+	 * 
+	 * @param listener
+	 *            listener to attach.
+	 */
+	public void addListener(IJTPresetManagerListener listener);
 
-	public void removeListener(IUserPresetChangeListener listener);
+	/**
+	 * Removes a preset manager listener.
+	 * 
+	 * @param listener
+	 *            listener to detach.
+	 */
+	public void removeListener(IJTPresetManagerListener listener);
 
 	/**
 	 * 
