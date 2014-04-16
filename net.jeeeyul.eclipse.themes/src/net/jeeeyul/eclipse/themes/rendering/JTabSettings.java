@@ -15,6 +15,7 @@ import org.eclipse.swt.graphics.Rectangle;
  * @author Jeeeyul
  * @since 2.0.0
  */
+@SuppressWarnings("javadoc")
 public class JTabSettings {
 	private int borderRadius = 2;
 	private Rectangle margins = SWTExtensions.INSTANCE.newInsets(2);

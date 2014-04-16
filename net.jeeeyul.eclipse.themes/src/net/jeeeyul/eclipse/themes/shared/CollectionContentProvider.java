@@ -6,6 +6,11 @@ import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
+/**
+ * {@link IStructuredContentProvider} for {@link Collection}.
+ * 
+ * @author Jeeeyul
+ */
 public class CollectionContentProvider implements IStructuredContentProvider, ITreeContentProvider {
 
 	@Override

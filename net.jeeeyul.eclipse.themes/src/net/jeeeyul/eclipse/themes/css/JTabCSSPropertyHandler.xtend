@@ -18,7 +18,13 @@ import java.util.ArrayList
 import net.jeeeyul.eclipse.themes.css.internal.CSSCompabilityHelper
 import org.eclipse.swt.graphics.Color
 import net.jeeeyul.eclipse.themes.rendering.internal.JTabRendererHelper
+import org.eclipse.swt.custom.CTabFolderRenderer
 
+/**
+ * A CSS property handlers for {@link CTabFolder} that uses {@link JeeeyulsTabRenderer} as renderer.
+ * 
+ * @see CTabFolderRenderer#setRenderer(CTabFolderRenderer)
+ */
 class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 
 	override applyCSSProperty(Object element, String property, CSSValue value, String pseudo, extension CSSEngine engine) throws Exception {
@@ -29,10 +35,9 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 		}
 		var renderer = tabFolder.renderer as JeeeyulsTabRenderer
 		var settings = renderer.settings
-		
 
 		var applied = switch (property) {
-			case "jtab-selected-tab-background":{
+			case "jtab-selected-tab-background": {
 				if(value instanceof CSSValueList) {
 					var grad = CSSCompabilityHelper.getGradient(value as CSSValueList)
 					var colors = CSSCompabilityHelper.getSWTColors(grad, tabFolder.display, engine)
@@ -42,13 +47,12 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 				} else if(value instanceof CSSPrimitiveValue) {
 					var newColor = engine.convert(value, typeof(Color), tabFolder.display) as Color
 					tabFolder.setSelectionBackground(#[newColor, newColor], #[100], true)
-					true						
+					true
 				} else {
 					false
 				}
 			}
-			
-			case "jtab-header-background":{
+			case "jtab-header-background": {
 				if(value instanceof CSSValueList) {
 					var grad = CSSCompabilityHelper.getGradient(value as CSSValueList)
 					var colors = CSSCompabilityHelper.getSWTColors(grad, tabFolder.display, engine)
@@ -58,7 +62,7 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 				} else if(value instanceof CSSPrimitiveValue) {
 					var newColor = engine.convert(value, typeof(Color), tabFolder.display) as Color
 					tabFolder.setBackground(#[newColor, newColor], #[100], true)
-					true						
+					true
 				} else {
 					false
 				}
@@ -437,7 +441,7 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 
 	override retrieveCSSProperty(Object element, String property, String pseudo, CSSEngine engine) throws Exception {
 		val extension JTabRendererHelper = new JTabRendererHelper()
-		
+
 		var tabFolderElement = element as CTabFolderElement
 		var tabFolder = tabFolderElement.nativeWidget as CTabFolder
 		if(!(tabFolder.renderer instanceof JeeeyulsTabRenderer)) {
@@ -445,86 +449,95 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 		}
 		var renderer = tabFolder.renderer as JeeeyulsTabRenderer
 		var settings = renderer.settings
-		
-		
-		return 
-			switch(property){
-				case "jtab-border-color" : toHTML(settings.borderColors, settings.borderPercents)
-				case "jtab-selected-border-color" : toHTML(settings.selectedBorderColors, settings.selectedBorderPercents)
-				case "jtab-unselected-border-color" : toHTML(settings.unselectedBorderColors, settings.unselectedBorderPercents)
-				case "jtab-hover-border-color" : toHTML(settings.hoverBorderColors, settings.hoverBorderPercents)
-				
-				case "jtab-border-radius" : '''«settings.borderRadius»px'''
-				case "jtab-spacing" : '''«settings.tabSpacing»px'''
-				
-				case "jtab-close-button-color" : settings.closeButtonColor.safeHTML
-				case "jtab-close-button-hot-color" : settings.closeButtonHotColor.safeHTML
-				case "jtab-close-button-active-color" : settings.closeButtonActiveColor.safeHTML
-				case "jtab-close-button-line-width" : '''«settings.closeButtonLineWidth»px'''
-				
-				case "jtab-header-background" : toHTML(tabFolder.gradientColor, tabFolder.gradientPercents)
-				case "jtab-selected-tab-background" : toHTML(tabFolder.selectionGradientColor, tabFolder.selectionGradientPercents)
-				case "jtab-unselected-tabs-background" : toHTML(settings.unselectedBackgroundColors, settings.unselectedBackgroundPercents)
-				case "jtab-hover-tabs-background" : toHTML(settings.hoverBackgroundColors, settings.hoverBackgroundPercents)
-				
-				case "jtab-hover-color" : settings.hoverForgroundColor.safeHTML
-				
-				case "jtab-margin" : '''«settings.margins.y»px «settings.margins.width»px «settings.margins.height»px «settings.margins.x»px'''
-				case "jtab-padding" : '''«settings.paddings.y»px «settings.paddings.width»px «settings.paddings.height»px «settings.paddings.x»px'''
-				
-				case "jtab-shadow-color" : settings.shadowColor.safeHTML
-				case "jtab-shadow-radius" : '''«settings.shadowRadius»px'''
-				case "jtab-shadow-position" : settings.shadowPosition.safeHTML
-				case "jtab-selected-text-shadow-color" : settings.selectedTextShadowColor.safeHTML
-				case "jtab-unselected-text-shadow-color" : settings.unselectedTextShadowColor.safeHTML
-				case "jtab-hover-text-shadow-color" : settings.hoverTextShadowColor.safeHTML
-				
-				case "jtab-selected-text-shadow-position" : settings.selectedTextShadowPosition.safeHTML
-				case "jtab-unselected-text-shadow-position" : settings.unselectedTextShadowPosition.safeHTML
-				case "jtab-hover-text-shadow-position" : settings.hoverTextShadowPosition.safeHTML
-				
-				case "jtab-item-padding" : '''0px «settings.tabItemPaddings.width»px 0px «settings.tabItemPaddings.x»px'''
-				case "jtab-item-horizontal-spacing" : '''«settings.tabItemHorizontalSpacing»px'''
-				
-				case "jtab-chevron-color" : '''«settings.chevronColor.toHTMLCode»'''
-				default : null
-			}
+
+		return switch (property) {
+			case "jtab-border-color":
+				toHTML(settings.borderColors, settings.borderPercents)
+			case "jtab-selected-border-color":
+				toHTML(settings.selectedBorderColors, settings.selectedBorderPercents)
+			case "jtab-unselected-border-color":
+				toHTML(settings.unselectedBorderColors, settings.unselectedBorderPercents)
+			case "jtab-hover-border-color":
+				toHTML(settings.hoverBorderColors, settings.hoverBorderPercents)
+			case "jtab-border-radius": '''«settings.borderRadius»px'''
+			case "jtab-spacing": '''«settings.tabSpacing»px'''
+			case "jtab-close-button-color":
+				settings.closeButtonColor.safeHTML
+			case "jtab-close-button-hot-color":
+				settings.closeButtonHotColor.safeHTML
+			case "jtab-close-button-active-color":
+				settings.closeButtonActiveColor.safeHTML
+			case "jtab-close-button-line-width": '''«settings.closeButtonLineWidth»px'''
+			case "jtab-header-background":
+				toHTML(tabFolder.gradientColor, tabFolder.gradientPercents)
+			case "jtab-selected-tab-background":
+				toHTML(tabFolder.selectionGradientColor, tabFolder.selectionGradientPercents)
+			case "jtab-unselected-tabs-background":
+				toHTML(settings.unselectedBackgroundColors, settings.unselectedBackgroundPercents)
+			case "jtab-hover-tabs-background":
+				toHTML(settings.hoverBackgroundColors, settings.hoverBackgroundPercents)
+			case "jtab-hover-color":
+				settings.hoverForgroundColor.safeHTML
+			case "jtab-margin": '''«settings.margins.y»px «settings.margins.width»px «settings.margins.height»px «settings.margins.x»px'''
+			case "jtab-padding": '''«settings.paddings.y»px «settings.paddings.width»px «settings.paddings.height»px «settings.paddings.x»px'''
+			case "jtab-shadow-color":
+				settings.shadowColor.safeHTML
+			case "jtab-shadow-radius": '''«settings.shadowRadius»px'''
+			case "jtab-shadow-position":
+				settings.shadowPosition.safeHTML
+			case "jtab-selected-text-shadow-color":
+				settings.selectedTextShadowColor.safeHTML
+			case "jtab-unselected-text-shadow-color":
+				settings.unselectedTextShadowColor.safeHTML
+			case "jtab-hover-text-shadow-color":
+				settings.hoverTextShadowColor.safeHTML
+			case "jtab-selected-text-shadow-position":
+				settings.selectedTextShadowPosition.safeHTML
+			case "jtab-unselected-text-shadow-position":
+				settings.unselectedTextShadowPosition.safeHTML
+			case "jtab-hover-text-shadow-position":
+				settings.hoverTextShadowPosition.safeHTML
+			case "jtab-item-padding": '''0px «settings.tabItemPaddings.width»px 0px «settings.tabItemPaddings.x»px'''
+			case "jtab-item-horizontal-spacing": '''«settings.tabItemHorizontalSpacing»px'''
+			case "jtab-chevron-color": '''«settings.chevronColor.toHTMLCode»'''
+			default:
+				null
+		}
 	}
-	
-	
-	def String safeHTML(HSB hsb){
-		if(hsb == null){
+
+	def private String safeHTML(HSB hsb) {
+		if(hsb == null) {
 			"none"
-		}else{
+		} else {
 			hsb.toHTMLCode
 		}
 	}
-	
-	def String safeHTML(Point point){
-		if(point == null){
+
+	def private String safeHTML(Point point) {
+		if(point == null) {
 			"none"
-		}else{
+		} else {
 			'''«point.x»px «point.y»px'''
 		}
 	}
-	
-	def private toHTML(HSB[] colors, int[] percents){
-		if(colors == null || percents == null){
+
+	def private toHTML(HSB[] colors, int[] percents) {
+		if(colors == null || percents == null) {
 			return "none";
-		}else{
+		} else {
 			return '''«colors.join(' ')[it.toHTMLCode]» «percents.join(" ")[it + "%"]»'''
 		}
 	}
-	
-	def private toHTML(Color[] colors, int[] percents){
-		if(colors == null || percents == null){
+
+	def private toHTML(Color[] colors, int[] percents) {
+		if(colors == null || percents == null) {
 			return "none";
-		}else{
+		} else {
 			return '''«colors.join(' ')[new HSB(it.RGB).toHTMLCode]» «percents.join(" ")[it + "%"]»'''
 		}
 	}
 
-	def Rectangle toInset(CSSValueList list) {
+	def private Rectangle toInset(CSSValueList list) {
 		var int top = 0;
 		var int right = 0;
 		var int bottom = 0;
@@ -546,7 +559,7 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 		return new Rectangle(left, top, right, bottom)
 	}
 
-	def Point toPoint(CSSValueList list) {
+	def private Point toPoint(CSSValueList list) {
 		var int x = 0;
 		var int y = 0;
 		switch (list.length) {
@@ -558,7 +571,7 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 		return new Point(x, y)
 	}
 
-	def int asPX(CSSValue value) {
+	def private int asPX(CSSValue value) {
 		if(value instanceof CSSPrimitiveValue) {
 			return (value as CSSPrimitiveValue).getFloatValue(CSSPrimitiveValue.CSS_PX) as int
 		}

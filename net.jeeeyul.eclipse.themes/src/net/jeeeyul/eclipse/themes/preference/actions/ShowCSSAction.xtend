@@ -9,6 +9,9 @@ import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.StyledText
 import net.jeeeyul.eclipse.themes.SharedImages
 
+/**
+ * Displays CSS content that will be generated with currently editing in preference page.
+ */
 class ShowCSSAction extends AbstractPreferenceAction {
 	new(JTPreferencePage page) {
 		super(page)

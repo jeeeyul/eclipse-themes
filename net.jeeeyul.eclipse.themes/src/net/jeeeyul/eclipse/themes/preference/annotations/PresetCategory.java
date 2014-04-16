@@ -8,7 +8,8 @@ import java.lang.annotation.Target;
 import net.jeeeyul.eclipse.themes.preference.JTPConstants;
 
 /**
- * Specifies an interface as category of {@link JTPConstants}
+ * Specifies an interface as category for theme preset. Without this annotation,
+ * interfaces in {@link JTPConstants} treated as normal preference category.
  * 
  * @see JTPConstants
  * 

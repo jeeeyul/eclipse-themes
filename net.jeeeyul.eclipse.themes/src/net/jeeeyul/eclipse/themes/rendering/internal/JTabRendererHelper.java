@@ -32,6 +32,7 @@ import org.eclipse.swt.widgets.ToolItem;
  * @author Jeeeyul
  * @since 2.0.0
  */
+@SuppressWarnings("javadoc")
 public class JTabRendererHelper {
 	static interface _CTabFolder {
 		static final HackedMethod0<CTabFolder, ToolBar> getChevron = new HackedMethod0<CTabFolder, ToolBar>(CTabFolder.class, "getChevron");

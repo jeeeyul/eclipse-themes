@@ -10,9 +10,23 @@ import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.ui.actions.CompoundContributionItem;
 
+/**
+ * Populate menu items that loads preset which are contributed by extension
+ * point in preference page.
+ * 
+ * @author Jeeeyul
+ * 
+ * @see ContributedPreset
+ * @see LoadPresetAction
+ */
 public class ContributedPresetItems extends CompoundContributionItem {
 	private JTPreferencePage page;
 
+	/**
+	 * creates
+	 * 
+	 * @param page
+	 */
 	public ContributedPresetItems(JTPreferencePage page) {
 		this.page = page;
 	}

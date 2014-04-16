@@ -3,8 +3,8 @@ package net.jeeeyul.eclipse.themes.ui;
 import java.util.List;
 
 import net.jeeeyul.eclipse.themes.JThemesCore;
-import net.jeeeyul.eclipse.themes.preference.internal.UserPreset;
 import net.jeeeyul.eclipse.themes.preference.preset.IJTPresetManager;
+import net.jeeeyul.eclipse.themes.preference.preset.internal.UserPreset;
 
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IContributionItem;

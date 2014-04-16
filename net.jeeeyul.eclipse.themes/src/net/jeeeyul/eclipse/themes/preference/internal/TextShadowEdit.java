@@ -14,6 +14,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
+@SuppressWarnings("javadoc")
 public class TextShadowEdit {
 	private ColorWell colorWell;
 	private Button noneButton;

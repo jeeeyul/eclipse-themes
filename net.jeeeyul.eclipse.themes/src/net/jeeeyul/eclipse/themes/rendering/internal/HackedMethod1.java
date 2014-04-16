@@ -2,6 +2,18 @@ package net.jeeeyul.eclipse.themes.rendering.internal;
 
 import java.lang.reflect.Method;
 
+/**
+ * Abstracts method that has 1 argument.
+ * 
+ * @param <T>
+ *            The type declared method.
+ * @param <A1>
+ *            The type of first argument.
+ * @param <R>
+ *            Return type of the method.
+ * @author Jeeeyul
+ */
+@SuppressWarnings("javadoc")
 public class HackedMethod1<T, A1, R> {
 	private Class<T> type;
 	private String name;

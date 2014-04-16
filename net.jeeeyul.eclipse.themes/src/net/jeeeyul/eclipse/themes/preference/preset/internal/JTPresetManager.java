@@ -10,7 +10,6 @@ import java.util.HashSet;
 import java.util.List;
 
 import net.jeeeyul.eclipse.themes.JThemesCore;
-import net.jeeeyul.eclipse.themes.preference.internal.UserPreset;
 import net.jeeeyul.eclipse.themes.preference.preset.IJTPreset;
 import net.jeeeyul.eclipse.themes.preference.preset.IJTPresetManager;
 import net.jeeeyul.eclipse.themes.preference.preset.IUserPresetChangeListener;
@@ -19,6 +18,7 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Platform;
 
+@SuppressWarnings("javadoc")
 public class JTPresetManager implements IJTPresetManager {
 	private HashSet<IUserPresetChangeListener> listeners = new HashSet<IUserPresetChangeListener>();
 

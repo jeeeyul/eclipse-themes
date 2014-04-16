@@ -9,6 +9,9 @@ import org.eclipse.jface.preference.PreferenceStore
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.StyledText
 
+/**
+ * Displays EPF content that will be generated with currently editing in preference page.
+ */
 class ShowEPFAction extends AbstractPreferenceAction {
 	new(JTPreferencePage page) {
 		super(page)

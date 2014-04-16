@@ -12,6 +12,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.osgi.framework.Bundle;
 
+@SuppressWarnings("javadoc")
 public class ContributedPreset implements IJTPreset {
 	public static final String EXTENSION_POINT = "net.jeeeyul.eclipse.themes.preset";
 	public static final String ELEMENT_PRESET = "preset";

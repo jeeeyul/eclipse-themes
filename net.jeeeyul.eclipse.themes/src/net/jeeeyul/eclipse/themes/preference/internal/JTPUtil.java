@@ -6,15 +6,25 @@ import java.util.List;
 
 import net.jeeeyul.eclipse.themes.JThemesCore;
 import net.jeeeyul.eclipse.themes.preference.JTPConstants;
+import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore;
 import net.jeeeyul.eclipse.themes.preference.annotations.Ignore;
 import net.jeeeyul.eclipse.themes.preference.annotations.PresetCategory;
 import net.jeeeyul.eclipse.themes.preference.preset.IJTPresetManager;
+import net.jeeeyul.eclipse.themes.preference.preset.internal.UserPreset;
 
 import org.eclipse.jface.dialogs.IInputValidator;
 
+/**
+ * Utilities for {@link JThemePreferenceStore} and {@link JTPConstants}.
+ * 
+ * @author Jeeeyul
+ */
 public class JTPUtil {
 	private static final char[] hexDigit = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
 
+	/**
+	 * A filter that matches only categories for theme preset.
+	 */
 	public static final IPreferenceFilter FILTER_PRESET = new IPreferenceFilter() {
 		@Override
 		public boolean acceptCategory(Class<?> category) {
@@ -27,6 +37,9 @@ public class JTPUtil {
 		}
 	};
 
+	/**
+	 * A filter that matches every category and field.
+	 */
 	public static final IPreferenceFilter FILTER_ALL = new IPreferenceFilter() {
 		@Override
 		public boolean acceptCategory(Class<?> category) {
@@ -49,6 +62,11 @@ public class JTPUtil {
 		}
 	}
 
+	/**
+	 * 
+	 * @return User preset name validator.
+	 * @see IInputValidator
+	 */
 	public static IInputValidator getPresetNameValidator() {
 		IInputValidator presetNameValidator = new IInputValidator() {
 			@Override
@@ -74,6 +92,13 @@ public class JTPUtil {
 		return presetNameValidator;
 	}
 
+	/**
+	 * List preference keys that matches given filter.
+	 * 
+	 * @param filter
+	 *            filter to match.
+	 * @return key list.
+	 */
 	public static final List<String> listPreferenceKeys(IPreferenceFilter filter) {
 		ArrayList<String> result = new ArrayList<String>();
 
@@ -107,6 +132,17 @@ public class JTPUtil {
 		return result;
 	}
 
+	/**
+	 * Converts string to .properties value string.
+	 * 
+	 * @param theString
+	 *            string to convert.
+	 * @param escapeSpace
+	 *            escaping empty space.
+	 * @param escapeUnicode
+	 *            escaping unicode.
+	 * @return converted string.
+	 */
 	public static String saveConvert(String theString, boolean escapeSpace, boolean escapeUnicode) {
 		int len = theString.length();
 		int bufLen = len * 2;

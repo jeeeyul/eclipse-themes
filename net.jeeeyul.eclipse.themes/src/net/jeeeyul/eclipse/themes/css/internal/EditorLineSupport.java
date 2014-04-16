@@ -19,11 +19,22 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.ui.progress.UIJob;
 
+/**
+ * Renders text underlines for {@link StyledText}. Client can customize line
+ * color by {@link #setLineColor(HSB)} and customize line style through
+ * {@link #setLineStyle(int)}.
+ * 
+ * @since 2.1
+ * @author Jeeeyul
+ */
 public class EditorLineSupport {
 	private static final SWTExtensions swtToolkit = SWTExtensions.INSTANCE;
 	private static ILock GLOBAL_LOCK = Job.getJobManager().newLock();
 	private static HashSet<EditorLineSupport> INSTANCES = new HashSet<EditorLineSupport>();
 
+	/**
+	 * Dispose all {@link EditorLineSupport} instances.
+	 */
 	public static void disposeAll() {
 		GLOBAL_LOCK.acquire();
 		EditorLineSupport[] array = INSTANCES.toArray(new EditorLineSupport[INSTANCES.size()]);
@@ -34,6 +45,14 @@ public class EditorLineSupport {
 		GLOBAL_LOCK.release();
 	}
 
+	/**
+	 * Creates a new {@link EditorLineSupport}.
+	 * 
+	 * @param client
+	 *            A {@link StyledText} widget to draw lines.
+	 * @return {@link EditorLineSupport} instance for given {@link StyledText}
+	 *         widget.
+	 */
 	public static EditorLineSupport get(StyledText client) {
 		GLOBAL_LOCK.acquire();
 		EditorLineSupport liner = (EditorLineSupport) client.getData(EditorLineSupport.class.getCanonicalName());
@@ -60,7 +79,7 @@ public class EditorLineSupport {
 		}
 	};
 
-	public EditorLineSupport(StyledText client) {
+	private EditorLineSupport(StyledText client) {
 		this.client = client;
 		INSTANCES.add(this);
 		client.setData(EditorLineSupport.class.getCanonicalName(), this);
@@ -102,6 +121,10 @@ public class EditorLineSupport {
 		return image;
 	}
 
+	/**
+	 * Dispose {@link EditorLineSupport} instance and stop to draw underlines
+	 * for it's {@link StyledText}.
+	 */
 	public void dispose() {
 		if (isDisposed) {
 			return;
@@ -145,6 +168,10 @@ public class EditorLineSupport {
 		}
 	}
 
+	/**
+	 * 
+	 * @return Color of underline.
+	 */
 	public HSB getLineColor() {
 		return lineColor;
 	}
@@ -162,7 +189,7 @@ public class EditorLineSupport {
 		return lineStyle;
 	}
 
-	public UIJob getRefreshJob() {
+	private UIJob getRefreshJob() {
 		if (refreshJob == null) {
 			refreshJob = new UIJob(Display.getDefault(), "Refersh Editor Line") {
 				@Override
@@ -187,6 +214,12 @@ public class EditorLineSupport {
 		getRefreshJob().schedule();
 	}
 
+	/**
+	 * Sets color of underline.
+	 * 
+	 * @param lineColor
+	 *            color for under line.
+	 */
 	public void setLineColor(HSB lineColor) {
 		if (this.lineColor == lineColor) {
 			return;

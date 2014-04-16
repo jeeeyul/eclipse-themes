@@ -9,7 +9,6 @@ import java.util.List;
 
 import net.jeeeyul.eclipse.themes.JThemesCore;
 import net.jeeeyul.eclipse.themes.preference.internal.JTPUtil;
-import net.jeeeyul.eclipse.themes.preference.internal.UserPreset;
 import net.jeeeyul.eclipse.themes.preference.preset.IJTPreset;
 import net.jeeeyul.eclipse.themes.preference.preset.IUserPresetChangeListener;
 import net.jeeeyul.swtend.SWTExtensions;
@@ -40,6 +39,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
+@SuppressWarnings("javadoc")
 public class JTPresetPreferencePage extends PreferencePage implements IWorkbenchPreferencePage, IUserPresetChangeListener {
 	private SWTExtensions $ = SWTExtensions.INSTANCE;
 	public static final String ID = JTPresetPreferencePage.class.getCanonicalName();

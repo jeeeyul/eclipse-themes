@@ -51,21 +51,34 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 	}
 
 	public boolean contains(String name) {
-		return originalStore.contains(resolveName(name));
+		return originalStore.contains(resolveKey(name));
 	}
 
 	public void firePropertyChangeEvent(String name, Object oldValue, Object newValue) {
-		originalStore.firePropertyChangeEvent(resolveName(name), oldValue, newValue);
+		originalStore.firePropertyChangeEvent(resolveKey(name), oldValue, newValue);
 	}
 
 	public boolean getBoolean(String name) {
-		return originalStore.getBoolean(resolveName(name));
+		return originalStore.getBoolean(resolveKey(name));
 	}
 
+	/**
+	 * Gets context.
+	 * 
+	 * @return context, can be <code>null</code>.
+	 */
 	public String getContext() {
 		return context;
 	}
 
+	/**
+	 * Gets copy of current {@link JThemePreferenceStore} with specific child
+	 * context.
+	 * 
+	 * @param contenxt
+	 *            context to append.
+	 * @return copy of {@link JThemePreferenceStore}.
+	 */
 	public JThemePreferenceStore getCopyWithContext(String contenxt) {
 		JThemePreferenceStore result = new JThemePreferenceStore(originalStore);
 
@@ -77,24 +90,37 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 		return result;
 	}
 
+	/**
+	 * Gets custom key resolver.
+	 * 
+	 * @return custom key resolver.
+	 * @see #resolveKey(String)
+	 */
 	public Function1<String, String> getCustomKeyResolver() {
 		return customKeyResolver;
 	}
 
 	public boolean getDefaultBoolean(String name) {
-		return originalStore.getDefaultBoolean(resolveName(name));
+		return originalStore.getDefaultBoolean(resolveKey(name));
 	}
 
 	public double getDefaultDouble(String name) {
-		return originalStore.getDefaultDouble(resolveName(name));
+		return originalStore.getDefaultDouble(resolveKey(name));
 	}
 
 	public float getDefaultFloat(String name) {
-		return originalStore.getDefaultFloat(resolveName(name));
+		return originalStore.getDefaultFloat(resolveKey(name));
 	}
 
+	/**
+	 * Gets preference value as {@link Gradient}.
+	 * 
+	 * @param name
+	 *            key name.
+	 * @return A {@link Gradient} value for given key name.
+	 */
 	public Gradient getDefaultGradient(String name) {
-		String exp = originalStore.getDefaultString(resolveName(name));
+		String exp = originalStore.getDefaultString(resolveKey(name));
 		if (exp == null || exp.isEmpty()) {
 			return new Gradient(HSB.WHITE, HSB.WHITE);
 		}
@@ -102,7 +128,7 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 	}
 
 	public HSB getDefaultHSB(String name) {
-		String exp = originalStore.getDefaultString(resolveName(name));
+		String exp = originalStore.getDefaultString(resolveKey(name));
 		if (exp == null || exp.isEmpty()) {
 			return HSB.WHITE;
 		}
@@ -110,15 +136,15 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 	}
 
 	public int getDefaultInt(String name) {
-		return originalStore.getDefaultInt(resolveName(name));
+		return originalStore.getDefaultInt(resolveKey(name));
 	}
 
 	public long getDefaultLong(String name) {
-		return originalStore.getDefaultLong(resolveName(name));
+		return originalStore.getDefaultLong(resolveKey(name));
 	}
 
 	public Point getDefaultPoint(String name) {
-		String exp = originalStore.getDefaultString(resolveName(name));
+		String exp = originalStore.getDefaultString(resolveKey(name));
 		if (exp == null || exp.isEmpty()) {
 			return new Point(0, 0);
 		}
@@ -126,7 +152,7 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 	}
 
 	public Rectangle getDefaultRectangle(String name) {
-		String exp = originalStore.getDefaultString(resolveName(name));
+		String exp = originalStore.getDefaultString(resolveKey(name));
 		if (exp == null) {
 			return null;
 		}
@@ -134,19 +160,19 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 	}
 
 	public String getDefaultString(String name) {
-		return originalStore.getDefaultString(resolveName(name));
+		return originalStore.getDefaultString(resolveKey(name));
 	}
 
 	public double getDouble(String name) {
-		return originalStore.getDouble(resolveName(name));
+		return originalStore.getDouble(resolveKey(name));
 	}
 
 	public float getFloat(String name) {
-		return originalStore.getFloat(resolveName(name));
+		return originalStore.getFloat(resolveKey(name));
 	}
 
 	public Gradient getGradient(String name) {
-		String exp = originalStore.getString(resolveName(name));
+		String exp = originalStore.getString(resolveKey(name));
 		if (exp == null || exp.isEmpty()) {
 			return new Gradient(HSB.WHITE, HSB.WHITE);
 		}
@@ -154,7 +180,7 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 	}
 
 	public HSB getHSB(String name) {
-		String exp = originalStore.getString(resolveName(name));
+		String exp = originalStore.getString(resolveKey(name));
 		if (exp == null || exp.isEmpty()) {
 			return HSB.RED;
 		}
@@ -162,11 +188,11 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 	}
 
 	public int getInt(String name) {
-		return originalStore.getInt(resolveName(name));
+		return originalStore.getInt(resolveKey(name));
 	}
 
 	public long getLong(String name) {
-		return originalStore.getLong(resolveName(name));
+		return originalStore.getLong(resolveKey(name));
 	}
 
 	public IPersistentPreferenceStore getOriginalStore() {
@@ -174,7 +200,7 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 	}
 
 	public Point getPoint(String name) {
-		String exp = originalStore.getString(resolveName(name));
+		String exp = originalStore.getString(resolveKey(name));
 		if (exp == null || exp.isEmpty()) {
 			return new Point(0, 0);
 		}
@@ -182,7 +208,7 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 	}
 
 	public Rectangle getRectangle(String name) {
-		String exp = originalStore.getString(resolveName(name));
+		String exp = originalStore.getString(resolveKey(name));
 		if (exp == null || exp.isEmpty()) {
 			return new Rectangle(0, 0, 0, 0);
 		}
@@ -190,11 +216,11 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 	}
 
 	public String getString(String name) {
-		return originalStore.getString(resolveName(name));
+		return originalStore.getString(resolveKey(name));
 	}
 
 	public boolean isDefault(String name) {
-		return originalStore.isDefault(resolveName(name));
+		return originalStore.isDefault(resolveKey(name));
 	}
 
 	public boolean needsSaving() {
@@ -202,14 +228,24 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 	}
 
 	public void putValue(String name, String value) {
-		originalStore.putValue(resolveName(name), value);
+		originalStore.putValue(resolveKey(name), value);
 	}
 
 	public void removePropertyChangeListener(IPropertyChangeListener listener) {
 		originalStore.removePropertyChangeListener(listener);
 	}
 
-	private String resolveName(String name) {
+	/**
+	 * Resolves actual key for given key name. What if there is custom resolver
+	 * was set through {@link #setCustomKeyResolver(Function1)} It will be used
+	 * to resolve key. What if there is no custom resolver, then it will add
+	 * {@link #context} as prefix.
+	 * 
+	 * @param name
+	 *            original key.
+	 * @return resolved key.
+	 */
+	private String resolveKey(String name) {
 		if (customKeyResolver != null) {
 			return customKeyResolver.apply(name);
 		}
@@ -240,48 +276,54 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 		this.context = context;
 	}
 
+	/**
+	 * Sets custom key resolover.
+	 * 
+	 * @param customKeyResolver
+	 * @see #resolveKey(String)
+	 */
 	public void setCustomKeyResolver(Function1<String, String> customKeyResolver) {
 		this.customKeyResolver = customKeyResolver;
 	}
 
 	public void setDefault(String name, boolean value) {
-		originalStore.setDefault(resolveName(name), value);
+		originalStore.setDefault(resolveKey(name), value);
 	}
 
 	public void setDefault(String name, double value) {
-		originalStore.setDefault(resolveName(name), value);
+		originalStore.setDefault(resolveKey(name), value);
 	}
 
 	public void setDefault(String name, float value) {
-		originalStore.setDefault(resolveName(name), value);
+		originalStore.setDefault(resolveKey(name), value);
 	}
 
 	public void setDefault(String name, Gradient gradient) {
-		originalStore.setDefault(resolveName(name), serializeUtil.serialize(gradient));
+		originalStore.setDefault(resolveKey(name), serializeUtil.serialize(gradient));
 	}
 
 	public void setDefault(String name, HSB defaultValue) {
-		originalStore.setDefault(resolveName(name), serializeUtil.serialize(defaultValue));
+		originalStore.setDefault(resolveKey(name), serializeUtil.serialize(defaultValue));
 	}
 
 	public void setDefault(String name, int value) {
-		originalStore.setDefault(resolveName(name), value);
+		originalStore.setDefault(resolveKey(name), value);
 	}
 
 	public void setDefault(String name, long value) {
-		originalStore.setDefault(resolveName(name), value);
+		originalStore.setDefault(resolveKey(name), value);
 	}
 
 	public void setDefault(String name, Rectangle rect) {
-		originalStore.setDefault(resolveName(name), serializeUtil.serialize(rect));
+		originalStore.setDefault(resolveKey(name), serializeUtil.serialize(rect));
 	}
 
 	public void setDefault(String name, String defaultObject) {
-		originalStore.setDefault(resolveName(name), defaultObject);
+		originalStore.setDefault(resolveKey(name), defaultObject);
 	}
 
 	public void setDefaultValue(String name, Point point) {
-		originalStore.setDefault(resolveName(name), serializeUtil.serialize(point));
+		originalStore.setDefault(resolveKey(name), serializeUtil.serialize(point));
 	}
 
 	public void setOriginalStore(PreferenceStore originalStore) {
@@ -289,47 +331,47 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 	}
 
 	public void setToDefault(String name) {
-		originalStore.setToDefault(resolveName(name));
+		originalStore.setToDefault(resolveKey(name));
 	}
 
 	public void setValue(String name, boolean value) {
-		originalStore.setValue(resolveName(name), value);
+		originalStore.setValue(resolveKey(name), value);
 	}
 
 	public void setValue(String name, double value) {
-		originalStore.setValue(resolveName(name), value);
+		originalStore.setValue(resolveKey(name), value);
 	}
 
 	public void setValue(String name, float value) {
-		originalStore.setValue(resolveName(name), value);
+		originalStore.setValue(resolveKey(name), value);
 	}
 
 	public void setValue(String name, Gradient gradient) {
-		originalStore.setValue(resolveName(name), serializeUtil.serialize(gradient));
+		originalStore.setValue(resolveKey(name), serializeUtil.serialize(gradient));
 	}
 
 	public void setValue(String name, HSB value) {
-		originalStore.setValue(resolveName(name), serializeUtil.serialize(value));
+		originalStore.setValue(resolveKey(name), serializeUtil.serialize(value));
 	}
 
 	public void setValue(String name, int value) {
-		originalStore.setValue(resolveName(name), value);
+		originalStore.setValue(resolveKey(name), value);
 	}
 
 	public void setValue(String name, long value) {
-		originalStore.setValue(resolveName(name), value);
+		originalStore.setValue(resolveKey(name), value);
 	}
 
 	public void setValue(String name, Point point) {
-		originalStore.setValue(resolveName(name), serializeUtil.serialize(point));
+		originalStore.setValue(resolveKey(name), serializeUtil.serialize(point));
 	}
 
 	public void setValue(String name, Rectangle rect) {
-		originalStore.setValue(resolveName(name), serializeUtil.serialize(rect));
+		originalStore.setValue(resolveKey(name), serializeUtil.serialize(rect));
 	}
 
 	public void setValue(String name, String value) {
-		originalStore.setValue(resolveName(name), value);
+		originalStore.setValue(resolveKey(name), value);
 	}
 
 	public void withContext(String context, Procedure1<JThemePreferenceStore> work) {

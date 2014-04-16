@@ -13,6 +13,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 
+@SuppressWarnings("javadoc")
 public class Shadow9PatchFactory {
 
 	private static ImageData blur(ImageData src, int radius) {

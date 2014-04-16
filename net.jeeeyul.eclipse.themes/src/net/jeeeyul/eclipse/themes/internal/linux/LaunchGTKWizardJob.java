@@ -7,7 +7,15 @@ import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.progress.WorkbenchJob;
 
-public class LaunchGTKWizardJob extends WorkbenchJob  {
+/**
+ * A job that opens {@link DownloadGTKRC2Wizard}.
+ * 
+ * @author Jeeeyul
+ */
+public class LaunchGTKWizardJob extends WorkbenchJob {
+	/**
+	 * singleton
+	 */
 	public static final LaunchGTKWizardJob INSTANCE = new LaunchGTKWizardJob();
 
 	private LaunchGTKWizardJob() {

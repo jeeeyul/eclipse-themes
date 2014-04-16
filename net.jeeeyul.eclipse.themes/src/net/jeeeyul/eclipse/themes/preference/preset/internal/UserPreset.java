@@ -1,4 +1,4 @@
-package net.jeeeyul.eclipse.themes.preference.internal;
+package net.jeeeyul.eclipse.themes.preference.preset.internal;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,6 +14,7 @@ import net.jeeeyul.eclipse.themes.shared.PresetIconGenerator;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 
+@SuppressWarnings("javadoc")
 public class UserPreset implements IJTPreset {
 	public static boolean isSafeName(String name) {
 		Matcher matcher = Pattern.compile("[\\/:*?\"<>|]").matcher(name);

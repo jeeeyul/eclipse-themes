@@ -12,6 +12,11 @@ import org.w3c.dom.css.CSSPrimitiveValue
 import org.w3c.dom.css.CSSValue
 import net.jeeeyul.eclipse.themes.css.internal.EditorLineSupport
 
+/**
+ * CSS Property handler for {@link StyledText}.
+ * 
+ * @see EditorLineSupport
+ */
 class JStyledTextPropertyHandler implements ICSSPropertyHandler {
 
 	override applyCSSProperty(Object element, String property, CSSValue value, String pseudo, CSSEngine engine) throws Exception {

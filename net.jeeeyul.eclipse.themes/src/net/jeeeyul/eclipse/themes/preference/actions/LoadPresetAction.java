@@ -11,9 +11,22 @@ import net.jeeeyul.swtend.SWTExtensions;
 import org.eclipse.jface.preference.PreferenceStore;
 import org.eclipse.swt.SWT;
 
+/**
+ * Loads preset to prefernce page.
+ * 
+ * @author Jeeeyul
+ */
 public class LoadPresetAction extends AbstractPreferenceAction {
 	private IJTPreset preset;
 
+	/**
+	 * Creates {@link LoadPresetAction}
+	 * 
+	 * @param root
+	 *            preference page.
+	 * @param preset
+	 *            preset to load.
+	 */
 	public LoadPresetAction(JTPreferencePage root, IJTPreset preset) {
 		super(root, preset.getName(), SWT.CHECK);
 		this.preset = preset;

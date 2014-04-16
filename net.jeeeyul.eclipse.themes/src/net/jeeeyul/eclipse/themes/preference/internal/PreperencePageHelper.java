@@ -28,6 +28,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Scale;
 import org.eclipse.ui.dialogs.PreferencesUtil;
 
+@SuppressWarnings("javadoc")
 public class PreperencePageHelper {
 
 	private JTPreferencePage root;

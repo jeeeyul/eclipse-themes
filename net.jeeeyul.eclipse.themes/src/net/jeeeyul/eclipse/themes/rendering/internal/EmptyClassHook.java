@@ -19,7 +19,7 @@ import org.eclipse.ui.progress.UIJob;
  * @author Jeeeyul
  * @since 2.0.0
  */
-@SuppressWarnings("restriction")
+@SuppressWarnings({ "restriction", "javadoc" })
 public class EmptyClassHook {
 	private CTabFolder folder;
 	private boolean isDisposed = false;

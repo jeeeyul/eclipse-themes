@@ -29,6 +29,11 @@ import org.eclipse.ui.PlatformUI;
 public class ApplyPresetAction extends Action {
 	private IJTPreset preset;
 
+	/**
+	 * Creates an {@link ApplyPresetAction}.
+	 * 
+	 * @param preset
+	 */
 	public ApplyPresetAction(IJTPreset preset) {
 		super(preset.getName(), SWT.CHECK);
 		this.preset = preset;

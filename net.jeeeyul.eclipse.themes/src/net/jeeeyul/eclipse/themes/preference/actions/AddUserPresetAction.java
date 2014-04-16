@@ -8,15 +8,23 @@ import net.jeeeyul.eclipse.themes.SharedImages;
 import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore;
 import net.jeeeyul.eclipse.themes.preference.internal.JTPUtil;
 import net.jeeeyul.eclipse.themes.preference.internal.JTPreferencePage;
-import net.jeeeyul.eclipse.themes.preference.internal.UserPreset;
+import net.jeeeyul.eclipse.themes.preference.preset.internal.UserPreset;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.preference.PreferenceStore;
 import org.eclipse.swt.widgets.Display;
 
+/**
+ * Saves a current preference settings to {@link UserPreset}.
+ * 
+ * @author Jeeeyul
+ */
 public class AddUserPresetAction extends AbstractPreferenceAction {
 
+	/**
+	 * @param page
+	 */
 	public AddUserPresetAction(JTPreferencePage page) {
 		super(page);
 		setText("Save as new preset");

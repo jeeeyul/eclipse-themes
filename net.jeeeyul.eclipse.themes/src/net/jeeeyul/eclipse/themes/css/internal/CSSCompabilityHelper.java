@@ -89,6 +89,13 @@ public class CSSCompabilityHelper {
 		return gradient;
 	}
 
+	/**
+	 * Converts css % value to int.
+	 * 
+	 * @param value
+	 *            value to convert.
+	 * @return An int value.
+	 */
 	public static Integer getPercent(CSSPrimitiveValue value) {
 		int percent = 0;
 		switch (value.getPrimitiveType()) {
@@ -98,6 +105,13 @@ public class CSSCompabilityHelper {
 		return new Integer(percent);
 	}
 
+	/**
+	 * Extract percent array(int) from {@link Gradient}.
+	 * 
+	 * @param grad
+	 *            gradient to extract percent array.
+	 * @return percent array.
+	 */
 	public static int[] getPercents(Gradient grad) {
 		// There should be exactly one more RGBs. than percent,
 		// in which case just return the percents as array
@@ -123,6 +137,18 @@ public class CSSCompabilityHelper {
 		}
 	}
 
+	/**
+	 * Converts {@link Gradient} to {@link Color} array.
+	 * 
+	 * @param grad
+	 *            gradient to convert.
+	 * @param display
+	 *            context.
+	 * @param engine
+	 *            engine
+	 * @return {@link Color} array.
+	 * @throws Exception
+	 */
 	@SuppressWarnings("rawtypes")
 	public static Color[] getSWTColors(Gradient grad, Display display, CSSEngine engine) throws Exception {
 		List values = grad.getValues();

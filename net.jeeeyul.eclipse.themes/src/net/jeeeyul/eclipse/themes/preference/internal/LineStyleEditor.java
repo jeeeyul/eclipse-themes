@@ -11,6 +11,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
+@SuppressWarnings("javadoc")
 public class LineStyleEditor {
 
 	private Button[] buttons;
@@ -57,6 +58,15 @@ public class LineStyleEditor {
 		}
 	}
 
+	/**
+	 * 
+	 * @return line style value.
+	 * 
+	 * @see SWT#LINE_SOLID
+	 * @see SWT#LINE_DASH
+	 * @see SWT#LINE_DOT
+	 * @see SWT#NONE
+	 */
 	public int getSelection() {
 		for (Button each : buttons) {
 			if (each.getSelection()) {

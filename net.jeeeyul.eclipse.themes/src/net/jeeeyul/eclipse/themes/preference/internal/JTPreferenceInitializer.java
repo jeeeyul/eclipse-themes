@@ -26,6 +26,12 @@ public class JTPreferenceInitializer extends AbstractPreferenceInitializer {
 		store.setDefault(JTPConstants.Memento.LAST_CHOOSED_PRESET, IJTPresetManager.DEFAULT_PRESET_ID);
 	}
 
+	/**
+	 * Initialize given {@link JThemePreferenceStore}.
+	 * 
+	 * @param store
+	 *            store to initialize.
+	 */
 	public void initializeDefaultPreset(JThemePreferenceStore store) {
 		IJTPreset defaultPreset = JThemesCore.getDefault().getPresetManager().getDefaultPreset();
 		if (defaultPreset == null) {

@@ -9,6 +9,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
+@SuppressWarnings("javadoc")
 public class LineWidthEditor {
 	private Button thinButton;
 	private Button normalButton;

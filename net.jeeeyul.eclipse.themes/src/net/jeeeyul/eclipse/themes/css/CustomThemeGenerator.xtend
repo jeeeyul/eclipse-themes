@@ -7,10 +7,21 @@ import org.eclipse.swt.SWT
 import org.eclipse.swt.graphics.Point
 import net.jeeeyul.eclipse.themes.internal.OSHelper
 
+/**
+ * Generates CSS content with {@link JThemePreferenceStore} as input.
+ * @see #generate()
+ * 
+ * @since 2.1
+ * @author Jeeeyul Lee
+ */
 class CustomThemeGenerator {
 	@Property JThemePreferenceStore store
 	extension OSHelper = OSHelper.INSTANCE
 
+	/**
+	 * Creates {@link CustomThemeGenerator} with input.
+	 * @param store An input to generate css.
+	 */
 	new(JThemePreferenceStore store) {
 		if(store == null) {
 			throw new IllegalArgumentException
@@ -18,6 +29,11 @@ class CustomThemeGenerator {
 		this.store = store
 	}
 
+	/**
+	 * Generate CSS content.
+	 * 
+	 * @return generated CSS content.
+	 */
 	def String generate() '''
 		«header» 
 		
@@ -391,14 +407,13 @@ class CustomThemeGenerator {
 		return SWTExtensions.INSTANCE.minimumToolBarHeight
 	}
 
-	def windowMargins() {
+	def private windowMargins() {
 		var margins = store.getRectangle(JTPConstants.Window.MARGINS)
 		if(store.getBoolean(JTPConstants.Layout.SHOW_SHADOW)) {
 			margins.x = Math.max(margins.x - 1, 0)
 			margins.width = Math.max(margins.width - 4, 0)
 			margins.height = Math.max(margins.height - 4, 0)
-		}
-		else{
+		} else {
 			margins.width = Math.max(margins.width - 1, 0)
 			margins.height = Math.max(margins.height - 1, 0)
 		}

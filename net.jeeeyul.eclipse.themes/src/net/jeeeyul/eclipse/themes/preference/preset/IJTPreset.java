@@ -10,11 +10,29 @@ import org.eclipse.jface.resource.ImageDescriptor;
  * @author Jeeeyul
  */
 public interface IJTPreset {
+	/**
+	 * 
+	 * @return {@link Properties} that contains settings of this
+	 *         {@link IJTPreset}.
+	 */
 	public Properties getProperties();
 
+	/**
+	 * 
+	 * @return Human readable name for this preset.
+	 */
 	public String getName();
 
+	/**
+	 * 
+	 * @return unique id for this {@link IJTPreset}.
+	 */
 	public String getId();
-	
+
+	/**
+	 * 
+	 * @return A preview image descriptor for this {@link IJTPreset}. It's size
+	 *         should have to be 16 x 16.
+	 */
 	public ImageDescriptor getImageDescriptor();
 }

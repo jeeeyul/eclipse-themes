@@ -7,10 +7,12 @@ import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.ui.actions.CompoundContributionItem;
 
+/**
+ * Populates menu items for linux users.
+ * 
+ * @author Jeeeyul
+ */
 public class LinuxContribution extends CompoundContributionItem {
-	public LinuxContribution() {
-	}
-
 	@Override
 	protected IContributionItem[] getContributionItems() {
 		if (OSHelper.INSTANCE.isLinux() == false || SWTExtensions.INSTANCE.getMinimumToolBarHeight() < 30) {
