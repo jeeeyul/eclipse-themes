@@ -18,6 +18,7 @@ import org.eclipse.swt.graphics.Rectangle;
  * @author Jeeeyul
  * @since 2.1
  */
+@SuppressWarnings("javadoc")
 public interface JTPConstants {
 	/**
 	 * Used by {@link PartStackPage}. Keys in this interfaces are not used by

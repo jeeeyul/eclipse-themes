@@ -11,6 +11,11 @@ import org.eclipse.swt.widgets.Layout;
 import org.w3c.dom.css.CSSPrimitiveValue;
 import org.w3c.dom.css.CSSValue;
 
+/**
+ * CSS Property handler for "jsash-width" property of Composite elements.
+ * 
+ * @author Jeeeyul
+ */
 @SuppressWarnings("restriction")
 public class SashWidthHandler implements ICSSPropertyHandler {
 	private HackedField<SashLayout, Integer> sashWidth = new HackedField<SashLayout, Integer>(SashLayout.class, "sashWidth");

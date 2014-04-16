@@ -24,6 +24,12 @@ import org.eclipse.e4.ui.model.application.MApplicationFactory;
  * @since 2.0.0
  */
 public class JThemeProcessor {
+	/**
+	 * Installs {@link MAddon} to given application.
+	 * 
+	 * @param application
+	 *            An application to install addons.
+	 */
 	@Execute
 	public void addAddon(MApplication application) {
 		validateAddons(application);

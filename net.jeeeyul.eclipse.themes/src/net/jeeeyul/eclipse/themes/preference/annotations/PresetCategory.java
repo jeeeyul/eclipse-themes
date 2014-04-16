@@ -5,6 +5,15 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import net.jeeeyul.eclipse.themes.preference.JTPConstants;
+
+/**
+ * Specifies an interface as category of {@link JTPConstants}
+ * 
+ * @see JTPConstants
+ * 
+ * @author Jeeeyul
+ */
 @Target({ ElementType.FIELD, ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PresetCategory {

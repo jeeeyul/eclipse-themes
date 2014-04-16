@@ -10,16 +10,23 @@ import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.ui.actions.CompoundContributionItem;
 
+/**
+ * Populate preset items on drop down menu in toolbar from contributed preset
+ * through extension point.
+ * 
+ * @author Jeeeyul
+ * @since 2.1
+ */
 public class ContributedPresetItems extends CompoundContributionItem {
 
 	@Override
 	protected IContributionItem[] getContributionItems() {
 		IJTPresetManager presetManager = JThemesCore.getDefault().getPresetManager();
 		List<ContributedPreset> contributedPresets = presetManager.getContributedPresets();
-		if(contributedPresets.size() == 0){
+		if (contributedPresets.size() == 0) {
 			return new IContributionItem[0];
 		}
-		
+
 		IContributionItem[] result = new IContributionItem[contributedPresets.size()];
 		for (int i = 0; i < contributedPresets.size(); i++) {
 			ApplyPresetAction action = new ApplyPresetAction(contributedPresets.get(i));

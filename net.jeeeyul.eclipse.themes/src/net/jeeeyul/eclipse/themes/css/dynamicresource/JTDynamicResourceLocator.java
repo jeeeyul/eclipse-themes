@@ -13,6 +13,18 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.ImageLoader;
 
+/**
+ * Provides dynamic resources for URI that starts with "jeeeyul://"
+ * 
+ * Currently provides
+ * "jeeeyul://drag-handle?height=[number]&background-color=[hsb]" and
+ * "jeeeyul://frame?background-color=[hsb]".
+ * 
+ * @see DragHandleFactory
+ * @see FrameFactory
+ * 
+ * @author Jeeeyul Lee <jeeeyul@gmail.com>
+ */
 @SuppressWarnings("restriction")
 public class JTDynamicResourceLocator implements IResourceLocator {
 	DragHandleFactory dragHandleFactory = new DragHandleFactory();
@@ -37,9 +49,9 @@ public class JTDynamicResourceLocator implements IResourceLocator {
 		String command = curi.getCommand();
 
 		if (command.equals("drag-handle")) {
-			int height = Integer.parseInt(curi.getArgument("height", "22"));
-			HSB backgroundColor = new HSB(curi.getArgument("background-color"));
-			boolean embossed = Boolean.parseBoolean(curi.getArgument("embossed", "false"));
+			int height = Integer.parseInt(curi.getParameterValue("height", "22"));
+			HSB backgroundColor = new HSB(curi.getParameterValue("background-color"));
+			boolean embossed = Boolean.parseBoolean(curi.getParameterValue("embossed", "false"));
 
 			ImageData image = dragHandleFactory.create(height, backgroundColor, embossed);
 			ImageLoader save = new ImageLoader();
@@ -51,7 +63,7 @@ public class JTDynamicResourceLocator implements IResourceLocator {
 		}
 
 		else if (command.equals("frame")) {
-			HSB hue = new HSB(curi.getArgument("background-color"));
+			HSB hue = new HSB(curi.getParameterValue("background-color"));
 
 			ImageData image = frameFactory.create(hue);
 			ImageLoader save = new ImageLoader();

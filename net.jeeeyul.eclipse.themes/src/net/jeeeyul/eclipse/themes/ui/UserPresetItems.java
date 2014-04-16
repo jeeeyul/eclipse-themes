@@ -11,6 +11,11 @@ import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.ui.actions.CompoundContributionItem;
 
+/**
+ * Populates preset items on drop-down menu in toolbar those are made by user.
+ * 
+ * @author Jeeeyul
+ */
 public class UserPresetItems extends CompoundContributionItem {
 
 	@Override

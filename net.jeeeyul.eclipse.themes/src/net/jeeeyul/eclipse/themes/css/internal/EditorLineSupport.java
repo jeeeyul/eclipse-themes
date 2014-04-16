@@ -149,6 +149,15 @@ public class EditorLineSupport {
 		return lineColor;
 	}
 
+	/**
+	 * 
+	 * @return line style flag.
+	 * 
+	 * @see SWT#LINE_DASH
+	 * @see SWT#LINE_SOLID
+	 * @see SWT#LINE_DOT
+	 * @see SWT#NONE
+	 */
 	public int getLineStyle() {
 		return lineStyle;
 	}
@@ -190,6 +199,15 @@ public class EditorLineSupport {
 		invalidate();
 	}
 
+	/**
+	 * 
+	 * @param lineStyle
+	 * 
+	 * @see SWT#LINE_DASH
+	 * @see SWT#LINE_SOLID
+	 * @see SWT#LINE_DOT
+	 * @see SWT#NONE
+	 */
 	public void setLineStyle(int lineStyle) {
 		if (this.lineStyle == lineStyle) {
 			return;

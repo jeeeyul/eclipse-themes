@@ -18,6 +18,13 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 
+/**
+ * Applies {@link IJTPreset} to current preference and generate CSS and apply
+ * it.
+ * 
+ * @since 2.0
+ * @author Jeeeyul
+ */
 @SuppressWarnings("restriction")
 public class ApplyPresetAction extends Action {
 	private IJTPreset preset;

@@ -18,8 +18,6 @@ import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
  * @since 2.0
  */
 public class JTPreferenceInitializer extends AbstractPreferenceInitializer {
-	public JTPreferenceInitializer() {
-	}
 
 	@Override
 	public void initializeDefaultPreferences() {

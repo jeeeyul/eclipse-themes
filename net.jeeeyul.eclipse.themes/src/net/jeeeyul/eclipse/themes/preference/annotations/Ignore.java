@@ -5,6 +5,13 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import net.jeeeyul.eclipse.themes.preference.JTPConstants;
+
+/**
+ * 
+ * @author Jeeeyul
+ * @see JTPConstants
+ */
 @Target({ ElementType.FIELD, ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Ignore {

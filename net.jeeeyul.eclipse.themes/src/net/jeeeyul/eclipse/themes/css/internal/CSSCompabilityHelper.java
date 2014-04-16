@@ -2,6 +2,8 @@ package net.jeeeyul.eclipse.themes.css.internal;
 
 import java.util.List;
 
+import net.jeeeyul.eclipse.themes.css.JTabCSSPropertyHandler;
+
 import org.eclipse.e4.ui.css.core.dom.properties.Gradient;
 import org.eclipse.e4.ui.css.core.engine.CSSEngine;
 import org.eclipse.e4.ui.css.swt.helpers.CSSSWTColorHelper;
@@ -12,9 +14,13 @@ import org.w3c.dom.css.CSSPrimitiveValue;
 import org.w3c.dom.css.CSSValue;
 import org.w3c.dom.css.CSSValueList;
 
+/**
+ * CSS Value Converter for {@link JTabCSSPropertyHandler}
+ * 
+ * @author Jeeeyul
+ */
 @SuppressWarnings("restriction")
 public class CSSCompabilityHelper {
-
 	/*
 	 * Compute and return a default array of percentages based on number of
 	 * colors o If two colors, {100} o if three colors, {50, 100} o if four
@@ -35,6 +41,14 @@ public class CSSCompabilityHelper {
 		return percents;
 	}
 
+	/**
+	 * Converts given {@link CSSValueList} to
+	 * {@link net.jeeeyul.swtend.ui.Gradient}.
+	 * 
+	 * @param list
+	 *            {@link CSSValueList} to convert.
+	 * @return A {@link net.jeeeyul.swtend.ui.Gradient} object.
+	 */
 	public static Gradient getGradient(CSSValueList list) {
 		Gradient gradient = new Gradient();
 		for (int i = 0; i < list.getLength(); i++) {
@@ -83,7 +97,6 @@ public class CSSCompabilityHelper {
 		}
 		return new Integer(percent);
 	}
-	
 
 	public static int[] getPercents(Gradient grad) {
 		// There should be exactly one more RGBs. than percent,
@@ -111,21 +124,18 @@ public class CSSCompabilityHelper {
 	}
 
 	@SuppressWarnings("rawtypes")
-	public static Color[] getSWTColors(Gradient grad, Display display,
-			CSSEngine engine) throws Exception {
+	public static Color[] getSWTColors(Gradient grad, Display display, CSSEngine engine) throws Exception {
 		List values = grad.getValues();
 		Color[] colors = new Color[values.size()];
 
 		for (int i = 0; i < values.size(); i++) {
 			CSSPrimitiveValue value = (CSSPrimitiveValue) values.get(i);
-			//We rely on the fact that when a gradient is created, it's colors are converted and in the registry
-			//TODO see bug #278077
+			// We rely on the fact that when a gradient is created, it's colors
+			// are converted and in the registry
+			// TODO see bug #278077
 			Color color = (Color) engine.convert(value, Color.class, display);
 			colors[i] = color;
 		}
 		return colors;
-	}
-	
-	public CSSCompabilityHelper() {
 	}
 }

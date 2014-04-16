@@ -26,10 +26,18 @@ import org.w3c.dom.stylesheets.StyleSheetList;
  */
 @SuppressWarnings("restriction")
 public class RewriteCustomTheme {
+	/**
+	 * A selector text to detect custom theme sheet.
+	 * 
+	 * @see #findCustomThemeSheet(DocumentCSS)
+	 */
 	public static final String CUSTOM_THEME_FIRST_SELECTOR = "*[class=\"jeeeyul-custom-theme\"]";
 
 	private Display display = Display.getDefault();
 
+	/**
+	 * Rewrite "/css/jeeeyul-custom.css" with user preference.
+	 */
 	public void rewrite() {
 		try {
 			CSSEngine cssEngine = WidgetElement.getEngine(display);
@@ -76,9 +84,9 @@ public class RewriteCustomTheme {
 	 * @since 1.2
 	 */
 	private StyleSheet findCustomThemeSheet(DocumentCSS documentCSS) {
-		StyleSheet chromeSheet = null;
+		StyleSheet customThemeSheet = null;
 		StyleSheetList styleSheets = documentCSS.getStyleSheets();
-		SearchChromeSheet: for (int i = 0; i < styleSheets.getLength(); i++) {
+		SearchCustomThemeSheet: for (int i = 0; i < styleSheets.getLength(); i++) {
 			StyleSheet eachSheet = styleSheets.item(i);
 			if (eachSheet instanceof CSSStyleSheet) {
 				CSSRuleList cssRules = ((CSSStyleSheet) eachSheet).getCssRules();
@@ -87,13 +95,13 @@ public class RewriteCustomTheme {
 					SelectorList selectorList = rule.getSelectorList();
 					String selectorText = selectorList.item(0).toString();
 					if (CUSTOM_THEME_FIRST_SELECTOR.equals(selectorText)) {
-						chromeSheet = eachSheet;
-						break SearchChromeSheet;
+						customThemeSheet = eachSheet;
+						break SearchCustomThemeSheet;
 					}
 				}
 			}
 
 		}
-		return chromeSheet;
+		return customThemeSheet;
 	}
 }

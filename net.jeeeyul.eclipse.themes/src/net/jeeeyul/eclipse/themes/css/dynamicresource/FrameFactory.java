@@ -9,7 +9,19 @@ import net.jeeeyul.swtend.ui.HSB;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.RGB;
 
+/**
+ * A factory that generated {@link ImageData} for ImageBasedFrame.
+ * 
+ * @author Jeeeyul
+ */
 public class FrameFactory {
+	/**
+	 * Generates an image for frame-image.
+	 * 
+	 * @param backgroundColor
+	 *            background color.
+	 * @return An image data for frame.
+	 */
 	public ImageData create(HSB backgroundColor) {
 		ImageData source = SharedImages.getImageDescriptor(SharedImages.FRAME).getImageData();
 

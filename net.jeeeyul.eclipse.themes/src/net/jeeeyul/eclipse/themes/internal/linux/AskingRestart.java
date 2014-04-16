@@ -9,8 +9,16 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.progress.UIJob;
 
+/**
+ * A job that asks user to restart workbench.
+ * 
+ * @author Jeeeyul
+ */
 public class AskingRestart extends UIJob {
 
+	/**
+	 * Creates an {@link AskingRestart}.
+	 */
 	public AskingRestart() {
 		super("Restart Eclipse");
 		setSystem(true);

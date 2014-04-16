@@ -34,12 +34,12 @@ public class ActiveThemeTracker {
 	@Inject
 	IEventBroker eventBroker;
 
+	/**
+	 * Stops tracking theme chaninging.
+	 */
 	@PreDestroy
 	public void dispose() {
 		eventBroker.unsubscribe(themeChangeHandler);
-	}
-	
-	public ActiveThemeTracker() {
 	}
 
 	private void handleThemeChange(Event event) {
@@ -59,11 +59,18 @@ public class ActiveThemeTracker {
 		}
 	}
 
+	/**
+	 * 
+	 * @return {@link IThemeEngine} from eclipse.
+	 */
 	public IThemeEngine getThemeEngine() {
 		IThemeEngine engine = (IThemeEngine) Display.getDefault().getData("org.eclipse.e4.ui.css.swt.theme");
 		return engine;
 	}
 
+	/**
+	 * Start tracking change of theme.
+	 */
 	@PostConstruct
 	public void init() {
 		eventBroker.subscribe(IThemeEngine.Events.THEME_CHANGED, themeChangeHandler);

@@ -17,13 +17,21 @@ import org.osgi.framework.ServiceReference;
 
 /**
  * The activator class controls the plug-in life cycle
+ * 
+ * @author Jeeeyul Lee
+ * @since 2.0
  */
 @SuppressWarnings("restriction")
 public class JThemesCore extends AbstractUIPlugin {
 
-	// The plug-in ID
+	/**
+	 * The plug-in id
+	 */
 	public static final String PLUGIN_ID = "net.jeeeyul.eclipse.themes"; //$NON-NLS-1$
 
+	/**
+	 * The custom theme id.
+	 */
 	public static final String CUSTOM_THEME_ID = "net.jeeeyul.eclipse.themes.custom"; //$NON-NLS-1$
 
 	// The shared instance
@@ -68,10 +76,22 @@ public class JThemesCore extends AbstractUIPlugin {
 		return presetManager;
 	}
 
+	/**
+	 * Logs a error.
+	 * 
+	 * @param e
+	 *            An exception to log.
+	 */
 	public void log(Exception e) {
 		getLog().log(new Status(IStatus.ERROR, getBundle().getSymbolicName(), e.getMessage(), e));
 	}
 
+	/**
+	 * Logs a warning.
+	 * 
+	 * @param message
+	 *            A message to log.
+	 */
 	public void logWarn(String message) {
 		getLog().log(new Status(IStatus.WARNING, getBundle().getSymbolicName(), message));
 	}
