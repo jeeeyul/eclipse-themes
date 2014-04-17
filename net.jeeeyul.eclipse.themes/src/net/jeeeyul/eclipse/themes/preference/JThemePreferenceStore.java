@@ -127,6 +127,14 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 		return serializeUtil.deserializeGradient(exp);
 	}
 
+	/**
+	 * Returns the default value for the {@link HSB}-valued preference with the
+	 * given name.
+	 *
+	 * @param name
+	 *            the name of the preference
+	 * @return the default value of the named preference
+	 */
 	public HSB getDefaultHSB(String name) {
 		String exp = originalStore.getDefaultString(resolveKey(name));
 		if (exp == null || exp.isEmpty()) {
@@ -143,6 +151,14 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 		return originalStore.getDefaultLong(resolveKey(name));
 	}
 
+	/**
+	 * Returns the default value for the {@link Point}-valued preference with
+	 * the given name.
+	 *
+	 * @param name
+	 *            the name of the preference
+	 * @return the default value of the named preference
+	 */
 	public Point getDefaultPoint(String name) {
 		String exp = originalStore.getDefaultString(resolveKey(name));
 		if (exp == null || exp.isEmpty()) {
@@ -151,6 +167,14 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 		return serializeUtil.desrializePoint(exp);
 	}
 
+	/**
+	 * Returns the default value for the {@link Rectangle}-valued preference
+	 * with the given name.
+	 *
+	 * @param name
+	 *            the name of the preference
+	 * @return the default value of the named preference
+	 */
 	public Rectangle getDefaultRectangle(String name) {
 		String exp = originalStore.getDefaultString(resolveKey(name));
 		if (exp == null) {
@@ -171,6 +195,14 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 		return originalStore.getFloat(resolveKey(name));
 	}
 
+	/**
+	 * Returns the value for the {@link Gradient}-valued preference with the
+	 * given name.
+	 *
+	 * @param name
+	 *            the name of the preference
+	 * @return the value of the named preference
+	 */
 	public Gradient getGradient(String name) {
 		String exp = originalStore.getString(resolveKey(name));
 		if (exp == null || exp.isEmpty()) {
@@ -179,6 +211,14 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 		return serializeUtil.deserializeGradient(exp);
 	}
 
+	/**
+	 * Returns the value for the {@link HSB}-valued preference with the given
+	 * name.
+	 *
+	 * @param name
+	 *            the name of the preference
+	 * @return the value of the named preference
+	 */
 	public HSB getHSB(String name) {
 		String exp = originalStore.getString(resolveKey(name));
 		if (exp == null || exp.isEmpty()) {
@@ -195,10 +235,23 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 		return originalStore.getLong(resolveKey(name));
 	}
 
+	/**
+	 * 
+	 * @return original preference store that is wrapped by
+	 *         {@link JThemePreferenceStore}.
+	 */
 	public IPersistentPreferenceStore getOriginalStore() {
 		return originalStore;
 	}
 
+	/**
+	 * Returns the value for the {@link Point}-valued preference with the given
+	 * name.
+	 *
+	 * @param name
+	 *            the name of the preference
+	 * @return the value of the named preference
+	 */
 	public Point getPoint(String name) {
 		String exp = originalStore.getString(resolveKey(name));
 		if (exp == null || exp.isEmpty()) {
@@ -207,6 +260,14 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 		return serializeUtil.desrializePoint(exp);
 	}
 
+	/**
+	 * Returns the value for the {@link Rectangle}-valued preference with the
+	 * given name.
+	 *
+	 * @param name
+	 *            the name of the preference
+	 * @return the value of the named preference
+	 */
 	public Rectangle getRectangle(String name) {
 		String exp = originalStore.getString(resolveKey(name));
 		if (exp == null || exp.isEmpty()) {
@@ -298,10 +359,28 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 		originalStore.setDefault(resolveKey(name), value);
 	}
 
+	/**
+	 * Sets the default value for the {@link Gradient}-valued preference with
+	 * the given name.
+	 *
+	 * @param name
+	 *            the name of the preference
+	 * @param gradient
+	 *            the new default value for the preference
+	 */
 	public void setDefault(String name, Gradient gradient) {
 		originalStore.setDefault(resolveKey(name), serializeUtil.serialize(gradient));
 	}
 
+	/**
+	 * Sets the default value for the {@link HSB}-valued preference with the
+	 * given name.
+	 *
+	 * @param name
+	 *            the name of the preference
+	 * @param defaultValue
+	 *            the new default value for the preference
+	 */
 	public void setDefault(String name, HSB defaultValue) {
 		originalStore.setDefault(resolveKey(name), serializeUtil.serialize(defaultValue));
 	}
@@ -314,6 +393,15 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 		originalStore.setDefault(resolveKey(name), value);
 	}
 
+	/**
+	 * Sets the default value for the {@link Rectangle}-valued preference with
+	 * the given name.
+	 *
+	 * @param name
+	 *            the name of the preference
+	 * @param rect
+	 *            the new default value for the preference
+	 */
 	public void setDefault(String name, Rectangle rect) {
 		originalStore.setDefault(resolveKey(name), serializeUtil.serialize(rect));
 	}
@@ -322,10 +410,25 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 		originalStore.setDefault(resolveKey(name), defaultObject);
 	}
 
+	/**
+	 * Sets the default value for the {@link Point}-valued preference with the
+	 * given name.
+	 *
+	 * @param name
+	 *            the name of the preference
+	 * @param point
+	 *            the new default value for the preference
+	 */
 	public void setDefaultValue(String name, Point point) {
 		originalStore.setDefault(resolveKey(name), serializeUtil.serialize(point));
 	}
 
+	/**
+	 * Sets original store to wrap.
+	 * 
+	 * @param originalStore
+	 *            store to wrap.
+	 */
 	public void setOriginalStore(PreferenceStore originalStore) {
 		this.originalStore = originalStore;
 	}
@@ -346,10 +449,28 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 		originalStore.setValue(resolveKey(name), value);
 	}
 
+	/**
+	 * Sets the value for the {@link Gradient}-valued preference with the given
+	 * name.
+	 *
+	 * @param name
+	 *            the name of the preference
+	 * @param gradient
+	 *            the new default value for the preference
+	 */
 	public void setValue(String name, Gradient gradient) {
 		originalStore.setValue(resolveKey(name), serializeUtil.serialize(gradient));
 	}
 
+	/**
+	 * Sets the default value for the {@link HSB}-valued preference with the
+	 * given name.
+	 *
+	 * @param name
+	 *            the name of the preference
+	 * @param value
+	 *            the new default value for the preference
+	 */
 	public void setValue(String name, HSB value) {
 		originalStore.setValue(resolveKey(name), serializeUtil.serialize(value));
 	}
@@ -362,10 +483,28 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 		originalStore.setValue(resolveKey(name), value);
 	}
 
+	/**
+	 * Sets the default value for the {@link Point}-valued preference with the
+	 * given name.
+	 *
+	 * @param name
+	 *            the name of the preference
+	 * @param point
+	 *            the new default value for the preference
+	 */
 	public void setValue(String name, Point point) {
 		originalStore.setValue(resolveKey(name), serializeUtil.serialize(point));
 	}
 
+	/**
+	 * Sets the default value for the {@link Rectangle}-valued preference with
+	 * the given name.
+	 *
+	 * @param name
+	 *            the name of the preference
+	 * @param rect
+	 *            the new default value for the preference
+	 */
 	public void setValue(String name, Rectangle rect) {
 		originalStore.setValue(resolveKey(name), serializeUtil.serialize(rect));
 	}
@@ -374,6 +513,14 @@ public class JThemePreferenceStore implements IPreferenceStore, IPersistentPrefe
 		originalStore.setValue(resolveKey(name), value);
 	}
 
+	/**
+	 * Runs work with extended context.
+	 * 
+	 * @param context
+	 *            context to extend.
+	 * @param work
+	 *            The job to run with extended cotnext.
+	 */
 	public void withContext(String context, Procedure1<JThemePreferenceStore> work) {
 		String oldContext = getContext();
 		setContext(context);
