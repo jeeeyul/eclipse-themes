@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+  xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+      
+  <parent>
+    <groupId>net.jeeeyul.eclipse.themes</groupId>
+    <artifactId>eclipse-themes-parent</artifactId>
+    <version>2.1.6-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>net.jeeeyul.eclipse.themes</artifactId>
+  <packaging>eclipse-plugin</packaging>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.eclipse.xtend</groupId>
+      <artifactId>org.eclipse.xtend.lib</artifactId>
+      <version>2.5.1</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.eclipse.xtend</groupId>
+        <artifactId>xtend-maven-plugin</artifactId>
+        <version>2.5.1</version>
+        <configuration>
+          <outputDirectory>${basedir}/src-gen</outputDirectory>
+        </configuration>                         
+        <executions>
+          <execution>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>      
+    </plugins>
+  </build>
+</project>
+
