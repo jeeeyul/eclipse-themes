@@ -1,3 +1,6 @@
+Please pray for South Korea.
+- - -
+
 ## Jeeeyul's Eclipse Themes 
 <img align="right" src="https://github.com/jeeeyul/eclipse-themes/wiki/images/jtheme-logo.png">
 (former Eclipse Chrome Theme)
