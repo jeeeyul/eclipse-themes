@@ -76,7 +76,7 @@ class JTPreferencePage extends PreferencePage implements IWorkbenchPreferencePag
 
 		rootView = parent.newComposite [
 			layout = newGridLayout[]
-			folder = newCTabFolder(SWT.CLOSE)[]
+			folder = new PreviewTabFolder(it, SWT.CLOSE)
 			folder => [
 				layoutData = FILL_HORIZONTAL[
 					widthHint = 450

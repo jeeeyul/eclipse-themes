@@ -100,7 +100,7 @@ class TextEditorPage extends AbstractJTPreferencePage {
 				layoutData = newGridData[
 					horizontalSpan = 2
 				]
-				text = '''See «links.map[it.toHTML].smartJoin(", ", " and ")» also.'''
+				text = '''See also «links.map[it.toHTML].smartJoin(", ", " and ")».'''
 				onSelection = [
 					navigateTo(it.text)
 				]
