@@ -21,8 +21,12 @@ import org.eclipse.swt.graphics.Color
 import org.eclipse.swt.graphics.RGB
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.ui.editors.text.EditorsUI
+import java.util.ArrayList
 
 class TextEditorPage extends AbstractJTPreferencePage {
+	static val String PREF_ID_COLOR_THEME = "com.github.eclipsecolortheme.preferences.ColorThemePreferencePage"
+	static val String PREF_ID_EDITBOX = "pm.eclipse.editbox.pref.default"
+	static val String PREF_ID_GENERAL_TEXT_EDITORS = "org.eclipse.ui.preferencePages.GeneralTextEditor"
 
 	new() {
 		super("Editor")
@@ -91,16 +95,12 @@ class TextEditorPage extends AbstractJTPreferencePage {
 				onModified = [requestFastUpdatePreview]
 			]
 			newHorizontalSeparator[]
-			val linkText = if(colorThemeInstalled) {
-					'''See <a href="org.eclipse.ui.preferencePages.GeneralTextEditor">Text Editors</a> and <a href="com.github.eclipsecolortheme.preferences.ColorThemePreferencePage">Eclipse Color Theme</a> also.'''
-				} else {
-					'''See <a href="org.eclipse.ui.preferencePages.GeneralTextEditor">Text Editors Section</a> also.'''
-				}
+			
 			newLink[
 				layoutData = newGridData[
 					horizontalSpan = 2
 				]
-				text = linkText
+				text = '''See «links.map[it.toHTML].smartJoin(", ", " and ")» also.'''
 				onSelection = [
 					navigateTo(it.text)
 				]
@@ -188,14 +188,44 @@ class TextEditorPage extends AbstractJTPreferencePage {
 		return new HSB(rgb)
 	}
 
-	def private isColorThemeInstalled() {
-		if(Platform.running == false) {
-			return false
+	def private PreferenceLink[] getLinks(){
+		if(Platform.running == false){
+			return #[]
 		}
+		
+		var result = new ArrayList<PreferenceLink>
+		
+		if(isPreferencePageExists(PREF_ID_EDITBOX)){
+			result += new PreferenceLink("EditBox", PREF_ID_EDITBOX)
+		}
+		
+		if(isPreferencePageExists(PREF_ID_COLOR_THEME)){
+			result += new PreferenceLink("Eclipse Color Theme", PREF_ID_COLOR_THEME)
+		}
+		
+		result += new PreferenceLink("Text Editors Section", PREF_ID_GENERAL_TEXT_EDITORS)
+		
+		println(result);
+		return result;
+	}
+	
+	def private isPreferencePageExists(String id){
 		val prefNodes = Platform.extensionRegistry.getExtensionPoint("org.eclipse.ui.preferencePages")
 
 		prefNodes.configurationElements.exists [
-			it.getAttribute("id") == "com.github.eclipsecolortheme.preferences.ColorThemePreferencePage"
+			it.getAttribute("id") == id
 		]
+	}
+	
+	def private String smartJoin(Iterable<String> segments, String delimeter1, String delimeter2){
+		if(segments.length > 2){
+			return segments.toList.subList(0, segments.length - 1).join(delimeter1) + delimeter2 + segments.last
+		}else{
+			return segments.join(delimeter2)
+		}
+	}
+	
+	def private String toHTML(PreferenceLink link){
+		return '''<a href="«link.prefId»">«link.name»</a>'''	
 	}
 }

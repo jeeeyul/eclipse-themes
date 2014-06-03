@@ -1,6 +1,7 @@
 package net.jeeeyul.eclipse.themes;
 
 import net.jeeeyul.eclipse.themes.css.dynamicresource.JTDynamicResourceLocator;
+import net.jeeeyul.eclipse.themes.css.internal.EditBoxTracker;
 import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore;
 import net.jeeeyul.eclipse.themes.preference.preset.IJTPresetManager;
 import net.jeeeyul.eclipse.themes.preference.preset.internal.JTPresetManager;
@@ -105,6 +106,8 @@ public class JThemesCore extends AbstractUIPlugin {
 
 		IThemeEngine engine = manager.getEngineForDisplay(Display.getDefault());
 		engine.registerResourceLocator(new JTDynamicResourceLocator());
+
+		EditBoxTracker.INSTANCE.beginTrack();
 	}
 
 	public void stop(BundleContext context) throws Exception {

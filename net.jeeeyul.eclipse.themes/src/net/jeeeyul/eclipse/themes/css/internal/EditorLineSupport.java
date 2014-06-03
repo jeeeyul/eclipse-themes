@@ -18,6 +18,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.ui.progress.UIJob;
+import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
 /**
  * Renders text underlines for {@link StyledText}. Client can customize line
@@ -61,6 +62,22 @@ public class EditorLineSupport {
 		}
 		GLOBAL_LOCK.release();
 		return liner;
+	}
+
+	static {
+		/*
+		 * Refreshes all EditorLiningSupport when EditBox was deactivated.
+		 */
+		EditBoxTracker.INSTANCE.setEditBoxEnablementHandler(new Procedure1<Boolean>() {
+			@Override
+			public void apply(Boolean active) {
+				if (active == false) {
+					for (EditorLineSupport each : INSTANCES) {
+						each.getRefreshJob().schedule();
+					}
+				}
+			}
+		});
 	}
 
 	private StyledText client;
@@ -159,12 +176,16 @@ public class EditorLineSupport {
 			return;
 		}
 		swtToolkit.safeDispose(backgroundImage);
-		if (lineStyle == SWT.NONE) {
-			client.setBackgroundImage(null);
-			dispose();
-		} else {
-			backgroundImage = createNewBackgroundImage();
-			client.setBackgroundImage(backgroundImage);
+
+		// What if EditBox is activated, Don't refresh.
+		if (!EditBoxTracker.INSTANCE.isEditBoxActive()) {
+			if (lineStyle == SWT.NONE) {
+				client.setBackgroundImage(null);
+				dispose();
+			} else {
+				backgroundImage = createNewBackgroundImage();
+				client.setBackgroundImage(backgroundImage);
+			}
 		}
 	}
 
