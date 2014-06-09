@@ -2,7 +2,7 @@
 <feature
       id="net.jeeeyul.eclipse.themes.feature"
       label="Jeeeyul&apos;s Themes"
-      version="2.1.6.qualifier"
+      version="2.1.7.qualifier"
       provider-name="Jeeeyul@gmail.com">
 
    <description url="https://github.com/jeeeyul/eclipse-themes">
@@ -107,8 +107,8 @@ This Agreement is governed by the laws of the State of New York and the intellec
       <import plugin="javax.inject" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui.editors"/>
       <import plugin="javax.annotation"/>
-      <import feature="net.jeeeyul.swtend.feature" version="2.2.1" match="greaterOrEqual"/>
-      <import plugin="net.jeeeyul.swtend" version="2.2.1" match="greaterOrEqual"/>
+      <import feature="net.jeeeyul.swtend.feature" version="2.2.3" match="greaterOrEqual"/>
+      <import plugin="net.jeeeyul.swtend" version="2.2.3" match="greaterOrEqual"/>
    </requires>
 
    <plugin
