@@ -42,7 +42,7 @@ class UserCSSPage extends AbstractJTPreferencePage {
 				image = SharedImages.getImage(SharedImages.WARN_TSK)
 				text = "Using this feature can cause side effects."
 			]
-			viewer = new SourceViewer(it, null, SWT.V_SCROLL || SWT.H_SCROLL)
+			viewer = new SourceViewer(it, null, SWT.V_SCROLL || SWT.H_SCROLL || SWT.BORDER)
 			viewer.document = new Document
 			viewer.configure(new SourceViewerConfiguration)
 			undoManager = new DefaultUndoManager(100)
