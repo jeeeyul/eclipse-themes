@@ -110,9 +110,15 @@ public class TextShadowEdit {
 	public void setShadowPosition(Point point) {
 		if (point.y < 0) {
 			upperButton.setSelection(true);
+			belowButton.setSelection(false);
+			noneButton.setSelection(false);
 		} else if (point.y > 0) {
+			upperButton.setSelection(false);
 			belowButton.setSelection(true);
+			noneButton.setSelection(false);
 		} else {
+			upperButton.setSelection(false);
+			belowButton.setSelection(false);
 			noneButton.setSelection(true);
 		}
 	}
