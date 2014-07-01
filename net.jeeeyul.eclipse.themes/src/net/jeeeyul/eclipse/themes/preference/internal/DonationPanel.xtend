@@ -17,11 +17,11 @@ class DonationPanel {
 			layout = new GridLayout(2, false)
 			newLabel[image = SharedImages.getImage(SharedImages.ECLIPSE)]
 			newLink[
-				text = '''Don't forget favorite this plugins from <a href="https://marketplace.eclipse.org/content/jeeeyuls-eclipse-themes">Market Place</a>.'''
+				text = '''Don't forget favorite this plugins on <a href="https://marketplace.eclipse.org/content/jeeeyuls-eclipse-themes">Market Place</a>.'''
 			]
 			newLabel[image = SharedImages.getImage(SharedImages.GITHUB)]
 			newLink[
-				text = '''You can fork and star this project from <a href="https://github.com/jeeeyul/eclipse-themes">GitHub</a>.'''
+				text = '''You can fork and star this project on <a href="https://github.com/jeeeyul/eclipse-themes">GitHub</a>.'''
 			]
 			newLabel[image = SharedImages.getImage(SharedImages.PLEDGIE)]
 			newLink[
