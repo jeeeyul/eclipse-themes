@@ -1,4 +1,4 @@
-Please pray for South Korea.
+My new born baby got brain meningitis. Please pray for her.
 - - -
 
 ## Jeeeyul's Eclipse Themes 
