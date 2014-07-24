@@ -29,10 +29,9 @@ import org.eclipse.swt.widgets.Listener
 class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	static extension JTabRendererHelper = new JTabRendererHelper
 	static extension SWTExtensions = SWTExtensions.INSTANCE
-	
+
 	static val TEXT_FLAGS = SWT.DRAW_TRANSPARENT || SWT.DRAW_MNEMONIC;
 	static val MINIMUM_SIZE = 1 << 24;
-	
 
 	@Property boolean debug = false
 
@@ -99,10 +98,10 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 					width = width + settings.tabItemHorizontalSpacing
 					height = item.image.bounds.height
 				}
-				
+
 				var itemText = item.text.trim
-				
-				if(state.hasFlags(MINIMUM_SIZE) && itemText.length > parent.minimumCharacters){
+
+				if(state.hasFlags(MINIMUM_SIZE) && itemText.length > parent.minimumCharacters) {
 					itemText = itemText.substring(0, parent.minimumCharacters) + "..."
 				}
 				if(itemText.trim.length > 0) {
@@ -501,10 +500,11 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			if(textShadowColor != null && textShadowPosition != null && !textShadowPosition.empty) {
 				var shadowPosition = settings.getTextShadowPositionFor(state)
 				gc.foreground = settings.getTextShadowColorFor(state).toAutoReleaseColor
-				gc.drawString(text, textArea.topLeft.getTranslated(shadowPosition))
+				var delta = textArea.topLeft.getTranslated(shadowPosition)
+				gc.drawText(text, delta.x, delta.y, TEXT_FLAGS)
 			}
 			gc.foreground = settings.getTextColorFor(state).toAutoReleaseColor
-			gc.drawText(text, textArea.x, textArea.y, SWT.DRAW_TRANSPARENT || SWT.DRAW_MNEMONIC)
+			gc.drawText(text, textArea.x, textArea.y, TEXT_FLAGS)
 		]
 
 		// Draw Border and Keyline
@@ -630,13 +630,13 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	def CTabFolder getTabFolder() {
 		return this.tabFolder
 	}
-	
-	def private shortenText(GC gc, String text, int width){
-		var ellipses = if(settings.useEllipses ) 
-			"..." 
-		else 
-			""
+
+	def private shortenText(GC gc, String text, int width) {
+		var ellipses = if(settings.useEllipses)
+				"..."
+			else
+				""
 		gc.shortenText(text, width, ellipses, TEXT_FLAGS)
-		
+
 	}
 }
