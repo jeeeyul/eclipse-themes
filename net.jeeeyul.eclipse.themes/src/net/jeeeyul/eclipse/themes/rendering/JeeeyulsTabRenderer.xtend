@@ -27,6 +27,8 @@ import org.eclipse.swt.widgets.Listener
  * @since 2.0
  */
 class JeeeyulsTabRenderer extends CTabFolderRenderer {
+	static val MINIMUM_SIZE = 1 << 24
+	
 	extension JTabRendererHelper = new JTabRendererHelper
 	extension SWTExtensions = SWTExtensions.INSTANCE
 
@@ -95,9 +97,14 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 					width = width + settings.tabItemHorizontalSpacing
 					height = item.image.bounds.height
 				}
-
-				if(item.text.trim.length > 0) {
-					var textSize = item.text.computeTextExtent(#[item.font, parent.font].firstNotNull)
+				
+				var itemText = item.text.trim
+				
+				if(state.hasFlags(MINIMUM_SIZE) && itemText.length > parent.minimumCharacters){
+					itemText = itemText.substring(0, parent.minimumCharacters) + "..."
+				}
+				if(itemText.trim.length > 0) {
+					var textSize = itemText.computeTextExtent(#[item.font, parent.font].firstNotNull)
 					width = width + textSize.x + 1
 					height = Math.max(height, textSize.y)
 				}
@@ -495,7 +502,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				gc.drawString(text, textArea.topLeft.getTranslated(shadowPosition))
 			}
 			gc.foreground = settings.getTextColorFor(state).toAutoReleaseColor
-			gc.drawString(text, textArea.topLeft)
+			gc.drawText(text, textArea.x, textArea.y, SWT.DRAW_TRANSPARENT || SWT.DRAW_MNEMONIC)
 		]
 
 		// Draw Border and Keyline
