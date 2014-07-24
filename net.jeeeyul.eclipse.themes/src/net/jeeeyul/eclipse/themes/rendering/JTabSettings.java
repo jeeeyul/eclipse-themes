@@ -53,6 +53,7 @@ public class JTabSettings {
 	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 	private JeeeyulsTabRenderer renderer;
 	private Rectangle tabItemPaddings = new Rectangle(2, 0, 2, 0);
+	private boolean useEllipses;
 
 	public JTabSettings(JeeeyulsTabRenderer renderer) {
 		this.renderer = renderer;
@@ -214,6 +215,10 @@ public class JTabSettings {
 
 	public Point getUnselectedTextShadowPosition() {
 		return unselectedTextShadowPosition;
+	}
+
+	public boolean isUseEllipses() {
+		return useEllipses;
 	}
 
 	public void removePropertyChangeListener(PropertyChangeListener arg0) {
@@ -525,5 +530,14 @@ public class JTabSettings {
 		Point old = this.unselectedTextShadowPosition;
 		this.unselectedTextShadowPosition = unselectedTextShadowPosition;
 		pcs.firePropertyChange("unselected-text-shadow-position", old, unselectedTextShadowPosition);
+	}
+
+	public void setUseEllipses(boolean useEllipses) {
+		if(this.useEllipses == useEllipses){
+			return;
+		}
+		boolean old = this.useEllipses;
+		this.useEllipses = useEllipses;
+		pcs.firePropertyChange("use-ellipses", old, this.useEllipses);
 	}
 }

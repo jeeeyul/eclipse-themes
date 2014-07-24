@@ -148,6 +148,7 @@ class CustomThemeGenerator {
 			jtab-spacing: «store.getInt(JTPConstants.Layout.TAB_SPACING)»px;
 			jtab-item-padding: 0px «store.getInt(JTPConstants.Layout.TAB_ITEM_PADDING)»px;
 			jtab-padding : «store.getInt(JTPConstants.Layout.CONTENT_PADDING)»px;
+			jtab-use-ellipses : «store.getBoolean(JTPConstants.Layout.USE_ELLIPSES)»;
 			
 			«IF store.getBoolean(JTPConstants.Layout.SHOW_SHADOW)»
 				jtab-margin : 0px 4px 4px 1px; /* top right bottom left */

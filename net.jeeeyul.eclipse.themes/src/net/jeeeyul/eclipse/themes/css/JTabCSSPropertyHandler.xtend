@@ -1,24 +1,24 @@
 package net.jeeeyul.eclipse.themes.css
 
+import java.util.ArrayList
+import net.jeeeyul.eclipse.themes.css.internal.CSSCompabilityHelper
+import net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer
+import net.jeeeyul.eclipse.themes.rendering.internal.JTabRendererHelper
 import net.jeeeyul.swtend.ui.HSB
+import org.eclipse.e4.ui.css.core.dom.properties.Gradient
 import org.eclipse.e4.ui.css.core.dom.properties.ICSSPropertyHandler
 import org.eclipse.e4.ui.css.core.engine.CSSEngine
 import org.eclipse.e4.ui.css.swt.dom.CTabFolderElement
 import org.eclipse.e4.ui.css.swt.helpers.CSSSWTColorHelper
 import org.eclipse.swt.custom.CTabFolder
+import org.eclipse.swt.custom.CTabFolderRenderer
+import org.eclipse.swt.graphics.Color
+import org.eclipse.swt.graphics.Point
+import org.eclipse.swt.graphics.RGB
+import org.eclipse.swt.graphics.Rectangle
 import org.w3c.dom.css.CSSPrimitiveValue
 import org.w3c.dom.css.CSSValue
 import org.w3c.dom.css.CSSValueList
-import org.eclipse.e4.ui.css.core.dom.properties.Gradient
-import org.eclipse.swt.graphics.RGB
-import net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer
-import org.eclipse.swt.graphics.Rectangle
-import org.eclipse.swt.graphics.Point
-import java.util.ArrayList
-import net.jeeeyul.eclipse.themes.css.internal.CSSCompabilityHelper
-import org.eclipse.swt.graphics.Color
-import net.jeeeyul.eclipse.themes.rendering.internal.JTabRendererHelper
-import org.eclipse.swt.custom.CTabFolderRenderer
 
 /**
  * A CSS property handlers for {@link CTabFolder} that uses {@link JeeeyulsTabRenderer} as renderer.
@@ -431,6 +431,11 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 				}
 				true
 			}
+			case "jtab-use-ellipses": {
+				var useEllipse = engine.convert(value, typeof(Boolean), tabFolder.display) as Boolean
+				settings.useEllipses = useEllipse
+				true
+			}
 			default: {
 				false
 			}
@@ -500,6 +505,7 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 			case "jtab-item-padding": '''0px «settings.tabItemPaddings.width»px 0px «settings.tabItemPaddings.x»px'''
 			case "jtab-item-horizontal-spacing": '''«settings.tabItemHorizontalSpacing»px'''
 			case "jtab-chevron-color": '''«settings.chevronColor.toHTMLCode»'''
+			case "jtab-use-ellipses": '''«settings.useEllipses»'''
 			default:
 				null
 		}

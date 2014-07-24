@@ -27,10 +27,12 @@ import org.eclipse.swt.widgets.Listener
  * @since 2.0
  */
 class JeeeyulsTabRenderer extends CTabFolderRenderer {
-	static val MINIMUM_SIZE = 1 << 24
+	static extension JTabRendererHelper = new JTabRendererHelper
+	static extension SWTExtensions = SWTExtensions.INSTANCE
 	
-	extension JTabRendererHelper = new JTabRendererHelper
-	extension SWTExtensions = SWTExtensions.INSTANCE
+	static val TEXT_FLAGS = SWT.DRAW_TRANSPARENT || SWT.DRAW_MNEMONIC;
+	static val MINIMUM_SIZE = 1 << 24;
+	
 
 	@Property boolean debug = false
 
@@ -491,7 +493,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 		gc.withClip(textArea) [
 			var text = if(textSize.x > textArea.width)
-					gc.shortenText(item.text, textArea.width, "...")
+					gc.shortenText(item.text, textArea.width)
 				else
 					item.text
 			val textShadowColor = settings.getTextShadowColorFor(state)
@@ -627,5 +629,14 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 	def CTabFolder getTabFolder() {
 		return this.tabFolder
+	}
+	
+	def private shortenText(GC gc, String text, int width){
+		var ellipses = if(settings.useEllipses ) 
+			"..." 
+		else 
+			""
+		gc.shortenText(text, width, ellipses, TEXT_FLAGS)
+		
 	}
 }

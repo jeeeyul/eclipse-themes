@@ -12,6 +12,7 @@ import org.eclipse.swt.widgets.Event
 import org.eclipse.swt.widgets.Spinner
 import org.eclipse.swt.program.Program
 import net.jeeeyul.eclipse.themes.internal.OSHelper
+import org.eclipse.swt.widgets.Button
 
 class LayoutPage extends AbstractJTPreferencePage {
 	Spinner borderRadiusScale
@@ -20,7 +21,8 @@ class LayoutPage extends AbstractJTPreferencePage {
 	Spinner tabSpacingScale
 	Spinner tabItemSpacingScale
 	Spinner tabHeightScale
-
+	Button useEllipsesButton
+	
 	new() {
 		super("Layout")
 		this.image = SharedImages.getImage(SharedImages.LAYOUT)
@@ -115,6 +117,14 @@ class LayoutPage extends AbstractJTPreferencePage {
 				text = '''«minimumToolBarHeight» ~ 40px'''
 				foreground = COLOR_DARK_GRAY
 			]
+			
+			useEllipsesButton = newCheckbox[
+				text = "Use ellipses when truncate tab item text."
+				layoutData = newGridData[
+					horizontalSpan = 3
+				]
+			]
+			
 			if(OSHelper.INSTANCE.linux) {
 				newLink[
 					text = '''To reduce limit of minimum tab height, refer <a href="https://github.com/jeeeyul/eclipse-themes/wiki/Linux-User-Guide">Linux User Guide</a>.'''
@@ -151,6 +161,7 @@ class LayoutPage extends AbstractJTPreferencePage {
 
 		this.tabItemPaddingsScale.selection = store.getInt(JTPConstants.Layout.TAB_ITEM_PADDING)
 		this.tabItemSpacingScale.selection = store.getInt(JTPConstants.Layout.TAB_ITEM_SPACING)
+		this.useEllipsesButton.selection = store.getBoolean(JTPConstants.Layout.USE_ELLIPSES)
 	}
 
 	override save(JThemePreferenceStore store, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
@@ -160,6 +171,7 @@ class LayoutPage extends AbstractJTPreferencePage {
 		store.setValue(JTPConstants.Layout.TAB_SPACING, this.tabSpacingScale.selection)
 		store.setValue(JTPConstants.Layout.TAB_ITEM_PADDING, this.tabItemPaddingsScale.selection)
 		store.setValue(JTPConstants.Layout.TAB_ITEM_SPACING, this.tabItemSpacingScale.selection)
+		store.setValue(JTPConstants.Layout.USE_ELLIPSES, this.useEllipsesButton.selection)
 	}
 
 	override dispose(extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
