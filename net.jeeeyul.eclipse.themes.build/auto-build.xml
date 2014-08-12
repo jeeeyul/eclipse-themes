@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="project" default="build-update-site">
+	<property name="workspace" location="${ant.file}/../.." />
+	<property name="project" location="${ant.file}/.." />
+	<property name="build" location="${project}/build" />
+	<property name="build-feature-and-plugins"
+	          location="${build}/featureAndPlugins" />
+	<property name="build-repository" location="${build}/repository" />
+	<property name="repository-name" value="Jeeeyul’s Eclipse Update Site" />
+
+	<loadproperties srcfile="${project}/sign.properties" />
+
+	<target name="build-feature-and-plugins"
+	        depends="clean, generate-scripts"
+	        description="description">
+
+		<echo>Executing scripts</echo>
+		<ant antfile="${workspace}/net.jeeeyul.eclipse.themes.feature/build.xml"
+		     inheritall="true">
+			<property name="compilerArg" value="-encoding UTF8" />
+			<property name="javacSource" value="1.6" />
+			<property name="javacTarget" value="1.6" />
+			<property name="buildDirectory" value="temp-build" />
+			<property name="feature.destination"
+			          location="${build-feature-and-plugins}/features" />
+			<property name="plugin.destination"
+			          location="${build-feature-and-plugins}/plugins" />
+		</ant>
+
+		<echo>signing...</echo>
+		<signjar digestalg="SHA1"
+		         sigalg="SHA1withDSA"
+		         keystore="${keystore}"
+		         alias="${alias}"
+		         storepass="${storepass}"
+		         keypass="${keypass}"
+		         tsaurl="http://tsa.starfieldtech.com">
+			<path>
+				<fileset dir="${build-feature-and-plugins}"
+				         includes="**/*.jar" />
+			</path>
+		</signjar>
+
+		<antcall target="clean-generated-script" />
+		<eclipse.refreshLocal resource="/" depth="infinite" />
+	</target>
+
+	<target name="clean">
+		<echo>Cleaning previous build.</echo>
+		<delete dir="${build-feature-and-plugins}"
+		        includes="**/*"
+		        includeemptydirs="true" />
+	</target>
+
+	<target name="clean-generated-script">
+		<echo>Cleaning generated scripts.</echo>
+		<delete includeemptydirs="true">
+			<fileset dir="${workspace}">
+				<include name="*/build.xml" />
+				<include name="*/javaCompiler...args" />
+				<include name="*/@dot/**/*" />
+				<include name="*/temp-build/**/*" />
+				<include name="*/${buildDirectory}/**/*" />
+				<include name="*/temp-build" />
+				<include name="*/@dot.log" />
+				<include name="*/@dot" />
+				<include name="*/compilation.problem" />
+				<include name="assemble.*.xml"/>
+				<include name="package.*.xml"/>
+			</fileset>
+		</delete>
+		<eclipse.refreshLocal resource="/" depth="infinite" />
+	</target>
+
+	<target name="build-update-site" depends="build-feature-and-plugins">
+		<eclipse.publish.featuresAndBundles repository="file:${build}/repository"
+		                                    overrides=""
+		                                    metadatarepositoryname="${repository-name}"
+		                                    artifactrepositoryname="${repository-name}"
+		                                    category="file:${project}/category.xml">
+			<features dir="${build-feature-and-plugins}/features"
+			          includes="*.jar" />
+			<bundles dir="${build-feature-and-plugins}/plugins"
+			         includes="*.jar" />
+		</eclipse.publish.featuresAndBundles>
+
+		<replaceregexp file="${build-repository}/artifacts.xml"
+		               match="file:.+ - artifacts"
+		               replace="${repository-name}"
+		               encoding="utf-8" />
+		<replaceregexp file="${build-repository}/content.xml"
+		               match="file:.+ - metadata"
+		               replace="${repository-name}"
+		               encoding="utf-8" />
+
+		<jar destfile="${build-repository}/artifacts.jar">
+			<fileset dir="${build-repository}" includes="artifacts.xml" />
+		</jar>
+		<jar destfile="${build-repository}/content.jar">
+			<fileset dir="${build-repository}" includes="content.xml" />
+		</jar>
+		<delete dir="${build-repository}" includes="*.xml" />
+		<signjar jar="${build-repository}/*.jar"
+		         alias="${alias}"
+		         keystore="${keystore}"
+		         keypass="${keypass}"
+		         storepass="${storepass}"
+		         digestalg="SHA1"
+		         sigalg="SHA1withDSA"
+		         tsaurl="http://tsa.starfieldtech.com" />
+	</target>
+	<target name="generate-scripts" depends="set-timestamp">
+		<echo>${timestamp}</echo>
+		<echo>Generating ant scripts.</echo>
+		<eclipse.buildScript elements="feature@net.jeeeyul.eclipse.themes.feature"
+		                     forceContextQualifier="${timestamp}"
+		                     baselocation="${eclipse.home}"
+		                     workingdirectory="${workspace}"
+		                     builddirectory="${workspace}" />
+		<echo>${basedir}/build</echo>
+	</target>
+
+	<target name="set-timestamp">
+		<tstamp>
+			<format property="timestamp"
+			        pattern="'I'yyyyMMdd-HHmmss"
+			        locale="ko,KR" />
+		</tstamp>
+	</target>
+</project>
