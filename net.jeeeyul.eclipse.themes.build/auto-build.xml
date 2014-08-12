@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="project" default="build-update-site">
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" />
+
 	<property name="workspace" location="${ant.file}/../.." />
 	<property name="project" location="${ant.file}/.." />
 	<property name="build" location="${project}/build" />
@@ -7,6 +9,8 @@
 	          location="${build}/featureAndPlugins" />
 	<property name="build-repository" location="${build}/repository" />
 	<property name="repository-name" value="Jeeeyul’s Eclipse Update Site" />
+
+	<property name="version" value="2.1.7" />
 
 	<loadproperties srcfile="${project}/sign.properties" />
 
@@ -65,8 +69,8 @@
 				<include name="*/@dot.log" />
 				<include name="*/@dot" />
 				<include name="*/compilation.problem" />
-				<include name="assemble.*.xml"/>
-				<include name="package.*.xml"/>
+				<include name="assemble.*.xml" />
+				<include name="package.*.xml" />
 			</fileset>
 		</delete>
 		<eclipse.refreshLocal resource="/" depth="infinite" />

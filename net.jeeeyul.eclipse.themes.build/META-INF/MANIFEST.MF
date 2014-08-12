@@ -1,6 +1,8 @@
 Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: Build
 Bundle-SymbolicName: net.jeeeyul.eclipse.themes.build
-Bundle-Version: 1.0.0.qualifier
+Bundle-Name: Build
+Bundle-Version: 2.1.7.qualifier
+Bundle-ManifestVersion: 2
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+
+
