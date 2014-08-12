@@ -127,7 +127,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			case PART_HEADER: {
 				var size = new Point(0, parent.tabHeight)
 				if(parent.itemCount == 0) {
-					size.y = Math.max(gc.textExtent("Default").y, size.y + 2)
+					size.y = Math.max(gc.textExtent("Default").y, size.y)
 				} else {
 					for (i : 0 ..< parent.itemCount) {
 						var eachSize = computeSize(i, SWT.NONE, gc, wHint, hHint)
