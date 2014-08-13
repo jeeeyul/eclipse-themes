@@ -15,7 +15,7 @@
 	<property name="build-repositroy" location="${build}/repository" />
 
 	<property name="repository-name" value="Jeeeyul’s Eclipse Update Site" />
-	<property name="category-file" value="${basedir}/category.xml" />
+	<property name="category-file" value="category.xml" />
 	<property name="feature-id" value="net.jeeeyul.eclipse.themes.feature" />
 
 	<loadproperties srcfile="${project}/sign.properties" />
@@ -87,7 +87,7 @@
 		<eclipse.publish.featuresAndBundles repository="file:${build-repository}"
 		                                    metadatarepositoryname="${repository-name}"
 		                                    artifactrepositoryname="${repository-name}"
-		                                    category="file:${category-file}">
+		                                    category="file:${basedir}/${category-file}">
 			<features dir="${build-feature-and-plugins}/features"
 			          includes="*.jar" />
 			<bundles dir="${build-feature-and-plugins}/plugins"
@@ -127,7 +127,7 @@
 		<eclipse.refreshLocal resource="${resourcePath}" depth="infinite" />
 	</target>
 	<target name="generate-scripts" depends="set-timestamp">
-		<echo>Generating ant scripts for feature@${feature-id} ${version}.${timestamp} </echo>
+		<echo>Generating ant scripts.</echo>
 		<eclipse.buildScript elements="feature@${feature-id}"
 		                     forceContextQualifier="${timestamp}"
 		                     baselocation="${eclipse.home}"
