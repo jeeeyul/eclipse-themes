@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="project" default="build-update-site">
-	<taskdef resource="net/sf/antcontrib/antcontrib.properties" />
+	<taskdef resource="net/sf/antcontrib/antlib.xml"
+	         classpath="${basedir}/libs/ant-contrib-1.0b3.jar" />
+	<taskdef name="xmltask"
+	         classname="com.oopsconsultancy.xmltask.ant.XmlTask"
+	         classpath="${basedir}/libs/xmltask.jar" />
 
 	<property name="workspace" location="${ant.file}/../.." />
 	<property name="project" location="${ant.file}/.." />
+
 	<property name="build" location="${project}/build" />
 	<property name="build-feature-and-plugins"
 	          location="${build}/featureAndPlugins" />
-	<property name="build-repository" location="${build}/repository" />
-	<property name="repository-name" value="Jeeeyul’s Eclipse Update Site" />
+	<property name="build-repositroy" location="${build}/repository" />
 
-	<property name="version" value="2.1.7" />
+	<property name="repository-name" value="Jeeeyul’s Eclipse Update Site" />
+	<property name="category-file" value="${basedir}/category.xml" />
+	<property name="feature-id" value="net.jeeeyul.eclipse.themes.feature" />
 
 	<loadproperties srcfile="${project}/sign.properties" />
 
@@ -19,8 +25,7 @@
 	        description="description">
 
 		<echo>Executing scripts</echo>
-		<ant antfile="${workspace}/net.jeeeyul.eclipse.themes.feature/build.xml"
-		     inheritall="true">
+		<ant antfile="${workspace}/${feature-id}/build.xml" inheritall="false">
 			<property name="compilerArg" value="-encoding UTF8" />
 			<property name="javacSource" value="1.6" />
 			<property name="javacTarget" value="1.6" />
@@ -46,7 +51,10 @@
 		</signjar>
 
 		<antcall target="clean-generated-script" />
-		<eclipse.refreshLocal resource="/" depth="infinite" />
+
+		<eclipse.convertPath fileSystemPath="${project}"
+		                     property="resourcePath" />
+		<eclipse.refreshLocal resource="${resourcePath}" depth="infinite" />
 	</target>
 
 	<target name="clean">
@@ -73,29 +81,28 @@
 				<include name="package.*.xml" />
 			</fileset>
 		</delete>
-		<eclipse.refreshLocal resource="/" depth="infinite" />
 	</target>
 
 	<target name="build-update-site" depends="build-feature-and-plugins">
-		<eclipse.publish.featuresAndBundles repository="file:${build}/repository"
-		                                    overrides=""
+		<eclipse.publish.featuresAndBundles repository="file:${build-repository}"
 		                                    metadatarepositoryname="${repository-name}"
 		                                    artifactrepositoryname="${repository-name}"
-		                                    category="file:${project}/category.xml">
+		                                    category="file:${category-file}">
 			<features dir="${build-feature-and-plugins}/features"
 			          includes="*.jar" />
 			<bundles dir="${build-feature-and-plugins}/plugins"
 			         includes="*.jar" />
 		</eclipse.publish.featuresAndBundles>
 
-		<replaceregexp file="${build-repository}/artifacts.xml"
-		               match="file:.+ - artifacts"
-		               replace="${repository-name}"
-		               encoding="utf-8" />
-		<replaceregexp file="${build-repository}/content.xml"
-		               match="file:.+ - metadata"
-		               replace="${repository-name}"
-		               encoding="utf-8" />
+		<!-- FIX eclipse.publish.featuresAndBundles bug, It doesn't honor repository name -->
+		<xmltask source="${build-repository}/artifacts.xml"
+		         dest="${build-repository}/artifacts.xml">
+			<replace path="/repository/@name" withText="${repository-name}" />
+		</xmltask>
+		<xmltask source="${build-repository}/content.xml"
+		         dest="${build-repository}/content.xml">
+			<replace path="/repository/@name" withText="${repository-name}" />
+		</xmltask>
 
 		<jar destfile="${build-repository}/artifacts.jar">
 			<fileset dir="${build-repository}" includes="artifacts.xml" />
@@ -104,6 +111,8 @@
 			<fileset dir="${build-repository}" includes="content.xml" />
 		</jar>
 		<delete dir="${build-repository}" includes="*.xml" />
+
+		<!-- Sign repository -->
 		<signjar jar="${build-repository}/*.jar"
 		         alias="${alias}"
 		         keystore="${keystore}"
@@ -112,11 +121,14 @@
 		         digestalg="SHA1"
 		         sigalg="SHA1withDSA"
 		         tsaurl="http://tsa.starfieldtech.com" />
+
+		<eclipse.convertPath fileSystemPath="${project}"
+		                     property="resourcePath" />
+		<eclipse.refreshLocal resource="${resourcePath}" depth="infinite" />
 	</target>
 	<target name="generate-scripts" depends="set-timestamp">
-		<echo>${timestamp}</echo>
-		<echo>Generating ant scripts.</echo>
-		<eclipse.buildScript elements="feature@net.jeeeyul.eclipse.themes.feature"
+		<echo>Generating ant scripts for feature@${feature-id} ${version}.${timestamp} </echo>
+		<eclipse.buildScript elements="feature@${feature-id}"
 		                     forceContextQualifier="${timestamp}"
 		                     baselocation="${eclipse.home}"
 		                     workingdirectory="${workspace}"
@@ -131,4 +143,5 @@
 			        locale="ko,KR" />
 		</tstamp>
 	</target>
+
 </project>

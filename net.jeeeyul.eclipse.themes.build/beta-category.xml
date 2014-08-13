@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/net.jeeeyul.eclipse.themes.feature_2.1.7.qualifier.jar" id="net.jeeeyul.eclipse.themes.feature" version="2.1.7.qualifier">
+      <category name="eclipse-jeeeyul-beta"/>
+   </feature>
+   <category-def name="eclipse-jeeeyul-beta" label="Jeeeyul&apos;s Eclipse Plugins (Beta)"/>
+</site>
