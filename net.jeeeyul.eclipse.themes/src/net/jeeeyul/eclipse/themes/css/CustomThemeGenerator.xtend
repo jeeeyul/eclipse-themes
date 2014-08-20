@@ -104,7 +104,7 @@ class CustomThemeGenerator {
 		
 		#org-eclipse-ui-main-toolbar .Draggable {
 			handle-image:
-				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getGradient(JTPConstants.Window.TOOLBAR_FILL_COLOR).averageColor.toHTMLCode»&embossed=false);
+				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getGradient(JTPConstants.Window.TOOLBAR_FILL_COLOR).middlePointColor.toHTMLCode»&embossed=false);
 		}
 		
 		#org-eclipse-ui-main-toolbar #PerspectiveSwitcher {
@@ -116,7 +116,7 @@ class CustomThemeGenerator {
 		#org-eclipse-ui-main-toolbar .TrimStack {
 			frame-image: none;
 			handle-image:
-				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getGradient(JTPConstants.Window.TOOLBAR_FILL_COLOR).averageColor.toHTMLCode»&embossed=false);
+				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getGradient(JTPConstants.Window.TOOLBAR_FILL_COLOR).middlePointColor.toHTMLCode»&embossed=false);
 		}
 		
 		«comment("Status Bar")»
@@ -126,13 +126,13 @@ class CustomThemeGenerator {
 		
 		#org-eclipse-ui-trim-status .Draggable {
 			handle-image:
-				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getGradient(JTPConstants.Window.STATUS_BAR_FILL_COLOR).averageColor.toHTMLCode»&embossed=false);
+				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getGradient(JTPConstants.Window.STATUS_BAR_FILL_COLOR).middlePointColor.toHTMLCode»&embossed=false);
 		}
 		
 		#org-eclipse-ui-trim-status .TrimStack {
 			handle-image:
-				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getGradient(JTPConstants.Window.STATUS_BAR_FILL_COLOR).averageColor.toHTMLCode»&embossed=false);
-			frame-image: url(jeeeyul://frame?background-color=«store.getGradient(JTPConstants.Window.STATUS_BAR_FILL_COLOR).averageColor.toHTMLCode»);
+				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getGradient(JTPConstants.Window.STATUS_BAR_FILL_COLOR).middlePointColor.toHTMLCode»&embossed=false);
+			frame-image: url(jeeeyul://frame?background-color=«store.getGradient(JTPConstants.Window.STATUS_BAR_FILL_COLOR).middlePointColor.toHTMLCode»);
 			frame-cuts: 4px 2px 5px 16px;
 		}
 		

@@ -3,6 +3,8 @@ package net.jeeeyul.eclipse.themes.preference.actions;
 import java.util.List;
 
 import net.jeeeyul.eclipse.themes.preference.internal.JTPreferencePage;
+import net.jeeeyul.eclipse.themes.preference.preset.IJTPreset;
+import net.jeeeyul.eclipse.themes.preference.preset.IJTPresetCategory;
 import net.jeeeyul.eclipse.themes.preference.preset.internal.ContributedPreset;
 
 import org.eclipse.core.runtime.Platform;
@@ -21,14 +23,18 @@ import org.eclipse.ui.actions.CompoundContributionItem;
  */
 public class ContributedPresetItems extends CompoundContributionItem {
 	private JTPreferencePage page;
+	private IJTPresetCategory category;
 
 	/**
 	 * creates
 	 * 
 	 * @param page
+	 * @param category
+	 * 
 	 */
-	public ContributedPresetItems(JTPreferencePage page) {
+	public ContributedPresetItems(JTPreferencePage page, IJTPresetCategory category) {
 		this.page = page;
+		this.category = category;
 	}
 
 	@Override
@@ -37,7 +43,7 @@ public class ContributedPresetItems extends CompoundContributionItem {
 			return new IContributionItem[0];
 		}
 
-		List<ContributedPreset> presets = page.getPresetManager().getContributedPresets();
+		List<IJTPreset> presets = category.getPresets();
 		IContributionItem[] result = new IContributionItem[presets.size()];
 		for (int i = 0; i < presets.size(); i++) {
 			LoadPresetAction action = new LoadPresetAction(page, presets.get(i));

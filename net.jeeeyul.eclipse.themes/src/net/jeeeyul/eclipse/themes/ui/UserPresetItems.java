@@ -3,8 +3,8 @@ package net.jeeeyul.eclipse.themes.ui;
 import java.util.List;
 
 import net.jeeeyul.eclipse.themes.JThemesCore;
+import net.jeeeyul.eclipse.themes.preference.preset.IJTPreset;
 import net.jeeeyul.eclipse.themes.preference.preset.IJTPresetManager;
-import net.jeeeyul.eclipse.themes.preference.preset.internal.UserPreset;
 
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IContributionItem;
@@ -21,7 +21,7 @@ public class UserPresetItems extends CompoundContributionItem {
 	@Override
 	protected IContributionItem[] getContributionItems() {
 		IJTPresetManager presetManager = JThemesCore.getDefault().getPresetManager();
-		List<UserPreset> userPresets = presetManager.getUserPresets();
+		List<IJTPreset> userPresets = presetManager.getUserCategory().getPresets();
 		if (userPresets.size() == 0) {
 			return new IContributionItem[0];
 		}

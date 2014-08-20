@@ -18,7 +18,10 @@
       </annotation>
       <complexType>
          <sequence>
-            <element ref="preset" minOccurs="1" maxOccurs="unbounded"/>
+            <choice>
+               <element ref="preset" minOccurs="1" maxOccurs="unbounded"/>
+               <element ref="preset-category" minOccurs="1" maxOccurs="unbounded"/>
+            </choice>
          </sequence>
          <attribute name="point" type="string" use="required">
             <annotation>
@@ -89,6 +92,16 @@
                </appinfo>
             </annotation>
          </attribute>
+         <attribute name="category" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="identifier" basedOn="net.jeeeyul.eclipse.themes.preset/preset-category/@id"/>
+               </appinfo>
+            </annotation>
+         </attribute>
       </complexType>
    </element>
 
@@ -101,6 +114,28 @@
             Additional Description that will be shown to users.
          </documentation>
       </annotation>
+   </element>
+
+   <element name="preset-category">
+      <complexType>
+         <attribute name="name" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appinfo>
+                  <meta.attribute translatable="true"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
    </element>
 
    <annotation>

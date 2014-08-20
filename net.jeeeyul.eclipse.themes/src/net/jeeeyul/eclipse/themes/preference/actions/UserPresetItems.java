@@ -3,7 +3,7 @@ package net.jeeeyul.eclipse.themes.preference.actions;
 import java.util.List;
 
 import net.jeeeyul.eclipse.themes.preference.internal.JTPreferencePage;
-import net.jeeeyul.eclipse.themes.preference.preset.internal.UserPreset;
+import net.jeeeyul.eclipse.themes.preference.preset.IJTPreset;
 
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IContributionItem;
@@ -30,7 +30,7 @@ public class UserPresetItems extends CompoundContributionItem {
 
 	@Override
 	protected IContributionItem[] getContributionItems() {
-		List<UserPreset> userPresets = page.getPresetManager().getUserPresets();
+		List<IJTPreset> userPresets = page.getPresetManager().getUserCategory().getPresets();
 		if (userPresets.size() == 0) {
 			return new IContributionItem[0];
 		}

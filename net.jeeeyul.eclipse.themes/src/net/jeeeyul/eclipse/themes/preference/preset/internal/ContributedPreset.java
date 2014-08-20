@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.Properties;
 
 import net.jeeeyul.eclipse.themes.preference.preset.IJTPreset;
+import net.jeeeyul.eclipse.themes.preference.preset.IJTPresetCategory;
 import net.jeeeyul.eclipse.themes.shared.PresetIconGenerator;
 
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -20,10 +21,12 @@ public class ContributedPreset implements IJTPreset {
 	public static final String ATTR_NAME = "name";
 	public static final String ATTR_EPF = "epf";
 	public static final String ATTR_ICON = "icon";
+	public static final String ATTR_CATEGORY = "category";
 
 	private IConfigurationElement element;
 	private Properties properties;
 	private ImageDescriptor descriptor;
+	private String categoryId;
 
 	public ContributedPreset(IConfigurationElement element) {
 		this.element = element;
@@ -50,6 +53,16 @@ public class ContributedPreset implements IJTPreset {
 			loadProperties();
 		}
 		return properties;
+	}
+
+	public String getCategoryID() {
+		if (categoryId == null) {
+			categoryId = element.getAttribute(ATTR_CATEGORY);
+			if (categoryId == null) {
+				categoryId = IJTPresetCategory.DEFAULT_CATEGORY_ID;
+			}
+		}
+		return categoryId;
 	}
 
 	protected void loadProperties() {

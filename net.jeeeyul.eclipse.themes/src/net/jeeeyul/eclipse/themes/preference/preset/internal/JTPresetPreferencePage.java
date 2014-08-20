@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,14 +82,14 @@ public class JTPresetPreferencePage extends PreferencePage implements IWorkbench
 
 			@Override
 			public Object[] getElements(Object inputElement) {
-				return JThemesCore.getDefault().getPresetManager().getUserPresets().toArray();
+				return JThemesCore.getDefault().getPresetManager().getUserCategory().getPresets().toArray();
 			}
 
 			@Override
 			public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 			}
 		});
-		viewer.setInput(JThemesCore.getDefault().getPresetManager().getUserPresets());
+		viewer.setInput(JThemesCore.getDefault().getPresetManager().getUserCategory());
 		GridData viewerLayoutData = new GridData(SWT.FILL, SWT.FILL, true, false);
 		viewerLayoutData.grabExcessVerticalSpace = true;
 		viewerLayoutData.widthHint = 200;
@@ -199,34 +200,49 @@ public class JTPresetPreferencePage extends PreferencePage implements IWorkbench
 	}
 
 	private void doImport() {
-		FileDialog dialog = new FileDialog(getShell(), SWT.OPEN);
+		FileDialog dialog = new FileDialog(getShell(), SWT.OPEN | SWT.MULTI | SWT.SHEET);
 		dialog.setFilterExtensions(new String[] { "*.epf" });
 		dialog.setFilterNames(new String[] { "Eclipse Preference File" });
-		String target = dialog.open();
-		if (target != null) {
-			File file = new File(target);
-			try {
-				String name = file.getName().replaceFirst("[.][^.]+$", "");
-
-				IInputValidator nameValidator = JTPUtil.getPresetNameValidator();
-				if (nameValidator.isValid(name) != null) {
-					InputDialog nameDialog = new InputDialog(getShell(), "New Preset", "Enter a new preset name:", null, nameValidator);
-					if (nameDialog.open() != IDialogConstants.OK_ID) {
-						return;
-					} else {
-						name = nameDialog.getValue().trim();
-					}
-				}
-
-				UserPreset newPreset = new UserPreset(name);
-				FileInputStream fis = new FileInputStream(file);
-				newPreset.getProperties().load(fis);
-				fis.close();
-				newPreset.save();
-
-			} catch (IOException e) {
-				e.printStackTrace();
+		String firstFile = dialog.open();
+		if (firstFile != null) {
+			File dir = new File(firstFile).getParentFile();
+			for (String each : dialog.getFileNames()) {
+				importEPF(new File(dir, each));
 			}
+		}
+
+	}
+
+	private void importEPF(File file) {
+		try {
+			String name = file.getName().replaceFirst("[.][^.]+$", "");
+
+			IInputValidator nameValidator = JTPUtil.getPresetNameValidator();
+			String error = nameValidator.isValid(name);
+			if (error != null) {
+				String initialInput;
+				int number = 2;
+				do {
+					initialInput = MessageFormat.format("{0}({1})", name, number);
+				} while (nameValidator.isValid(initialInput) != null);
+
+				InputDialog nameDialog = new InputDialog(getShell(), "Import Preset", MessageFormat.format("{0} Enter a new preset name:", error),
+						initialInput, nameValidator);
+				if (nameDialog.open() != IDialogConstants.OK_ID) {
+					return;
+				} else {
+					name = nameDialog.getValue().trim();
+				}
+			}
+
+			UserPreset newPreset = new UserPreset(name);
+			FileInputStream fis = new FileInputStream(file);
+			newPreset.getProperties().load(fis);
+			fis.close();
+			newPreset.save();
+
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 

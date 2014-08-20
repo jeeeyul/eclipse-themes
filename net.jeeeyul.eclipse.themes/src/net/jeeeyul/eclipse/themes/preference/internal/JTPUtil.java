@@ -1,6 +1,7 @@
 package net.jeeeyul.eclipse.themes.preference.internal;
 
 import java.lang.reflect.Field;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import net.jeeeyul.eclipse.themes.preference.JTPConstants;
 import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore;
 import net.jeeeyul.eclipse.themes.preference.annotations.Ignore;
 import net.jeeeyul.eclipse.themes.preference.annotations.PresetCategory;
+import net.jeeeyul.eclipse.themes.preference.preset.IJTPreset;
 import net.jeeeyul.eclipse.themes.preference.preset.IJTPresetManager;
 import net.jeeeyul.eclipse.themes.preference.preset.internal.UserPreset;
 
@@ -76,9 +78,9 @@ public class JTPUtil {
 				}
 
 				IJTPresetManager presetManager = JThemesCore.getDefault().getPresetManager();
-				for (UserPreset each : presetManager.getUserPresets()) {
+				for (IJTPreset each : presetManager.getUserCategory().getPresets()) {
 					if (each.getName().equalsIgnoreCase(newText)) {
-						return "Already exist name.";
+						return MessageFormat.format("{0} is already exists.", each.getName());
 					}
 				}
 

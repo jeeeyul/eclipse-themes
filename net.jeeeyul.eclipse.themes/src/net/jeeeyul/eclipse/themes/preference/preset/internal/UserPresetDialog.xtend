@@ -76,7 +76,7 @@ class UserPresetDialog extends Dialog {
 				]
 				labelProvider = new PresetLabelProvider
 				contentProvider = new CollectionContentProvider
-				input = JThemesCore.^default.presetManager.userPresets
+				input = JThemesCore.^default.presetManager.userCategory.presets
 				addSelectionChangedListener[
 					var selected = (presetViewer.selection as IStructuredSelection).firstElement as IJTPreset
 					selectedPresetName = selected?.name

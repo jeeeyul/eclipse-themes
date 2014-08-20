@@ -6,15 +6,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Map;
 
 import net.jeeeyul.eclipse.themes.JThemesCore;
 import net.jeeeyul.eclipse.themes.preference.preset.IJTPreset;
+import net.jeeeyul.eclipse.themes.preference.preset.IJTPresetCategory;
 import net.jeeeyul.eclipse.themes.preference.preset.IJTPresetManager;
 import net.jeeeyul.eclipse.themes.preference.preset.IJTPresetManagerListener;
 
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Platform;
 
@@ -22,35 +25,37 @@ import org.eclipse.core.runtime.Platform;
 public class JTPresetManager implements IJTPresetManager {
 	private HashSet<IJTPresetManagerListener> listeners = new HashSet<IJTPresetManagerListener>();
 
-	private List<ContributedPreset> contributedPresets;
-	private List<UserPreset> userPresets;
+	private Map<String, IJTPresetCategory> categories;
+	private IJTPresetCategory defaultCategory;
+	private IJTPresetCategory userCategory;
+	private boolean isLoaded = false;
+	private boolean needToLoadUserCategory = true;
 
 	public JTPresetManager() {
+		categories = new HashMap<String, IJTPresetCategory>();
+		defaultCategory = new PresetCategoryImpl("Default Presets", IJTPresetCategory.DEFAULT_CATEGORY_ID);
+		userCategory = new PresetCategoryImpl("User Presets", IJTPresetCategory.USER_CATEGORY_ID);
+
+		categories.put(defaultCategory.getID(), defaultCategory);
+		categories.put(userCategory.getID(), userCategory);
 	}
 
 	public void addListener(IJTPresetManagerListener listener) {
 		listeners.add(listener);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see net.jeeeyul.eclipse.themes.preference.preset.IJTPresetManager#
-	 * getContributedPresets()
-	 */
-	@Override
-	public List<ContributedPreset> getContributedPresets() {
-		if (contributedPresets == null) {
+	public IJTPresetCategory getDefaultCategory() {
+		if (!isLoaded) {
 			loadPresetExtensions();
 		}
-		return contributedPresets;
+		return defaultCategory;
 	}
 
-	public ContributedPreset getDefaultPreset() {
-		if (contributedPresets == null) {
+	public IJTPreset getDefaultPreset() {
+		if (!isLoaded) {
 			loadPresetExtensions();
 		}
-		for (ContributedPreset each : contributedPresets) {
+		for (IJTPreset each : getDefaultCategory().getPresets()) {
 			if (DEFAULT_PRESET_ID.equals(each.getId())) {
 				return each;
 			}
@@ -65,6 +70,13 @@ public class JTPresetManager implements IJTPresetManager {
 				return o1.getName().toLowerCase().compareTo(o2.getName().toLowerCase());
 			}
 		};
+	}
+
+	public IJTPresetCategory getUserCategory() {
+		if (needToLoadUserCategory) {
+			loadUserPresets();
+		}
+		return userCategory;
 	}
 
 	/*
@@ -87,26 +99,11 @@ public class JTPresetManager implements IJTPresetManager {
 		return presetFolder;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * net.jeeeyul.eclipse.themes.preference.preset.IJTPresetManager#getUserPresets
-	 * ()
-	 */
-	@Override
-	public List<UserPreset> getUserPresets() {
-		if (userPresets == null) {
-			loadUserPresets();
-		}
-		return userPresets;
-	}
-
 	@Override
 	public void invalidateUserPreset() {
-		if (userPresets != null) {
-			userPresets.clear();
-			userPresets = null;
+		if (userCategory.getPresets() != null) {
+			userCategory.getPresets().clear();
+			needToLoadUserCategory = true;
 		}
 
 		for (IJTPresetManagerListener each : listeners) {
@@ -119,24 +116,52 @@ public class JTPresetManager implements IJTPresetManager {
 	}
 
 	private void loadPresetExtensions() {
-		contributedPresets = new ArrayList<ContributedPreset>();
-		IConfigurationElement[] elements = Platform.getExtensionRegistry().getExtensionPoint(ContributedPreset.EXTENSION_POINT).getConfigurationElements();
+		if (isLoaded) {
+			return;
+		}
+		IExtensionPoint extensionPoint = Platform.getExtensionRegistry().getExtensionPoint(ContributedPreset.EXTENSION_POINT);
+
+		IConfigurationElement[] elements = extensionPoint.getConfigurationElements();
 		for (IConfigurationElement each : elements) {
-			if (each.getName().equals(ContributedPreset.ELEMENT_PRESET)) {
-				contributedPresets.add(new ContributedPreset(each));
+			if (each.getName().equals(PresetCategoryImpl.ELEMENT_PRESET_CATEGORY)) {
+				PresetCategoryImpl category = new PresetCategoryImpl(each);
+				categories.put(category.getID(), category);
 			}
 		}
 
-		Collections.sort(contributedPresets, getPresetComparator());
-		ContributedPreset defaultPreset = getDefaultPreset();
+		for (IConfigurationElement each : elements) {
+			if (each.getName().equals(ContributedPreset.ELEMENT_PRESET)) {
+				ContributedPreset preset = new ContributedPreset(each);
+				IJTPresetCategory category = categories.get(preset.getCategoryID());
+				category.getPresets().add(preset);
+			}
+		}
+		isLoaded = true;
+
+		for (IJTPresetCategory eachCategory : categories.values()) {
+			Collections.sort(eachCategory.getPresets(), getPresetComparator());
+		}
+
+		IJTPreset defaultPreset = getDefaultPreset();
 		if (defaultPreset != null) {
-			contributedPresets.remove(defaultPreset);
-			contributedPresets.add(0, defaultPreset);
+			defaultCategory.getPresets().remove(defaultPreset);
+			defaultCategory.getPresets().add(0, defaultPreset);
 		}
 	}
 
+	public IJTPresetCategory getCategory(String id) {
+		if (id.equals(IJTPresetCategory.USER_CATEGORY_ID)) {
+			return getUserCategory();
+		}
+
+		if (!isLoaded) {
+			loadPresetExtensions();
+		}
+
+		return categories.get(id);
+	}
+
 	private void loadUserPresets() {
-		userPresets = new ArrayList<UserPreset>();
 		File[] files = getUserPresetFolder().listFiles(new FilenameFilter() {
 			@Override
 			public boolean accept(File dir, String filename) {
@@ -146,16 +171,43 @@ public class JTPresetManager implements IJTPresetManager {
 
 		for (File each : files) {
 			try {
-				userPresets.add(new UserPreset(each));
+				userCategory.getPresets().add(new UserPreset(each));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 
-		Collections.sort(userPresets, getPresetComparator());
+		Collections.sort(userCategory.getPresets(), getPresetComparator());
+		needToLoadUserCategory = false;
 	}
 
 	public void removeListener(IJTPresetManagerListener listener) {
 		listeners.remove(listener);
+	}
+
+	@Override
+	public IJTPresetCategory[] getCategories() {
+		if (!isLoaded) {
+			loadPresetExtensions();
+		}
+		if (needToLoadUserCategory) {
+			loadUserPresets();
+		}
+
+		ArrayList<IJTPresetCategory> values = new ArrayList<IJTPresetCategory>(categories.values());
+		Collections.sort(values, new Comparator<IJTPresetCategory>() {
+			@Override
+			public int compare(IJTPresetCategory o1, IJTPresetCategory o2) {
+				return o1.getName().compareTo(o2.getName());
+			}
+		});
+
+		values.remove(userCategory);
+		values.remove(defaultCategory);
+		values.add(0, defaultCategory);
+		values.add(0, userCategory);
+
+		IJTPresetCategory[] result = values.toArray(new IJTPresetCategory[categories.size()]);
+		return result;
 	}
 }

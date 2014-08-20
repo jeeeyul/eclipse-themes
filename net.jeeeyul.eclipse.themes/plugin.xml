@@ -225,12 +225,8 @@
             allPopups="false"
             locationURI="menu:org.eclipse.ui.window.preferences">
          <dynamic
-               class="net.jeeeyul.eclipse.themes.ui.UserPresetItems"
-               id="net.jeeeyul.eclipse.themes.preset.contributed">
-         </dynamic>
-         <dynamic
-               class="net.jeeeyul.eclipse.themes.ui.ContributedPresetItems"
-               id="net.jeeeyul.eclipse.themes.preset.contributed">
+               class="net.jeeeyul.eclipse.themes.ui.CategoriesContribution"
+               id="net.jeeeyul.eclipse.themes.ui.CategoryContributionItems">
          </dynamic>
          <separator
                name="other-themes"
@@ -330,7 +326,7 @@
    <extension
          point="net.jeeeyul.eclipse.themes.preset">
       <preset
-            epf="presets/default.epf"
+            epf="presets/default/default.epf"
             id="net.jeeeyul.eclipse.themes.preset.default"
             name="Minimalist (Default)">
          <description>
@@ -338,7 +334,7 @@
          </description>
       </preset>
       <preset
-            epf="presets/chrome.epf"
+            epf="presets/default/chrome.epf"
             id="net.jeeeyul.eclipse.themes.preset.chrome"
             name="Chrome (Classic)">
          <description>
@@ -346,7 +342,7 @@
          </description>
       </preset>
       <preset
-            epf="presets/Coffee.epf"
+            epf="presets/default/Coffee.epf"
             id="net.jeeeyul.eclipse.themes.preset.coffee"
             name="Coffee">
          <description>
@@ -354,7 +350,7 @@
          </description>
       </preset>
       <preset
-            epf="presets/Hello Kitty.epf"
+            epf="presets/default/Hello Kitty.epf"
             id="net.jeeeyul.eclipse.themes.preset.kitty"
             name="Hello Kitty">
          <description>
@@ -362,7 +358,7 @@
          </description>
       </preset>
       <preset
-            epf="presets/Lime.epf"
+            epf="presets/default/Lime.epf"
             id="net.jeeeyul.eclipse.themes.preset.lime"
             name="Lime">
          <description>
@@ -370,7 +366,7 @@
          </description>
       </preset>
       <preset
-            epf="presets/Ocean.epf"
+            epf="presets/default/Ocean.epf"
             id="net.jeeeyul.eclipse.themes.preset.ocean"
             name="Ocean">
          <description>
@@ -378,7 +374,7 @@
          </description>
       </preset>
       <preset
-            epf="presets/Glossy Ocean.epf"
+            epf="presets/default/Glossy Ocean.epf"
             id="net.jeeeyul.eclipse.themes.preset.glossy.ocean"
             name="Glossy Ocean">
          <description>
@@ -386,7 +382,7 @@
          </description>
       </preset>
       <preset
-            epf="presets/Adwaita.epf"
+            epf="presets/default/Adwaita.epf"
             id="net.jeeeyul.eclipse.themes.preset.adwaita"
             name="Adwaita">
          <description>
@@ -394,7 +390,7 @@
          </description>
       </preset>
       <preset
-            epf="presets/Cloud Space.epf"
+            epf="presets/default/Cloud Space.epf"
             id="net.jeeeyul.eclipse.themes.preset.cloud.space"
             name="Cloud Space">
          <description>
@@ -402,7 +398,7 @@
          </description>
       </preset>
       <preset
-            epf="presets/Retro.epf"
+            epf="presets/default/Retro.epf"
             id="net.jeeeyul.eclipse.themes.retro"
             name="Retro">
          <description>
@@ -410,9 +406,97 @@
          </description>
       </preset>
       <preset
-            epf="presets/Spring Tool Suite.epf"
+            epf="presets/default/Spring Tool Suite.epf"
             id="net.jeeeyul.eclipse.themes.preset.sts"
             name="Spring Tool Suite">
+         <description>
+            description body text
+         </description>
+      </preset>
+   </extension>
+   <extension
+         point="net.jeeeyul.eclipse.themes.preset">
+      <preset-category
+            id="net.jeeeyul.eclipse.themes.preset-category.mario"
+            name="Mario&apos;s Presets">
+      </preset-category>
+      <preset
+            category="net.jeeeyul.eclipse.themes.preset-category.mario"
+            epf="presets/mario/Dynamia.epf"
+            id="net.jeeeyul.eclipse.themes.preset.mario.dynamia"
+            name="Dynamia">
+         <description>
+            description body text
+         </description>
+      </preset>
+      <preset
+            category="net.jeeeyul.eclipse.themes.preset-category.mario"
+            epf="presets/mario/Instagram.epf"
+            id="net.jeeeyul.eclipse.themes.preset.mario.instagram"
+            name="Instagram">
+         <description>
+            description body text
+         </description>
+      </preset>
+      <preset
+            category="net.jeeeyul.eclipse.themes.preset-category.mario"
+            epf="presets/mario/Material Design - Blue Grey.epf"
+            id="net.jeeeyul.eclipse.themes.preset.mario.matarial-design.blue-grey"
+            name="Matarial Design - Blue Grey">
+         <description>
+            description body text
+         </description>
+      </preset>
+      <preset
+            category="net.jeeeyul.eclipse.themes.preset-category.mario"
+            epf="presets/mario/Material Design - Blue.epf"
+            id="net.jeeeyul.eclipse.themes.preset.mario.matarial-design.blue"
+            name="Matarial Design - Blue">
+         <description>
+            description body text
+         </description>
+      </preset>
+      <preset
+            category="net.jeeeyul.eclipse.themes.preset-category.mario"
+            epf="presets/mario/Material Design - Green.epf"
+            id="net.jeeeyul.eclipse.themes.preset.mario.matarial-design.green"
+            name="Matarial Design - Green">
+         <description>
+            description body text
+         </description>
+      </preset>
+      <preset
+            category="net.jeeeyul.eclipse.themes.preset-category.mario"
+            epf="presets/mario/Material Design - Orange.epf"
+            id="net.jeeeyul.eclipse.themes.preset.mario.matarial-design.orange"
+            name="Matarial Design - Orange">
+         <description>
+            description body text
+         </description>
+      </preset>
+      <preset
+            category="net.jeeeyul.eclipse.themes.preset-category.mario"
+            epf="presets/mario/Material Design - Red.epf"
+            id="net.jeeeyul.eclipse.themes.preset.mario.matarial-design.red"
+            name="Matarial Design - Red">
+         <description>
+            description body text
+         </description>
+      </preset>
+      <preset
+            category="net.jeeeyul.eclipse.themes.preset-category.mario"
+            epf="presets/mario/Ubuntu Ambiance.epf"
+            id="net.jeeeyul.eclipse.themes.preset.mario.ubuntu.ambiance"
+            name="Ubuntu Ambiance">
+         <description>
+            description body text
+         </description>
+      </preset>
+      <preset
+            category="net.jeeeyul.eclipse.themes.preset-category.mario"
+            epf="presets/mario/Ubuntu Unity.epf"
+            id="net.jeeeyul.eclipse.themes.preset.mario.ubuntu.unity"
+            name="Ubuntu Unity">
          <description>
             description body text
          </description>

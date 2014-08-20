@@ -50,7 +50,7 @@ class JTPreferencePage extends PreferencePage implements IWorkbenchPreferencePag
 		if(control.alive)
 			doUpdatePreview()
 	]
-	
+
 	/*
 	 * https://github.com/jeeeyul/eclipse-themes/issues/140
 	 */
@@ -134,17 +134,21 @@ class JTPreferencePage extends PreferencePage implements IWorkbenchPreferencePag
 
 	private def createActions() {
 		menuManager => [
-			add(
-				new MenuManager("Preset", SharedImages.getImageDescriptor(SharedImages.PRESET), "contributed.preset") => [
-					add(new ContributedPresetItems(this))
-				])
 			if(presetManager != null) {
 				add(
-					new MenuManager("User Preset", SharedImages.getImageDescriptor(SharedImages.PRESET), "user.preset") => [
+					new MenuManager(presetManager.userCategory.name, SharedImages.getImageDescriptor(SharedImages.PRESET), "user.preset") => [
 						add(new AddUserPresetAction(this))
 						add(new ManagePresetAction(this))
 						add(new UserPresetItems(this))
 					])
+				for (eachCategory : presetManager.categories) {
+					if(eachCategory != presetManager.userCategory) {
+						add(
+							new MenuManager(eachCategory.name, SharedImages.getImageDescriptor(SharedImages.PRESET), "contributed.preset") => [
+								add(new ContributedPresetItems(this, eachCategory))
+							])
+					}
+				}
 			}
 			add(new Separator)
 			add(new ShowCSSAction(this))
@@ -171,7 +175,7 @@ class JTPreferencePage extends PreferencePage implements IWorkbenchPreferencePag
 		/*
 		 * https://github.com/jeeeyul/eclipse-themes/issues/140
 		 */
-		if(lastChoosedPresetId != null){
+		if(lastChoosedPresetId != null) {
 			store.setValue(JTPConstants.Memento.LAST_CHOOSED_PRESET, lastChoosedPresetId)
 		}
 	}

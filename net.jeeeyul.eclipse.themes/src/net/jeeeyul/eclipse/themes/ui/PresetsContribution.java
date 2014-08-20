@@ -2,9 +2,8 @@ package net.jeeeyul.eclipse.themes.ui;
 
 import java.util.List;
 
-import net.jeeeyul.eclipse.themes.JThemesCore;
-import net.jeeeyul.eclipse.themes.preference.preset.IJTPresetManager;
-import net.jeeeyul.eclipse.themes.preference.preset.internal.ContributedPreset;
+import net.jeeeyul.eclipse.themes.preference.preset.IJTPreset;
+import net.jeeeyul.eclipse.themes.preference.preset.IJTPresetCategory;
 
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IContributionItem;
@@ -17,12 +16,20 @@ import org.eclipse.ui.actions.CompoundContributionItem;
  * @author Jeeeyul
  * @since 2.1
  */
-public class ContributedPresetItems extends CompoundContributionItem {
+public class PresetsContribution extends CompoundContributionItem {
+
+	private IJTPresetCategory category;
+
+	/**
+	 * @param category
+	 */
+	public PresetsContribution(IJTPresetCategory category) {
+		this.category = category;
+	}
 
 	@Override
 	protected IContributionItem[] getContributionItems() {
-		IJTPresetManager presetManager = JThemesCore.getDefault().getPresetManager();
-		List<ContributedPreset> contributedPresets = presetManager.getContributedPresets();
+		List<IJTPreset> contributedPresets = category.getPresets();
 		if (contributedPresets.size() == 0) {
 			return new IContributionItem[0];
 		}
