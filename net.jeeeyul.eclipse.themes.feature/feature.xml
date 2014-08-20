@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><feature id="net.jeeeyul.eclipse.themes.feature" label="Jeeeyul's Themes" provider-name="Jeeeyul@gmail.com" version="2.1.7.qualifier">
+<?xml version="1.0" encoding="UTF-8"?><feature id="net.jeeeyul.eclipse.themes.feature" label="Jeeeyul's Themes" provider-name="Jeeeyul@gmail.com" version="2.1.8.qualifier">
 
    <description url="https://github.com/jeeeyul/eclipse-themes">
       Provide some eclipse 4 themes.
@@ -102,8 +102,8 @@ This Agreement is governed by the laws of the State of New York and the intellec
       <import match="greaterOrEqual" plugin="javax.inject" version="1.0.0"/>
       <import plugin="org.eclipse.ui.editors"/>
       <import plugin="javax.annotation"/>
-      <import feature="net.jeeeyul.swtend.feature" match="greaterOrEqual" version="2.2.3"/>
-      <import match="greaterOrEqual" plugin="net.jeeeyul.swtend" version="2.2.3"/>
+      <import feature="net.jeeeyul.swtend.feature" match="greaterOrEqual" version="2.2.4"/>
+      <import match="greaterOrEqual" plugin="net.jeeeyul.swtend" version="2.2.4"/>
    </requires>
 
    <plugin download-size="0" id="net.jeeeyul.eclipse.themes" install-size="0" unpack="false" version="0.0.0"/>

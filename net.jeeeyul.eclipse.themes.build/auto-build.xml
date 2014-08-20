@@ -203,6 +203,22 @@
 		         dest="${workspace}/${feature-id}/feature.xml">
 			<replace path="/feature/@version" withText="${version}.qualifier" />
 		</xmltask>
+
+		<xmltask source="${basedir}/category.xml"
+		         dest="${basedir}/category.xml">
+			<replace path="/site/feature/@url"
+			         withText="features/${feature-id}_${version}.qualifier.jar" />
+			<replace path="/site/feature/@version"
+			         withText="${version}.qualifier" />
+		</xmltask>
+
+		<xmltask source="${basedir}/beta-category.xml"
+		         dest="${basedir}/beta-category.xml">
+			<replace path="/site/feature/@url"
+			         withText="features/${feature-id}_${version}.qualifier.jar" />
+			<replace path="/site/feature/@version"
+			         withText="${version}.qualifier" />
+		</xmltask>
 		<eclipse.refreshLocal resource="${workspace}/${feature-id}/feature.xml" />
 	</target>
 
