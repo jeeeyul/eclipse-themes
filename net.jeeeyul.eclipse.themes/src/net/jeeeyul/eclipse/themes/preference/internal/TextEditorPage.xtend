@@ -71,10 +71,10 @@ class TextEditorPage extends AbstractJTPreferencePage {
 					'''
 						Jeeeyul's Eclipse Themes Text Editor Preview
 						
-						까꿍아, 건강하게 태어나, 행복하게 살렴. 사랑한다.
-						개발자는 하지 말고.
+						윤슬아 탄생 100일을 축하한다.
+						오래오래 건강하고 행복하게 살자.
 						
-						2014년 3월 21일 아빠가.
+						2014년 8월 20일 아빠가.
 					''')
 				preview.control.layoutData = FILL_HORIZONTAL[
 					widthHint = 200
