@@ -9,7 +9,6 @@ import net.jeeeyul.eclipse.themes.JThemesCore;
 import net.jeeeyul.eclipse.themes.preference.JTPConstants;
 import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore;
 import net.jeeeyul.eclipse.themes.preference.annotations.Ignore;
-import net.jeeeyul.eclipse.themes.preference.annotations.PresetCategory;
 import net.jeeeyul.eclipse.themes.preference.preset.IJTPreset;
 import net.jeeeyul.eclipse.themes.preference.preset.IJTPresetManager;
 import net.jeeeyul.eclipse.themes.preference.preset.internal.UserPreset;
@@ -24,35 +23,6 @@ import org.eclipse.jface.dialogs.IInputValidator;
 public class JTPUtil {
 	private static final char[] hexDigit = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
 
-	/**
-	 * A filter that matches only categories for theme preset.
-	 */
-	public static final IPreferenceFilter FILTER_PRESET = new IPreferenceFilter() {
-		@Override
-		public boolean acceptCategory(Class<?> category) {
-			return category.getAnnotation(PresetCategory.class) != null;
-		}
-
-		@Override
-		public boolean acceptKey(Field field) {
-			return true;
-		}
-	};
-
-	/**
-	 * A filter that matches every category and field.
-	 */
-	public static final IPreferenceFilter FILTER_ALL = new IPreferenceFilter() {
-		@Override
-		public boolean acceptCategory(Class<?> category) {
-			return true;
-		}
-
-		@Override
-		public boolean acceptKey(Field field) {
-			return true;
-		}
-	};
 
 	private static void collectClasses(Class<?> root, List<Class<?>> result) {
 		if (root == null || result == null) {

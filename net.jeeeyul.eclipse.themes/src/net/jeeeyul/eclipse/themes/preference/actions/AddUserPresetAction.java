@@ -6,6 +6,7 @@ import java.util.Properties;
 
 import net.jeeeyul.eclipse.themes.SharedImages;
 import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore;
+import net.jeeeyul.eclipse.themes.preference.internal.IPreferenceFilter;
 import net.jeeeyul.eclipse.themes.preference.internal.JTPUtil;
 import net.jeeeyul.eclipse.themes.preference.internal.JTPreferencePage;
 import net.jeeeyul.eclipse.themes.preference.preset.internal.UserPreset;
@@ -43,7 +44,7 @@ public class AddUserPresetAction extends AbstractPreferenceAction {
 			JThemePreferenceStore store = new JThemePreferenceStore(new PreferenceStore());
 			getPage().saveTo(store);
 
-			List<String> presetKeys = JTPUtil.listPreferenceKeys(JTPUtil.FILTER_PRESET);
+			List<String> presetKeys = JTPUtil.listPreferenceKeys(IPreferenceFilter.FILTER_PRESET);
 			for (String key : presetKeys) {
 				presetProps.setProperty(key, store.getString(key));
 			}

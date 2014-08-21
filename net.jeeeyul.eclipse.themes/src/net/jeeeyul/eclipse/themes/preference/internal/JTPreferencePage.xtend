@@ -189,7 +189,7 @@ class JTPreferencePage extends PreferencePage implements IWorkbenchPreferencePag
 
 	override protected performDefaults() {
 		var dummy = new JThemePreferenceStore(new PreferenceStore())
-		val presetKeys = JTPUtil.listPreferenceKeys(JTPUtil.FILTER_PRESET)
+		val presetKeys = JTPUtil.listPreferenceKeys(IPreferenceFilter.FILTER_PRESET)
 		for (e : presetKeys) {
 			dummy.setValue(e, preferenceStore.getDefaultString(e))
 		}

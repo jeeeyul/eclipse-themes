@@ -2,6 +2,7 @@ package net.jeeeyul.eclipse.themes.preference.actions
 
 import net.jeeeyul.eclipse.themes.SharedImages
 import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore
+import net.jeeeyul.eclipse.themes.preference.internal.IPreferenceFilter
 import net.jeeeyul.eclipse.themes.preference.internal.JTPUtil
 import net.jeeeyul.eclipse.themes.preference.internal.JTPreferencePage
 import net.jeeeyul.swtend.SWTExtensions
@@ -24,7 +25,7 @@ class ShowEPFAction extends AbstractPreferenceAction {
 
 		var tempStore = new JThemePreferenceStore(new PreferenceStore)
 		page.saveTo(tempStore)
-		val presetKeys = JTPUtil.listPreferenceKeys(JTPUtil.FILTER_PRESET)
+		val presetKeys = JTPUtil.listPreferenceKeys(IPreferenceFilter.FILTER_PRESET)
 		val epf = '''
 			«FOR key : presetKeys»
 				«key»=«JTPUtil.saveConvert(tempStore.getString(key), false, true)»

@@ -1,13 +1,16 @@
 package net.jeeeyul.eclipse.themes.preference.internal
 
+import net.jeeeyul.eclipse.themes.SharedImages
 import net.jeeeyul.eclipse.themes.preference.JTPConstants
 import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore
 import net.jeeeyul.eclipse.themes.rendering.JTabSettings
 import net.jeeeyul.swtend.SWTExtensions
+import net.jeeeyul.swtend.ui.ColorPicker
+import net.jeeeyul.swtend.ui.HSB
+import org.eclipse.jface.dialogs.IDialogConstants
 import org.eclipse.jface.preference.PreferenceStore
 import org.eclipse.swt.custom.CTabFolder
 import org.eclipse.swt.widgets.Composite
-import net.jeeeyul.eclipse.themes.SharedImages
 
 class ToolsPage extends AbstractJTPreferencePage {
 	new() {
@@ -18,6 +21,17 @@ class ToolsPage extends AbstractJTPreferencePage {
 	override createContents(Composite parent, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
 		parent.newComposite [
 			layout = newGridLayout[]
+			newGroup[
+				text = "Batch Color Tasks"
+				layout = newGridLayout
+				layoutData = FILL_HORIZONTAL
+				newPushButton[
+					text = "Re-write hue globally"
+					onSelection = [
+						rewriteHue(helper)
+					]
+				]
+			]
 			newGroup[
 				text = "Part Stack Batch Task"
 				layout = newGridLayout
@@ -38,6 +52,32 @@ class ToolsPage extends AbstractJTPreferencePage {
 		]
 	}
 
+	def private rewriteHue(extension PreperencePageHelper helper) {
+		var picker = new ColorPicker(null);
+		picker.selection = new HSB(255, 0, 0)
+		if(picker.open() == IDialogConstants.OK_ID) {
+			var copy = createWorkingCopy()
+
+			val gradientKeys = JTPUtil.listPreferenceKeys(IPreferenceFilter.FILTER_PRESET.chain(IPreferenceFilter.GRADIENT_TYPE_FILTER))
+			for (each : gradientKeys) {
+				var grad = copy.getGradient(each)
+				for (eachStop : grad) {
+					eachStop.color.hue = picker.selection.hue;
+				}
+				copy.setValue(each, grad)
+			}
+
+			val hsbKeys = JTPUtil.listPreferenceKeys(IPreferenceFilter.FILTER_PRESET.chain(IPreferenceFilter.HSB_TYPE_FILTER))
+			for (each : hsbKeys) {
+				var hsb = copy.getHSB(each)
+				hsb.hue = picker.selection.hue
+				copy.setValue(each, hsb)
+			}
+
+			loadFromWorkingCopy(copy)
+		}
+	}
+
 	override updatePreview(CTabFolder folder, JTabSettings renderSettings, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
 	}
 
@@ -52,7 +92,7 @@ class ToolsPage extends AbstractJTPreferencePage {
 
 	private def void copy(String from, String to, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
 		var stacksPage = allPages.filter(typeof(PartStacksPage)).head
-		var sibilings =stacksPage.children
+		var sibilings = stacksPage.children
 		var fromPage = sibilings.filter(typeof(PartStackPage)).findFirst[it.context == from]
 		var toPage = sibilings.filter(typeof(PartStackPage)).findFirst[it.context == to]
 

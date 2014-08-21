@@ -16,6 +16,7 @@ import net.jeeeyul.swtend.ui.GradientEdit;
 import net.jeeeyul.swtend.ui.HSB;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.preference.PreferenceStore;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.graphics.Color;
@@ -168,12 +169,12 @@ public class PreperencePageHelper {
 
 		return true;
 	}
-	
-	public boolean matches(Color color, HSB hsb){
-		if(color == null || color.isDisposed()){
+
+	public boolean matches(Color color, HSB hsb) {
+		if (color == null || color.isDisposed()) {
 			return false;
 		}
-		
+
 		return new HSB(color.getRGB()).equals(hsb);
 	}
 
@@ -246,5 +247,15 @@ public class PreperencePageHelper {
 
 	public void navigateTo(String id) {
 		PreferencesUtil.createPreferenceDialogOn(root.getShell(), id, null, null);
+	}
+
+	public JThemePreferenceStore createWorkingCopy() {
+		JThemePreferenceStore fakeStore = new JThemePreferenceStore(new PreferenceStore());
+		root.saveTo(fakeStore);
+		return fakeStore;
+	}
+
+	public void loadFromWorkingCopy(JThemePreferenceStore store) {
+		root.loadFrom(store);
 	}
 }
