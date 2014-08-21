@@ -204,8 +204,6 @@ class TextEditorPage extends AbstractJTPreferencePage {
 		}
 		
 		result += new PreferenceLink("Text Editors Section", PREF_ID_GENERAL_TEXT_EDITORS)
-		
-		println(result);
 		return result;
 	}
 	

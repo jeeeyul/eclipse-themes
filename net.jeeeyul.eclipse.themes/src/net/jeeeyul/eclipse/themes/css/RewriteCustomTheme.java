@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.jeeeyul.eclipse.themes.JThemesCore;
+import net.jeeeyul.eclipse.themes.css.internal.RangeIndicatorHack;
 
 import org.eclipse.e4.ui.css.core.dom.ExtendedCSSRule;
 import org.eclipse.e4.ui.css.core.dom.ExtendedDocumentCSS;
@@ -70,6 +71,8 @@ public class RewriteCustomTheme {
 			}
 
 			cssEngine.reapply();
+
+			RangeIndicatorHack.update();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
