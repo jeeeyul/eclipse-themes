@@ -334,6 +334,13 @@ public interface JTPConstants {
 		@TypeHint(HSB.class)
 		public static final String SHADOW_COLOR = PREFIX + CATEGORY_SEPARATOR + "SHADOW_COLOR";
 		
+		
+		@TypeHint(boolean.class)
+		public static final String TRUNCATE_TAB_ITEMS = PREFIX + CATEGORY_SEPARATOR + "TRUNCATE_TAB_ITEMS";
+		
+		@TypeHint(int.class)
+		public static final String MINIMUM_CHARACTERS = PREFIX + CATEGORY_SEPARATOR + "MINIMUM_CHARACTERS";
+		
 		@TypeHint(boolean.class)
 		public static final String USE_ELLIPSES = PREFIX + CATEGORY_SEPARATOR + "USE_ELLIPSES";
 	}

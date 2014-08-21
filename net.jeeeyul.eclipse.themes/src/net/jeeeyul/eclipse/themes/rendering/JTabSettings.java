@@ -53,7 +53,10 @@ public class JTabSettings {
 	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 	private JeeeyulsTabRenderer renderer;
 	private Rectangle tabItemPaddings = new Rectangle(2, 0, 2, 0);
-	private boolean useEllipses;
+
+	private boolean truncateTabItems = true;
+	private boolean useEllipses = false;
+	private int minimumCharacters = 1;
 
 	public JTabSettings(JeeeyulsTabRenderer renderer) {
 		this.renderer = renderer;
@@ -145,6 +148,10 @@ public class JTabSettings {
 		return margins;
 	}
 
+	public int getMinimumCharacters() {
+		return minimumCharacters;
+	}
+
 	public Rectangle getPaddings() {
 		return paddings;
 	}
@@ -215,6 +222,10 @@ public class JTabSettings {
 
 	public Point getUnselectedTextShadowPosition() {
 		return unselectedTextShadowPosition;
+	}
+
+	public boolean isTruncateTabItems() {
+		return truncateTabItems;
 	}
 
 	public boolean isUseEllipses() {
@@ -374,6 +385,15 @@ public class JTabSettings {
 		pcs.firePropertyChange("margins", old, margins);
 	}
 
+	public void setMinimumCharacters(int minimumChars) {
+		if (areSame(this.minimumCharacters, minimumChars)) {
+			return;
+		}
+		int old = this.minimumCharacters;
+		this.minimumCharacters = minimumChars;
+		pcs.firePropertyChange("minimum-characters", old, minimumChars);
+	}
+
 	public void setPaddings(Rectangle paddings) {
 		if (areSame(this.paddings, paddings)) {
 			return;
@@ -475,6 +495,15 @@ public class JTabSettings {
 		pcs.firePropertyChange("tab-spacing", old, tabSpacing);
 	}
 
+	public void setTruncateTabItems(boolean truncateTabItems) {
+		if (areSame(this.truncateTabItems, truncateTabItems)) {
+			return;
+		}
+		boolean old = this.truncateTabItems;
+		this.truncateTabItems = truncateTabItems;
+		pcs.firePropertyChange("truncate-tab-items", old, truncateTabItems);
+	}
+
 	public void setUnselectedBackgroundColors(HSB[] unselectedBackgroundColors) {
 		if (areSame(this.unselectedBackgroundColors, unselectedBackgroundColors)) {
 			return;
@@ -533,7 +562,7 @@ public class JTabSettings {
 	}
 
 	public void setUseEllipses(boolean useEllipses) {
-		if(this.useEllipses == useEllipses){
+		if (this.useEllipses == useEllipses) {
 			return;
 		}
 		boolean old = this.useEllipses;

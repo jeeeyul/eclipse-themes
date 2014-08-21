@@ -431,10 +431,25 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 				}
 				true
 			}
+			
+			case "jtab-truncate-tab-items": {
+				var truncateTabItems = engine.convert(value, typeof(Boolean), tabFolder.display) as Boolean
+				settings.truncateTabItems = truncateTabItems
+				true
+			}
 			case "jtab-use-ellipses": {
 				var useEllipse = engine.convert(value, typeof(Boolean), tabFolder.display) as Boolean
 				settings.useEllipses = useEllipse
 				true
+			}
+			case "jtab-minimum-charaters": {
+				if(value instanceof CSSPrimitiveValue) {
+					var v = (value as CSSPrimitiveValue).getFloatValue(CSSPrimitiveValue.CSS_NUMBER) as int
+					settings.minimumCharacters = v;
+					true
+				} else {
+					false
+				}
 			}
 			default: {
 				false
@@ -505,7 +520,9 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 			case "jtab-item-padding": '''0px «settings.tabItemPaddings.width»px 0px «settings.tabItemPaddings.x»px'''
 			case "jtab-item-horizontal-spacing": '''«settings.tabItemHorizontalSpacing»px'''
 			case "jtab-chevron-color": '''«settings.chevronColor.toHTMLCode»'''
+			case "jtab-truncate-tab-items" : '''«settings.truncateTabItems»'''
 			case "jtab-use-ellipses": '''«settings.useEllipses»'''
+			case "jtab-minimum-charaters" : '''«settings.minimumCharacters»'''
 			default:
 				null
 		}

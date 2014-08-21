@@ -156,6 +156,12 @@
          <property-name
                name="jtab-use-ellipses">
          </property-name>
+         <property-name
+               name="jtab-truncate-tab-items">
+         </property-name>
+         <property-name
+               name="jtab-minimum-charaters">
+         </property-name>
       </handler>
       <handler
             adapter="org.eclipse.e4.ui.css.swt.dom.CompositeElement"

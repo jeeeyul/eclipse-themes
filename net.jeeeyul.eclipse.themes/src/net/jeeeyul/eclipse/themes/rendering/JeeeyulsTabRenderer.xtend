@@ -101,8 +101,8 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 				var itemText = item.text.trim
 
-				if(state.hasFlags(MINIMUM_SIZE) && itemText.length > parent.minimumCharacters) {
-					itemText = itemText.substring(0, parent.minimumCharacters) + "..."
+				if(state.hasFlags(MINIMUM_SIZE) && settings.truncateTabItems && itemText.length > settings.minimumCharacters) {
+					itemText = itemText.substring(0, settings.minimumCharacters) + if(settings.useEllipses) "..." else ""
 				}
 				if(itemText.trim.length > 0) {
 					var textSize = itemText.computeTextExtent(#[item.font, parent.font].firstNotNull)
@@ -134,7 +134,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 						size.y = Math.max(size.y, eachSize.y)
 					}
 				}
-	
+
 				// Part header must contains toolbar with border(top and bottom)
 				// refs #173 Growing Tabs				
 				size.y = Math.max(size.y, minimumToolBarHeight + 2)
