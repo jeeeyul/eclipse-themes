@@ -381,6 +381,13 @@ class CustomThemeGenerator {
 			jeditor-line-color : «store.getHSB(JTPConstants.TextEditor.UNDER_LINE_COLOR).toHTMLCode»;
 		}
 		
+		«comment("Customized Text Editor Support")»
+		.MPart Section StyledText
+		{
+			background : jtexteditor-background;
+			color : jtexteditor-foreground;
+		}
+		
 		«comment("User Custom CSS")»
 		«store.getString(JTPConstants.Others.USER_CSS)»
 	'''
