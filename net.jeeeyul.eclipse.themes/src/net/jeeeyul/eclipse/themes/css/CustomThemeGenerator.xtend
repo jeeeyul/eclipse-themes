@@ -150,7 +150,7 @@ class CustomThemeGenerator {
 			jtab-padding : «store.getInt(JTPConstants.Layout.CONTENT_PADDING)»px;
 			jtab-truncate-tab-items : «store.getBoolean(JTPConstants.Layout.TRUNCATE_TAB_ITEMS)»;
 			jtab-use-ellipses : «store.getBoolean(JTPConstants.Layout.USE_ELLIPSES)»;
-			jtab-minimum-charaters : «store.getInt(JTPConstants.Layout.MINIMUM_CHARACTERS)»;
+			jtab-minimum-characters : «store.getInt(JTPConstants.Layout.MINIMUM_CHARACTERS)»;
 			
 			«IF store.getBoolean(JTPConstants.Layout.SHOW_SHADOW)»
 				jtab-margin : 0px 4px 4px 1px; /* top right bottom left */
@@ -248,7 +248,7 @@ class CustomThemeGenerator {
 			«comment("Editor Part Stack")»
 			.MPartStack.EditorStack{
 				jtab-truncate-tab-items : «store.getBoolean(JTPConstants.Layout.TRUNCATE_EDITORS_TAB_ITEMS_ALSO)»;
-				jtab-minimum-charaters : «store.getInt(JTPConstants.Layout.MINIMUM_CHARACTERS_FOR_EDITORS)»;
+				jtab-minimum-characters : «store.getInt(JTPConstants.Layout.MINIMUM_CHARACTERS_FOR_EDITORS)»;
 			}
 		«ENDIF»
 		

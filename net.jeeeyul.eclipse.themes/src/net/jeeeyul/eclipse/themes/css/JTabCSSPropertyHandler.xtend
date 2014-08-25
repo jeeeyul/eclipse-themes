@@ -442,7 +442,7 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 				settings.useEllipses = useEllipse
 				true
 			}
-			case "jtab-minimum-charaters": {
+			case "jtab-minimum-characters": {
 				if(value instanceof CSSPrimitiveValue) {
 					var v = (value as CSSPrimitiveValue).getFloatValue(CSSPrimitiveValue.CSS_NUMBER) as int
 					settings.minimumCharacters = v;
@@ -522,7 +522,7 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 			case "jtab-chevron-color": '''«settings.chevronColor.toHTMLCode»'''
 			case "jtab-truncate-tab-items" : '''«settings.truncateTabItems»'''
 			case "jtab-use-ellipses": '''«settings.useEllipses»'''
-			case "jtab-minimum-charaters" : '''«settings.minimumCharacters»'''
+			case "jtab-minimum-characters" : '''«settings.minimumCharacters»'''
 			default:
 				null
 		}

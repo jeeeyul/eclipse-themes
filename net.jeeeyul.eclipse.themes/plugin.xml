@@ -160,7 +160,7 @@
                name="jtab-truncate-tab-items">
          </property-name>
          <property-name
-               name="jtab-minimum-charaters">
+               name="jtab-minimum-characters">
          </property-name>
       </handler>
       <handler
