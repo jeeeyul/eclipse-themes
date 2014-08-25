@@ -244,6 +244,14 @@ class CustomThemeGenerator {
 			color: «store.getHSB(JTPConstants.InactivePartStack.SELECTED_TEXT_COLOR).toHTMLCode»;
 		}
 		
+		«IF store.getBoolean(JTPConstants.Layout.TRUNCATE_TAB_ITEMS)»
+			«comment("Editor Part Stack")»
+			.MPartStack.EditorStack{
+				jtab-truncate-tab-items : «store.getBoolean(JTPConstants.Layout.TRUNCATE_EDITORS_TAB_ITEMS_ALSO)»;
+				jtab-minimum-charaters : «store.getInt(JTPConstants.Layout.MINIMUM_CHARACTERS_FOR_EDITORS)»;
+			}
+		«ENDIF»
+		
 		«comment("Empty Part Stack")»
 		.MPartStack.empty{
 			jtab-header-background : «store.getGradient(JTPConstants.EmptyPartStack.FILL_COLOR).toSWTCSSString»;

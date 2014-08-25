@@ -457,6 +457,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		}
 
 		// Draw Close Button
+		var closeVisible = false
 		if((tabFolder.showClose || item.showClose) && item.closeRect.width > 0) {
 			item.closeRect.x = item.bounds.right.x - item.closeRect.width - 4 - settings.tabItemPaddings.width
 			item.closeRect.translate(-Math.max(settings.tabSpacing, 0) + 3, 0)
@@ -465,6 +466,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				gc.withClip(item.closeRect) [
 					draw(PART_CLOSE_BUTTON, item.closeImageState, item.closeRect, gc)
 				]
+				closeVisible = true
 			}
 		}
 		gc.lineWidth = 1
@@ -481,7 +483,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		if(item.image != null)
 			textArea.translate(settings.tabItemHorizontalSpacing, 0)
 
-		if((item.showClose || tabFolder.showClose) && item.closeRect != null && item.closeRect.width > 0) {
+		if(closeVisible && item.closeRect != null && item.closeRect.width > 0) {
 			textArea.setRight(item.closeRect.x - settings.tabItemHorizontalSpacing);
 		} else {
 			textArea.setRight(itemBounds.right.x - settings.tabItemPaddings.width)
@@ -510,6 +512,11 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			gc.foreground = settings.getTextColorFor(state).toAutoReleaseColor
 			gc.drawText(text, textArea.x, textArea.y, TEXT_FLAGS)
 		]
+
+		if(parent.focusControl && state.hasFlags(SWT.SELECTED)) {
+			gc.foreground = settings.getTextColorFor(state).toAutoReleaseColor
+			gc.drawLine(textArea.bottomLeft.getTranslated(0, 1), textArea.bottomRight.getTranslated(0, 1))
+		}
 
 		// Draw Border and Keyline
 		drawTabItemBorder(part, state, itemBounds, gc)

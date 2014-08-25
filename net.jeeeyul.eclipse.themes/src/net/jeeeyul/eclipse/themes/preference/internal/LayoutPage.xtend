@@ -23,8 +23,10 @@ class LayoutPage extends AbstractJTPreferencePage {
 	Spinner tabHeightScale
 
 	Button truncateTabItemsButton
+	Button truncateEditorTabItemsButton
 	Button useEllipsesButton
 	Spinner minimumCharactersSpinner
+	Spinner minimumCharactersForEditorSpinner
 
 	new() {
 		super("Layout")
@@ -127,36 +129,56 @@ class LayoutPage extends AbstractJTPreferencePage {
 			newComposite[
 				layoutData = FILL_HORIZONTAL
 				layout = newGridLayout[
-					numColumns = 2
+					numColumns = 1
 				]
 				truncateTabItemsButton = newCheckbox[
 					text = "Truncate Tab Items to show more Tab Items"
-					layoutData = newGridData[
-						horizontalSpan = 2
-					]
 					onSelection = [requestFastUpdatePreview()]
 				]
-				newLabel[
-					text = "Number of minimum charaters"
-					layoutData = newGridData[
-						horizontalIndent = 16
+				newGroup[
+					layoutData = FILL_HORIZONTAL
+					layout = newGridLayout[
+						numColumns = 2
 					]
-				]
-				minimumCharactersSpinner = newSpinner[
-					layoutData = newGridData[
-						widthHint = 40
+					newLabel[
+						text = "Number of minimum charaters"
 					]
-					minimum = 1
-					maximum = 4
-					onSelection = [requestFastUpdatePreview()]
-				]
-				useEllipsesButton = newCheckbox[
-					text = "Use Ellipses when truncate"
-					layoutData = newGridData[
-						horizontalIndent = 16
-						horizontalSpan = 2
+					minimumCharactersSpinner = newSpinner[
+						layoutData = newGridData[
+							widthHint = 40
+						]
+						minimum = 1
+						maximum = 20
+						onSelection = [requestFastUpdatePreview()]
 					]
-					onSelection = [requestFastUpdatePreview()]
+					useEllipsesButton = newCheckbox[
+						text = "Use Ellipses when truncate"
+						layoutData = newGridData[
+							horizontalSpan = 2
+						]
+						onSelection = [requestFastUpdatePreview()]
+					]
+					truncateEditorTabItemsButton = newCheckbox[
+						text = "Truncate Editors also"
+						layoutData = newGridData[
+							horizontalSpan = 2
+						]
+						onSelection = [requestFastUpdatePreview()]
+					]
+					newLabel[
+						text = "Number of minimum charaters for Editors"
+						layoutData = newGridData[
+							horizontalIndent = 16
+						]
+					]
+					minimumCharactersForEditorSpinner = newSpinner[
+						layoutData = newGridData[
+							widthHint = 40
+						]
+						minimum = 1
+						maximum = 20
+						onSelection = [requestFastUpdatePreview()]
+					]
 				]
 			]
 			if(OSHelper.INSTANCE.linux) {
@@ -180,14 +202,16 @@ class LayoutPage extends AbstractJTPreferencePage {
 		renderSettings.tabItemPaddings = newInsets(tabItemPaddingsScale.selection)
 		renderSettings.tabSpacing = tabSpacingScale.selection
 		renderSettings.tabItemHorizontalSpacing = this.tabItemSpacingScale.selection
-		
+
 		renderSettings.useEllipses = useEllipsesButton.selection
 		renderSettings.minimumCharacters = minimumCharactersSpinner.selection
 		renderSettings.truncateTabItems = truncateTabItemsButton.selection
-		
+
 		useEllipsesButton.enabled = truncateTabItemsButton.selection
 		minimumCharactersSpinner.enabled = truncateTabItemsButton.selection
-		
+		truncateEditorTabItemsButton.enabled = truncateTabItemsButton.selection
+		minimumCharactersForEditorSpinner.enabled = truncateEditorTabItemsButton.selection && truncateTabItemsButton.selection
+
 		folder.tabHeight = tabHeightScale.selection
 		folder.notifyListeners(SWT.Resize, new Event())
 		folder.layout(true, true)
@@ -202,10 +226,12 @@ class LayoutPage extends AbstractJTPreferencePage {
 
 		this.tabItemPaddingsScale.selection = store.getInt(JTPConstants.Layout.TAB_ITEM_PADDING)
 		this.tabItemSpacingScale.selection = store.getInt(JTPConstants.Layout.TAB_ITEM_SPACING)
-		
+
 		this.truncateTabItemsButton.selection = store.getBoolean(JTPConstants.Layout.TRUNCATE_TAB_ITEMS)
 		this.useEllipsesButton.selection = store.getBoolean(JTPConstants.Layout.USE_ELLIPSES)
 		this.minimumCharactersSpinner.selection = store.getInt(JTPConstants.Layout.MINIMUM_CHARACTERS)
+		this.truncateEditorTabItemsButton.selection = store.getBoolean(JTPConstants.Layout.TRUNCATE_EDITORS_TAB_ITEMS_ALSO)
+		this.minimumCharactersForEditorSpinner.selection = store.getInt(JTPConstants.Layout.MINIMUM_CHARACTERS_FOR_EDITORS)
 	}
 
 	override save(JThemePreferenceStore store, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
@@ -215,10 +241,12 @@ class LayoutPage extends AbstractJTPreferencePage {
 		store.setValue(JTPConstants.Layout.TAB_SPACING, this.tabSpacingScale.selection)
 		store.setValue(JTPConstants.Layout.TAB_ITEM_PADDING, this.tabItemPaddingsScale.selection)
 		store.setValue(JTPConstants.Layout.TAB_ITEM_SPACING, this.tabItemSpacingScale.selection)
-		
+
 		store.setValue(JTPConstants.Layout.TRUNCATE_TAB_ITEMS, this.truncateTabItemsButton.selection)
 		store.setValue(JTPConstants.Layout.USE_ELLIPSES, this.useEllipsesButton.selection)
 		store.setValue(JTPConstants.Layout.MINIMUM_CHARACTERS, this.minimumCharactersSpinner.selection)
+		store.setValue(JTPConstants.Layout.TRUNCATE_EDITORS_TAB_ITEMS_ALSO, truncateEditorTabItemsButton.selection)
+		store.setValue(JTPConstants.Layout.MINIMUM_CHARACTERS_FOR_EDITORS, minimumCharactersForEditorSpinner.selection)
 	}
 
 	override dispose(extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {

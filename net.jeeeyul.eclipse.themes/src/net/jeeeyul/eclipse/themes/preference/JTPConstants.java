@@ -338,8 +338,15 @@ public interface JTPConstants {
 		@TypeHint(boolean.class)
 		public static final String TRUNCATE_TAB_ITEMS = PREFIX + CATEGORY_SEPARATOR + "TRUNCATE_TAB_ITEMS";
 		
+		@TypeHint(boolean.class)
+		public static final String TRUNCATE_EDITORS_TAB_ITEMS_ALSO = PREFIX + CATEGORY_SEPARATOR + "TRUNCATE_EDITORS_TAB_ITEMS_ALSO";
+		
 		@TypeHint(int.class)
 		public static final String MINIMUM_CHARACTERS = PREFIX + CATEGORY_SEPARATOR + "MINIMUM_CHARACTERS";
+		
+		@TypeHint(int.class)
+		public static final String MINIMUM_CHARACTERS_FOR_EDITORS = PREFIX + CATEGORY_SEPARATOR + "MINIMUM_CHARACTERS_FOR_EDITORS";
+		
 		
 		@TypeHint(boolean.class)
 		public static final String USE_ELLIPSES = PREFIX + CATEGORY_SEPARATOR + "USE_ELLIPSES";
