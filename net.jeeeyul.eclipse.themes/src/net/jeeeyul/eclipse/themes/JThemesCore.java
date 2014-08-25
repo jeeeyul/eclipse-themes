@@ -114,6 +114,7 @@ public class JThemesCore extends AbstractUIPlugin {
 
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;
+		NamedColorHack.stop();
 		super.stop(context);
 	}
 
