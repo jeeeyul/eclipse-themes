@@ -1,9 +1,9 @@
 // Update plugin versions and it's dependency plugin version that is part of
 // feature to the version of feature.
-Array.prototype.find = function(evaluator) {
+function findInArray(array, evaluator) {
 	var i, each;
-	for (i in this) {
-		each = this[i];
+	for (i in array) {
+		each = array[i];
 		if (evaluator(each)) {
 			return each;
 		}
@@ -17,7 +17,7 @@ function Bundle(expression) {
 };
 
 Bundle.prototype.setVersion = function(version) {
-	var versionElement = this.elements.find(function(it) {
+	var versionElement = findInArray(this.elements, function(it) {
 		return it.match(/^bundle-version\s*=\s*"[^"]*"$/)
 	});
 

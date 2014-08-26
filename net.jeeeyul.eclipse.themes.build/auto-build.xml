@@ -184,11 +184,14 @@
 				</actions>
 			</call>
 		</xmltask>
+
+		<echo>Plugins are detected: ${plugin-id-list}</echo>
 	</target>
 
 	<target name="update-plugin-versions" depends="collect-plugin-id-list">
 		<for param="each" list="${plugin-id-list}">
 			<sequential>
+				<echo>Change version of @{each} to ${version}</echo>
 				<update-plugin-version version="${version}"
 				                       plugin="${workspace}/@{each}"
 				                       dependencies="${plugin-id-list}" />
@@ -199,27 +202,24 @@
 				<eclipse.refreshLocal resource="/@{each}/META-INF/MANIFEST.MF" />
 			</sequential>
 		</for>
+
+		<echo>Change version of ${feature-id} to ${version}</echo>
 		<xmltask source="${workspace}/${feature-id}/feature.xml"
 		         dest="${workspace}/${feature-id}/feature.xml">
 			<replace path="/feature/@version" withText="${version}.qualifier" />
 		</xmltask>
-
-		<xmltask source="${basedir}/category.xml"
-		         dest="${basedir}/category.xml">
-			<replace path="/site/feature/@url"
-			         withText="features/${feature-id}_${version}.qualifier.jar" />
-			<replace path="/site/feature/@version"
-			         withText="${version}.qualifier" />
-		</xmltask>
-
-		<xmltask source="${basedir}/beta-category.xml"
-		         dest="${basedir}/beta-category.xml">
-			<replace path="/site/feature/@url"
-			         withText="features/${feature-id}_${version}.qualifier.jar" />
-			<replace path="/site/feature/@version"
-			         withText="${version}.qualifier" />
-		</xmltask>
 		<eclipse.refreshLocal resource="${workspace}/${feature-id}/feature.xml" />
+
+		<echo>Change versions in ${basedir}/${category-file}</echo>
+		<xmltask source="${basedir}/${category-file}"
+		         dest="${basedir}/${category-file}">
+			<replace path="/site/feature/@url"
+			         withText="features/${feature-id}_${version}.qualifier.jar" />
+			<replace path="/site/feature/@version"
+			         withText="${version}.qualifier" />
+		</xmltask>
+
+
 	</target>
 
 </project>
