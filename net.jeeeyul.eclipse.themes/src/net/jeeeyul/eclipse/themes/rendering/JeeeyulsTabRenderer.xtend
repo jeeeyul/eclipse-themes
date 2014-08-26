@@ -118,6 +118,8 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 						height = Math.max(height, closeButtonSize.y)
 					}
 				}
+				
+				height = Math.max(height, parent.tabHeight + 2)
 
 				width = width + Math.max(settings.tabItemPaddings.width, 0)
 				width = width + settings.tabSpacing
