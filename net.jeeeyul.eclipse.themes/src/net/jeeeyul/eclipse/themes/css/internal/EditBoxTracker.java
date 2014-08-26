@@ -1,5 +1,7 @@
 package net.jeeeyul.eclipse.themes.css.internal;
 
+import net.jeeeyul.eclipse.themes.internal.Debug;
+
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -55,8 +57,12 @@ public class EditBoxTracker {
 		}
 		if (isEditBoxInstalled()) {
 			hookEditBoxPreference();
+		} else {
+			Debug.println("Editbox is not installed");
 		}
 		fIsTracking = true;
+
+		Debug.println("Tracking Edit Box Plugin was start");
 	}
 
 	private IPreferenceStore getEditBoxPreferenceStore() {

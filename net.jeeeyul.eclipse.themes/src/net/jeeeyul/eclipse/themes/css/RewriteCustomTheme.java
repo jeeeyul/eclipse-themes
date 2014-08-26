@@ -6,6 +6,7 @@ import java.util.List;
 
 import net.jeeeyul.eclipse.themes.JThemesCore;
 import net.jeeeyul.eclipse.themes.css.internal.RangeIndicatorHack;
+import net.jeeeyul.eclipse.themes.internal.Debug;
 
 import org.eclipse.e4.ui.css.core.dom.ExtendedCSSRule;
 import org.eclipse.e4.ui.css.core.dom.ExtendedDocumentCSS;
@@ -41,6 +42,7 @@ public class RewriteCustomTheme {
 	 */
 	public void rewrite() {
 		try {
+			Debug.println("Theme is about to rewrite");
 			CSSEngine cssEngine = WidgetElement.getEngine(display);
 			ExtendedDocumentCSS documentCSS = (ExtendedDocumentCSS) cssEngine.getDocumentCSS();
 
@@ -73,6 +75,7 @@ public class RewriteCustomTheme {
 			cssEngine.reapply();
 
 			RangeIndicatorHack.update();
+			Debug.println("Theme was re-written");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

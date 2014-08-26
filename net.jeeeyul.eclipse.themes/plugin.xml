@@ -508,4 +508,10 @@
          </description>
       </preset>
    </extension>
+   <extension
+         point="org.eclipse.ui.startup">
+      <startup
+            class="net.jeeeyul.eclipse.themes.internal.StartUp">
+      </startup>
+   </extension>
 </plugin>

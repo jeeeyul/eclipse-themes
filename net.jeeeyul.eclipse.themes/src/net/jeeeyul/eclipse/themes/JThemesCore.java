@@ -107,14 +107,13 @@ public class JThemesCore extends AbstractUIPlugin {
 
 		IThemeEngine engine = manager.getEngineForDisplay(Display.getDefault());
 		engine.registerResourceLocator(new JTDynamicResourceLocator());
-
-		NamedColorHack.start();
-		EditBoxTracker.INSTANCE.beginTrack();
 	}
 
 	public void stop(BundleContext context) throws Exception {
+		NamedColorHack.INSTANCE.stop();
+		EditBoxTracker.INSTANCE.stopTracking();
 		plugin = null;
-		NamedColorHack.stop();
+
 		super.stop(context);
 	}
 
