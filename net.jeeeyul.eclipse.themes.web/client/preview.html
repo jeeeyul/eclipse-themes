@@ -1,0 +1,58 @@
+<template name="preview">
+<div class="preview">
+	<div class="toolbar" style="{{toolbarStyle}}">
+		<div class="tool-item">
+			Toolbar
+		</div>
+	</div>
+	<div class="window" style="{{windowStyle}}">
+		<div class="tab-folder active" style="{{tabFolderStyle}}">
+			<div class="tab-header-border" style="{{tabHeaderBorderStyle true}}">
+				<div class="tab-header" style="{{tabHeaderStyle true}}">
+					<div class="active tab-item-border" style="{{tabItemBorderStyle true "SELECTED"}}">
+						<div class="active tab-item"  style="{{tabItemStyle true "SELECTED"}}">Active</div>
+						<div class="glue"></div>
+					</div>
+					<div class="tab-item-border" style="{{tabItemBorderStyle true "HOVER"}}">
+						<div class="tab-item"  style="{{tabItemStyle true "HOVER"}}">Hover</div>
+					</div>
+					<div class="tab-item-border" style="{{tabItemBorderStyle true "UNSELECTED"}}">
+						<div class="tab-item"  style="{{tabItemStyle true "UNSELECTED"}}">Inactive</div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-body" style="{{tabBodyStyle true}}">
+				<div class="content" style="{{contentStyle true}}">
+					Active Part Stack
+				</div>
+			</div>
+		</div>
+		<div class="tab-folder active" style="{{tabFolderStyle}}">
+			<div class="tab-header-border" style="{{tabHeaderBorderStyle false}}">
+				<div class="tab-header" style="{{tabHeaderStyle false}}">
+					<div class="active tab-item-border" style="{{tabItemBorderStyle false "SELECTED"}}">
+						<div class="active tab-item"  style="{{tabItemStyle false "SELECTED"}}">Active</div>
+						<div class="glue"></div>
+					</div>
+					<div class="tab-item-border" style="{{tabItemBorderStyle false "HOVER"}}">
+						<div class="tab-item"  style="{{tabItemStyle false "HOVER"}}">Hover</div>
+					</div>
+					<div class="tab-item-border" style="{{tabItemBorderStyle false "UNSELECTED"}}">
+						<div class="tab-item"  style="{{tabItemStyle false "UNSELECTED"}}">Inactive</div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-body" style="{{tabBodyStyle false}}">
+				<div class="content" style="{{contentStyle false}}">
+					Inactive Part Stack
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="status-bar" style="{{statusBarStyle}}">
+		Status Bar
+	</div>
+</div>
+
+</template>
+

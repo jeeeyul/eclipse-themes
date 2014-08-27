@@ -1,0 +1,47 @@
+.preview{
+	font-family: sans-serif;
+	font-size: 12px;
+	background-color: #eee;
+	display: inline-block;
+	border: black 1px solid;
+	position: relative;
+	.toolbar{
+		height: 25px;
+		line-height: 25px;
+		text-align: center;
+	}
+	.status-bar{
+		height: 25px;
+		line-height: 30px;
+		text-align: center;
+	}
+	.window{
+		top: 26px;
+		.tab-folder{
+			display: inline-block;
+			.tab-item-border{
+				position:relative;
+				display: inline-block;
+				.tab-item {
+					margin: 0px;
+					padding: 5px 10px;
+				}
+			}
+			.glue {
+				position: absolute;
+				display: block;
+				background-color: white;
+				right:1px;
+				left:0px;
+				height: 1px;
+				overflow:hidden;
+			}
+			
+			.tab-body {
+				.content {
+					padding: 5px;
+				}
+			}
+		}
+	}
+}

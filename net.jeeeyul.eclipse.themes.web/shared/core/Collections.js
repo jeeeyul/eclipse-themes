@@ -1,0 +1,1 @@
+EPFs = new Meteor.Collection("EPFs");
