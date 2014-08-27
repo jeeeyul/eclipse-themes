@@ -19,7 +19,6 @@
 <mapEntry key="eclipse.running" value="true"/>
 </mapAttribute>
 <stringAttribute key="org.eclipse.ui.externaltools.ATTR_ANT_PROPERTY_FILES" value="${workspace_loc:/net.jeeeyul.eclipse.themes.build/beta-build.properties},"/>
-<stringAttribute key="org.eclipse.ui.externaltools.ATTR_ANT_TARGETS" value="build-feature-and-plugins,"/>
 <stringAttribute key="org.eclipse.ui.externaltools.ATTR_LOCATION" value="${workspace_loc:/net.jeeeyul.eclipse.themes.build/auto-build.xml}"/>
 <stringAttribute key="process_factory_id" value="org.eclipse.ant.ui.remoteAntProcessFactory"/>
 </launchConfiguration>
