@@ -4,10 +4,11 @@
 # but you can also edit it by hand.
 
 standard-app-packages
-autopublish
-insecure
 iron:router
 jeeeyul:underscore-keypath
 jeeeyul:moment-with-langs
 less
-
+accounts-ui
+accounts-google
+accounts-facebook
+accounts-github

@@ -1,0 +1,18 @@
+<template name="theme">
+	<div class="theme">
+		<div>
+			{{>preview renderModel}}
+		</div>
+		<div class="toolbar">
+			
+			{{#if canInstall}}
+				<button id="install-button">Install</button>
+			{{else}}
+				<button id="download-epf">Download EPF</button>
+			{{/if}}
+		</div>
+		<div class="description">
+			{{name}} by <a href="#" id="author-link">{{authorName}}</a>
+		</div>
+	</div>
+</template>

@@ -1,0 +1,19 @@
+<template name="detail">
+<div class="detail">
+	<h3>{{name}}</h3>
+	{{>preview renderModel}}
+	<div>
+		{{#if currentUser}}
+			<input id="comment-field" type="text">
+		{{/if}}
+	</div>
+	
+	<div>
+	{{#each comments}}
+		<div>
+			{{authorName}} - {{comment}}
+		</div>
+	{{/each}}
+	</div>
+</div>
+</template>

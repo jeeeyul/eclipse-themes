@@ -1,7 +1,13 @@
-<body>
-	<h1>Jeeeyul's Eclipse Themes Preset Catalog</h1>
-</body>
+<template name="master">
+<div class="page">
+	<h1>Jeeeyul's Eclipse Themes Store</h1>
 
-<template name="home">
-<div>Welcome!</div>
+	<a href="/">Home</a> 
+	<a href="/post">Post</a>
+	
+	{{>loginButtons}}
+	<div>{{>yield}}</div>
+</div>
 </template>
+
+<template name="home"> {{>themeList options}} </template>

@@ -115,6 +115,21 @@ Template.preview.helpers({
 			return _.template("<%=key%>:<%=value%>", each);
 		}).join(";");
 	},
+	
+	"glueStyle" : function(active) {
+		var prefix = active ? "ACTIVE_" : "INACTIVE_";
+
+		var styles = [];
+		if (this[prefix + "PART_STACK__SELECTED_BORDER_SHOW"] != null) {
+			styles.push({
+				key : "background",
+				value : PreviewHelper.getLastColor(this[prefix + "PART_STACK__SELECTED_FILL_COLOR"])
+			});
+		}
+		return styles.map(function(each) {
+			return _.template("<%=key%>:<%=value%>", each);
+		}).join(";");
+	},
 
 	"tabHeaderBorderStyle" : function(active) {
 		var prefix = active ? "ACTIVE_" : "INACTIVE_";
@@ -305,5 +320,5 @@ Template.preview.helpers({
 		return styles.map(function(each) {
 			return _.template("<%=key%>:<%=value%>", each);
 		}).join(";");
-	},
+	}
 });
