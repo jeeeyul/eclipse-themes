@@ -24,9 +24,7 @@ Template.theme.events({
 			"id" : this.authorId
 		});
 
-		console.log({
-			"id" : this.authorId
-		});
+		e.preventDefault();
 	},
 	"click .preview" : function(e, t, d) {
 		Router.go("detail", {
