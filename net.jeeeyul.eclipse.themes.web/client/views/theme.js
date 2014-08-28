@@ -23,6 +23,10 @@ Template.theme.events({
 		Router.go("author", {
 			"id" : this.authorId
 		});
+
+		console.log({
+			"id" : this.authorId
+		});
 	},
 	"click .preview" : function(e, t, d) {
 		Router.go("detail", {

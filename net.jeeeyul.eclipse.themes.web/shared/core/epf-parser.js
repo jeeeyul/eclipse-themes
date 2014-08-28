@@ -134,7 +134,13 @@ EPFParser = (function() {
 				type : "Boolean",
 				value : true
 			}
-		}, peg$c37 = function(first, trail) {
+		}, peg$c37 = "false", peg$c38 = {
+			type : "literal",
+			value : "false",
+			description : "\"false\""
+		}, peg$c39 = function() {
+			return null;
+		}, peg$c40 = function(first, trail) {
 			return {
 				type : "IntArray",
 				values : [ first ].concat(trail)
@@ -1455,6 +1461,23 @@ EPFParser = (function() {
 				s1 = peg$c36();
 			}
 			s0 = s1;
+			if (s0 === peg$FAILED) {
+				s0 = peg$currPos;
+				if (input.substr(peg$currPos, 5) === peg$c37) {
+					s1 = peg$c37;
+					peg$currPos += 5;
+				} else {
+					s1 = peg$FAILED;
+					if (peg$silentFails === 0) {
+						peg$fail(peg$c38);
+					}
+				}
+				if (s1 !== peg$FAILED) {
+					peg$reportedPos = s0;
+					s1 = peg$c39();
+				}
+				s0 = s1;
+			}
 
 			return s0;
 		}
@@ -1567,7 +1590,7 @@ EPFParser = (function() {
 				}
 				if (s2 !== peg$FAILED) {
 					peg$reportedPos = s0;
-					s1 = peg$c37(s1, s2);
+					s1 = peg$c40(s1, s2);
 					s0 = s1;
 				} else {
 					peg$currPos = s0;

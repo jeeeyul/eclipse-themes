@@ -108,13 +108,18 @@ Gradient=
 	}
 
 True=
-	'true'
+	('true'
 	{
 		return {
 			type:"Boolean",
 			value: true
 		}
-	}
+	})
+	/
+	(
+		'false'
+		{return null;
+	})
 
 IntArray=
 	first:INT
