@@ -13,6 +13,7 @@ import org.eclipse.e4.ui.css.core.dom.ExtendedDocumentCSS;
 import org.eclipse.e4.ui.css.core.engine.CSSEngine;
 import org.eclipse.e4.ui.css.swt.dom.WidgetElement;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 import org.w3c.css.sac.SelectorList;
 import org.w3c.dom.css.CSSRuleList;
 import org.w3c.dom.css.CSSStyleSheet;
@@ -75,6 +76,11 @@ public class RewriteCustomTheme {
 			cssEngine.reapply();
 
 			RangeIndicatorHack.update();
+
+			for (Shell each : Display.getDefault().getShells()) {
+				each.layout(true, true);
+			}
+
 			Debug.println("Theme was re-written");
 		} catch (Exception e) {
 			e.printStackTrace();

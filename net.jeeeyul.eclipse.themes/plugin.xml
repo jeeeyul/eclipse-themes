@@ -206,6 +206,11 @@
             </parameter>
          </defaultHandler>
       </command>
+      <command
+            defaultHandler="net.jeeeyul.eclipse.themes.store.OpenStoreClientHandler"
+            id="net.jeeeyul.eclipse.themes.command.open.store"
+            name="Open Theme Store">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
@@ -268,6 +273,11 @@
                name="support"
                visible="true">
          </separator>
+         <command
+               commandId="net.jeeeyul.eclipse.themes.command.open.store"
+               label="Theme Store"
+               style="push">
+         </command>
          <menu
                icon="icons/contact.png"
                id="net.jeeeyul.eclipse.themes.contact"
@@ -513,5 +523,15 @@
       <startup
             class="net.jeeeyul.eclipse.themes.internal.StartUp">
       </startup>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="net.jeeeyul.eclipse.themes.store.StoreClient"
+            default="false"
+            icon="icons/jtheme.png"
+            id="net.jeeeyul.eclipse.themes.store.StoreClient"
+            name="Theme Store">
+      </editor>
    </extension>
 </plugin>

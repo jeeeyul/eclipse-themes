@@ -98,7 +98,7 @@ public class NamedColorHack {
 				}
 			};
 			updateJob.setSystem(true);
-			updateJob.setUser(true);
+			updateJob.setUser(false);
 		}
 		return updateJob;
 	}
