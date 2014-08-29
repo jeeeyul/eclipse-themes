@@ -3,17 +3,28 @@
 	<h3>{{name}}</h3>
 	{{>preview renderModel}}
 	<div>
-		{{#if currentUser}}
-			<input id="comment-field" type="text">
+		{{#if isOwner}}
+		<h3>Management</h3>
+		<div>
+			<button>Delete</button>
+		</div>
+		{{/if}}
+
+		<h3>Comments</h3>
+		<div>
+			{{#if currentUser}} <input id="comment-field" type="text">
+			{{/if}}
+		</div>
+		{{#if hasComment}}
+		<div>
+			{{#each comments}}
+				<div>{{authorName}} - {{comment}}</div>
+			{{/each}}
+		</div>
+		{{else}}
+			<div>No commet yet, be ther first reviewer.</div>
 		{{/if}}
 	</div>
 	
-	<div>
-	{{#each comments}}
-		<div>
-			{{authorName}} - {{comment}}
-		</div>
-	{{/each}}
-	</div>
 </div>
 </template>

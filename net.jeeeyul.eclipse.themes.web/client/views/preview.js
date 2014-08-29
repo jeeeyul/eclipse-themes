@@ -106,16 +106,18 @@ Template.preview.helpers({
 			});
 		}
 
-		styles.push({
-			key : "border-radius",
-			value : this["LAYOUT__BORDER_RADIUS"].value + "px"
-		});
+		if (this["LAYOUT__BORDER_RADIUS"] != null) {
+			styles.push({
+				key : "border-radius",
+				value : this["LAYOUT__BORDER_RADIUS"].value + "px"
+			});
+		}
 
 		return styles.map(function(each) {
 			return _.template("<%=key%>:<%=value%>", each);
 		}).join(";");
 	},
-	
+
 	"glueStyle" : function(active) {
 		var prefix = active ? "ACTIVE_" : "INACTIVE_";
 
@@ -164,14 +166,18 @@ Template.preview.helpers({
 			key : "background",
 			value : PreviewHelper.getBackground(this[prefix + "PART_STACK__HEADER_BACKGROUND_COLOR"])
 		});
-		styles.push({
-			key : "border-top-right-radius",
-			value : this["LAYOUT__BORDER_RADIUS"].value + "px"
-		});
-		styles.push({
-			key : "border-top-left-radius",
-			value : this["LAYOUT__BORDER_RADIUS"].value + "px"
-		});
+
+		if (this["LAYOUT__BORDER_RADIUS"] != null) {
+			styles.push({
+				key : "border-top-right-radius",
+				value : this["LAYOUT__BORDER_RADIUS"].value + "px"
+			});
+			styles.push({
+				key : "border-top-left-radius",
+				value : this["LAYOUT__BORDER_RADIUS"].value + "px"
+			});
+		}
+
 		if (this[prefix + "PART_STACK__SELECTED_BORDER_SHOW"] != null) {
 			styles.push({
 				"key" : "border-bottom",
@@ -196,14 +202,17 @@ Template.preview.helpers({
 				key : "padding",
 				value : "0px 1px 0px 1px"
 			});
-			styles.push({
-				key : "border-top-right-radius",
-				value : this["LAYOUT__BORDER_RADIUS"].value + "px"
-			});
-			styles.push({
-				key : "border-top-left-radius",
-				value : this["LAYOUT__BORDER_RADIUS"].value + "px"
-			});
+			
+			if(this["LAYOUT__BORDER_RADIUS"] != null){
+				styles.push({
+					key : "border-top-right-radius",
+					value : this["LAYOUT__BORDER_RADIUS"].value + "px"
+				});
+				styles.push({
+					key : "border-top-left-radius",
+					value : this["LAYOUT__BORDER_RADIUS"].value + "px"
+				});
+			}
 		}
 		return styles.map(function(each) {
 			return _.template("<%=key%>:<%=value%>", each);
@@ -222,18 +231,20 @@ Template.preview.helpers({
 		} else {
 			styles.push({
 				key : "background",
-				value : PreviewHelper.getBackground(this[(active? "ACTIVE_" : "INACTIVE_") + "PART_STACK__HEADER_BACKGROUND_COLOR"])
+				value : PreviewHelper.getBackground(this[(active ? "ACTIVE_" : "INACTIVE_") + "PART_STACK__HEADER_BACKGROUND_COLOR"])
 			});
 		}
 
-		styles.push({
-			key : "border-top-right-radius",
-			value : this["LAYOUT__BORDER_RADIUS"].value + "px"
-		});
-		styles.push({
-			key : "border-top-left-radius",
-			value : this["LAYOUT__BORDER_RADIUS"].value + "px"
-		});
+		if (this["LAYOUT__BORDER_RADIUS"] != null) {
+			styles.push({
+				key : "border-top-right-radius",
+				value : this["LAYOUT__BORDER_RADIUS"].value + "px"
+			});
+			styles.push({
+				key : "border-top-left-radius",
+				value : this["LAYOUT__BORDER_RADIUS"].value + "px"
+			});
+		}
 		styles.push({
 			key : "color",
 			value : PreviewHelper.getColor(this[prefix + "TEXT_COLOR"])
@@ -273,14 +284,18 @@ Template.preview.helpers({
 			key : "background",
 			value : _.template("hsl(<%=hue%>, <%=saturation*100%>%, <%=lightness*100%>%)", bgHSL)
 		});
-		styles.push({
-			key : "border-bottom-right-radius",
-			value : this["LAYOUT__BORDER_RADIUS"].value + "px"
-		});
-		styles.push({
-			key : "border-bottom-left-radius",
-			value : this["LAYOUT__BORDER_RADIUS"].value + "px"
-		});
+
+		if (this["LAYOUT__BORDER_RADIUS"] != null) {
+
+			styles.push({
+				key : "border-bottom-right-radius",
+				value : this["LAYOUT__BORDER_RADIUS"].value + "px"
+			});
+			styles.push({
+				key : "border-bottom-left-radius",
+				value : this["LAYOUT__BORDER_RADIUS"].value + "px"
+			});
+		}
 
 		if (this["LAYOUT__CONTENT_PADDING"] != null) {
 			styles.push({

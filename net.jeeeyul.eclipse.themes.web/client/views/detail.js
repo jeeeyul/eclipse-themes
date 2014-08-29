@@ -19,6 +19,14 @@ Template.detail.helpers({
 				date : -1
 			}
 		});
+	},
+
+	"isOwner" : function() {
+		return Meteor.user()._id == this.authorId;
+	},
+
+	"hasComment" : function() {
+		return Comments.find().count() > 0;
 	}
 });
 

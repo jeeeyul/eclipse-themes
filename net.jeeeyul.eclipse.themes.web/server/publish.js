@@ -1,3 +1,5 @@
+var pageSize = 12;
+
 Meteor.publish("EPF", function(id) {
 	return [ EPFs.find({
 		"_id" : id
@@ -6,8 +8,17 @@ Meteor.publish("EPF", function(id) {
 	}) ];
 });
 
-Meteor.publish("allEPFs", function() {
-	return EPFs.find();
+Meteor.publish("allEPFs", function(page) {
+	if(page == undefined){
+		page = 0;
+	}
+	return EPFs.find({}, {
+		sort : {
+			date : -1
+		},
+		skip: page * pageSize,
+		limit : pageSize
+	});
 });
 
 Meteor.publish("EPFsByAuthor", function(authorId) {

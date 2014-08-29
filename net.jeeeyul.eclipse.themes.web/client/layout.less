@@ -1,14 +1,66 @@
-body{
+body {
 	font-family: sans-serif;
+	background-image: url("/images/bg-pattern.png");
 }
 
-a{
+a {
 	color: cornflowerblue;
 }
 
+header {
+	background-color: #333;
+	color: white;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	height: 40px;
+	line-height: 40px;
+	box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.5);
+	z-index: 9000;
+	.container {
+		position: relative;
+		nav {
+			display: inline-block;
+			a {
+				color: white;
+				text-decoration: none;
+			}
+		}
+
+		label {
+			color : #999;
+			position: absolute;
+			right: 0px;
+		}
+	}
+}
+
 .page {
-	max-width: 1200px;
+	margin: 0px 0px 20px 0px;
+	background-color : white;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+	padding: 60px 10px 20px 10px;
+	.content {
+	}
+}
+
+.container {
+	width: 1200px;
 	margin-left: auto;
 	margin-right: auto;
-	background-color:white;
 }
+
+@media (max-width: 1200px) {
+	.container {
+		width: 800px;
+	}
+}
+
+@media (max-width: 800px) {
+	.container {
+		width: 400px;
+	}
+}
+
