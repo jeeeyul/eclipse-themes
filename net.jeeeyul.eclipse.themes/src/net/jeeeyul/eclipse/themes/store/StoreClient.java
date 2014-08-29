@@ -67,7 +67,7 @@ public class StoreClient extends EditorPart {
 
 	@Override
 	public void createPartControl(Composite parent) {
-		browser = new Browser(parent, SWT.NORMAL);
+		browser = new Browser(parent, SWT.NONE);
 
 		if (Platform.inDevelopmentMode() && Platform.inDebugMode()) {
 			browser.setUrl("http://localhost:3000/");
