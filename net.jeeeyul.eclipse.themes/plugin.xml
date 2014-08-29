@@ -275,6 +275,7 @@
          </separator>
          <command
                commandId="net.jeeeyul.eclipse.themes.command.open.store"
+               icon="icons/store.png"
                label="Theme Store"
                style="push">
          </command>
@@ -529,7 +530,7 @@
       <editor
             class="net.jeeeyul.eclipse.themes.store.StoreClient"
             default="false"
-            icon="icons/jtheme.png"
+            icon="icons/store.png"
             id="net.jeeeyul.eclipse.themes.store.StoreClient"
             name="Theme Store">
       </editor>
