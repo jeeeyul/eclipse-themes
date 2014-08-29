@@ -1,8 +1,6 @@
 package net.jeeeyul.eclipse.themes.store;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
 import net.jeeeyul.eclipse.themes.JThemesCore;
@@ -35,7 +33,16 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.EditorPart;
 
+/**
+ * Store client
+ * 
+ * @author Jeeeyul
+ */
+@SuppressWarnings("restriction")
 public class StoreClient extends EditorPart {
+	/**
+	 * Store Client Editor ID.
+	 */
 	public static final String EDITOR_ID = StoreClient.class.getCanonicalName();
 	private Browser browser;
 
@@ -104,7 +111,6 @@ public class StoreClient extends EditorPart {
 		};
 	}
 
-	@SuppressWarnings("restriction")
 	private void installEPF(String epfString) {
 		try {
 			Properties properties = new Properties();
@@ -130,6 +136,8 @@ public class StoreClient extends EditorPart {
 				MessageDialog.openWarning(Display.getDefault().getActiveShell(), "Jeeeyul's Themes",
 						"A restart or opening new window is required for the theme change to full effect.");
 			}
+
+			store.setValue(JTPConstants.Memento.LAST_CHOOSED_PRESET, "");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -8,8 +8,16 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.handlers.HandlerUtil;
 
+/**
+ * 
+ * @author Jeeeyul
+ */
 public class OpenStoreClientHandler extends AbstractHandler {
+	/**
+	 * Open Store Command ID.
+	 */
 	public static final String COMMAND_ID = "net.jeeeyul.eclipse.themes.command.open.store";
+
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindow(event);
