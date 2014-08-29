@@ -27,6 +27,10 @@ Template.detail.helpers({
 
 	"hasComment" : function() {
 		return Comments.find().count() > 0;
+	},
+	
+	"epfContent" : function(){
+		return EPFSerializer.serialize(this.epf);
 	}
 });
 
@@ -42,6 +46,13 @@ Template.detail.events({
 				"comment" : text
 			});
 			$("#comment-field").val("");
+		}
+	},
+
+	"click #delete-button" : function(e, t, d) {
+		if (confirm("Are you sure?")) {
+			EPFs.remove(this._id);
+			Router.go("home");
 		}
 	}
 });

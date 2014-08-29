@@ -4,21 +4,49 @@
 	{{>preview renderModel}}
 	<div>
 		{{#if isOwner}}
-		<h3>Management</h3>
-		<div>
-			<button>Delete</button>
-		</div>
+			<h3>Management</h3>
+			<table>
+				<tr>
+					<th>Name</th>
+					<td><input type="text" placeholder="Name" id="name-field" value="{{name}}"></td>
+				</tr>
+		
+				<tr>
+					<th>EPF</th>
+					<td>
+						<textarea id="epf-field">{{epfContent}}</textarea>
+					</td>
+				</tr>
+				
+				<tr>
+					<th>Description</th>
+					<td>
+						<textarea id="description-field">{{description}}</textarea>
+					</td>
+				</tr>
+				<tr>
+					<th>
+					</th>
+					<td>
+						<button id="submit-button">Update</button>
+						<button id="delete-button">Delete</button>
+					</td>
+				</tr>
+			</table>
 		{{/if}}
 
 		<h3>Comments</h3>
 		<div>
-			{{#if currentUser}} <input id="comment-field" type="text">
+			{{#if currentUser}}
+				 <input id="comment-field" type="text" placeholder="Leave a comment">
 			{{/if}}
 		</div>
 		{{#if hasComment}}
 		<div>
 			{{#each comments}}
-				<div>{{authorName}} - {{comment}}</div>
+			<div class="comment-entry">
+				<label class="author">{{authorName}}</label> <label class="comment">{{comment}}</label>
+			</div>
 			{{/each}}
 		</div>
 		{{else}}
