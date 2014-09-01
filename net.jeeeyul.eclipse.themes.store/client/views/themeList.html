@@ -1,5 +1,8 @@
 <template name="themeList">
 <div class="theme-list">
+{{#unless themes.count}}
+<div>No themes.</div>
+{{/unless}}
 {{#each themes}}
 	{{>theme}}
 {{/each}}

@@ -16,7 +16,24 @@ Router.map(function() {
 			}
 		}
 	});
-	
+
+	this.route("detail", {
+		path : "/detail/:id",
+		waitOn : function() {
+			return Meteor.subscribe("EPF", this.params.id);
+		},
+		action : function() {
+			if (this.ready()) {
+				this.render();
+			} else {
+				this.render("loading");
+			}
+		},
+		data : function() {
+			return EPFs.findOne(this.params.id);
+		}
+	});
+
 	this.route("toplike", {
 		path : "/top",
 		waitOn : function() {
@@ -30,7 +47,7 @@ Router.map(function() {
 			}
 		}
 	});
-	
+
 	this.route("post", {
 		path : "/post"
 	});
@@ -52,18 +69,8 @@ Router.map(function() {
 		}
 	});
 
-	this.route("detail", {
-		path : "/detail/:id",
-		waitOn : function() {
-			return Meteor.subscribe("EPF", this.params.id);
-		},
-		action : function() {
-			if (this.ready()) {
-				this.render();
-			} else {
-				this.render("loading");
-			}
-		},
+	this.route("search", {
+		path : "/search/:keyword?",
 		data : function() {
 			return EPFs.findOne(this.params.id);
 		}
