@@ -30,5 +30,8 @@ Template.theme.events({
 		Router.go("detail", {
 			"id" : t.data._id
 		});
+	},
+	"click #download-epf" : function(e, t, d) {
+		window.open("/epf/" + t.data._id);
 	}
 });

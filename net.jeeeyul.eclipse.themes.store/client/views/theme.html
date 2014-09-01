@@ -1,18 +1,19 @@
 <template name="theme">
 	<div class="theme">
+		<div class="description">
+			{{name}} by <a href="#" id="author-link">{{authorName}}</a>
+		</div>
 		<div>
 			{{>preview renderModel}}
 		</div>
 		<div class="toolbar">
-			
+			<button id="like-button">Like {{likeCount}}</button>
 			{{#if canInstall}}
 				<button id="install-button">Install</button>
 			{{else}}
 				<button id="download-epf">Download EPF</button>
 			{{/if}}
 		</div>
-		<div class="description">
-			{{name}} by <a href="#" id="author-link">{{authorName}}</a>
-		</div>
+		
 	</div>
 </template>

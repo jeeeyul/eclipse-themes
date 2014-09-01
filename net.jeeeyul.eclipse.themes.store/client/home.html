@@ -1,0 +1,31 @@
+<template name="master"> <header>
+	<div class="container">
+		<label>Themes Store</label>
+		<nav>
+			<a href="{{pathFor 'home'}}" class={{menuClass "home"}}>By Recent</a>
+			<a href="{{pathFor 'toplike'}}" class={{menuClass "toplike"}}>By Rating</a>
+			<a href="{{pathFor 'post'}}" class={{menuClass "post"}}>Share</a> {{>loginButtons}}
+		</nav>
+	</div>
+</header>
+<div class="page container">
+	{{#unless isETSClient}}
+		<div class="browser-warning">
+			<p>
+				This site also supports plain web browsers, For best experience, 
+				using <a href="https://github.com/jeeeyul/eclipse-themes">Jeeeyul's Eclipse Themes.</a> is strongly recommanded.
+			</p>
+		</div>
+	{{/unless}}
+	<div class="content">{{>yield}}</div>
+</div>
+</template>
+
+<template name="home">
+<h3>Recent Themes</h3>
+{{>themeList options}}
+<div>
+	<button id="show-more-button">Show More</button>
+</div>
+
+</template>

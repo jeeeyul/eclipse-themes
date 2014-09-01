@@ -9,6 +9,10 @@ Template.detail.helpers({
 		return model;
 	},
 
+	"likeCount" : function() {
+		return _(this.likedBy).size();
+	},
+
 	"canInstall" : function() {
 		return typeof (__install) == "function";
 	},
@@ -28,8 +32,8 @@ Template.detail.helpers({
 	"hasComment" : function() {
 		return Comments.find().count() > 0;
 	},
-	
-	"epfContent" : function(){
+
+	"epfContent" : function() {
 		return EPFSerializer.serialize(this.epf);
 	}
 });
@@ -54,5 +58,18 @@ Template.detail.events({
 			EPFs.remove(this._id);
 			Router.go("home");
 		}
-	}
+	},
+
+	"click #like-button" : function(e, t, d) {
+		EPFs.update(this._id, {
+			$addToSet : {
+				"likedBy" : Meteor.userId()
+			}
+		});
+	},
+	
+	"click #install-button" : function(e, t, d) {
+		var content = EPFSerializer.serialize(this.epf);
+		__install(content);
+	},
 });

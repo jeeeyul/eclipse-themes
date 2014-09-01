@@ -79,7 +79,7 @@ public class StoreClient extends EditorPart {
 		if (Platform.inDevelopmentMode() && Platform.inDebugMode()) {
 			browser.setUrl("http://localhost:3000/");
 		} else {
-			browser.setUrl("http://ets.meteor.com");
+			browser.setUrl("http://themes.jeeeyul.net");
 		}
 
 		browser.addOpenWindowListener(new OpenWindowListener() {

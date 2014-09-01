@@ -6,6 +6,20 @@ Router.map(function() {
 	this.route("home", {
 		path : "/",
 		waitOn : function() {
+			return Meteor.subscribe("allEPFsByRating");
+		},
+		action : function() {
+			if (this.ready()) {
+				this.render();
+			} else {
+				this.render("loading");
+			}
+		}
+	});
+	
+	this.route("toplike", {
+		path : "/top",
+		waitOn : function() {
 			return Meteor.subscribe("allEPFs");
 		},
 		action : function() {
@@ -16,6 +30,7 @@ Router.map(function() {
 			}
 		}
 	});
+	
 	this.route("post", {
 		path : "/post"
 	});

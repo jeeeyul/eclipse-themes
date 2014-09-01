@@ -1,6 +1,6 @@
 Template.post.helpers({
-	rendered : function(){
-		if(typeof __getCurrentEPF == "function") {
+	rendered : function() {
+		if (typeof __getCurrentEPF == "function") {
 			this.$("#epf-field").val(__getCurrentEPF());
 		}
 	}
@@ -20,8 +20,8 @@ Template.post.events({
 			EPFs.insert({
 				"authorId" : Meteor.userId(),
 				"authorName" : Meteor.user().profile.name,
-				"name" : t.$("#name-field").val(),
-				"description" : t.$("#description-field").val(),
+				"name" : t.$("#name-field").val().trim(),
+				"description" : t.$("#description-field").val().trim(),
 				"epf" : epf,
 				"date" : new Date()
 			});
@@ -29,7 +29,7 @@ Template.post.events({
 			Router.go("home");
 
 		} catch (e) {
-			alert(e);
+			alert("EPF Syntax is not valid!");
 		}
 	}
 });

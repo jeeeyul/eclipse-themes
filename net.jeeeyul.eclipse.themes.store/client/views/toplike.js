@@ -1,10 +1,10 @@
-Template.home.helpers({
+Template.toplike.helpers({
 	"options" : function() {
 		return {
 			sort : {
-				date : -1
+				likeCount : -1
 			}
-		};
+		}
 	},
 
 	"rendered" : function() {
@@ -23,16 +23,16 @@ Template.home.helpers({
 		_(this.subscriptions).forEach(function(each) {
 			each.stop();
 		});
-	}
+	},
 });
 
-Template.home.events({
+Template.toplike.events({
 	"click #show-more-button" : function(e, t) {
 		t.subscriptions = t.subscriptions || [];
 
 		t.$("#show-more-button").prop("disabled", true);
 		var preCount = EPFs.find().count();
-		var newSubscription = Meteor.subscribe("allEPFs", Session.get("page") + 1, function() {
+		var newSubscription = Meteor.subscribe("allEPFsByRating", Session.get("page") + 1, function() {
 			if (preCount != EPFs.find().count()) {
 				Session.set("page", Session.get("page") + 1);
 				t.$("#show-more-button").prop("disabled", false);

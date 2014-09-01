@@ -21,6 +21,20 @@ Meteor.publish("allEPFs", function(page) {
 	});
 });
 
+Meteor.publish("allEPFsByRating", function(page) {
+	if(page == undefined){
+		page = 0;
+	}
+	return EPFs.find({}, {
+		sort : {
+			likeCount: -1,
+			date : -1
+		},
+		skip: page * pageSize,
+		limit : pageSize
+	});
+});
+
 Meteor.publish("EPFsByAuthor", function(authorId) {
 	return [ EPFs.find({
 		"authorId" : authorId

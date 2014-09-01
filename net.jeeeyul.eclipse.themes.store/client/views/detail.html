@@ -1,7 +1,14 @@
 <template name="detail">
 <div class="detail">
-	<h3>{{name}}</h3>
+	<h3>{{name}} by {{authorName}}</h3>
 	{{>preview renderModel}}
+	<div>
+		{{description}}
+	</div>
+	<div>
+		<button id="like-button">Like {{likeCount}}</button>
+		<button id="install-button">Install</button>
+	</div>
 	<div>
 		{{#if isOwner}}
 			<h3>Management</h3>

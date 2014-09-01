@@ -25,6 +25,13 @@ header {
 			a {
 				color: white;
 				text-decoration: none;
+				broder-radius: 10px;
+				margin-left: -5px;
+				padding: 0px 5px;
+				display: inline-block;
+			}
+			a.active {
+				background-color:#555;
 			}
 		}
 
@@ -34,6 +41,13 @@ header {
 			right: 0px;
 		}
 	}
+	
+	#login-buttons
+	{
+		a.login-close-text {
+			color:black;
+		}
+	}
 }
 
 .page {
@@ -41,7 +55,7 @@ header {
 	background-color : white;
 	border-bottom-left-radius: 20px;
 	border-bottom-right-radius: 20px;
-	padding: 60px 10px 20px 10px;
+	padding: 40px 10px 20px 10px;
 	.content {
 		h2, h3 {
 			border-bottom: solid 1px #ccc;
