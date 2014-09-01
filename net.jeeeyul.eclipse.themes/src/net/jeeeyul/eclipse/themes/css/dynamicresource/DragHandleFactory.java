@@ -28,7 +28,6 @@ public class DragHandleFactory {
 	 * @return Drag handle {@link ImageData}.
 	 */
 	public ImageData create(int height, HSB backgroundColor, boolean embossed) {
-
 		ImageData source = null;
 
 		if (embossed) {

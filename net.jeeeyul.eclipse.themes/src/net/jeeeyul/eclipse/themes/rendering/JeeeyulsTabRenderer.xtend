@@ -341,13 +341,9 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		if(settings.borderColors != null) {
 			gc.foreground = settings.borderColors.head.toAutoDisposeColor
 			var path = newTemporaryPath[
-				if(parent.simple) {
-					moveTo(outlineArea.bottomLeft)
-					lineTo(outlineArea.topLeft.getTranslated(0, settings.borderRadius))
-					addArc(newRectangleWithSize(settings.borderRadius * 2).relocateTopLeftWith(outlineArea), 180, -90)
-				} else {
-					moveTo(outlineArea.topLeft.getTranslated(settings.borderRadius, 0))
-				}
+				moveTo(outlineArea.bottomLeft)
+				lineTo(outlineArea.topLeft.getTranslated(0, settings.borderRadius))
+				addArc(newRectangleWithSize(settings.borderRadius * 2).relocateTopLeftWith(outlineArea), 180, -90)
 				lineTo(outlineArea.topRight.getTranslated(-settings.borderRadius, 0))
 				addArc(newRectangleWithSize(settings.borderRadius * 2).relocateTopRightWith(outlineArea), 90, -90)
 				lineTo(outlineArea.bottomRight)

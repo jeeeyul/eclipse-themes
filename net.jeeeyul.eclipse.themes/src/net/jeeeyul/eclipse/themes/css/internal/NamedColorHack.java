@@ -154,7 +154,6 @@ public class NamedColorHack {
 				PREFERENCE_COLOR_SELECTION_FOREGROUND);
 
 		updateThemeIfNeeded();
-
 		Debug.println("Updating Named Colors is Done");
 	}
 

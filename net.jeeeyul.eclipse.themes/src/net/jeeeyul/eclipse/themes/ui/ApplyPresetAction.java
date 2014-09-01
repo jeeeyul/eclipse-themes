@@ -13,9 +13,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.css.swt.theme.IThemeEngine;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 
 /**
@@ -71,8 +69,6 @@ public class ApplyPresetAction extends Action {
 		IThemeEngine engine = getThemeEngine();
 		if (engine.getActiveTheme() == null || !engine.getActiveTheme().getId().equals(JThemesCore.CUSTOM_THEME_ID)) {
 			engine.setTheme(JThemesCore.CUSTOM_THEME_ID, true);
-			MessageDialog.openWarning(Display.getDefault().getActiveShell(), "Jeeeyul's Themes",
-					"A restart or opening new window is required for the theme change to full effect.");
 		}
 
 		/*

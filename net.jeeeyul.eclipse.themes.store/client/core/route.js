@@ -6,7 +6,7 @@ Router.map(function() {
 	this.route("home", {
 		path : "/",
 		waitOn : function() {
-			return Meteor.subscribe("allEPFsByRating");
+			return Meteor.subscribe("allEPFs");
 		},
 		action : function() {
 			if (this.ready()) {
@@ -20,7 +20,7 @@ Router.map(function() {
 	this.route("toplike", {
 		path : "/top",
 		waitOn : function() {
-			return Meteor.subscribe("allEPFs");
+			return Meteor.subscribe("allEPFsByRating");
 		},
 		action : function() {
 			if (this.ready()) {
