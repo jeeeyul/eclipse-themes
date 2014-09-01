@@ -33,6 +33,9 @@ Template.detail.helpers({
 	},
 
 	"isOwner" : function() {
+		if(Meteor.user() == null){
+			return false;
+		}
 		return Meteor.user()._id == this.authorId;
 	},
 

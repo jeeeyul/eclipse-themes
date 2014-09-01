@@ -9,45 +9,46 @@ Meteor.publish("EPF", function(id) {
 });
 
 Meteor.publish("allEPFs", function(page) {
-	if(page == undefined){
+	if (page == undefined) {
 		page = 0;
 	}
 	return EPFs.find({}, {
 		sort : {
 			date : -1
 		},
-		skip: page * pageSize,
+		skip : page * pageSize,
 		limit : pageSize
 	});
 });
 
 Meteor.publish("allEPFsByRating", function(page) {
-	if(page == undefined){
+	if (page == undefined) {
 		page = 0;
 	}
 	return EPFs.find({}, {
 		sort : {
-			likeCount: -1,
+			likeCount : -1,
 			date : -1
 		},
-		skip: page * pageSize,
+		skip : page * pageSize,
 		limit : pageSize
 	});
 });
 
 Meteor.publish("allEPFsByAuthor", function(authorId, page) {
-	if(page == undefined){
+	if (page == undefined) {
 		page = 0;
 	}
-	
-	return EPFs.find({
+
+	return [ EPFs.find({
 		"authorId" : authorId
 	}, {
 		sort : {
-			likeCount: -1,
 			date : -1
 		},
-		skip: page * pageSize,
+		skip : page * pageSize,
 		limit : pageSize
-	});
+	}), Meteor.users.find({
+		_id : authorId
+	}) ];
 });
