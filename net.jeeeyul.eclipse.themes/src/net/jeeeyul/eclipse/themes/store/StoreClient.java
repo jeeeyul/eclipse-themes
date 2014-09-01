@@ -14,8 +14,8 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.css.swt.theme.IThemeEngine;
 import org.eclipse.e4.ui.model.application.MApplication;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.SWTError;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.BrowserFunction;
 import org.eclipse.swt.browser.CloseWindowListener;
@@ -24,8 +24,11 @@ import org.eclipse.swt.browser.WindowEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.program.Program;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Link;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
@@ -74,23 +77,38 @@ public class StoreClient extends EditorPart {
 
 	@Override
 	public void createPartControl(Composite parent) {
-		browser = new Browser(parent, SWT.NONE);
-
-		if (Platform.inDevelopmentMode() && Platform.inDebugMode()) {
-			browser.setUrl("http://localhost:3000/");
-		} else {
-			browser.setUrl("http://themes.jeeeyul.net");
-		}
-
-		browser.addOpenWindowListener(new OpenWindowListener() {
-			@Override
-			public void open(WindowEvent event) {
-				handleOpen(event);
+		try {
+			browser = new Browser(parent, SWT.NONE);
+			if (Platform.inDevelopmentMode() && Platform.inDebugMode()) {
+				browser.setUrl("http://localhost:3000/");
+			} else {
+				browser.setUrl("http://themes.jeeeyul.net");
 			}
 
-		});
+			browser.addOpenWindowListener(new OpenWindowListener() {
+				@Override
+				public void open(WindowEvent event) {
+					handleOpen(event);
+				}
 
-		installFunctions();
+			});
+
+			installFunctions();
+		} catch (SWTError e) {
+			createBrowserHelpPage(parent);
+		}
+
+	}
+
+	private void createBrowserHelpPage(Composite parent) {
+		Link link = new Link(parent, SWT.NORMAL);
+		link.setText("Could not create browser, Please read <a href=\"https://github.com/jeeeyul/eclipse-themes/wiki/Linux-Theme-Store-Problem\">Linux User Guide</a>");
+		link.addListener(SWT.Selection, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				Program.launch(event.text);
+			}
+		});
 	}
 
 	private void installFunctions() {
@@ -133,8 +151,6 @@ public class StoreClient extends EditorPart {
 			IThemeEngine engine = context.get(IThemeEngine.class);
 			if (engine.getActiveTheme() == null || !engine.getActiveTheme().getId().equals(JThemesCore.CUSTOM_THEME_ID)) {
 				engine.setTheme(JThemesCore.CUSTOM_THEME_ID, true);
-				MessageDialog.openWarning(Display.getDefault().getActiveShell(), "Jeeeyul's Themes",
-						"A restart or opening new window is required for the theme change to full effect.");
 			}
 
 			store.setValue(JTPConstants.Memento.LAST_CHOOSED_PRESET, "");
