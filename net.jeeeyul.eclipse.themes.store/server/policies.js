@@ -31,9 +31,16 @@ Meteor.startup(function() {
 				console.log(content.likedBy);
 				content.likeCount = _(content.likedBy).size() + (_(content.likedBy).contains(userId) ? 0 : 1);
 				EPFs.update(content._id, content);
+				return true;
 			}
 
-			return true;
+			if (_(fields).contains("name") 
+					&& _(fields).contains("description") 
+					&& _(fields).contains("epf")) {
+				return content.authorId == userId;
+			}
+
+			return false;
 		}
 	});
 });

@@ -35,14 +35,19 @@ Meteor.publish("allEPFsByRating", function(page) {
 	});
 });
 
-Meteor.publish("EPFsByAuthor", function(authorId) {
-	return [ EPFs.find({
+Meteor.publish("allEPFsByAuthor", function(authorId, page) {
+	if(page == undefined){
+		page = 0;
+	}
+	
+	return EPFs.find({
 		"authorId" : authorId
 	}, {
 		sort : {
-			"date" : 1
-		}
-	}), Meteor.users.find({
-		"_id" : authorId
-	}) ];
+			likeCount: -1,
+			date : -1
+		},
+		skip: page * pageSize,
+		limit : pageSize
+	});
 });

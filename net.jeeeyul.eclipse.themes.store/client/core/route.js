@@ -38,7 +38,7 @@ Router.map(function() {
 	this.route("author", {
 		path : "/author/:id",
 		waitOn : function() {
-			return Meteor.subscribe("EPFsByAuthor", this.params.id);
+			return Meteor.subscribe("allEPFsByAuthor", this.params.id);
 		},
 		action : function() {
 			if (this.ready()) {

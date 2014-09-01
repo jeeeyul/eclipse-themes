@@ -7,7 +7,11 @@
 			{{>preview renderModel}}
 		</div>
 		<div class="toolbar">
-			<button id="like-button">Like {{likeCount}}</button>
+			{{#if canLike}}
+				<button id="like-button">Like {{likeCount}}</button>
+			{{else}}
+				<button id="like-button" disabled>Like {{likeCount}}</button>
+			{{/if}}
 			{{#if canInstall}}
 				<button id="install-button">Install</button>
 			{{else}}

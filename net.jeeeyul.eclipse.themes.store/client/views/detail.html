@@ -1,14 +1,26 @@
 <template name="detail">
 <div class="detail">
-	<h3>{{name}} by {{authorName}}</h3>
+	<h3>{{name}} by <a href="/author/{{authorId}}">{{authorName}}</a></h3>
 	{{>preview renderModel}}
 	<div>
-		{{description}}
+		{{#if canLike}}
+			<button id="like-button">Like {{likeCount}}</button>
+		{{else}}
+			<button id="like-button" disabled>Like {{likeCount}}</button>
+		{{/if}}
+		{{#if canInstall}}
+			<button id="install-button">Install</button>
+		{{else}}
+			<button id="download-epf">Download EPF</button>
+		{{/if}}
 	</div>
-	<div>
-		<button id="like-button">Like {{likeCount}}</button>
-		<button id="install-button">Install</button>
-	</div>
+	{{#if description}}
+		<div>
+			<h3>Description</h3>
+			{{description}}
+		</div>
+	{{/if}}
+
 	<div>
 		{{#if isOwner}}
 			<h3>Management</h3>
@@ -22,6 +34,9 @@
 					<th>EPF</th>
 					<td>
 						<textarea id="epf-field">{{epfContent}}</textarea>
+						{{#if canInject}}
+							<button id="inject-button">Inject with current settings</button>
+						{{/if}}
 					</td>
 				</tr>
 				
@@ -35,7 +50,7 @@
 					<th>
 					</th>
 					<td>
-						<button id="submit-button">Update</button>
+						<button id="update-button">Update</button>
 						<button id="delete-button">Delete</button>
 					</td>
 				</tr>

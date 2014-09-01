@@ -10,8 +10,11 @@
 			<tr>
 				<th>EPF</th>
 				<td>
-					<textarea id="epf-field"></textarea>
 					<label>* User CSS will not be permitted.</label>
+					<textarea id="epf-field"></textarea>
+					{{#if canInject}}
+						<button id="inject-button">Inject with current settings</button>
+					{{/if}}
 				</td>
 			</tr>
 			
