@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Theme Test Plugin
+Bundle-SymbolicName: net.jeeeyul.eclipse.themes.test;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: net.jeeeyul.eclipse.themes.test.Activator
+Bundle-Vendor: jeeeyul@gmail.com
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy

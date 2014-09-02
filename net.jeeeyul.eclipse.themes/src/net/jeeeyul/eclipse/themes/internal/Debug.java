@@ -43,7 +43,7 @@ public class Debug {
 	 * 
 	 * @return whether running under gui debug mode
 	 */
-	public static boolean isDebugginGUI() {
+	public static boolean isDebuggingGUI() {
 		if (DEBUG_GUI == null) {
 			String debugOption = Platform.getDebugOption("net.jeeeyul.eclipse.themes/debug/gui");
 			DEBUG_GUI = Boolean.parseBoolean(debugOption);

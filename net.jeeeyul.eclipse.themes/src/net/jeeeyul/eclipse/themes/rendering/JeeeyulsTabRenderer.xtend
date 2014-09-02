@@ -20,6 +20,7 @@ import org.eclipse.swt.graphics.Path
 import org.eclipse.swt.graphics.Point
 import org.eclipse.swt.graphics.Rectangle
 import org.eclipse.swt.widgets.Listener
+import net.jeeeyul.eclipse.themes.internal.Debug
 
 /**
  * A new CTabFolder Renderer for Jeeeyul's eclipse themes 2.0
@@ -32,8 +33,6 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 	static val TEXT_FLAGS = SWT.DRAW_TRANSPARENT || SWT.DRAW_MNEMONIC;
 	static val MINIMUM_SIZE = 1 << 24;
-
-	@Property boolean debug = false
 
 	JTabSettings settings = new JTabSettings(this)
 	CTabFolder tabFolder
@@ -406,7 +405,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	}
 
 	protected def drawCloseButton(int part, int state, Rectangle bounds, GC gc) {
-		if(debug) {
+		if(Debug.isDebuggingGUI) {
 			gc.background = COLOR_MAGENTA
 			gc.fill(bounds)
 		}
@@ -460,15 +459,15 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			item.closeRect.x = item.bounds.right.x - item.closeRect.width - 4 - settings.tabItemPaddings.width
 			item.closeRect.translate(-Math.max(settings.tabSpacing, 0) + 3, 0)
 
-			if(settings.closeButtonAlignment == VerticalAlignment.BASE_LINE){
+			if(settings.closeButtonAlignment == VerticalAlignment.BASE_LINE) {
 				var offset = (item.bounds.height - gc.fontMetrics.height) / 2 + gc.fontMetrics.ascent
-				offset += switch(settings.closeButtonLineWidth){
-					case 1 : 2
-					case 2 : 3
-					case 3 : 2
-					default : 2
+				offset += switch (settings.closeButtonLineWidth) {
+					case 1: 2
+					case 2: 3
+					case 3: 2
+					default: 2
 				}
-				
+
 				var bottom = item.closeRect.bottom
 				bottom.y = offset
 				item.closeRect.relocateBottomWith(bottom)
@@ -501,34 +500,38 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			textArea.setRight(itemBounds.right.x - settings.tabItemPaddings.width)
 		}
 
-		if(debug) {
+		if(Debug.isDebuggingGUI) {
 			gc.foreground = COLOR_MAGENTA
 			gc.lineWidth = 1
-			gc.draw(textArea.getResized(-1, -1))
-			gc.drawLine(textArea.left, textArea.left.getTranslated(textSize.x, 0))
+			gc.drawLine(textArea.left.x, textArea.top.y + gc.fontMetrics.ascent, textArea.right.x, textArea.top.y + gc.fontMetrics.ascent)
+			gc.drawLine(textArea.left.x, textArea.top.y + gc.fontMetrics.descent, textArea.right.x, textArea.top.y + gc.fontMetrics.descent)
 		}
 
-		gc.withClip(textArea) [
-			var text = if(textSize.x > textArea.width)
-					gc.shortenText(item.text, textArea.width)
-				else
-					item.text
-			val textShadowColor = settings.getTextShadowColorFor(state)
-			val textShadowPosition = settings.getTextShadowPositionFor(state)
-			if(textShadowColor != null && textShadowPosition != null && !textShadowPosition.empty) {
-				var shadowPosition = settings.getTextShadowPositionFor(state)
-				gc.foreground = settings.getTextShadowColorFor(state).toAutoReleaseColor
-				var delta = textArea.topLeft.getTranslated(shadowPosition)
-				gc.drawText(text, delta.x, delta.y, TEXT_FLAGS)
-			}
-			gc.foreground = settings.getTextColorFor(state).toAutoReleaseColor
-			gc.drawText(text, textArea.x, textArea.y, TEXT_FLAGS)
-		]
+		var text = if(textSize.x > textArea.width)
+				gc.shortenText(item.text, textArea.width)
+			else
+				item.text
 
 		if(parent.focusControl && state.hasFlags(SWT.SELECTED)) {
+			gc.alpha = 90
 			gc.foreground = settings.getTextColorFor(state).toAutoReleaseColor
-			gc.drawLine(textArea.bottomLeft.getTranslated(0, 1), textArea.bottomRight.getTranslated(0, 1))
+
+			var lineFrom = textArea.topLeft.getTranslated(0, gc.fontMetrics.ascent + 1)
+			var lineTo = lineFrom.getTranslated(gc.textExtent(text.trim(), TEXT_FLAGS).x, 0)
+			gc.draw(lineFrom, lineTo)
+			gc.alpha = 255
 		}
+
+		val textShadowColor = settings.getTextShadowColorFor(state)
+		val textShadowPosition = settings.getTextShadowPositionFor(state)
+		if(textShadowColor != null && textShadowPosition != null && !textShadowPosition.empty) {
+			var shadowPosition = settings.getTextShadowPositionFor(state)
+			gc.foreground = settings.getTextShadowColorFor(state).toAutoReleaseColor
+			var delta = textArea.topLeft.getTranslated(shadowPosition)
+			gc.drawText(text, delta.x, delta.y, TEXT_FLAGS)
+		}
+		gc.foreground = settings.getTextColorFor(state).toAutoReleaseColor
+		gc.drawText(text, textArea.x, textArea.y, TEXT_FLAGS)
 
 		// Draw Border and Keyline
 		drawTabItemBorder(part, state, itemBounds, gc)

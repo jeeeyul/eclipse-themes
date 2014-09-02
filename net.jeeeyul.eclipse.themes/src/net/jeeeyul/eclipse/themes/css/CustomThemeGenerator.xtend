@@ -353,6 +353,15 @@ class CustomThemeGenerator {
 			color: «store.getHSB(JTPConstants.ActivePartStack.SELECTED_TEXT_COLOR).toHTMLCode»;
 		}
 		
+		.MPart{
+			font-style: normal;
+		}
+		
+		«comment("Busy Part")»
+		.MPart.busy {
+			font-style: italic;
+		}
+		
 		«comment("editors")»
 		CTabFolder#org-eclipse-ui-editorss.MArea{
 			swt-tab-renderer:
@@ -398,6 +407,11 @@ class CustomThemeGenerator {
 		{
 			background : jtexteditor-background;
 			color : jtexteditor-foreground;
+		}
+		
+		«comment("Others")»
+		.DragFeedback {
+			background-color: «store.getHSB(JTPConstants.Others.DRAG_FEEDBACK_COLOR).toHTMLCode»;
 		}
 		
 		«comment("User Custom CSS")»

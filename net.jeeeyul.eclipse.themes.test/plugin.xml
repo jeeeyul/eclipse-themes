@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            class="net.jeeeyul.eclipse.themes.test.BusyTestView"
+            id="net.jeeeyul.eclipse.themes.test.BusyTestView"
+            name="Busy Test View"
+            restorable="true">
+      </view>
+   </extension>
+
+</plugin>

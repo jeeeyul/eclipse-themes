@@ -419,6 +419,9 @@ public interface JTPConstants {
 
 		@TypeHint(String.class)
 		public static final String USER_CSS = PREFIX + CATEGORY_SEPARATOR + "USER_CSS";
+		
+		@TypeHint(HSB.class)
+		public static final String DRAG_FEEDBACK_COLOR = PREFIX + CATEGORY_SEPARATOR + "DRAG_FEEDBACK_COLOR";
 	}
 
 	@PresetCategory

@@ -15,8 +15,8 @@ class PartStacksPage extends AbstractJTPreferencePage {
 	AbstractJTPreferencePage[] pages = #[
 		new PartStackPage("Active", JTPConstants.ActivePartStack.PREFIX),
 		new PartStackPage("Inactive", JTPConstants.InactivePartStack.PREFIX),
-		new SpecialPartStackPage,
-		new LayoutPage
+		new LayoutPage,
+		new PartStackETCPage
 	]
 	CTabFolder folder
 	Map<AbstractJTPreferencePage, PreperencePageHelper> helperMap = new HashMap

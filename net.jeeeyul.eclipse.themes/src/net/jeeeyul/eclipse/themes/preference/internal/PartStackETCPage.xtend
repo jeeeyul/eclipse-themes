@@ -9,8 +9,9 @@ import net.jeeeyul.swtend.ui.GradientEdit
 import org.eclipse.swt.custom.CTabFolder
 import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Composite
+import net.jeeeyul.swtend.ui.ColorWell
 
-class SpecialPartStackPage extends AbstractJTPreferencePage {
+class PartStackETCPage extends AbstractJTPreferencePage {
 	GradientEdit emptyFillEdit
 	GradientEdit emptyBorderEdit
 	Button emptyBorderHideEdit
@@ -19,8 +20,10 @@ class SpecialPartStackPage extends AbstractJTPreferencePage {
 	GradientEdit editorsBorderEdit
 	Button editorsBorderHideEdit
 
+	ColorWell dragFeedbackColorWell
+
 	new() {
-		super("Special")
+		super("Others")
 		this.image = SharedImages.getImage(SharedImages.MAXMIZE)
 	}
 
@@ -83,6 +86,19 @@ class SpecialPartStackPage extends AbstractJTPreferencePage {
 					text = "Hide"
 				]
 			]
+			
+			newGroup[
+				text = "Other Colors"
+				layoutData = FILL_HORIZONTAL
+				layout = newGridLayout[
+					numColumns = 2
+				]
+				newLabel[
+					text = "Drag Feedback"
+				]
+				dragFeedbackColorWell = newColorWell[
+				]
+			]
 		]
 	}
 
@@ -113,6 +129,8 @@ class SpecialPartStackPage extends AbstractJTPreferencePage {
 		}
 
 		editorsBorderHideEdit.selection = !store.getBoolean(JTPConstants.EditorsPartStack.BORDER_SHOW)
+		
+		dragFeedbackColorWell.selection = store.getHSB(JTPConstants.Others.DRAG_FEEDBACK_COLOR)
 	}
 
 	override save(JThemePreferenceStore store, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
@@ -123,6 +141,8 @@ class SpecialPartStackPage extends AbstractJTPreferencePage {
 		store.setValue(JTPConstants.EditorsPartStack.FILL_COLOR, editorsFillEdit.selection)
 		store.setValue(JTPConstants.EditorsPartStack.BORDER_COLOR, editorsBorderEdit.selection)
 		store.setValue(JTPConstants.EditorsPartStack.BORDER_SHOW, !editorsBorderHideEdit.selection)
+		
+		store.setValue(JTPConstants.Others.DRAG_FEEDBACK_COLOR, dragFeedbackColorWell.selection)
 	}
 
 	override dispose(extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
