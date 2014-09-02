@@ -1,7 +1,9 @@
 package net.jeeeyul.eclipse.themes.store;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IMemento;
 import org.eclipse.ui.IPersistableElement;
 
 /**
@@ -13,7 +15,7 @@ public class StoreEditorInput implements IEditorInput {
 
 	@Override
 	public Object getAdapter(@SuppressWarnings("rawtypes") Class adapter) {
-		return null;
+		return Platform.getAdapterManager().getAdapter(this, adapter);
 	}
 
 	@Override
@@ -33,7 +35,17 @@ public class StoreEditorInput implements IEditorInput {
 
 	@Override
 	public IPersistableElement getPersistable() {
-		return null;
+		return new IPersistableElement() {
+			@Override
+			public void saveState(IMemento memento) {
+
+			}
+
+			@Override
+			public String getFactoryId() {
+				return StoreInputFactory.ID;
+			}
+		};
 	}
 
 	@Override

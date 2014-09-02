@@ -246,6 +246,12 @@
                name="other-themes"
                visible="true">
          </separator>
+         <command
+               commandId="net.jeeeyul.eclipse.themes.command.open.store"
+               icon="icons/store.png"
+               label="Theme Store"
+               style="push">
+         </command>
          <menu
                icon="icons/css.gif"
                label="Other themes">
@@ -276,12 +282,6 @@
                name="support"
                visible="true">
          </separator>
-         <command
-               commandId="net.jeeeyul.eclipse.themes.command.open.store"
-               icon="icons/store.png"
-               label="Theme Store"
-               style="push">
-         </command>
          <menu
                icon="icons/contact.png"
                id="net.jeeeyul.eclipse.themes.contact"
@@ -537,5 +537,12 @@
             id="net.jeeeyul.eclipse.themes.store.StoreClient"
             name="Theme Store">
       </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.elementFactories">
+      <factory
+            class="net.jeeeyul.eclipse.themes.store.StoreInputFactory"
+            id="net.jeeeyul.eclipse.themes.store.input.factory">
+      </factory>
    </extension>
 </plugin>

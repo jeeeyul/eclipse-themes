@@ -54,7 +54,6 @@ public class RewriteCustomTheme {
 		try {
 			CustomThemeGenerator generator = new CustomThemeGenerator(JThemesCore.getDefault().getPreferenceStore());
 			String newCSSContent = generator.generate().toString();
-			Debug.println(newCSSContent);
 			applyTheme(newCSSContent);
 
 			RangeIndicatorHack.update();
