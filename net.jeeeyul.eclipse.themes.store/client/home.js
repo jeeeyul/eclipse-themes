@@ -16,6 +16,7 @@ Template.home.helpers({
 			}
 		}
 		$(window).on("scroll", this.scrollHook);
+		this.$(".loading").hide();
 	},
 
 	"destroyed" : function() {
@@ -37,11 +38,14 @@ Template.home.events({
 
 		t.$("#show-more-button").prop("disabled", true);
 		var preCount = EPFs.find().count();
+		
+		t.$(".loading").show();
 		var newSubscription = Meteor.subscribe("allEPFs", Session.get("page") + 1, function() {
 			if (preCount != EPFs.find().count()) {
 				Session.set("page", Session.get("page") + 1);
 				t.$("#show-more-button").prop("disabled", false);
 			}
+			t.$(".loading").hide();
 		});
 		t.subscriptions.push(newSubscription);
 	}
