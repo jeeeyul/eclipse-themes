@@ -5,12 +5,12 @@ import java.util.Properties;
 
 import net.jeeeyul.eclipse.themes.JThemesCore;
 import net.jeeeyul.eclipse.themes.css.RewriteCustomTheme;
+import net.jeeeyul.eclipse.themes.internal.Debug;
 import net.jeeeyul.eclipse.themes.preference.JTPConstants;
 import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore;
 import net.jeeeyul.swtend.SWTExtensions;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.css.swt.theme.IThemeEngine;
 import org.eclipse.e4.ui.model.application.MApplication;
@@ -79,7 +79,7 @@ public class StoreClient extends EditorPart {
 	public void createPartControl(Composite parent) {
 		try {
 			browser = new Browser(parent, SWT.NONE);
-			if (Platform.inDevelopmentMode() && Platform.inDebugMode()) {
+			if (Debug.useLocalStore()) {
 				browser.setUrl("http://localhost:3000/");
 			} else {
 				browser.setUrl("http://themes.jeeeyul.net");

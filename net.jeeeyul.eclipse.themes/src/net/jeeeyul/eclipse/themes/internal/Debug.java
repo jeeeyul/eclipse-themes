@@ -14,6 +14,7 @@ import org.eclipse.core.runtime.Platform;
 public class Debug {
 	private static Boolean DEBUG;
 	private static Boolean DEBUG_GUI;
+	private static Boolean USE_LOCAL_STORE;
 
 	/**
 	 * Logs a message
@@ -49,5 +50,16 @@ public class Debug {
 			DEBUG_GUI = Boolean.parseBoolean(debugOption);
 		}
 		return DEBUG_GUI;
+	}
+
+	/**
+	 * @return whether use local store server instead of themes.jeeeyul.net
+	 */
+	public static boolean useLocalStore() {
+		if (USE_LOCAL_STORE == null) {
+			String debugOption = Platform.getDebugOption("net.jeeeyul.eclipse.themes/debug/useLocalStoreServer");
+			USE_LOCAL_STORE = Boolean.parseBoolean(debugOption);
+		}
+		return USE_LOCAL_STORE;
 	}
 }
