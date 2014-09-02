@@ -6,6 +6,7 @@ import net.jeeeyul.eclipse.themes.rendering.VerticalAlignment
 import net.jeeeyul.swtend.SWTExtensions
 import org.eclipse.swt.SWT
 import org.eclipse.swt.graphics.Point
+import net.jeeeyul.eclipse.themes.internal.OSHelper
 
 /**
  * Generates CSS content with {@link JThemePreferenceStore} as input.
@@ -16,6 +17,8 @@ import org.eclipse.swt.graphics.Point
  */
 class CustomThemeGenerator {
 	@Property JThemePreferenceStore store
+	
+	extension OSHelper = OSHelper.INSTANCE
 
 	/**
 	 * Creates {@link CustomThemeGenerator} with input.
@@ -62,12 +65,19 @@ class CustomThemeGenerator {
 
 	def private String doGenerateBody() '''
 		«comment("Window")»
-		.MTrimmedWindow {
+		Shell.MTrimmedWindow {
 			margin-top: «windowMargins.y»px;
 			margin-right: «windowMargins.width»px;
 			margin-bottom: «windowMargins.height»px;
 			margin-left: «windowMargins.x»px;
-			background-color: «store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»;
+			«IF isLinux»
+				background-color: 
+					«store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»
+					«store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»
+					100%;
+			«ELSE»
+				background-color: «store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»;
+			«ENDIF»
 		}
 		
 		.MPartSashContainer {
@@ -124,6 +134,10 @@ class CustomThemeGenerator {
 				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getGradient(JTPConstants.Window.STATUS_BAR_FILL_COLOR).middlePointColor.toHTMLCode»&embossed=false);
 			frame-image: url(jeeeyul://frame?background-color=«store.getGradient(JTPConstants.Window.STATUS_BAR_FILL_COLOR).middlePointColor.toHTMLCode»);
 			frame-cuts: 4px 2px 5px 16px;
+		}
+		
+		.MPartSashContainer{
+			background-color: «store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»;
 		}
 		
 		«comment("Inactive Part Stack")»

@@ -66,6 +66,9 @@ public class NamedColorHack {
 
 	private HSB getHSBFromEditorPreference(String key) {
 		String bgExp = getEditorStore().getString(key);
+		if(bgExp == null || bgExp.trim().length() == 0){
+			return new HSB(0, 0, 0);
+		}
 		String[] segments = bgExp.split("[\\s,]+");
 		int r = Integer.parseInt(segments[0], 10);
 		int g = Integer.parseInt(segments[1], 10);
