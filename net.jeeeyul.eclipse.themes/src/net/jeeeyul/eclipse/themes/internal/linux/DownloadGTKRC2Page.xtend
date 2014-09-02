@@ -23,12 +23,11 @@ class DownloadGTKRC2Page extends WizardPage {
 			layout = newGridLayout
 			newLink[
 				text = '''
-					Jeeeyul's Eclipse Themes detected too big minimum toolbar height(«minimumToolBarHeight»px).
-					This wizard will download <a href="https://github.com/jeeeyul/jeeeyul.github.io/blob/master/files/gtkrc-2.0">.gtkrc-2.0</a> into your home directory to fix this problem.
-					It will affect all GTK 2.0 Applications, not affects 3.0 Applications.
+					This wizard will download <a href="https://github.com/jeeeyul/jeeeyul.github.io/blob/master/files/gtkrc-2.0">.gtkrc-2.0</a> into your home directory.
+					It will fix various problems on GTK/SWT, for instance Huge Toolbar.
 					
 					After installation, You need to restart eclipse.
-					
+					Then choose a preset that you want once again.
 					
 					Read details in <a href="https://github.com/jeeeyul/eclipse-themes/wiki/Linux-User-Guide">Linux User Guide</a>
 				'''
