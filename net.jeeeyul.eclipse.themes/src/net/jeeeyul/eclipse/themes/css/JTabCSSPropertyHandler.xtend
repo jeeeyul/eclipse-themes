@@ -3,11 +3,13 @@ package net.jeeeyul.eclipse.themes.css
 import java.util.ArrayList
 import net.jeeeyul.eclipse.themes.css.internal.CSSCompabilityHelper
 import net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer
+import net.jeeeyul.eclipse.themes.rendering.VerticalAlignment
 import net.jeeeyul.eclipse.themes.rendering.internal.JTabRendererHelper
 import net.jeeeyul.swtend.ui.HSB
 import org.eclipse.e4.ui.css.core.dom.properties.Gradient
 import org.eclipse.e4.ui.css.core.dom.properties.ICSSPropertyHandler
 import org.eclipse.e4.ui.css.core.engine.CSSEngine
+import org.eclipse.e4.ui.css.core.impl.dom.Measure
 import org.eclipse.e4.ui.css.swt.dom.CTabFolderElement
 import org.eclipse.e4.ui.css.swt.helpers.CSSSWTColorHelper
 import org.eclipse.swt.custom.CTabFolder
@@ -451,6 +453,19 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 					false
 				}
 			}
+			case "jtab-close-button-alignment" : {
+				if(value instanceof Measure){
+					var measureValue = value as Measure
+					try{
+						var alignment = VerticalAlignment.fromCSSValue(measureValue.stringValue)
+						settings.closeButtonAlignment = alignment
+					}catch(IllegalArgumentException e){
+						return false
+					}
+				}
+				false
+			}
+			
 			default: {
 				false
 			}
@@ -523,6 +538,7 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 			case "jtab-truncate-tab-items" : '''«settings.truncateTabItems»'''
 			case "jtab-use-ellipses": '''«settings.useEllipses»'''
 			case "jtab-minimum-characters" : '''«settings.minimumCharacters»'''
+			case "jtab-close-button-alignment" : settings.closeButtonAlignment.CSSValue
 			default:
 				null
 		}

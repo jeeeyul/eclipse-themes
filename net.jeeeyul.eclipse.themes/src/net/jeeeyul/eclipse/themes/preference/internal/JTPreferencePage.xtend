@@ -85,9 +85,7 @@ class JTPreferencePage extends PreferencePage implements IWorkbenchPreferencePag
 				maximizeVisible = true
 				minimizeVisible = true
 				addCTabFolder2Listener(new ClosePrevent)
-				it.renderer = renderer = new JeeeyulsTabRenderer(it) => [
-					debug = false
-				]
+				it.renderer = renderer = new JeeeyulsTabRenderer(it)
 				for (each : pages) {
 					newCTabItem[
 						it.text = each.name

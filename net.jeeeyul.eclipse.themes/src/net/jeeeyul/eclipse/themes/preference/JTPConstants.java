@@ -350,6 +350,9 @@ public interface JTPConstants {
 		
 		@TypeHint(boolean.class)
 		public static final String USE_ELLIPSES = PREFIX + CATEGORY_SEPARATOR + "USE_ELLIPSES";
+		
+		@TypeHint(int.class)
+		public static final String CLOSE_BUTTON_VERTICAL_ALIGNMENT = PREFIX + CATEGORY_SEPARATOR + "CLOSE_BUTTON_VERTICAL_ALIGNMENT";
 	}
 
 	@PresetCategory

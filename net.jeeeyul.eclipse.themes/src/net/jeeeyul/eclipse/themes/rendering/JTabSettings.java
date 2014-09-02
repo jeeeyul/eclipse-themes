@@ -53,15 +53,16 @@ public class JTabSettings {
 	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 	private JeeeyulsTabRenderer renderer;
 	private Rectangle tabItemPaddings = new Rectangle(2, 0, 2, 0);
+	private VerticalAlignment closeButtonAlignment = VerticalAlignment.MIDDLE;
 
 	private boolean truncateTabItems = true;
-	private boolean useEllipses = false;
-	private int minimumCharacters = 1;
 
+	private boolean useEllipses = false;
+
+	private int minimumCharacters = 1;
 	public JTabSettings(JeeeyulsTabRenderer renderer) {
 		this.renderer = renderer;
 	}
-
 	public void addPropertyChangeListener(PropertyChangeListener arg0) {
 		pcs.addPropertyChangeListener(arg0);
 	}
@@ -102,6 +103,10 @@ public class JTabSettings {
 
 	public HSB getCloseButtonActiveColor() {
 		return closeButtonActiveColor;
+	}
+
+	public VerticalAlignment getCloseButtonAlignment() {
+		return closeButtonAlignment;
 	}
 
 	public HSB getCloseButtonColor() {
@@ -284,6 +289,15 @@ public class JTabSettings {
 		HSB old = this.closeButtonActiveColor;
 		this.closeButtonActiveColor = closeButtonActiveColor;
 		pcs.firePropertyChange("close-button-active-color", old, closeButtonActiveColor);
+	}
+
+	public void setCloseButtonAlignment(VerticalAlignment closeButtonAlignment) {
+		if (this.closeButtonAlignment == closeButtonAlignment) {
+			return;
+		}
+		VerticalAlignment old = this.closeButtonAlignment;
+		this.closeButtonAlignment = closeButtonAlignment;
+		pcs.firePropertyChange("close-button-alignement", old, closeButtonAlignment);
 	}
 
 	public void setCloseButtonColor(HSB closeButtonColor) {

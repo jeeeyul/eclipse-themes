@@ -2,10 +2,10 @@ package net.jeeeyul.eclipse.themes.css
 
 import net.jeeeyul.eclipse.themes.preference.JTPConstants
 import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore
+import net.jeeeyul.eclipse.themes.rendering.VerticalAlignment
 import net.jeeeyul.swtend.SWTExtensions
 import org.eclipse.swt.SWT
 import org.eclipse.swt.graphics.Point
-import net.jeeeyul.eclipse.themes.internal.OSHelper
 
 /**
  * Generates CSS content with {@link JThemePreferenceStore} as input.
@@ -16,7 +16,6 @@ import net.jeeeyul.eclipse.themes.internal.OSHelper
  */
 class CustomThemeGenerator {
 	@Property JThemePreferenceStore store
-	extension OSHelper = OSHelper.INSTANCE
 
 	/**
 	 * Creates {@link CustomThemeGenerator} with input.
@@ -77,17 +76,8 @@ class CustomThemeGenerator {
 		
 		«comment("Trim Stack")»
 		.TrimStack {
-			«IF linux»
-				/* 
-				 * https://github.com/jeeeyul/eclipse-themes/issues/133 
-				 * due to https://bugs.eclipse.org/bugs/show_bug.cgi?id=430846
-				 * It can't be fixed. So just remove border for linux.
-				 */
-				frame-image: none;
-			«ELSE»
-				frame-image: url(jeeeyul://frame?background-color=«store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»);
-				frame-cuts: 4px 2px 5px 16px;
-			«ENDIF»
+			frame-image: url(jeeeyul://frame?background-color=«store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»);
+			frame-cuts: 4px 2px 5px 16px;
 			handle-image:
 				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»&embossed=false);
 		}
@@ -151,6 +141,7 @@ class CustomThemeGenerator {
 			jtab-truncate-tab-items : «store.getBoolean(JTPConstants.Layout.TRUNCATE_TAB_ITEMS)»;
 			jtab-use-ellipses : «store.getBoolean(JTPConstants.Layout.USE_ELLIPSES)»;
 			jtab-minimum-characters : «store.getInt(JTPConstants.Layout.MINIMUM_CHARACTERS)»;
+			jtab-close-button-alignment : «VerticalAlignment.fromValue(store.getInt(JTPConstants.Layout.CLOSE_BUTTON_VERTICAL_ALIGNMENT)).CSSValue»;
 			
 			«IF store.getBoolean(JTPConstants.Layout.SHOW_SHADOW)»
 				jtab-margin : 0px 4px 4px 1px; /* top right bottom left */
@@ -261,7 +252,6 @@ class CustomThemeGenerator {
 				jtab-border-color : none;
 			«ENDIF»
 			background : «store.getGradient(JTPConstants.EmptyPartStack.FILL_COLOR).last.color.toHTMLCode»;
-			
 		}
 		
 		«comment("Active Part Stack")»
@@ -334,7 +324,7 @@ class CustomThemeGenerator {
 			jtab-close-button-color: «store.getHSB(JTPConstants.ActivePartStack.CLOSE_BUTTON_COLOR).toHTMLCode»;
 			jtab-close-button-hot-color: «store.getHSB(JTPConstants.ActivePartStack.CLOSE_BUTTON_HOVER_COLOR).toHTMLCode»;
 			jtab-close-button-active-color: «store.getHSB(JTPConstants.ActivePartStack.CLOSE_BUTTON_ACTIVE_COLOR).toHTMLCode»;
-			jtab-close-button-line-width: «store.getInt(JTPConstants.InactivePartStack.CLOSE_BUTTON_LINE_WIDTH)»px;
+			jtab-close-button-line-width: «store.getInt(JTPConstants.ActivePartStack.CLOSE_BUTTON_LINE_WIDTH)»px;
 			
 			jtab-chevron-color: «store.getHSB(JTPConstants.ActivePartStack.CHEVRON_COLOR).toHTMLCode»;
 		}

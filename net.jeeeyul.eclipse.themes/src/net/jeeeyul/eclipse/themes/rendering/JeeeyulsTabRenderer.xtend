@@ -118,7 +118,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 						height = Math.max(height, closeButtonSize.y)
 					}
 				}
-				
+
 				height = Math.max(height, parent.tabHeight + 2)
 
 				width = width + Math.max(settings.tabItemPaddings.width, 0)
@@ -459,6 +459,20 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		if((tabFolder.showClose || item.showClose) && item.closeRect.width > 0) {
 			item.closeRect.x = item.bounds.right.x - item.closeRect.width - 4 - settings.tabItemPaddings.width
 			item.closeRect.translate(-Math.max(settings.tabSpacing, 0) + 3, 0)
+
+			if(settings.closeButtonAlignment == VerticalAlignment.BASE_LINE){
+				var offset = (item.bounds.height - gc.fontMetrics.height) / 2 + gc.fontMetrics.ascent
+				offset += switch(settings.closeButtonLineWidth){
+					case 1 : 2
+					case 2 : 3
+					case 3 : 2
+					default : 2
+				}
+				
+				var bottom = item.closeRect.bottom
+				bottom.y = offset
+				item.closeRect.relocateBottomWith(bottom)
+			}
 
 			if(state.hasFlags(SWT.SELECTED) || state.hasFlags(SWT.HOT)) {
 				gc.withClip(item.closeRect) [

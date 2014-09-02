@@ -10,6 +10,7 @@ import net.jeeeyul.eclipse.themes.css.internal.RangeIndicatorHack;
 import net.jeeeyul.eclipse.themes.css.internal.ResourceRegistryHack;
 import net.jeeeyul.eclipse.themes.internal.Debug;
 import net.jeeeyul.eclipse.themes.preference.JTPConstants;
+import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore;
 
 import org.eclipse.e4.ui.css.core.dom.ExtendedCSSRule;
 import org.eclipse.e4.ui.css.core.dom.ExtendedDocumentCSS;
@@ -61,13 +62,27 @@ public class RewriteCustomTheme {
 		}
 	}
 
+	private Rectangle windowMargins() {
+		JThemePreferenceStore store = JThemesCore.getDefault().getPreferenceStore();
+		Rectangle margins = store.getRectangle(JTPConstants.Window.MARGINS);
+		if (store.getBoolean(JTPConstants.Layout.SHOW_SHADOW)) {
+			margins.x = Math.max(margins.x - 1, 0);
+			margins.width = Math.max(margins.width - 4, 0);
+			margins.height = Math.max(margins.height - 4, 0);
+		} else {
+			margins.width = Math.max(margins.width - 1, 0);
+			margins.height = Math.max(margins.height - 1, 0);
+		}
+		return margins;
+	}
+
 	private void applyTheme(String css) throws IOException {
 		Debug.println("Theme is about to rewrite");
 		CSSEngine cssEngine = WidgetElement.getEngine(display);
 
 		for (IWorkbenchWindow each : PlatformUI.getWorkbench().getWorkbenchWindows()) {
 			TrimmedPartLayout layout = (TrimmedPartLayout) each.getShell().getLayout();
-			Rectangle margins = JThemesCore.getDefault().getPreferenceStore().getRectangle(JTPConstants.Window.MARGINS);
+			Rectangle margins = windowMargins();
 			layout.gutterTop = margins.y;
 			layout.gutterBottom = margins.height;
 			layout.gutterLeft = margins.x;

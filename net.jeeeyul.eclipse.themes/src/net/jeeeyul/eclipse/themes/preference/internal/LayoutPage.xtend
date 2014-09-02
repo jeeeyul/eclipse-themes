@@ -13,6 +13,8 @@ import org.eclipse.swt.widgets.Spinner
 import org.eclipse.swt.program.Program
 import net.jeeeyul.eclipse.themes.internal.OSHelper
 import org.eclipse.swt.widgets.Button
+import net.jeeeyul.eclipse.themes.rendering.VerticalAlignment
+import java.util.List
 
 class LayoutPage extends AbstractJTPreferencePage {
 	Spinner borderRadiusScale
@@ -27,6 +29,8 @@ class LayoutPage extends AbstractJTPreferencePage {
 	Button useEllipsesButton
 	Spinner minimumCharactersSpinner
 	Spinner minimumCharactersForEditorSpinner
+	
+	List<Button> closeButtonAlignButtons
 
 	new() {
 		super("Layout")
@@ -125,6 +129,30 @@ class LayoutPage extends AbstractJTPreferencePage {
 					text = '''«minimumToolBarHeight» ~ 40px'''
 					foreground = COLOR_DARK_GRAY
 				]
+				
+				newLabel[
+					text = "Close Button Alignment"
+				]
+				newComposite[
+					layout = newGridLayout[
+						numColumns = VerticalAlignment.values.length
+						marginWidth = 0
+						marginHeight = 0
+					]
+					layoutData = newGridData[
+						horizontalSpan = 2
+					]
+					closeButtonAlignButtons = newArrayList()
+					for(each : VerticalAlignment.values){
+						closeButtonAlignButtons += newRadioButton[
+							text = each.getName()
+							data = each
+							onSelection = [
+								requestFastUpdatePreview()
+							]
+						]
+					}
+				]
 			]
 			newComposite[
 				layoutData = FILL_HORIZONTAL
@@ -206,11 +234,13 @@ class LayoutPage extends AbstractJTPreferencePage {
 		renderSettings.useEllipses = useEllipsesButton.selection
 		renderSettings.minimumCharacters = minimumCharactersSpinner.selection
 		renderSettings.truncateTabItems = truncateTabItemsButton.selection
+		renderSettings.closeButtonAlignment = closeButtonAlignButtons.findFirst[it.selection].data as VerticalAlignment
 
 		useEllipsesButton.enabled = truncateTabItemsButton.selection
 		minimumCharactersSpinner.enabled = truncateTabItemsButton.selection
 		truncateEditorTabItemsButton.enabled = truncateTabItemsButton.selection
 		minimumCharactersForEditorSpinner.enabled = truncateEditorTabItemsButton.selection && truncateTabItemsButton.selection
+		
 
 		folder.tabHeight = tabHeightScale.selection
 		folder.notifyListeners(SWT.Resize, new Event())
@@ -232,6 +262,11 @@ class LayoutPage extends AbstractJTPreferencePage {
 		this.minimumCharactersSpinner.selection = store.getInt(JTPConstants.Layout.MINIMUM_CHARACTERS)
 		this.truncateEditorTabItemsButton.selection = store.getBoolean(JTPConstants.Layout.TRUNCATE_EDITORS_TAB_ITEMS_ALSO)
 		this.minimumCharactersForEditorSpinner.selection = store.getInt(JTPConstants.Layout.MINIMUM_CHARACTERS_FOR_EDITORS)
+		
+		var closeButtonAlign = VerticalAlignment.fromValue(store.getInt(JTPConstants.Layout.CLOSE_BUTTON_VERTICAL_ALIGNMENT))
+		for(eachButton : closeButtonAlignButtons){
+			eachButton.selection = eachButton.data == closeButtonAlign
+		}
 	}
 
 	override save(JThemePreferenceStore store, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
@@ -247,6 +282,9 @@ class LayoutPage extends AbstractJTPreferencePage {
 		store.setValue(JTPConstants.Layout.MINIMUM_CHARACTERS, this.minimumCharactersSpinner.selection)
 		store.setValue(JTPConstants.Layout.TRUNCATE_EDITORS_TAB_ITEMS_ALSO, truncateEditorTabItemsButton.selection)
 		store.setValue(JTPConstants.Layout.MINIMUM_CHARACTERS_FOR_EDITORS, minimumCharactersForEditorSpinner.selection)
+		
+		var selectedAlign = closeButtonAlignButtons.findFirst[it.selection].data as VerticalAlignment
+		store.setValue(JTPConstants.Layout.CLOSE_BUTTON_VERTICAL_ALIGNMENT, selectedAlign.value)
 	}
 
 	override dispose(extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {

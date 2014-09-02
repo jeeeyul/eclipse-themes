@@ -162,6 +162,9 @@
          <property-name
                name="jtab-minimum-characters">
          </property-name>
+         <property-name
+               name="jtab-close-button-alignment">
+         </property-name>
       </handler>
       <handler
             adapter="org.eclipse.e4.ui.css.swt.dom.CompositeElement"
