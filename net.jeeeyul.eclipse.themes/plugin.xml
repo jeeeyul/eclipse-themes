@@ -183,6 +183,13 @@
                name="jswt-alpha">
          </property-name>
       </handler>
+      <handler
+            adapter="org.eclipse.e4.ui.css.swt.dom.ToolBarElement"
+            handler="net.jeeeyul.eclipse.themes.css.ToolBarCSSPropertyHandler">
+         <property-name
+               name="jtool-item-color">
+         </property-name>
+      </handler>
    </extension>
    <extension
          point="org.eclipse.ui.preferenceTransfer">

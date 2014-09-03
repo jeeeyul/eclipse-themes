@@ -6,23 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.jeeeyul.eclipse.themes.JThemesCore;
+import net.jeeeyul.eclipse.themes.css.internal.HotSwap;
 import net.jeeeyul.eclipse.themes.css.internal.RangeIndicatorHack;
-import net.jeeeyul.eclipse.themes.css.internal.ResourceRegistryHack;
 import net.jeeeyul.eclipse.themes.internal.Debug;
-import net.jeeeyul.eclipse.themes.preference.JTPConstants;
-import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore;
+import net.jeeeyul.eclipse.themes.internal.ENVHelper;
 
 import org.eclipse.e4.ui.css.core.dom.ExtendedCSSRule;
 import org.eclipse.e4.ui.css.core.dom.ExtendedDocumentCSS;
 import org.eclipse.e4.ui.css.core.engine.CSSEngine;
-import org.eclipse.e4.ui.css.core.resources.IResourcesRegistry;
 import org.eclipse.e4.ui.css.swt.dom.WidgetElement;
-import org.eclipse.e4.ui.workbench.renderers.swt.TrimmedPartLayout;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
 import org.w3c.css.sac.SelectorList;
 import org.w3c.dom.css.CSSRuleList;
 import org.w3c.dom.css.CSSStyleSheet;
@@ -47,50 +41,29 @@ public class RewriteCustomTheme {
 
 	private Display display = Display.getDefault();
 
-	/**
-	 * Rewrite "/css/jeeeyul-custom.css" with user preference.
-	 */
-	public void rewrite() {
-		try {
-			CustomThemeGenerator generator = new CustomThemeGenerator(JThemesCore.getDefault().getPreferenceStore());
-			String newCSSContent = generator.generate().toString();
-			applyTheme(newCSSContent);
+	private boolean hotSwap;
 
-			RangeIndicatorHack.update();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	/**
+	 * 
+	 */
+	public RewriteCustomTheme() {
+		this(false);
 	}
 
-	private Rectangle windowMargins() {
-		JThemePreferenceStore store = JThemesCore.getDefault().getPreferenceStore();
-		Rectangle margins = store.getRectangle(JTPConstants.Window.MARGINS);
-		if (store.getBoolean(JTPConstants.Layout.SHOW_SHADOW)) {
-			margins.x = Math.max(margins.x - 1, 0);
-			margins.width = Math.max(margins.width - 4, 0);
-			margins.height = Math.max(margins.height - 4, 0);
-		} else {
-			margins.width = Math.max(margins.width - 1, 0);
-			margins.height = Math.max(margins.height - 1, 0);
-		}
-		return margins;
+	/**
+	 * @param hotSwap
+	 */
+	public RewriteCustomTheme(boolean hotSwap) {
+		this.hotSwap = hotSwap;
 	}
 
 	private void applyTheme(String css) throws IOException {
 		Debug.println("Theme is about to rewrite");
 		CSSEngine cssEngine = WidgetElement.getEngine(display);
 
-		for (IWorkbenchWindow each : PlatformUI.getWorkbench().getWorkbenchWindows()) {
-			TrimmedPartLayout layout = (TrimmedPartLayout) each.getShell().getLayout();
-			Rectangle margins = windowMargins();
-			layout.gutterTop = margins.y;
-			layout.gutterBottom = margins.height;
-			layout.gutterLeft = margins.x;
-			layout.gutterRight = margins.width;
+		if (hotSwap) {
+			HotSwap.INSTANCE.fixWindowMargins();
 		}
-
-		IResourcesRegistry resourcesRegistry = cssEngine.getResourcesRegistry();
-		new ResourceRegistryHack().disposeDynamicImages(resourcesRegistry);
 
 		ExtendedDocumentCSS documentCSS = (ExtendedDocumentCSS) cssEngine.getDocumentCSS();
 		StyleSheet customThemeSheet = findCustomThemeSheet(documentCSS);
@@ -110,6 +83,11 @@ public class RewriteCustomTheme {
 		}
 
 		documentCSS.removeAllStyleSheets();
+
+		if (hotSwap && ENVHelper.INSTANCE.isLunaOrAbove()) {
+			HotSwap.INSTANCE.releaseHandleImages(cssEngine);
+		}
+
 		for (StyleSheet each : newSheetList) {
 			documentCSS.addStyleSheet(each);
 		}
@@ -118,6 +96,10 @@ public class RewriteCustomTheme {
 
 		for (Shell each : Display.getDefault().getShells()) {
 			each.layout(true, true);
+		}
+
+		if (hotSwap && ENVHelper.INSTANCE.isLunaOrAbove()) {
+			HotSwap.INSTANCE.fixDragHandles(cssEngine);
 		}
 
 		Debug.println("Theme was re-written");
@@ -148,8 +130,23 @@ public class RewriteCustomTheme {
 					}
 				}
 			}
-
 		}
 		return customThemeSheet;
 	}
+
+	/**
+	 * Rewrite "/css/jeeeyul-custom.css" with user preference.
+	 */
+	public void rewrite() {
+		try {
+			CustomThemeGenerator generator = new CustomThemeGenerator(JThemesCore.getDefault().getPreferenceStore());
+			String newCSSContent = generator.generate().toString();
+			applyTheme(newCSSContent);
+
+			RangeIndicatorHack.update();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 }

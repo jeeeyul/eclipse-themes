@@ -64,7 +64,7 @@ public class ApplyPresetAction extends Action {
 				store.setValue(key, value);
 			}
 		}
-		new RewriteCustomTheme().rewrite();
+		new RewriteCustomTheme(true).rewrite();
 
 		IThemeEngine engine = getThemeEngine();
 		if (engine.getActiveTheme() == null || !engine.getActiveTheme().getId().equals(JThemesCore.CUSTOM_THEME_ID)) {

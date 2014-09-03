@@ -162,7 +162,7 @@ class JTPreferencePage extends PreferencePage implements IWorkbenchPreferencePag
 		saveTo(preferenceStore)
 		preferenceStore.save()
 		if(Platform.running)
-			new RewriteCustomTheme().rewrite()
+			new RewriteCustomTheme(true).rewrite()
 
 		return true
 	}

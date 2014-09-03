@@ -333,24 +333,22 @@ public interface JTPConstants {
 
 		@TypeHint(HSB.class)
 		public static final String SHADOW_COLOR = PREFIX + CATEGORY_SEPARATOR + "SHADOW_COLOR";
-		
-		
+
 		@TypeHint(boolean.class)
 		public static final String TRUNCATE_TAB_ITEMS = PREFIX + CATEGORY_SEPARATOR + "TRUNCATE_TAB_ITEMS";
-		
+
 		@TypeHint(boolean.class)
 		public static final String TRUNCATE_EDITORS_TAB_ITEMS_ALSO = PREFIX + CATEGORY_SEPARATOR + "TRUNCATE_EDITORS_TAB_ITEMS_ALSO";
-		
+
 		@TypeHint(int.class)
 		public static final String MINIMUM_CHARACTERS = PREFIX + CATEGORY_SEPARATOR + "MINIMUM_CHARACTERS";
-		
+
 		@TypeHint(int.class)
 		public static final String MINIMUM_CHARACTERS_FOR_EDITORS = PREFIX + CATEGORY_SEPARATOR + "MINIMUM_CHARACTERS_FOR_EDITORS";
-		
-		
+
 		@TypeHint(boolean.class)
 		public static final String USE_ELLIPSES = PREFIX + CATEGORY_SEPARATOR + "USE_ELLIPSES";
-		
+
 		@TypeHint(int.class)
 		public static final String CLOSE_BUTTON_VERTICAL_ALIGNMENT = PREFIX + CATEGORY_SEPARATOR + "CLOSE_BUTTON_VERTICAL_ALIGNMENT";
 	}
@@ -371,6 +369,9 @@ public interface JTPConstants {
 
 		@TypeHint(HSB.class)
 		public static final String PERSPECTIVE_SWITCHER_KEY_LINE_COLOR = PREFIX + CATEGORY_SEPARATOR + "PERSPECTIVE_SWITCHER_KEY_LINE_COLOR";
+
+		@TypeHint(HSB.class)
+		public static final String PERSPECTIVE_SWITCHER_TEXT_COLOR = PREFIX + CATEGORY_SEPARATOR + "PERSPECTIVE_SWITCHER_TEXT_COLOR";
 
 		@TypeHint(HSB.class)
 		public static final String BACKGROUND_COLOR = PREFIX + CATEGORY_SEPARATOR + "BACKGROUND_COLOR";
@@ -419,10 +420,10 @@ public interface JTPConstants {
 
 		@TypeHint(String.class)
 		public static final String USER_CSS = PREFIX + CATEGORY_SEPARATOR + "USER_CSS";
-		
+
 		@TypeHint(HSB.class)
 		public static final String DRAG_FEEDBACK_COLOR = PREFIX + CATEGORY_SEPARATOR + "DRAG_FEEDBACK_COLOR";
-		
+
 		@TypeHint(int.class)
 		public static final String DRAG_FEEDBACK_ALPHA = PREFIX + CATEGORY_SEPARATOR + "DRAG_FEEDBACK_ALPHA";
 	}

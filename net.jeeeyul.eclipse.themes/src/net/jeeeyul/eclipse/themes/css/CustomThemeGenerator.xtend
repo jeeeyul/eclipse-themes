@@ -6,7 +6,7 @@ import net.jeeeyul.eclipse.themes.rendering.VerticalAlignment
 import net.jeeeyul.swtend.SWTExtensions
 import org.eclipse.swt.SWT
 import org.eclipse.swt.graphics.Point
-import net.jeeeyul.eclipse.themes.internal.OSHelper
+import net.jeeeyul.eclipse.themes.internal.ENVHelper
 
 /**
  * Generates CSS content with {@link JThemePreferenceStore} as input.
@@ -18,7 +18,7 @@ import net.jeeeyul.eclipse.themes.internal.OSHelper
 class CustomThemeGenerator {
 	@Property JThemePreferenceStore store
 
-	extension OSHelper = OSHelper.INSTANCE
+	extension ENVHelper = ENVHelper.INSTANCE
 
 	/**
 	 * Creates {@link CustomThemeGenerator} with input.
@@ -82,19 +82,7 @@ class CustomThemeGenerator {
 		
 		.MPartSashContainer {
 			jsash-width : «partSpacing»px;
-		}
-		
-		«comment("Trim Stack")»
-		.TrimStack {
-			frame-image: url(jeeeyul://frame?background-color=«store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»);
-			frame-cuts: 4px 2px 5px 16px;
-			handle-image:
-				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»&embossed=false);
-		}
-		
-		.MTrimBar .Draggable {
-			handle-image:
-				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»&embossed=false);
+			background-color: «store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»;
 		}
 		
 		«comment("Main Toolbar")»
@@ -102,7 +90,13 @@ class CustomThemeGenerator {
 			background-color:«store.getGradient(JTPConstants.Window.TOOLBAR_FILL_COLOR).toSWTCSSString»;
 		}
 		
-		#org-eclipse-ui-main-toolbar .Draggable {
+		#org-eclipse-ui-main-toolbar > .Draggable {
+			handle-image:
+				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getGradient(JTPConstants.Window.TOOLBAR_FILL_COLOR).middlePointColor.toHTMLCode»&embossed=false);
+		}
+		
+		#org-eclipse-ui-main-toolbar > .TrimStack {
+			frame-image: none;
 			handle-image:
 				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getGradient(JTPConstants.Window.TOOLBAR_FILL_COLOR).middlePointColor.toHTMLCode»&embossed=false);
 		}
@@ -113,10 +107,8 @@ class CustomThemeGenerator {
 			eclipse-perspective-keyline-color: «store.getHSB(JTPConstants.Window.PERSPECTIVE_SWITCHER_KEY_LINE_COLOR).toHTMLCode»;
 		}
 		
-		#org-eclipse-ui-main-toolbar .TrimStack {
-			frame-image: none;
-			handle-image:
-				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getGradient(JTPConstants.Window.TOOLBAR_FILL_COLOR).middlePointColor.toHTMLCode»&embossed=false);
+		#org-eclipse-ui-main-toolbar #PerspectiveSwitcher ToolBar {
+			jtool-item-color : «store.getHSB(JTPConstants.Window.PERSPECTIVE_SWITCHER_TEXT_COLOR).toHTMLCode»;
 		}
 		
 		«comment("Status Bar")»
@@ -136,9 +128,20 @@ class CustomThemeGenerator {
 			frame-cuts: 4px 2px 5px 16px;
 		}
 		
-		.MPartSashContainer{
-			background-color: «store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»;
+		«comment("Trim Stack")»
+		Shell.MTrimmedWindow > .MTrimBar > .TrimStack {
+			frame-image: url(jeeeyul://frame?background-color=«store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»);
+			frame-cuts: 4px 2px 5px 16px;
+			handle-image:
+				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»&embossed=false);
 		}
+		
+		Shell.MTrimmedWindow > .MTrimBar > .MToolBar.Draggable {
+			handle-image:
+				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»&embossed=false);
+		}
+		
+		
 		
 		«comment("Inactive Part Stack")»
 		.MPartStack {

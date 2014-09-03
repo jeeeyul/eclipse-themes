@@ -145,7 +145,7 @@ public class StoreClient extends EditorPart {
 					store.setValue(key, value);
 				}
 			}
-			new RewriteCustomTheme().rewrite();
+			new RewriteCustomTheme(true).rewrite();
 			MApplication application = (MApplication) PlatformUI.getWorkbench().getService(MApplication.class);
 			IEclipseContext context = application.getContext();
 			IThemeEngine engine = context.get(IThemeEngine.class);

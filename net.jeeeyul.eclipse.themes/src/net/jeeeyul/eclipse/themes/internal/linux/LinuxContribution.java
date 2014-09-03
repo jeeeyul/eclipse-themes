@@ -1,6 +1,6 @@
 package net.jeeeyul.eclipse.themes.internal.linux;
 
-import net.jeeeyul.eclipse.themes.internal.OSHelper;
+import net.jeeeyul.eclipse.themes.internal.ENVHelper;
 
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IContributionItem;
@@ -14,7 +14,7 @@ import org.eclipse.ui.actions.CompoundContributionItem;
 public class LinuxContribution extends CompoundContributionItem {
 	@Override
 	protected IContributionItem[] getContributionItems() {
-		if (OSHelper.INSTANCE.isLinux() == false) {
+		if (ENVHelper.INSTANCE.isLinux() == false) {
 			return new IContributionItem[0];
 		}
 

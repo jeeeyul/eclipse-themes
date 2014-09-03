@@ -61,7 +61,7 @@ public class JTDynamicResourceLocator implements IResourceLocator {
 			save.save(baos, SWT.IMAGE_GIF);
 			return new ByteArrayInputStream(baos.toByteArray());
 		}
-
+		
 		else if (command.equals("frame")) {
 			HSB hue = new HSB(curi.getParameterValue("background-color"));
 

@@ -11,10 +11,10 @@ import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Event
 import org.eclipse.swt.widgets.Spinner
 import org.eclipse.swt.program.Program
-import net.jeeeyul.eclipse.themes.internal.OSHelper
 import org.eclipse.swt.widgets.Button
 import net.jeeeyul.eclipse.themes.rendering.VerticalAlignment
 import java.util.List
+import net.jeeeyul.eclipse.themes.internal.ENVHelper
 
 class LayoutPage extends AbstractJTPreferencePage {
 	Spinner borderRadiusScale
@@ -209,7 +209,7 @@ class LayoutPage extends AbstractJTPreferencePage {
 					]
 				]
 			]
-			if(OSHelper.INSTANCE.linux) {
+			if(ENVHelper.INSTANCE.linux) {
 				newLink[
 					text = '''To reduce limit of minimum tab height, refer <a href="https://github.com/jeeeyul/eclipse-themes/wiki/Linux-User-Guide">Linux User Guide</a>.'''
 					layoutData = newGridData[
