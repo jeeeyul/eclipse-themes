@@ -160,7 +160,6 @@ public class StoreClient extends EditorPart {
 	}
 
 	private void handleOpen(WindowEvent event) {
-		System.out.println(event.size);
 		final Shell shell = new Shell(browser.getShell(), SWT.SHELL_TRIM);
 		GridLayout layout = new GridLayout();
 		layout.marginWidth = layout.marginHeight = 0;
@@ -183,6 +182,7 @@ public class StoreClient extends EditorPart {
 
 		browser.setLayoutData(data);
 		shell.pack();
+
 		shell.open();
 	}
 

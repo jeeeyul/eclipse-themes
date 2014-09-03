@@ -117,6 +117,7 @@ Template.detail.events({
 					"date" : new Date()
 				}
 			});
+			alert("Updated!");
 		} catch (e) {
 			alert(e);
 			alert("EPF Syntax is not valid!");
