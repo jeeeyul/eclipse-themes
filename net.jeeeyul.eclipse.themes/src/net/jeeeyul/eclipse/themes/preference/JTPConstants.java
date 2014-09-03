@@ -422,6 +422,9 @@ public interface JTPConstants {
 		
 		@TypeHint(HSB.class)
 		public static final String DRAG_FEEDBACK_COLOR = PREFIX + CATEGORY_SEPARATOR + "DRAG_FEEDBACK_COLOR";
+		
+		@TypeHint(int.class)
+		public static final String DRAG_FEEDBACK_ALPHA = PREFIX + CATEGORY_SEPARATOR + "DRAG_FEEDBACK_ALPHA";
 	}
 
 	@PresetCategory

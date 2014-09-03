@@ -17,7 +17,7 @@ import net.jeeeyul.eclipse.themes.internal.OSHelper
  */
 class CustomThemeGenerator {
 	@Property JThemePreferenceStore store
-	
+
 	extension OSHelper = OSHelper.INSTANCE
 
 	/**
@@ -353,11 +353,11 @@ class CustomThemeGenerator {
 			color: «store.getHSB(JTPConstants.ActivePartStack.SELECTED_TEXT_COLOR).toHTMLCode»;
 		}
 		
+		«comment("Busy Part")»
 		.MPart{
 			font-style: normal;
 		}
 		
-		«comment("Busy Part")»
 		.MPart.busy {
 			font-style: italic;
 		}
@@ -412,6 +412,7 @@ class CustomThemeGenerator {
 		«comment("Others")»
 		.DragFeedback {
 			background-color: «store.getHSB(JTPConstants.Others.DRAG_FEEDBACK_COLOR).toHTMLCode»;
+			jswt-alpha: «store.getInt(JTPConstants.Others.DRAG_FEEDBACK_ALPHA)»;
 		}
 		
 		«comment("User Custom CSS")»

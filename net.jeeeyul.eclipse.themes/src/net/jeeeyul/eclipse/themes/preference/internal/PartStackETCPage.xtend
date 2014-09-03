@@ -5,11 +5,14 @@ import net.jeeeyul.eclipse.themes.preference.JTPConstants
 import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore
 import net.jeeeyul.eclipse.themes.rendering.JTabSettings
 import net.jeeeyul.swtend.SWTExtensions
+import net.jeeeyul.swtend.ui.ColorWell
 import net.jeeeyul.swtend.ui.GradientEdit
 import org.eclipse.swt.custom.CTabFolder
 import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Composite
-import net.jeeeyul.swtend.ui.ColorWell
+import org.eclipse.swt.widgets.Label
+import org.eclipse.swt.widgets.Scale
+import java.util.Locale
 
 class PartStackETCPage extends AbstractJTPreferencePage {
 	GradientEdit emptyFillEdit
@@ -21,6 +24,8 @@ class PartStackETCPage extends AbstractJTPreferencePage {
 	Button editorsBorderHideEdit
 
 	ColorWell dragFeedbackColorWell
+	Scale dragFeedbackOpacityScale
+	Label dragFeedbackOpacityLabel
 
 	new() {
 		super("Others")
@@ -91,18 +96,37 @@ class PartStackETCPage extends AbstractJTPreferencePage {
 				text = "Other Colors"
 				layoutData = FILL_HORIZONTAL
 				layout = newGridLayout[
-					numColumns = 2
+					numColumns = 3
 				]
 				newLabel[
 					text = "Drag Feedback"
 				]
 				dragFeedbackColorWell = newColorWell[
+					layoutData = newGridData[
+						horizontalSpan = 2
+					]
+				]
+				newLabel[
+					text = "Opacity"
+				]
+				dragFeedbackOpacityScale = newScale[
+					minimum = 0
+					maximum = 255
+					layoutData = FILL_HORIZONTAL
+					onSelection = [
+						requestFastUpdatePreview
+					]
+				]
+				dragFeedbackOpacityLabel = newLabel[
+					text = "100%"
 				]
 			]
 		]
 	}
 
 	override updatePreview(CTabFolder folder, JTabSettings renderSettings, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
+		var percentText = String.format(Locale.ENGLISH, "%3.0f %%",  (dragFeedbackOpacityScale.selection / 255.0) * 100)
+		dragFeedbackOpacityLabel.text = percentText
 	}
 
 	override load(JThemePreferenceStore store, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
@@ -131,6 +155,7 @@ class PartStackETCPage extends AbstractJTPreferencePage {
 		editorsBorderHideEdit.selection = !store.getBoolean(JTPConstants.EditorsPartStack.BORDER_SHOW)
 		
 		dragFeedbackColorWell.selection = store.getHSB(JTPConstants.Others.DRAG_FEEDBACK_COLOR)
+		dragFeedbackOpacityScale.selection = store.getInt(JTPConstants.Others.DRAG_FEEDBACK_ALPHA)
 	}
 
 	override save(JThemePreferenceStore store, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
@@ -143,6 +168,7 @@ class PartStackETCPage extends AbstractJTPreferencePage {
 		store.setValue(JTPConstants.EditorsPartStack.BORDER_SHOW, !editorsBorderHideEdit.selection)
 		
 		store.setValue(JTPConstants.Others.DRAG_FEEDBACK_COLOR, dragFeedbackColorWell.selection)
+		store.setValue(JTPConstants.Others.DRAG_FEEDBACK_ALPHA, dragFeedbackOpacityScale.selection)
 	}
 
 	override dispose(extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {

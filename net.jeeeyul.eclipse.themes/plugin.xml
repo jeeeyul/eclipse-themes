@@ -176,6 +176,13 @@
                name="jeditor-line-style">
          </property-name>
       </handler>
+      <handler
+            adapter="org.eclipse.e4.ui.css.swt.dom.ShellElement"
+            handler="net.jeeeyul.eclipse.themes.css.ShellCSSHandler">
+         <property-name
+               name="jswt-alpha">
+         </property-name>
+      </handler>
    </extension>
    <extension
          point="org.eclipse.ui.preferenceTransfer">
