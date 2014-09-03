@@ -236,6 +236,9 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				drawChevronButton(part, state, bounds, gc)
 			}
 			case part >= 0: {
+				if(tabFolder.single){
+					return;
+				}
 				drawTabItem(part, state, bounds, gc)
 			}
 			default:

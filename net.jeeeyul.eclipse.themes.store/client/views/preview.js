@@ -146,14 +146,16 @@ Template.preview.helpers({
 				key : "padding",
 				value : "1px 1px 0px 1px"
 			});
-			styles.push({
-				key : "border-top-right-radius",
-				value : this["LAYOUT__BORDER_RADIUS"].value + "px"
-			});
-			styles.push({
-				key : "border-top-left-radius",
-				value : this["LAYOUT__BORDER_RADIUS"].value + "px"
-			});
+			if (this["LAYOUT__BORDER_RADIUS"]) {
+				styles.push({
+					key : "border-top-right-radius",
+					value : this["LAYOUT__BORDER_RADIUS"].value + "px"
+				});
+				styles.push({
+					key : "border-top-left-radius",
+					value : this["LAYOUT__BORDER_RADIUS"].value + "px"
+				});
+			}
 		}
 		return styles.map(function(each) {
 			return _.template("<%=key%>:<%=value%>", each);
@@ -202,8 +204,8 @@ Template.preview.helpers({
 				key : "padding",
 				value : "0px 1px 0px 1px"
 			});
-			
-			if(this["LAYOUT__BORDER_RADIUS"] != null){
+
+			if (this["LAYOUT__BORDER_RADIUS"] != null) {
 				styles.push({
 					key : "border-top-right-radius",
 					value : this["LAYOUT__BORDER_RADIUS"].value + "px"

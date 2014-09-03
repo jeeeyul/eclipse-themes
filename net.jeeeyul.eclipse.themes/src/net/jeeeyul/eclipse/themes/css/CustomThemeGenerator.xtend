@@ -392,6 +392,10 @@ class CustomThemeGenerator {
 			«ENDIF»
 		}
 		
+		CTabFolder#org-eclipse-ui-editorss.MArea Composite.MPartSashContainer {
+			background-color: «store.getGradient(JTPConstants.EditorsPartStack.FILL_COLOR).last.color.toHTMLCode»;
+		}
+		
 		«comment("Text Editor")»
 		.MPart.Editor Canvas {
 			background-color: «store.getHSB(JTPConstants.TextEditor.RULER_COLOR).toHTMLCode»;
