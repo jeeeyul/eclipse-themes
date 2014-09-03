@@ -1,5 +1,11 @@
 Router.configure({
-	layoutTemplate : "master"
+	layoutTemplate : "master",
+	onAfterAction : function(){
+		console.log()
+		if(typeof __updateURL == "function"){
+			__updateURL(location.origin + Router.current().path);
+		}
+	}
 });
 
 Router.map(function() {

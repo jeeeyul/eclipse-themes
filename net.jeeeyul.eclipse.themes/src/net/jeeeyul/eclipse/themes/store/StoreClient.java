@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.util.Properties;
 
 import net.jeeeyul.eclipse.themes.JThemesCore;
+import net.jeeeyul.eclipse.themes.SharedImages;
 import net.jeeeyul.eclipse.themes.css.RewriteCustomTheme;
 import net.jeeeyul.eclipse.themes.internal.Debug;
 import net.jeeeyul.eclipse.themes.preference.JTPConstants;
@@ -19,7 +20,11 @@ import org.eclipse.swt.SWTError;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.BrowserFunction;
 import org.eclipse.swt.browser.CloseWindowListener;
+import org.eclipse.swt.browser.LocationEvent;
+import org.eclipse.swt.browser.LocationListener;
 import org.eclipse.swt.browser.OpenWindowListener;
+import org.eclipse.swt.browser.TitleEvent;
+import org.eclipse.swt.browser.TitleListener;
 import org.eclipse.swt.browser.WindowEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
@@ -30,6 +35,9 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.ToolBar;
+import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
@@ -48,6 +56,10 @@ public class StoreClient extends EditorPart {
 	 */
 	public static final String EDITOR_ID = StoreClient.class.getCanonicalName();
 	private Browser browser;
+	private Text urlField;
+	private ToolItem backItem;
+	private ToolItem forwardItem;
+	private ToolItem homeItem;
 
 	@Override
 	public void doSave(IProgressMonitor monitor) {
@@ -75,25 +87,90 @@ public class StoreClient extends EditorPart {
 		return false;
 	}
 
+	private String getBootstrapURL() {
+		if (Debug.useLocalStore()) {
+			return "http://localhost:3000/";
+		} else {
+			return "http://themes.jeeeyul.net";
+		}
+	}
+
 	@Override
 	public void createPartControl(Composite parent) {
 		try {
-			browser = new Browser(parent, SWT.NONE);
-			if (Debug.useLocalStore()) {
-				browser.setUrl("http://localhost:3000/");
-			} else {
-				browser.setUrl("http://themes.jeeeyul.net");
-			}
+			Composite composite = new Composite(parent, SWT.NORMAL);
+			GridLayout layout = new GridLayout(2, false);
+			composite.setLayout(layout);
+			layout.marginWidth = layout.marginHeight = 0;
+			layout.verticalSpacing = 0;
+
+			ToolBar toolBar = new ToolBar(composite, SWT.FLAT);
+			backItem = new ToolItem(toolBar, SWT.PUSH);
+			backItem.setImage(SharedImages.getImage(SharedImages.BACKWARD_NAV));
+			backItem.addListener(SWT.Selection, new Listener() {
+				@Override
+				public void handleEvent(Event event) {
+					browser.back();
+				}
+			});
+
+			forwardItem = new ToolItem(toolBar, SWT.PUSH);
+			forwardItem.setImage(SharedImages.getImage(SharedImages.FORWARD_NAV));
+			forwardItem.addListener(SWT.Selection, new Listener() {
+				@Override
+				public void handleEvent(Event event) {
+					browser.forward();
+				}
+			});
+			new ToolItem(toolBar, SWT.SEPARATOR);
+
+			homeItem = new ToolItem(toolBar, SWT.PUSH);
+			homeItem.setImage(SharedImages.getImage(SharedImages.HOME_NAV));
+			homeItem.addListener(SWT.Selection, new Listener() {
+				@Override
+				public void handleEvent(Event event) {
+					browser.setUrl(getBootstrapURL());
+				}
+			});
+
+			urlField = new Text(composite, SWT.BORDER | SWT.READ_ONLY);
+			urlField.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
+			browser = new Browser(composite, SWT.NONE);
+			GridData browserData = new GridData(GridData.FILL_BOTH);
+			browserData.horizontalSpan = 2;
+			browser.setLayoutData(browserData);
+
+			browser.addTitleListener(new TitleListener() {
+				@Override
+				public void changed(TitleEvent event) {
+					Debug.println(event);
+				}
+			});
+
+			browser.addLocationListener(new LocationListener() {
+				@Override
+				public void changing(LocationEvent event) {
+					Debug.println(event);
+				}
+
+				@Override
+				public void changed(LocationEvent event) {
+					Debug.println(event);
+					urlField.setText(event.location);
+				}
+			});
 
 			browser.addOpenWindowListener(new OpenWindowListener() {
 				@Override
 				public void open(WindowEvent event) {
 					handleOpen(event);
 				}
-
 			});
 
 			installFunctions();
+
+			browser.setUrl(getBootstrapURL());
 		} catch (SWTError e) {
 			createBrowserHelpPage(parent);
 		}
@@ -127,6 +204,16 @@ public class StoreClient extends EditorPart {
 				return new EPFGenerator().generate();
 			}
 		};
+
+		new BrowserFunction(browser, "__updateURL") {
+			public Object function(Object[] args) {
+				if (args.length == 1 && args[0] instanceof String) {
+					urlField.setText((String) args[0]);
+				}
+				return null;
+			}
+		};
+
 	}
 
 	private void installEPF(String epfString) {
