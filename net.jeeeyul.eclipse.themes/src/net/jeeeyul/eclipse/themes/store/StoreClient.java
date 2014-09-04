@@ -20,11 +20,7 @@ import org.eclipse.swt.SWTError;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.BrowserFunction;
 import org.eclipse.swt.browser.CloseWindowListener;
-import org.eclipse.swt.browser.LocationEvent;
-import org.eclipse.swt.browser.LocationListener;
 import org.eclipse.swt.browser.OpenWindowListener;
-import org.eclipse.swt.browser.TitleEvent;
-import org.eclipse.swt.browser.TitleListener;
 import org.eclipse.swt.browser.WindowEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
@@ -140,26 +136,6 @@ public class StoreClient extends EditorPart {
 			GridData browserData = new GridData(GridData.FILL_BOTH);
 			browserData.horizontalSpan = 2;
 			browser.setLayoutData(browserData);
-
-			browser.addTitleListener(new TitleListener() {
-				@Override
-				public void changed(TitleEvent event) {
-					Debug.println(event);
-				}
-			});
-
-			browser.addLocationListener(new LocationListener() {
-				@Override
-				public void changing(LocationEvent event) {
-					Debug.println(event);
-				}
-
-				@Override
-				public void changed(LocationEvent event) {
-					Debug.println(event);
-					urlField.setText(event.location);
-				}
-			});
 
 			browser.addOpenWindowListener(new OpenWindowListener() {
 				@Override

@@ -23,9 +23,10 @@ class GeneralPage extends AbstractJTPreferencePage {
 	GradientEdit toolbarEdit
 	GradientEdit statusEdit
 	GradientEdit perspectiveSwitcherEdit
+
+	ColorWell statusTextColorWell
 	ColorWell perspectiveSwitcherKeyLineColorWell
 	ColorWell perspectiveTextColorWell
-	
 	ColorWell backgroundEdit
 
 	Button castShadowEdit
@@ -72,6 +73,15 @@ class GeneralPage extends AbstractJTPreferencePage {
 					layoutData = FILL_HORIZONTAL
 				]
 				statusEdit.appendOrderLockButton[]
+				
+				newLabel[
+					text = "Status Bar Text"
+				]
+				statusTextColorWell = newColorWell[
+					layoutData = newGridData[
+						horizontalSpan = 2
+					]
+				]
 			]
 			newGroup[
 				text = "Perspective Switcher"
@@ -208,6 +218,7 @@ class GeneralPage extends AbstractJTPreferencePage {
 		if(statusBarFill != null) {
 			this.statusEdit.selection = statusBarFill
 		}
+		statusTextColorWell.selection = store.getHSB(JTPConstants.Window.STATUS_BAR_TEXT_COLOR)
 
 		val background = store.getHSB(JTPConstants.Window.BACKGROUND_COLOR);
 		if(background != null) {
@@ -240,6 +251,8 @@ class GeneralPage extends AbstractJTPreferencePage {
 	override save(JThemePreferenceStore store, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
 		store.setValue(JTPConstants.Window.TOOLBAR_FILL_COLOR, this.toolbarEdit.selection)
 		store.setValue(JTPConstants.Window.STATUS_BAR_FILL_COLOR, this.statusEdit.selection)
+		store.setValue(JTPConstants.Window.STATUS_BAR_TEXT_COLOR, statusTextColorWell.selection)
+		
 		store.setValue(JTPConstants.Window.BACKGROUND_COLOR, this.backgroundEdit.selection)
 		store.setValue(JTPConstants.Window.PERSPECTIVE_SWITCHER_FILL_COLOR, this.perspectiveSwitcherEdit.selection)
 		store.setValue(JTPConstants.Window.PERSPECTIVE_SWITCHER_KEY_LINE_COLOR, this.perspectiveSwitcherKeyLineColorWell.selection)

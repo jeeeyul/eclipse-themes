@@ -364,6 +364,9 @@ public interface JTPConstants {
 		@TypeHint(Gradient.class)
 		public static final String STATUS_BAR_FILL_COLOR = PREFIX + CATEGORY_SEPARATOR + "STATUS_BAR_FILL_COLOR";
 
+		@TypeHint(HSB.class)
+		public static final String STATUS_BAR_TEXT_COLOR = PREFIX + CATEGORY_SEPARATOR + "STATUS_BAR_TEXT_COLOR";
+		
 		@TypeHint(Gradient.class)
 		public static final String PERSPECTIVE_SWITCHER_FILL_COLOR = PREFIX + CATEGORY_SEPARATOR + "PERSPECTIVE_SWITCHER_FILL_COLOR";
 

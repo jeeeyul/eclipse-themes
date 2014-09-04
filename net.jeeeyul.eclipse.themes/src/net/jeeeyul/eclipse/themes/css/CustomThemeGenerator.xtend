@@ -116,6 +116,16 @@ class CustomThemeGenerator {
 			background-color:«store.getGradient(JTPConstants.Window.STATUS_BAR_FILL_COLOR).toSWTCSSString»;
 		}
 		
+		#org-eclipse-ui-trim-status,
+		#org-eclipse-ui-trim-status *
+		{
+			color : «store.getHSB(JTPConstants.Window.STATUS_BAR_TEXT_COLOR).toHTMLCode»;
+		}
+		
+		#org-eclipse-ui-trim-status ToolBar{
+			jtool-item-color : «store.getHSB(JTPConstants.Window.STATUS_BAR_TEXT_COLOR).toHTMLCode»;
+		}
+		
 		#org-eclipse-ui-trim-status .Draggable {
 			handle-image:
 				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getGradient(JTPConstants.Window.STATUS_BAR_FILL_COLOR).middlePointColor.toHTMLCode»&embossed=false);
