@@ -1,64 +1,87 @@
-.preview{
+.preview {
 	font-size: 12px;
 	background-color: #eee;
 	display: inline-block;
-	box-shadow:0px 1px 4px rgba(0, 0, 0, 0.7);
+	box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.7);
 	margin: 15px 10px;
 	cursor: pointer;
 	min-width: 400px;
-	
-	.toolbar{
+	.toolbar {
 		height: 30px;
 		line-height: 28px;
 		text-align: left;
 		padding-left: 5px;
-		
-		img {
-			vertical-align: middle;
+		position: relative;
+		.tool-item {
+			display: inline-block;
+			img {
+				vertical-align: middle;
+			}
+		}
+
+		.perspective-switcher {
+			display: inline-block;
+			position: absolute;
+			right: 0px;
+			padding-left: 4px;
+			padding-right: 4px;
+			top: 0px;
+			bottom: -1px;
+			border-top-left-radius: 3px;
+			label {
+				padding-left:20px;
+				background-image: url("/images/jperspective.gif");
+				background-repeat : no-repeat;
+				background-position: left center;
+			}
 		}
 	}
-	.status-bar{
+
+	.status-bar {
 		height: 22px;
 		line-height: 22px;
 		padding-left: 5px;
 		text-align: left;
 	}
-	.window{
+
+	.window {
 		top: 26px;
-		.tab-folder{
+		.tab-folder {
 			display: block;
-			.tab-item-border{
-				position:relative;
+			.tab-item-border {
+				position: relative;
 				display: inline-block;
 				.tab-item {
 					margin: 0px;
 					padding: 5px 5px;
 				}
 			}
+
 			.glue {
 				position: absolute;
 				display: block;
-				right:1px;
-				left:0px;
+				right: 1px;
+				left: 0px;
 				height: 1px;
-				overflow:hidden;
+				overflow: hidden;
 			}
-			
+
 			.tab-body {
 				.content {
 					padding: 5px;
 				}
 			}
 		}
+
 		.tab-folder:first-child {
 			margin-bottom: 5px;
 		}
 	}
 }
 
-.tab-folder .tab-item label
-{
+.tab-folder .tab-item label {
 	background-image: url("/images/view.gif");
 	padding-left: 18px;
 	background-repeat: no-repeat;
 }
+

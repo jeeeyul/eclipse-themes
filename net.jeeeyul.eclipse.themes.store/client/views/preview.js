@@ -65,6 +65,34 @@ Template.preview.helpers({
 			return _.template("<%=key%>:<%=value%>", each);
 		}).join(";");
 	},
+
+	"perspectiveSwitcherStyle" : function() {
+		var styles = [];
+
+		if (this["WINDOW__PERSPECTIVE_SWITCHER_FILL_COLOR"]) {
+			styles.push({
+				key : "background",
+				value : PreviewHelper.getBackground(this["WINDOW__PERSPECTIVE_SWITCHER_FILL_COLOR"])
+			});
+		}
+		if(this["WINDOW__PERSPECTIVE_SWITCHER_KEY_LINE_COLOR"]){
+			styles.push({
+				key : "border-left",
+				value : PreviewHelper.getColor(this["WINDOW__PERSPECTIVE_SWITCHER_KEY_LINE_COLOR"]) + " solid 1px"
+			});
+		}
+		if (this.WINDOW__PERSPECTIVE_SWITCHER_TEXT_COLOR) {
+			styles.push({
+				"key" : "color",
+				"value" : PreviewHelper.getColor(this["WINDOW__PERSPECTIVE_SWITCHER_TEXT_COLOR"])
+			});
+		}
+
+		return styles.map(function(each) {
+			return _.template("<%=key%>:<%=value%>", each);
+		}).join(";");
+	},
+
 	"statusBarStyle" : function() {
 		var styles = [];
 
@@ -72,6 +100,13 @@ Template.preview.helpers({
 			key : "background",
 			value : PreviewHelper.getBackground(this["WINDOW__STATUS_BAR_FILL_COLOR"])
 		});
+		
+		if(this.WINDOW__STATUS_BAR_TEXT_COLOR){
+			styles.push({
+				key : "color",
+				value : PreviewHelper.getColor(this.WINDOW__STATUS_BAR_TEXT_COLOR)
+			});
+		}
 
 		return styles.map(function(each) {
 			return _.template("<%=key%>:<%=value%>", each);
