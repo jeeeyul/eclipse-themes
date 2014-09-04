@@ -9,6 +9,8 @@ import net.jeeeyul.eclipse.themes.css.RewriteCustomTheme;
 import net.jeeeyul.eclipse.themes.internal.Debug;
 import net.jeeeyul.eclipse.themes.preference.JTPConstants;
 import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore;
+import net.jeeeyul.eclipse.themes.preference.internal.PropertiesUtil;
+import net.jeeeyul.eclipse.themes.preference.preset.IJTPreset;
 import net.jeeeyul.swtend.SWTExtensions;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -196,6 +198,10 @@ public class StoreClient extends EditorPart {
 		try {
 			Properties properties = new Properties();
 			properties.load(new ByteArrayInputStream(epfString.getBytes("ISO-8859-1")));
+
+			IJTPreset defaultPreset = JThemesCore.getDefault().getPresetManager().getDefaultPreset();
+			properties = PropertiesUtil.merge(defaultPreset.getProperties(), properties);
+
 			JThemePreferenceStore store = JThemesCore.getDefault().getPreferenceStore();
 
 			for (Object keyObj : properties.keySet()) {

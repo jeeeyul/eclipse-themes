@@ -6,7 +6,9 @@ import net.jeeeyul.eclipse.themes.JThemesCore;
 import net.jeeeyul.eclipse.themes.css.RewriteCustomTheme;
 import net.jeeeyul.eclipse.themes.preference.JTPConstants;
 import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore;
+import net.jeeeyul.eclipse.themes.preference.internal.PropertiesUtil;
 import net.jeeeyul.eclipse.themes.preference.preset.IJTPreset;
+import net.jeeeyul.eclipse.themes.preference.preset.IJTPresetManager;
 import net.jeeeyul.swtend.SWTExtensions;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -52,7 +54,8 @@ public class ApplyPresetAction extends Action {
 	@Override
 	public void run() {
 		JThemePreferenceStore store = getStore();
-		Properties properties = preset.getProperties();
+		IJTPresetManager presetManager = JThemesCore.getDefault().getPresetManager();
+		Properties properties = PropertiesUtil.merge(presetManager.getDefaultPreset().getProperties(), preset.getProperties());
 
 		for (Object keyObj : properties.keySet()) {
 			String key = (String) keyObj;
