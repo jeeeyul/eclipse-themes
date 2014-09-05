@@ -2,10 +2,13 @@ package net.jeeeyul.eclipse.themes.preference.actions;
 
 import java.util.Properties;
 
+import net.jeeeyul.eclipse.themes.JThemesCore;
 import net.jeeeyul.eclipse.themes.preference.JTPConstants;
 import net.jeeeyul.eclipse.themes.preference.JThemePreferenceStore;
 import net.jeeeyul.eclipse.themes.preference.internal.JTPreferencePage;
+import net.jeeeyul.eclipse.themes.preference.internal.PropertiesUtil;
 import net.jeeeyul.eclipse.themes.preference.preset.IJTPreset;
+import net.jeeeyul.eclipse.themes.preference.preset.IJTPresetManager;
 import net.jeeeyul.swtend.SWTExtensions;
 
 import org.eclipse.jface.preference.PreferenceStore;
@@ -44,12 +47,13 @@ public class LoadPresetAction extends AbstractPreferenceAction {
 
 	@Override
 	public void run() {
+		IJTPresetManager presetManager = JThemesCore.getDefault().getPresetManager();
+		Properties properties = PropertiesUtil.merge(presetManager.getDefaultPreset().getProperties(), preset.getProperties());
 		PreferenceStore store = new PreferenceStore();
-		Properties props = preset.getProperties();
 
-		for (Object kObj : props.keySet()) {
+		for (Object kObj : properties.keySet()) {
 			String key = (String) kObj;
-			String value = props.getProperty(key);
+			String value = properties.getProperty(key);
 
 			if (key.equals(JTPConstants.Layout.TAB_HEIGHT)) {
 				int intValue = Integer.parseInt(value);
