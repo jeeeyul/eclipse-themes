@@ -12,6 +12,7 @@ import org.w3c.dom.css.CSSPrimitiveValue
 import org.w3c.dom.css.CSSValue
 import org.w3c.dom.css.CSSValueList
 import org.eclipse.ui.forms.IFormColors
+import net.jeeeyul.swtend.ui.HSB
 
 /**
  * CSS Property handler for {@link StyledText}.
@@ -67,9 +68,15 @@ class FormHeadingCSSPropertyHandler implements ICSSPropertyHandler {
 
 	override retrieveCSSProperty(Object element, String property, String pseudo, CSSEngine engine) throws Exception {
 		var fhElement = element as FormHeadingElement
-		var formHeading = fhElement.nativeWidget as FormHeadingElement
+		var formHeading = fhElement.nativeWidget as FormHeading
 
 		switch (property) {
+			case "jbottom-keyline-1-color": {
+				new HSB(formHeading.getColor(IFormColors.H_BOTTOM_KEYLINE1).RGB).toHTMLCode
+			}
+			case "jbottom-keyline-2-color": {
+				new HSB(formHeading.getColor(IFormColors.H_BOTTOM_KEYLINE2).RGB).toHTMLCode
+			}
 			default:
 				null
 		}

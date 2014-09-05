@@ -3,6 +3,7 @@ package net.jeeeyul.eclipse.themes.css
 import net.jeeeyul.eclipse.themes.css.elements.SectionElement
 import net.jeeeyul.eclipse.themes.css.internal.EditorLineSupport
 import net.jeeeyul.swtend.SWTExtensions
+import net.jeeeyul.swtend.ui.HSB
 import org.eclipse.e4.ui.css.core.dom.properties.ICSSPropertyHandler
 import org.eclipse.e4.ui.css.core.engine.CSSEngine
 import org.eclipse.swt.custom.StyledText
@@ -80,6 +81,9 @@ class SectionCSSPropertyHandler implements ICSSPropertyHandler {
 		var section = sElement.nativeWidget as Section
 
 		switch (property) {
+			case "jtitle-bar-border-color": 	new HSB(section.titleBarBorderColor.RGB).toHTMLCode
+			case "jtitle-bar-background-color":	new HSB(section.titleBarBackground.RGB).toHTMLCode
+			case "jtitle-bar-text-color":		new HSB(section.titleBarForeground.RGB).toHTMLCode
 			default:
 				null
 		}
