@@ -426,6 +426,21 @@ class CustomThemeGenerator {
 			color : jtexteditor-foreground;
 		}
 		
+		«comment("Forms")»
+		.MPart FormHeading {
+			jtext-background: «store.getGradient(JTPConstants.Forms.FORM_HEADING_BACKGROUND).toSWTCSSString»;
+			color : «store.getHSB(JTPConstants.Forms.FORM_HEADING_TITLE_COLOR).toHTMLCode»;
+			jbottom-keyline-1-color: «store.getHSB(JTPConstants.Forms.FORM_HEADING_BORDER_1_COLOR).toHTMLCode»;
+			jbottom-keyline-2-color: «store.getHSB(JTPConstants.Forms.FORM_HEADING_BORDER_2_COLOR).toHTMLCode»;
+		}
+		
+		.MPart Section {
+			jtitle-bar-background-color:  «store.getHSB(JTPConstants.Forms.SECTION_HEADER_TINT_COLOR).toHTMLCode»;
+			jtitle-bar-border-color:  «store.getHSB(JTPConstants.Forms.SECTION_HEADER_BORDER_COLOR).toHTMLCode»;
+			jtitle-bar-text-color :  «store.getHSB(JTPConstants.Forms.SECTION_HEADER_TITLE_COLOR).toHTMLCode»;
+			jtitle-bar-active-text-color :  «store.getHSB(JTPConstants.Forms.SECTION_HEADER_ACTIVE_TITLE_COLOR).toHTMLCode»;
+		}
+		
 		«comment("Others")»
 		.DragFeedback {
 			background-color: «store.getHSB(JTPConstants.Others.DRAG_FEEDBACK_COLOR).toHTMLCode»;

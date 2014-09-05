@@ -61,8 +61,9 @@ class JTPreferencePage extends PreferencePage implements IWorkbenchPreferencePag
 		pages += new GeneralPage
 		pages += new PartStacksPage
 		pages += new TextEditorPage
-		pages += new ToolsPage
+		pages += new FormsPage
 		pages += new UserCSSPage
+		pages += new ToolsPage
 	}
 
 	override init(IWorkbench workbench) {

@@ -20,33 +20,23 @@
       </theme>
    </extension>
    <extension
+         point="org.eclipse.e4.ui.css.core.elementProvider">
+      <provider
+            class="net.jeeeyul.eclipse.themes.css.elements.ExtendedElementProvider">
+         <widget
+               class="org.eclipse.ui.internal.forms.widgets.FormHeading"></widget>
+         <widget
+               class="org.eclipse.ui.forms.widgets.Section">
+         </widget>
+      </provider>
+   </extension>
+   <extension
          id="id1"
          point="org.eclipse.e4.workbench.model">
       <processor
             beforefragment="true"
             class="net.jeeeyul.eclipse.themes.internal.JThemeProcessor">
       </processor>
-   </extension>
-   <extension
-         point="org.eclipse.core.runtime.preferences">
-      <initializer
-            class="net.jeeeyul.eclipse.themes.preference.internal.JTPreferenceInitializer">
-      </initializer>
-   </extension>
-   <extension
-         point="org.eclipse.ui.preferencePages">
-      <page
-            category="org.eclipse.ui.preferencePages.Views"
-            class="net.jeeeyul.eclipse.themes.preference.internal.JTPreferencePage"
-            id="net.jeeeyul.eclipse.themes.preference.internal.JTPreferencePage"
-            name="Jeeeyul&apos;s Themes">
-      </page>
-      <page
-            category="net.jeeeyul.eclipse.themes.preference.internal.JTPreferencePage"
-            class="net.jeeeyul.eclipse.themes.preference.preset.internal.JTPresetPreferencePage"
-            id="net.jeeeyul.eclipse.themes.preference.preset.internal.JTPresetPreferencePage"
-            name="Presets">
-      </page>
    </extension>
    <extension
          point="org.eclipse.e4.ui.css.core.propertyHandler">
@@ -90,7 +80,6 @@
          <property-name
                name="jtab-unselected-tabs-background">
          </property-name>
-         
          <property-name
                name="jtab-hover-tabs-background">
          </property-name>
@@ -106,19 +95,15 @@
          <property-name
                name="jtab-padding">
          </property-name>
-         
-          <property-name
+         <property-name
                name="jtab-shadow-color">
          </property-name>
-         
-          <property-name
+         <property-name
                name="jtab-shadow-radius">
          </property-name>
-         
-          <property-name
+         <property-name
                name="jtab-shadow-position">
          </property-name>
-         
          <property-name
                name="jtab-selected-text-shadow-color">
          </property-name>
@@ -128,7 +113,6 @@
          <property-name
                name="jtab-hover-text-shadow-color">
          </property-name>
-         
          <property-name
                name="jtab-selected-text-shadow-position">
          </property-name>
@@ -190,6 +174,56 @@
                name="jtool-item-color">
          </property-name>
       </handler>
+      <handler
+            adapter="net.jeeeyul.eclipse.themes.css.elements.FormHeadingElement"
+            handler="net.jeeeyul.eclipse.themes.css.FormHeadingCSSPropertyHandler">
+         <property-name
+               name="jtext-background">
+         </property-name>
+         <property-name
+               name="jbottom-keyline-1-color">
+         </property-name>
+         <property-name
+               name="jbottom-keyline-2-color">
+         </property-name>
+      </handler>
+      <handler
+            adapter="net.jeeeyul.eclipse.themes.css.elements.SectionElement"
+            handler="net.jeeeyul.eclipse.themes.css.SectionCSSPropertyHandler">
+         <property-name
+               name="jtitle-bar-border-color">
+         </property-name>
+         <property-name
+               name="jtitle-bar-background-color">
+         </property-name>
+         <property-name
+               name="jtitle-bar-text-color">
+         </property-name>
+         <property-name
+               name="jtitle-bar-active-text-color">
+         </property-name>
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="net.jeeeyul.eclipse.themes.preference.internal.JTPreferenceInitializer">
+      </initializer>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="org.eclipse.ui.preferencePages.Views"
+            class="net.jeeeyul.eclipse.themes.preference.internal.JTPreferencePage"
+            id="net.jeeeyul.eclipse.themes.preference.internal.JTPreferencePage"
+            name="Jeeeyul&apos;s Themes">
+      </page>
+      <page
+            category="net.jeeeyul.eclipse.themes.preference.internal.JTPreferencePage"
+            class="net.jeeeyul.eclipse.themes.preference.preset.internal.JTPresetPreferencePage"
+            id="net.jeeeyul.eclipse.themes.preference.preset.internal.JTPresetPreferencePage"
+            name="Presets">
+      </page>
    </extension>
    <extension
          point="org.eclipse.ui.preferenceTransfer">

@@ -366,7 +366,7 @@ public interface JTPConstants {
 
 		@TypeHint(HSB.class)
 		public static final String STATUS_BAR_TEXT_COLOR = PREFIX + CATEGORY_SEPARATOR + "STATUS_BAR_TEXT_COLOR";
-		
+
 		@TypeHint(Gradient.class)
 		public static final String PERSPECTIVE_SWITCHER_FILL_COLOR = PREFIX + CATEGORY_SEPARATOR + "PERSPECTIVE_SWITCHER_FILL_COLOR";
 
@@ -444,6 +444,35 @@ public interface JTPConstants {
 
 		@TypeHint(HSB.class)
 		public static final String RULER_COLOR = PREFIX + CATEGORY_SEPARATOR + "RULER_COLOR";
+	}
+
+	@PresetCategory
+	public static interface Forms {
+		public static final String PREFIX = "FORMS";
+
+		@TypeHint(Gradient.class)
+		public static final String FORM_HEADING_BACKGROUND = PREFIX + CATEGORY_SEPARATOR + "FORM_HEADING_BACKGROUND";
+
+		@TypeHint(HSB.class)
+		public static final String FORM_HEADING_TITLE_COLOR = PREFIX + CATEGORY_SEPARATOR + "FORM_HEADING_TITLE_COLOR";
+		
+		@TypeHint(HSB.class)
+		public static final String FORM_HEADING_BORDER_1_COLOR = PREFIX + CATEGORY_SEPARATOR + "FORM_HEADING_BORDER_1_COLOR";
+
+		@TypeHint(HSB.class)
+		public static final String FORM_HEADING_BORDER_2_COLOR = PREFIX + CATEGORY_SEPARATOR + "FORM_HEADING_BORDER_2_COLOR";
+
+		@TypeHint(HSB.class)
+		public static final String SECTION_HEADER_TINT_COLOR = PREFIX + CATEGORY_SEPARATOR + "SECTION_HEADER_TINT_COLOR";
+
+		@TypeHint(HSB.class)
+		public static final String SECTION_HEADER_TITLE_COLOR = PREFIX + CATEGORY_SEPARATOR + "SECTION_HEADER_TITLE_COLOR";
+		
+		@TypeHint(HSB.class)
+		public static final String SECTION_HEADER_ACTIVE_TITLE_COLOR = PREFIX + CATEGORY_SEPARATOR + "SECTION_HEADER_ACTIVE_TITLE_COLOR";
+
+		@TypeHint(HSB.class)
+		public static final String SECTION_HEADER_BORDER_COLOR = PREFIX + CATEGORY_SEPARATOR + "SECTION_HEADER_BORDER_COLOR";
 	}
 
 	public static interface Memento {
