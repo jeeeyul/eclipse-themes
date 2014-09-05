@@ -1,7 +1,7 @@
 Router.configure({
 	layoutTemplate : "master",
-	onAfterAction : function(){
-		if(typeof __updateURL == "function"){
+	onAfterAction : function() {
+		if (typeof __updateURL == "function") {
 			__updateURL(location.origin + Router.current().path);
 		}
 	}

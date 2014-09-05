@@ -1,19 +1,97 @@
-.detail{
+.detail {
+	.preview {
+		font-size: 12px;
+		background-color: #eee;
+		display: block;
+		box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.7);
+		margin: 10px 0px;
+		cursor: pointer;
+		width: 100%;
+		box-sizing: border-box;
+		.tab-folder {
+			.tab-body {
+				.content {
+					padding: 1px ! important;
+					.form-heading {
+						font-size: 16px;
+						padding: 0px 10px;
+						line-height: 30px;
+						background: linear-gradient(hsl(0, 0%, 100%) 0%, hsl(210, 71.42853648171977%, 94.50980171528003%) 100%);
+						border-bottom: hsl(0, 0%, 100%) solid 1px;
+						position: relative;
+						a {
+							color: inherit;
+						}
+
+						.toolbar {
+							line-height: 30px;
+							vertical-align: middle;
+							right: 0px;
+							top: 0px;
+							bottom: 0px;
+							position: absolute;
+							padding: 0px;
+						}
+					}
+
+					.form-heading-border {
+						height: 1px;
+						background-color: hsl(210.90909, 73.3333429984101%, 82.3529436039942%);
+					}
+
+					.form-content {
+						padding: 2px;
+						.section-header {
+							padding: 2px 5px;
+							border-top-left-radius: 4px;
+							border-top-right-radius: 4px;
+							border-style: solid solid none solid;
+							border-width: 1px;
+							margin-top: 10px;
+							position: relative;
+							background: linear-gradient(hsl(210, 71.42853648171977%, 94.50980171528003%) 0%, white 100%);
+							color: hsl(211.57895, 17.75700784906981%, 41.9607850968254%);
+							border-color: hsl(210.90909, 73.3333429984101%, 82.3529436039942%);
+							.spacer {
+								border-top-left-radius: 4px;
+								border-top-right-radius: 4px;
+								border-style: solid solid none solid;
+								border-color: white;
+								border-width: 1px;
+								position: absolute;
+								top: 0px;
+								right: 0px;
+								left: 0px;
+								bottom: 0px;
+							}
+						}
+
+						.section-content {
+							margin:5px 0px;
+							padding: 3px;
+						}
+					}
+				}
+			}
+		}
+	}
+
 	table {
-		width:100%;
+		width: 100%;
 		th {
 			text-align: right;
 			width: 10%;
 			vertical-align: top;
 			padding-right: 10px;
 		}
-		
+
 		td {
 			width: 90%;
 			input {
 				width: 100%;
 				box-sizing: border-box;
 			}
+
 			textarea {
 				box-sizing: border-box;
 				width: 100%;
@@ -22,24 +100,27 @@
 			}
 		}
 	}
-	
+
 	#comment-field {
-		font-size:1.5em;
+		font-size: 1.5em;
 		width: 100%;
+		box-sizing: border-box;
 	}
-	.comment-entry{
+
+	.comment-entry {
 		margin: 5px;
 		.author {
-			display:inline-block;
+			display: inline-block;
 			width: 150px;
 			text-align: right;
-			background-color:#eee;
+			background-color: #eee;
 			padding: 5px;
 		}
-		
-		.comment{
+
+		.comment {
 			display: inline-block;
 			margin-left: 10px;
 		}
 	}
 }
+

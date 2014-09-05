@@ -1,14 +1,4 @@
 Template.theme.helpers({
-	"renderModel" : function() {
-		var model = {};
-		_(this.epf).forEach(function(it) {
-			model[it.key] = it.value;
-		});
-
-		model.epf = this.epf;
-		return model;
-	},
-
 	canLike : function() {
 		var canLike = true;
 		canLike = canLike && (Meteor.userId() != null);

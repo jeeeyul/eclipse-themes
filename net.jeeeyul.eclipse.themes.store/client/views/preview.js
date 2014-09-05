@@ -48,6 +48,18 @@ PreviewHelper = (function() {
 })();
 
 Template.preview.helpers({
+	"detailMode": function(){
+		return Router.current().route.name == "detail";
+	},
+	"renderModel" : function() {
+		var model = {};
+		_(this.epf).forEach(function(it) {
+			model[it.key] = it.value;
+		});
+
+		model.epf = this.epf;
+		return model;
+	},
 	"toolbarStyle" : function() {
 		var styles = [];
 

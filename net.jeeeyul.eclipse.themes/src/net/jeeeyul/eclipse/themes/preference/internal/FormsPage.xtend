@@ -33,7 +33,7 @@ class FormsPage extends AbstractJTPreferencePage {
 				text = "Form Heading"
 				layoutData = FILL_HORIZONTAL
 				layout = newGridLayout[
-					numColumns = 2
+					numColumns = 3
 				]
 				newLabel[
 					text = "Background"
@@ -42,21 +42,35 @@ class FormsPage extends AbstractJTPreferencePage {
 					layoutData = FILL_HORIZONTAL
 				]
 				
+				formHeadingGradientEdit.appendOrderLockButton[
+				]
+				
 				newLabel[
 					text = "Title Text"
 				]
 				
 				formHeadingTitleTextColorWell = newColorWell[
+					layoutData = newGridData[
+						horizontalSpan = 2
+					]
 				]
 				
 				newLabel[
 					text = "Upper Bottom Border"
 				]
-				formHeadingBorder1ColorWell = newColorWell[]
+				formHeadingBorder1ColorWell = newColorWell[
+					layoutData = newGridData[
+						horizontalSpan = 2
+					]
+				]
 				newLabel[
 					text = "Below Bottom Border"
 				]
-				formHeadingBorder2ColorWell = newColorWell[]
+				formHeadingBorder2ColorWell = newColorWell[
+					layoutData = newGridData[
+						horizontalSpan = 2
+					]
+				]
 			]
 			newGroup[
 				text = "Section"

@@ -1,14 +1,4 @@
-Template.detail.helpers({
-	"renderModel" : function() {
-		var model = {};
-		_(this.epf).forEach(function(it) {
-			model[it.key] = it.value;
-		});
-
-		model.epf = this.epf;
-		return model;
-	},
-
+var sharedHelpers = {
 	canLike : function() {
 		var canLike = true;
 		canLike = canLike && (Meteor.userId() != null);
@@ -33,12 +23,11 @@ Template.detail.helpers({
 	},
 
 	"isOwner" : function() {
-		if(Meteor.user() == null){
+		if (Meteor.user() == null) {
 			return false;
 		}
 		return Meteor.user()._id == this.authorId;
 	},
-
 	"hasComment" : function() {
 		return Comments.find().count() > 0;
 	},
@@ -46,11 +35,112 @@ Template.detail.helpers({
 	"epfContent" : function() {
 		return EPFSerializer.serialize(this.epf);
 	},
-	
+
 	canInject : function() {
 		return typeof __getCurrentEPF == "function";
+	},
+
+	"formHeadingStyle" : function() {
+		var model = {};
+		_(this.epf).forEach(function(it) {
+			model[it.key] = it.value;
+		});
+
+		var styles = [];
+		if (model["FORMS__FORM_HEADING_BACKGROUND"]) {
+			styles.push({
+				key : "background",
+				value : PreviewHelper.getBackground(model["FORMS__FORM_HEADING_BACKGROUND"])
+			});
+		}
+
+		if (model["FORMS__FORM_HEADING_BORDER_1_COLOR"]) {
+			styles.push({
+				key : "border-bottom",
+				value : PreviewHelper.getColor(model["FORMS__FORM_HEADING_BORDER_1_COLOR"]) + " solid 1px"
+			});
+		}
+		
+		if(model["FORMS__FORM_HEADING_TITLE_COLOR"]){
+			styles.push({
+				key : "color",
+				value : PreviewHelper.getColor(model["FORMS__FORM_HEADING_TITLE_COLOR"])
+			});
+		}
+
+		return styles.map(function(each) {
+			return _.template("<%=key%>:<%=value%>", each);
+		}).join(";");
+	},
+
+	"formHeadingBorderStyle" : function() {
+		var model = {};
+		_(this.epf).forEach(function(it) {
+			model[it.key] = it.value;
+		});
+
+		var styles = [];
+		styles.push({
+			key : "height",
+			value : "1px"
+		});
+
+		if (model["FORMS__FORM_HEADING_BORDER_2_COLOR"]) {
+			styles.push({
+				key : "background-color",
+				value : PreviewHelper.getColor(model["FORMS__FORM_HEADING_BORDER_2_COLOR"])
+			});
+		}
+		
+		return styles.map(function(each) {
+			return _.template("<%=key%>:<%=value%>", each);
+		}).join(";");
+	},
+
+	"sectionHeaderStyle" : function() {
+		var model = {};
+		_(this.epf).forEach(function(it) {
+			model[it.key] = it.value;
+		});
+
+		var styles = [];
+		if (model["FORMS__SECTION_HEADER_TINT_COLOR"]) {
+			styles.push({
+				key : "background",
+				value : _.template("linear-gradient(<%=color%> 0%, white 100%)", {
+					color : PreviewHelper.getColor(model["FORMS__SECTION_HEADER_TINT_COLOR"])
+				})
+			});
+		}
+		if (model["FORMS__FORM_HEADING_TITLE_COLOR"]) {
+			styles.push({
+				key : "color",
+				value : PreviewHelper.getColor(model["FORMS__FORM_HEADING_TITLE_COLOR"])
+			});
+		}
+
+		if (model["FORMS__SECTION_HEADER_BORDER_COLOR"]) {
+			styles.push({
+				key : "border-color",
+				value : PreviewHelper.getColor(model["FORMS__SECTION_HEADER_BORDER_COLOR"])
+			});
+		}
+
+		return styles.map(function(each) {
+			return _.template("<%=key%>:<%=value%>", each);
+		}).join(";");
 	}
-});
+};
+
+Template.detail.helpers(_.extend({}, sharedHelpers, {
+	rendered : function(){
+		this.$(".section-header").each(function(){
+			$(this).append($("<div class='spacer'></div>"));
+		});
+	}
+}));
+Template.detailActivePart.helpers(sharedHelpers);
+Template.detailInactivePart.helpers(sharedHelpers);
 
 Template.detail.events({
 	"keydown #comment-field" : function(e, t, d) {
@@ -123,13 +213,13 @@ Template.detail.events({
 			alert("EPF Syntax is not valid!");
 		}
 	},
-	
+
 	"click #inject-button" : function(e, t, d) {
 		t.$("#epf-field").val(__getCurrentEPF());
 	},
-	
-	"focus textarea" : function(e, t, d){
-		setTimeout(function(){
+
+	"focus textarea" : function(e, t, d) {
+		setTimeout(function() {
 			$(e.target).select();
 		});
 	}
