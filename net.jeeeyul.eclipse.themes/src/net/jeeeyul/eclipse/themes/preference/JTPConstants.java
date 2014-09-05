@@ -448,6 +448,7 @@ public interface JTPConstants {
 
 	@PresetCategory
 	public static interface Forms {
+		@Ignore
 		public static final String PREFIX = "FORMS";
 
 		@TypeHint(Gradient.class)
