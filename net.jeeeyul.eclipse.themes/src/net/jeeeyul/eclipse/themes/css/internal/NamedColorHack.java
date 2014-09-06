@@ -17,6 +17,7 @@ import net.jeeeyul.swtend.ui.HSB;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.e4.ui.css.core.css2.CSS2ColorHelper;
@@ -111,15 +112,23 @@ public class NamedColorHack {
 	 * named colors in
 	 */
 	public void start() {
-		getEditorStore().addPropertyChangeListener(listener);
-		getUpdateJob().schedule();
+		if (textEditorAvailable()) {
+			getEditorStore().addPropertyChangeListener(listener);
+			getUpdateJob().schedule();
+		}
 	}
 
 	/**
 	 * 
 	 */
 	public void stop() {
-		getEditorStore().removePropertyChangeListener(listener);
+		if (textEditorAvailable()) {
+			getEditorStore().removePropertyChangeListener(listener);
+		}
+	}
+
+	private boolean textEditorAvailable() {
+		return Platform.getBundle("org.eclipse.ui.editors") != null;
 	}
 
 	private void update(String colorname, String defaultKey, int defaultSWTKey,

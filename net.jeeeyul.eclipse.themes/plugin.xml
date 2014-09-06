@@ -206,7 +206,7 @@
       <processor
             apply="always"
             beforefragment="true"
-            class="net.jeeeyul.eclipse.themes.internal.DynamicResourceProcessor">
+            class="net.jeeeyul.eclipse.themes.DynamicResourceProcessor">
       </processor>
    </extension>
 </plugin>
