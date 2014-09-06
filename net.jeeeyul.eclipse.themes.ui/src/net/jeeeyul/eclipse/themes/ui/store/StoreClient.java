@@ -192,6 +192,16 @@ public class StoreClient extends EditorPart {
 			}
 		};
 
+		new BrowserFunction(browser, "__openURL") {
+			public Object function(Object[] args) {
+				if (args.length == 1 && args[0] instanceof String) {
+					String url = (String) args[0];
+					Program.launch(url);
+				}
+				return null;
+			}
+		};
+
 	}
 
 	private void installEPF(String epfString) {

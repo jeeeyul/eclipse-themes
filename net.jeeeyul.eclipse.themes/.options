@@ -1,2 +1,3 @@
 net.jeeeyul.eclipse.themes/debug=false
 net.jeeeyul.eclipse.themes/debug/gui=false
+net.jeeeyul.eclipse.themes/debug/useLocalStoreServer=false

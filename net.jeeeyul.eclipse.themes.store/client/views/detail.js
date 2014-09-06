@@ -241,5 +241,15 @@ Template.detail.events({
 		setTimeout(function() {
 			$(e.target).select();
 		});
+	},
+	
+	"click .share-link" : function(e, t, d){
+		var url = $(e.target).attr("href");
+		if(typeof __openURL == "function"){
+			__openURL(url);
+		}else{
+			window.open(url, "_blank", "width=640, height=480");
+		}
+		e.preventDefault();
 	}
 });
