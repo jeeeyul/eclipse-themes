@@ -60,8 +60,8 @@ var sharedHelpers = {
 				value : PreviewHelper.getColor(model["FORMS__FORM_HEADING_BORDER_1_COLOR"]) + " solid 1px"
 			});
 		}
-		
-		if(model["FORMS__FORM_HEADING_TITLE_COLOR"]){
+
+		if (model["FORMS__FORM_HEADING_TITLE_COLOR"]) {
 			styles.push({
 				key : "color",
 				value : PreviewHelper.getColor(model["FORMS__FORM_HEADING_TITLE_COLOR"])
@@ -91,7 +91,7 @@ var sharedHelpers = {
 				value : PreviewHelper.getColor(model["FORMS__FORM_HEADING_BORDER_2_COLOR"])
 			});
 		}
-		
+
 		return styles.map(function(each) {
 			return _.template("<%=key%>:<%=value%>", each);
 		}).join(";");
@@ -129,12 +129,31 @@ var sharedHelpers = {
 		return styles.map(function(each) {
 			return _.template("<%=key%>:<%=value%>", each);
 		}).join(";");
-	}
+	},
+
+	"hyperlinkStyle" : function() {
+		var model = {};
+		_(this.epf).forEach(function(it) {
+			model[it.key] = it.value;
+		});
+
+		var styles = [];
+		if (model["FORMS__HYPER_LINK_COLOR"]) {
+			styles.push({
+				key : "color",
+				value : PreviewHelper.getColor(model["FORMS__HYPER_LINK_COLOR"])
+			});
+		}
+
+		return styles.map(function(each) {
+			return _.template("<%=key%>:<%=value%>", each);
+		}).join(";");
+	},
 };
 
 Template.detail.helpers(_.extend({}, sharedHelpers, {
-	rendered : function(){
-		this.$(".section-header").each(function(){
+	rendered : function() {
+		this.$(".section-header").each(function() {
 			$(this).append($("<div class='spacer'></div>"));
 		});
 	}
