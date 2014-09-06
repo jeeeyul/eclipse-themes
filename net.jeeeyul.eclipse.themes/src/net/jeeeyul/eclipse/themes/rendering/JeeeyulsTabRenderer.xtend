@@ -3,10 +3,9 @@ package net.jeeeyul.eclipse.themes.rendering
 import java.beans.PropertyChangeEvent
 import java.beans.PropertyChangeListener
 import net.jeeeyul.eclipse.themes.internal.Debug
-import net.jeeeyul.eclipse.themes.rendering.internal.EmptyClassHook
-import net.jeeeyul.eclipse.themes.util.ImageDataUtil
 import net.jeeeyul.eclipse.themes.rendering.internal.JTabRendererHelper
 import net.jeeeyul.eclipse.themes.rendering.internal.Shadow9PatchFactory
+import net.jeeeyul.eclipse.themes.util.ImageDataUtil
 import net.jeeeyul.swtend.SWTExtensions
 import net.jeeeyul.swtend.ui.HSB
 import net.jeeeyul.swtend.ui.NinePatch
@@ -37,7 +36,6 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	JTabSettings settings = new JTabSettings(this)
 	CTabFolder tabFolder
 	NinePatch shadowNinePatch;
-	EmptyClassHook emptyClassHook
 	PropertyChangeListener settingsListener = [
 		handleSettingChange(it)
 	]
@@ -65,7 +63,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	new(CTabFolder parent) {
 		super(parent)
 		this.tabFolder = parent
-		this.emptyClassHook = new EmptyClassHook(parent)
+//		this.emptyClassHook = new EmptyClassHook(parent)
 		settings.addPropertyChangeListener(settingsListener)
 
 		if(isWindow) {
@@ -75,7 +73,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 	override protected dispose() {
 		shadowNinePatch.safeDispose()
-		emptyClassHook.dispose()
+//		emptyClassHook.dispose()
 		settings.removePropertyChangeListener(settingsListener)
 
 		if(window && parent.alive) {

@@ -75,6 +75,11 @@ Shell.MTrimmedWindow {
 	frame-cuts: 4px 2px 5px 16px;
 }
 
+#status-bar #fixed-toolbar
+{
+	handle-image : none;
+}
+
 /**************************************************
  * Trim Stack
  **************************************************/

@@ -5,7 +5,7 @@
          id="product"
          point="org.eclipse.core.runtime.products">
       <product
-            name="net.jeeeyul.eclipse.themes.test.e4app"
+            name="Sample App"
             application="org.eclipse.e4.ui.workbench.swt.E4Application">
          <property
                name="applicationCSS"
@@ -13,7 +13,7 @@
          </property>
          <property
                name="appName"
-               value="net.jeeeyul.eclipse.themes.test.e4app">
+               value="Sample App">
          </property>
       </product>
    </extension>

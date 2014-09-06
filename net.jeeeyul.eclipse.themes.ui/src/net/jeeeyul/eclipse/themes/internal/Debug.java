@@ -13,7 +13,6 @@ import org.eclipse.core.runtime.Platform;
  */
 public class Debug {
 	private static Boolean DEBUG;
-	private static Boolean DEBUG_GUI;
 	private static Boolean USE_LOCAL_STORE;
 
 	/**
@@ -38,18 +37,6 @@ public class Debug {
 			DEBUG = JThemesCore.getDefault().isDebugging();
 		}
 		return DEBUG;
-	}
-
-	/**
-	 * 
-	 * @return whether running under gui debug mode
-	 */
-	public static boolean isDebuggingGUI() {
-		if (DEBUG_GUI == null) {
-			String debugOption = Platform.getDebugOption("net.jeeeyul.eclipse.themes/debug/gui");
-			DEBUG_GUI = Boolean.parseBoolean(debugOption);
-		}
-		return DEBUG_GUI;
 	}
 
 	/**

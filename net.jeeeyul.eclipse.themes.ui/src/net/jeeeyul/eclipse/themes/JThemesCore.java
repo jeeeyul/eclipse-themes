@@ -21,7 +21,7 @@ public class JThemesCore extends AbstractUIPlugin {
 	/**
 	 * The plug-in id
 	 */
-	public static final String PLUGIN_ID = "net.jeeeyul.eclipse.themes"; //$NON-NLS-1$
+	public static final String PLUGIN_ID = "net.jeeeyul.eclipse.themes.ui"; //$NON-NLS-1$
 
 	/**
 	 * The custom theme id.

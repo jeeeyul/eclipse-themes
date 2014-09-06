@@ -208,5 +208,10 @@
             beforefragment="true"
             class="net.jeeeyul.eclipse.themes.DynamicResourceProcessor">
       </processor>
+      <processor
+            apply="always"
+            beforefragment="true"
+            class="net.jeeeyul.eclipse.themes.EmptyPartStackProcessor">
+      </processor>
    </extension>
 </plugin>

@@ -23,7 +23,7 @@ import org.osgi.service.event.EventHandler;
  * @since 2.0.0
  */
 @SuppressWarnings("restriction")
-public class ActiveThemeTracker {
+public class ActiveThemeProcessor {
 	EventHandler themeChangeHandler = new EventHandler() {
 		@Override
 		public void handleEvent(Event event) {
@@ -40,7 +40,7 @@ public class ActiveThemeTracker {
 	@PreDestroy
 	public void dispose() {
 		eventBroker.unsubscribe(themeChangeHandler);
-		Debug.println("Active Theme Tracker is disposed");
+		Debug.println("Active Theme Processor is disposed");
 	}
 
 	private void handleThemeChange(Event event) {
