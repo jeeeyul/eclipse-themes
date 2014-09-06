@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="net.jeeeyul.eclipse.themes.preset" name="Jeeeyul&apos;s Themes Preset" schema="schema/net.jeeeyul.eclipse.themes.preset.exsd"/>
+   <extension
+         point="org.eclipse.e4.ui.css.swt.theme">
+      <theme
+            basestylesheeturi="css/jeeeyul-custom.css"
+            id="net.jeeeyul.eclipse.themes.custom"
+            label="Jeeeyul&apos;s themes - Custom Theme">
+      </theme>
+   </extension>
+   <extension
+         id="id1"
+         point="org.eclipse.e4.workbench.model">
+      <processor
+            apply="always"
+            beforefragment="true"
+            class="net.jeeeyul.eclipse.themes.internal.JThemeProcessor">
+      </processor>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="net.jeeeyul.eclipse.themes.ui.preference.internal.JTPreferenceInitializer">
+      </initializer>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="org.eclipse.ui.preferencePages.Views"
+            class="net.jeeeyul.eclipse.themes.ui.preference.internal.JTPreferencePage"
+            id="net.jeeeyul.eclipse.themes.preference.internal.JTPreferencePage"
+            name="Jeeeyul&apos;s Themes">
+      </page>
+      <page
+            category="net.jeeeyul.eclipse.themes.preference.internal.JTPreferencePage"
+            class="net.jeeeyul.eclipse.themes.ui.preference.preset.internal.JTPresetPreferencePage"
+            id="net.jeeeyul.eclipse.themes.preference.preset.internal.JTPresetPreferencePage"
+            name="Presets">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferenceTransfer">
+      <transfer
+            icon="icons/jtheme.png"
+            id="net.jeeeyul.eclipse.themes.transfer"
+            name="Jeeeyul&apos;s Theme Settings Tranfer">
+         <mapping
+               scope="instance">
+            <entry
+                  node="net.jeeeyul.eclipse.themes">
+            </entry>
+         </mapping>
+      </transfer>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="net.jeeeyul.eclipse.themes.command.open.url"
+            name="Open URL">
+         <commandParameter
+               id="url"
+               name="URL"
+               optional="false">
+         </commandParameter>
+         <defaultHandler
+               class="net.jeeeyul.eclipse.themes.ui.OpenURLHandler">
+            <parameter
+                  name="net.jeeeyul.eclipse.themes.parameter1"
+                  value="net.jeeeyul.eclipse.themes.parameter1">
+            </parameter>
+         </defaultHandler>
+      </command>
+      <command
+            defaultHandler="net.jeeeyul.eclipse.themes.ui.store.OpenStoreClientHandler"
+            id="net.jeeeyul.eclipse.themes.command.open.store"
+            name="Open Theme Store">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:org.eclipse.ui.main.toolbar">
+         <toolbar
+               id="net.jeeeyul.eclipse.themes.toolbar"
+               label="Jeeeyul&apos;s Eclipse Themes">
+            <command
+                  commandId="org.eclipse.ui.window.preferences"
+                  icon="icons/jtheme.png"
+                  id="org.eclipse.ui.window.preferences"
+                  style="pulldown">
+               <parameter
+                     name="preferencePageId"
+                     value="net.jeeeyul.eclipse.themes.preference.internal.JTPreferencePage">
+               </parameter>
+            </command>
+         </toolbar>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:org.eclipse.ui.window.preferences">
+         <dynamic
+               class="net.jeeeyul.eclipse.themes.ui.CategoriesContribution"
+               id="net.jeeeyul.eclipse.themes.ui.CategoryContributionItems">
+         </dynamic>
+         <separator
+               name="other-themes"
+               visible="true">
+         </separator>
+         <command
+               commandId="net.jeeeyul.eclipse.themes.command.open.store"
+               icon="icons/store.png"
+               label="Theme Store"
+               style="push">
+         </command>
+         <menu
+               icon="icons/css.gif"
+               label="Other themes">
+            <dynamic
+                  class="net.jeeeyul.eclipse.themes.ui.OtherThemesContribution"
+                  id="net.jeeeyul.eclipse.themes.ui.OtherThemesContribution">
+            </dynamic>
+         </menu>
+         <separator
+               name="others"
+               visible="true">
+         </separator>
+         <dynamic
+               class="net.jeeeyul.eclipse.themes.ui.linux.LinuxContribution"
+               id="net.jeeeyul.eclipse.themes.internal.linux.LinuxContribution">
+         </dynamic>
+         <command
+               commandId="org.eclipse.ui.window.preferences"
+               icon="icons/config.png"
+               label="Settings..."
+               style="push">
+            <parameter
+                  name="preferencePageId"
+                  value="net.jeeeyul.eclipse.themes.preference.internal.JTPreferencePage">
+            </parameter>
+         </command>
+         <separator
+               name="support"
+               visible="true">
+         </separator>
+         <menu
+               icon="icons/contact.png"
+               id="net.jeeeyul.eclipse.themes.contact"
+               label="Contact">
+            <command
+                  commandId="net.jeeeyul.eclipse.themes.command.open.url"
+                  icon="icons/github.png"
+                  label="Homepage"
+                  style="push">
+               <parameter
+                     name="url"
+                     value="https://github.com/jeeeyul/eclipse-themes">
+               </parameter>
+            </command>
+            <command
+                  commandId="net.jeeeyul.eclipse.themes.command.open.url"
+                  icon="icons/help_contents.png"
+                  label="User Guide"
+                  style="push">
+               <parameter
+                     name="url"
+                     value="https://github.com/jeeeyul/eclipse-themes/wiki/User-Guide">
+               </parameter>
+            </command>
+            <command
+                  commandId="net.jeeeyul.eclipse.themes.command.open.url"
+                  icon="icons/note.gif"
+                  label="Release Note"
+                  style="push">
+               <parameter
+                     name="url"
+                     value="https://github.com/jeeeyul/eclipse-themes/wiki/Release-Note">
+               </parameter>
+            </command>
+            <command
+                  commandId="net.jeeeyul.eclipse.themes.command.open.url"
+                  icon="icons/eclipse.gif"
+                  label="Market Place"
+                  style="push">
+               <parameter
+                     name="url"
+                     value="http://marketplace.eclipse.org/content/jeeeyuls-eclipse-themes">
+               </parameter>
+            </command>
+            <separator
+                  name="additions"
+                  visible="true">
+            </separator>
+            <command
+                  commandId="net.jeeeyul.eclipse.themes.command.open.url"
+                  icon="icons/pledgie.png"
+                  label="Donate"
+                  style="push">
+               <parameter
+                     name="url"
+                     value="https://pledgie.com/campaigns/18377">
+               </parameter>
+            </command>
+         </menu>
+      </menuContribution>
+   </extension>
+   <extension
+         point="net.jeeeyul.eclipse.themes.preset">
+      <preset
+            epf="presets/default/default.epf"
+            id="net.jeeeyul.eclipse.themes.preset.default"
+            name="Minimalist (Default)">
+         <description>
+            Default Preset
+         </description>
+      </preset>
+      <preset
+            epf="presets/default/chrome.epf"
+            id="net.jeeeyul.eclipse.themes.preset.chrome"
+            name="Chrome (Classic)">
+         <description>
+            Default Preset
+         </description>
+      </preset>
+      <preset
+            epf="presets/default/Coffee.epf"
+            id="net.jeeeyul.eclipse.themes.preset.coffee"
+            name="Coffee">
+         <description>
+            description body text
+         </description>
+      </preset>
+      <preset
+            epf="presets/default/Hello Kitty.epf"
+            id="net.jeeeyul.eclipse.themes.preset.kitty"
+            name="Hello Kitty">
+         <description>
+            Default Preset
+         </description>
+      </preset>
+      <preset
+            epf="presets/default/Lime.epf"
+            id="net.jeeeyul.eclipse.themes.preset.lime"
+            name="Lime">
+         <description>
+            Default Preset
+         </description>
+      </preset>
+      <preset
+            epf="presets/default/Ocean.epf"
+            id="net.jeeeyul.eclipse.themes.preset.ocean"
+            name="Ocean">
+         <description>
+            Default Preset
+         </description>
+      </preset>
+      <preset
+            epf="presets/default/Glossy Ocean.epf"
+            id="net.jeeeyul.eclipse.themes.preset.glossy.ocean"
+            name="Glossy Ocean">
+         <description>
+            Default Preset
+         </description>
+      </preset>
+      <preset
+            epf="presets/default/Adwaita.epf"
+            id="net.jeeeyul.eclipse.themes.preset.adwaita"
+            name="Adwaita">
+         <description>
+            Default Preset
+         </description>
+      </preset>
+      <preset
+            epf="presets/default/Cloud Space.epf"
+            id="net.jeeeyul.eclipse.themes.preset.cloud.space"
+            name="Cloud Space">
+         <description>
+            description body text
+         </description>
+      </preset>
+      <preset
+            epf="presets/default/Retro.epf"
+            id="net.jeeeyul.eclipse.themes.retro"
+            name="Retro">
+         <description>
+            description body text
+         </description>
+      </preset>
+      <preset
+            epf="presets/default/Spring Tool Suite.epf"
+            id="net.jeeeyul.eclipse.themes.preset.sts"
+            name="Spring Tool Suite">
+         <description>
+            description body text
+         </description>
+      </preset>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="net.jeeeyul.eclipse.themes.ui.store.StoreClient"
+            default="false"
+            icon="icons/store.png"
+            id="net.jeeeyul.eclipse.themes.ui.store.StoreClient"
+            name="Theme Store">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.elementFactories">
+      <factory
+            class="net.jeeeyul.eclipse.themes.ui.store.StoreInputFactory"
+            id="net.jeeeyul.eclipse.themes.ui.store.StoreInputFactory">
+      </factory>
+   </extension>
+</plugin>

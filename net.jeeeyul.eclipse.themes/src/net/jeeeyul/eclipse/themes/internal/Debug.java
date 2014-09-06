@@ -2,7 +2,7 @@ package net.jeeeyul.eclipse.themes.internal;
 
 import java.text.MessageFormat;
 
-import net.jeeeyul.eclipse.themes.JThemesCore;
+import net.jeeeyul.eclipse.themes.JTRuntime;
 
 import org.eclipse.core.runtime.Platform;
 
@@ -26,7 +26,9 @@ public class Debug {
 		String msg = o != null ? o.toString() : "null";
 		if (isDebugging()) {
 			StackTraceElement element = Thread.currentThread().getStackTrace()[2];
-			System.out.println(MessageFormat.format("({0}:{1, number,#}) : {2}", element.getFileName(), element.getLineNumber(), msg));
+			System.out.println(MessageFormat.format(
+					"({0}:{1, number,#}) : {2}", element.getFileName(),
+					element.getLineNumber(), msg));
 		}
 	}
 
@@ -35,7 +37,9 @@ public class Debug {
 	 */
 	public static boolean isDebugging() {
 		if (DEBUG == null) {
-			DEBUG = JThemesCore.getDefault().isDebugging();
+			String debugOption = Platform.getDebugOption(MessageFormat.format(
+					"{0}/debug", JTRuntime.PLUGIN_ID));
+			DEBUG = Boolean.parseBoolean(debugOption);
 		}
 		return DEBUG;
 	}
@@ -46,7 +50,8 @@ public class Debug {
 	 */
 	public static boolean isDebuggingGUI() {
 		if (DEBUG_GUI == null) {
-			String debugOption = Platform.getDebugOption("net.jeeeyul.eclipse.themes/debug/gui");
+			String debugOption = Platform.getDebugOption(MessageFormat.format(
+					"{0}/debug/gui", JTRuntime.PLUGIN_ID));
 			DEBUG_GUI = Boolean.parseBoolean(debugOption);
 		}
 		return DEBUG_GUI;
@@ -57,7 +62,8 @@ public class Debug {
 	 */
 	public static boolean useLocalStore() {
 		if (USE_LOCAL_STORE == null) {
-			String debugOption = Platform.getDebugOption("net.jeeeyul.eclipse.themes/debug/useLocalStoreServer");
+			String debugOption = Platform
+					.getDebugOption("net.jeeeyul.eclipse.themes/debug/useLocalStoreServer");
 			USE_LOCAL_STORE = Boolean.parseBoolean(debugOption);
 		}
 		return USE_LOCAL_STORE;

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_VTHWUDWbEeSIpb3CV_2BFQ" elementId="org.eclipse.e4.ide.application" bindingContexts="_VTHWWTWbEeSIpb3CV_2BFQ">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_VTHWUTWbEeSIpb3CV_2BFQ" label="Sampel App" width="500" height="400">
+    <children xsi:type="basic:PartSashContainer" xmi:id="_6AaksDWbEeSIpb3CV_2BFQ" elementId="net.jeeeyul.eclipse.themes.test.e4app.partsashcontainer.0" selectedElement="_6n9F0DWbEeSIpb3CV_2BFQ">
+      <children xsi:type="basic:PartStack" xmi:id="_6n9F0DWbEeSIpb3CV_2BFQ" elementId="net.jeeeyul.eclipse.themes.test.e4app.partstack.0" containerData="5000">
+        <children xsi:type="basic:Part" xmi:id="_7NjtQDWbEeSIpb3CV_2BFQ" elementId="net.jeeeyul.eclipse.themes.test.e4app.part.test" contributionURI="bundleclass://net.jeeeyul.eclipse.themes.test.e4app/net.jeeeyul.eclipse.themes.test.e4app.TestView" label="Test" iconURI="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/icons/save_edit.png"/>
+        <children xsi:type="basic:Part" xmi:id="__3zj8DWdEeSIpb3CV_2BFQ" elementId="net.jeeeyul.eclipse.themes.test.e4app.part.test2" contributionURI="bundleclass://net.jeeeyul.eclipse.themes.test.e4app/net.jeeeyul.eclipse.themes.test.e4app.TestView" label="test2" iconURI="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/icons/sample.png"/>
+        <children xsi:type="basic:Part" xmi:id="_AWttgDWeEeSIpb3CV_2BFQ" elementId="net.jeeeyul.eclipse.themes.test.e4app.part.test3" contributionURI="bundleclass://net.jeeeyul.eclipse.themes.test.e4app/net.jeeeyul.eclipse.themes.test.e4app.TestView" label="test3" iconURI="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/icons/save_edit.png"/>
+      </children>
+    </children>
+    <trimBars xmi:id="_UTwgMDWdEeSIpb3CV_2BFQ" elementId="main-toolbar">
+      <children xsi:type="menu:ToolBar" xmi:id="_U4-GEDWdEeSIpb3CV_2BFQ" elementId="net.jeeeyul.eclipse.themes.test.e4app.toolbar.0">
+        <children xsi:type="menu:DirectToolItem" xmi:id="_WId_EDWdEeSIpb3CV_2BFQ" elementId="toolbar" iconURI="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/icons/sample.png"/>
+        <children xsi:type="menu:ToolBarSeparator" xmi:id="_qOOMYDWdEeSIpb3CV_2BFQ" elementId="net.jeeeyul.eclipse.themes.test.e4app.toolbarseparator.0"/>
+        <children xsi:type="menu:DirectToolItem" xmi:id="_k2_B8DWdEeSIpb3CV_2BFQ" elementId="toolbar" iconURI="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/icons/sample.png"/>
+        <children xsi:type="menu:DirectToolItem" xmi:id="_k74JADWdEeSIpb3CV_2BFQ" elementId="toolbar" iconURI="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/icons/sample.png"/>
+      </children>
+      <children xsi:type="menu:ToolBar" xmi:id="_j9enEDWdEeSIpb3CV_2BFQ" elementId="net.jeeeyul.eclipse.themes.test.e4app.toolbar.1">
+        <children xsi:type="menu:DirectToolItem" xmi:id="_kU6PoDWdEeSIpb3CV_2BFQ" elementId="toolbar" iconURI="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/icons/sample.png"/>
+        <children xsi:type="menu:DirectToolItem" xmi:id="_kv1REDWdEeSIpb3CV_2BFQ" elementId="toolbar" iconURI="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/icons/sample.png"/>
+      </children>
+    </trimBars>
+    <trimBars xmi:id="_wL32kDWdEeSIpb3CV_2BFQ" elementId="status-bar" side="Bottom">
+      <children xsi:type="menu:ToolBar" xmi:id="_0YIboDWdEeSIpb3CV_2BFQ" elementId="net.jeeeyul.eclipse.themes.test.e4app.toolbar.1">
+        <children xsi:type="menu:DirectToolItem" xmi:id="_0YIboTWdEeSIpb3CV_2BFQ" elementId="toolbar" iconURI="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/icons/sample.png"/>
+        <children xsi:type="menu:DirectToolItem" xmi:id="_0YIbojWdEeSIpb3CV_2BFQ" elementId="toolbar" iconURI="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/icons/sample.png"/>
+      </children>
+    </trimBars>
+  </children>
+  <rootContext xmi:id="_VTHWWTWbEeSIpb3CV_2BFQ" elementId="org.eclipse.ui.contexts.dialogAndWindow" name="In Dialog and Windows">
+    <children xmi:id="_VTHWWjWbEeSIpb3CV_2BFQ" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
+    <children xmi:id="_VTHWWzWbEeSIpb3CV_2BFQ" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
+  </rootContext>
+  <toolBarContributions xmi:id="_Iire0DWdEeSIpb3CV_2BFQ" elementId="net.jeeeyul.eclipse.themes.test.e4app.toolbarcontribution.0"/>
+  <addons xmi:id="_VTHWUjWbEeSIpb3CV_2BFQ" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
+  <addons xmi:id="_VTHWUzWbEeSIpb3CV_2BFQ" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
+  <addons xmi:id="_VTHWVDWbEeSIpb3CV_2BFQ" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
+  <addons xmi:id="_VTHWVTWbEeSIpb3CV_2BFQ" elementId="org.eclipse.e4.ui.workbench.commands.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.CommandProcessingAddon"/>
+  <addons xmi:id="_VTHWVjWbEeSIpb3CV_2BFQ" elementId="org.eclipse.e4.ui.workbench.handler.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.HandlerProcessingAddon"/>
+  <addons xmi:id="_VTHWVzWbEeSIpb3CV_2BFQ" elementId="org.eclipse.e4.ui.workbench.contexts.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.ContextProcessingAddon"/>
+  <addons xmi:id="_VTHWWDWbEeSIpb3CV_2BFQ" elementId="org.eclipse.e4.ui.workbench.bindings.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.swt/org.eclipse.e4.ui.workbench.swt.util.BindingProcessingAddon"/>
+</application:Application>

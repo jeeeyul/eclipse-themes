@@ -7,7 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import net.jeeeyul.eclipse.themes.rendering.JTabSettings;
-import net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer;
+import net.jeeeyul.eclipse.themes.util.HackedField;
+import net.jeeeyul.eclipse.themes.util.HackedMethod0;
 import net.jeeeyul.swtend.SWTExtensions;
 import net.jeeeyul.swtend.ui.HSB;
 

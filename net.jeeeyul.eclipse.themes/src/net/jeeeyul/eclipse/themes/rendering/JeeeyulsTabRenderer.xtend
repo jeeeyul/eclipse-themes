@@ -2,8 +2,9 @@ package net.jeeeyul.eclipse.themes.rendering
 
 import java.beans.PropertyChangeEvent
 import java.beans.PropertyChangeListener
+import net.jeeeyul.eclipse.themes.internal.Debug
 import net.jeeeyul.eclipse.themes.rendering.internal.EmptyClassHook
-import net.jeeeyul.eclipse.themes.rendering.internal.ImageDataUtil
+import net.jeeeyul.eclipse.themes.util.ImageDataUtil
 import net.jeeeyul.eclipse.themes.rendering.internal.JTabRendererHelper
 import net.jeeeyul.eclipse.themes.rendering.internal.Shadow9PatchFactory
 import net.jeeeyul.swtend.SWTExtensions
@@ -20,7 +21,6 @@ import org.eclipse.swt.graphics.Path
 import org.eclipse.swt.graphics.Point
 import org.eclipse.swt.graphics.Rectangle
 import org.eclipse.swt.widgets.Listener
-import net.jeeeyul.eclipse.themes.internal.Debug
 
 /**
  * A new CTabFolder Renderer for Jeeeyul's eclipse themes 2.0

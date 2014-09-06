@@ -10,5 +10,13 @@
             restorable="true">
       </view>
    </extension>
+   <extension
+         point="org.eclipse.e4.ui.css.swt.theme">
+      <theme
+            basestylesheeturi="css/test.css"
+            id="net.jeeeyul.eclipse.themes.test.theme"
+            label="Standalone Test Theme">
+      </theme>
+   </extension>
 
 </plugin>

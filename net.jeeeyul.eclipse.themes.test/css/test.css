@@ -1,0 +1,306 @@
+/**************************************************
+ * Window
+ **************************************************/
+Shell.MTrimmedWindow {
+	margin-top: 4px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 3px;
+	background-color: #4c667d;
+}
+
+.MPartSashContainer {
+	jsash-width : 2px;
+	background-color: #4c667d;
+}
+
+/**************************************************
+ * Main Toolbar
+ **************************************************/
+#org-eclipse-ui-main-toolbar {
+	background-color:#4d667d #4d667d 100%;
+}
+
+#org-eclipse-ui-main-toolbar > .Draggable {
+	handle-image:
+		url(jeeeyul://drag-handle?height=22&background-color=#4d667d&embossed=false);
+}
+
+#org-eclipse-ui-main-toolbar > .TrimStack {
+	frame-image: none;
+	handle-image:
+		url(jeeeyul://drag-handle?height=22&background-color=#4d667d&embossed=false);
+}
+
+#org-eclipse-ui-main-toolbar #PerspectiveSwitcher {
+	background-color: #4d667d #4d667d 100%;
+	handle-image: none;
+	eclipse-perspective-keyline-color: #4d667d;
+}
+
+#org-eclipse-ui-main-toolbar #PerspectiveSwitcher ToolBar {
+	jtool-item-color : #e4eff8;
+}
+
+/**************************************************
+ * Status Bar
+ **************************************************/
+#org-eclipse-ui-trim-status{
+	background-color:#4d667d #4d667d 100%;
+}
+
+#org-eclipse-ui-trim-status,
+#org-eclipse-ui-trim-status *
+{
+	color : #d8ecff;
+}
+
+#org-eclipse-ui-trim-status ToolBar{
+	jtool-item-color : #d8ecff;
+}
+
+#org-eclipse-ui-trim-status .Draggable {
+	handle-image:
+		url(jeeeyul://drag-handle?height=22&background-color=#4d667d&embossed=false);
+}
+
+#org-eclipse-ui-trim-status .TrimStack {
+	handle-image:
+		url(jeeeyul://drag-handle?height=22&background-color=#4d667d&embossed=false);
+	frame-image: url(jeeeyul://frame?background-color=#4d667d);
+	frame-cuts: 4px 2px 5px 16px;
+}
+
+/**************************************************
+ * Trim Stack
+ **************************************************/
+Shell.MTrimmedWindow > .MTrimBar > .TrimStack {
+	frame-image: url(jeeeyul://frame?background-color=#4c667d);
+	frame-cuts: 4px 2px 5px 16px;
+	handle-image:
+		url(jeeeyul://drag-handle?height=22&background-color=#4c667d&embossed=false);
+}
+
+Shell.MTrimmedWindow > .MTrimBar > .MToolBar.Draggable {
+	handle-image:
+		url(jeeeyul://drag-handle?height=22&background-color=#4c667d&embossed=false);
+}
+
+
+
+/**************************************************
+ * Inactive Part Stack
+ **************************************************/
+.MPartStack {
+	swt-tab-renderer:
+		url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer');
+	swt-mru-visible: true;
+	
+	/* layout */
+	swt-tab-height: 22px;
+	jtab-border-radius: 2px;
+	jtab-spacing: 2px;
+	jtab-item-padding: 0px 5px;
+	jtab-padding : 2px;
+	jtab-truncate-tab-items : true;
+	jtab-use-ellipses : false;
+	jtab-minimum-characters : 1;
+	jtab-close-button-alignment : baseline;
+	
+	jtab-margin : 0px 4px 4px 1px; /* top right bottom left */
+	jtab-shadow-color: #000000;
+	jtab-shadow-position: 1px 1px;
+	jtab-shadow-radius: 3px;
+	
+	/* tab background */
+	jtab-header-background : #d2e0ec #c3d2e0 100%;
+	jtab-border-color : none;
+	background : #ffffff;
+	
+	/* selected tabs */
+	jtab-selected-tab-background: #ffffff #ffffff 100%;
+	jtab-selected-border-color: none;
+	jtab-selected-text-shadow-color: none;
+
+	/* unselected tabs */
+	jtab-unselected-tabs-background: none;
+	
+	jtab-unselected-border-color: none;
+	jtab-unselected-text-shadow-color: none;
+	
+	/* hover tabs */
+	jtab-hover-color : #000000;
+	jtab-hover-tabs-background: #e6eef6 #d9e4ed 100%;
+	
+	jtab-hover-border-color: none;
+	jtab-hover-text-shadow-color: none;
+	
+	jtab-close-button-color: #cdcdcd;
+	jtab-close-button-hot-color: #5686b0;
+	jtab-close-button-active-color: #1b81dd;
+	jtab-close-button-line-width: 2px;
+	
+	jtab-chevron-color: #000000;
+}
+
+.MPartStack>CTabItem {
+	/* unselected tab text */
+	color: #000000;
+}
+
+.MPartStack>CTabItem:selected {
+	/* selected tab text */
+	color: #000000;
+}
+
+/**************************************************
+ * Editor Part Stack
+ **************************************************/
+.MPartStack.EditorStack{
+	jtab-truncate-tab-items : true;
+	jtab-minimum-characters : 16;
+}
+
+/**************************************************
+ * Empty Part Stack
+ **************************************************/
+.MPartStack.empty{
+	jtab-header-background : #758390 #758390 100%;
+	jtab-border-color : #758390 #758390 100%;
+	background : #758390;
+}
+
+/**************************************************
+ * Active Part Stack
+ **************************************************/
+.MPartStack.active {
+	swt-tab-renderer:
+		url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer');
+	
+	/* tab background */
+	jtab-header-background : #6b91b3 #5a84aa 100%;
+	jtab-border-color : none;
+	background : #ffffff;
+	
+	/* selected tabs */
+	jtab-selected-tab-background: #ffffff #ffffff 100%;
+	jtab-selected-border-color: none;
+	jtab-selected-text-shadow-color: none;
+
+	/* unselected tabs */
+	jtab-unselected-tabs-background: none;
+	
+	jtab-unselected-border-color: none;
+	jtab-unselected-text-shadow-position: 0px 1px;
+	jtab-unselected-text-shadow-color: #306798;
+	
+	/* hover tabs */
+	jtab-hover-color : #ffffff;
+	jtab-hover-tabs-background: #8daecd #729bbf 100%;
+	
+	jtab-hover-border-color: none;
+	jtab-hover-text-shadow-color: none;
+	
+	jtab-close-button-color: #cdcdcd;
+	jtab-close-button-hot-color: #5686b0;
+	jtab-close-button-active-color: #1b81dd;
+	jtab-close-button-line-width: 2px;
+	
+	jtab-chevron-color: #ffffff;
+}
+
+.MPartStack.active>CTabItem {
+	/* unselected tab text */
+	color: #ffffff;
+}
+
+.MPartStack.active>CTabItem:selected {
+	/* selected tab text */
+	color: #306798;
+}
+
+/**************************************************
+ * Busy Part
+ **************************************************/
+.MPart{
+	font-style: normal;
+}
+
+.MPart.busy {
+	font-style: italic;
+}
+
+/**************************************************
+ * editors
+ **************************************************/
+CTabFolder#org-eclipse-ui-editorss.MArea{
+	swt-tab-renderer:
+		url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer');
+	swt-tab-height: 10px;
+	jtab-header-background : #758390 #758390 100%;
+	jtab-border-color : none;
+	jtab-selected-tab-background: #758390 #758390 100%;
+	jtab-selected-border-color: none;
+	swt-single : true;
+	
+	jtab-margin : 0px 4px 4px 1px; /* top right bottom left */
+	jtab-shadow-color: #000000;
+	jtab-shadow-position: 1px 1px;
+	jtab-shadow-radius: 3px;
+	jtab-padding : 2px 2px 4px 4px;
+}
+
+CTabFolder#org-eclipse-ui-editorss.MArea Composite.MPartSashContainer {
+	background-color: #758390;
+}
+
+/**************************************************
+ * Text Editor
+ **************************************************/
+.MPart.Editor Canvas {
+	background-color: #f0f0f0;
+}
+
+.MPart.Editor StyledText {
+	jeditor-line-style : none;
+	jeditor-line-color : #f0f0f0;
+	jeditor-range-indicator-color : gray;
+}
+
+/**************************************************
+ * Customized Text Editor Support
+ **************************************************/
+.MPart Section StyledText
+{
+	background : jtexteditor-background;
+	color : jtexteditor-foreground;
+}
+
+/**************************************************
+ * Forms
+ **************************************************/
+.MPart FormHeading {
+	jtext-background: #ffffff #e7f2fb 100%;
+	color : #586c7e;
+	jbottom-keyline-1-color: #ffffff;
+	jbottom-keyline-2-color: #b1d4f3;
+}
+
+.MPart Section {
+	jtitle-bar-background-color:  #e7f2fb;
+	jtitle-bar-border-color:  #b1d4f3;
+	jtitle-bar-text-color :  #586c7e;
+	jtitle-bar-active-text-color :  #7b91a5;
+}
+
+/**************************************************
+ * Others
+ **************************************************/
+.DragFeedback {
+	background-color: #0086ff;
+	jswt-alpha: 127;
+}
+
+/**************************************************
+ * User Custom CSS
+ **************************************************/

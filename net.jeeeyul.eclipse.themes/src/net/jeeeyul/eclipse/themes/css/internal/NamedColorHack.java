@@ -12,8 +12,6 @@ import static org.eclipse.ui.texteditor.AbstractTextEditor.PREFERENCE_COLOR_SELE
 import java.lang.reflect.Field;
 import java.util.Map;
 
-import net.jeeeyul.eclipse.themes.JThemesCore;
-import net.jeeeyul.eclipse.themes.css.RewriteCustomTheme;
 import net.jeeeyul.eclipse.themes.internal.Debug;
 import net.jeeeyul.swtend.ui.HSB;
 
@@ -22,8 +20,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.e4.ui.css.core.css2.CSS2ColorHelper;
-import org.eclipse.e4.ui.css.swt.theme.ITheme;
-import org.eclipse.e4.ui.css.swt.theme.IThemeEngine;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
@@ -59,14 +55,15 @@ public class NamedColorHack {
 
 	private IPreferenceStore getEditorStore() {
 		if (fEditorStore == null) {
-			fEditorStore = new ScopedPreferenceStore(InstanceScope.INSTANCE, "org.eclipse.ui.editors");
+			fEditorStore = new ScopedPreferenceStore(InstanceScope.INSTANCE,
+					"org.eclipse.ui.editors");
 		}
 		return fEditorStore;
 	}
 
 	private HSB getHSBFromEditorPreference(String key) {
 		String bgExp = getEditorStore().getString(key);
-		if(bgExp == null || bgExp.trim().length() == 0){
+		if (bgExp == null || bgExp.trim().length() == 0) {
 			return new HSB(0, 0, 0);
 		}
 		String[] segments = bgExp.split("[\\s,]+");
@@ -82,11 +79,14 @@ public class NamedColorHack {
 	}
 
 	@SuppressWarnings("unchecked")
-	private Map<String, String> getNameColorMap() throws NoSuchFieldException, IllegalAccessException {
+	private Map<String, String> getNameColorMap() throws NoSuchFieldException,
+			IllegalAccessException {
 		if (namedColorMap == null) {
-			Field mapField = CSS2ColorHelper.class.getDeclaredField("colorNamesMap");
+			Field mapField = CSS2ColorHelper.class
+					.getDeclaredField("colorNamesMap");
 			mapField.setAccessible(true);
-			namedColorMap = (Map<String, String>) mapField.get(CSS2ColorHelper.class);
+			namedColorMap = (Map<String, String>) mapField
+					.get(CSS2ColorHelper.class);
 		}
 		return namedColorMap;
 	}
@@ -106,17 +106,6 @@ public class NamedColorHack {
 		return updateJob;
 	}
 
-	private boolean isCustomThemeActive() {
-		IThemeEngine engine = (IThemeEngine) Display.getDefault().getData("org.eclipse.e4.ui.css.swt.theme");
-		ITheme theme = engine.getActiveTheme();
-		if (theme == null) {
-			return false;
-		}
-
-		boolean isCustomThemeActivated = JThemesCore.CUSTOM_THEME_ID.equals(theme.getId());
-		return isCustomThemeActivated;
-	}
-
 	/**
 	 * Starts to watch {@link AbstractTextEditor}'s preferences and updates
 	 * named colors in
@@ -133,13 +122,16 @@ public class NamedColorHack {
 		getEditorStore().removePropertyChangeListener(listener);
 	}
 
-	private void update(String colorname, String defaultKey, int defaultSWTKey, String valueKey) {
+	private void update(String colorname, String defaultKey, int defaultSWTKey,
+			String valueKey) {
 		try {
 			Map<String, String> map = getNameColorMap();
 			if (getEditorStore().getBoolean(defaultKey)) {
-				map.put(colorname, getHSBFromSystemColor(defaultSWTKey).toHTMLCode());
+				map.put(colorname, getHSBFromSystemColor(defaultSWTKey)
+						.toHTMLCode());
 			} else {
-				map.put(colorname, getHSBFromEditorPreference(valueKey).toHTMLCode());
+				map.put(colorname, getHSBFromEditorPreference(valueKey)
+						.toHTMLCode());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -149,21 +141,20 @@ public class NamedColorHack {
 	private void updateAll() {
 		Debug.println("Start Updating Named Colors");
 
-		update("jtexteditor-background", PREFERENCE_COLOR_BACKGROUND_SYSTEM_DEFAULT, SWT.COLOR_LIST_BACKGROUND, PREFERENCE_COLOR_BACKGROUND);
-		update("jtexteditor-foreground", PREFERENCE_COLOR_FOREGROUND_SYSTEM_DEFAULT, SWT.COLOR_LIST_FOREGROUND, PREFERENCE_COLOR_FOREGROUND);
-		update("jtexteditor-selection-background", PREFERENCE_COLOR_SELECTION_BACKGROUND_SYSTEM_DEFAULT, SWT.COLOR_LIST_SELECTION,
-				PREFERENCE_COLOR_SELECTION_BACKGROUND);
-		update("jtexteditor-selection-foreground", PREFERENCE_COLOR_SELECTION_FOREGROUND_SYSTEM_DEFAULT, SWT.COLOR_LIST_SELECTION_TEXT,
+		update("jtexteditor-background",
+				PREFERENCE_COLOR_BACKGROUND_SYSTEM_DEFAULT,
+				SWT.COLOR_LIST_BACKGROUND, PREFERENCE_COLOR_BACKGROUND);
+		update("jtexteditor-foreground",
+				PREFERENCE_COLOR_FOREGROUND_SYSTEM_DEFAULT,
+				SWT.COLOR_LIST_FOREGROUND, PREFERENCE_COLOR_FOREGROUND);
+		update("jtexteditor-selection-background",
+				PREFERENCE_COLOR_SELECTION_BACKGROUND_SYSTEM_DEFAULT,
+				SWT.COLOR_LIST_SELECTION, PREFERENCE_COLOR_SELECTION_BACKGROUND);
+		update("jtexteditor-selection-foreground",
+				PREFERENCE_COLOR_SELECTION_FOREGROUND_SYSTEM_DEFAULT,
+				SWT.COLOR_LIST_SELECTION_TEXT,
 				PREFERENCE_COLOR_SELECTION_FOREGROUND);
 
-		updateThemeIfNeeded();
 		Debug.println("Updating Named Colors is Done");
-	}
-
-	private void updateThemeIfNeeded() {
-		boolean isCustomThemeActivated = isCustomThemeActive();
-		if (isCustomThemeActivated) {
-			new RewriteCustomTheme().rewrite();
-		}
 	}
 }

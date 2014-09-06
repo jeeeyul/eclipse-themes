@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ASCII"?>
+<p:Palette xmlns:p="http://jeeeyul.net/pde-tools" fieldName="ICONS" folder="/net.jeeeyul.eclipse.themes/icons">
+  <imageFiles fieldName="FRAME" file="/net.jeeeyul.eclipse.themes/icons/frame.gif"/>
+  <imageFiles fieldName="HANDLE_EMBOSSED" file="/net.jeeeyul.eclipse.themes/icons/handle-embossed.gif"/>
+  <imageFiles fieldName="HANDLE" file="/net.jeeeyul.eclipse.themes/icons/handle.gif"/>
+</p:Palette>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            name="net.jeeeyul.eclipse.themes.test.e4app"
+            application="org.eclipse.e4.ui.workbench.swt.E4Application">
+         <property
+               name="applicationCSS"
+               value="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/css/default.css">
+         </property>
+         <property
+               name="appName"
+               value="net.jeeeyul.eclipse.themes.test.e4app">
+         </property>
+      </product>
+   </extension>
+
+</plugin>

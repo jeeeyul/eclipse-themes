@@ -2,7 +2,7 @@ package net.jeeeyul.eclipse.themes.css.internal;
 
 import java.util.List;
 
-import net.jeeeyul.eclipse.themes.css.JTabCSSPropertyHandler;
+import net.jeeeyul.eclipse.themes.css.internal.handlers.JTabCSSPropertyHandler;
 
 import org.eclipse.e4.ui.css.core.dom.properties.Gradient;
 import org.eclipse.e4.ui.css.core.engine.CSSEngine;

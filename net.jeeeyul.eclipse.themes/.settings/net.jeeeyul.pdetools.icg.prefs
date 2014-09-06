@@ -1,5 +1,5 @@
 eclipse.preferences.version=1
-generate-class=SharedImages
+generate-class=CoreImages
 generate-image-preview=true
 generate-package=net.jeeeyul.eclipse.themes
 generate-src-folder=src-gen
