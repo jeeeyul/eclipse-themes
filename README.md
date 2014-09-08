@@ -11,6 +11,7 @@ It also contains beautiful and elegant built-in presets.
 * [Linux User Guide](https://github.com/jeeeyul/eclipse-themes/wiki/Linux-User-Guide)
 * [FAQ](https://github.com/jeeeyul/eclipse-themes/wiki/FAQ)
 * [Developer Guide](https://github.com/jeeeyul/eclipse-themes/wiki/Developer-Guide)
+* [Theme Store](http://themes.jeeeyul.net)
 
 ## How to install
 You need **Eclipse 4.2** or above version to install this theme.
