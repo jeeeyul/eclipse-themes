@@ -160,13 +160,14 @@ class CustomThemeGenerator {
 		«comment("Inactive Part Stack")»
 		.MPartStack {
 			swt-tab-renderer: url('«tabRendererClass»');
-			swt-mru-visible: true;
+			swt-mru-visible: «store.getBoolean(JTPConstants.Others.MRU_VISIBLE)»;
 			
 			/* layout */
 			swt-tab-height: «store.getInt(JTPConstants.Layout.TAB_HEIGHT)»px;
 			jtab-border-radius: «store.getInt(JTPConstants.Layout.BORDER_RADIUS)»px;
 			jtab-spacing: «store.getInt(JTPConstants.Layout.TAB_SPACING)»px;
 			jtab-item-padding: 0px «store.getInt(JTPConstants.Layout.TAB_ITEM_PADDING)»px;
+			jtab-item-horizontal-spacing: «store.getInt(JTPConstants.Layout.TAB_ITEM_SPACING)»px;
 			jtab-padding : «store.getInt(JTPConstants.Layout.CONTENT_PADDING)»px;
 			jtab-truncate-tab-items : «store.getBoolean(JTPConstants.Layout.TRUNCATE_TAB_ITEMS)»;
 			jtab-use-ellipses : «store.getBoolean(JTPConstants.Layout.USE_ELLIPSES)»;

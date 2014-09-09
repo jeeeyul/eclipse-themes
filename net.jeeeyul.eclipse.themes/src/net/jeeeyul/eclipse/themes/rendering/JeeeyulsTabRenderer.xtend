@@ -103,14 +103,14 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				}
 				if(itemText.trim.length > 0) {
 					var textSize = itemText.computeTextExtent(#[item.font, parent.font].firstNotNull)
-					width = width + textSize.x + 1
+					width = width + textSize.x
 					height = Math.max(height, textSize.y)
 				}
 
 				if(parent.showClose || item.showClose) {
 					if(state.hasFlags(SWT.SELECTED) || parent.showUnselectedClose) {
 						var closeButtonSize = computeSize(PART_CLOSE_BUTTON, SWT.NONE, gc, SWT.DEFAULT, SWT.DEFAULT)
-						width = width + settings.tabItemHorizontalSpacing + 1
+						width = width + settings.tabItemHorizontalSpacing
 						width = width + closeButtonSize.x
 						height = Math.max(height, closeButtonSize.y)
 					}
@@ -187,8 +187,11 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			case (part == PART_CHEVRON_BUTTON || part == PART_MIN_BUTTON || part == PART_MAX_BUTTON): {
 				// Don't trim
 			}
+			
 			case part >= 0: {
+				result.x = settings.tabItemPaddings.width + 1
 			}
+			
 			default: {
 				result = super.computeTrim(part, state, x, y, width, height)
 			}
@@ -457,9 +460,6 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		// Draw Close Button
 		var closeVisible = false
 		if((tabFolder.showClose || item.showClose) && item.closeRect.width > 0) {
-			item.closeRect.x = item.bounds.right.x - item.closeRect.width - 4 - settings.tabItemPaddings.width
-			item.closeRect.translate(-Math.max(settings.tabSpacing, 0) + 3, 0)
-
 			if(settings.closeButtonAlignment == VerticalAlignment.BASE_LINE) {
 				var offset = (item.bounds.height - gc.fontMetrics.height) / 2 + gc.fontMetrics.ascent
 				offset += switch (settings.closeButtonLineWidth) {

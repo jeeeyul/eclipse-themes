@@ -26,6 +26,8 @@ class PartStackETCPage extends AbstractJTPreferencePage {
 	ColorWell dragFeedbackColorWell
 	Scale dragFeedbackOpacityScale
 	Label dragFeedbackOpacityLabel
+	
+	Button mruVisibilityButton
 
 	new() {
 		super("Others")
@@ -121,6 +123,9 @@ class PartStackETCPage extends AbstractJTPreferencePage {
 					text = "100%"
 				]
 			]
+			mruVisibilityButton = newCheckbox[
+				text = "MRU Visibility"
+			]
 		]
 	}
 
@@ -156,6 +161,8 @@ class PartStackETCPage extends AbstractJTPreferencePage {
 		
 		dragFeedbackColorWell.selection = store.getHSB(JTPConstants.Others.DRAG_FEEDBACK_COLOR)
 		dragFeedbackOpacityScale.selection = store.getInt(JTPConstants.Others.DRAG_FEEDBACK_ALPHA)
+		
+		mruVisibilityButton.selection = store.getBoolean(JTPConstants.Others.MRU_VISIBLE)
 	}
 
 	override save(JThemePreferenceStore store, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
@@ -169,6 +176,8 @@ class PartStackETCPage extends AbstractJTPreferencePage {
 		
 		store.setValue(JTPConstants.Others.DRAG_FEEDBACK_COLOR, dragFeedbackColorWell.selection)
 		store.setValue(JTPConstants.Others.DRAG_FEEDBACK_ALPHA, dragFeedbackOpacityScale.selection)
+		
+		store.setValue(JTPConstants.Others.MRU_VISIBLE, mruVisibilityButton.selection)
 	}
 
 	override dispose(extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {

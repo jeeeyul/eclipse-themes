@@ -58,12 +58,18 @@ public class EmptyPartStackProcessor {
 					Widget widget = (Widget) stack.getWidget();
 					CSSClasses styleClasses = CSSClasses
 							.getStyleClasses(widget);
+
 					if (stack.getChildren().size() == 0) {
+						stack.getTags().add("empty");
 						styleClasses.add("empty");
-					} else {
-						styleClasses.remove("empty");
+						engine.setClassname(widget, styleClasses.toString());
 					}
-					engine.setClassname(widget, styleClasses.toString());
+
+					else {
+						stack.getTags().remove("empty");
+						styleClasses.remove("empty");
+						engine.setClassname(widget, styleClasses.toString());
+					}
 				}
 			}
 		});

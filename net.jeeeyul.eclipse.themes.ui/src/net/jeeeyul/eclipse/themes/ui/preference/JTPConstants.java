@@ -429,6 +429,9 @@ public interface JTPConstants {
 
 		@TypeHint(int.class)
 		public static final String DRAG_FEEDBACK_ALPHA = PREFIX + CATEGORY_SEPARATOR + "DRAG_FEEDBACK_ALPHA";
+
+		@TypeHint(boolean.class)
+		public static final String MRU_VISIBLE = PREFIX + CATEGORY_SEPARATOR + "MRU_VISIBLE";
 	}
 
 	@PresetCategory
@@ -456,7 +459,7 @@ public interface JTPConstants {
 
 		@TypeHint(HSB.class)
 		public static final String FORM_HEADING_TITLE_COLOR = PREFIX + CATEGORY_SEPARATOR + "FORM_HEADING_TITLE_COLOR";
-		
+
 		@TypeHint(HSB.class)
 		public static final String FORM_HEADING_BORDER_1_COLOR = PREFIX + CATEGORY_SEPARATOR + "FORM_HEADING_BORDER_1_COLOR";
 
@@ -468,16 +471,16 @@ public interface JTPConstants {
 
 		@TypeHint(HSB.class)
 		public static final String SECTION_HEADER_TITLE_COLOR = PREFIX + CATEGORY_SEPARATOR + "SECTION_HEADER_TITLE_COLOR";
-		
+
 		@TypeHint(HSB.class)
 		public static final String SECTION_HEADER_ACTIVE_TITLE_COLOR = PREFIX + CATEGORY_SEPARATOR + "SECTION_HEADER_ACTIVE_TITLE_COLOR";
 
 		@TypeHint(HSB.class)
 		public static final String SECTION_HEADER_BORDER_COLOR = PREFIX + CATEGORY_SEPARATOR + "SECTION_HEADER_BORDER_COLOR";
-		
+
 		@TypeHint(HSB.class)
 		public static final String HYPER_LINK_COLOR = PREFIX + CATEGORY_SEPARATOR + "HYPER_LINK_COLOR";
-		
+
 		@TypeHint(HSB.class)
 		public static final String ACTIVE_HYPER_LINK_COLOR = PREFIX + CATEGORY_SEPARATOR + "ACTIVE_HYPER_LINK_COLOR";
 	}
