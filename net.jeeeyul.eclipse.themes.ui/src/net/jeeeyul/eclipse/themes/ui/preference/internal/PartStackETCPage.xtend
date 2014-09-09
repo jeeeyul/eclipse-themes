@@ -1,18 +1,19 @@
 package net.jeeeyul.eclipse.themes.ui.preference.internal
 
+import java.util.Locale
 import net.jeeeyul.eclipse.themes.SharedImages
+import net.jeeeyul.eclipse.themes.rendering.JTabSettings
 import net.jeeeyul.eclipse.themes.ui.preference.JTPConstants
 import net.jeeeyul.eclipse.themes.ui.preference.JThemePreferenceStore
-import net.jeeeyul.eclipse.themes.rendering.JTabSettings
 import net.jeeeyul.swtend.SWTExtensions
 import net.jeeeyul.swtend.ui.ColorWell
 import net.jeeeyul.swtend.ui.GradientEdit
 import org.eclipse.swt.custom.CTabFolder
+import org.eclipse.swt.program.Program
 import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Label
 import org.eclipse.swt.widgets.Scale
-import java.util.Locale
 
 class PartStackETCPage extends AbstractJTPreferencePage {
 	GradientEdit emptyFillEdit
@@ -26,7 +27,7 @@ class PartStackETCPage extends AbstractJTPreferencePage {
 	ColorWell dragFeedbackColorWell
 	Scale dragFeedbackOpacityScale
 	Label dragFeedbackOpacityLabel
-	
+
 	Button mruVisibilityButton
 
 	new() {
@@ -93,7 +94,6 @@ class PartStackETCPage extends AbstractJTPreferencePage {
 					text = "Hide"
 				]
 			]
-			
 			newGroup[
 				text = "Other Colors"
 				layoutData = FILL_HORIZONTAL
@@ -123,14 +123,33 @@ class PartStackETCPage extends AbstractJTPreferencePage {
 					text = "100%"
 				]
 			]
-			mruVisibilityButton = newCheckbox[
-				text = "MRU Visibility"
+			newComposite[
+				layout = newGridLayout[
+					numColumns = 1
+					marginHeight = 0
+					marginWidth = 0
+				]
+				layoutData = newGridData[]
+				mruVisibilityButton = newCheckbox[
+					text = "MRU Visibility"
+				]
+				
+				val mruLink = "http://help.eclipse.org/luna/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Freference%2Fapi%2Forg%2Feclipse%2Fswt%2Fcustom%2FCTabFolder.html&anchor=setMRUVisible(boolean)"
+				newLink[
+					layoutData = newGridData[
+						horizontalIndent = 18
+					]
+					text = '''Get details from <a href="«mruLink»">JavaDoc of CTabFolder</a>'''
+					onSelection = [
+						Program.launch(it.text)
+					]
+				]
 			]
 		]
 	}
 
 	override updatePreview(CTabFolder folder, JTabSettings renderSettings, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
-		var percentText = String.format(Locale.ENGLISH, "%3.0f %%",  (dragFeedbackOpacityScale.selection / 255.0) * 100)
+		var percentText = String.format(Locale.ENGLISH, "%3.0f %%", (dragFeedbackOpacityScale.selection / 255.0) * 100)
 		dragFeedbackOpacityLabel.text = percentText
 	}
 
@@ -158,10 +177,10 @@ class PartStackETCPage extends AbstractJTPreferencePage {
 		}
 
 		editorsBorderHideEdit.selection = !store.getBoolean(JTPConstants.EditorsPartStack.BORDER_SHOW)
-		
+
 		dragFeedbackColorWell.selection = store.getHSB(JTPConstants.Others.DRAG_FEEDBACK_COLOR)
 		dragFeedbackOpacityScale.selection = store.getInt(JTPConstants.Others.DRAG_FEEDBACK_ALPHA)
-		
+
 		mruVisibilityButton.selection = store.getBoolean(JTPConstants.Others.MRU_VISIBLE)
 	}
 
@@ -173,10 +192,10 @@ class PartStackETCPage extends AbstractJTPreferencePage {
 		store.setValue(JTPConstants.EditorsPartStack.FILL_COLOR, editorsFillEdit.selection)
 		store.setValue(JTPConstants.EditorsPartStack.BORDER_COLOR, editorsBorderEdit.selection)
 		store.setValue(JTPConstants.EditorsPartStack.BORDER_SHOW, !editorsBorderHideEdit.selection)
-		
+
 		store.setValue(JTPConstants.Others.DRAG_FEEDBACK_COLOR, dragFeedbackColorWell.selection)
 		store.setValue(JTPConstants.Others.DRAG_FEEDBACK_ALPHA, dragFeedbackOpacityScale.selection)
-		
+
 		store.setValue(JTPConstants.Others.MRU_VISIBLE, mruVisibilityButton.selection)
 	}
 

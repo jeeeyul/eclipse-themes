@@ -101,7 +101,7 @@ class LayoutPage extends AbstractJTPreferencePage {
 					text = "-1(overlap) ~ 20px"
 					foreground = COLOR_DARK_GRAY
 				]
-				newLabel[text = "Tab Item Spacing"]
+				newLabel[text = "Part Icon, Title and Close Spacing"]
 				tabItemSpacingScale = newSpinner[
 					minimum = 0
 					maximum = 10

@@ -48,7 +48,7 @@ PreviewHelper = (function() {
 })();
 
 Template.preview.helpers({
-	"detailMode": function(){
+	"detailMode" : function() {
 		return Router.current().route.name == "detail";
 	},
 	"renderModel" : function() {
@@ -87,7 +87,7 @@ Template.preview.helpers({
 				value : PreviewHelper.getBackground(this["WINDOW__PERSPECTIVE_SWITCHER_FILL_COLOR"])
 			});
 		}
-		if(this["WINDOW__PERSPECTIVE_SWITCHER_KEY_LINE_COLOR"]){
+		if (this["WINDOW__PERSPECTIVE_SWITCHER_KEY_LINE_COLOR"]) {
 			styles.push({
 				key : "border-left",
 				value : PreviewHelper.getColor(this["WINDOW__PERSPECTIVE_SWITCHER_KEY_LINE_COLOR"]) + " solid 1px"
@@ -112,8 +112,8 @@ Template.preview.helpers({
 			key : "background",
 			value : PreviewHelper.getBackground(this["WINDOW__STATUS_BAR_FILL_COLOR"])
 		});
-		
-		if(this.WINDOW__STATUS_BAR_TEXT_COLOR){
+
+		if (this.WINDOW__STATUS_BAR_TEXT_COLOR) {
 			styles.push({
 				key : "color",
 				value : PreviewHelper.getColor(this.WINDOW__STATUS_BAR_TEXT_COLOR)

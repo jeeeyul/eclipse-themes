@@ -97,7 +97,7 @@ public class StoreClient extends EditorPart {
 	public void createPartControl(Composite parent) {
 		try {
 			Composite composite = new Composite(parent, SWT.NORMAL);
-			GridLayout layout = new GridLayout(2, false);
+			GridLayout layout = new GridLayout(3, false);
 			composite.setLayout(layout);
 			layout.marginWidth = layout.marginHeight = 0;
 			layout.verticalSpacing = 0;
@@ -134,9 +134,20 @@ public class StoreClient extends EditorPart {
 			urlField = new Text(composite, SWT.BORDER | SWT.READ_ONLY);
 			urlField.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
+			ToolBar rightToolBar = new ToolBar(composite, SWT.FLAT);
+			ToolItem openInExternalBrowser = new ToolItem(rightToolBar, SWT.PUSH);
+			openInExternalBrowser.setImage(SharedImages.getImage(SharedImages.EXTERNAL_BROWSER));
+			openInExternalBrowser.addListener(SWT.Selection, new Listener() {
+				@Override
+				public void handleEvent(Event event) {
+					if (urlField.getText().length() > 0) {
+						Program.launch(urlField.getText().trim());
+					}
+				}
+			});
 			browser = new Browser(composite, SWT.NONE);
 			GridData browserData = new GridData(GridData.FILL_BOTH);
-			browserData.horizontalSpan = 2;
+			browserData.horizontalSpan = 3;
 			browser.setLayoutData(browserData);
 
 			browser.addOpenWindowListener(new OpenWindowListener() {
