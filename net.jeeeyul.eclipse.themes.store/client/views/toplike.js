@@ -2,7 +2,8 @@ Template.toplike.helpers({
 	"options" : function() {
 		return {
 			sort : {
-				likeCount : -1
+				likeCount : -1,
+				date : -1
 			}
 		}
 	},
