@@ -149,6 +149,18 @@ var sharedHelpers = {
 			return _.template("<%=key%>:<%=value%>", each);
 		}).join(";");
 	},
+	
+	"downloadAndInstallCount" : function(){
+		var times = 0;
+		if(!isNaN(this.downloadCount)){
+			times += this.downloadCount;
+		}
+		
+		if(!isNaN(this.installCount)){
+			times += this.installCount;
+		}
+		return times;
+	}
 };
 
 Template.detail.helpers(_.extend({}, sharedHelpers, {
@@ -194,9 +206,19 @@ Template.detail.events({
 	"click #install-button" : function(e, t, d) {
 		var content = EPFSerializer.serialize(this.epf);
 		__install(content);
+		EPFs.update(this._id, {
+			$inc : {
+				"installCount" : 1
+			}
+		});
 	},
 
 	"click #download-epf" : function(e, t, d) {
+		EPFs.update(this._id, {
+			$inc : {
+				"downloadCount" : 1
+			}
+		});
 		window.open("/epf/" + t.data._id);
 	},
 
@@ -242,12 +264,12 @@ Template.detail.events({
 			$(e.target).select();
 		});
 	},
-	
-	"click .share-link" : function(e, t, d){
+
+	"click .share-link" : function(e, t, d) {
 		var url = $(e.target).attr("href");
-		if(typeof __openURL == "function"){
+		if (typeof __openURL == "function") {
 			__openURL(url);
-		}else{
+		} else {
 			window.open(url, "_blank", "width=640, height=480");
 		}
 		e.preventDefault();

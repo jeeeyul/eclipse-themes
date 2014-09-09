@@ -34,10 +34,19 @@ Meteor.startup(function() {
 				return true;
 			}
 
-			if (_(fields).contains("name") 
-					&& _(fields).contains("description") 
-					&& _(fields).contains("epf")) {
+			if (_(fields).contains("name") && _(fields).contains("description") && _(fields).contains("epf")) {
 				return content.authorId == userId;
+			}
+
+			if (_(fields).size() == 1) {
+				var f = fields[0];
+				switch (f) {
+				case "downloadCount":
+				case "installCount":
+					return true;
+				default:
+					return false;
+				}
 			}
 
 			return false;

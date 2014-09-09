@@ -15,6 +15,11 @@ Template.theme.events({
 	"click #install-button" : function(e, t, d) {
 		var content = EPFSerializer.serialize(this.epf);
 		__install(content);
+		EPFs.update(this._id, {
+			$inc : {
+				"installCount" : 1
+			}
+		});
 	},
 	"click #author-link" : function(e, t, d) {
 		Router.go("author", {
@@ -29,6 +34,11 @@ Template.theme.events({
 		});
 	},
 	"click #download-epf" : function(e, t, d) {
+		EPFs.update(this._id, {
+			$inc : {
+				"downloadCount" : 1
+			}
+		});
 		window.open("/epf/" + t.data._id);
 	},
 	"click #like-button" : function(e, t, d) {
