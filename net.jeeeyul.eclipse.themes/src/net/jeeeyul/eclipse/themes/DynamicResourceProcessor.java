@@ -29,27 +29,33 @@ public class DynamicResourceProcessor {
 		ctx.runAndTrack(new RunAndTrack() {
 			@Override
 			public boolean changed(IEclipseContext context) {
-				Object stylingEngine = context.get(IStylingEngine.SERVICE_NAME);
-
-				if (stylingEngine != null) {
-					IThemeEngine themeEngine = (IThemeEngine) Display.getDefault().getData(THEME_ENGINE_KEY);
-					CSSEngine cssEngine = WidgetElement.getEngine(Display.getDefault());
-					if (themeEngine != null) {
-						themeEngine.registerResourceLocator(new JTDynamicResourceLocator());
-						Debug.println("Dynamic Resource Locator is installed on Theme Engine");
-						return false;
-					}
-
-					else if (cssEngine == null) {
-						return true;
-					}
-					cssEngine.getResourcesLocatorManager().registerResourceLocator(new JTDynamicResourceLocator());
-					Debug.println("Dynamic Resource Locator is installed on CSS Engine");
-					return false;
-				}
-				return true;
+				return tryToInstall(context) == false;
 			}
 		});
 
+	}
+
+	private boolean tryToInstall(IEclipseContext context) {
+		Object stylingEngine = context.get(IStylingEngine.SERVICE_NAME);
+		if (stylingEngine == null) {
+			return false;
+		}
+		IThemeEngine themeEngine = (IThemeEngine) Display.getDefault().getData(THEME_ENGINE_KEY);
+		CSSEngine cssEngine = WidgetElement.getEngine(Display.getDefault());
+		if (cssEngine == null && themeEngine == null) {
+			return false;
+		}
+
+		if (themeEngine != null) {
+			themeEngine.registerResourceLocator(new JTDynamicResourceLocator());
+			Debug.println("Dynamic Resource Locator is installed on Theme Engine");
+			return true;
+		}
+
+		else {
+			cssEngine.getResourcesLocatorManager().registerResourceLocator(new JTDynamicResourceLocator());
+			Debug.println("Dynamic Resource Locator is installed on CSS Engine");
+			return true;
+		}
 	}
 }
