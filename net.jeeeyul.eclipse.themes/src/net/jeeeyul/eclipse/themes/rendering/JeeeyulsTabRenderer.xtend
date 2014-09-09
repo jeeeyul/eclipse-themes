@@ -2,6 +2,8 @@ package net.jeeeyul.eclipse.themes.rendering
 
 import java.beans.PropertyChangeEvent
 import java.beans.PropertyChangeListener
+import net.jeeeyul.eclipse.themes.CoreImages
+import net.jeeeyul.eclipse.themes.css.internal.CSSClasses
 import net.jeeeyul.eclipse.themes.internal.Debug
 import net.jeeeyul.eclipse.themes.rendering.internal.JTabRendererHelper
 import net.jeeeyul.eclipse.themes.rendering.internal.Shadow9PatchFactory
@@ -63,7 +65,6 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	new(CTabFolder parent) {
 		super(parent)
 		this.tabFolder = parent
-//		this.emptyClassHook = new EmptyClassHook(parent)
 		settings.addPropertyChangeListener(settingsListener)
 
 		if(isWindow) {
@@ -73,7 +74,6 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 	override protected dispose() {
 		shadowNinePatch.safeDispose()
-//		emptyClassHook.dispose()
 		settings.removePropertyChangeListener(settingsListener)
 
 		if(window && parent.alive) {
@@ -454,7 +454,15 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				new Rectangle(itemBounds.x + settings.tabItemPaddings.x, 0, 0, itemBounds.height)
 
 		if(item.image != null) {
-			gc.drawImage(item.image, iconArea.topLeft)
+			val isBusy = CSSClasses.getStyleClasses(item).contains("busy")
+			if(isBusy){
+				gc.drawImage(item.image, iconArea.topLeft)
+				val watingIcon = CoreImages.getImage(CoreImages.WAITING)
+				val iconSize = watingIcon.bounds.size
+				gc.drawImage(watingIcon, iconArea.bottomRight.getTranslated(iconSize.negated).getTranslated(1, 1))
+			}else{
+				gc.drawImage(item.image, iconArea.topLeft)
+			}
 		}
 
 		// Draw Close Button

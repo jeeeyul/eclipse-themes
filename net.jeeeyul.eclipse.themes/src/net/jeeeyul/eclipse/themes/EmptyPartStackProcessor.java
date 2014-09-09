@@ -9,13 +9,16 @@ import net.jeeeyul.eclipse.themes.internal.Debug;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.MApplication;
+import org.eclipse.e4.ui.model.application.ui.advanced.MPlaceholder;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
+import org.eclipse.e4.ui.model.application.ui.basic.MStackElement;
 import org.eclipse.e4.ui.services.IStylingEngine;
 import org.eclipse.e4.ui.workbench.UIEvents;
 import org.eclipse.e4.ui.workbench.UIEvents.ElementContainer;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.swt.widgets.Widget;
+import org.eclipse.xtext.xbase.lib.Functions;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
@@ -50,7 +53,6 @@ public class EmptyPartStackProcessor {
 			if (UIEvents.isADD(event) || UIEvents.isREMOVE(event)) {
 				Object parent = event.getProperty("ChangedElement");
 				if (parent instanceof MPartStack) {
-					Debug.println(event);
 					MPartStack stack = (MPartStack) parent;
 					applyTagsAndClasses(stack);
 				}
@@ -58,19 +60,30 @@ public class EmptyPartStackProcessor {
 		}
 	};
 
-	@PreDestroy
-	public void dispose() {
-		broker.unsubscribe(widgetAssignListener);
-		broker.unsubscribe(modelChildrenListener);
-
-		Debug.println("Empty Part Stack Processor is stopped.");
-	}
-
-	private void applyEmptyTag(MPartStack ps) {
-		if (ps.getChildren().size() == 0) {
-			if (!ps.getTags().contains("empty")) {
-				ps.getTags().add("empty");
+	private EventHandler toggleViewVisibilityListener = new EventHandler() {
+		@Override
+		public void handleEvent(Event event) {
+			Object sender = event.getProperty("ChangedElement");
+			if (sender instanceof MPlaceholder) {
+				MPlaceholder placeholder = (MPlaceholder) sender;
+				Object parent = placeholder.getParent();
+				if (parent instanceof MPartStack) {
+					applyTagsAndClasses((MPartStack) parent);
+				}
 			}
+		}
+	};
+
+	private void applyEmptyTag(MPartStack stack) {
+		boolean hasEmptyTag = stack.getTags().contains("empty");
+		boolean hasChild = hasVisibleChild(stack);
+
+		if (hasChild == false && hasEmptyTag == false) {
+			stack.getTags().add("empty");
+		}
+
+		else if (hasEmptyTag && hasChild) {
+			stack.getTags().remove("empty");
 		}
 	}
 
@@ -83,7 +96,7 @@ public class EmptyPartStackProcessor {
 		CSSClasses styleClasses = CSSClasses.getStyleClasses(widget);
 
 		boolean hasEmptyTag = stack.getTags().contains("empty");
-		boolean hasChild = IterableExtensions.filter(stack.getChildren(), MPart.class).iterator().hasNext();
+		boolean hasChild = hasVisibleChild(stack);
 
 		if (hasChild == false && hasEmptyTag == false) {
 			stack.getTags().add("empty");
@@ -100,11 +113,36 @@ public class EmptyPartStackProcessor {
 		}
 	}
 
+	@PreDestroy
+	public void dispose() {
+		broker.unsubscribe(widgetAssignListener);
+		broker.unsubscribe(modelChildrenListener);
+
+		Debug.println("Empty Part Stack Processor is stopped.");
+	}
+
 	@Execute
 	public void execute(MApplication app) {
 		Debug.println("Empty Part Stack Processor is started");
 
 		broker.subscribe(UIEvents.UIElement.TOPIC_WIDGET, widgetAssignListener);
 		broker.subscribe(ElementContainer.TOPIC_CHILDREN, modelChildrenListener);
+		broker.subscribe(UIEvents.UIElement.TOPIC_TOBERENDERED, toggleViewVisibilityListener);
+	}
+
+	private boolean hasVisibleChild(MPartStack stack) {
+		boolean hasChild = IterableExtensions.exists(stack.getChildren(), new Functions.Function1<MStackElement, Boolean>() {
+			@Override
+			public Boolean apply(MStackElement e) {
+				if (e instanceof MPart) {
+					return true;
+				} else if (e instanceof MPlaceholder) {
+					MPlaceholder placeholder = (MPlaceholder) e;
+					return placeholder.isToBeRendered();
+				}
+				return false;
+			}
+		});
+		return hasChild;
 	}
 }
