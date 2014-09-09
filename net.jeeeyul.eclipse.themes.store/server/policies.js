@@ -28,7 +28,6 @@ Meteor.startup(function() {
 			}
 
 			if (_(fields).contains("likedBy")) {
-				console.log(content.likedBy);
 				content.likeCount = _(content.likedBy).size() + (_(content.likedBy).contains(userId) ? 0 : 1);
 				EPFs.update(content._id, content);
 				return true;
