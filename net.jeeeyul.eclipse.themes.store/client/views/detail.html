@@ -6,6 +6,7 @@
 
 <template name="detailActivePart">
 	<div class="form-heading" style="{{formHeadingStyle}}">
+		{{setTitle name}}
 		{{name}} by <a href="/author/{{authorId}}">{{authorName}}</a>
 		<div class="toolbar">
 			{{#if canLike}}

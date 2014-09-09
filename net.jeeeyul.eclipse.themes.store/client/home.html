@@ -8,10 +8,9 @@
 	<title>Eclipse Theme Store from Jeeeyul</title>
 </head>
 
-
 <template name="master"> <header>
 	<div class="container">
-		<label>Themes Store</label>
+		<label>Theme Store</label>
 		<nav>
 			<a href="{{pathFor 'home'}}" class={{menuClass "home"}}>By Recent</a>
 			<a href="{{pathFor 'toplike'}}" class={{menuClass "toplike"}}>By Rating</a>
@@ -35,6 +34,7 @@
 
 <template name="home">
 <h3>Recent Themes</h3>
+{{setTitle "Recent Themes"}}
 {{>themeList options}}
 <div>
 	<button id="show-more-button">Show More</button>

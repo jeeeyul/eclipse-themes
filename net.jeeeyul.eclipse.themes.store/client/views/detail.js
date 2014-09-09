@@ -168,6 +168,8 @@ Template.detail.helpers(_.extend({}, sharedHelpers, {
 		this.$(".section-header").each(function() {
 			$(this).append($("<div class='spacer'></div>"));
 		});
+		
+		
 	}
 }));
 Template.detailActivePart.helpers(sharedHelpers);
