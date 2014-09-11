@@ -14,7 +14,7 @@ It also contains beautiful and elegant built-in presets.
 * [Theme Store](http://themes.jeeeyul.net)
 
 ## How to install
-You need **Eclipse 4.2** or above version to install this theme.
+You need **Eclipse 4.3** or above version to install this theme.
 
 1. Drag [<img src="http://marketplace.eclipse.org/misc/installbutton.png">](http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=339851) on to Toolbar of your Eclipse 4 to install **Jeeeyul's Eclipse Themes**.
 2. After installation, Choose `Jeeeyul's themes - Custom Theme` from `Preferences > General > Appearance`.
