@@ -89,6 +89,8 @@ class CustomThemeGenerator {
 			background-color: «store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»;
 		}
 		
+		
+		
 		«comment("Main Toolbar")»
 		#org-eclipse-ui-main-toolbar {
 			background-color:«store.getGradient(JTPConstants.Window.TOOLBAR_FILL_COLOR).toSWTCSSString»;
@@ -114,6 +116,8 @@ class CustomThemeGenerator {
 		#org-eclipse-ui-main-toolbar #PerspectiveSwitcher ToolBar {
 			jtool-item-color : «store.getHSB(JTPConstants.Window.PERSPECTIVE_SWITCHER_TEXT_COLOR).toHTMLCode»;
 		}
+		
+		
 		
 		«comment("Status Bar")»
 		#org-eclipse-ui-trim-status{
@@ -141,6 +145,8 @@ class CustomThemeGenerator {
 			frame-image: url(jeeeyul://frame?background-color=«store.getGradient(JTPConstants.Window.STATUS_BAR_FILL_COLOR).middlePointColor.toHTMLCode»);
 			frame-cuts: 4px 2px 5px 16px;
 		}
+		
+		
 		
 		«comment("Trim Stack")»
 		Shell.MTrimmedWindow > .MTrimBar > .TrimStack {
@@ -266,24 +272,6 @@ class CustomThemeGenerator {
 			color: «store.getHSB(JTPConstants.InactivePartStack.SELECTED_TEXT_COLOR).toHTMLCode»;
 		}
 		
-		«IF store.getBoolean(JTPConstants.Layout.TRUNCATE_TAB_ITEMS)»
-			«comment("Editor Part Stack")»
-			.MPartStack.EditorStack{
-				jtab-truncate-tab-items : «store.getBoolean(JTPConstants.Layout.TRUNCATE_EDITORS_TAB_ITEMS_ALSO)»;
-				jtab-minimum-characters : «store.getInt(JTPConstants.Layout.MINIMUM_CHARACTERS_FOR_EDITORS)»;
-			}
-		«ENDIF»
-		
-		«comment("Empty Part Stack")»
-		.MPartStack.empty{
-			jtab-header-background : «store.getGradient(JTPConstants.EmptyPartStack.FILL_COLOR).toSWTCSSString»;
-			«IF store.getBoolean(JTPConstants.EmptyPartStack.BORDER_SHOW)»
-				jtab-border-color : «store.getGradient(JTPConstants.EmptyPartStack.BORDER_COLOR).toSWTCSSString»;
-			«ELSE»
-				jtab-border-color : none;
-			«ENDIF»
-			background : «store.getGradient(JTPConstants.EmptyPartStack.FILL_COLOR).last.color.toHTMLCode»;
-		}
 		
 		«comment("Active Part Stack")»
 		.MPartStack.active {
@@ -378,7 +366,32 @@ class CustomThemeGenerator {
 			font-style: italic;
 		}
 		
-		«comment("editors")»
+		
+		
+		«comment("Editor Part Stack")»
+		«IF store.getBoolean(JTPConstants.Layout.TRUNCATE_TAB_ITEMS)»
+			.MPartStack.EditorStack{
+				jtab-truncate-tab-items : «store.getBoolean(JTPConstants.Layout.TRUNCATE_EDITORS_TAB_ITEMS_ALSO)»;
+				jtab-minimum-characters : «store.getInt(JTPConstants.Layout.MINIMUM_CHARACTERS_FOR_EDITORS)»;
+			}
+		«ENDIF»
+		
+		
+		
+		«comment("Empty Editor Stack")»
+		#org-eclipse-ui-editorss.MArea .MPartStack.empty{
+			jtab-header-background : «store.getGradient(JTPConstants.EmptyPartStack.FILL_COLOR).toSWTCSSString»;
+			«IF store.getBoolean(JTPConstants.EmptyPartStack.BORDER_SHOW)»
+				jtab-border-color : «store.getGradient(JTPConstants.EmptyPartStack.BORDER_COLOR).toSWTCSSString»;
+			«ELSE»
+				jtab-border-color : none;
+			«ENDIF»
+			background : «store.getGradient(JTPConstants.EmptyPartStack.FILL_COLOR).last.color.toHTMLCode»;
+		}
+		
+		
+		
+		«comment("Editors Area")»
 		CTabFolder#org-eclipse-ui-editorss.MArea{
 			swt-tab-renderer: url('«tabRendererClass»');
 			swt-tab-height: 10px;
@@ -411,6 +424,8 @@ class CustomThemeGenerator {
 			background-color: «store.getGradient(JTPConstants.EditorsPartStack.FILL_COLOR).last.color.toHTMLCode»;
 		}
 		
+		
+		
 		«comment("Text Editor")»
 		.MPart.Editor Canvas {
 			background-color: «store.getHSB(JTPConstants.TextEditor.RULER_COLOR).toHTMLCode»;
@@ -422,12 +437,16 @@ class CustomThemeGenerator {
 			jeditor-range-indicator-color: «rangeIndicatorColor.toHTMLCode»;
 		}
 		
+		
+		
 		«comment("Customized Text Editor Support")»
 		.MPart Section StyledText
 		{
 			background : jtexteditor-background;
 			color : jtexteditor-foreground;
 		}
+		
+		
 		
 		«comment("Forms")»
 		.MPart FormHeading {
@@ -449,11 +468,15 @@ class CustomThemeGenerator {
 			active-hyperlink-color: «store.getHSB(JTPConstants.Forms.ACTIVE_HYPER_LINK_COLOR).toHTMLCode»;
 		}
 		
+		
+		
 		«comment("Others")»
 		.DragFeedback {
 			background-color: «store.getHSB(JTPConstants.Others.DRAG_FEEDBACK_COLOR).toHTMLCode»;
 			jswt-alpha: «store.getInt(JTPConstants.Others.DRAG_FEEDBACK_ALPHA)»;
 		}
+		
+		
 		
 		«comment("User Custom CSS")»
 		«store.getString(JTPConstants.Others.USER_CSS)»
@@ -496,8 +519,8 @@ class CustomThemeGenerator {
 		}
 		return margins
 	}
-	
-	def private tabRendererClass(){
+
+	def private tabRendererClass() {
 		return '''bundleclass://«JThemesCore.PLUGIN_ID»/«JeeeyulsTabRenderer.canonicalName»'''
 	}
 
@@ -508,8 +531,8 @@ class CustomThemeGenerator {
 		}
 		return Math.max(offset, 0)
 	}
-	
-	def private HSB getRangeIndicatorColor(){
+
+	def private HSB getRangeIndicatorColor() {
 		var selectionColor = new HSB(Display.^default.getSystemColor(SWT.COLOR_LIST_SELECTION).RGB)
 		return store.getHSB(JTPConstants.TextEditor.RULER_COLOR).getMixedWith(selectionColor, 0.5f)
 	}

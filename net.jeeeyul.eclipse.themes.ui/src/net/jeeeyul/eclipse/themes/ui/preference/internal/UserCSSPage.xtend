@@ -1,13 +1,13 @@
 package net.jeeeyul.eclipse.themes.ui.preference.internal
 
 import net.jeeeyul.eclipse.themes.SharedImages
+import net.jeeeyul.eclipse.themes.rendering.JTabSettings
 import net.jeeeyul.eclipse.themes.ui.preference.JTPConstants
 import net.jeeeyul.eclipse.themes.ui.preference.JThemePreferenceStore
-import net.jeeeyul.eclipse.themes.rendering.JTabSettings
 import net.jeeeyul.swtend.SWTExtensions
 import org.eclipse.jface.bindings.keys.KeyStroke
-import org.eclipse.jface.text.DefaultUndoManager
 import org.eclipse.jface.text.Document
+import org.eclipse.jface.text.TextViewerUndoManager
 import org.eclipse.jface.text.source.SourceViewer
 import org.eclipse.jface.text.source.SourceViewerConfiguration
 import org.eclipse.swt.SWT
@@ -17,7 +17,7 @@ import org.eclipse.swt.widgets.Event
 
 class UserCSSPage extends AbstractJTPreferencePage {
 	SourceViewer viewer
-	DefaultUndoManager undoManager
+	TextViewerUndoManager undoManager
 
 	KeyStroke undoKey
 	KeyStroke redoKey
@@ -45,7 +45,7 @@ class UserCSSPage extends AbstractJTPreferencePage {
 			viewer = new SourceViewer(it, null, SWT.V_SCROLL || SWT.H_SCROLL || SWT.BORDER)
 			viewer.document = new Document
 			viewer.configure(new SourceViewerConfiguration)
-			undoManager = new DefaultUndoManager(100)
+			undoManager = new TextViewerUndoManager(100)
 			undoManager.connect(viewer)
 			viewer.setUndoManager(undoManager)
 			viewer.control.onKeyDown = [

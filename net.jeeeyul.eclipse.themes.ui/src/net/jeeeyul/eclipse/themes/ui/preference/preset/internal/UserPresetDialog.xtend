@@ -17,6 +17,7 @@ import org.eclipse.ui.ISharedImages
 import org.eclipse.jface.viewers.IStructuredSelection
 import net.jeeeyul.eclipse.themes.ui.preference.preset.IJTPreset
 import org.eclipse.jface.dialogs.IDialogConstants
+import org.eclipse.xtend.lib.annotations.Accessors
 
 /**
  * Dialog for #157
@@ -26,7 +27,7 @@ class UserPresetDialog extends Dialog {
 
 	Text presetNameField
 	TableViewer presetViewer
-	@Property String selectedPresetName
+	@Accessors String selectedPresetName
 
 	Button newPresetButton
 	Button existingPresetButton

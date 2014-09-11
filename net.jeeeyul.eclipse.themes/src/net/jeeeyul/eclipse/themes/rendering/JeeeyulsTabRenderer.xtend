@@ -400,7 +400,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				addArc(corner, 270, 90)
 				lineTo(headerArea.bottomRight.getTranslated(-1, 0))
 			]
-			gc.foreground = settings.borderColors.last.toAutoReleaseColor
+			gc.foreground = settings.borderColors.last.toAutoDisposeColor
 
 			// draw twice reduce mip-map problem
 			gc.draw(bodyPath)
@@ -427,7 +427,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			default: #[settings.closeButtonColor, HSB.BLACK].firstNotNull
 		}
 		gc.lineWidth = Math.max(settings.closeButtonLineWidth, 1)
-		gc.foreground = color.toAutoReleaseColor
+		gc.foreground = color.toAutoDisposeColor
 		gc.draw(path)
 
 	}
@@ -523,7 +523,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 		if(parent.focusControl && state.hasFlags(SWT.SELECTED)) {
 			gc.alpha = 90
-			gc.foreground = settings.getTextColorFor(state).toAutoReleaseColor
+			gc.foreground = settings.getTextColorFor(state).toAutoDisposeColor
 
 			var lineFrom = textArea.topLeft.getTranslated(0, gc.fontMetrics.ascent + 1)
 			var lineTo = lineFrom.getTranslated(gc.textExtent(text.trim(), TEXT_FLAGS).x, 0)
@@ -535,11 +535,11 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		val textShadowPosition = settings.getTextShadowPositionFor(state)
 		if(textShadowColor != null && textShadowPosition != null && !textShadowPosition.empty) {
 			var shadowPosition = settings.getTextShadowPositionFor(state)
-			gc.foreground = settings.getTextShadowColorFor(state).toAutoReleaseColor
+			gc.foreground = settings.getTextShadowColorFor(state).toAutoDisposeColor
 			var delta = textArea.topLeft.getTranslated(shadowPosition)
 			gc.drawText(text, delta.x, delta.y, TEXT_FLAGS)
 		}
-		gc.foreground = settings.getTextColorFor(state).toAutoReleaseColor
+		gc.foreground = settings.getTextColorFor(state).toAutoDisposeColor
 		gc.drawText(text, textArea.x, textArea.y, TEXT_FLAGS)
 
 		// Draw Border and Keyline
@@ -628,7 +628,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		]
 
 		gc.lineWidth = settings.borderWidth
-		gc.drawGradientPath(outline, settings.getBorderColorsFor(state).toAutoReleaseColor, settings.getBorderPercentsFor(state), true)
+		gc.drawGradientPath(outline, settings.getBorderColorsFor(state).toAutoDisposeColors, settings.getBorderPercentsFor(state), true)
 	}
 
 	protected def drawTabItemBackground(int part, int state, Rectangle bounds, GC gc) {

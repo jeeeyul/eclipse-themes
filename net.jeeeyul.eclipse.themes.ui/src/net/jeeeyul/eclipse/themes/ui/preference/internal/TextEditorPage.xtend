@@ -1,10 +1,11 @@
 package net.jeeeyul.eclipse.themes.ui.preference.internal
 
+import java.util.ArrayList
 import net.jeeeyul.eclipse.themes.SharedImages
 import net.jeeeyul.eclipse.themes.css.EditorLineSupport
+import net.jeeeyul.eclipse.themes.rendering.JTabSettings
 import net.jeeeyul.eclipse.themes.ui.preference.JTPConstants
 import net.jeeeyul.eclipse.themes.ui.preference.JThemePreferenceStore
-import net.jeeeyul.eclipse.themes.rendering.JTabSettings
 import net.jeeeyul.swtend.SWTExtensions
 import net.jeeeyul.swtend.ui.ColorWell
 import net.jeeeyul.swtend.ui.HSB
@@ -21,7 +22,6 @@ import org.eclipse.swt.graphics.Color
 import org.eclipse.swt.graphics.RGB
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.ui.editors.text.EditorsUI
-import java.util.ArrayList
 
 class TextEditorPage extends AbstractJTPreferencePage {
 	static val String PREF_ID_COLOR_THEME = "com.github.eclipsecolortheme.preferences.ColorThemePreferencePage"

@@ -18,6 +18,7 @@ Export-Package: net.jeeeyul.eclipse.themes,net.jeeeyul.eclipse.themes.
  ui.preference,net.jeeeyul.eclipse.themes.ui.preference.preset
 Bundle-Name: Jeeeyul's Eclipse Themes
 Bundle-Version: 2.1.10.qualifier
-Bundle-ClassPath: .
+Bundle-ClassPath: .,
+ lib/org.eclipse.xtend.lib.macro_2.7.1.v201409090713.jar
 Bundle-Activator: net.jeeeyul.eclipse.themes.JThemesCore
 

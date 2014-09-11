@@ -7,6 +7,7 @@ import org.eclipse.swt.custom.CTabFolder
 import org.eclipse.swt.graphics.Image
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Control
+import org.eclipse.xtend.lib.annotations.Accessors
 
 /**
  * Abstract Preference Page for Theme plugin
@@ -14,29 +15,28 @@ import org.eclipse.swt.widgets.Control
  * @since 2.0
  */
 abstract class AbstractJTPreferencePage {
+
 	/**
-	 * namse of page
+	 * name of page
 	 */
-	@Property String name
+	@Accessors String name
 
 	/**
 	 * image of page
 	 */
-	@Property Image image
-	
-	new(){
-		
+	@Accessors Image image
+
+	new() {
 	}
 
 	new(String name) {
 		this.name = name
 	}
-	
-	public def void init(extension PreperencePageHelper helper){
-		
+
+	public def void init(extension PreperencePageHelper helper) {
 	}
-	
-	public def AbstractJTPreferencePage[] getChildren(){
+
+	public def AbstractJTPreferencePage[] getChildren() {
 		return #[]
 	}
 

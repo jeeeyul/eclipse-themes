@@ -8,7 +8,9 @@ import java.util.Map
 import java.util.Properties
 import net.jeeeyul.eclipse.themes.JThemesCore
 import net.jeeeyul.eclipse.themes.SharedImages
+import net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer
 import net.jeeeyul.eclipse.themes.ui.hotswap.RewriteCustomTheme
+import net.jeeeyul.eclipse.themes.ui.preference.JTPConstants
 import net.jeeeyul.eclipse.themes.ui.preference.JThemePreferenceStore
 import net.jeeeyul.eclipse.themes.ui.preference.actions.AddUserPresetAction
 import net.jeeeyul.eclipse.themes.ui.preference.actions.ContributedPresetItems
@@ -17,7 +19,6 @@ import net.jeeeyul.eclipse.themes.ui.preference.actions.ShowCSSAction
 import net.jeeeyul.eclipse.themes.ui.preference.actions.ShowEPFAction
 import net.jeeeyul.eclipse.themes.ui.preference.actions.UserPresetItems
 import net.jeeeyul.eclipse.themes.ui.preference.preset.IJTPresetManager
-import net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer
 import net.jeeeyul.swtend.SWTExtensions
 import org.eclipse.core.runtime.Platform
 import org.eclipse.jface.action.MenuManager
@@ -34,7 +35,7 @@ import org.eclipse.swt.widgets.ToolItem
 import org.eclipse.ui.IWorkbench
 import org.eclipse.ui.IWorkbenchPreferencePage
 import org.eclipse.ui.progress.UIJob
-import net.jeeeyul.eclipse.themes.ui.preference.JTPConstants
+import org.eclipse.xtend.lib.annotations.Accessors
 
 class JTPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 	public static val String ID = typeof(JTPreferencePage).canonicalName
@@ -54,7 +55,7 @@ class JTPreferencePage extends PreferencePage implements IWorkbenchPreferencePag
 	/*
 	 * https://github.com/jeeeyul/eclipse-themes/issues/140
 	 */
-	@Property String lastChoosedPresetId
+	@Accessors String lastChoosedPresetId
 
 	new() {
 		title = "Jeeeyul's Theme"

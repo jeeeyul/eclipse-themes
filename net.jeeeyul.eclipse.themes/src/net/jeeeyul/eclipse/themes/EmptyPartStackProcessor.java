@@ -10,7 +10,6 @@ import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPlaceholder;
-import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.model.application.ui.basic.MStackElement;
 import org.eclipse.e4.ui.services.IStylingEngine;
@@ -64,6 +63,7 @@ public class EmptyPartStackProcessor {
 		@Override
 		public void handleEvent(Event event) {
 			Object sender = event.getProperty("ChangedElement");
+
 			if (sender instanceof MPlaceholder) {
 				MPlaceholder placeholder = (MPlaceholder) sender;
 				Object parent = placeholder.getParent();
@@ -71,6 +71,7 @@ public class EmptyPartStackProcessor {
 					applyTagsAndClasses((MPartStack) parent);
 				}
 			}
+
 		}
 	};
 
@@ -125,8 +126,13 @@ public class EmptyPartStackProcessor {
 	public void execute(MApplication app) {
 		Debug.println("Empty Part Stack Processor is started");
 
+		// Initial PartStack Rendering. (for e4 App)
 		broker.subscribe(UIEvents.UIElement.TOPIC_WIDGET, widgetAssignListener);
+
+		// Catches editor opening and closing
 		broker.subscribe(ElementContainer.TOPIC_CHILDREN, modelChildrenListener);
+
+		// Catches view closing.
 		broker.subscribe(UIEvents.UIElement.TOPIC_TOBERENDERED, toggleViewVisibilityListener);
 	}
 
@@ -134,13 +140,7 @@ public class EmptyPartStackProcessor {
 		boolean hasChild = IterableExtensions.exists(stack.getChildren(), new Functions.Function1<MStackElement, Boolean>() {
 			@Override
 			public Boolean apply(MStackElement e) {
-				if (e instanceof MPart) {
-					return true;
-				} else if (e instanceof MPlaceholder) {
-					MPlaceholder placeholder = (MPlaceholder) e;
-					return placeholder.isToBeRendered();
-				}
-				return false;
+				return e.isToBeRendered();
 			}
 		});
 		return hasChild;

@@ -5,7 +5,7 @@
       <children xsi:type="advanced:Perspective" xmi:id="_Fovk0DW_EeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.perspective.live">
         <children xsi:type="basic:PartSashContainer" xmi:id="_wle-sDXEEeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.partsashcontainer.1" horizontal="true">
           <children xsi:type="basic:PartStack" xmi:id="_yBm-cDXEEeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.partstack.1" selectedElement="_2eBfYDXEEeSGif7lV7sYDg">
-            <children xsi:type="basic:Part" xmi:id="_2eBfYDXEEeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.part.a" label="a"/>
+            <children xsi:type="basic:Part" xmi:id="_2eBfYDXEEeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.part.a" contributionURI="bundleclass://net.jeeeyul.eclipse.themes.test.e4app/net.jeeeyul.eclipse.themes.test.e4app.TestView" label="a"/>
           </children>
           <children xsi:type="basic:PartSashContainer" xmi:id="_zdZnADXEEeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.partsashcontainer.2">
             <children xsi:type="basic:PartStack" xmi:id="_HerkADXFEeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.partstack.3"/>
