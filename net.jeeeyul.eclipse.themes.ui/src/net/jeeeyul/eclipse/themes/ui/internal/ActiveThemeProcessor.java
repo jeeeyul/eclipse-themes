@@ -1,4 +1,4 @@
-package net.jeeeyul.eclipse.themes.internal;
+package net.jeeeyul.eclipse.themes.ui.internal;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;

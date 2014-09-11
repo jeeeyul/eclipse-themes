@@ -7,8 +7,8 @@ Require-Bundle: org.eclipse.ui,org.eclipse.core.runtime,org.eclipse.e4
  org.eclipse.jface.text,org.eclipse.e4.ui.model.workbench,net.jeeeyul.
  swtend;bundle-version="2.2.4",org.eclipse.e4.core.contexts,org.eclips
  e.ui.editors,org.eclipse.e4.ui.widgets,net.jeeeyul.eclipse.themes;bun
- dle-version="2.1.10",javax.inject;bundle-version="1.0.0",org.eclipse.
- e4.ui.workbench.swt
+ dle-version="2.2.0",javax.inject;bundle-version="1.0.0",org.eclipse.e
+ 4.ui.workbench.swt
 Bundle-ManifestVersion: 2
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
@@ -17,8 +17,8 @@ Import-Package: javax.annotation;version="1.1.0"
 Export-Package: net.jeeeyul.eclipse.themes,net.jeeeyul.eclipse.themes.
  ui.preference,net.jeeeyul.eclipse.themes.ui.preference.preset
 Bundle-Name: Jeeeyul's Eclipse Themes
-Bundle-Version: 2.1.10.qualifier
-Bundle-ClassPath: .,
- lib/org.eclipse.xtend.lib.macro_2.7.1.v201409090713.jar
+Bundle-Version: 2.2.0.qualifier
+Bundle-ClassPath: .,lib/org.eclipse.xtend.lib.macro_2.7.1.v20140909071
+ 3.jar
 Bundle-Activator: net.jeeeyul.eclipse.themes.JThemesCore
 

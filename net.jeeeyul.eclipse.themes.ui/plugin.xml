@@ -16,12 +16,12 @@
       <processor
             apply="always"
             beforefragment="true"
-            class="net.jeeeyul.eclipse.themes.internal.OldAddonUninstaller">
+            class="net.jeeeyul.eclipse.themes.ui.internal.OldAddonUninstaller">
       </processor>
       <processor
             apply="always"
             beforefragment="true"
-            class="net.jeeeyul.eclipse.themes.internal.ActiveThemeProcessor">
+            class="net.jeeeyul.eclipse.themes.ui.internal.ActiveThemeProcessor">
       </processor>
    </extension>
    <extension

@@ -9,8 +9,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import net.jeeeyul.eclipse.themes.JThemesCore;
-import net.jeeeyul.eclipse.themes.shared.PresetIconGenerator;
 import net.jeeeyul.eclipse.themes.ui.preference.preset.IJTPreset;
+import net.jeeeyul.eclipse.themes.ui.shared.PresetIconGenerator;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 

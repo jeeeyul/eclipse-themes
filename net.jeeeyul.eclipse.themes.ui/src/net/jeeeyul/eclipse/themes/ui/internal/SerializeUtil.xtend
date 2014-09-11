@@ -1,4 +1,4 @@
-package net.jeeeyul.eclipse.themes.internal
+package net.jeeeyul.eclipse.themes.ui.internal
 
 import net.jeeeyul.swtend.ui.ColorStop
 import net.jeeeyul.swtend.ui.Gradient

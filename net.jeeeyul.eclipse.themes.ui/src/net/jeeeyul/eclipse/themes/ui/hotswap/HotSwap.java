@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 import net.jeeeyul.eclipse.themes.JThemesCore;
-import net.jeeeyul.eclipse.themes.internal.Debug;
+import net.jeeeyul.eclipse.themes.ui.internal.Debug;
 import net.jeeeyul.eclipse.themes.ui.preference.JTPConstants;
 import net.jeeeyul.eclipse.themes.ui.preference.JThemePreferenceStore;
 import net.jeeeyul.swtend.SWTExtensions;

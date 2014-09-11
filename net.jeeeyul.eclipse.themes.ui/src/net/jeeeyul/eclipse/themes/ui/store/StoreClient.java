@@ -5,8 +5,8 @@ import java.util.Properties;
 
 import net.jeeeyul.eclipse.themes.JThemesCore;
 import net.jeeeyul.eclipse.themes.SharedImages;
-import net.jeeeyul.eclipse.themes.internal.Debug;
 import net.jeeeyul.eclipse.themes.ui.hotswap.RewriteCustomTheme;
+import net.jeeeyul.eclipse.themes.ui.internal.Debug;
 import net.jeeeyul.eclipse.themes.ui.preference.JTPConstants;
 import net.jeeeyul.eclipse.themes.ui.preference.JThemePreferenceStore;
 import net.jeeeyul.eclipse.themes.ui.preference.internal.PropertiesUtil;

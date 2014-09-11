@@ -2,7 +2,7 @@ package net.jeeeyul.eclipse.themes.ui.preference.internal
 
 import java.util.List
 import net.jeeeyul.eclipse.themes.SharedImages
-import net.jeeeyul.eclipse.themes.internal.ENVHelper
+import net.jeeeyul.eclipse.themes.ui.internal.ENVHelper
 import net.jeeeyul.eclipse.themes.rendering.JTabSettings
 import net.jeeeyul.eclipse.themes.rendering.VerticalAlignment
 import net.jeeeyul.eclipse.themes.ui.preference.JTPConstants

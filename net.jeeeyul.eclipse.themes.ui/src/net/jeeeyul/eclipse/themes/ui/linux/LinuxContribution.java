@@ -1,6 +1,6 @@
 package net.jeeeyul.eclipse.themes.ui.linux;
 
-import net.jeeeyul.eclipse.themes.internal.ENVHelper;
+import net.jeeeyul.eclipse.themes.ui.internal.ENVHelper;
 
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IContributionItem;

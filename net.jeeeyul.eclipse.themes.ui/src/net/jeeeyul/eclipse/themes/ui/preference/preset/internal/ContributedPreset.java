@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Properties;
 
-import net.jeeeyul.eclipse.themes.shared.PresetIconGenerator;
 import net.jeeeyul.eclipse.themes.ui.preference.preset.IJTPreset;
 import net.jeeeyul.eclipse.themes.ui.preference.preset.IJTPresetCategory;
+import net.jeeeyul.eclipse.themes.ui.shared.PresetIconGenerator;
 
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.Platform;

@@ -1,9 +1,9 @@
 package net.jeeeyul.eclipse.themes.ui.hotswap
 
 import net.jeeeyul.eclipse.themes.JThemesCore
-import net.jeeeyul.eclipse.themes.internal.ENVHelper
 import net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer
 import net.jeeeyul.eclipse.themes.rendering.VerticalAlignment
+import net.jeeeyul.eclipse.themes.ui.internal.ENVHelper
 import net.jeeeyul.eclipse.themes.ui.preference.JTPConstants
 import net.jeeeyul.eclipse.themes.ui.preference.JThemePreferenceStore
 import net.jeeeyul.swtend.SWTExtensions
@@ -11,6 +11,7 @@ import net.jeeeyul.swtend.ui.HSB
 import org.eclipse.swt.SWT
 import org.eclipse.swt.graphics.Point
 import org.eclipse.swt.widgets.Display
+import org.eclipse.xtend.lib.annotations.Accessors
 
 /**
  * Generates CSS content with {@link JThemePreferenceStore} as input.
@@ -20,7 +21,7 @@ import org.eclipse.swt.widgets.Display
  * @author Jeeeyul Lee
  */
 class CustomThemeGenerator {
-	@Property JThemePreferenceStore store
+	@Accessors JThemePreferenceStore store
 
 	extension ENVHelper = ENVHelper.INSTANCE
 

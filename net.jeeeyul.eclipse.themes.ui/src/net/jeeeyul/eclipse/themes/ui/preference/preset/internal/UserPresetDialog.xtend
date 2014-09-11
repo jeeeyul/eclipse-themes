@@ -1,7 +1,7 @@
 package net.jeeeyul.eclipse.themes.ui.preference.preset.internal
 
 import net.jeeeyul.eclipse.themes.JThemesCore
-import net.jeeeyul.eclipse.themes.shared.CollectionContentProvider
+import net.jeeeyul.eclipse.themes.ui.shared.CollectionContentProvider
 import net.jeeeyul.swtend.SWTExtensions
 import org.eclipse.jface.dialogs.Dialog
 import org.eclipse.jface.viewers.TableViewer

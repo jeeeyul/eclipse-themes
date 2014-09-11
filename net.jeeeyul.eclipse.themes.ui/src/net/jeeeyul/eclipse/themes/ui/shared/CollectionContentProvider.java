@@ -1,4 +1,4 @@
-package net.jeeeyul.eclipse.themes.shared;
+package net.jeeeyul.eclipse.themes.ui.shared;
 
 import java.util.Collection;
 

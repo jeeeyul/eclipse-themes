@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.jeeeyul.eclipse.themes.JThemesCore;
-import net.jeeeyul.eclipse.themes.internal.Debug;
-import net.jeeeyul.eclipse.themes.internal.ENVHelper;
+import net.jeeeyul.eclipse.themes.ui.internal.Debug;
+import net.jeeeyul.eclipse.themes.ui.internal.ENVHelper;
 
 import org.eclipse.e4.ui.css.core.dom.ExtendedCSSRule;
 import org.eclipse.e4.ui.css.core.dom.ExtendedDocumentCSS;
@@ -84,6 +84,7 @@ public class RewriteCustomTheme {
 
 		if (hotSwap && ENVHelper.INSTANCE.isLunaOrAbove()) {
 			HotSwap.INSTANCE.releaseHandleImages(cssEngine);
+			Debug.println("Old handle and frame images are disposed.");
 		}
 
 		for (StyleSheet each : newSheetList) {
@@ -98,6 +99,7 @@ public class RewriteCustomTheme {
 
 		if (hotSwap && ENVHelper.INSTANCE.isLunaOrAbove()) {
 			HotSwap.INSTANCE.fixDragHandles(cssEngine);
+			Debug.println("Old handle and frame images are hot-swapped.");
 		}
 
 		Debug.println("Theme was re-written");

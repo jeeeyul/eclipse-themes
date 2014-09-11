@@ -2,7 +2,7 @@ package net.jeeeyul.eclipse.themes.ui.preference;
 
 import java.io.IOException;
 
-import net.jeeeyul.eclipse.themes.internal.SerializeUtil;
+import net.jeeeyul.eclipse.themes.ui.internal.SerializeUtil;
 import net.jeeeyul.swtend.sam.Function1;
 import net.jeeeyul.swtend.sam.Procedure1;
 import net.jeeeyul.swtend.ui.Gradient;
