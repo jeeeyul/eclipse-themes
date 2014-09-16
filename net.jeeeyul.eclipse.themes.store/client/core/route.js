@@ -19,6 +19,9 @@ Router.map(function() {
 			} else {
 				this.render("loading");
 			}
+		},
+		onAfterAction : function(){
+			document.title = "Recent - Eclipse Theme Store";
 		}
 	});
 
@@ -36,6 +39,9 @@ Router.map(function() {
 		},
 		data : function() {
 			return EPFs.findOne(this.params.id);
+		},
+		onAfterAction : function(){
+			document.title = _.template("<%=name%> by <%=authorName%> - Eclipse Theme Store", this.data());
 		}
 	});
 
@@ -50,11 +56,17 @@ Router.map(function() {
 			} else {
 				this.render("loading");
 			}
+		},
+		onAfterAction : function(){
+			document.title = "Top Ratings - Eclipse Theme Store";
 		}
 	});
 
 	this.route("post", {
-		path : "/post"
+		path : "/post",
+		onAfterAction : function(){
+			document.title = "Share - Eclipse Theme Store";
+		}
 	});
 
 	this.route("author", {
@@ -71,6 +83,9 @@ Router.map(function() {
 		},
 		data : function() {
 			return Meteor.users.findOne(this.params.id);
+		},
+		onAfterAction : function(){
+			document.title = _.template("Themes by <%=profile.name%>", this.data());
 		}
 	});
 

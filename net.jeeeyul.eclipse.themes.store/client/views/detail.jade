@@ -1,0 +1,86 @@
+template(name="detail")
+	.detail
+		+preview
+		
+
+template(name="detailActivePart")
+	.form-heading(style=formHeadingStyle) {{name}} by <a href="/author/{{authorId}}">{{authorName}}</a>
+		.toolbar
+			a#like-button.btn.btn-default.btn-xs(disabled!=cantLike)
+					span.glyphicon.glyphicon-star
+					span {{likeCount}}
+				if canInstall
+					a#install-button.btn.btn-default.btn-xs
+						span.glyphicon.glyphicon-play-circle
+						span Install
+				else
+					a#download-epf.btn.btn-default.btn-xs
+						span.glyphicon.glyphicon-download
+						span EPF
+	.form-heading-border(style=formHeadingBorderStyle)
+	.form-content
+		.section-header(style=sectionHeaderStyle) Description
+		.section-content
+			if description
+				| {{description}}
+			else
+				| Description not available
+		
+		.section-header(style=sectionHeaderStyle) Stats
+		.section-content.
+			This theme was downloaded and installed {{downloadAndInstallCount}} time(s) and liked {{likeCount}} time(s).
+			
+		.section-header(style=sectionHeaderStyle) Share
+		.section-content
+			span Share this theme into
+			a(class="share-link" href="http://twitter.com/share?url={{currentURL}}&text=Check out {{name}}&hashtags=eclipse-theme" style="{{hyperlinkStyle}}" target="_blank") Tweeter
+			span or
+			a(class="share-link" href="https://plus.google.com/share?url={{currentURL}}" style="{{hyperlinkStyle}}" target="_blank") Google Plus
+		
+		if isOwner
+			.section-header(style=sectionHeaderStyle) Management
+			.section-content
+				table
+					tr
+						th Name
+						td
+							input#name-field(type="text" placeholder="Name" value=name)
+					tr
+						th EPF
+						td
+							textarea#epf-field=epfContent
+							if canInject
+								a#inject-button.btn.btn-default.btn-xs Inject with current settings
+					tr
+						th Description
+						td
+							textarea#description-field=description
+					tr
+						th
+						td
+							a#update-button.btn.btn-default.btn-xs
+								span.glyphicon.glyphicon-floppy-disk
+								span Update
+							a#delete-button.btn.btn-danger.btn-xs
+								span.glyphicon.glyphicon-trash
+								span Delete
+
+
+
+template(name="detailInactivePart")
+	.form-content
+		.section-header(style=sectionHeaderStyle) Comments
+		.section-content
+			if currentUser
+				input#comment-field(type="text" placeholder="Leave a comment")
+			else
+				div Sign-in is required to leave comment.
+			
+			if hasComment
+				.comments
+					each commments
+						.comment-entry
+							label.author {{authorName}}
+							label.comment {{comment}}
+			else
+				div No comment yet, be the first reviewer.

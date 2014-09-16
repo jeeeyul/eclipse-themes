@@ -1,84 +1,14 @@
 body {
 	font-family: sans-serif;
 	background-image: url("/images/bg-pattern.png");
-	margin: 0px;
 }
 
-a {
-	color: cornflowerblue;
-}
-
-header {
-	background-color: #333;
-	color: white;
-	position: fixed;
-	top: 0px;
-	left: 0px;
-	right: 0px;
-	height: 40px;
-	line-height: 40px;
-	box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.5);
-	z-index: 9000;
-	.container {
-		position: relative;
-		nav {
-			display: inline-block;
-			a {
-				color: white;
-				text-decoration: none;
-				broder-radius: 10px;
-				margin-left: -5px;
-				padding: 0px 5px;
-				display: inline-block;
-			}
-			a.active {
-				background-color:#555;
-			}
-		}
-
-		label {
-			color : #999;
-			position: absolute;
-			right: 0px;
-		}
-	}
-	
-	#login-buttons
-	{
-		a.login-close-text {
-			color:black;
-		}
-	}
-}
-
-.page {
-	margin: 0px 0px 20px 0px;
-	background-color : white;
-	border-bottom-left-radius: 20px;
-	border-bottom-right-radius: 20px;
-	padding: 50px 10px 20px 10px;
-	.content {
-		h2, h3 {
-			border-bottom: solid 1px #ccc;
-		}
-	}
-}
-
-.container {
-	width: 1275px;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-@media (max-width: 1300px) {
-	.container {
-		width: 850px;
-	}
-}
-
-@media (max-width: 875px) {
-	.container {
-		width: 420px;
-	}
+.container.page{
+	background-color: white;
+	padding-bottom: 20px;
+	padding-top: 60px;
+	border-bottom-left-radius :10px;
+	border-bottom-right-radius :10px;
+	margin-bottom: 20px;
 }
 

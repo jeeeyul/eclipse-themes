@@ -1,0 +1,17 @@
+template(name="theme")
+	.theme.col-lg-4.col-sm-6.col-xs-12
+		.description.
+			<a href="/detail/{{_id}}">{{name}}</a> by <a href="#" id="author-link">{{authorName}}</a>
+		+preview
+		.toolbar
+			a#like-button.btn.btn-default.btn-xs(disabled!=cantLike)
+				span.glyphicon.glyphicon-star
+				span {{likeCount}}
+			if canInstall
+				a#install-button.btn.btn-default.btn-xs
+					span.glyphicon.glyphicon-play-circle
+					span Install
+			else
+				a#download-epf.btn.btn-default.btn-xs
+					span.glyphicon.glyphicon-download
+					span EPF

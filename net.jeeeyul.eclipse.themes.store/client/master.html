@@ -8,7 +8,7 @@
 	<title>Eclipse Theme Store from Jeeeyul</title>
 </head>
 
-<template name="master"> <header>
+<template name="master2"> <header>
 	<div class="container">
 		<label>Theme Store</label>
 		<nav>
@@ -30,14 +30,4 @@
 	{{>announce}}
 	<div class="content">{{>yield}}</div>
 </div>
-</template>
-
-<template name="home">
-<h3>Recent Themes</h3>
-{{setTitle "Recent Themes"}}
-{{>themeList options}}
-<div>
-	<button id="show-more-button">Show More</button>
-</div>
-
 </template>

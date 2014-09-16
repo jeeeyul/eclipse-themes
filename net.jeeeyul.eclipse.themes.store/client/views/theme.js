@@ -5,10 +5,21 @@ Template.theme.helpers({
 		canLike = canLike && (this.likedBy == undefined || (_(this.likedBy).contains(Meteor.userId()) == false));
 		return canLike;
 	},
+	
+	cantLike : function(){
+		var canLike = true;
+		canLike = canLike && (Meteor.userId() != null);
+		canLike = canLike && (this.likedBy == undefined || (_(this.likedBy).contains(Meteor.userId()) == false));
+		return !canLike;
+	},
 
 	"canInstall" : function() {
 		return typeof (__install) == "function";
 	},
+	
+	"cantInstall" : function() {
+		return typeof (__install) != "function";
+	}
 });
 
 Template.theme.events({
