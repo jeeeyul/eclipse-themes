@@ -1,6 +1,6 @@
 .preview {
-	font-size: 12px;
 	background-color: #eee;
+	font-size: 12px;
 	display: inline-block;
 	box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.7);
 	cursor: pointer;
@@ -54,7 +54,12 @@
 				display: inline-block;
 				.tab-item {
 					margin: 0px;
-					padding: 5px 5px;
+					padding: 4px 5px;
+					span{
+						background-image: url("/images/view.gif");
+						background-repeat: no-repeat;
+						padding:1px 0px 1px 18px;
+					}
 				}
 			}
 
@@ -79,10 +84,3 @@
 		}
 	}
 }
-
-.tab-folder .tab-item span {
-	background-image: url("/images/view.gif");
-	padding-left: 18px;
-	background-repeat: no-repeat;
-}
-

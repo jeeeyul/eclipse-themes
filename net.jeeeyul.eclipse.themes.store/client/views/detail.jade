@@ -40,32 +40,36 @@ template(name="detailActivePart")
 		if isOwner
 			.section-header(style=sectionHeaderStyle) Management
 			.section-content
-				table
-					tr
-						th Name
-						td
-							input#name-field(type="text" placeholder="Name" value=name)
-					tr
-						th EPF
-						td
-							textarea#epf-field=epfContent
+				form.form-horizontal
+					.form-group
+						label.col-sm-2.control-label(for="name-field") Name
+						.col-sm-10
+							input#name-field.form-control(placeholder="The name of theme", value=name)
+			
+					.form-group
+						label.col-sm-2.control-label(for="epf-field") EPF
+						.col-sm-10
+							.help-block User CSS will not be permitted. 
+							textarea#epf-field.form-control(rows="6")=epfContent
 							if canInject
-								a#inject-button.btn.btn-default.btn-xs Inject with current settings
-					tr
-						th Description
-						td
-							textarea#description-field=description
-					tr
-						th
-						td
-							a#update-button.btn.btn-default.btn-xs
+								.help-block 
+									a#inject-button.btn.btn-default
+										span.glyphicon.glyphicon-file
+										span Inject with current settings
+					
+					.form-group
+						label.col-sm-2.control-label(for="description-field") Description
+						.col-sm-10
+							textarea#description-field.form-control(rows="6")=description
+							
+					.form-group
+						.col-sm-offset-2.col-sm-10
+							a#update-button.btn.btn-default.btn-sm
 								span.glyphicon.glyphicon-floppy-disk
 								span Update
-							a#delete-button.btn.btn-danger.btn-xs
+							a#delete-button.btn.btn-danger.btn-sm
 								span.glyphicon.glyphicon-trash
 								span Delete
-
-
 
 template(name="detailInactivePart")
 	.form-content
