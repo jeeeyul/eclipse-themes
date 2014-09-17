@@ -1,0 +1,9 @@
+template(name="themeList")
+	.theme-list
+		if themes.count
+			.row
+				each themes
+					+theme
+		else
+			div No Themes
+	+loading	

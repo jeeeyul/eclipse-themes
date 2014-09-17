@@ -12,9 +12,9 @@ template(name="master")
 	.container.page
 		div.visible-xs.text-right
 			+loginButtons
-		unless isETSClient
+		if showBrowserWarning
 			.browser-warning.alert.alert-warning.alert-dismissible
-				button.close(data-dismiss="alert")
+				button.close
 					span(aria-hidden="true") &times;
 					span.sr-only Close
 				p.

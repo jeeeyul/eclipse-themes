@@ -8,6 +8,13 @@ Router.configure({
 });
 
 Router.map(function() {
+	this.route("about", {
+		path : "/about",
+		onAfterAction : function(){
+			document.title = "About - Eclipse Theme Store";
+		}
+	});
+	
 	this.route("home", {
 		path : "/",
 		waitOn : function() {
