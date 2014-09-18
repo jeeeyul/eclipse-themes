@@ -189,7 +189,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			}
 			
 			case part >= 0: {
-				result.x = settings.tabItemPaddings.width + Math.max(settings.tabSpacing, 0)
+				result.x = settings.tabItemPaddings.width + settings.tabSpacing
 			}
 			
 			default: {

@@ -60,9 +60,11 @@ public class JTabSettings {
 	private boolean useEllipses = false;
 
 	private int minimumCharacters = 1;
+
 	public JTabSettings(JeeeyulsTabRenderer renderer) {
 		this.renderer = renderer;
 	}
+
 	public void addPropertyChangeListener(PropertyChangeListener arg0) {
 		pcs.addPropertyChangeListener(arg0);
 	}
@@ -504,6 +506,8 @@ public class JTabSettings {
 		if (this.tabSpacing == tabSpacing) {
 			return;
 		}
+		tabSpacing = Math.max(tabSpacing, 0);
+
 		int old = this.tabSpacing;
 		this.tabSpacing = tabSpacing;
 		pcs.firePropertyChange("tab-spacing", old, tabSpacing);
