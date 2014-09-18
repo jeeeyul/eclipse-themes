@@ -17,5 +17,9 @@ template(name="menu")
 						a(href="{{pathFor 'toplike'}}").menu-item Top
 					li(class="{{menuClass 'post'}}")
 						a(href="{{pathFor 'post'}}").menu-item Share
-					li.hidden-xs
-						+loginButtons
+					if currentUser
+						li.hidden-xs(class="{{menuClass 'profile'}}")
+							a(href="{{pathFor 'profile'}}").menu-item {{username}}
+					else
+						li.hidden-xs
+							+loginButtons

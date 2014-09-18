@@ -1,0 +1,31 @@
+template(name="profile")
+	.profile
+		h3 Profile
+		if currentUser
+			form.form-horizontal
+				.form-group
+					label.col-sm-2.control-label(for="name-field") Name
+					.col-sm-10
+						input#name-field.form-control(placeholder="Your name", value=currentUser.profile.name)
+
+				.form-group
+					label.col-sm-2.control-label(for="homepage-field") Homepage
+					.col-sm-10
+						input#homepage-field.form-control(placeholder="Your Homepage URL", value=currentUser.profile.homepage)
+		
+				.form-group
+					.col-sm-offset-2.col-sm-10
+						a#update-button.btn.btn-default.btn-sm
+							span.glyphicon.glyphicon-floppy-disk
+							span Update
+			hr
+			form.form-horizontal
+				.form-group
+					.col-sm-offset-2.col-sm-10
+						a#logout-button.btn.btn-default.btn-sm
+							span.glyphicon.glyphicon-log-out
+							span Logout
+
+		else
+			div You are not logged in yet!
+			

@@ -15,6 +15,13 @@ Router.map(function() {
 		}
 	});
 	
+	this.route("profile", {
+		path : "/profile",
+		onAfterAction : function(){
+			document.title = "Profile - Eclipse Theme Store";
+		}
+	});
+	
 	this.route("home", {
 		path : "/",
 		waitOn : function() {

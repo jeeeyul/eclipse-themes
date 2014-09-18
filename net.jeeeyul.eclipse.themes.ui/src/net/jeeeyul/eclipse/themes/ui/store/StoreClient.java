@@ -23,8 +23,12 @@ import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.BrowserFunction;
 import org.eclipse.swt.browser.CloseWindowListener;
 import org.eclipse.swt.browser.OpenWindowListener;
+import org.eclipse.swt.browser.TitleEvent;
+import org.eclipse.swt.browser.TitleListener;
+import org.eclipse.swt.browser.VisibilityWindowListener;
 import org.eclipse.swt.browser.WindowEvent;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.program.Program;
@@ -150,12 +154,7 @@ public class StoreClient extends EditorPart {
 			browserData.horizontalSpan = 3;
 			browser.setLayoutData(browserData);
 
-			browser.addOpenWindowListener(new OpenWindowListener() {
-				@Override
-				public void open(WindowEvent event) {
-					handleOpen(event);
-				}
-			});
+			initializeBrowser(browser, false);
 
 			installFunctions();
 
@@ -249,37 +248,81 @@ public class StoreClient extends EditorPart {
 		}
 	}
 
-	private void handleOpen(WindowEvent event) {
-		final Shell shell = new Shell(browser.getShell(), SWT.SHELL_TRIM);
-		GridLayout layout = new GridLayout();
-		layout.marginWidth = layout.marginHeight = 0;
-		shell.setLayout(layout);
-		Browser browser = new Browser(shell, SWT.NORMAL);
-
-		event.browser = browser;
-		browser.addCloseWindowListener(new CloseWindowListener() {
-			@Override
-			public void close(WindowEvent event) {
-				shell.dispose();
-			}
-		});
-
-		GridData data = new GridData(GridData.FILL_BOTH);
-		Point size = event.size != null ? event.size : new Point(640, 480);
-
-		data.widthHint = size.x;
-		data.heightHint = size.y;
-
-		browser.setLayoutData(data);
-		shell.pack();
-
-		shell.open();
-	}
-
 	@Override
 	public void setFocus() {
 		if (SWTExtensions.INSTANCE.isAlive(browser))
 			browser.setFocus();
+	}
+
+	private void initializeBrowser(final Browser browser, boolean closable) {
+		browser.addOpenWindowListener(new OpenWindowListener() {
+			public void open(WindowEvent event) {
+				// Certain platforms can provide a default full browser.
+				// simply return in that case if the application prefers
+				// the default full browser to the embedded one set below.
+				if (!event.required)
+					return;
+
+				// Embed the new window
+				Shell shell = new Shell(browser.getDisplay(), SWT.SHELL_TRIM);
+				shell.setImage(SharedImages.getImage(SharedImages.STORE));
+				shell.setText("New Window");
+				shell.setLayout(new FillLayout());
+				Browser browser = new Browser(shell, SWT.NONE);
+				initializeBrowser(browser, true);
+				event.browser = browser;
+			}
+		});
+
+		if (!closable) {
+			return;
+		}
+
+		browser.addVisibilityWindowListener(new VisibilityWindowListener() {
+			public void hide(WindowEvent event) {
+				Browser browser = (Browser) event.widget;
+				Shell shell = browser.getShell();
+				shell.setVisible(false);
+			}
+
+			public void show(WindowEvent event) {
+				Browser browser = (Browser) event.widget;
+				Shell shell = browser.getShell();
+				if (event.location != null)
+					shell.setLocation(event.location);
+
+				if (event.size == null) {
+					event.size = new Point(1024, 768);
+				}
+
+				if (event.size != null) {
+					Point size = event.size;
+					shell.setSize(shell.computeSize(Math.min(size.x, 1027), Math.min(size.y, 768)));
+				}
+				if (event.addressBar || event.menuBar || event.statusBar || event.toolBar) {
+					// Create widgets for the address bar, menu bar, status bar
+					// and/or tool bar
+					// leave enough space in the Shell to accommodate a Browser
+					// of the size
+					// given by event.size
+				}
+				shell.open();
+			}
+		});
+		browser.addCloseWindowListener(new CloseWindowListener() {
+			public void close(WindowEvent event) {
+				Browser browser = (Browser) event.widget;
+				Shell shell = browser.getShell();
+				shell.close();
+			}
+		});
+
+		browser.addTitleListener(new TitleListener() {
+			@Override
+			public void changed(TitleEvent event) {
+				browser.getShell().setText(event.title);
+			}
+		});
 	}
 
 }

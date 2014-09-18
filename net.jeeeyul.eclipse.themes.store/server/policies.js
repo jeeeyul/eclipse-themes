@@ -15,6 +15,16 @@ Meteor.startup(function() {
 		}
 	});
 
+	Meteor.users.allow({
+		update : function(userId, content, fields) {
+			if (userId == undefined || userId == null) {
+				return false;
+			}
+
+			return content._id == userId;
+		}
+	});
+
 	EPFs.allow({
 		insert : function(userId, content) {
 			return userId != null;

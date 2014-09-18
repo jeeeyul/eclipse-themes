@@ -44,7 +44,7 @@ public class Debug {
 	 */
 	public static boolean useLocalStore() {
 		if (USE_LOCAL_STORE == null) {
-			String debugOption = Platform.getDebugOption("net.jeeeyul.eclipse.themes/debug/useLocalStoreServer");
+			String debugOption = Platform.getDebugOption("net.jeeeyul.eclipse.themes.ui/debug/useLocalStoreServer");
 			USE_LOCAL_STORE = Boolean.parseBoolean(debugOption);
 		}
 		return USE_LOCAL_STORE;

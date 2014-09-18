@@ -1,28 +1,32 @@
 template(name="post")
-	form.form-horizontal
-		.form-group
-			label.col-sm-2.control-label(for="name-field") Name
-			.col-sm-10
-				input#name-field.form-control(placeholder="The name of theme")
-
-		.form-group
-			label.col-sm-2.control-label(for="epf-field") EPF
-			.col-sm-10
-				.help-block User CSS will not be permitted. 
-				textarea#epf-field.form-control(rows="6")
-				if canInject
-					.help-block 
-						a#inject-button.btn.btn-default
-							span.glyphicon.glyphicon-file
-							span Inject with current settings
+	.post
+		if currentUser
+			form.form-horizontal
+				.form-group
+					label.col-sm-2.control-label(for="name-field") Name
+					.col-sm-10
+						input#name-field.form-control(placeholder="The name of theme")
 		
-		.form-group
-			label.col-sm-2.control-label(for="description-field") Description
-			.col-sm-10
-				textarea#description-field.form-control(rows="6")
+				.form-group
+					label.col-sm-2.control-label(for="epf-field") EPF
+					.col-sm-10
+						.help-block User CSS will not be permitted. 
+						textarea#epf-field.form-control(rows="6")
+						if canInject
+							.help-block 
+								a#inject-button.btn.btn-default
+									span.glyphicon.glyphicon-file
+									span Inject with current settings
 				
-		.form-group
-			.col-sm-offset-2.col-sm-10
-				a#submit-button.btn.btn-default
-					span.glyphicon.glyphicon-floppy-disk
-					span Submit
+				.form-group
+					label.col-sm-2.control-label(for="description-field") Description
+					.col-sm-10
+						textarea#description-field.form-control(rows="6")
+						
+				.form-group
+					.col-sm-offset-2.col-sm-10
+						a#submit-button.btn.btn-default
+							span.glyphicon.glyphicon-floppy-disk
+							span Submit
+		else
+			div You have to log-in to share your theme.
