@@ -21,7 +21,7 @@ public class ManagePresetAction extends AbstractPreferenceAction {
 	 */
 	public ManagePresetAction(JTPreferencePage page) {
 		super(page);
-		setText("Mange Presets...");
+		setText("Manage Presets...");
 		setImageDescriptor(SharedImages.getImageDescriptor(SharedImages.CONFIG));
 	}
 
