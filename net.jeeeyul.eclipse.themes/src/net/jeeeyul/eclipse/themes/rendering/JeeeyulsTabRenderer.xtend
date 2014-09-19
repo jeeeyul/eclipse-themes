@@ -365,7 +365,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			if (lastItem != null && settings.getBorderColorsFor(lastItem.state) != null) {
 				val itemBounds = lastItem.bounds
 				var path = newTemporaryPath[
-					moveTo(itemBounds.bottomRight)
+					moveTo(itemBounds.bottomRight.getTranslated(0, -1))
 					lineTo(itemBounds.topRight.getTranslated(0, settings.borderRadius))
 					addArc(newRectangleWithSize(settings.borderRadius * 2).relocateTopRightWith(itemBounds.topRight), 0,
 						90)
