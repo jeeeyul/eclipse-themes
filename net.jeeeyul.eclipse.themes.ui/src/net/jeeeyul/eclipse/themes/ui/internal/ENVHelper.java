@@ -41,6 +41,21 @@ public class ENVHelper {
 		return getOSName().startsWith("Windows");
 	}
 
+	/**
+	 * @return whether it is running on Windows 8
+	 */
+	public boolean isWindow8() {
+		return isWindow() && getOSVersion().equalsIgnoreCase("6.2");
+
+	}
+
+	/**
+	 * @return The version of running OS
+	 */
+	public String getOSVersion() {
+		return System.getProperty("os.version");
+	}
+
 	private String getOSName() {
 		return System.getProperty("os.name");
 	}

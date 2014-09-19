@@ -506,8 +506,6 @@ public class JTabSettings {
 		if (this.tabSpacing == tabSpacing) {
 			return;
 		}
-		tabSpacing = Math.max(tabSpacing, 0);
-
 		int old = this.tabSpacing;
 		this.tabSpacing = tabSpacing;
 		pcs.firePropertyChange("tab-spacing", old, tabSpacing);

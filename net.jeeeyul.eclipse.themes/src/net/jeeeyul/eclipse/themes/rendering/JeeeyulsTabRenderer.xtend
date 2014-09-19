@@ -31,6 +31,7 @@ import org.eclipse.swt.widgets.Listener
 class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	static extension JTabRendererHelper = new JTabRendererHelper
 	static extension SWTExtensions = SWTExtensions.INSTANCE
+	static final int CLOSE_BUTTON_WIDTH = 11
 
 	static val TEXT_FLAGS = SWT.DRAW_TRANSPARENT || SWT.DRAW_MNEMONIC;
 	static val MINIMUM_SIZE = 1 << 24;
@@ -67,7 +68,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		this.tabFolder = parent
 		settings.addPropertyChangeListener(settingsListener)
 
-		if(isWindow) {
+		if (isWindow) {
 			tabFolder.addListener(SWT.Resize, windowsRedrawHook)
 		}
 	}
@@ -76,7 +77,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		shadowNinePatch.safeDispose()
 		settings.removePropertyChangeListener(settingsListener)
 
-		if(window && parent.alive) {
+		if (window && parent.alive) {
 			parent.removeListener(SWT.Resize, windowsRedrawHook)
 		}
 		super.dispose()
@@ -90,7 +91,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				var height = 0
 				width = width + settings.tabItemPaddings.x
 
-				if(item.image != null) {
+				if (item.image != null) {
 					width = width + item.image.bounds.width
 					width = width + settings.tabItemHorizontalSpacing
 					height = item.image.bounds.height
@@ -98,21 +99,21 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 				var itemText = item.text.trim
 
-				if(state.hasFlags(MINIMUM_SIZE) && settings.truncateTabItems && itemText.length > settings.minimumCharacters) {
-					itemText = itemText.substring(0, settings.minimumCharacters) + if(settings.useEllipses) "..." else ""
+				if (state.hasFlags(MINIMUM_SIZE) && settings.truncateTabItems &&
+					itemText.length > settings.minimumCharacters) {
+					itemText = itemText.substring(0, settings.minimumCharacters) +
+						if(settings.useEllipses) "..." else ""
 				}
-				if(itemText.trim.length > 0) {
+				if (itemText.trim.length > 0) {
 					var textSize = itemText.computeTextExtent(#[item.font, parent.font].firstNotNull)
 					width = width + textSize.x
 					height = Math.max(height, textSize.y)
 				}
 
-				if(parent.showClose || item.showClose) {
-					if(state.hasFlags(SWT.SELECTED) || parent.showUnselectedClose) {
-						var closeButtonSize = computeSize(PART_CLOSE_BUTTON, SWT.NONE, gc, SWT.DEFAULT, SWT.DEFAULT)
+				if (parent.showClose || item.showClose) {
+					if (state.hasFlags(SWT.SELECTED) || parent.showUnselectedClose) {
 						width = width + settings.tabItemHorizontalSpacing
-						width = width + closeButtonSize.x
-						height = Math.max(height, closeButtonSize.y)
+						width = width + net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer.CLOSE_BUTTON_WIDTH
 					}
 				}
 
@@ -125,7 +126,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			}
 			case PART_HEADER: {
 				var size = new Point(0, parent.tabHeight)
-				if(parent.itemCount == 0) {
+				if (parent.itemCount == 0) {
 					size.y = Math.max(gc.textExtent("Default").y, size.y)
 				} else {
 					for (i : 0 ..< parent.itemCount) {
@@ -141,7 +142,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				return size
 			}
 			case PART_CLOSE_BUTTON: {
-				return new Point(11, 11)
+				return new Point(11, computeSize(PART_HEADER, 0, gc, -1, -1).y)
 			}
 			case PART_CHEVRON_BUTTON: {
 				return new Point(20, 16)
@@ -158,16 +159,18 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		switch (part) {
 			case PART_BODY: {
 				result.x = result.x - settings.margins.x - settings.paddings.x
-				result.width = result.width + settings.margins.x + settings.paddings.x + settings.paddings.width + settings.margins.width
+				result.width = result.width + settings.margins.x + settings.paddings.x + settings.paddings.width +
+					settings.margins.width
 
-				if(tabFolder.onBottom) {
+				if (tabFolder.onBottom) {
 					throw new UnsupportedOperationException
 				}
 
 				result.y = result.y - tabFolder.tabHeight - settings.paddings.y - 2
-				result.height = result.height + tabFolder.tabHeight + settings.paddings.y + settings.margins.height + settings.paddings.height + 2
+				result.height = result.height + tabFolder.tabHeight + settings.paddings.y + settings.margins.height +
+					settings.paddings.height + 2
 
-				if(settings.borderColors != null) {
+				if (settings.borderColors != null) {
 					result.x = result.x - 1
 					result.width = result.width + 2
 					result.height = result.height + 1
@@ -187,11 +190,9 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			case (part == PART_CHEVRON_BUTTON || part == PART_MIN_BUTTON || part == PART_MAX_BUTTON): {
 				// Don't trim
 			}
-			
 			case part >= 0: {
 				result.x = settings.tabItemPaddings.width + settings.tabSpacing
 			}
-			
 			default: {
 				result = super.computeTrim(part, state, x, y, width, height)
 			}
@@ -202,8 +203,9 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 	override protected draw(int part, int state, Rectangle bounds, GC gc) {
 		try {
+			Debug.countFrame()
 			doDraw(part, state, bounds, gc)
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace
 		}
 	}
@@ -237,7 +239,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				drawChevronButton(part, state, bounds, gc)
 			}
 			case part >= 0: {
-				if(tabFolder.single){
+				if (tabFolder.single) {
 					return;
 				}
 				drawTabItem(part, state, bounds, gc)
@@ -252,14 +254,14 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 	private def updateChevronImage() {
 		val chevronSize = parent.chevron.size
-		if(chevronSize.x == 0 || chevronSize.y == 0) {
+		if (chevronSize.x == 0 || chevronSize.y == 0) {
 			return
 		}
 
 		var HSB lastColor = parent.chevron.getData("last-render-color") as HSB
 		var Integer lastCount = parent.chevron.getData("last-render-count") as Integer
 		val count = Math.min(parent.items.filter[it.showing == false].size, 99)
-		if(lastColor == settings.getChevronColor && lastCount == count) {
+		if (lastColor == settings.getChevronColor && lastCount == count) {
 			return;
 		}
 
@@ -296,7 +298,8 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		var toolbarImg = new Image(display, chevronSize.x, chevronSize.y).shouldDisposeWith(parent)
 		var tgc = new GC(toolbarImg)
 
-		tgc.fillGradientRectangle(new Rectangle(0, -parent.chevron.bounds.y, chevronSize.x, parent.tabHeight + 3), parent.gradientColor, parent.gradientPercents, true)
+		tgc.fillGradientRectangle(new Rectangle(0, -parent.chevron.bounds.y, chevronSize.x, parent.tabHeight + 3),
+			parent.gradientColor, parent.gradientPercents, true)
 		tgc.dispose();
 
 		parent.chevron.backgroundImage.safeDispose()
@@ -312,8 +315,9 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	}
 
 	private def getHeaderArea() {
-		var headerArea = if(tabFolder.onTop) {
-				new Rectangle(settings.margins.x, 0, tabFolder.size.x - settings.margins.x - settings.margins.width, tabFolder.tabHeight + 2)
+		var headerArea = if (tabFolder.onTop) {
+				new Rectangle(settings.margins.x, 0, tabFolder.size.x - settings.margins.x - settings.margins.width,
+					tabFolder.tabHeight + 2)
 			} else {
 				new Rectangle(0, tabFolder.size.y, tabFolder.size.x, tabFolder.size.y) => [
 					shrink(settings.margins.x, 0, settings.margins.width, 0)
@@ -326,22 +330,23 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	}
 
 	protected def drawTabHeader(int part, int state, Rectangle bounds, GC gc) {
-		if(parent.onBottom) {
+		if (parent.onBottom) {
 			throw new UnsupportedOperationException
 		}
 
 		val fillArea = getHeaderArea()
-		if(settings.borderColors != null)
+		if (settings.borderColors != null)
 			fillArea.shrink(1, 0)
-		if(tabFolder.gradientColor != null) {
-			gc.fillGradientRoundRectangle(fillArea, settings.borderRadius, CORNER_TOP, tabFolder.gradientColor, tabFolder.gradientPercents, true)
+		if (tabFolder.gradientColor != null) {
+			gc.fillGradientRoundRectangle(fillArea, settings.borderRadius, CORNER_TOP, tabFolder.gradientColor,
+				tabFolder.gradientPercents, true)
 		} else {
 			gc.background = tabFolder.background
 			gc.fillRoundRectangle(fillArea, settings.borderRadius, CORNER_TOP)
 		}
 
 		val outlineArea = headerArea.getResized(-1, 0)
-		if(settings.borderColors != null) {
+		if (settings.borderColors != null) {
 			gc.foreground = settings.borderColors.head.toAutoDisposeColor
 			var path = newTemporaryPath[
 				moveTo(outlineArea.bottomLeft)
@@ -353,10 +358,27 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 			]
 			gc.drawGradientPath(path, settings.borderColors.toAutoDisposeColors, settings.borderPercents, true)
 		}
+
+		if (settings.tabSpacing == -1) {
+			var lastItem = parent.lastVisibleItem
+
+			if (lastItem != null && settings.getBorderColorsFor(lastItem.state) != null) {
+				val itemBounds = lastItem.bounds
+				var path = newTemporaryPath[
+					moveTo(itemBounds.bottomRight)
+					lineTo(itemBounds.topRight.getTranslated(0, settings.borderRadius))
+					addArc(newRectangleWithSize(settings.borderRadius * 2).relocateTopRightWith(itemBounds.topRight), 0,
+						90)
+				]
+
+				gc.drawGradientPath(path, settings.getBorderColorsFor(lastItem.state).toAutoDisposeColors,
+					settings.getBorderPercentsFor(lastItem.state), true)
+			}
+		}
 	}
 
 	protected def drawTabBody(int part, int state, Rectangle bounds, GC gc) {
-		if(parent.onBottom) {
+		if (parent.onBottom) {
 			throw new UnsupportedOperationException
 		}
 
@@ -364,11 +386,11 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		gc.background = tabFolder.parent.background
 		gc.fill(bounds)
 
-		if(settings.shadowColor != null) {
+		if (settings.shadowColor != null) {
 			drawShadow(part, state, bounds, gc)
 		}
 
-		gc.background = if(parent.itemCount > 0)
+		gc.background = if (parent.itemCount > 0)
 			#[tabFolder.selectionGradientColor?.last, tabFolder.selectionBackground].findFirst[it != null]
 		else
 			#[tabFolder.gradientColor?.last, tabFolder.background].findFirst[it != null]
@@ -379,14 +401,14 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		gc.fillRoundRectangle(fillArea, settings.borderRadius, CORNER_BOTTOM)
 
 		fillArea.shrink(settings.paddings)
-		if(settings.borderColors != null) {
+		if (settings.borderColors != null) {
 			fillArea.shrink(1, 0, 1, 1)
 		}
 		gc.background = parent.background
 		gc.fill(fillArea)
 
 		// Draw Border
-		if(settings.borderWidth > 0 && settings.borderColors != null && settings.borderPercents != null) {
+		if (settings.borderWidth > 0 && settings.borderColors != null && settings.borderPercents != null) {
 			val offset = tabArea.getResized(-1, -1)
 			gc.lineWidth = settings.borderWidth
 			val bodyPath = newTemporaryPath[
@@ -409,11 +431,23 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	}
 
 	protected def drawCloseButton(int part, int state, Rectangle bounds, GC gc) {
-		if(Debug.isDebuggingGUI) {
-			gc.background = COLOR_MAGENTA
-			gc.fill(bounds)
+		val box = newRectangleWithSize(bounds.width).relocateCenterWith(bounds).shrink(2)
+
+		if (settings.closeButtonAlignment == VerticalAlignment.BASE_LINE) {
+			box.y = (bounds.height - gc.fontMetrics.height) / 2 + gc.fontMetrics.leading + gc.fontMetrics.ascent - box.height
+			box.y += switch(settings.closeButtonLineWidth){
+				case 1 : 1
+				case 2 : 1
+				case 3 : 0
+				default: 1
+			}
 		}
-		val box = bounds.getShrinked(2)
+
+		if (Debug.isDebuggingGUI) {
+			gc.background = COLOR_MAGENTA
+			gc.fill(box)
+		}
+
 		var path = newTemporaryPath[
 			moveTo(box.topLeft)
 			lineTo(box.bottomRight)
@@ -422,9 +456,12 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		]
 
 		var color = switch (state) {
-			case state.hasFlags(SWT.HOT): #[settings.closeButtonHotColor, settings.closeButtonColor, HSB.BLACK].firstNotNull
-			case state.hasFlags(SWT.SELECTED): #[settings.closeButtonActiveColor, settings.closeButtonColor, HSB.BLACK].firstNotNull
-			default: #[settings.closeButtonColor, HSB.BLACK].firstNotNull
+			case state.hasFlags(SWT.HOT):
+				#[settings.closeButtonHotColor, settings.closeButtonColor, HSB.BLACK].firstNotNull
+			case state.hasFlags(SWT.SELECTED):
+				#[settings.closeButtonActiveColor, settings.closeButtonColor, HSB.BLACK].firstNotNull
+			default:
+				#[settings.closeButtonColor, HSB.BLACK].firstNotNull
 		}
 		gc.lineWidth = Math.max(settings.closeButtonLineWidth, 1)
 		gc.foreground = color.toAutoDisposeColor
@@ -435,12 +472,12 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	protected def drawTabItem(int part, int state, Rectangle bounds, GC gc) {
 		val item = tabFolder.getItem(part)
 
-		val itemBounds = if(tabFolder.onBottom)
+		val itemBounds = if (tabFolder.onBottom)
 				throw new UnsupportedOperationException
 			else
 				item.bounds.getResized(-Math.max(settings.tabSpacing, 0), 0)
 
-		if(settings.tabSpacing == -1) {
+		if (settings.tabSpacing == -1) {
 			itemBounds.resize(1, 0)
 		}
 
@@ -448,41 +485,33 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		drawTabItemBackground(part, state, itemBounds, gc)
 
 		// Draw Icon
-		var iconArea = if(item.image != null)
+		var iconArea = if (item.image != null)
 				item.image.bounds.relocateLeftWith(item.bounds).translate(settings.tabItemPaddings.x, 0)
 			else
 				new Rectangle(itemBounds.x + settings.tabItemPaddings.x, 0, 0, itemBounds.height)
 
-		if(item.image != null) {
+		if (item.image != null) {
 			val isBusy = CSSClasses.getStyleClasses(item).contains("busy")
-			if(isBusy){
+			if (isBusy) {
 				gc.drawImage(item.image, iconArea.topLeft)
 				val watingIcon = CoreImages.getImage(CoreImages.WAITING)
 				val iconSize = watingIcon.bounds.size
 				gc.drawImage(watingIcon, iconArea.bottomRight.getTranslated(iconSize.negated).getTranslated(1, 1))
-			}else{
+			} else {
 				gc.drawImage(item.image, iconArea.topLeft)
 			}
 		}
 
 		// Draw Close Button
+		gc.font = if (item.font != null) {
+			item.font
+		} else {
+			tabFolder.font
+		}
+
 		var closeVisible = false
-		if((tabFolder.showClose || item.showClose) && item.closeRect.width > 0) {
-			if(settings.closeButtonAlignment == VerticalAlignment.BASE_LINE) {
-				var offset = (item.bounds.height - gc.fontMetrics.height) / 2 + gc.fontMetrics.ascent
-				offset += switch (settings.closeButtonLineWidth) {
-					case 1: 2
-					case 2: 3
-					case 3: 2
-					default: 2
-				}
-
-				var bottom = item.closeRect.bottom
-				bottom.y = offset
-				item.closeRect.relocateBottomWith(bottom)
-			}
-
-			if(state.hasFlags(SWT.SELECTED) || state.hasFlags(SWT.HOT)) {
+		if ((tabFolder.showClose || item.showClose) && item.closeRect.width > 0) {
+			if (state.hasFlags(SWT.SELECTED) || state.hasFlags(SWT.HOT)) {
 				gc.withClip(item.closeRect) [
 					draw(PART_CLOSE_BUTTON, item.closeImageState, item.closeRect, gc)
 				]
@@ -492,36 +521,41 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		gc.lineWidth = 1
 
 		// Draw Text
-		gc.font = if(item.font != null) {
-			item.font
-		} else {
-			tabFolder.font
-		}
-
 		val textSize = item.text.computeTextExtent(gc.font);
 		val textArea = newRectangleWithSize(textSize).relocateLeftWith(iconArea.right)
-		if(item.image != null)
+		if (item.image != null)
 			textArea.translate(settings.tabItemHorizontalSpacing, 0)
 
-		if(closeVisible && item.closeRect != null && item.closeRect.width > 0) {
+		if (closeVisible && item.closeRect != null && item.closeRect.width > 0) {
 			textArea.setRight(item.closeRect.x - settings.tabItemHorizontalSpacing);
 		} else {
 			textArea.setRight(itemBounds.right.x - settings.tabItemPaddings.width)
 		}
 
-		if(Debug.isDebuggingGUI) {
+		if (Debug.isDebuggingGUI) {
 			gc.foreground = COLOR_MAGENTA
+			gc.lineStyle = SWT.LINE_DASH
+			gc.lineDash = #[2, 2]
+			gc.drawRectangle(textArea)
+			gc.lineStyle = SWT.LINE_SOLID
+
 			gc.lineWidth = 1
-			gc.drawLine(textArea.left.x, textArea.top.y + gc.fontMetrics.ascent, textArea.right.x, textArea.top.y + gc.fontMetrics.ascent)
-			gc.drawLine(textArea.left.x, textArea.top.y + gc.fontMetrics.descent, textArea.right.x, textArea.top.y + gc.fontMetrics.descent)
+
+			gc.foreground = COLOR_RED
+			gc.drawLine(textArea.left.x, textArea.top.y + gc.fontMetrics.leading + gc.fontMetrics.ascent, textArea.right.x,
+				textArea.top.y + gc.fontMetrics.leading + gc.fontMetrics.ascent)
+
+			gc.foreground = COLOR_BLUE
+			gc.drawLine(textArea.left.x, textArea.top.y + gc.fontMetrics.leading+ gc.fontMetrics.ascent + gc.fontMetrics.descent,
+				textArea.right.x, textArea.top.y + gc.fontMetrics.leading + gc.fontMetrics.ascent + gc.fontMetrics.descent)
 		}
 
-		var text = if(textSize.x > textArea.width)
+		var text = if (textSize.x > textArea.width)
 				gc.shortenText(item.text, textArea.width)
 			else
 				item.text
 
-		if(parent.focusControl && state.hasFlags(SWT.SELECTED)) {
+		if (parent.focusControl && state.hasFlags(SWT.SELECTED)) {
 			gc.alpha = 90
 			gc.foreground = settings.getTextColorFor(state).toAutoDisposeColor
 
@@ -533,7 +567,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 		val textShadowColor = settings.getTextShadowColorFor(state)
 		val textShadowPosition = settings.getTextShadowPositionFor(state)
-		if(textShadowColor != null && textShadowPosition != null && !textShadowPosition.empty) {
+		if (textShadowColor != null && textShadowPosition != null && !textShadowPosition.empty) {
 			var shadowPosition = settings.getTextShadowPositionFor(state)
 			gc.foreground = settings.getTextShadowColorFor(state).toAutoDisposeColor
 			var delta = textArea.topLeft.getTranslated(shadowPosition)
@@ -545,25 +579,61 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		// Draw Border and Keyline
 		drawTabItemBorder(part, state, itemBounds, gc)
 
-		if(settings.borderColors != null) {
-			if(parent.firstVisibleItem == item) {
+		// Overlapping Support
+		if (settings.tabSpacing == -1) {
+			var prevItem = if (part > 0)
+					parent.getItem(part - 1)
+				else
+					null
+
+			var hasToDrawLeftBorder = !state.hasFlags(SWT.SELECTED) && prevItem != null &&
+				!prevItem.state.hasFlags(SWT.SELECTED) && prevItem.state.hasFlags(SWT.HOT) &&
+				settings.hoverBorderColors != null
+
+			if (hasToDrawLeftBorder) {
+				var path = newTemporaryPath[
+					moveTo(itemBounds.bottomLeft)
+					lineTo(itemBounds.topLeft.getTranslated(0, settings.borderRadius))
+					addArc(newRectangleWithSize(settings.borderRadius * 2).relocateTopRightWith(itemBounds.topLeft), 0,
+						90)
+				]
+
+				gc.drawGradientPath(path, settings.getBorderColorsFor(SWT.HOT).toAutoDisposeColors,
+					settings.getBorderPercentsFor(SWT.HOT), true)
+			}
+
+			var hasToFix = (!state.hasFlags(SWT.SELECTED) &&
+				(state.hasFlags(SWT.HOT) || item.lastKnownState.hasFlags(SWT.HOT)))
+
+			if (hasToFix) {
+				parent.redraw(itemBounds.x + itemBounds.width - 1, itemBounds.y, 1, itemBounds.height, false)
+				parent.update()
+			}
+		}
+
+		if (settings.borderColors != null) {
+			if (parent.firstVisibleItem == item) {
 				var path = newTemporaryPath[
 					moveTo(itemBounds.topRight.getTranslated(Math.max(settings.tabSpacing, 0) + 1, 0))
 					lineTo(itemBounds.topLeft.getTranslated(settings.borderRadius, 0))
-					addArc(newRectangle(itemBounds.x, itemBounds.y, settings.borderRadius * 2, settings.borderRadius * 2), 90, 90)
+					addArc(
+						newRectangle(itemBounds.x, itemBounds.y, settings.borderRadius * 2, settings.borderRadius * 2),
+						90, 90)
 					lineTo(itemBounds.bottomLeft.getTranslated(0, 1))
 				]
 				gc.drawGradientPath(path, settings.borderColors.toAutoDisposeColors, settings.borderPercents, true)
 			} else {
 				gc.foreground = settings.borderColors.head.toAutoDisposeColor
-				gc.drawLine(itemBounds.topLeft.getTranslated(-1, 0), itemBounds.topRight.getTranslated(Math.max(settings.tabSpacing, 0) + 1, 0))
+				gc.drawLine(itemBounds.topLeft.getTranslated(-1, 0),
+					itemBounds.topRight.getTranslated(Math.max(settings.tabSpacing, 0) + 1, 0))
 			}
 		}
 
+		item.lastKnownState = state
 	}
 
 	protected def void drawTabItemBorder(int part, int state, Rectangle bounds, GC gc) {
-		if(settings.getBorderColorsFor(state) == null || settings.getBorderPercentsFor(state) == null) {
+		if (settings.getBorderColorsFor(state) == null || settings.getBorderPercentsFor(state) == null) {
 			return;
 		}
 
@@ -572,16 +642,17 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		val outlineOffset = itemOutlineBounds.shrink(settings.borderWidth / 2)
 		var Path outline = null;
 
-		if(tabFolder.onBottom) {
+		if (tabFolder.onBottom) {
 			throw new UnsupportedOperationException
 		}
 		outline = newTemporaryPath[
 			var keyLineY = item.bounds.bottom.y - 1
-			if(settings.borderRadius > 0) {
-				var corner = newRectangle(outlineOffset.topLeft, new Point(settings.borderRadius * 2, settings.borderRadius * 2))
+			if (settings.borderRadius > 0) {
+				var corner = newRectangle(outlineOffset.topLeft,
+					new Point(settings.borderRadius * 2, settings.borderRadius * 2))
 				corner.relocateTopRightWith(outlineOffset)
 
-				if(state.hasFlags(SWT.SELECTED)) {
+				if (state.hasFlags(SWT.SELECTED)) {
 					moveTo(tabFolder.size.x - settings.margins.width - settings.borderWidth, keyLineY)
 					lineTo(itemOutlineBounds.bottomRight.x, keyLineY)
 				} else {
@@ -592,19 +663,19 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				corner.relocateTopLeftWith(outlineOffset)
 				lineTo(corner.top)
 
-				if(settings.borderColors == null || settings.borderColors != null && item != parent.firstVisibleItem) {
+				if (settings.borderColors == null || settings.borderColors != null && item != parent.firstVisibleItem) {
 					addArc(corner, 90, 90)
 					lineTo(outlineOffset.x, keyLineY)
-					if(state.hasFlags(SWT.SELECTED)) {
+					if (state.hasFlags(SWT.SELECTED)) {
 						var left = new Point(settings.margins.x, keyLineY)
-						if(settings.borderColors != null) {
+						if (settings.borderColors != null) {
 							left.translate(1, 0)
 						}
 						lineTo(left)
 					}
 				}
 			} else {
-				if(state.hasFlags(SWT.SELECTED)) {
+				if (state.hasFlags(SWT.SELECTED)) {
 					moveTo(tabFolder.size.x - settings.margins.width - settings.borderWidth, keyLineY)
 					lineTo(itemOutlineBounds.bottomRight.x, keyLineY)
 				} else {
@@ -613,12 +684,12 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				lineTo(itemOutlineBounds.topRight)
 				lineTo(itemOutlineBounds.topLeft)
 
-				if(settings.borderColors == null || settings.borderColors != null && item != parent.firstVisibleItem) {
+				if (settings.borderColors == null || settings.borderColors != null && item != parent.firstVisibleItem) {
 					lineTo(itemOutlineBounds.bottomLeft.x, keyLineY)
 
-					if(state.hasFlags(SWT.SELECTED)) {
+					if (state.hasFlags(SWT.SELECTED)) {
 						var left = new Point(settings.margins.x, keyLineY)
-						if(settings.borderColors != null) {
+						if (settings.borderColors != null) {
 							left.translate(settings.borderWidth, 0)
 						}
 						lineTo(left)
@@ -628,17 +699,19 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		]
 
 		gc.lineWidth = settings.borderWidth
-		gc.drawGradientPath(outline, settings.getBorderColorsFor(state).toAutoDisposeColors, settings.getBorderPercentsFor(state), true)
+		gc.drawGradientPath(outline, settings.getBorderColorsFor(state).toAutoDisposeColors,
+			settings.getBorderPercentsFor(state), true)
 	}
 
 	protected def drawTabItemBackground(int part, int state, Rectangle bounds, GC gc) {
 		val itemBounds = bounds.copy
-		if(settings.getBorderColorsFor(state) != null)
+		if (settings.getBorderColorsFor(state) != null)
 			itemBounds.shrink(1, 0)
 
 		var colors = settings.getItemFillFor(state)
-		if(colors != null)
-			gc.fillGradientRoundRectangle(itemBounds, settings.borderRadius, CORNER_TOP, colors, settings.getItemFillPercentsFor(state), true)
+		if (colors != null)
+			gc.fillGradientRoundRectangle(itemBounds, settings.borderRadius, CORNER_TOP, colors,
+				settings.getItemFillPercentsFor(state), true)
 	}
 
 	def protected drawShadow(int part, int state, Rectangle bounds, GC gc) {
@@ -648,12 +721,14 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	}
 
 	def protected tabArea() {
-		newRectangle.setSize(tabFolder.size).shrink(settings.margins.x, 0, settings.margins.width, settings.margins.height)
+		newRectangle.setSize(tabFolder.size).shrink(settings.margins.x, 0, settings.margins.width,
+			settings.margins.height)
 	}
 
 	def protected getShadow() {
-		if(shadowNinePatch == null || shadowNinePatch.disposed) {
-			shadowNinePatch = Shadow9PatchFactory.createShadowPatch(settings.shadowColor.toRGB, settings.borderRadius + 3, settings.shadowRadius);
+		if (shadowNinePatch == null || shadowNinePatch.disposed) {
+			shadowNinePatch = Shadow9PatchFactory.createShadowPatch(settings.shadowColor.toRGB,
+				settings.borderRadius + 3, settings.shadowRadius);
 		}
 		return shadowNinePatch;
 	}
@@ -667,7 +742,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	}
 
 	def private shortenText(GC gc, String text, int width) {
-		var ellipses = if(settings.useEllipses)
+		var ellipses = if (settings.useEllipses)
 				"..."
 			else
 				""

@@ -27,6 +27,8 @@ import org.eclipse.swt.browser.TitleEvent;
 import org.eclipse.swt.browser.TitleListener;
 import org.eclipse.swt.browser.VisibilityWindowListener;
 import org.eclipse.swt.browser.WindowEvent;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
@@ -257,6 +259,7 @@ public class StoreClient extends EditorPart {
 	private void initializeBrowser(final Browser browser, boolean closable) {
 		browser.addOpenWindowListener(new OpenWindowListener() {
 			public void open(WindowEvent event) {
+				Debug.println("Open");
 				// Certain platforms can provide a default full browser.
 				// simply return in that case if the application prefers
 				// the default full browser to the embedded one set below.
@@ -264,7 +267,7 @@ public class StoreClient extends EditorPart {
 					return;
 
 				// Embed the new window
-				Shell shell = new Shell(browser.getDisplay(), SWT.SHELL_TRIM);
+				Shell shell = new Shell(browser.getDisplay(), SWT.SHELL_TRIM | SWT.TOP);
 				shell.setImage(SharedImages.getImage(SharedImages.STORE));
 				shell.setText("New Window");
 				shell.setLayout(new FillLayout());
@@ -280,12 +283,16 @@ public class StoreClient extends EditorPart {
 
 		browser.addVisibilityWindowListener(new VisibilityWindowListener() {
 			public void hide(WindowEvent event) {
+				Debug.println("hide");
+				
 				Browser browser = (Browser) event.widget;
 				Shell shell = browser.getShell();
 				shell.setVisible(false);
 			}
 
 			public void show(WindowEvent event) {
+				Debug.println("show");
+				
 				Browser browser = (Browser) event.widget;
 				Shell shell = browser.getShell();
 				if (event.location != null)
@@ -311,6 +318,7 @@ public class StoreClient extends EditorPart {
 		});
 		browser.addCloseWindowListener(new CloseWindowListener() {
 			public void close(WindowEvent event) {
+				Debug.println("close");
 				Browser browser = (Browser) event.widget;
 				Shell shell = browser.getShell();
 				shell.close();
@@ -321,6 +329,13 @@ public class StoreClient extends EditorPart {
 			@Override
 			public void changed(TitleEvent event) {
 				browser.getShell().setText(event.title);
+			}
+		});
+		
+		browser.addDisposeListener(new DisposeListener() {
+			@Override
+			public void widgetDisposed(DisposeEvent e) {
+				Debug.println("dispose");
 			}
 		});
 	}

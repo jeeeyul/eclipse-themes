@@ -15,6 +15,7 @@ import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Label
 import org.eclipse.swt.widgets.Spinner
 import org.eclipse.swt.program.Program
+import net.jeeeyul.eclipse.themes.ui.internal.ENVHelper
 
 /**
  * @since 2.0
@@ -33,7 +34,7 @@ class GeneralPage extends AbstractJTPreferencePage {
 	ColorWell shadowColorWell
 	Spinner partStackSpacingEdit
 	Label partStackSpacingRangeLabel
-	
+
 	Spinner windowMarginsEdit
 	Label windowMarginsRangeLabel
 
@@ -73,7 +74,6 @@ class GeneralPage extends AbstractJTPreferencePage {
 					layoutData = FILL_HORIZONTAL
 				]
 				statusEdit.appendOrderLockButton[]
-				
 				newLabel[
 					text = "Status Bar Text"
 				]
@@ -87,11 +87,13 @@ class GeneralPage extends AbstractJTPreferencePage {
 				text = "Perspective Switcher"
 				layoutData = FILL_HORIZONTAL
 				layout = newGridLayout[
-					numColumns = 3
+					numColumns = 4
 				]
 				newLabel[text = "Fill"]
 				perspectiveSwitcherEdit = newGradientEdit[
-					layoutData = FILL_HORIZONTAL
+					layoutData = FILL_HORIZONTAL[
+						horizontalSpan = 2
+					]
 				]
 				perspectiveSwitcherEdit.appendOrderLockButton[]
 				newLabel[
@@ -99,19 +101,27 @@ class GeneralPage extends AbstractJTPreferencePage {
 				]
 				perspectiveSwitcherKeyLineColorWell = newColorWell[
 					layoutData = newGridData[
-						horizontalSpan = 2
+						horizontalSpan = 3
 					]
 				]
-				
 				newLabel[
 					text = "Text"
 				]
-				
 				perspectiveTextColorWell = newColorWell[
-					layoutData = newGridData[
-						horizontalSpan = 2
-					]
+					if(ENVHelper.INSTANCE.window8){
+						layoutData = newGridData[
+							horizontalSpan = 3
+						]
+					}
 				]
+				if(ENVHelper.INSTANCE.window8) {
+					newLink[
+						text = '''Not works on Windows 8 (<a href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=443156">Bug 443156</a>)'''
+						layoutData = newGridData[
+							horizontalSpan = 2
+						]
+					]
+				}
 			]
 			newGroup[
 				text = "Window Spacing"
@@ -145,7 +155,6 @@ class GeneralPage extends AbstractJTPreferencePage {
 					text = "2px ~ 10px"
 					foreground = COLOR_DARK_GRAY
 				]
-				
 				newLabel[text = "Margins"]
 				windowMarginsEdit = newSpinner[
 					minimum = 0
@@ -155,7 +164,6 @@ class GeneralPage extends AbstractJTPreferencePage {
 						widthHint = 40
 					]
 				]
-				
 				windowMarginsRangeLabel = newLabel[
 					text = "2px ~ 10px"
 					foreground = COLOR_DARK_GRAY
@@ -235,7 +243,7 @@ class GeneralPage extends AbstractJTPreferencePage {
 			this.perspectiveSwitcherKeyLineColorWell.selection = psKeyline
 		}
 		this.perspectiveTextColorWell.selection = store.getHSB(JTPConstants.Window.PERSPECTIVE_SWITCHER_TEXT_COLOR)
-		
+
 		this.castShadowEdit.selection = store.getBoolean(JTPConstants.Layout.SHOW_SHADOW)
 		val shadowColor = store.getHSB(JTPConstants.Layout.SHADOW_COLOR)
 		if(shadowColor != null)
@@ -243,7 +251,7 @@ class GeneralPage extends AbstractJTPreferencePage {
 
 		partStackSpacingEdit.selection = store.getInt(JTPConstants.Window.SASH_WIDTH)
 		updateRangeLabels()
-		
+
 		windowMarginsEdit.selection = store.getRectangle(JTPConstants.Window.MARGINS).x
 
 	}
@@ -252,7 +260,7 @@ class GeneralPage extends AbstractJTPreferencePage {
 		store.setValue(JTPConstants.Window.TOOLBAR_FILL_COLOR, this.toolbarEdit.selection)
 		store.setValue(JTPConstants.Window.STATUS_BAR_FILL_COLOR, this.statusEdit.selection)
 		store.setValue(JTPConstants.Window.STATUS_BAR_TEXT_COLOR, statusTextColorWell.selection)
-		
+
 		store.setValue(JTPConstants.Window.BACKGROUND_COLOR, this.backgroundEdit.selection)
 		store.setValue(JTPConstants.Window.PERSPECTIVE_SWITCHER_FILL_COLOR, this.perspectiveSwitcherEdit.selection)
 		store.setValue(JTPConstants.Window.PERSPECTIVE_SWITCHER_KEY_LINE_COLOR, this.perspectiveSwitcherKeyLineColorWell.selection)
@@ -261,7 +269,7 @@ class GeneralPage extends AbstractJTPreferencePage {
 		store.setValue(JTPConstants.Window.SASH_WIDTH, partStackSpacingEdit.selection)
 		store.setValue(JTPConstants.Layout.SHOW_SHADOW, castShadowEdit.selection)
 		store.setValue(JTPConstants.Layout.SHADOW_COLOR, shadowColorWell.selection)
-		
+
 		var windowMargin = windowMarginsEdit.selection
 		store.setValue(JTPConstants.Window.MARGINS, new Rectangle(windowMargin, windowMargin, windowMargin, windowMargin))
 	}

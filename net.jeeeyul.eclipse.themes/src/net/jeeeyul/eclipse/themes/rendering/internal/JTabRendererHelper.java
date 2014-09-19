@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import net.jeeeyul.eclipse.themes.rendering.JTabSettings;
+import net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer;
 import net.jeeeyul.eclipse.themes.util.HackedField;
 import net.jeeeyul.eclipse.themes.util.HackedMethod0;
 import net.jeeeyul.swtend.SWTExtensions;
@@ -35,6 +36,8 @@ import org.eclipse.swt.widgets.ToolItem;
  */
 @SuppressWarnings("javadoc")
 public class JTabRendererHelper {
+	private static final String DATA_KEY__LAST_KNOWN_STATE = "_lastKnownState";
+
 	static interface _CTabFolder {
 		static final HackedMethod0<CTabFolder, ToolBar> getChevron = new HackedMethod0<CTabFolder, ToolBar>(CTabFolder.class, "getChevron");
 		static final HackedField<CTabFolder, Boolean> chevronVisible = new HackedField<CTabFolder, Boolean>(CTabFolder.class, "chevronVisible");
@@ -60,6 +63,7 @@ public class JTabRendererHelper {
 		static final HackedField<CTabItem, Integer> shortenedTextWidth = new HackedField<CTabItem, Integer>(CTabItem.class, "shortenedTextWidth");
 		static final HackedField<CTabItem, Rectangle> closeRect = new HackedField<CTabItem, Rectangle>(CTabItem.class, "closeRect");
 		static final HackedField<CTabItem, Integer> closeImageState = new HackedField<CTabItem, Integer>(CTabItem.class, "closeImageState");
+		static final HackedField<CTabItem, Integer> state = new HackedField<CTabItem, Integer>(CTabItem.class, "state");
 	}
 
 	static interface _CTabFolderRender {
@@ -171,7 +175,7 @@ public class JTabRendererHelper {
 
 		return visibles.get(visibles.size() - 1);
 	}
-	
+
 	public CTabItem getFirstVisibleItem(CTabFolder me) {
 		List<CTabItem> visibles = new ArrayList<CTabItem>();
 		for (CTabItem each : me.getItems()) {
@@ -191,6 +195,10 @@ public class JTabRendererHelper {
 		});
 
 		return visibles.get(0);
+	}
+
+	public boolean isLastVisibleItem(CTabItem me) {
+		return getLastVisibleItem(me.getParent()) == me;
 	}
 
 	public String setShortenText(CTabItem me, String shortenText) {
@@ -346,5 +354,22 @@ public class JTabRendererHelper {
 
 	public boolean isLinux() {
 		return getOSName().startsWith("Linux");
+	}
+
+	public int lastKnownState(CTabItem item) {
+		Integer state = (Integer) item.getData(DATA_KEY__LAST_KNOWN_STATE);
+		if (state == null) {
+			state = 0;
+		}
+		return state;
+	}
+
+	public int setLastKnownState(CTabItem item, int state) {
+		item.setData(DATA_KEY__LAST_KNOWN_STATE, state);
+		return state;
+	}
+
+	public int getState(CTabItem item) {
+		return _CTabItem.state.get(item);
 	}
 }

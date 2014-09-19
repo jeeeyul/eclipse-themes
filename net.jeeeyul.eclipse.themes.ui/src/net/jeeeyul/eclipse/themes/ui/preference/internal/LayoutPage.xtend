@@ -89,7 +89,7 @@ class LayoutPage extends AbstractJTPreferencePage {
 				]
 				newLabel[text = "Tab Spacing"]
 				tabSpacingScale = newSpinner[
-					minimum = 0
+					minimum = -1
 					maximum = 20
 					selection = 2
 					onSelection = [requestFastUpdatePreview()]
@@ -98,7 +98,7 @@ class LayoutPage extends AbstractJTPreferencePage {
 					]
 				]
 				newLabel[
-					text = "0px ~ 20px"
+					text = "-1(Overlap) ~ 20px"
 					foreground = COLOR_DARK_GRAY
 				]
 				newLabel[text = "Part Icon, Title and Close Spacing"]
