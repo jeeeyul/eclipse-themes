@@ -179,6 +179,20 @@ Template.preview.helpers({
 			return _.template("<%=key%>:<%=value%>", each);
 		}).join(";");
 	},
+	
+	"sashStyle" : function(active) {
+
+		var styles = [];
+		if (this.WINDOW__SASH_WIDTH) {
+			styles.push({
+				key : "height",
+				value : this.WINDOW__SASH_WIDTH.value + "px"
+			});
+		}
+		return styles.map(function(each) {
+			return _.template("<%=key%>:<%=value%>", each);
+		}).join(";");
+	},
 
 	"tabHeaderBorderStyle" : function(active) {
 		var prefix = active ? "ACTIVE_" : "INACTIVE_";
@@ -239,18 +253,34 @@ Template.preview.helpers({
 		}).join(";");
 	},
 	"tabItemBorderStyle" : function(active, selected) {
-		var prefix = active ? "ACTIVE_" : "INACTIVE_";
-		prefix += "PART_STACK__" + selected + "_";
+		var stackPrefix = (active ? "ACTIVE_" : "INACTIVE_") + "PART_STACK__";
+		var prefix = stackPrefix + selected + "_";
 		var styles = [];
 		if (this[prefix + "BORDER_SHOW"] != null) {
 			styles.push({
 				key : "background",
 				value : PreviewHelper.getBackground(this[prefix + "BORDER_COLOR"])
 			});
-			styles.push({
-				key : "padding",
-				value : "0px 1px 0px 1px"
-			});
+
+			if (this[stackPrefix + "BORDER_SHOW"]) {
+				if (selected == "SELECTED") {
+					styles.push({
+						key : "padding",
+						value : "0px 1px 0px 0px"
+					});
+
+				} else {
+					styles.push({
+						key : "padding",
+						value : "0px 1px 0px 1px"
+					});
+				}
+			} else {
+				styles.push({
+					key : "padding",
+					value : "1px 1px 0px 1px"
+				});
+			}
 
 			if (this["LAYOUT__BORDER_RADIUS"] != null) {
 				styles.push({
@@ -263,6 +293,13 @@ Template.preview.helpers({
 				});
 			}
 		}
+
+		var spacing = this["LAYOUT__TAB_SPACING"] ? this["LAYOUT__TAB_SPACING"].value : 0;
+		styles.push({
+			"key" : "margin-right",
+			"value" : (spacing - 3) + "px"
+		});
+
 		return styles.map(function(each) {
 			return _.template("<%=key%>:<%=value%>", each);
 		}).join(";");
@@ -311,13 +348,6 @@ Template.preview.helpers({
 				})
 			});
 		}
-		if (selected == "SELECTED" && this[prefix + "BORDER_SHOW"] != null) {
-			styles.push({
-				"key" : "margin-left",
-				"value" : "-1px"
-			});
-		}
-
 		return styles.map(function(each) {
 			return _.template("<%=key%>:<%=value%>", each);
 		}).join(";");
