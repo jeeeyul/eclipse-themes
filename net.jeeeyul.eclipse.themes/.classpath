@@ -6,8 +6,8 @@
 	<classpathentry exported="true" kind="lib" path="lib/com.google.guava_15.0.0.v201403281430.jar" sourcepath="lib-src/com.google.guava.source_15.0.0.v201403281430.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.xtend.lib_2.7.1.v201409090713.jar" sourcepath="lib-src/org.eclipse.xtend.lib.source_2.7.1.v201409090713.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.xtext.xbase.lib_2.7.1.v201409090713.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.xtend.lib.macro_2.7.1.v201409090713.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry kind="lib" path="lib/org.eclipse.xtend.lib.macro_2.7.1.v201409090713.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
