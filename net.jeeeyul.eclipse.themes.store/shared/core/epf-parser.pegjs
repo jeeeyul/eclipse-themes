@@ -55,9 +55,10 @@ UnsignedFloat=
 	}
 	
 INT= 
+        sign:'-'?
 	digits:([0-9]+)
 	{
-		return parseInt(digits.join(""));
+		return parseInt((sign ? sign : "") + digits.join(""));
 	}
 
 Integer=
