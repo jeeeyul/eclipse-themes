@@ -9,9 +9,10 @@ Paging = {
 				if (me.reachEnd || me.fetching) {
 					return;
 				}
+				
+				console.log(e);
 
-				if ($(window).scrollTop() + $(window).height() == $(document)
-						.height()) {
+				if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
 					$(me.firstNode).trigger("load-more");
 				}
 			}
