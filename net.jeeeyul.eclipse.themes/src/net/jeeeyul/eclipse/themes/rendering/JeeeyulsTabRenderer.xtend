@@ -48,15 +48,18 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 	]
 
 	private def handleSettingChange(PropertyChangeEvent event) {
-		switch (event.propertyName) {
-			case "shadow-color": {
-				shadowNinePatch.safeDispose()
-			}
-			case "shadow-radius": {
-				shadowNinePatch.safeDispose()
-			}
+		switch event.propertyName {
+			case "shadow-color",
+			case "shadow-radius",
 			case "border-radius": {
 				shadowNinePatch.safeDispose()
+			}
+			
+			case "border-colors",
+			case "margins": {
+				if(event.oldValue == null || event.newValue == null){
+					tabFolder.shell.layout(true, true)
+				}
 			}
 		}
 
@@ -180,9 +183,10 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				result.height = result.height + 10
 			}
 			case PART_BORDER: {
-				result.x = result.x - settings.margins.x
-				result.width = result.width + settings.margins.x + settings.margins.width + settings.borderRadius / 2
+				result.x = - settings.margins.x - 4
+				result.width = settings.margins.x + settings.margins.width + settings.borderRadius / 2
 			}
+			
 			case PART_HEADER: {
 				result.x = result.x - settings.margins.x
 				result.width = result.width + settings.margins.x + settings.margins.width
@@ -362,7 +366,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		if (settings.tabSpacing == -1) {
 			var lastItem = parent.lastVisibleItem
 
-			if (lastItem != null && settings.getBorderColorsFor(lastItem.state) != null) {
+			if (lastItem != null) {
 				val itemBounds = lastItem.bounds
 				var path = newTemporaryPath[
 					moveTo(itemBounds.bottomRight.getTranslated(0, -1))
@@ -370,9 +374,14 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 					addArc(newRectangleWithSize(settings.borderRadius * 2).relocateTopRightWith(itemBounds.topRight), 0,
 						90)
 				]
+				
+				if(settings.getItemFillFor(lastItem.state) != null)
+					gc.drawGradientPath(path, settings.getItemFillFor(lastItem.state).toAutoDisposeColors,
+						settings.getItemFillPercentsFor(lastItem.state), true)
 
-				gc.drawGradientPath(path, settings.getBorderColorsFor(lastItem.state).toAutoDisposeColors,
-					settings.getBorderPercentsFor(lastItem.state), true)
+				if(settings.getBorderColorsFor(lastItem.state) != null)
+					gc.drawGradientPath(path, settings.getBorderColorsFor(lastItem.state).toAutoDisposeColors,
+						settings.getBorderPercentsFor(lastItem.state), true)
 			}
 		}
 	}
@@ -585,10 +594,10 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 					parent.getItem(part - 1)
 				else
 					null
+					
 
 			var hasToDrawLeftBorder = !state.hasFlags(SWT.SELECTED) && prevItem != null &&
-				!prevItem.state.hasFlags(SWT.SELECTED) && prevItem.state.hasFlags(SWT.HOT) &&
-				settings.hoverBorderColors != null
+				!prevItem.state.hasFlags(SWT.SELECTED) && prevItem.state.hasFlags(SWT.HOT)
 
 			if (hasToDrawLeftBorder) {
 				var path = newTemporaryPath[
@@ -597,9 +606,14 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 					addArc(newRectangleWithSize(settings.borderRadius * 2).relocateTopRightWith(itemBounds.topLeft), 0,
 						90)
 				]
-
-				gc.drawGradientPath(path, settings.getBorderColorsFor(SWT.HOT).toAutoDisposeColors,
-					settings.getBorderPercentsFor(SWT.HOT), true)
+				
+				if(settings.hoverBackgroundColors != null)
+					gc.drawGradientPath(path, settings.hoverBackgroundColors.toAutoDisposeColors,
+						settings.hoverBackgroundPercents, true)
+						
+				if(settings.hoverBorderColors != null)
+					gc.drawGradientPath(path, settings.getBorderColorsFor(SWT.HOT).toAutoDisposeColors,
+						settings.getBorderPercentsFor(SWT.HOT), true)
 			}
 
 			var hasToFix = (!state.hasFlags(SWT.SELECTED) &&
