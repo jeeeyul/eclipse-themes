@@ -1,6 +1,6 @@
 /**
  * author name favoritedBy : [] password
  */
-EPFs = new Meteor.Collection("EPFs");
+EPFs = new Mongo.Collection("EPFs");
 
-Comments = new Meteor.Collection("Comments");
+Comments = new Mongo.Collection("Comments");
