@@ -3,6 +3,8 @@ Template.post.helpers({
 		if (typeof __getCurrentEPF == "function") {
 			this.$("#epf-field").val(__getCurrentEPF());
 		}
+
+		googleAnalytics();
 	},
 
 	canInject : function() {
@@ -48,9 +50,9 @@ Template.post.events({
 	"click #inject-button" : function(e, t, d) {
 		t.$("#epf-field").val(__getCurrentEPF());
 	},
-	
-	"focus textarea" : function(e, t, d){
-		setTimeout(function(){
+
+	"focus textarea" : function(e, t, d) {
+		setTimeout(function() {
 			$(e.target).select();
 		});
 	}

@@ -5,12 +5,15 @@ Template.author.helpers({
 				date : -1
 			}
 		};
+	},
+
+	"rendered" : function() {
+		googleAnalytics();
 	}
 });
 
-Template.author.events({
-});
+Template.author.events({});
 
-Paging.apply(Template.author, "allEPFsByAuthor", function(){
-	return [this._id];
+Paging.apply(Template.author, "allEPFsByAuthor", function() {
+	return [ this._id ];
 });

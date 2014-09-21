@@ -6,6 +6,10 @@ Template.toplike.helpers({
 				date : -1
 			}
 		}
+	},
+
+	"rendered" : function() {
+		googleAnalytics();
 	}
 });
 

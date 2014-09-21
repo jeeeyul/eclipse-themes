@@ -5,7 +5,7 @@ var sharedHelpers = {
 		canLike = canLike && (this.likedBy == undefined || (_(this.likedBy).contains(Meteor.userId()) == false));
 		return canLike;
 	},
-	
+
 	cantLike : function() {
 		var canLike = true;
 		canLike = canLike && (Meteor.userId() != null);
@@ -156,14 +156,14 @@ var sharedHelpers = {
 			return _.template("<%=key%>:<%=value%>", each);
 		}).join(";");
 	},
-	
-	"downloadAndInstallCount" : function(){
+
+	"downloadAndInstallCount" : function() {
 		var times = 0;
-		if(!isNaN(this.downloadCount)){
+		if (!isNaN(this.downloadCount)) {
 			times += this.downloadCount;
 		}
-		
-		if(!isNaN(this.installCount)){
+
+		if (!isNaN(this.installCount)) {
 			times += this.installCount;
 		}
 		return times;
@@ -175,8 +175,8 @@ Template.detail.helpers(_.extend({}, sharedHelpers, {
 		this.$(".section-header").each(function() {
 			$(this).append($("<div class='spacer'></div>"));
 		});
-		
-		
+
+		googleAnalytics();
 	}
 }));
 Template.detailActivePart.helpers(sharedHelpers);

@@ -10,18 +10,18 @@ Router.configure({
 Router.map(function() {
 	this.route("about", {
 		path : "/about",
-		onAfterAction : function(){
+		onAfterAction : function() {
 			document.title = "About - Eclipse Theme Store";
 		}
 	});
-	
+
 	this.route("profile", {
 		path : "/profile",
-		onAfterAction : function(){
+		onAfterAction : function() {
 			document.title = "Profile - Eclipse Theme Store";
 		}
 	});
-	
+
 	this.route("home", {
 		path : "/",
 		waitOn : function() {
@@ -34,7 +34,7 @@ Router.map(function() {
 				this.render("loading");
 			}
 		},
-		onAfterAction : function(){
+		onAfterAction : function() {
 			document.title = "Recent - Eclipse Theme Store";
 		}
 	});
@@ -54,7 +54,7 @@ Router.map(function() {
 		data : function() {
 			return EPFs.findOne(this.params.id);
 		},
-		onAfterAction : function(){
+		onAfterAction : function() {
 			document.title = _.template("<%=name%> by <%=authorName%> - Eclipse Theme Store", this.data());
 		}
 	});
@@ -71,14 +71,14 @@ Router.map(function() {
 				this.render("loading");
 			}
 		},
-		onAfterAction : function(){
+		onAfterAction : function() {
 			document.title = "Top Ratings - Eclipse Theme Store";
 		}
 	});
 
 	this.route("post", {
 		path : "/post",
-		onAfterAction : function(){
+		onAfterAction : function() {
 			document.title = "Share - Eclipse Theme Store";
 		}
 	});
@@ -98,7 +98,7 @@ Router.map(function() {
 		data : function() {
 			return Meteor.users.findOne(this.params.id);
 		},
-		onAfterAction : function(){
+		onAfterAction : function() {
 			document.title = _.template("Themes by <%=profile.name%>", this.data());
 		}
 	});

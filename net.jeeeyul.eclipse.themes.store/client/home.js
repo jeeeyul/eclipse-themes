@@ -10,6 +10,10 @@ Template.home.helpers({
 	"isETSClient" : function() {
 		alert(typeof __install);
 		return (typeof __install) == "function";
+	},
+
+	"rendered" : function() {
+		googleAnalytics();
 	}
 });
 

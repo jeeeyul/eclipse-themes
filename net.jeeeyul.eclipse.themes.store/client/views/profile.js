@@ -1,3 +1,9 @@
+Template.profile.helpers({
+	"rendered" : function() {
+		googleAnalytics();
+	}
+});
+
 Template.profile.events({
 	"click #update-button" : function(e, t, d) {
 		t.$("#update-button").attr("disabled", true);
