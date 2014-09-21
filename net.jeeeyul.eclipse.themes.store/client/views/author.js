@@ -8,7 +8,7 @@ Template.author.helpers({
 	},
 
 	"rendered" : function() {
-		googleAnalytics();
+		
 	}
 });
 

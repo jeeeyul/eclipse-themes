@@ -1,6 +1,6 @@
 Template.profile.helpers({
 	"rendered" : function() {
-		googleAnalytics();
+		
 	}
 });
 

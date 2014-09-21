@@ -13,7 +13,7 @@ Template.home.helpers({
 	},
 
 	"rendered" : function() {
-		googleAnalytics();
+		
 	}
 });
 

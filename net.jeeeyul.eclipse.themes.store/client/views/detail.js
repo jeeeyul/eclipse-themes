@@ -176,7 +176,7 @@ Template.detail.helpers(_.extend({}, sharedHelpers, {
 			$(this).append($("<div class='spacer'></div>"));
 		});
 
-		googleAnalytics();
+		
 	}
 }));
 Template.detailActivePart.helpers(sharedHelpers);

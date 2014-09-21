@@ -9,18 +9,15 @@ Paging = {
 				if (me.reachEnd || me.fetching) {
 					return;
 				}
-				
-				console.log(e);
 
-				if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+				if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
 					$(me.firstNode).trigger("load-more");
 				}
 			}
 			$(window).on("scroll", this.scrollHook);
 			this.$(".loading").hide();
 		}
-		
-		
+
 		if (typeof template.rendered == "function") {
 			var old = template.rendered;
 			template.rendered = function() {
@@ -32,14 +29,14 @@ Paging = {
 		} else {
 			template.rendered = rendered;
 		}
-		
+
 		var destroyed = function() {
 			$(window).off("scroll", this.scrollHook);
 			_(this.subscriptions).forEach(function(each) {
 				each.stop();
 			});
 		};
-		
+
 		if (typeof template.destroyed == "function") {
 			var old = template.destroyed;
 			template.rendered = function() {
@@ -47,7 +44,7 @@ Paging = {
 				old.apply(this, args);
 				destroyed.call(this);
 			};
-			
+
 		} else {
 			template.destroyed = destroyed;
 		}
@@ -60,34 +57,34 @@ Paging = {
 				var preCount = EPFs.find().count();
 				t.$(".loading").show();
 
-				if(topicArgs === undefined || topicArgs === null){
+				if (topicArgs === undefined || topicArgs === null) {
 					topicArgs = [];
 				}
-				
-				if(typeof topicArgs == "function" ){
+
+				if (typeof topicArgs == "function") {
 					topicArgs = topicArgs.call(t.data);
 				}
-				
+
 				var handler = function() {
 					var newCount = EPFs.find().count();
 					if (preCount != newCount) {
 						Session.set("page", Session.get("page") + 1);
-					} 
-					
-					if(newCount - preCount < pageSize){
-						t.reachEnd = true;	
+					}
+
+					if (newCount - preCount < pageSize) {
+						t.reachEnd = true;
 					}
 					t.$(".loading").hide();
 					t.fetching = false;
 				}
-				
-				var subArgs = [topic];
+
+				var subArgs = [ topic ];
 				subArgs = subArgs.concat(topicArgs);
 				subArgs.push(Session.get("page") + 1);
 				subArgs.push(handler);
 
 				var newSubscription = Meteor.subscribe.apply(Meteor, subArgs);
-				
+
 				t.subscriptions.push(newSubscription);
 			}
 		});

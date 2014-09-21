@@ -4,7 +4,7 @@ Template.post.helpers({
 			this.$("#epf-field").val(__getCurrentEPF());
 		}
 
-		googleAnalytics();
+		
 	},
 
 	canInject : function() {

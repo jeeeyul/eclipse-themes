@@ -4,21 +4,30 @@ Router.configure({
 		if (typeof __updateURL == "function") {
 			__updateURL(location.origin + Router.current().path);
 		}
+
+		if (this.ready()) {
+			setTimeout(function() {
+				console.log(Router.current().path);
+				ga("send", "pageview", Router.current().path);
+			});
+		}
 	}
 });
 
 Router.map(function() {
 	this.route("about", {
 		path : "/about",
-		onAfterAction : function() {
+		action : function() {
 			document.title = "About - Eclipse Theme Store";
+			this.render();
 		}
 	});
 
 	this.route("profile", {
 		path : "/profile",
-		onAfterAction : function() {
+		action : function() {
 			document.title = "Profile - Eclipse Theme Store";
+			this.render();
 		}
 	});
 
@@ -28,14 +37,12 @@ Router.map(function() {
 			return Meteor.subscribe("allEPFs");
 		},
 		action : function() {
+			document.title = "Recent - Eclipse Theme Store";
 			if (this.ready()) {
 				this.render();
 			} else {
 				this.render("loading");
 			}
-		},
-		onAfterAction : function() {
-			document.title = "Recent - Eclipse Theme Store";
 		}
 	});
 
@@ -46,6 +53,7 @@ Router.map(function() {
 		},
 		action : function() {
 			if (this.ready()) {
+				document.title = _.template("<%=name%> by <%=authorName%> - Eclipse Theme Store", this.data());
 				this.render();
 			} else {
 				this.render("loading");
@@ -53,9 +61,6 @@ Router.map(function() {
 		},
 		data : function() {
 			return EPFs.findOne(this.params.id);
-		},
-		onAfterAction : function() {
-			document.title = _.template("<%=name%> by <%=authorName%> - Eclipse Theme Store", this.data());
 		}
 	});
 
@@ -65,21 +70,20 @@ Router.map(function() {
 			return Meteor.subscribe("allEPFsByRating");
 		},
 		action : function() {
+			document.title = "Top Ratings - Eclipse Theme Store";
 			if (this.ready()) {
 				this.render();
 			} else {
 				this.render("loading");
 			}
-		},
-		onAfterAction : function() {
-			document.title = "Top Ratings - Eclipse Theme Store";
 		}
 	});
 
 	this.route("post", {
 		path : "/post",
-		onAfterAction : function() {
+		action : function() {
 			document.title = "Share - Eclipse Theme Store";
+			this.render();
 		}
 	});
 
@@ -90,6 +94,7 @@ Router.map(function() {
 		},
 		action : function() {
 			if (this.ready()) {
+				document.title = _.template("Themes by <%=profile.name%>", this.data());
 				this.render();
 			} else {
 				this.render("loading");
@@ -97,9 +102,6 @@ Router.map(function() {
 		},
 		data : function() {
 			return Meteor.users.findOne(this.params.id);
-		},
-		onAfterAction : function() {
-			document.title = _.template("Themes by <%=profile.name%>", this.data());
 		}
 	});
 

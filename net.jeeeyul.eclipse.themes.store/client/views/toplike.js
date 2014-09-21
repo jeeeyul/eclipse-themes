@@ -9,7 +9,7 @@ Template.toplike.helpers({
 	},
 
 	"rendered" : function() {
-		googleAnalytics();
+		
 	}
 });
 
