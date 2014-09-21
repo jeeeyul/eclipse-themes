@@ -83,8 +83,8 @@ template(name="detailInactivePart")
 			if hasComment
 				.comments
 					each comments
-						.comment-entry
-							label.author {{authorName}}
-							label.comment {{comment}}
+						.comment-entry.row
+							.col-sm-2.author {{authorName}}
+							.col-sm-10.comment {{comment}}
 			else
 				div No comment yet, be the first reviewer.
