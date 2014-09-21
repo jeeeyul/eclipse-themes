@@ -1,6 +1,8 @@
 template(name="detail")
 	.detail
 		+preview
+		hr
+		+howToApply
 		
 
 template(name="detailActivePart")
@@ -21,14 +23,16 @@ template(name="detailActivePart")
 	.form-content
 		.section-header(style=sectionHeaderStyle) Description
 		.section-content
-			if description
-				| {{description}}
-			else
-				| Description not available
-		
+			pre.description
+				if description
+					| {{description}}
+				else
+					| Description not available
+			
 		.section-header(style=sectionHeaderStyle) Stats
 		.section-content.
 			This theme was downloaded and installed {{downloadAndInstallCount}} time(s) and liked {{likeCount}} time(s).
+			Last updated at {{updateDate}}.
 			
 		.section-header(style=sectionHeaderStyle) Share
 		.section-content

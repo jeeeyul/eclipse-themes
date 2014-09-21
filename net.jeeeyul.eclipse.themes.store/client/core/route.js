@@ -7,7 +7,6 @@ Router.configure({
 
 		if (this.ready()) {
 			setTimeout(function() {
-				console.log(Router.current().path);
 				ga("send", "pageview", Router.current().path);
 			});
 		}
