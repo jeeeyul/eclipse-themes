@@ -49,7 +49,7 @@ class CustomThemeGenerator {
 
 	def private String header() '''
 		.jeeeyul-custom-theme{
-			/* This class must be exists on first. */
+			/* This class must appear first. */
 		}
 	'''
 

@@ -17,7 +17,7 @@ class DonationPanel {
 			layout = new GridLayout(2, false)
 			newLabel[image = SharedImages.getImage(SharedImages.ECLIPSE)]
 			newLink[
-				text = '''Don't forget favorite this plugins on <a href="https://marketplace.eclipse.org/content/jeeeyuls-eclipse-themes">Market Place</a>.'''
+				text = '''Don't forget to favorite this plugins on <a href="https://marketplace.eclipse.org/content/jeeeyuls-eclipse-themes">Market Place</a>.'''
 			]
 			newLabel[image = SharedImages.getImage(SharedImages.GITHUB)]
 			newLink[
@@ -25,7 +25,7 @@ class DonationPanel {
 			]
 			newLabel[image = SharedImages.getImage(SharedImages.PLEDGIE)]
 			newLink[
-				text = '''If you liked this software, you can donate through <a href="https://pledgie.com/campaigns/18377">Pledgie</a>.'''
+				text = '''If you like this software, please consider a donation through <a href="https://pledgie.com/campaigns/18377">Pledgie</a>.'''
 			]
 			it.allContent.filter(typeof(Link)).forEach [
 				onSelection = [

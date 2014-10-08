@@ -3,6 +3,6 @@
  */
 .jeeeyul-custom-theme { 
 	/*
-	 * This selector rule is exist for detect Jeeeyul's Themes to find rewrite target. 
+	 * This selector rule must exist for detect Jeeeyul's Themes to find rewrite target. 
 	 */
 }
