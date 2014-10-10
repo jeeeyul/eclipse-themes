@@ -12,6 +12,9 @@ import org.eclipse.swt.SWT
 import org.eclipse.swt.graphics.Point
 import org.eclipse.swt.widgets.Display
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.eclipse.ui.internal.util.PrefUtil
+import org.eclipse.ui.PlatformUI
+import org.eclipse.e4.ui.css.swt.theme.IThemeEngine
 
 /**
  * Generates CSS content with {@link JThemePreferenceStore} as input.
@@ -481,6 +484,9 @@ class CustomThemeGenerator {
 		
 		«comment("User Custom CSS")»
 		«store.getString(JTPConstants.Others.USER_CSS)»
+		
+		«comment("User Color and Font Changes")»
+		«generateUserColorAndFontStylings()»
 	'''
 
 	def private comment(String comment) '''
@@ -536,5 +542,12 @@ class CustomThemeGenerator {
 	def private HSB getRangeIndicatorColor() {
 		var selectionColor = new HSB(Display.^default.getSystemColor(SWT.COLOR_LIST_SELECTION).RGB)
 		return store.getHSB(JTPConstants.TextEditor.RULER_COLOR).getMixedWith(selectionColor, 0.5f)
+	}
+	
+	def private generateUserColorAndFontStylings() {
+		var sb = new StringBuilder();
+		var colorAndFontGenerator = new ColorAndFontCSSGenerator;
+		colorAndFontGenerator.run(sb);
+		return sb.toString;
 	}
 }
