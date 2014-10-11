@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="src-gen"/>
-	<classpathentry kind="src" path="xtend-gen"/>
 	<classpathentry exported="true" kind="lib" path="lib/com.google.guava_15.0.0.v201403281430.jar" sourcepath="lib-src/com.google.guava.source_15.0.0.v201403281430.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.xtend.lib_2.7.1.v201409090713.jar" sourcepath="lib-src/org.eclipse.xtend.lib.source_2.7.1.v201409090713.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.xtext.xbase.lib_2.7.1.v201409090713.jar"/>
