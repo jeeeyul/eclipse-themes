@@ -5,6 +5,7 @@ accounts-google@1.0.0
 accounts-oauth@1.1.0
 accounts-ui-unstyled@1.1.1
 accounts-ui@1.1.0
+appcache@1.0.1
 application-configuration@1.0.2
 autoupdate@1.1.0
 base64@1.0.0
