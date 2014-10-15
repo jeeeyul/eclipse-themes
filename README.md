@@ -1,4 +1,4 @@
-![GitTip] (http://img.shields.io/gratipay/jeeeyul.svg)
+[![GitTip] (http://img.shields.io/gratipay/jeeeyul.svg)](https://www.gratipay.com/jeeeyul/)
 
 ## Jeeeyul's Eclipse Themes 
 <img align="right" src="https://github.com/jeeeyul/eclipse-themes/wiki/images/jtheme-logo.png">
