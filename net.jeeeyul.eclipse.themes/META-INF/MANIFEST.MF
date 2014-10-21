@@ -14,17 +14,16 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: jeeeyul@gmail.com
 Import-Package: javax.inject
-Export-Package: com.google.common.base;x-friends:="net.jeeeyul.eclipse.themes.ui",
- com.google.common.collect;x-friends:="net.jeeeyul.eclipse.themes.ui",
- net.jeeeyul.eclipse.themes,
- net.jeeeyul.eclipse.themes.css,
- net.jeeeyul.eclipse.themes.rendering,
- net.jeeeyul.eclipse.themes.util,
- org.eclipse.xtend.lib;x-friends:="net.jeeeyul.eclipse.themes.ui",
- org.eclipse.xtend.lib.annotations;x-friends:="net.jeeeyul.eclipse.themes.ui",
- org.eclipse.xtend2.lib;x-friends:="net.jeeeyul.eclipse.themes.ui",
- org.eclipse.xtext.xbase.lib;x-friends:="net.jeeeyul.eclipse.themes.ui",
- org.eclipse.xtext.xbase.lib.util;x-friends:="net.jeeeyul.eclipse.themes.ui"
+Export-Package: com.google.common.base;x-friends:="net.jeeeyul.eclipse
+ .themes.ui",com.google.common.collect;x-friends:="net.jeeeyul.eclipse
+ .themes.ui",net.jeeeyul.eclipse.themes,net.jeeeyul.eclipse.themes.css
+ ,net.jeeeyul.eclipse.themes.rendering,net.jeeeyul.eclipse.themes.util
+ ,org.eclipse.xtend.lib;x-friends:="net.jeeeyul.eclipse.themes.ui",org
+ .eclipse.xtend.lib.annotations;x-friends:="net.jeeeyul.eclipse.themes
+ .ui",org.eclipse.xtend2.lib;x-friends:="net.jeeeyul.eclipse.themes.ui
+ ",org.eclipse.xtext.xbase.lib;x-friends:="net.jeeeyul.eclipse.themes.
+ ui",org.eclipse.xtext.xbase.lib.util;x-friends:="net.jeeeyul.eclipse.
+ themes.ui"
 Bundle-Name: Jeeeyul's Eclipse Themes Core
 Bundle-Version: 2.2.0.qualifier
 Bundle-ClassPath: .,lib/com.google.guava_15.0.0.v201403281430.jar,lib/
