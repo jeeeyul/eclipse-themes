@@ -12,9 +12,6 @@ import org.eclipse.swt.SWT
 import org.eclipse.swt.graphics.Point
 import org.eclipse.swt.widgets.Display
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.eclipse.ui.internal.util.PrefUtil
-import org.eclipse.ui.PlatformUI
-import org.eclipse.e4.ui.css.swt.theme.IThemeEngine
 
 /**
  * Generates CSS content with {@link JThemePreferenceStore} as input.
