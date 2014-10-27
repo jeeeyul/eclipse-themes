@@ -169,7 +169,7 @@ class LayoutPage extends AbstractJTPreferencePage {
 						numColumns = 2
 					]
 					newLabel[
-						text = "Number of minimum charaters"
+						text = "Minimum number of characters"
 					]
 					minimumCharactersSpinner = newSpinner[
 						layoutData = newGridData[
@@ -180,7 +180,7 @@ class LayoutPage extends AbstractJTPreferencePage {
 						onSelection = [requestFastUpdatePreview()]
 					]
 					useEllipsesButton = newCheckbox[
-						text = "Use Ellipses when truncate"
+						text = "Use Ellipses when truncating"
 						layoutData = newGridData[
 							horizontalSpan = 2
 						]
@@ -194,7 +194,7 @@ class LayoutPage extends AbstractJTPreferencePage {
 						onSelection = [requestFastUpdatePreview()]
 					]
 					newLabel[
-						text = "Number of minimum charaters for Editors"
+						text = "Minimum number of characters for Editors"
 						layoutData = newGridData[
 							horizontalIndent = 16
 						]
@@ -211,7 +211,7 @@ class LayoutPage extends AbstractJTPreferencePage {
 			]
 			if(ENVHelper.INSTANCE.linux) {
 				newLink[
-					text = '''To reduce limit of minimum tab height, refer <a href="https://github.com/jeeeyul/eclipse-themes/wiki/Linux-User-Guide">Linux User Guide</a>.'''
+					text = '''To reduce limit on minimum tab height, refer to <a href="https://github.com/jeeeyul/eclipse-themes/wiki/Linux-User-Guide">Linux User Guide</a>.'''
 					layoutData = newGridData[
 						horizontalSpan = 3
 					]
