@@ -41,7 +41,7 @@
       <page
             category="net.jeeeyul.eclipse.themes.preference.internal.JTPreferencePage"
             class="net.jeeeyul.eclipse.themes.ui.preference.preset.internal.JTPresetPreferencePage"
-            id="net.jeeeyul.eclipse.themes.preference.preset.internal.JTPresetPreferencePage"
+            id="net.jeeeyul.eclipse.themes.ui.preference.preset.internal.JTPresetPreferencePage"
             name="Presets">
       </page>
    </extension>
