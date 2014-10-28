@@ -482,8 +482,10 @@ class CustomThemeGenerator {
 		«comment("User Custom CSS")»
 		«store.getString(JTPConstants.Others.USER_CSS)»
 		
-		«comment("User Color and Font Changes")»
-		«generateUserColorAndFontStylings()»
+		«IF isLunaOrAbove»
+			«comment("User Color and Font Changes")»
+			«generateUserColorAndFontStylings()»
+		«ENDIF»
 	'''
 
 	def private comment(String comment) '''
