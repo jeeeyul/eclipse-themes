@@ -1,5 +1,6 @@
 package net.jeeeyul.eclipse.themes.ui.hotswap;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -50,18 +51,23 @@ public class ColorAndFontCSSGenerator {
 	}
 
 	protected void generateWorkbenchSettings(StringBuilder sb, IPreferenceStore preferences) {
-		sb.append("IEclipsePreferences#org-eclipse-ui-workbench {\n  preferences:");
-
+		List<String> keys = new LinkedList<String>();
+		List<String> values = new LinkedList<String>();
 		for (ColorDefinition definition : registry.getColorsFor(theme.getId())) {
 			if (definition.isModifiedByUser()) {
 				// ColorsAndFontsPreferencePage#createPreferenceKey() doesn't
-				// use cssTheme
-				// to generate prefkey for modified-by-user
+				// use cssTheme to generate prefkey for modified-by-user.
+				// Try to check that the user didn't change the definition
+				// to the default value.
 				String prefKey = ThemeElementHelper.createPreferenceKey(theme, definition.getId());
-				String fdString = StringConverter.asString(definition.getValue());
+				String fdString = null;
+				if (definition.getValue() != null) {
+					fdString = StringConverter.asString(definition.getValue());
+				}
 				String value = preferences.getString(prefKey);
-				if (value.length() > 0 && !value.equals(fdString)) {
-					sb.append("\n    '").append(prefKey).append("=").append(fdString).append("'");
+				if (value.length() > 0 && (fdString == null || !value.equals(fdString))) {
+					keys.add(prefKey);
+					values.add(value);
 				}
 			}
 		}
@@ -69,22 +75,34 @@ public class ColorAndFontCSSGenerator {
 		for (FontDefinition definition : registry.getFontsFor(theme.getId())) {
 			if (definition.isModifiedByUser()) {
 				// ColorsAndFontsPreferencePage#createPreferenceKey() doesn't
-				// use cssTheme
-				// to generate prefkey for modified-by-user
+				// use cssTheme to generate prefkey for modified-by-user.
+				// Try to check that the user didn't change the definition
+				// to the default value.
 				String prefKey = ThemeElementHelper.createPreferenceKey(theme, definition.getId());
-				String fdString = PreferenceConverter.getStoredRepresentation(definition.getValue());
+				String fdString = null;
+				if (definition.getValue() != null) {
+					fdString = PreferenceConverter.getStoredRepresentation(definition.getValue());
+				}
 				String value = preferences.getString(prefKey);
-				if (value.length() > 0 && !value.equals(fdString)) {
-					sb.append("\n    '").append(prefKey).append("=").append(fdString).append("'");
+				if (value.length() > 0 && (fdString == null || !value.equals(fdString))) {
+					keys.add(prefKey);
+					values.add(value);
 				}
 			}
 		}
-		sb.append("\n}\n\n");
+		if (keys.size() > 0) {
+			sb.append("IEclipsePreferences#org-eclipse-ui-workbench {\n  preferences:");
+			for (int i = 0; i < keys.size(); i++) {
+				sb.append("\n    '").append(keys.get(i)).append("=").append(values.get(i)).append("'");
+			}
+			sb.append(";\n}\n\n");
+		}
 	}
 
 	@SuppressWarnings("unchecked")
 	protected void generateEditorSettings(StringBuilder sb, MarkerAnnotationPreferences markerAnnotationPreferences, IPreferenceStore preferences) {
-		sb.append("IEclipsePreferences#org-eclipse-ui-editors {\n  preferences:");
+		List<String> keys = new LinkedList<String>();
+		List<String> values = new LinkedList<String>();
 		for (AnnotationPreference p : (List<AnnotationPreference>) markerAnnotationPreferences.getAnnotationPreferences()) {
 			String preferenceKey = p.getColorPreferenceKey();
 			if (preferenceKey == null) {
@@ -93,10 +111,17 @@ public class ColorAndFontCSSGenerator {
 			String value = preferences.getString(preferenceKey);
 			RGB defaultValue = p.getColorPreferenceValue();
 			if (value.length() > 0 && (defaultValue == null || !value.equals(StringConverter.asString(defaultValue)))) {
-				sb.append("\n    '").append(preferenceKey).append("=").append(value).append("'");
+				keys.add(preferenceKey);
+				values.add(value);
 			}
 		}
-		sb.append("\n}\n\n");
+		if (keys.size() > 0) {
+			sb.append("IEclipsePreferences#org-eclipse-ui-editors {\n  preferences:");
+			for (int i = 0; i < keys.size(); i++) {
+				sb.append("\n    '").append(keys.get(i)).append("=").append(values.get(i)).append("'");
+			}
+			sb.append(";\n}\n\n");
+		}
 	}
 
 }
