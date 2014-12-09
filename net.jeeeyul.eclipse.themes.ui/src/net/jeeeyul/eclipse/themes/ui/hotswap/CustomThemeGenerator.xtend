@@ -432,7 +432,8 @@ class CustomThemeGenerator {
 			background-color: «store.getHSB(JTPConstants.TextEditor.RULER_COLOR).toHTMLCode»;
 		}
 		
-		.MPart.Editor StyledText {
+		.MPart.Editor StyledText,
+		.MPart.Editor StyledTextWithoutVerticalBar /* PyDev support */{
 			jeditor-line-style : «store.getLineStyle(JTPConstants.TextEditor.UNDER_LINE_STYLE)»;
 			jeditor-line-color : «store.getHSB(JTPConstants.TextEditor.UNDER_LINE_COLOR).toHTMLCode»;
 			jeditor-range-indicator-color: «rangeIndicatorColor.toHTMLCode»;
