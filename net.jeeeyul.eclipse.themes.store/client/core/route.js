@@ -110,4 +110,8 @@ Router.map(function() {
 			return EPFs.findOne(this.params.id);
 		}
 	});
+	
+	this.route("donate", {
+		path : "/donate"
+	});
 });

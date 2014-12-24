@@ -1,7 +1,7 @@
 template(name="theme")
 	.theme.col-lg-4.col-sm-6.col-xs-12
-		.description.
-			<a href="/detail/{{_id}}">{{name}}</a> by <a href="#" id="author-link">{{authorName}}</a>
+		.description
+			| <a href="/detail/{{_id}}">{{name}}</a> by <a href="#" id="author-link">{{authorName}}</a>
 		+preview
 		.toolbar
 			a#like-button.btn.btn-default.btn-xs(disabled!=cantLike)
