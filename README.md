@@ -1,5 +1,3 @@
-[![GitTip] (http://img.shields.io/gratipay/jeeeyul.svg)](https://www.gratipay.com/jeeeyul/)
-
 ## Jeeeyul's Eclipse Themes 
 <img align="right" src="https://github.com/jeeeyul/eclipse-themes/wiki/images/jtheme-logo.png">
 (former Eclipse Chrome Theme)
@@ -53,3 +51,6 @@ This license basically provide unlimited freedom except very specific case.
 <a href="http://with-eclipse.github.io/" target="_blank">
 <img alt="with-Eclipse logo" src="http://with-eclipse.github.io/with-eclipse-0.jpg" /></a>
 
+## Support this project
+
+* See [Help This Project Page](http://themes.jeeeyul.net/#!donate) on [Theme Store Site](http://themes.jeeeyul.net)
