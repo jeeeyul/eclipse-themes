@@ -5,7 +5,7 @@ Handlebars.registerHelper('session', function(key) {
 });
 
 Handlebars.registerHelper('currentURL', function(key) {
-	return location.href;
+	return Router.current().url;
 });
 
 Handlebars.registerHelper("setTitle", function(title) {
