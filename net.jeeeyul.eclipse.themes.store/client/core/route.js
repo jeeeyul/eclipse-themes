@@ -112,6 +112,10 @@ Router.map(function() {
 	});
 	
 	this.route("donate", {
-		path : "/donate"
+		path : "/donate",
+		action : function() {
+			document.title = "Help This Project";
+			this.render();
+		}
 	});
 });
