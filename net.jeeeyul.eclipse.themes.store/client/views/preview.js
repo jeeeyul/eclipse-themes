@@ -49,7 +49,7 @@ PreviewHelper = (function() {
 
 Template.preview.helpers({
 	"detailMode" : function() {
-		return Router.current().route.name == "detail";
+		return Router.current().route.getName() == "detail";
 	},
 	"renderModel" : function() {
 		var model = {};
