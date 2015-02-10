@@ -1,6 +1,5 @@
 ## Jeeeyul's Eclipse Themes 
 
-[![Join the chat at https://gitter.im/jeeeyul/eclipse-themes](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/jeeeyul/eclipse-themes?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 <img align="right" src="https://github.com/jeeeyul/eclipse-themes/wiki/images/jtheme-logo.png">
 (former Eclipse Chrome Theme)
 
@@ -14,6 +13,8 @@ It also contains beautiful and elegant built-in presets.
 * [FAQ](https://github.com/jeeeyul/eclipse-themes/wiki/FAQ)
 * [Developer Guide](https://github.com/jeeeyul/eclipse-themes/wiki/Developer-Guide)
 * [Theme Store](http://themes.jeeeyul.net)
+
+[![Join the chat at https://gitter.im/jeeeyul/eclipse-themes](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/jeeeyul/eclipse-themes?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## How to install
 You need **Eclipse 4.3** or above version to install this theme.
