@@ -1,4 +1,6 @@
 ## Jeeeyul's Eclipse Themes 
+
+[![Join the chat at https://gitter.im/jeeeyul/eclipse-themes](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/jeeeyul/eclipse-themes?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 <img align="right" src="https://github.com/jeeeyul/eclipse-themes/wiki/images/jtheme-logo.png">
 (former Eclipse Chrome Theme)
 
