@@ -24,7 +24,7 @@ class JStyledTextPropertyHandler implements ICSSPropertyHandler {
 	override applyCSSProperty(Object element, String property, CSSValue value, String pseudo, CSSEngine engine) throws Exception {
 		var compositeElement = element as CompositeElement
 		var composite = compositeElement.nativeWidget as Composite
-		if(!(composite instanceof StyledText)) {
+		if (!(composite instanceof StyledText)) {
 			return false
 		}
 		var styledText = composite as StyledText
@@ -32,7 +32,7 @@ class JStyledTextPropertyHandler implements ICSSPropertyHandler {
 
 		switch (property) {
 			case "jeditor-line-style": {
-				if(value instanceof CSSPrimitiveValue) {
+				if (value instanceof CSSPrimitiveValue) {
 					els.lineStyle = switch (value.cssText) {
 						case "solid": SWT.LINE_SOLID
 						case "dashed": SWT.LINE_DASH
@@ -45,21 +45,20 @@ class JStyledTextPropertyHandler implements ICSSPropertyHandler {
 				}
 			}
 			case "jeditor-line-color": {
-				var rgb = CSSSWTColorHelper.getRGB(value as CSSValue)
-				if(rgb != null) {
-					els.lineColor = new HSB(rgb.red, rgb.green, rgb.blue)
+				var rgba = CSSSWTColorHelper.getRGBA(value as CSSValue)
+				if (rgba != null) {
+					els.lineColor = new HSB(rgba.rgb);
 					true
 				} else {
 					false
 				}
 			}
-			
-			case "jeditor-range-indicator-color" : {
-				var rgb = CSSSWTColorHelper.getRGB(value as CSSValue)
-				if(rgb != null) {
+			case "jeditor-range-indicator-color": {
+				var rgba = CSSSWTColorHelper.getRGBA(value as CSSValue)
+				if (rgba != null) {
 					var field = DefaultRangeIndicator.getDeclaredField("fgPaletteData");
 					field.setAccessible(true);
-					var paletteData = new PaletteData(newArrayList(rgb, rgb))
+					var paletteData = new PaletteData(newArrayList(rgba.rgb, rgba.rgb))
 					field.set(DefaultRangeIndicator, paletteData)
 					true
 				} else {
@@ -74,7 +73,7 @@ class JStyledTextPropertyHandler implements ICSSPropertyHandler {
 	override retrieveCSSProperty(Object element, String property, String pseudo, CSSEngine engine) throws Exception {
 		var compositeElement = element as CompositeElement
 		var composite = compositeElement.nativeWidget as Composite
-		if(!(composite instanceof StyledText)) {
+		if (!(composite instanceof StyledText)) {
 			return null
 		}
 		var styledText = composite as StyledText
