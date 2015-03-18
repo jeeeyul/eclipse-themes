@@ -2,17 +2,17 @@ package net.jeeeyul.eclipse.themes.css.internal;
 
 import java.util.List;
 
-import net.jeeeyul.eclipse.themes.css.internal.handlers.JTabCSSPropertyHandler;
-
 import org.eclipse.e4.ui.css.core.dom.properties.Gradient;
 import org.eclipse.e4.ui.css.core.engine.CSSEngine;
 import org.eclipse.e4.ui.css.swt.helpers.CSSSWTColorHelper;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.graphics.RGBA;
 import org.eclipse.swt.widgets.Display;
 import org.w3c.dom.css.CSSPrimitiveValue;
 import org.w3c.dom.css.CSSValue;
 import org.w3c.dom.css.CSSValueList;
+
+import net.jeeeyul.eclipse.themes.css.internal.handlers.JTabCSSPropertyHandler;
 
 /**
  * CSS Value Converter for {@link JTabCSSPropertyHandler}
@@ -72,9 +72,9 @@ public class CSSCompabilityHelper {
 				case CSSPrimitiveValue.CSS_IDENT:
 				case CSSPrimitiveValue.CSS_STRING:
 				case CSSPrimitiveValue.CSS_RGBCOLOR:
-					RGB rgb = CSSSWTColorHelper.getRGB(value);
-					if (rgb != null) {
-						gradient.addRGB(rgb, (CSSPrimitiveValue) value);
+					RGBA rgba = CSSSWTColorHelper.getRGBA(value);
+					if (rgba != null) {
+						gradient.addRGB(rgba.rgb, (CSSPrimitiveValue) value);
 					} else {
 						// check for vertical gradient
 						gradient.setVertical(!value.getCssText().equals("false"));
