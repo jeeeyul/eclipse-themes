@@ -478,15 +478,17 @@ class CustomThemeGenerator {
 			jswt-alpha: «store.getInt(JTPConstants.Others.DRAG_FEEDBACK_ALPHA)»;
 		}
 		
-		
-		
-		«comment("User Custom CSS")»
-		«store.getString(JTPConstants.Others.USER_CSS)»
+		#org-eclipse-ui-HeapStatus {
+			color: #F9FDBA;
+		}
 		
 		«IF isLunaOrAbove»
 			«comment("User Color and Font Changes")»
 			«generateUserColorAndFontStylings()»
 		«ENDIF»
+		
+		«comment("User Custom CSS")»
+		«store.getString(JTPConstants.Others.USER_CSS)»
 	'''
 
 	def private comment(String comment) '''
