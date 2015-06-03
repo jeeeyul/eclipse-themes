@@ -16,6 +16,13 @@ It also contains beautiful and elegant built-in presets.
 
 [![Join the chat at https://gitter.im/jeeeyul/eclipse-themes](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/jeeeyul/eclipse-themes?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
+## Eclipse Mars!
+If you are using Eclipse Mars, then please use beta update site.
+
+```
+http://eclipse.jeeeyul.net/beta-update
+```
+
 ## How to install
 You need **Eclipse 4.3** or above version to install this theme.
 
