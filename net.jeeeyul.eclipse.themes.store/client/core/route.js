@@ -2,12 +2,12 @@ Router.configure({
 	layoutTemplate : "master",
 	onAfterAction : function() {
 		if (typeof __updateURL == "function") {
-			__updateURL(location.origin + Router.current().path);
+			__updateURL(location.origin + Router.current().url);
 		}
 
 		if (this.ready()) {
 			setTimeout(function() {
-				ga("send", "pageview", Router.current().path);
+				ga("send", "pageview", Router.current().url);
 			});
 		}
 	}
@@ -110,7 +110,7 @@ Router.map(function() {
 			return EPFs.findOne(this.params.id);
 		}
 	});
-	
+
 	this.route("donate", {
 		path : "/donate",
 		action : function() {
