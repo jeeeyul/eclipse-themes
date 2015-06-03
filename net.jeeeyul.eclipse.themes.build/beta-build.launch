@@ -12,7 +12,7 @@
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="net.jeeeyul.eclipse.themes.build"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.ant.ui.AntClasspathProvider"/>
 <mapAttribute key="org.eclipse.ui.externaltools.ATTR_ANT_PROPERTIES">
-<mapEntry key="eclipse.home" value="${eclipse_home}"/>
+<mapEntry key="eclipse.home" value="${target_home}"/>
 <mapEntry key="eclipse.pdebuild.home" value="/Applications/eclipse/plugins/org.eclipse.pde.build_3.9.0.v20140415-2029/./"/>
 <mapEntry key="eclipse.pdebuild.scripts" value="/Applications/eclipse/plugins/org.eclipse.pde.build_3.9.0.v20140415-2029/scripts/"/>
 <mapEntry key="eclipse.pdebuild.templates" value="/Applications/eclipse/plugins/org.eclipse.pde.build_3.9.0.v20140415-2029/templates/"/>

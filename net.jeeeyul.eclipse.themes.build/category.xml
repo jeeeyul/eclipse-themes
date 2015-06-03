@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
    <feature url="features/net.jeeeyul.eclipse.themes.feature_2.3.0.qualifier.jar" id="net.jeeeyul.eclipse.themes.feature" version="2.3.0.qualifier">
-      <category name="eclipse-jeeeyul-mars"/>
+      <category name="eclipse-jeeeyul"/>
    </feature>
    <category-def name="eclipse-jeeeyul" label="Jeeeyul&apos;s Eclipse Plugins"/>
-   <category-def name="eclipse-jeeeyul-mars" label="Jeeeyul&apos;s Eclipse Plugins for Mars"/>
 </site>
