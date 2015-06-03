@@ -76,7 +76,7 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 					settings.borderPercents = CSSSWTColorHelper.getPercents(grad)
 					true
 				} else if(value instanceof CSSPrimitiveValue) {
-					var rgb = CSSSWTColorHelper.getRGB(value)
+					var rgb = CSSSWTColorHelper.getRGBA(value)?.rgb
 					if(rgb != null) {
 						var hsb = new HSB(rgb)
 						settings.borderColors = #[hsb, hsb]
@@ -99,7 +99,7 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 					settings.selectedBorderPercents = CSSSWTColorHelper.getPercents(grad)
 					true
 				} else if(value instanceof CSSPrimitiveValue) {
-					var rgb = CSSSWTColorHelper.getRGB(value)
+					var rgb = CSSSWTColorHelper.getRGBA(value)?.rgb
 					if(rgb != null) {
 						var hsb = new HSB(rgb)
 						settings.selectedBorderColors = #[hsb, hsb]
@@ -122,7 +122,7 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 					settings.unselectedBorderPercents = CSSSWTColorHelper.getPercents(grad)
 					true
 				} else if(value instanceof CSSPrimitiveValue) {
-					var rgb = CSSSWTColorHelper.getRGB(value)
+					var rgb = CSSSWTColorHelper.getRGBA(value)?.rgb
 					if(rgb != null) {
 						var hsb = new HSB(rgb)
 						settings.unselectedBorderColors = #[hsb, hsb]
@@ -157,7 +157,7 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 				}
 			}
 			case "jtab-close-button-color": {
-				var rgb = CSSSWTColorHelper.getRGB(value as CSSValue)
+				var rgb = CSSSWTColorHelper.getRGBA(value as CSSValue)?.rgb
 				if(rgb != null) {
 					var hsb = new HSB(rgb.red, rgb.green, rgb.blue)
 					settings.closeButtonColor = hsb
@@ -176,7 +176,7 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 				}
 			}
 			case "jtab-hover-color": {
-				var rgb = CSSSWTColorHelper.getRGB(value as CSSValue)
+				var rgb = CSSSWTColorHelper.getRGBA(value as CSSValue)?.rgb
 				if(rgb != null) {
 					var hsb = new HSB(rgb.red, rgb.green, rgb.blue)
 					settings.hoverForgroundColor = hsb
@@ -192,7 +192,7 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 					settings.hoverBorderPercents = CSSSWTColorHelper.getPercents(grad)
 					true
 				} else if(value instanceof CSSPrimitiveValue) {
-					var rgb = CSSSWTColorHelper.getRGB(value)
+					var rgb = CSSSWTColorHelper.getRGBA(value)?.rgb
 					if(rgb != null) {
 						var hsb = new HSB(rgb)
 						settings.hoverBorderColors = #[hsb, hsb]
@@ -209,7 +209,7 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 				}
 			}
 			case "jtab-close-button-hot-color": {
-				var rgb = CSSSWTColorHelper.getRGB(value as CSSValue)
+				var rgb = CSSSWTColorHelper.getRGBA(value as CSSValue)?.rgb
 				if(rgb != null) {
 					var hsb = new HSB(rgb.red, rgb.green, rgb.blue)
 					settings.closeButtonHotColor = hsb
@@ -219,7 +219,7 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 				true
 			}
 			case "jtab-close-button-active-color": {
-				var rgb = CSSSWTColorHelper.getRGB(value as CSSValue)
+				var rgb = CSSSWTColorHelper.getRGBA(value as CSSValue)?.rgb
 				if(rgb != null) {
 					var hsb = new HSB(rgb.red, rgb.green, rgb.blue)
 					settings.closeButtonActiveColor = hsb
@@ -235,7 +235,7 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 					settings.unselectedBackgroundPercents = CSSSWTColorHelper.getPercents(grad)
 					true
 				} else if(value instanceof CSSPrimitiveValue) {
-					var rgb = CSSSWTColorHelper.getRGB(value)
+					var rgb = CSSSWTColorHelper.getRGBA(value)?.rgb
 					if(rgb != null) {
 						var hsb = new HSB(rgb)
 						settings.unselectedBackgroundColors = #[hsb, hsb]
@@ -258,7 +258,7 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 					settings.hoverBackgroundPercents = CSSSWTColorHelper.getPercents(grad)
 					true
 				} else if(value instanceof CSSPrimitiveValue) {
-					var rgb = CSSSWTColorHelper.getRGB(value)
+					var rgb = CSSSWTColorHelper.getRGBA(value)?.rgb
 					if(rgb != null) {
 						var hsb = new HSB(rgb)
 						settings.hoverBackgroundColors = #[hsb, hsb]
@@ -301,7 +301,7 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 				}
 			}
 			case "jtab-shadow-color": {
-				var rgb = CSSSWTColorHelper.getRGB(value as CSSValue)
+				var rgb = CSSSWTColorHelper.getRGBA(value as CSSValue)?.rgb
 				if(rgb != null) {
 					var hsb = new HSB(rgb.red, rgb.green, rgb.blue)
 					settings.shadowColor = hsb
@@ -333,7 +333,7 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 				}
 			}
 			case "jtab-selected-text-shadow-color": {
-				var rgb = CSSSWTColorHelper.getRGB(value as CSSValue)
+				var rgb = CSSSWTColorHelper.getRGBA(value as CSSValue)?.rgb
 				if(rgb != null) {
 					var hsb = new HSB(rgb.red, rgb.green, rgb.blue)
 					settings.selectedTextShadowColor = hsb
@@ -356,7 +356,7 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 				}
 			}
 			case "jtab-unselected-text-shadow-color": {
-				var rgb = CSSSWTColorHelper.getRGB(value as CSSValue)
+				var rgb = CSSSWTColorHelper.getRGBA(value as CSSValue)?.rgb
 				if(rgb != null) {
 					var hsb = new HSB(rgb.red, rgb.green, rgb.blue)
 					settings.unselectedTextShadowColor = hsb
@@ -379,7 +379,7 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 				}
 			}
 			case "jtab-hover-text-shadow-color": {
-				var rgb = CSSSWTColorHelper.getRGB(value as CSSValue)
+				var rgb = CSSSWTColorHelper.getRGBA(value as CSSValue)?.rgb
 				if(rgb != null) {
 					var hsb = new HSB(rgb.red, rgb.green, rgb.blue)
 					settings.hoverTextShadowColor = hsb
@@ -424,7 +424,7 @@ class JTabCSSPropertyHandler implements ICSSPropertyHandler {
 				}
 			}
 			case "jtab-chevron-color": {
-				var rgb = CSSSWTColorHelper.getRGB(value as CSSValue)
+				var rgb = CSSSWTColorHelper.getRGBA(value as CSSValue)?.rgb
 				if(rgb != null) {
 					var hsb = new HSB(rgb.red, rgb.green, rgb.blue)
 					settings.chevronColor = hsb

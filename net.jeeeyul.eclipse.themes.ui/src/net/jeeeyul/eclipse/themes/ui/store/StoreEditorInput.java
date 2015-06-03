@@ -13,6 +13,7 @@ import org.eclipse.ui.IPersistableElement;
  */
 public class StoreEditorInput implements IEditorInput {
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Object getAdapter(@SuppressWarnings("rawtypes") Class adapter) {
 		return Platform.getAdapterManager().getAdapter(this, adapter);

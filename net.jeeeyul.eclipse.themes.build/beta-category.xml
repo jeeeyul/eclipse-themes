@@ -1,6 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?><site>
-   <feature id="net.jeeeyul.eclipse.themes.feature" url="features/net.jeeeyul.eclipse.themes.feature_2.2.0.qualifier.jar" version="2.2.0.qualifier">
-      <category name="eclipse-jeeeyul-beta"/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<site>
+   <feature id="net.jeeeyul.eclipse.themes.feature" url="features/net.jeeeyul.eclipse.themes.feature_2.3.0.qualifier.jar" version="2.3.0.qualifier">
+      <category name="eclipse-jeeeyul-mars-beta"/>
    </feature>
    <category-def label="Jeeeyul's Eclipse Plugins (Beta)" name="eclipse-jeeeyul-beta"/>
+   <category-def label="Jeeeyul's Eclipse Plugins for Mars (Beta)" name="eclipse-jeeeyul-mars-beta"/>
 </site>

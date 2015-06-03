@@ -1,34 +1,23 @@
 Manifest-Version: 1.0
 Bundle-SymbolicName: net.jeeeyul.eclipse.themes;singleton:=true
+Export-Package: net.jeeeyul.eclipse.themes,net.jeeeyul.eclipse.themes.
+ css,net.jeeeyul.eclipse.themes.rendering,net.jeeeyul.eclipse.themes.u
+ til
+Bundle-Name: Jeeeyul's Eclipse Themes Core
+Bundle-Version: 2.3.0.qualifier
+Bundle-ClassPath: .
 Require-Bundle: org.eclipse.ui,org.eclipse.core.runtime,org.eclipse.e4
  .ui.css.swt.theme,org.eclipse.e4.ui.workbench.renderers.swt;bundle-ve
- rsion="0.11.0",org.eclipse.e4.ui.css.core,org.eclipse.e4.ui.css.swt,n
+ rsion="0.13.0",org.eclipse.e4.ui.css.core,org.eclipse.e4.ui.css.swt,n
  et.jeeeyul.swtend;bundle-version="2.2.4",org.eclipse.ui.forms,org.ecl
  ipse.ui.workbench.texteditor;resolution:=optional,org.eclipse.e4.core
  .contexts,org.eclipse.e4.ui.workbench,org.eclipse.e4.core.di,org.ecli
  pse.e4.ui.model.workbench,org.eclipse.e4.core.services,org.eclipse.os
  gi.services,javax.inject;bundle-version="1.0.0",org.eclipse.e4.ui.ser
- vices
+ vices,org.eclipse.xtend.lib
 Bundle-ManifestVersion: 2
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
-Bundle-Vendor: jeeeyul@gmail.com
-Import-Package: javax.inject
-Export-Package: com.google.common.base;x-friends:="net.jeeeyul.eclipse
- .themes.ui",com.google.common.collect;x-friends:="net.jeeeyul.eclipse
- .themes.ui",net.jeeeyul.eclipse.themes,net.jeeeyul.eclipse.themes.css
- ,net.jeeeyul.eclipse.themes.rendering,net.jeeeyul.eclipse.themes.util
- ,org.eclipse.xtend.lib;x-friends:="net.jeeeyul.eclipse.themes.ui",org
- .eclipse.xtend.lib.annotations;x-friends:="net.jeeeyul.eclipse.themes
- .ui",org.eclipse.xtend2.lib;x-friends:="net.jeeeyul.eclipse.themes.ui
- ",org.eclipse.xtext.xbase.lib;x-friends:="net.jeeeyul.eclipse.themes.
- ui",org.eclipse.xtext.xbase.lib.util;x-friends:="net.jeeeyul.eclipse.
- themes.ui"
-Bundle-Name: Jeeeyul's Eclipse Themes Core
-Bundle-Version: 2.2.0.qualifier
-Bundle-ClassPath: .,lib/com.google.guava_15.0.0.v201403281430.jar,lib/
- org.eclipse.xtend.lib_2.7.1.v201409090713.jar,lib/org.eclipse.xtext.x
- base.lib_2.7.1.v201409090713.jar,lib/org.eclipse.xtend.lib.macro_2.7.
- 1.v201409090713.jar
 Bundle-Activator: net.jeeeyul.eclipse.themes.JTRuntime
+Bundle-Vendor: jeeeyul@gmail.com
 

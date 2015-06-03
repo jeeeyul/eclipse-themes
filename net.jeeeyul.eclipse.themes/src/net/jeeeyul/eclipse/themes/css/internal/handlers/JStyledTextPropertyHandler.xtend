@@ -45,7 +45,7 @@ class JStyledTextPropertyHandler implements ICSSPropertyHandler {
 				}
 			}
 			case "jeditor-line-color": {
-				var rgb = CSSSWTColorHelper.getRGB(value as CSSValue)
+				var rgb = CSSSWTColorHelper.getRGBA(value as CSSValue)?.rgb
 				if(rgb != null) {
 					els.lineColor = new HSB(rgb.red, rgb.green, rgb.blue)
 					true
@@ -55,7 +55,7 @@ class JStyledTextPropertyHandler implements ICSSPropertyHandler {
 			}
 			
 			case "jeditor-range-indicator-color" : {
-				var rgb = CSSSWTColorHelper.getRGB(value as CSSValue)
+				var rgb = CSSSWTColorHelper.getRGBA(value as CSSValue)?.rgb
 				if(rgb != null) {
 					var field = DefaultRangeIndicator.getDeclaredField("fgPaletteData");
 					field.setAccessible(true);
