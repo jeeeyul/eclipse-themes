@@ -8,12 +8,12 @@
             name="Sample App"
             application="org.eclipse.e4.ui.workbench.swt.E4Application">
          <property
-               name="applicationCSS"
-               value="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/css/default.css">
-         </property>
-         <property
                name="appName"
                value="Sample App">
+         </property>
+          <property
+               name="applicationCSS"
+               value="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/css/default.css">
          </property>
       </product>
    </extension>

@@ -1,6 +1,6 @@
 package net.jeeeyul.eclipse.themes.ui.hotswap
 
-import net.jeeeyul.eclipse.themes.JThemesCore
+import net.jeeeyul.eclipse.themes.JTRuntime
 import net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer
 import net.jeeeyul.eclipse.themes.rendering.VerticalAlignment
 import net.jeeeyul.eclipse.themes.ui.internal.ENVHelper
@@ -530,7 +530,7 @@ class CustomThemeGenerator {
 	}
 
 	def private tabRendererClass() {
-		return '''bundleclass://«JThemesCore.PLUGIN_ID»/«JeeeyulsTabRenderer.canonicalName»'''
+		return '''bundleclass://«JTRuntime.PLUGIN_ID»/«JeeeyulsTabRenderer.canonicalName»'''
 	}
 
 	def private partSpacing() {

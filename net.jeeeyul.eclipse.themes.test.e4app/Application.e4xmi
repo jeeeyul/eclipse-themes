@@ -4,28 +4,17 @@
     <children xsi:type="advanced:PerspectiveStack" xmi:id="_BiW-QDW_EeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.perspectivestack" selectedElement="_Fovk0DW_EeSGif7lV7sYDg">
       <children xsi:type="advanced:Perspective" xmi:id="_Fovk0DW_EeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.perspective.live">
         <children xsi:type="basic:PartSashContainer" xmi:id="_wle-sDXEEeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.partsashcontainer.1" horizontal="true">
-          <children xsi:type="basic:PartStack" xmi:id="_yBm-cDXEEeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.partstack.1" selectedElement="_2eBfYDXEEeSGif7lV7sYDg">
-            <children xsi:type="basic:Part" xmi:id="_2eBfYDXEEeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.part.a" contributionURI="bundleclass://net.jeeeyul.eclipse.themes.test.e4app/net.jeeeyul.eclipse.themes.test.e4app.TestView" label="a"/>
+          <children xsi:type="basic:PartStack" xmi:id="_yBm-cDXEEeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.partstack.1" containerData="2" selectedElement="_2eBfYDXEEeSGif7lV7sYDg">
+            <children xsi:type="basic:Part" xmi:id="_2eBfYDXEEeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.part.a" contributionURI="bundleclass://net.jeeeyul.eclipse.themes.test.e4app/net.jeeeyul.eclipse.themes.test.e4app.NavigatorView" label="Navigator" iconURI="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/icons/sample.png"/>
           </children>
-          <children xsi:type="basic:PartSashContainer" xmi:id="_zdZnADXEEeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.partsashcontainer.2">
-            <children xsi:type="basic:PartStack" xmi:id="_HerkADXFEeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.partstack.3"/>
-          </children>
-        </children>
-      </children>
-      <children xsi:type="advanced:Perspective" xmi:id="_hXZAsDXAEeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.perspective.backup">
-        <children xsi:type="basic:PartSashContainer" xmi:id="_hXZAsTXAEeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.partsashcontainer.0" selectedElement="_hXZAsjXAEeSGif7lV7sYDg">
-          <children xsi:type="basic:PartStack" xmi:id="_hXZAsjXAEeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.partstack.0" containerData="5000">
-            <children xsi:type="basic:Part" xmi:id="_hXZAszXAEeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.part.test" contributionURI="bundleclass://net.jeeeyul.eclipse.themes.test.e4app/net.jeeeyul.eclipse.themes.test.e4app.TestView" label="Test" iconURI="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/icons/save_edit.png" closeable="true">
-              <menus xmi:id="_hXZAtDXAEeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.menu.1">
-                <tags>ViewMenu</tags>
-                <children xsi:type="menu:HandledMenuItem" xmi:id="_hXZAtTXAEeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.handledmenuitem.0" iconURI="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/icons/sample.png" command="_HxlA8DW8EeSGif7lV7sYDg"/>
-              </menus>
-              <toolbar xmi:id="_hXZAtjXAEeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.toolbar.2">
-                <children xsi:type="menu:HandledToolItem" xmi:id="_hXZAtzXAEeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.handledtoolitem.0" iconURI="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/icons/sample.png" command="_HxlA8DW8EeSGif7lV7sYDg"/>
-              </toolbar>
+          <children xsi:type="basic:PartSashContainer" xmi:id="_zdZnADXEEeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.partsashcontainer.2" containerData="5">
+            <children xsi:type="basic:PartStack" xmi:id="_HerkADXFEeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.partstack.3" containerData="3">
+              <children xsi:type="basic:Part" xmi:id="_-cfeQAqNEeW8nYF0pXy9Sg" elementId="net.jeeeyul.eclipse.themes.test.e4app.part.aneditor" contributionURI="bundleclass://net.jeeeyul.eclipse.themes.test.e4app/net.jeeeyul.eclipse.themes.test.e4app.BrowserView" label="An Editor" iconURI="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/icons/sample.png"/>
+              <children xsi:type="basic:Part" xmi:id="_HrdIMAqOEeW8nYF0pXy9Sg" elementId="net.jeeeyul.eclipse.themes.test.e4app.part.another" label="Another" iconURI="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/icons/sample.png"/>
             </children>
-            <children xsi:type="basic:Part" xmi:id="_hXZAuDXAEeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.part.test2" contributionURI="bundleclass://net.jeeeyul.eclipse.themes.test.e4app/net.jeeeyul.eclipse.themes.test.e4app.TestView" label="test2" iconURI="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/icons/sample.png"/>
-            <children xsi:type="basic:Part" xmi:id="_hXZAuTXAEeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.part.test3" contributionURI="bundleclass://net.jeeeyul.eclipse.themes.test.e4app/net.jeeeyul.eclipse.themes.test.e4app.TestView" label="test3" iconURI="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/icons/save_edit.png"/>
+            <children xsi:type="basic:PartStack" xmi:id="_N7KywAqOEeW8nYF0pXy9Sg" elementId="net.jeeeyul.eclipse.themes.test.e4app.partstack.0" containerData="1">
+              <children xsi:type="basic:Part" xmi:id="_OWGbQAqOEeW8nYF0pXy9Sg" elementId="net.jeeeyul.eclipse.themes.test.e4app.part.someview" label="Some View" iconURI="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/icons/sample.png"/>
+            </children>
           </children>
         </children>
       </children>
