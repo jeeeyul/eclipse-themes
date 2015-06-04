@@ -4,16 +4,15 @@ import java.util.List;
 
 import org.eclipse.e4.ui.css.core.dom.properties.Gradient;
 import org.eclipse.e4.ui.css.core.engine.CSSEngine;
-import org.eclipse.e4.ui.css.swt.helpers.CSSSWTColorHelper;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
-import org.eclipse.swt.graphics.RGBA;
 import org.eclipse.swt.widgets.Display;
 import org.w3c.dom.css.CSSPrimitiveValue;
 import org.w3c.dom.css.CSSValue;
 import org.w3c.dom.css.CSSValueList;
 
 import net.jeeeyul.eclipse.themes.css.internal.handlers.JTabCSSPropertyHandler;
+import net.jeeeyul.eclipse.themes.internal.CSSExtension;
 
 /**
  * CSS Value Converter for {@link JTabCSSPropertyHandler}
@@ -22,6 +21,7 @@ import net.jeeeyul.eclipse.themes.css.internal.handlers.JTabCSSPropertyHandler;
  */
 @SuppressWarnings("restriction")
 public class CSSCompabilityHelper {
+	private static CSSExtension cssExtension = new CSSExtension();
 	/*
 	 * Compute and return a default array of percentages based on number of
 	 * colors o If two colors, {100} o if three colors, {50, 100} o if four
@@ -73,8 +73,7 @@ public class CSSCompabilityHelper {
 				case CSSPrimitiveValue.CSS_IDENT:
 				case CSSPrimitiveValue.CSS_STRING:
 				case CSSPrimitiveValue.CSS_RGBCOLOR:
-					RGBA rgba = CSSSWTColorHelper.getRGBA(value);
-					RGB rgb = (rgba != null) ? rgba.rgb : null;
+					RGB rgb = cssExtension.toRGB(value);
 					if (rgb != null) {
 						gradient.addRGB(rgb, (CSSPrimitiveValue) value);
 					} else {

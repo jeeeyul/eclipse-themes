@@ -1,18 +1,18 @@
 package net.jeeeyul.eclipse.themes.css.internal.handlers
 
 import net.jeeeyul.eclipse.themes.css.EditorLineSupport
+import net.jeeeyul.eclipse.themes.internal.CSSExtension
 import net.jeeeyul.swtend.ui.HSB
 import org.eclipse.e4.ui.css.core.dom.properties.ICSSPropertyHandler
 import org.eclipse.e4.ui.css.core.engine.CSSEngine
 import org.eclipse.e4.ui.css.swt.dom.CompositeElement
-import org.eclipse.e4.ui.css.swt.helpers.CSSSWTColorHelper
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.StyledText
+import org.eclipse.swt.graphics.PaletteData
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.ui.texteditor.DefaultRangeIndicator
 import org.w3c.dom.css.CSSPrimitiveValue
 import org.w3c.dom.css.CSSValue
-import org.eclipse.swt.graphics.PaletteData
 
 /**
  * CSS Property handler for {@link StyledText}.
@@ -20,6 +20,7 @@ import org.eclipse.swt.graphics.PaletteData
  * @see EditorLineSupport
  */
 class JStyledTextPropertyHandler implements ICSSPropertyHandler {
+	extension CSSExtension = new CSSExtension
 
 	override applyCSSProperty(Object element, String property, CSSValue value, String pseudo, CSSEngine engine) throws Exception {
 		var compositeElement = element as CompositeElement
@@ -45,7 +46,7 @@ class JStyledTextPropertyHandler implements ICSSPropertyHandler {
 				}
 			}
 			case "jeditor-line-color": {
-				var rgb = CSSSWTColorHelper.getRGBA(value as CSSValue)?.rgb
+				var rgb = (value as CSSValue).toRGB
 				if(rgb != null) {
 					els.lineColor = new HSB(rgb.red, rgb.green, rgb.blue)
 					true
@@ -55,7 +56,7 @@ class JStyledTextPropertyHandler implements ICSSPropertyHandler {
 			}
 			
 			case "jeditor-range-indicator-color" : {
-				var rgb = CSSSWTColorHelper.getRGBA(value as CSSValue)?.rgb
+				var rgb = (value as CSSValue).toRGB
 				if(rgb != null) {
 					var field = DefaultRangeIndicator.getDeclaredField("fgPaletteData");
 					field.setAccessible(true);
