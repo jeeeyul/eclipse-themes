@@ -26,12 +26,6 @@
     </mainMenu>
     <trimBars xmi:id="_UTwgMDWdEeSIpb3CV_2BFQ" elementId="main-toolbar">
       <children xsi:type="menu:ToolBar" xmi:id="_U4-GEDWdEeSIpb3CV_2BFQ" elementId="net.jeeeyul.eclipse.themes.test.e4app.toolbar.0">
-        <children xsi:type="menu:DirectToolItem" xmi:id="_WId_EDWdEeSIpb3CV_2BFQ" elementId="toolbar" iconURI="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/icons/sample.png" contributionURI="bundleclass://net.jeeeyul.eclipse.themes.test.e4app/net.jeeeyul.eclipse.themes.test.e4app.ResetPerspectiveHandler">
-          <menu xmi:id="_2YbccDW-EeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.menu.2">
-            <children xsi:type="menu:DirectMenuItem" xmi:id="_8S_WYDW-EeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.directmenuitem.aaa" label="aaa"/>
-          </menu>
-        </children>
-        <children xsi:type="menu:ToolBarSeparator" xmi:id="_qOOMYDWdEeSIpb3CV_2BFQ" elementId="net.jeeeyul.eclipse.themes.test.e4app.toolbarseparator.0"/>
         <children xsi:type="menu:DirectToolItem" xmi:id="_k2_B8DWdEeSIpb3CV_2BFQ" elementId="toolbar" iconURI="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/icons/sample.png"/>
         <children xsi:type="menu:DirectToolItem" xmi:id="_k74JADWdEeSIpb3CV_2BFQ" elementId="toolbar" iconURI="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/icons/sample.png"/>
       </children>
