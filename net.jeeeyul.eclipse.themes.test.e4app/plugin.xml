@@ -11,7 +11,7 @@
                name="appName"
                value="Sample App">
          </property>
-          <property
+         <property
                name="applicationCSS"
                value="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/css/default.css">
          </property>
