@@ -16,8 +16,10 @@
 
    <windowImages/>
 
-
-   <launcher name="Hello World">
+   <splash
+      location="net.jeeeyul.eclipse.themes.test.e4app" />
+   <launcher name="jeeeyul">
+      <macosx icon="/net.jeeeyul.eclipse.themes.test.e4app/branding/osx/icon.icns"/>
       <solaris/>
       <win useIco="false">
          <bmp/>
@@ -27,6 +29,7 @@
 
    <vm>
    </vm>
+
 
    <plugins>
       <plugin id="com.google.guava"/>
@@ -90,9 +93,7 @@
       <plugin id="org.eclipse.equinox.event"/>
       <plugin id="org.eclipse.equinox.preferences"/>
       <plugin id="org.eclipse.equinox.registry"/>
-      <plugin id="org.eclipse.equinox.simpleconfigurator"/>
       <plugin id="org.eclipse.equinox.util"/>
-      <plugin id="org.eclipse.fx.osgi" fragment="true"/>
       <plugin id="org.eclipse.help"/>
       <plugin id="org.eclipse.jface"/>
       <plugin id="org.eclipse.jface.databinding"/>
@@ -106,7 +107,6 @@
       <plugin id="org.eclipse.ui"/>
       <plugin id="org.eclipse.ui.cocoa" fragment="true"/>
       <plugin id="org.eclipse.ui.forms"/>
-      <plugin id="org.eclipse.ui.themes"/>
       <plugin id="org.eclipse.ui.workbench"/>
       <plugin id="org.eclipse.ui.workbench.texteditor"/>
       <plugin id="org.eclipse.xtend.lib"/>

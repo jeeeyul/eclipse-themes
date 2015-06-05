@@ -7,15 +7,15 @@
  **************************************************/
 Shell.MTrimmedWindow {
 	margin-top: 4px;
-	margin-right: 0px;
-	margin-bottom: 0px;
-	margin-left: 3px;
-	background-color: #eff4fa;
+	margin-right: 3px;
+	margin-bottom: 3px;
+	margin-left: 4px;
+	background-color: #d3dee9;
 }
 
 .MPartSashContainer {
-	jsash-width : 2px;
-	background-color: #eff4fa;
+	jsash-width : 6px;
+	background-color: #d3dee9;
 }
 
 
@@ -24,24 +24,24 @@ Shell.MTrimmedWindow {
  * Main Toolbar
  **************************************************/
 #main-toolbar {
-	background-color:#ccd9e7 #b2c2d1 100%;
+	background-color:#f4f8fc #e7eff8 #a7bacd #e0eaf3 92% 92% 100%;
 }
 
 #main-toolbar > .Draggable {
 	handle-image:
-		url(jeeeyul://drag-handle?height=22&background-color=#bfcddc&embossed=false);
+		url(jeeeyul://drag-handle?height=22&background-color=#ecf3f9&embossed=false);
 }
 
 #main-toolbar > .TrimStack {
 	frame-image: none;
 	handle-image:
-		url(jeeeyul://drag-handle?height=22&background-color=#bfcddc&embossed=false);
+		url(jeeeyul://drag-handle?height=22&background-color=#ecf3f9&embossed=false);
 }
 
 #main-toolbar #PerspectiveSwitcher {
-	background-color: #f5f6fa #eff4fa 100%;
+	background-color: #acbed0 #d3dee9 #d3dee9 8% 100%;
 	handle-image: none;
-	eclipse-perspective-keyline-color: #8f9eac;
+	eclipse-perspective-keyline-color: #d3dee9;
 }
 
 #main-toolbar #PerspectiveSwitcher ToolBar {
@@ -54,7 +54,7 @@ Shell.MTrimmedWindow {
  * Status Bar
  **************************************************/
 #status-bar{
-	background-color:#96b2ce #96b2ce #d3dee9 #d3dee9 6%6% 100%;
+	background-color:#d3dee9 #c7d1da #f4f8fc #e0eaf3 9% 9% 100%;
 }
 
 #status-bar,
@@ -69,13 +69,13 @@ Shell.MTrimmedWindow {
 
 #status-bar .Draggable {
 	handle-image:
-		url(jeeeyul://drag-handle?height=22&background-color=#d3dee9&embossed=false);
+		url(jeeeyul://drag-handle?height=22&background-color=#eaf1f7&embossed=false);
 }
 
 #status-bar .TrimStack {
 	handle-image:
-		url(jeeeyul://drag-handle?height=22&background-color=#d3dee9&embossed=false);
-	frame-image: url(jeeeyul://frame?background-color=#d3dee9);
+		url(jeeeyul://drag-handle?height=22&background-color=#eaf1f7&embossed=false);
+	frame-image: url(jeeeyul://frame?background-color=#eaf1f7);
 	frame-cuts: 4px 2px 5px 16px;
 }
 
@@ -85,15 +85,15 @@ Shell.MTrimmedWindow {
  * Trim Stack
  **************************************************/
 Shell.MTrimmedWindow > .MTrimBar > .TrimStack {
-	frame-image: url(jeeeyul://frame?background-color=#eff4fa);
+	frame-image: url(jeeeyul://frame?background-color=#d3dee9);
 	frame-cuts: 4px 2px 5px 16px;
 	handle-image:
-		url(jeeeyul://drag-handle?height=22&background-color=#eff4fa&embossed=false);
+		url(jeeeyul://drag-handle?height=22&background-color=#d3dee9&embossed=false);
 }
 
 Shell.MTrimmedWindow > .MTrimBar > .MToolBar.Draggable {
 	handle-image:
-		url(jeeeyul://drag-handle?height=22&background-color=#eff4fa&embossed=false);
+		url(jeeeyul://drag-handle?height=22&background-color=#d3dee9&embossed=false);
 }
 
 
@@ -107,7 +107,7 @@ Shell.MTrimmedWindow > .MTrimBar > .MToolBar.Draggable {
 	
 	/* layout */
 	swt-tab-height: 22px;
-	jtab-border-radius: 6px;
+	jtab-border-radius: 3px;
 	jtab-spacing: 2px;
 	jtab-item-padding: 0px 5px;
 	jtab-item-horizontal-spacing: 0px;
@@ -117,75 +117,26 @@ Shell.MTrimmedWindow > .MTrimBar > .MToolBar.Draggable {
 	jtab-minimum-characters : 1;
 	jtab-close-button-alignment : baseline;
 	
-	jtab-margin : 0px 4px 4px 1px; /* top right bottom left */
-	jtab-shadow-color: #90a0b3;
-	jtab-shadow-position: 1px 1px;
-	jtab-shadow-radius: 3px;
+	jtab-margin : 0px 1px 1px 0px;
+	jtab-shadow-color: none;
+	jtab-shadow-position: 0px 0px;
+	jtab-shadow-radius: 0px;
 	
 	/* tab background */
-	jtab-header-background : #d2dfec #c3d2e0 100%;
-	jtab-border-color : #97a5b3 #97a5b3 100%;
+	jtab-header-background : #d2dee9 #d2dee9 #acc6de 86% 100%;
+	jtab-border-color : none;
 	background : #ffffff;
 	
 	/* selected tabs */
 	jtab-selected-tab-background: #ffffff #ffffff 100%;
-	jtab-selected-border-color: #97a5b3 #97a5b3 100%;
+	jtab-selected-border-color: none;
 	jtab-selected-text-shadow-color: none;
 
 	/* unselected tabs */
-	jtab-unselected-tabs-background: none;
+	jtab-unselected-tabs-background: #b9c8d8 #c0cdda #8da9c3 86% 100%;
 	
 	jtab-unselected-border-color: none;
 	jtab-unselected-text-shadow-color: none;
-	
-	/* hover tabs */
-	jtab-hover-color : #000000;
-	jtab-hover-tabs-background: #e6eef6 #d9e4ed 100%;
-	
-	jtab-hover-border-color: none;
-	jtab-hover-text-shadow-color: none;
-	
-	jtab-close-button-color: #cdcdcd;
-	jtab-close-button-hot-color: #b05656;
-	jtab-close-button-active-color: #dd1b1b;
-	jtab-close-button-line-width: 2px;
-	
-	jtab-chevron-color: #000000;
-}
-
-.MPartStack>CTabItem {
-	/* unselected tab text */
-	color: #000000;
-}
-
-.MPartStack>CTabItem:selected {
-	/* selected tab text */
-	color: #000000;
-}
-
-
-/**************************************************
- * Active Part Stack
- **************************************************/
-.MPartStack.active {
-	swt-tab-renderer: url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer');
-	
-	/* tab background */
-	jtab-header-background : #6b8fb3 #5a83aa 100%;
-	jtab-border-color : #5d6c7b #5d6c7b 100%;
-	background : #ffffff;
-	
-	/* selected tabs */
-	jtab-selected-tab-background: #ffffff #ffffff 100%;
-	jtab-selected-border-color: #5d6c7b #5d6c7b 100%;
-	jtab-selected-text-shadow-color: none;
-
-	/* unselected tabs */
-	jtab-unselected-tabs-background: none;
-	
-	jtab-unselected-border-color: none;
-	jtab-unselected-text-shadow-position: 0px 1px;
-	jtab-unselected-text-shadow-color: #306498;
 	
 	/* hover tabs */
 	jtab-hover-color : #ffffff;
@@ -199,12 +150,61 @@ Shell.MTrimmedWindow > .MTrimBar > .MToolBar.Draggable {
 	jtab-close-button-active-color: #dd1b1b;
 	jtab-close-button-line-width: 2px;
 	
-	jtab-chevron-color: #ffffff;
+	jtab-chevron-color: #306498;
+}
+
+.MPartStack>CTabItem {
+	/* unselected tab text */
+	color: #274a7a;
+}
+
+.MPartStack>CTabItem:selected {
+	/* selected tab text */
+	color: #306498;
+}
+
+
+/**************************************************
+ * Active Part Stack
+ **************************************************/
+.MPartStack.active {
+	swt-tab-renderer: url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer');
+	
+	/* tab background */
+	jtab-header-background : #d2dee9 #d2dee9 #acc6de 86% 100%;
+	jtab-border-color : none;
+	background : #ffffff;
+	
+	/* selected tabs */
+	jtab-selected-tab-background: #3383c6 #3383c6 #ffffff #ffffff 16%16% 100%;
+	jtab-selected-border-color: #3383c6 #3383c6 #3383c6 99% 100%;
+	jtab-selected-text-shadow-color: none;
+
+	/* unselected tabs */
+	jtab-unselected-tabs-background: #b9c8d8 #c0cdda #8da9c3 86% 100%;
+	
+	jtab-unselected-border-color: none;
+	jtab-unselected-text-shadow-position: 0px 1px;
+	jtab-unselected-text-shadow-color: #dee8f3;
+	
+	/* hover tabs */
+	jtab-hover-color : #ffffff;
+	jtab-hover-tabs-background: #8dadcd #729abf 100%;
+	
+	jtab-hover-border-color: none;
+	jtab-hover-text-shadow-color: none;
+	
+	jtab-close-button-color: #cdcdcd;
+	jtab-close-button-hot-color: #b05656;
+	jtab-close-button-active-color: #dd1b1b;
+	jtab-close-button-line-width: 2px;
+	
+	jtab-chevron-color: #306498;
 }
 
 .MPartStack.active>CTabItem {
 	/* unselected tab text */
-	color: #ffffff;
+	color: #274a7a;
 }
 
 .MPartStack.active>CTabItem:selected {
@@ -239,9 +239,9 @@ Shell.MTrimmedWindow > .MTrimBar > .MToolBar.Draggable {
  * Empty Editor Stack
  **************************************************/
 #org-eclipse-ui-editorss.MArea .MPartStack.empty{
-	jtab-header-background : #758390 #758390 100%;
-	jtab-border-color : #758390 #758390 100%;
-	background : #758390;
+	jtab-header-background : #98abbe #bbcad8 #bbcad8 15% 100%;
+	jtab-border-color : none;
+	background : #bbcad8;
 }
 
 
@@ -252,21 +252,21 @@ Shell.MTrimmedWindow > .MTrimBar > .MToolBar.Draggable {
 CTabFolder#org-eclipse-ui-editorss.MArea{
 	swt-tab-renderer: url('bundleclass://net.jeeeyul.eclipse.themes/net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer');
 	swt-tab-height: 10px;
-	jtab-header-background : #758390 #758390 100%;
-	jtab-border-color : none;
-	jtab-selected-tab-background: #758390 #758390 100%;
+	jtab-header-background : #d3dee9 #d3dee9 100%;
+	jtab-border-color : #aab7c3 #aab7c3 100%;
+	jtab-selected-tab-background: #d3dee9 #d3dee9 100%;
 	jtab-selected-border-color: none;
 	swt-single : true;
 	
-	jtab-margin : 0px 4px 4px 1px; /* top right bottom left */
-	jtab-shadow-color: #90a0b3;
-	jtab-shadow-position: 1px 1px;
-	jtab-shadow-radius: 3px;
-	jtab-padding : 2px 2px 4px 4px;
+	jtab-margin : 0px;
+	jtab-shadow-color: none;
+	jtab-shadow-position: 0px 0px;
+	jtab-shadow-radius: 0px;
+	jtab-padding : 2px;
 }
 
 CTabFolder#org-eclipse-ui-editorss.MArea Composite.MPartSashContainer {
-	background-color: #758390;
+	background-color: #d3dee9;
 }
 
 
@@ -275,14 +275,14 @@ CTabFolder#org-eclipse-ui-editorss.MArea Composite.MPartSashContainer {
  * Text Editor
  **************************************************/
 .MPart.Editor Canvas {
-	background-color: #f0f0f0;
+	background-color: #eff6fe;
 }
 
 .MPart.Editor StyledText,
 .MPart.Editor StyledTextWithoutVerticalBar /* PyDev support */{
 	jeditor-line-style : none;
 	jeditor-line-color : #f0f0f0;
-	jeditor-range-indicator-color: #d1e3f7;
+	jeditor-range-indicator-color: #d0e6fe;
 }
 
 

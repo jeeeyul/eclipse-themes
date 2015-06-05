@@ -7,6 +7,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
 public class TestView {
+	
 	@PostConstruct
 	public void create(Composite parent) {
 		Label label = new Label(parent, SWT.NORMAL);

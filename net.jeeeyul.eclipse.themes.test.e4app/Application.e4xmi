@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_VTHWUDWbEeSIpb3CV_2BFQ" elementId="org.eclipse.e4.ide.application" bindingContexts="_VTHWWTWbEeSIpb3CV_2BFQ">
-  <children xsi:type="basic:TrimmedWindow" xmi:id="_VTHWUTWbEeSIpb3CV_2BFQ" label="Sampel App" width="500" height="400">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_VTHWUTWbEeSIpb3CV_2BFQ" label="Sampel App" iconURI="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/icons/jtheme.png" width="1024" height="768">
     <children xsi:type="advanced:PerspectiveStack" xmi:id="_BiW-QDW_EeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.perspectivestack" selectedElement="_Fovk0DW_EeSGif7lV7sYDg">
       <children xsi:type="advanced:Perspective" xmi:id="_Fovk0DW_EeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.perspective.live">
         <children xsi:type="basic:PartSashContainer" xmi:id="_wle-sDXEEeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.partsashcontainer.1" horizontal="true">
-          <children xsi:type="basic:PartStack" xmi:id="_yBm-cDXEEeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.partstack.1" containerData="2" selectedElement="_2eBfYDXEEeSGif7lV7sYDg">
+          <children xsi:type="basic:PartStack" xmi:id="_yBm-cDXEEeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.partstack.1" containerData="2000" selectedElement="_2eBfYDXEEeSGif7lV7sYDg">
             <children xsi:type="basic:Part" xmi:id="_2eBfYDXEEeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.part.a" contributionURI="bundleclass://net.jeeeyul.eclipse.themes.test.e4app/net.jeeeyul.eclipse.themes.test.e4app.NavigatorView" label="Navigator" iconURI="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/icons/sample.png"/>
           </children>
-          <children xsi:type="basic:PartSashContainer" xmi:id="_zdZnADXEEeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.partsashcontainer.2" containerData="5">
-            <children xsi:type="basic:PartStack" xmi:id="_HerkADXFEeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.partstack.3" containerData="3">
+          <children xsi:type="basic:PartSashContainer" xmi:id="_zdZnADXEEeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.partsashcontainer.2" containerData="5000">
+            <children xsi:type="basic:PartStack" xmi:id="_HerkADXFEeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.partstack.3" containerData="3000">
               <children xsi:type="basic:Part" xmi:id="_-cfeQAqNEeW8nYF0pXy9Sg" elementId="net.jeeeyul.eclipse.themes.test.e4app.part.aneditor" contributionURI="bundleclass://net.jeeeyul.eclipse.themes.test.e4app/net.jeeeyul.eclipse.themes.test.e4app.BrowserView" label="An Editor" iconURI="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/icons/sample.png"/>
               <children xsi:type="basic:Part" xmi:id="_HrdIMAqOEeW8nYF0pXy9Sg" elementId="net.jeeeyul.eclipse.themes.test.e4app.part.another" label="Another" iconURI="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/icons/sample.png"/>
             </children>
-            <children xsi:type="basic:PartStack" xmi:id="_N7KywAqOEeW8nYF0pXy9Sg" elementId="net.jeeeyul.eclipse.themes.test.e4app.partstack.0" containerData="1">
+            <children xsi:type="basic:PartStack" xmi:id="_N7KywAqOEeW8nYF0pXy9Sg" elementId="net.jeeeyul.eclipse.themes.test.e4app.partstack.0" containerData="1000">
               <children xsi:type="basic:Part" xmi:id="_OWGbQAqOEeW8nYF0pXy9Sg" elementId="net.jeeeyul.eclipse.themes.test.e4app.part.someview" label="Some View" iconURI="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/icons/sample.png"/>
             </children>
           </children>
@@ -21,7 +21,7 @@
     </children>
     <mainMenu xmi:id="_aIUkMDW7EeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.menu.0">
       <children xsi:type="menu:Menu" xmi:id="_aq3QkDW7EeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.menu.yeah" label="Yeah!">
-        <children xsi:type="menu:DirectMenuItem" xmi:id="_b5Bs0DW7EeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.directmenuitem.hello" label="Hello"/>
+        <children xsi:type="menu:DirectMenuItem" xmi:id="_b5Bs0DW7EeSGif7lV7sYDg" elementId="net.jeeeyul.eclipse.themes.test.e4app.directmenuitem.hello" label="Hello" iconURI="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/icons/jtheme.png"/>
       </children>
     </mainMenu>
     <trimBars xmi:id="_UTwgMDWdEeSIpb3CV_2BFQ" elementId="main-toolbar">
@@ -29,9 +29,15 @@
         <children xsi:type="menu:DirectToolItem" xmi:id="_k2_B8DWdEeSIpb3CV_2BFQ" elementId="toolbar" iconURI="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/icons/sample.png"/>
         <children xsi:type="menu:DirectToolItem" xmi:id="_k74JADWdEeSIpb3CV_2BFQ" elementId="toolbar" iconURI="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/icons/sample.png"/>
       </children>
+      <children xsi:type="menu:ToolControl" xmi:id="_YUNNcAsuEeW4Sa-WjoYaaA" elementId="net.jeeeyul.eclipse.themes.test.e4app.toolcontrol.1" contributionURI="bundleclass://net.jeeeyul.eclipse.themes.test.e4app/net.jeeeyul.eclipse.themes.test.e4app.Spacer">
+        <tags>stretch</tags>
+      </children>
       <children xsi:type="menu:ToolBar" xmi:id="_j9enEDWdEeSIpb3CV_2BFQ" elementId="net.jeeeyul.eclipse.themes.test.e4app.toolbar.1">
-        <children xsi:type="menu:DirectToolItem" xmi:id="_kU6PoDWdEeSIpb3CV_2BFQ" elementId="toolbar" iconURI="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/icons/sample.png"/>
-        <children xsi:type="menu:DirectToolItem" xmi:id="_kv1REDWdEeSIpb3CV_2BFQ" elementId="toolbar" iconURI="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/icons/sample.png"/>
+        <children xsi:type="menu:DirectToolItem" xmi:id="_tqEa8AsyEeW4Sa-WjoYaaA" elementId="net.jeeeyul.eclipse.themes.test.e4app.directtoolitem." label="작업 전환" iconURI="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/icons/jtheme.png">
+          <menu xmi:id="_w1qNMAsyEeW4Sa-WjoYaaA" elementId="net.jeeeyul.eclipse.themes.test.e4app.menu.1">
+            <children xsi:type="menu:DynamicMenuContribution" xmi:id="_Yiw0kAszEeW4Sa-WjoYaaA" elementId="net.jeeeyul.eclipse.themes.test.e4app.dynamicmenucontribution.0" contributionURI="bundleclass://net.jeeeyul.eclipse.themes.test.e4app/net.jeeeyul.eclipse.themes.test.e4app.DynamicMenu"/>
+          </menu>
+        </children>
       </children>
     </trimBars>
     <trimBars xmi:id="_wL32kDWdEeSIpb3CV_2BFQ" elementId="status-bar" side="Bottom">
@@ -46,7 +52,6 @@
     <children xmi:id="_VTHWWjWbEeSIpb3CV_2BFQ" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
     <children xmi:id="_VTHWWzWbEeSIpb3CV_2BFQ" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
   </rootContext>
-  <toolBarContributions xmi:id="_Iire0DWdEeSIpb3CV_2BFQ" elementId="net.jeeeyul.eclipse.themes.test.e4app.toolbarcontribution.0"/>
   <commands xmi:id="_HxlA8DW8EeSGif7lV7sYDg" elementId="org.eclipse.ui.help.aboutAction" commandName="About"/>
   <addons xmi:id="_VTHWUjWbEeSIpb3CV_2BFQ" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_VTHWUzWbEeSIpb3CV_2BFQ" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>

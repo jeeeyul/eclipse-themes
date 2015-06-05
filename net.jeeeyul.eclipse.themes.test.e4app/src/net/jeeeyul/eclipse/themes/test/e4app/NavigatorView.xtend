@@ -12,7 +12,7 @@ import org.eclipse.swt.widgets.Composite
 
 class NavigatorView {
 	@Inject IEventBroker eventBroker
-
+	
 	@PostConstruct def create(Composite composite) {
 		var viewer = new TreeViewer(composite);
 		viewer.labelProvider = new BookmarkLabelProvider
