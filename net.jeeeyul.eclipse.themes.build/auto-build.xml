@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="project" default="build-update-site">
+<project name="project" default="build-feature-and-plugins">
 	<taskdef resource="net/sf/antcontrib/antlib.xml" classpath="${basedir}/libs/ant-contrib-1.0b3.jar" />
 	<taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask" classpath="${basedir}/libs/xmltask.jar" />
 
@@ -47,7 +47,14 @@
 			</path>
 		</foreach>
 
+		<move todir="${build-repository}">
+			<fileset dir="${build-feature-and-plugins}" includes="**" />
+		</move>
+
 		<antcall target="clean-generated-script" />
+
+		<eclipse.convertPath fileSystemPath="${project}" property="resourcePath" />
+		<eclipse.refreshLocal resource="${resourcePath}" depth="infinite" />
 
 		<eclipse.convertPath fileSystemPath="${project}" property="resourcePath" />
 		<eclipse.refreshLocal resource="${resourcePath}" depth="infinite" />
@@ -77,38 +84,6 @@
 		</delete>
 	</target>
 
-	<target name="build-update-site" depends="build-feature-and-plugins" description="Generate or append feature and plugins into repository.">
-		<eclipse.publish.featuresAndBundles repository="file:${build-repository}" metadatarepositoryname="${repository-name}" artifactrepositoryname="${repository-name}" category="file:${basedir}/${category-file}">
-			<features dir="${build-feature-and-plugins}/features" includes="*.jar" />
-			<bundles dir="${build-feature-and-plugins}/plugins" includes="*.jar" />
-		</eclipse.publish.featuresAndBundles>
-
-		<!-- FIX eclipse.publish.featuresAndBundles bug, It doesn't honor repository name -->
-		<xmltask source="${build-repository}/artifacts.xml" dest="${build-repository}/artifacts.xml">
-			<replace path="/repository/@name" withText="${repository-name}" />
-		</xmltask>
-		<xmltask source="${build-repository}/content.xml" dest="${build-repository}/content.xml">
-			<replace path="/repository/@name" withText="${repository-name}" />
-		</xmltask>
-
-		<jar destfile="${build-repository}/artifacts.jar">
-			<fileset dir="${build-repository}" includes="artifacts.xml" />
-		</jar>
-		<jar destfile="${build-repository}/content.jar">
-			<fileset dir="${build-repository}" includes="content.xml" />
-		</jar>
-		<delete dir="${build-repository}" includes="*.xml" />
-
-		<!-- Sign repository -->
-		<foreach target="signjar" param="file">
-			<path>
-				<fileset dir="${build-repository}" includes="*.jar" />
-			</path>
-		</foreach>
-
-		<eclipse.convertPath fileSystemPath="${build-repository}}" property="resourcePath" />
-		<eclipse.refreshLocal resource="${resourcePath}" depth="infinite" />
-	</target>
 
 
 	<target name="generate-scripts" depends="set-timestamp, update-plugin-versions" description="Generates ant scripts to build feature and plugins.">
@@ -171,8 +146,6 @@
 			<replace path="/site/feature/@url" withText="features/${feature-id}_${version}.qualifier.jar" />
 			<replace path="/site/feature/@version" withText="${version}.qualifier" />
 		</xmltask>
-
-
 	</target>
 
 </project>
