@@ -1,4 +1,4 @@
-package net.jeeeyul.eclipse.themes.test.e4app;
+package net.jeeeyul.eclipse.themes.test.e4app.handlers;
 
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.splash.AbstractSplashHandler;

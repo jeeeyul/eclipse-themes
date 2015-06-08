@@ -1,4 +1,4 @@
-package net.jeeeyul.eclipse.themes.test.e4app
+package net.jeeeyul.eclipse.themes.test.e4app.views
 
 import javax.annotation.PostConstruct
 import javax.inject.Inject
@@ -8,15 +8,17 @@ import net.jeeeyul.eclipse.themes.test.e4app.model.BookmarkLabelProvider
 import org.eclipse.e4.core.services.events.IEventBroker
 import org.eclipse.jface.viewers.IStructuredSelection
 import org.eclipse.jface.viewers.TreeViewer
+import org.eclipse.swt.SWT
 import org.eclipse.swt.widgets.Composite
 
 class NavigatorView {
 	@Inject IEventBroker eventBroker
 	
 	@PostConstruct def create(Composite composite) {
-		var viewer = new TreeViewer(composite);
+		var viewer = new TreeViewer(composite, SWT.NONE)
 		viewer.labelProvider = new BookmarkLabelProvider
 		viewer.contentProvider = new BookmarkContentProvider
+		viewer.autoExpandLevel = 3
 		viewer.input = createModel
 
 		viewer.addOpenListener [ e |

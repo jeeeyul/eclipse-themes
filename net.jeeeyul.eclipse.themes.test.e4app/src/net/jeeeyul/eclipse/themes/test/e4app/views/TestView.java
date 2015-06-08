@@ -1,4 +1,4 @@
-package net.jeeeyul.eclipse.themes.test.e4app;
+package net.jeeeyul.eclipse.themes.test.e4app.views;
 
 import javax.annotation.PostConstruct;
 
