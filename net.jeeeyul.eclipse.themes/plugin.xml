@@ -184,6 +184,22 @@
          </property-name>
       </handler>
       <handler
+            adapter="org.eclipse.ui.internal.forms.css.dom.SectionElement"
+            handler="net.jeeeyul.eclipse.themes.css.internal.handlers.SectionCSSPropertyHandler">
+         <property-name
+               name="jtitle-bar-border-color">
+         </property-name>
+         <property-name
+               name="jtitle-bar-background-color">
+         </property-name>
+         <property-name
+               name="jtitle-bar-text-color">
+         </property-name>
+         <property-name
+               name="jtitle-bar-active-text-color">
+         </property-name>
+      </handler>
+      <handler
             adapter="net.jeeeyul.eclipse.themes.css.internal.elements.FormTextElement"
             handler="net.jeeeyul.eclipse.themes.css.internal.handlers.FormTextCSSPropertyHandler">
          <property-name

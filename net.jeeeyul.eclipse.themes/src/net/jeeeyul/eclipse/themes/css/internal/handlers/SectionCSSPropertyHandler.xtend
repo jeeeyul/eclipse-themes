@@ -12,6 +12,7 @@ import org.eclipse.swt.graphics.GC
 import org.eclipse.ui.forms.widgets.Section
 import org.w3c.dom.css.CSSPrimitiveValue
 import org.w3c.dom.css.CSSValue
+import org.eclipse.e4.ui.css.swt.dom.WidgetElement
 
 /**
  * CSS Property handler for {@link StyledText}.
@@ -22,7 +23,7 @@ class SectionCSSPropertyHandler implements ICSSPropertyHandler {
 	extension SWTExtensions = SWTExtensions.INSTANCE
 
 	override applyCSSProperty(Object element, String property, CSSValue value, String pseudo, CSSEngine engine) throws Exception {
-		var sElement = element as SectionElement
+		var sElement = element as WidgetElement
 		var section = sElement.nativeWidget as Section
 
 		return switch (property) {
