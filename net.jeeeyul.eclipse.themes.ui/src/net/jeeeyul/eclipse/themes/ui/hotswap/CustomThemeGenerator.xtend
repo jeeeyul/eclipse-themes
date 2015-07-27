@@ -69,6 +69,13 @@ class CustomThemeGenerator {
 	}
 
 	def private String doGenerateBody() '''
+		«comment("GTK3")»
+		GtkToolbar#swt-toolbar-flat {
+			padding: 0px;
+		}
+	
+	
+	
 		«comment("Window")»
 		Shell.MTrimmedWindow {
 			margin-top: «windowMargins.y»px;
@@ -469,7 +476,6 @@ class CustomThemeGenerator {
 			hyperlink-color: «store.getHSB(JTPConstants.Forms.HYPER_LINK_COLOR).toHTMLCode»;
 			active-hyperlink-color: «store.getHSB(JTPConstants.Forms.ACTIVE_HYPER_LINK_COLOR).toHTMLCode»;
 		}
-		
 		
 		
 		«comment("Others")»

@@ -8,9 +8,6 @@
          <widget
                class="org.eclipse.ui.internal.forms.widgets.FormHeading"></widget>
          <widget
-               class="org.eclipse.ui.forms.widgets.Section">
-         </widget>
-         <widget
                class="org.eclipse.ui.forms.widgets.FormText">
          </widget>
       </provider>
@@ -165,22 +162,6 @@
          </property-name>
          <property-name
                name="jbottom-keyline-2-color">
-         </property-name>
-      </handler>
-      <handler
-            adapter="net.jeeeyul.eclipse.themes.css.internal.elements.SectionElement"
-            handler="net.jeeeyul.eclipse.themes.css.internal.handlers.SectionCSSPropertyHandler">
-         <property-name
-               name="jtitle-bar-border-color">
-         </property-name>
-         <property-name
-               name="jtitle-bar-background-color">
-         </property-name>
-         <property-name
-               name="jtitle-bar-text-color">
-         </property-name>
-         <property-name
-               name="jtitle-bar-active-text-color">
          </property-name>
       </handler>
       <handler

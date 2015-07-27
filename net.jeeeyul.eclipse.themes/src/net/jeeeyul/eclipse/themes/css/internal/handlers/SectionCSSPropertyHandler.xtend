@@ -78,7 +78,7 @@ class SectionCSSPropertyHandler implements ICSSPropertyHandler {
 	}
 
 	override retrieveCSSProperty(Object element, String property, String pseudo, CSSEngine engine) throws Exception {
-		var sElement = element as SectionElement
+		var sElement = element as WidgetElement
 		var section = sElement.nativeWidget as Section
 
 		switch (property) {
