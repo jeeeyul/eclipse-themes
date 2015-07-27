@@ -73,9 +73,9 @@ class CustomThemeGenerator {
 		GtkToolbar#swt-toolbar-flat {
 			padding: 0px;
 		}
-	
-	
-	
+		
+		
+		
 		«comment("Window")»
 		Shell.MTrimmedWindow {
 			margin-top: «windowMargins.y»px;
