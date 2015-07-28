@@ -88,10 +88,6 @@ This Agreement is governed by the laws of the State of New York and the intellec
    <requires>
       <import plugin="org.eclipse.ui"/>
       <import plugin="org.eclipse.core.runtime"/>
-      <import match="greaterOrEqual" plugin="org.eclipse.e4.ui.css.swt.theme" version="0.9.0"/>
-      <import match="greaterOrEqual" plugin="org.eclipse.e4.ui.workbench.renderers.swt" version="0.12.0"/>
-      <import match="greaterOrEqual" plugin="org.eclipse.e4.ui.css.core" version="0.10.0"/>
-      <import match="greaterOrEqual" plugin="org.eclipse.e4.ui.css.swt" version="0.11.0"/>
       <import match="greaterOrEqual" plugin="net.jeeeyul.swtend" version="2.2.4"/>
       <import plugin="org.eclipse.ui.forms"/>
       <import plugin="org.eclipse.e4.core.contexts"/>
@@ -107,7 +103,12 @@ This Agreement is governed by the laws of the State of New York and the intellec
       <import plugin="org.eclipse.jface.text"/>
       <import plugin="org.eclipse.ui.editors"/>
       <import plugin="org.eclipse.e4.ui.widgets"/>
-      <import match="greaterOrEqual" plugin="org.eclipse.e4.ui.workbench.swt" version="0.12.0"/>
+      <import match="greaterOrEqual" plugin="org.eclipse.e4.ui.css.swt.theme" version="0.10.0"/>
+      <import match="greaterOrEqual" plugin="org.eclipse.e4.ui.workbench.renderers.swt" version="0.13.0"/>
+      <import match="greaterOrEqual" plugin="org.eclipse.e4.ui.css.core" version="0.11.0"/>
+      <import match="greaterOrEqual" plugin="org.eclipse.e4.ui.css.swt" version="0.12.0"/>
+      <import match="greaterOrEqual" plugin="net.jeeeyul.eclipse.themes" version="2.3.0"/>
+      <import match="greaterOrEqual" plugin="org.eclipse.e4.ui.workbench.swt" version="0.13.0"/>
    </requires>
 
    <plugin download-size="0" id="net.jeeeyul.eclipse.themes" install-size="0" unpack="false" version="0.0.0"/>
