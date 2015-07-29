@@ -52,7 +52,7 @@ class LayoutPage extends AbstractJTPreferencePage {
 					selection = 3
 					onSelection = [requestFastUpdatePreview()]
 					layoutData = newGridData[
-						widthHint = 40
+						minimumWidth = 40
 					]
 				]
 				newLabel[
@@ -66,7 +66,7 @@ class LayoutPage extends AbstractJTPreferencePage {
 					selection = 2
 					onSelection = [requestFastUpdatePreview()]
 					layoutData = newGridData[
-						widthHint = 40
+						minimumWidth = 40
 					]
 				]
 				newLabel[
@@ -80,7 +80,7 @@ class LayoutPage extends AbstractJTPreferencePage {
 					selection = 2
 					onSelection = [requestFastUpdatePreview()]
 					layoutData = newGridData[
-						widthHint = 40
+						minimumWidth = 40
 					]
 				]
 				newLabel[
@@ -94,7 +94,7 @@ class LayoutPage extends AbstractJTPreferencePage {
 					selection = 2
 					onSelection = [requestFastUpdatePreview()]
 					layoutData = newGridData[
-						widthHint = 40
+						minimumWidth = 40
 					]
 				]
 				newLabel[
@@ -108,7 +108,7 @@ class LayoutPage extends AbstractJTPreferencePage {
 					selection = 2
 					onSelection = [requestFastUpdatePreview()]
 					layoutData = newGridData[
-						widthHint = 40
+						minimumWidth = 40
 					]
 				]
 				newLabel[
@@ -122,7 +122,7 @@ class LayoutPage extends AbstractJTPreferencePage {
 					selection = minimumToolBarHeight
 					onSelection = [requestUpdatePreview()]
 					layoutData = newGridData[
-						widthHint = 40
+						minimumWidth = 40
 					]
 				]
 				newLabel[
@@ -173,7 +173,7 @@ class LayoutPage extends AbstractJTPreferencePage {
 					]
 					minimumCharactersSpinner = newSpinner[
 						layoutData = newGridData[
-							widthHint = 40
+							minimumWidth = 40
 						]
 						minimum = 1
 						maximum = 20
@@ -201,7 +201,7 @@ class LayoutPage extends AbstractJTPreferencePage {
 					]
 					minimumCharactersForEditorSpinner = newSpinner[
 						layoutData = newGridData[
-							widthHint = 40
+							minimumWidth = 40
 						]
 						minimum = 1
 						maximum = 20

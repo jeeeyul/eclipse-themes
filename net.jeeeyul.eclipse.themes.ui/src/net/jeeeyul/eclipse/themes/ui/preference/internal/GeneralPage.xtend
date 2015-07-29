@@ -148,7 +148,7 @@ class GeneralPage extends AbstractJTPreferencePage {
 					maximum = 10
 					selection = 2
 					layoutData = newGridData[
-						widthHint = 40
+						minimumWidth = 40
 					]
 				]
 				partStackSpacingRangeLabel = newLabel[
@@ -161,7 +161,7 @@ class GeneralPage extends AbstractJTPreferencePage {
 					maximum = 10
 					selection = 4
 					layoutData = newGridData[
-						widthHint = 40
+						minimumWidth = 40
 					]
 				]
 				windowMarginsRangeLabel = newLabel[
