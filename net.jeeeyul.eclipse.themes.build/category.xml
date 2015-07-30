@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><site>
-   <feature id="net.jeeeyul.eclipse.themes.feature" url="features/net.jeeeyul.eclipse.themes.feature_2.3.0.qualifier.jar" version="2.3.0.qualifier">
-      <category name="eclipse-jeeeyul"/>
-   </feature>
-   <category-def label="Jeeeyul's Eclipse Plugins" name="eclipse-jeeeyul"/>
-</site>

@@ -11,8 +11,6 @@
 	<property name="build-feature-and-plugins" location="${build}/featureAndPlugins" />
 	<property name="build-repository" location="${gitroot}/jeeeyul.github.io/${build-type}" />
 
-	<property name="repository-name" value="Jeeeyul’s Eclipse Update Site" />
-	<property name="category-file" value="category.xml" />
 	<property name="feature-id" value="" />
 
 	<loadproperties srcfile="${project}/sign.properties" />
@@ -140,12 +138,6 @@
 			<replace path="/feature/@version" withText="${version}.qualifier" />
 		</xmltask>
 		<eclipse.refreshLocal resource="${workspace}/${feature-id}/feature.xml" />
-
-		<echo>Change versions in ${basedir}/${category-file}</echo>
-		<xmltask source="${basedir}/${category-file}" dest="${basedir}/${category-file}">
-			<replace path="/site/feature/@url" withText="features/${feature-id}_${version}.qualifier.jar" />
-			<replace path="/site/feature/@version" withText="${version}.qualifier" />
-		</xmltask>
 	</target>
 
 </project>
