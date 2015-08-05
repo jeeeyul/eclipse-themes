@@ -1,18 +1,17 @@
 package net.jeeeyul.eclipse.themes.css.internal.handlers
 
-import net.jeeeyul.eclipse.themes.css.internal.elements.SectionElement
 import net.jeeeyul.eclipse.themes.css.EditorLineSupport
 import net.jeeeyul.swtend.SWTExtensions
 import net.jeeeyul.swtend.ui.HSB
 import org.eclipse.e4.ui.css.core.dom.properties.ICSSPropertyHandler
 import org.eclipse.e4.ui.css.core.engine.CSSEngine
+import org.eclipse.e4.ui.css.swt.dom.WidgetElement
 import org.eclipse.swt.custom.StyledText
 import org.eclipse.swt.graphics.Color
 import org.eclipse.swt.graphics.GC
 import org.eclipse.ui.forms.widgets.Section
 import org.w3c.dom.css.CSSPrimitiveValue
 import org.w3c.dom.css.CSSValue
-import org.eclipse.e4.ui.css.swt.dom.WidgetElement
 
 /**
  * CSS Property handler for {@link StyledText}.
