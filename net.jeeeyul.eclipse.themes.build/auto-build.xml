@@ -26,7 +26,7 @@
 		<attribute name="value" />
 	</scriptdef>
 
-	<target name="build-feature-and-plugins" depends="clean, generate-scripts" description="build feature and plugins, and signing them.">
+	<target name="build-feature-and-plugins" depends="clean, generate-scripts, delete-existing" description="build feature and plugins, and signing them.">
 
 		<echo>Executing scripts</echo>
 		<ant antfile="${workspace}/${feature-id}/build.xml" inheritall="false">
@@ -138,6 +138,22 @@
 			<replace path="/feature/@version" withText="${version}.qualifier" />
 		</xmltask>
 		<eclipse.refreshLocal resource="${workspace}/${feature-id}/feature.xml" />
+	</target>
+
+	<target name="delete-existing" depends="collect-plugin-id-list">
+		<for param="each" list="${plugin-id-list}">
+			<sequential>
+				<echo>Deleting ${build-repository}/plugins/@{each}_${version}.*.jar</echo>
+				<delete>
+					<fileset dir="${build-repository}/plugins" includes="@{each}_${version}.*.jar" />
+				</delete>
+			</sequential>
+		</for>
+
+		<echo>Deleting ${build-repository}/features/${feature-id}_${version}.*.jar</echo>
+		<delete>
+			<fileset dir="${build-repository}/features" includes="${feature-id}_${version}.*.jar" />
+		</delete>
 	</target>
 
 </project>
