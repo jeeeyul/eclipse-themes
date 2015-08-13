@@ -11,6 +11,7 @@ import net.jeeeyul.eclipse.themes.util.ImageDataUtil
 import net.jeeeyul.swtend.SWTExtensions
 import net.jeeeyul.swtend.ui.HSB
 import net.jeeeyul.swtend.ui.NinePatch
+import org.eclipse.core.runtime.Platform
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.CTabFolder
 import org.eclipse.swt.custom.CTabFolderRenderer
@@ -35,7 +36,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 	static val TEXT_FLAGS = SWT.DRAW_TRANSPARENT || SWT.DRAW_MNEMONIC;
 	static val MINIMUM_SIZE = 1 << 24;
-
+	
 	JTabSettings settings = new JTabSettings(this)
 	CTabFolder tabFolder
 	NinePatch shadowNinePatch;
@@ -116,7 +117,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				if (parent.showClose || item.showClose) {
 					if (state.hasFlags(SWT.SELECTED) || parent.showUnselectedClose) {
 						width = width + settings.tabItemHorizontalSpacing
-						width = width + net.jeeeyul.eclipse.themes.rendering.JeeeyulsTabRenderer.CLOSE_BUTTON_WIDTH
+						width = width + JeeeyulsTabRenderer.CLOSE_BUTTON_WIDTH
 					}
 				}
 
@@ -228,12 +229,14 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 		gc.background = tabFolder.background
 		gc.foreground = tabFolder.foreground
 		gc.lineWidth = 1
+		gc.lineCap = SWT.CAP_SQUARE
 		gc.lineStyle = SWT.LINE_SOLID
 
 		switch (part) {
 			case PART_HEADER: {
 				drawTabHeader(part, state, bounds, gc)
 				updateChevronImage()
+				updateBkImages()
 			}
 			case PART_CLOSE_BUTTON: {
 				drawCloseButton(part, state, bounds, gc)
@@ -252,14 +255,24 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				}
 				drawTabItem(part, state, bounds, gc)
 			}
-			default:
+			default:{
 				super.draw(part, state, bounds, gc)
+			}
+				
 		}
 	}
 
 	protected def drawChevronButton(int part, int state, Rectangle rectangle, GC gc) {
 	}
 
+	private def void updateBkImages(){
+		if(Platform.OS == Platform.OS_MACOSX){
+			tabFolder.topRight => [
+				backgroundImage = CoreImages.getImage(CoreImages::TRANSPARENT)
+			]	
+		}
+	}
+	
 	private def updateChevronImage() {
 		val chevronSize = parent.chevron.size
 		if (chevronSize.x == 0 || chevronSize.y == 0) {
@@ -671,7 +684,7 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 				corner.relocateTopRightWith(outlineOffset)
 
 				if (state.hasFlags(SWT.SELECTED)) {
-					moveTo(tabFolder.size.x - settings.margins.width - settings.borderWidth, keyLineY)
+					moveTo(tabFolder.size.x - settings.margins.width - 1, keyLineY)
 					lineTo(itemOutlineBounds.bottomRight.x, keyLineY)
 				} else {
 					moveTo(outlineOffset.bottomRight.x, keyLineY)

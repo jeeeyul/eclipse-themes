@@ -39,6 +39,7 @@ public class JTabRendererHelper {
 	private static final String DATA_KEY__LAST_KNOWN_STATE = "_lastKnownState";
 
 	static interface _CTabFolder {
+		static final HackedField<CTabFolder, Boolean> onBottom = new HackedField<CTabFolder, Boolean>(CTabFolder.class, "onBottom");
 		static final HackedMethod0<CTabFolder, ToolBar> getChevron = new HackedMethod0<CTabFolder, ToolBar>(CTabFolder.class, "getChevron");
 		static final HackedField<CTabFolder, Boolean> chevronVisible = new HackedField<CTabFolder, Boolean>(CTabFolder.class, "chevronVisible");
 		static final HackedField<CTabFolder, Boolean> showUnselectedClose = new HackedField<CTabFolder, Boolean>(CTabFolder.class, "showUnselectedClose");

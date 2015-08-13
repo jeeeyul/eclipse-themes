@@ -3,5 +3,6 @@
   <imageFiles fieldName="FRAME" file="/net.jeeeyul.eclipse.themes/icons/frame.gif"/>
   <imageFiles fieldName="HANDLE_EMBOSSED" file="/net.jeeeyul.eclipse.themes/icons/handle-embossed.gif"/>
   <imageFiles fieldName="HANDLE" file="/net.jeeeyul.eclipse.themes/icons/handle.gif"/>
+  <imageFiles fieldName="TRANSPARENT" file="/net.jeeeyul.eclipse.themes/icons/transparent.gif"/>
   <imageFiles fieldName="WAITING" file="/net.jeeeyul.eclipse.themes/icons/waiting.png"/>
 </p:Palette>
