@@ -267,9 +267,10 @@ class JeeeyulsTabRenderer extends CTabFolderRenderer {
 
 	private def void updateBkImages(){
 		if(Platform.OS == Platform.OS_MACOSX){
-			tabFolder.topRight => [
-				backgroundImage = CoreImages.getImage(CoreImages::TRANSPARENT)
-			]	
+			if(tabFolder.topRight != null)
+				tabFolder.topRight => [
+					backgroundImage = CoreImages.getImage(CoreImages::TRANSPARENT)
+				]	
 		}
 	}
 	
