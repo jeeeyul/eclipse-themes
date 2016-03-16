@@ -1,7 +1,7 @@
 {
-	"public":{
-		"ga":{
-			"id" : "UA-36177050-3"
+	"galaxy.meteor.com" : {
+		"env" : {
+			"MONGO_URL"  : "mongodb://theme-server:qp7rds30@ds015919.mlab.com:15919/themes_jeeeyul_net"
 		}
 	}
 }
