@@ -42,11 +42,11 @@ var sharedHelpers = {
 	"epfContent" : function() {
 		return EPFSerializer.serialize(this.epf);
 	},
-	
+
 	"updateDate" : function(){
-		return moment(this.date).lang("en").fromNow();
+		return moment(this.date).locale("en").fromNow();
 	},
-	
+
 	canInject : function() {
 		return typeof __getCurrentEPF == "function";
 	},

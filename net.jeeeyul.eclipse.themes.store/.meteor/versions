@@ -29,6 +29,7 @@ ecmascript-runtime@0.2.6
 ejson@1.0.7
 facebook@1.2.2
 fastclick@1.0.7
+force-ssl@1.0.6
 geojson-utils@1.0.4
 github@1.1.4
 google@1.1.7
