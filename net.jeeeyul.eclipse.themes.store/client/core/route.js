@@ -4,12 +4,6 @@ Router.configure({
 		if (typeof __updateURL == "function") {
 			__updateURL(location.origin + Router.current().url);
 		}
-
-		if (this.ready()) {
-			setTimeout(function() {
-				ga("send", "pageview", Router.current().url);
-			});
-		}
 	}
 });
 

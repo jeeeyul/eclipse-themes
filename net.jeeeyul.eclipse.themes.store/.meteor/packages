@@ -14,7 +14,7 @@ accounts-facebook
 accounts-github
 mizzao:bootstrap-3
 mquandalle:jade
-reywood:iron-router-ga
 
 standard-minifier-css
 standard-minifier-js
+iron:middleware-stack@1.1.0
