@@ -16,4 +16,5 @@ mizzao:bootstrap-3
 mquandalle:jade
 reywood:iron-router-ga
 
-standard-minifiers
+standard-minifier-css
+standard-minifier-js
