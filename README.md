@@ -17,7 +17,7 @@ It also contains beautiful and elegant built-in presets.
 [![Join the chat at https://gitter.im/jeeeyul/eclipse-themes](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/jeeeyul/eclipse-themes?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## How to install
-You need **Eclipse Mars or Luna** to install this theme.
+You need **Eclipse Luna (4.4), Mars (4.5) or Neon (4.6)** to install this theme.
 
 1. Drag [<img src="http://marketplace.eclipse.org/misc/installbutton.png">](http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=339851) on to Toolbar of your Eclipse 4 to install **Jeeeyul's Eclipse Themes**.
 2. After installation, Choose `Jeeeyul's themes - Custom Theme` from `Preferences > General > Appearance`.
