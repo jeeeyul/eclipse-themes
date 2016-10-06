@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="net.jeeeyul.eclipse.themes.feature_0.0.0.qualifier.jar" id="net.jeeeyul.eclipse.themes.feature" version="0.0.0">
+      <category name="swtend"/>
+   </feature>
+   <category-def name="eclipse-themes" label="eclipse-themes"/>
+</site>

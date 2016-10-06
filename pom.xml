@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>io.tesla.tycho</groupId>
+    <artifactId>tycho-support</artifactId>
+    <version>0.0.10</version>
+  </parent>  
+  <groupId>net.jeeeyul.eclipse.themes</groupId>
+  <artifactId>eclipse-themes-parent</artifactId>
+  <version>2.1.6-SNAPSHOT</version>  
+  <packaging>pom</packaging>
+
+  <properties>
+    <repositoryPathId>eclipse-themes</repositoryPathId>
+    <p2MetadataName>eclipse-themes</p2MetadataName>
+  </properties>
+
+  <modules>
+    <module>net.jeeeyul.eclipse.themes</module>
+    <module>net.jeeeyul.eclipse.themes.feature</module>
+  </modules>
+
+  <repositories>
+   <repository>
+     <id>swtend</id>
+     <layout>p2</layout>
+     <url>http://repository.takari.io:8081/nexus/content/sites/m2e.extras/swtend/2.2.1/N/2.2.1.201404262041/</url>
+   </repository>	
+  </repositories>
+
+</project>
