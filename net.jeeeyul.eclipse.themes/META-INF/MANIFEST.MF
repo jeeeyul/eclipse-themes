@@ -10,7 +10,7 @@ Require-Bundle: org.eclipse.ui,org.eclipse.core.runtime,org.eclipse.e4
  ore.contexts,org.eclipse.e4.ui.workbench,org.eclipse.e4.core.di,org.e
  clipse.e4.ui.model.workbench,org.eclipse.e4.core.services,org.eclipse
  .osgi.services,javax.inject;bundle-version="1.0.0",org.eclipse.e4.ui.
- services,org.eclipse.xtend.lib
+ services,org.eclipse.xtend.lib;bundle-version="2.11.0"
 Bundle-ManifestVersion: 2
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
