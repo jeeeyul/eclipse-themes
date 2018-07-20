@@ -20,4 +20,5 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: net.jeeeyul.eclipse.themes.JThemesCore
 Bundle-Vendor: jeeeyul@gmail.com
+Automatic-Module-Name: net.jeeeyul.eclipse.themes.ui
 

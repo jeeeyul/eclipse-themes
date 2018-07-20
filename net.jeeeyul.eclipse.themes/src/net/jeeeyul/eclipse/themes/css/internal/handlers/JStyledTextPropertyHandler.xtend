@@ -22,10 +22,11 @@ import org.w3c.dom.css.CSSValue
 class JStyledTextPropertyHandler implements ICSSPropertyHandler {
 	extension CSSExtension = new CSSExtension
 
-	override applyCSSProperty(Object element, String property, CSSValue value, String pseudo, CSSEngine engine) throws Exception {
+	override applyCSSProperty(Object element, String property, CSSValue value, String pseudo,
+		CSSEngine engine) throws Exception {
 		var compositeElement = element as CompositeElement
 		var composite = compositeElement.nativeWidget as Composite
-		if(!(composite instanceof StyledText)) {
+		if (!(composite instanceof StyledText)) {
 			return false
 		}
 		var styledText = composite as StyledText
@@ -33,7 +34,7 @@ class JStyledTextPropertyHandler implements ICSSPropertyHandler {
 
 		switch (property) {
 			case "jeditor-line-style": {
-				if(value instanceof CSSPrimitiveValue) {
+				if (value instanceof CSSPrimitiveValue) {
 					els.lineStyle = switch (value.cssText) {
 						case "solid": SWT.LINE_SOLID
 						case "dashed": SWT.LINE_DASH
@@ -47,22 +48,25 @@ class JStyledTextPropertyHandler implements ICSSPropertyHandler {
 			}
 			case "jeditor-line-color": {
 				var rgb = (value as CSSValue).toRGB
-				if(rgb != null) {
+				if (rgb != null) {
 					els.lineColor = new HSB(rgb.red, rgb.green, rgb.blue)
 					true
 				} else {
 					false
 				}
 			}
-			
-			case "jeditor-range-indicator-color" : {
+			case "jeditor-range-indicator-color": {
 				var rgb = (value as CSSValue).toRGB
-				if(rgb != null) {
-					var field = DefaultRangeIndicator.getDeclaredField("fgPaletteData");
-					field.setAccessible(true);
-					var paletteData = new PaletteData(newArrayList(rgb, rgb))
-					field.set(DefaultRangeIndicator, paletteData)
-					true
+				if (rgb != null) {
+					try {
+						var field = DefaultRangeIndicator.getDeclaredField("fgPaletteData");
+						field.setAccessible(true);
+						var paletteData = new PaletteData(newArrayList(rgb, rgb))
+						field.set(DefaultRangeIndicator, paletteData)
+						true
+					} catch (NoSuchFieldException nsfe) {
+						false
+					}
 				} else {
 					false
 				}
@@ -75,7 +79,7 @@ class JStyledTextPropertyHandler implements ICSSPropertyHandler {
 	override retrieveCSSProperty(Object element, String property, String pseudo, CSSEngine engine) throws Exception {
 		var compositeElement = element as CompositeElement
 		var composite = compositeElement.nativeWidget as Composite
-		if(!(composite instanceof StyledText)) {
+		if (!(composite instanceof StyledText)) {
 			return null
 		}
 		var styledText = composite as StyledText

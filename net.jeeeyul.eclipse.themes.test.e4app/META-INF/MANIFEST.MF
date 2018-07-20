@@ -18,3 +18,4 @@ Require-Bundle: org.eclipse.core.runtime,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: javax.inject;version="1.0.0"
 Bundle-ActivationPolicy: lazy
+Automatic-Module-Name: net.jeeeyul.eclipse.themes.test.e4app
