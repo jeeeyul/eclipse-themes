@@ -102,7 +102,7 @@
 		<if>
 			<equals arg1="${keystore.exists}" arg2="true" />
 			<then>
-				<signjar jar="${file}" alias="${alias}" keystore="${keystore}" keypass="${keypass}" storepass="${storepass}" digestalg="SHA1" sigalg="SHA1withDSA" />
+				<signjar jar="${file}" alias="${alias}" keystore="${keystore}" keypass="${keypass}" storepass="${storepass}" />
 			</then>
 		</if>
 	</target>

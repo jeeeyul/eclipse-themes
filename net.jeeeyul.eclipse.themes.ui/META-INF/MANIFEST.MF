@@ -1,16 +1,12 @@
 Manifest-Version: 1.0
+Automatic-Module-Name: net.jeeeyul.eclipse.themes.ui
 Bundle-SymbolicName: net.jeeeyul.eclipse.themes.ui;singleton:=true
-Export-Package: net.jeeeyul.eclipse.themes,net.jeeeyul.eclipse.themes.
- ui.preference,net.jeeeyul.eclipse.themes.ui.preference.preset
-Bundle-Name: Jeeeyul's Eclipse Themes
-Bundle-Version: 2.3.0.qualifier
-Bundle-ClassPath: .
 Require-Bundle: org.eclipse.ui,org.eclipse.core.runtime,org.eclipse.e4
  .core.di,org.eclipse.e4.core.services,org.eclipse.osgi.services,org.w
  3c.css.sac,org.eclipse.jface.text,org.eclipse.e4.ui.model.workbench,n
  et.jeeeyul.swtend;bundle-version="2.2.4",org.eclipse.e4.core.contexts
  ,org.eclipse.ui.editors,org.eclipse.e4.ui.widgets,net.jeeeyul.eclipse
- .themes;bundle-version="2.3.0",org.eclipse.xtend.lib,org.eclipse.e4.u
+ .themes;bundle-version="2.3.1",org.eclipse.xtend.lib,org.eclipse.e4.u
  i.css.core;bundle-version="0.11.0",org.eclipse.e4.ui.css.swt.theme;bu
  ndle-version="0.10.0",org.eclipse.e4.ui.workbench.renderers.swt;bundl
  e-version="0.13.0",org.eclipse.e4.ui.css.swt;bundle-version="0.12.0",
@@ -18,7 +14,11 @@ Require-Bundle: org.eclipse.ui,org.eclipse.core.runtime,org.eclipse.e4
 Bundle-ManifestVersion: 2
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
-Bundle-Activator: net.jeeeyul.eclipse.themes.JThemesCore
 Bundle-Vendor: jeeeyul@gmail.com
-Automatic-Module-Name: net.jeeeyul.eclipse.themes.ui
+Export-Package: net.jeeeyul.eclipse.themes,net.jeeeyul.eclipse.themes.
+ ui.preference,net.jeeeyul.eclipse.themes.ui.preference.preset
+Bundle-Name: Jeeeyul's Eclipse Themes
+Bundle-Version: 2.3.1.qualifier
+Bundle-ClassPath: .
+Bundle-Activator: net.jeeeyul.eclipse.themes.JThemesCore
 
