@@ -77,11 +77,6 @@
             </parameter>
          </defaultHandler>
       </command>
-      <command
-            defaultHandler="net.jeeeyul.eclipse.themes.ui.store.OpenStoreClientHandler"
-            id="net.jeeeyul.eclipse.themes.command.open.store"
-            name="Open Theme Store">
-      </command>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
@@ -114,12 +109,6 @@
                name="other-themes"
                visible="true">
          </separator>
-         <command
-               commandId="net.jeeeyul.eclipse.themes.command.open.store"
-               icon="icons/store.png"
-               label="Theme Store"
-               style="push">
-         </command>
          <menu
                icon="icons/css.gif"
                label="Other themes">

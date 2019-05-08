@@ -254,7 +254,7 @@ public class SharedImages{
 	 *            relative image path project.
 	 * @return An {@link Image} Object for given path.
 	 */
-	public static Image getImage(String key){
+	public synchronized static Image getImage(String key){
 		Image result = REGISTRY.get(key);
 		if(result == null){
 			result = loadImage(key);
@@ -269,7 +269,7 @@ public class SharedImages{
 	 *            relative image path project.
 	 * @return An {@link ImageDescriptor} Object for given path.
 	 */
-	public static ImageDescriptor getImageDescriptor(String key){
+	public synchronized static ImageDescriptor getImageDescriptor(String key){
 		ImageDescriptor result = REGISTRY.getDescriptor(key);
 		if(result == null){
 			result = loadImageDescriptor(key);

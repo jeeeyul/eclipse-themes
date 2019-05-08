@@ -77,9 +77,7 @@ public class JTDynamicResourceLocator implements IResourceLocator {
 		return null;
 	}
 
-	@Override
 	public Reader getReader(String uri) throws Exception {
 		return new InputStreamReader(getInputStream(uri));
 	}
-
 }
