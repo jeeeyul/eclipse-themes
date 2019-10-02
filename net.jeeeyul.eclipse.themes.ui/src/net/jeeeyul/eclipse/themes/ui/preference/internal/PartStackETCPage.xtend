@@ -155,24 +155,24 @@ class PartStackETCPage extends AbstractJTPreferencePage {
 
 	override load(JThemePreferenceStore store, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
 		var emptyFill = store.getGradient(JTPConstants.EmptyPartStack.FILL_COLOR)
-		if(emptyFill != null) {
+		if(emptyFill !== null) {
 			emptyFillEdit.selection = emptyFill
 		}
 
 		var emptyBorder = store.getGradient(JTPConstants.EmptyPartStack.BORDER_COLOR)
-		if(emptyBorder != null) {
+		if(emptyBorder !== null) {
 			emptyBorderEdit.selection = emptyBorder
 		}
 
 		emptyBorderHideEdit.selection = !store.getBoolean(JTPConstants.EmptyPartStack.BORDER_SHOW)
 
 		var editorsFill = store.getGradient(JTPConstants.EditorsPartStack.FILL_COLOR)
-		if(editorsFill != null) {
+		if(editorsFill !== null) {
 			editorsFillEdit.selection = editorsFill
 		}
 
 		var editrosBorder = store.getGradient(JTPConstants.EditorsPartStack.BORDER_COLOR)
-		if(editrosBorder != null) {
+		if(editrosBorder !== null) {
 			editorsBorderEdit.selection = editrosBorder
 		}
 

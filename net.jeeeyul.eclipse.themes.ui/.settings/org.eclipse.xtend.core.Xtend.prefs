@@ -1,4 +1,5 @@
 .version=1
+ValidatorConfiguration.is_project_specific=true
 autobuilding=true
 blank.line.around.expressions=0
 blank.lines.after.imports=1
@@ -24,6 +25,7 @@ newline.after.constructor.annotations=false
 newline.after.field.annotations=false
 newline.after.method.annotations=false
 newline.after.parameter.annotations=false
+org.eclipse.xtend.core.validation.IssueCodes.unnecessary_modifier=ignore
 org.eclipse.xtend.ide.default.eclipse_profile=_chrome
 org.eclipse.xtext.xbase.validation.IssueCodes.discouraged_reference=ignore
 outlet.DEFAULT_OUTPUT.cleanDirectory=false

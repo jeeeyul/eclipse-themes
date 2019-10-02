@@ -92,7 +92,7 @@ class UserPresetDialog extends Dialog {
 
 	override protected getDialogBoundsSettings() {
 		var settings = JThemesCore.^default.dialogSettings.getSection(UserPresetDialog.canonicalName)
-		if(settings == null) {
+		if(settings === null) {
 			settings = JThemesCore.^default.dialogSettings.addNewSection(UserPresetDialog.canonicalName)
 		}
 		return settings
@@ -112,20 +112,20 @@ class UserPresetDialog extends Dialog {
 			error = nameValidator.isValid(name)
 		} else {
 			var selected = (presetViewer.selection as IStructuredSelection).firstElement as IJTPreset
-			if(selected == null) {
+			if(selected === null) {
 				error = "Choose a preset to overwrite."
 			}
 		}
 
 		var okButton = getButton(IDialogConstants.OK_ID)
-		if(error == null) {
+		if(error === null) {
 			validationLabel.text = ""
 			validationLabel.image = null
 		} else {
 			validationLabel.text = error
 			validationLabel.image = PlatformUI.workbench.sharedImages.getImage(ISharedImages.IMG_OBJS_WARN_TSK)
 		}
-		okButton.enabled = (error == null)
+		okButton.enabled = (error === null)
 	}
 
 	override protected createButtonBar(Composite parent) {

@@ -99,7 +99,6 @@ public class ColorAndFontCSSGenerator {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	protected void generateEditorSettings(StringBuilder sb, MarkerAnnotationPreferences markerAnnotationPreferences, IPreferenceStore preferences) {
 		List<String> keys = new LinkedList<String>();
 		List<String> values = new LinkedList<String>();

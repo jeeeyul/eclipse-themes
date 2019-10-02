@@ -27,6 +27,7 @@ public class DragHandleFactory {
 	 *            generated engraved one.
 	 * @return Drag handle {@link ImageData}.
 	 */
+	@SuppressWarnings("deprecation")
 	public ImageData create(int height, HSB backgroundColor, boolean embossed) {
 		ImageData source = null;
 

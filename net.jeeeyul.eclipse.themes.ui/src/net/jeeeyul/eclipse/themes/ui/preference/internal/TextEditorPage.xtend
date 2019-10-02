@@ -135,12 +135,12 @@ class TextEditorPage extends AbstractJTPreferencePage {
 	override load(JThemePreferenceStore store, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
 		underLineStyleEdit.selection = store.getInt(JTPConstants.TextEditor.UNDER_LINE_STYLE)
 		var underLineColor = store.getHSB(JTPConstants.TextEditor.UNDER_LINE_COLOR)
-		if(underLineColor != null) {
+		if(underLineColor !== null) {
 			underLineColorEdit.selection = underLineColor
 		}
 
 		var rulerColor = store.getHSB(JTPConstants.TextEditor.RULER_COLOR)
-		if(rulerColor != null) {
+		if(rulerColor !== null) {
 			rulerColorEdit.selection = rulerColor
 		}
 	}

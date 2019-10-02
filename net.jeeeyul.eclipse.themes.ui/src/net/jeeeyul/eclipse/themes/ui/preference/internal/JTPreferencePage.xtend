@@ -134,7 +134,7 @@ class JTPreferencePage extends PreferencePage implements IWorkbenchPreferencePag
 
 	private def createActions() {
 		menuManager => [
-			if(presetManager != null) {
+			if(presetManager !== null) {
 				add(
 					new MenuManager(presetManager.userCategory.name, SharedImages.getImageDescriptor(SharedImages.PRESET), "user.preset") => [
 						add(new AddUserPresetAction(this))
@@ -175,7 +175,7 @@ class JTPreferencePage extends PreferencePage implements IWorkbenchPreferencePag
 		/*
 		 * https://github.com/jeeeyul/eclipse-themes/issues/140
 		 */
-		if(lastChoosedPresetId != null) {
+		if(lastChoosedPresetId !== null) {
 			store.setValue(JTPConstants.Memento.LAST_CHOOSED_PRESET, lastChoosedPresetId)
 		}
 	}
@@ -257,7 +257,7 @@ class JTPreferencePage extends PreferencePage implements IWorkbenchPreferencePag
 
 	private def getHelper(AbstractJTPreferencePage page) {
 		var result = helperMap.get(page)
-		if(result == null) {
+		if(result === null) {
 			result = new PreperencePageHelper(this, page)
 			helperMap.put(page, result)
 		}

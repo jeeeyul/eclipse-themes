@@ -30,7 +30,7 @@ class CustomThemeGenerator {
 	 * @param store An input to generate css.
 	 */
 	new(JThemePreferenceStore store) {
-		if(store == null) {
+		if(store === null) {
 			throw new IllegalArgumentException
 		}
 		this.store = store

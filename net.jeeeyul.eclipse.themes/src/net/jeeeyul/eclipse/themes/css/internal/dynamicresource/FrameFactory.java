@@ -23,6 +23,7 @@ public class FrameFactory {
 	 * @return An image data for frame.
 	 */
 	public ImageData create(HSB backgroundColor) {
+		@SuppressWarnings("deprecation")
 		ImageData source = CoreImages.getImageDescriptor(CoreImages.FRAME).getImageData();
 
 		List<RGB> newRGBs = new ArrayList<RGB>();

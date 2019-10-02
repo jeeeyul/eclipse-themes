@@ -218,35 +218,35 @@ class GeneralPage extends AbstractJTPreferencePage {
 
 	override load(JThemePreferenceStore store, extension SWTExtensions swtExtensions, extension PreperencePageHelper helper) {
 		val toolbarFill = store.getGradient(JTPConstants.Window.TOOLBAR_FILL_COLOR)
-		if(toolbarFill != null) {
+		if(toolbarFill !== null) {
 			this.toolbarEdit.selection = toolbarFill
 		}
 
 		val statusBarFill = store.getGradient(JTPConstants.Window.STATUS_BAR_FILL_COLOR)
-		if(statusBarFill != null) {
+		if(statusBarFill !== null) {
 			this.statusEdit.selection = statusBarFill
 		}
 		statusTextColorWell.selection = store.getHSB(JTPConstants.Window.STATUS_BAR_TEXT_COLOR)
 
 		val background = store.getHSB(JTPConstants.Window.BACKGROUND_COLOR);
-		if(background != null) {
+		if(background !== null) {
 			backgroundEdit.selection = background
 		}
 
 		var psFill = store.getGradient(JTPConstants.Window.PERSPECTIVE_SWITCHER_FILL_COLOR)
-		if(psFill != null) {
+		if(psFill !== null) {
 			perspectiveSwitcherEdit.selection = psFill
 		}
 
 		var psKeyline = store.getHSB(JTPConstants.Window.PERSPECTIVE_SWITCHER_KEY_LINE_COLOR)
-		if(psKeyline != null) {
+		if(psKeyline !== null) {
 			this.perspectiveSwitcherKeyLineColorWell.selection = psKeyline
 		}
 		this.perspectiveTextColorWell.selection = store.getHSB(JTPConstants.Window.PERSPECTIVE_SWITCHER_TEXT_COLOR)
 
 		this.castShadowEdit.selection = store.getBoolean(JTPConstants.Layout.SHOW_SHADOW)
 		val shadowColor = store.getHSB(JTPConstants.Layout.SHADOW_COLOR)
-		if(shadowColor != null)
+		if(shadowColor !== null)
 			this.shadowColorWell.selection = shadowColor
 
 		partStackSpacingEdit.selection = store.getInt(JTPConstants.Window.SASH_WIDTH)

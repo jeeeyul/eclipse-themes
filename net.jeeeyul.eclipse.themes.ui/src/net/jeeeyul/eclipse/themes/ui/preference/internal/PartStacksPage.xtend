@@ -105,7 +105,7 @@ class PartStacksPage extends AbstractJTPreferencePage {
 
 	private def getHelper(AbstractJTPreferencePage page) {
 		var result = helperMap.get(page)
-		if(result == null) {
+		if(result === null) {
 			result = new PreperencePageHelper(this.helper.rootPage, page)
 			helperMap.put(page, result)
 		}

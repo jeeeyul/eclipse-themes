@@ -19,7 +19,7 @@ Export-Package: net.jeeeyul.eclipse.themes,net.jeeeyul.eclipse.themes.
  css,net.jeeeyul.eclipse.themes.rendering,net.jeeeyul.eclipse.themes.u
  til
 Bundle-Name: Jeeeyul's Eclipse Themes Core
-Bundle-Version: 2.3.3.qualifier
+Bundle-Version: 2.3.5.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: net.jeeeyul.eclipse.themes.JTRuntime
 
