@@ -8,7 +8,7 @@ Bundle-Vendor: jeeeyul@gmail.com
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.e4.ui.css.swt.theme
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: net.jeeeyul.eclipse.themes.test
 Export-Package: net.jeeeyul.eclipse.themes.test

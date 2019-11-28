@@ -3,7 +3,7 @@ package net.jeeeyul.eclipse.themes.test.e4app.extensions
 import org.eclipse.e4.ui.model.application.ui.menu.MHandledItem
 import org.eclipse.core.commands.ParameterizedCommand
 import org.eclipse.e4.core.commands.ECommandService
-import javax.inject.Inject
+import com.google.inject.Inject
 import javax.inject.Singleton
 import java.util.HashMap
 import org.eclipse.e4.core.di.annotations.Creatable

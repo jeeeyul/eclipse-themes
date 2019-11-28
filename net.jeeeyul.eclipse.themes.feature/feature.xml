@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><feature id="net.jeeeyul.eclipse.themes.feature" label="Jeeeyul's Themes" provider-name="Jeeeyul@gmail.com" version="2.3.5.qualifier">
+<?xml version="1.0" encoding="UTF-8"?><feature id="net.jeeeyul.eclipse.themes.feature" label="Jeeeyul's Themes" provider-name="Jeeeyul@gmail.com" version="2.3.6.qualifier">
 
    <description url="https://github.com/jeeeyul/eclipse-themes">
       Provide some eclipse 4 themes.
@@ -100,15 +100,15 @@ This Agreement is governed by the laws of the State of New York and the intellec
       <import plugin="org.eclipse.e4.ui.model.workbench"/>
       <import plugin="org.eclipse.e4.core.services"/>
       <import plugin="org.eclipse.osgi.services"/>
-      <import match="greaterOrEqual" plugin="javax.inject" version="1.0.0"/>
       <import plugin="org.eclipse.e4.ui.services"/>
+      <import match="greaterOrEqual" plugin="org.eclipse.xtend.lib" version="2.11.0"/>
       <import plugin="org.w3c.css.sac"/>
       <import plugin="org.eclipse.jface.text"/>
       <import plugin="org.eclipse.ui.editors"/>
       <import plugin="org.eclipse.e4.ui.widgets"/>
-      <import match="greaterOrEqual" plugin="net.jeeeyul.eclipse.themes" version="2.3.1"/>
       <import match="greaterOrEqual" plugin="org.eclipse.e4.ui.workbench.swt" version="0.13.0"/>
-      <import match="greaterOrEqual" plugin="org.eclipse.xtend.lib" version="2.11.0"/>
+      <import match="greaterOrEqual" plugin="com.google.inject" version="3.0.0"/>
+      <import match="greaterOrEqual" plugin="net.jeeeyul.eclipse.themes" version="2.3.6"/>
    </requires>
 
    <plugin download-size="0" id="net.jeeeyul.eclipse.themes" install-size="0" unpack="false" version="0.0.0"/>

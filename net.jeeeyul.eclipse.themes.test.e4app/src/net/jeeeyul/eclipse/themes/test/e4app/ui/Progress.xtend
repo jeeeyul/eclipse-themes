@@ -1,7 +1,7 @@
 package net.jeeeyul.eclipse.themes.test.e4app.ui
 
 import javax.annotation.PostConstruct
-import javax.inject.Inject
+import com.google.inject.Inject
 import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.core.runtime.Status
 import org.eclipse.e4.core.di.annotations.Optional

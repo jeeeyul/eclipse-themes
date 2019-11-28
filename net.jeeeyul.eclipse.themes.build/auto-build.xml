@@ -31,8 +31,8 @@
 		<echo>Executing scripts</echo>
 		<ant antfile="${workspace}/${feature-id}/build.xml" inheritall="false">
 			<property name="compilerArg" value="-encoding UTF8" />
-			<property name="javacSource" value="1.6" />
-			<property name="javacTarget" value="1.6" />
+			<property name="javacSource" value="1.8" />
+			<property name="javacTarget" value="1.8" />
 			<property name="buildDirectory" value="temp-build" />
 			<property name="feature.destination" location="${build-feature-and-plugins}/features" />
 			<property name="plugin.destination" location="${build-feature-and-plugins}/plugins" />
