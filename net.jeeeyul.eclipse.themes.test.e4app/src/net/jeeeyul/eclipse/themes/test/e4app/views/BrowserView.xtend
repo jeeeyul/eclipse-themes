@@ -1,7 +1,7 @@
 package net.jeeeyul.eclipse.themes.test.e4app.views
 
 import javax.annotation.PostConstruct
-import com.google.inject.Inject
+import javax.inject.Inject
 import net.jeeeyul.eclipse.themes.test.e4app.model.BookmarkEntry
 import net.jeeeyul.eclipse.themes.test.e4app.ui.HoverData
 import org.eclipse.e4.core.di.annotations.Optional

@@ -10,7 +10,7 @@ Require-Bundle: org.eclipse.ui,org.eclipse.core.runtime,org.eclipse.e4
  ore.contexts,org.eclipse.e4.ui.workbench,org.eclipse.e4.core.di,org.e
  clipse.e4.ui.model.workbench,org.eclipse.e4.core.services,org.eclipse
  .osgi.services,org.eclipse.e4.ui.services,org.eclipse.xtend.lib;bundl
- e-version="2.11.0",com.google.inject;bundle-version="3.0.0"
+ e-version="2.11.0",javax.inject;bundle-version="1.0.0"
 Bundle-ManifestVersion: 2
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
@@ -19,7 +19,7 @@ Export-Package: net.jeeeyul.eclipse.themes,net.jeeeyul.eclipse.themes.
  css,net.jeeeyul.eclipse.themes.rendering,net.jeeeyul.eclipse.themes.u
  til
 Bundle-Name: Jeeeyul's Eclipse Themes Core
-Bundle-Version: 2.3.6.qualifier
+Bundle-Version: 2.3.7.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: net.jeeeyul.eclipse.themes.JTRuntime
 

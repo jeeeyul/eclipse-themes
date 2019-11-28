@@ -1,6 +1,6 @@
 package net.jeeeyul.eclipse.themes;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 import net.jeeeyul.eclipse.themes.css.internal.dynamicresource.JTDynamicResourceLocator;
 import net.jeeeyul.eclipse.themes.internal.Debug;

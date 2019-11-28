@@ -2,7 +2,7 @@ package net.jeeeyul.eclipse.themes.test.e4app.handlers
 
 import java.util.List
 import javax.annotation.PostConstruct
-import com.google.inject.Inject
+import javax.inject.Inject
 import javax.inject.Named
 import javax.inject.Singleton
 import net.jeeeyul.eclipse.themes.test.e4app.model.AppState

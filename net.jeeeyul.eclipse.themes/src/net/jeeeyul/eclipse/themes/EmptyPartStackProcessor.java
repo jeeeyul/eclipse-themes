@@ -1,7 +1,7 @@
 package net.jeeeyul.eclipse.themes;
 
 import javax.annotation.PreDestroy;
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 import net.jeeeyul.eclipse.themes.css.internal.CSSClasses;
 import net.jeeeyul.eclipse.themes.internal.Debug;

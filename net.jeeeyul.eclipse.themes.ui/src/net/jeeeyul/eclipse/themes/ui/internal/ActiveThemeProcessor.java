@@ -2,7 +2,7 @@ package net.jeeeyul.eclipse.themes.ui.internal;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import com.google.inject.Inject;
+import javax.inject.Inject;
 
 import net.jeeeyul.eclipse.themes.JThemesCore;
 import net.jeeeyul.eclipse.themes.ui.hotswap.RewriteCustomTheme;
