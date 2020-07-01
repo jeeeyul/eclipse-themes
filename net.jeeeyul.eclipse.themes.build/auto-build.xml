@@ -53,9 +53,6 @@
 
 		<eclipse.convertPath fileSystemPath="${project}" property="resourcePath" />
 		<eclipse.refreshLocal resource="${resourcePath}" depth="infinite" />
-
-		<eclipse.convertPath fileSystemPath="${project}" property="resourcePath" />
-		<eclipse.refreshLocal resource="${resourcePath}" depth="infinite" />
 	</target>
 
 	<target name="clean" description="Cleans feature and plugins build result.">
@@ -86,7 +83,7 @@
 
 	<target name="generate-scripts" depends="set-timestamp, update-plugin-versions" description="Generates ant scripts to build feature and plugins.">
 		<echo>Generating ant scripts.</echo>
-		<eclipse.buildScript elements="feature@${feature-id}" forceContextQualifier="${timestamp}" baselocation="${eclipse.home}" builddirectory="${workspace}" />
+		<eclipse.buildScript elements="feature@${feature-id}" forceContextQualifier="${timestamp}" baselocation="${eclipse.home}" builddirectory="${workspace}" pluginpath="${build-repository}/plugins" />
 		<echo>${basedir}/build</echo>
 	</target>
 

@@ -45,7 +45,7 @@ public class Shadow9PatchFactory {
 		Rectangle shadowShape = SWTExtensions.INSTANCE.getShrinked(shadow, shadowRadius);
 
 		ImageData shadowData = generateShadowImageData(shadow.width, shadow.height, shadowShape, radius, foreground, shadowRadius);
-		NinePatch patch = new NinePatch(shadowData, SWTExtensions.INSTANCE.getShrinked(shadowShape, radius));
+		NinePatch patch = new NinePatch(shadowData, SWTExtensions.INSTANCE.getShrinked(shadowShape, radius), false);
 		return patch;
 	}
 
