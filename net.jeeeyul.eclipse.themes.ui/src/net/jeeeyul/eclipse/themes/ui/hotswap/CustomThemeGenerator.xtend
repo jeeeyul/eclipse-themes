@@ -100,19 +100,28 @@ class CustomThemeGenerator {
 		
 		
 		«comment("Main Toolbar")»
-		#org-eclipse-ui-main-toolbar {
+		#org-eclipse-ui-main-toolbar,
+		#ToolbarComposite.MTrimBar {
 			background-color:«store.getGradient(JTPConstants.Window.TOOLBAR_FILL_COLOR).toSWTCSSString»;
 		}
 		
-		#org-eclipse-ui-main-toolbar > .Draggable {
+		#org-eclipse-ui-main-toolbar > .Draggable,
+		#ToolbarComposite.MTrimBar > .MToolBar.Draggable
+		{
 			handle-image:
-				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getGradient(JTPConstants.Window.TOOLBAR_FILL_COLOR).middlePointColor.toHTMLCode»&embossed=false);
+		 		url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getGradient(JTPConstants.Window.TOOLBAR_FILL_COLOR).middlePointColor.toHTMLCode»&embossed=false);
+			handle-image-rotated:
+		 		url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getGradient(JTPConstants.Window.TOOLBAR_FILL_COLOR).middlePointColor.toHTMLCode»&embossed=false&rotated=true);
 		}
 		
-		#org-eclipse-ui-main-toolbar > .TrimStack {
+		
+		#org-eclipse-ui-main-toolbar > .TrimStack,
+		#ToolbarComposite.MTrimBar > .TrimStack {
 			frame-image: none;
 			handle-image:
 				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getGradient(JTPConstants.Window.TOOLBAR_FILL_COLOR).middlePointColor.toHTMLCode»&embossed=false);
+			handle-image-rotated:
+				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getGradient(JTPConstants.Window.TOOLBAR_FILL_COLOR).middlePointColor.toHTMLCode»&embossed=false&rotated=true);
 		}
 		
 		#org-eclipse-ui-main-toolbar #PerspectiveSwitcher {
@@ -125,6 +134,10 @@ class CustomThemeGenerator {
 			jtool-item-color : «store.getHSB(JTPConstants.Window.PERSPECTIVE_SWITCHER_TEXT_COLOR).toHTMLCode»;
 		}
 		
+		#ToolbarComposite.MTrimBar #PerspectiveSwitcher {
+			handle-image: none;
+			frame-image: none;
+		}
 		
 		
 		«comment("Status Bar")»
@@ -145,12 +158,17 @@ class CustomThemeGenerator {
 		#org-eclipse-ui-trim-status .Draggable {
 			handle-image:
 				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getGradient(JTPConstants.Window.STATUS_BAR_FILL_COLOR).middlePointColor.toHTMLCode»&embossed=false);
+			handle-image-rotated:
+				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getGradient(JTPConstants.Window.STATUS_BAR_FILL_COLOR).middlePointColor.toHTMLCode»&embossed=false&rotated=true);
 		}
 		
 		#org-eclipse-ui-trim-status .TrimStack {
 			handle-image:
 				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getGradient(JTPConstants.Window.STATUS_BAR_FILL_COLOR).middlePointColor.toHTMLCode»&embossed=false);
+			handle-image-rotated:
+				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getGradient(JTPConstants.Window.STATUS_BAR_FILL_COLOR).middlePointColor.toHTMLCode»&embossed=false&rotated=true);
 			frame-image: url(jeeeyul://frame?background-color=«store.getGradient(JTPConstants.Window.STATUS_BAR_FILL_COLOR).middlePointColor.toHTMLCode»);
+			frame-image-rotated: url(jeeeyul://frame?background-color=«store.getGradient(JTPConstants.Window.STATUS_BAR_FILL_COLOR).middlePointColor.toHTMLCode»&rotated=true);
 			frame-cuts: 4px 2px 5px 16px;
 		}
 		
@@ -170,6 +188,8 @@ class CustomThemeGenerator {
 		Shell.MTrimmedWindow > .MTrimBar > .MToolBar.Draggable {
 			handle-image:
 				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»&embossed=false);
+			handle-image-rotated:
+				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»&embossed=false&rotated=true);
 		}
 		
 		
@@ -554,7 +574,7 @@ class CustomThemeGenerator {
 		var selectionColor = new HSB(Display.^default.getSystemColor(SWT.COLOR_LIST_SELECTION).RGB)
 		return store.getHSB(JTPConstants.TextEditor.RULER_COLOR).getMixedWith(selectionColor, 0.5f)
 	}
-	
+
 	def private generateUserColorAndFontStylings() {
 		var sb = new StringBuilder();
 		var colorAndFontGenerator = new ColorAndFontCSSGenerator;
