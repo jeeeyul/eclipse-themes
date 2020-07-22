@@ -26,7 +26,8 @@ class JeeeyulProtocol extends AbstractURLStreamHandlerService {
 				var int height = Integer.parseInt(curi.getParameterValue("height", "22"))
 				var HSB backgroundColor = new HSB(curi.getParameterValue("background-color"))
 				var boolean embossed = Boolean.parseBoolean(curi.getParameterValue("embossed", "false"))
-				var ImageData image = fDragHandleFactory.create(height, backgroundColor, embossed)
+				var rotated = Boolean.parseBoolean(curi.getParameterValue("rotated", "false"));
+				var ImageData image = fDragHandleFactory.create(height, backgroundColor, embossed, rotated);
 				var ImageLoader save = new ImageLoader()
 				var ByteArrayOutputStream baos = new ByteArrayOutputStream()
 				save.data = #[image]
@@ -35,7 +36,8 @@ class JeeeyulProtocol extends AbstractURLStreamHandlerService {
 			}
 			case "frame": {
 				var HSB hue = new HSB(curi.getParameterValue("background-color"))
-				var ImageData image = fFrameFactory.create(hue)
+				var rotated = Boolean.parseBoolean(curi.getParameterValue("rotated", "false"));
+				var ImageData image = fFrameFactory.create(hue, rotated)
 				var ImageLoader save = new ImageLoader()
 				var ByteArrayOutputStream baos = new ByteArrayOutputStream()
 				save.data = #[image]

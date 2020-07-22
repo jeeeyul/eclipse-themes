@@ -159,9 +159,12 @@ class CustomThemeGenerator {
 		«comment("Trim Stack")»
 		Shell.MTrimmedWindow > .MTrimBar > .TrimStack {
 			frame-image: url(jeeeyul://frame?background-color=«store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»);
-			frame-cuts: 4px 2px 5px 16px;
+			frame-image-rotated: url(jeeeyul://frame?background-color=«store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»&rotated=true);
 			handle-image:
 				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»&embossed=false);
+			handle-image-rotated:
+				url(jeeeyul://drag-handle?height=«toolbarHeight»&background-color=«store.getHSB(JTPConstants.Window.BACKGROUND_COLOR).toHTMLCode»&embossed=false&rotated=true);
+			frame-cuts: 4px 2px 5px 16px;
 		}
 		
 		Shell.MTrimmedWindow > .MTrimBar > .MToolBar.Draggable {

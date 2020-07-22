@@ -3,11 +3,11 @@ package net.jeeeyul.eclipse.themes.css.internal.dynamicresource;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.jeeeyul.eclipse.themes.CoreImages;
-import net.jeeeyul.swtend.ui.HSB;
-
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.RGB;
+
+import net.jeeeyul.eclipse.themes.CoreImages;
+import net.jeeeyul.swtend.ui.HSB;
 
 /**
  * A factory that generates drag handle image.
@@ -28,19 +28,26 @@ public class DragHandleFactory {
 	 * @return Drag handle {@link ImageData}.
 	 */
 	@SuppressWarnings("deprecation")
-	public ImageData create(int height, HSB backgroundColor, boolean embossed) {
+	public ImageData create(int height, HSB backgroundColor, boolean embossed, boolean rotated) {
 		ImageData source = null;
 
 		if (embossed) {
-			source = CoreImages.getImageDescriptor(CoreImages.HANDLE_EMBOSSED)
-					.getImageData();
+			if (rotated) {
+				source = CoreImages.getImageDescriptor(CoreImages.HANDLE_EMBOSSED_ROTATED).getImageData();
+			} else {
+				source = CoreImages.getImageDescriptor(CoreImages.HANDLE_EMBOSSED).getImageData();
+			}
+
 		} else {
-			source = CoreImages.getImageDescriptor(CoreImages.HANDLE)
-					.getImageData();
+			if (rotated) {
+				source = CoreImages.getImageDescriptor(CoreImages.HANDLE_ROTATED).getImageData();
+			} else {
+				source = CoreImages.getImageDescriptor(CoreImages.HANDLE).getImageData();
+			}
+
 		}
 
-		ImageData result = new ImageData(source.width, height, source.depth,
-				source.palette);
+		ImageData result = new ImageData(source.width, height, source.depth, source.palette);
 
 		int offset = (result.height - source.height) / 2;
 

@@ -51,9 +51,11 @@ public class JTDynamicResourceLocator implements IResourceLocator {
 		if (command.equals("drag-handle")) {
 			int height = Integer.parseInt(curi.getParameterValue("height", "22"));
 			HSB backgroundColor = new HSB(curi.getParameterValue("background-color"));
+			boolean rotated = Boolean.parseBoolean(curi.getParameterValue("rotated", "false"));
+
 			boolean embossed = Boolean.parseBoolean(curi.getParameterValue("embossed", "false"));
 
-			ImageData image = dragHandleFactory.create(height, backgroundColor, embossed);
+			ImageData image = dragHandleFactory.create(height, backgroundColor, embossed, rotated);
 			ImageLoader save = new ImageLoader();
 
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -61,11 +63,12 @@ public class JTDynamicResourceLocator implements IResourceLocator {
 			save.save(baos, SWT.IMAGE_GIF);
 			return new ByteArrayInputStream(baos.toByteArray());
 		}
-		
+
 		else if (command.equals("frame")) {
 			HSB hue = new HSB(curi.getParameterValue("background-color"));
+			boolean rotated = Boolean.parseBoolean(curi.getParameterValue("rotated", "false"));
 
-			ImageData image = frameFactory.create(hue);
+			ImageData image = frameFactory.create(hue, rotated);
 			ImageLoader save = new ImageLoader();
 
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
