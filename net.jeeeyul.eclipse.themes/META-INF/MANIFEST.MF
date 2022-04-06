@@ -5,7 +5,7 @@ Require-Bundle: org.eclipse.ui,org.eclipse.core.runtime,org.eclipse.e4.u
  i.css.swt.theme;bundle-version="0.10.0",org.eclipse.e4.ui.workbench.ren
  derers.swt;bundle-version="0.13.0",org.eclipse.e4.ui.css.core;bundle-ve
  rsion="0.11.0",org.eclipse.e4.ui.css.swt;bundle-version="0.12.0",net.je
- eeyul.swtend;bundle-version="2.2.6",org.eclipse.ui.forms,org.eclipse.ui
+ eeyul.swtend;bundle-version="2.2.7",org.eclipse.ui.forms,org.eclipse.ui
  .workbench.texteditor;resolution:=optional,org.eclipse.e4.core.contexts
  ,org.eclipse.e4.ui.workbench,org.eclipse.e4.core.di,org.eclipse.e4.ui.m
  odel.workbench,org.eclipse.e4.core.services,org.eclipse.osgi.services,o
@@ -19,7 +19,7 @@ Bundle-Vendor: jeeeyul@gmail.com
 Export-Package: net.jeeeyul.eclipse.themes,net.jeeeyul.eclipse.themes.cs
  s,net.jeeeyul.eclipse.themes.rendering,net.jeeeyul.eclipse.themes.util
 Bundle-Name: Jeeeyul's Eclipse Themes Core
-Bundle-Version: 2.3.17.qualifier
+Bundle-Version: 2.3.18.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: net.jeeeyul.eclipse.themes.JTRuntime
 
