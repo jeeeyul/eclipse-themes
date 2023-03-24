@@ -19,7 +19,7 @@ Bundle-Vendor: jeeeyul@gmail.com
 Export-Package: net.jeeeyul.eclipse.themes,net.jeeeyul.eclipse.themes.cs
  s,net.jeeeyul.eclipse.themes.rendering,net.jeeeyul.eclipse.themes.util
 Bundle-Name: Jeeeyul's Eclipse Themes Core
-Bundle-Version: 2.3.22.qualifier
+Bundle-Version: 2.3.23.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: net.jeeeyul.eclipse.themes.JTRuntime
 
