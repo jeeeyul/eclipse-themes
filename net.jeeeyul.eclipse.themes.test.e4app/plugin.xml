@@ -6,7 +6,7 @@
          point="org.eclipse.core.runtime.products">
       <product
             name="Sample App"
-            application="org.eclipse.e4.ui.workbench.swt.E4Application">
+            application="org.eclipse.ui.ide.workbench">
          <property
                name="appName"
                value="Sample App">
@@ -16,6 +16,15 @@
                value="platform:/plugin/net.jeeeyul.eclipse.themes.test.e4app/css/default.css">
          </property>
       </product>
+   </extension>
+   <extension
+         id="id1"
+         point="org.eclipse.core.runtime.applications">
+      <application
+            cardinality="singleton-global"
+            thread="main"
+            visible="true">
+      </application>
    </extension>
 
 </plugin>
