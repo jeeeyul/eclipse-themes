@@ -99,7 +99,18 @@
 		<if>
 			<equals arg1="${keystore.exists}" arg2="true" />
 			<then>
-				<signjar jar="${file}" alias="${alias}" keystore="${keystore}" keypass="${keypass}" storepass="${storepass}" />
+				<exec executable="${jarsigner}">
+					<arg value="-keystore" />
+					<arg value="${keystore}"/>
+					<arg value="-keypass"/>
+					<arg value="${keypass}"/>
+					<arg value="-storepass"/>
+					<arg value="${storepass}"/>
+					<arg value="-tsa"/>
+					<arg value="${tsaurl}"/>
+					<arg value="${file}"/>
+					<arg value="${alias}"/>
+				</exec>
 			</then>
 		</if>
 	</target>
